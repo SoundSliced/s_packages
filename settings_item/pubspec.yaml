@@ -1,0 +1,23 @@
+name: settings_item
+description: A beautiful, customizable expandable menu widget for Flutter settings pages with smooth animations and Material Design 3 styling. Supports switch, expandable, and button modes.
+issue_tracker: https://github.com/SoundSliced/settings_item/issues
+repository: https://github.com/SoundSliced/settings_item
+version: 1.0.0
+homepage: https://github.com/SoundSliced/settings_item
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  s_bounceable: ^2.0.0
+  s_toggle: ^2.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:

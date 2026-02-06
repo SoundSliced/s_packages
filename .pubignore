@@ -1,0 +1,128 @@
+# IGNORE LARGE ASSETS - CRITICAL FOR SIZE < 4MB
+**/assets/
+**/*.gif
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.mp4
+**/*.mov
+
+# Platform-specific folders in examples (reduce size, users can recreate)
+**/example/ios/
+**/example/android/
+**/example/macos/
+**/example/linux/
+**/example/windows/
+**/example/web/
+
+# Scripts and tooling
+scripts/
+*.sh
+
+# Build artifacts and cache (all packages)
+**/build/
+**/.dart_tool/
+**/.packages
+.packages
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.pub-cache/
+**/.pub/
+**/.last_build_id
+**/pubspec.lock
+
+# IDE and editor files (all packages)
+**/.vscode/
+**/.idea/
+*.iml
+*.ipr
+*.iws
+*.swp
+*.swo
+*~
+**/.buildlog/
+**/.history
+.atom/
+.svn/
+
+# OS files (all packages)
+**/.DS_Store
+**/Thumbs.db
+
+# Test cache (all packages)
+**/.test_cache/
+
+# Generated files (all packages)
+**/*.g.dart
+**/*.freezed.dart
+**/*.mocks.dart
+
+# Coverage (all packages)
+**/coverage/
+
+# Android build artifacts (in examples)
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/**/GeneratedPluginRegistrant.kt
+**/android/.settings/
+**/android/**/.cxx/
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+
+# iOS build artifacts (in examples)
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/.symlinks/
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/**/*.xcworkspace
+**/ios/**/Pods/
+**/ios/.last_build_id
+
+# macOS build artifacts (in examples)
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/Flutter-Debug.xcconfig
+**/macos/Flutter/Flutter-Release.xcconfig
+**/macos/Flutter/Flutter-Profile.xcconfig
+
+# Windows build artifacts (in examples)
+**/windows/flutter/generated_plugin_registrant.cc
+**/windows/flutter/generated_plugin_registrant.h
+**/windows/flutter/generated_plugins.cmake
+
+# Linux build artifacts (in examples)
+**/linux/flutter/generated_plugin_registrant.cc
+**/linux/flutter/generated_plugin_registrant.h
+**/linux/flutter/generated_plugins.cmake
+
+# Web build artifacts
+**/web/packages/
+**/web/.dart_tool/
+
+# Platform-specific files that shouldn't be published
+**/.metadata
+**/*.log
+*.class
+*.pyc
+build/
+.dart_tool/
+example/build/

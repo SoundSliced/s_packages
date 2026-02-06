@@ -1,0 +1,13 @@
+name: s_gridview_example
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  s_gridview:
+    path: ../
+
+flutter:
+  uses-material-design: true

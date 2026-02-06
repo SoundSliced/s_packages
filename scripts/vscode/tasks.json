@@ -1,0 +1,42 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "flutter test",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "flutter test -r expanded",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"-r",
+				"expanded"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "flutter test -r expanded (rerun)",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"-r",
+				"expanded"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		}
+	]
+}

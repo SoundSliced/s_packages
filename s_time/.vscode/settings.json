@@ -1,0 +1,25 @@
+{
+  // Enable Go to Definition on CMD+Click
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "editor.gotoLocation.multipleImplementations": "goto",
+  "editor.gotoLocation.multipleReferences": "peek",
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+
+  // Ensure Dart analysis is enabled
+  "dart.analysisExcludedFolders": [],
+  "dart.enableSdkFormatter": true,
+  "dart.previewLsp": true,
+
+  // Mouse click settings for navigation
+  "editor.multiCursorModifier": "alt",
+
+  // This ensures CMD+Click goes to definition (not ctrlCmd)
+  "editor.definitionLinkOpensInPeek": false,
+
+  // When at a definition, CMD+Click shows references
+  "editor.gotoLocation.alternativeDefinitionCommand": "editor.action.goToReferences",
+  "editor.gotoLocation.alternativeDeclarationCommand": "editor.action.goToReferences",
+  "editor.gotoLocation.alternativeImplementationCommand": "editor.action.goToReferences",
+  "editor.gotoLocation.alternativeTypeDefinitionCommand": "editor.action.goToReferences"
+}

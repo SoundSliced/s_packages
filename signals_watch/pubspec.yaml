@@ -1,0 +1,29 @@
+name: signals_watch
+description: A production-ready reactive widget for signals_flutter with lifecycle callbacks, debouncing, throttling, error handling, async helpers, and registry management.
+version: 1.0.0
+homepage: https://github.com/soundsliced/signals_watch
+repository: https://github.com/soundsliced/signals_watch
+issue_tracker: https://github.com/soundsliced/signals_watch/issues
+topics:
+  - flutter
+  - signals
+  - reactive
+  - state-management
+  - widget
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  signals: ^6.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

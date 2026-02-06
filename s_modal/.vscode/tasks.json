@@ -1,0 +1,422 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "flutter test",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "flutter test -r expanded",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"-r",
+				"expanded"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "flutter test -r expanded (rerun)",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"-r",
+				"expanded"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "flutter test with full output",
+			"type": "shell",
+			"command": "flutter test 2>&1 | tee /tmp/test_output.txt",
+			"isBackground": false
+		},
+		{
+			"label": "flutter test machine output",
+			"type": "shell",
+			"command": "flutter test --machine 2>&1 | head -1000 > test_results.json",
+			"isBackground": false
+		},
+		{
+			"label": "example flutter test",
+			"type": "shell",
+			"command": "cd example && flutter test",
+			"isBackground": false
+		},
+		{
+			"label": "example test machine output",
+			"type": "shell",
+			"command": "cd example && flutter test --machine 2>&1 | head -100 | tee test_output.txt",
+			"isBackground": false
+		},
+		{
+			"label": "example tests",
+			"type": "shell",
+			"command": "cd example && flutter test",
+			"isBackground": false
+		},
+		{
+			"label": "example tests v2",
+			"type": "shell",
+			"command": "cd example && flutter test",
+			"isBackground": false
+		},
+		{
+			"label": "example tests debug",
+			"type": "shell",
+			"command": "cd example && flutter test 2>&1 | head -150",
+			"isBackground": false
+		},
+		{
+			"label": "example tests debug file",
+			"type": "shell",
+			"command": "cd example && flutter test 2>&1 > test_debug.txt",
+			"isBackground": false
+		},
+		{
+			"label": "example tests v3",
+			"type": "shell",
+			"command": "cd example && flutter test",
+			"isBackground": false
+		},
+		{
+			"label": "example tests debug2",
+			"type": "shell",
+			"command": "cd example && flutter test 2>&1 > test_debug2.txt",
+			"isBackground": false
+		},
+		{
+			"label": "example tests v4",
+			"type": "shell",
+			"command": "cd example && flutter test",
+			"isBackground": false
+		},
+		{
+			"label": "example tests final",
+			"type": "shell",
+			"command": "cd example && flutter test 2>&1",
+			"isBackground": false
+		},
+		{
+			"label": "example tests with exit code",
+			"type": "shell",
+			"command": "cd example && flutter test 2>&1 | tee test_result.txt; echo 'EXIT_CODE='$?",
+			"isBackground": false
+		},
+		{
+			"label": "example tests quick",
+			"type": "shell",
+			"command": "cd example && flutter test 2>&1 | head -50",
+			"isBackground": false
+		},
+		{
+			"label": "cleanup",
+			"type": "shell",
+			"command": "rm -f test_results.json example/test_output.txt example/test_debug.txt example/test_debug2.txt example/test_result.txt",
+			"isBackground": false
+		},
+		{
+			"label": "flutter test s_modal_test only",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"-r",
+				"expanded"
+			]
+		},
+		{
+			"label": "flutter test expand only",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/expand_mid_drag_test.dart",
+				"-r",
+				"expanded"
+			]
+		},
+		{
+			"label": "flutter test first group",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Modal.show",
+				"-r",
+				"expanded"
+			]
+		},
+		{
+			"label": "flutter test lifecycle",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Modal Lifecycle",
+				"-r",
+				"expanded"
+			]
+		},
+		{
+			"label": "flutter test dialog dismissed",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed",
+				"-r",
+				"expanded"
+			]
+		},
+		{
+			"label": "flutter test dialog dismissed 2",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed"
+			]
+		},
+		{
+			"label": "barrier test compact",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"barrier",
+				"--reporter=compact"
+			]
+		},
+		{
+			"label": "test dialog dismissed 3",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed"
+			]
+		},
+		{
+			"label": "test dialog verbose",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed via barrier",
+				"-r",
+				"expanded",
+				"--no-color"
+			]
+		},
+		{
+			"label": "test dialog debug",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed via barrier"
+			]
+		},
+		{
+			"label": "test dialog barrier fix",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed via barrier"
+			]
+		},
+		{
+			"label": "test dialog with context",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed via barrier"
+			]
+		},
+		{
+			"label": "test dialog with context 2",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed via barrier"
+			]
+		},
+		{
+			"label": "test dialog debug 2",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed via barrier",
+				"-r",
+				"expanded"
+			]
+		},
+		{
+			"label": "test dialog debug 3",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed via barrier"
+			]
+		},
+		{
+			"label": "test simple dialog",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog can be shown"
+			]
+		},
+		{
+			"label": "test barrier only",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"Dialog dismissed via barrier"
+			]
+		},
+		{
+			"label": "barrier test verbose",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"barrier",
+				"-r",
+				"expanded",
+				"--reporter",
+				"expanded"
+			]
+		},
+		{
+			"label": "barrier test traces",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"barrier",
+				"--chain-stack-traces",
+				"--no-color"
+			]
+		},
+		{
+			"label": "barrier test colors",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"barrier",
+				"-r",
+				"expanded",
+				"--no-color",
+				"2>&1"
+			]
+		},
+		{
+			"label": "expand drag tests",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/expand_mid_drag_test.dart",
+				"-r",
+				"expanded"
+			]
+		},
+		{
+			"label": "barrier test",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"barrier",
+				"-r",
+				"expanded"
+			]
+		},
+		{
+			"label": "barrier tap test",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"dismissed by tapping",
+				"-r",
+				"expanded"
+			]
+		},
+		{
+			"label": "barrier test debug",
+			"type": "shell",
+			"command": "flutter",
+			"args": [
+				"test",
+				"test/s_modal_test.dart",
+				"--name",
+				"dismissed by tapping"
+			]
+		}
+	]
+}

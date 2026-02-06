@@ -1,0 +1,10 @@
+analyzer:
+  errors:
+    depend_on_referenced_packages: ignore
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules: 
+    - avoid_print
+    - unnecessary_parenthesis
+    - prefer_const_constructors

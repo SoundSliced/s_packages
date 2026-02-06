@@ -1,0 +1,57 @@
+## 2.0.1
+
+* README updated: now showing GIF example 
+* updated dependencies
+
+## 2.0.0
+
+This release modernizes the package for the latest Flutter/Dart toolchain and polishes documentation.
+
+Changes:
+* Bumped package version to 2.0.0 and updated README installation snippet
+* Ensured README reflects example usage and added a screenshot GIF from `example/assets/`
+* Verified MIT License file and metadata (repository, issue tracker)
+* Kept public API of `SToggle` stable; no breaking changes introduced
+* Dependencies refreshed to latest compatible versions in `pubspec.yaml`
+
+## 1.0.2
+
+* updated dependancies
+
+## 1.0.1
+
+* Updated documentation and README to accurately reflect package features
+* Enhanced example app with better UI and Material Design principles
+* Improved test coverage with comprehensive widget tests
+* Updated dependencies to latest stable versions
+* Added support for programmatic state changes via didUpdateWidget
+* Fixed animation state management to prevent overlapping animations
+* Enhanced README with detailed parameter documentation table
+* Verified MIT License file is present and up to date
+* Repository and issue tracker links confirmed in pubspec.yaml
+
+## 1.0.0
+
+* Stable release of s_toggle package
+* Added SToggle widget: A customizable animated toggle switch for Flutter
+* Features smooth elastic animation with bounce effect during state transitions
+* Supports customizable size, colors (on/off), and animation duration
+* Includes onChange callback for handling state changes
+* Supports both programmatic and user-initiated state changes via didUpdateWidget
+* Built with CustomPaint for efficient rendering
+* Uses TweenAnimationBuilder for smooth animations with elastic easing
+* Includes comprehensive test coverage for widget functionality
+* Added complete example app demonstrating usage
+* Updated documentation and README with detailed usage instructions
+
+## 0.0.1
+
+* Initial release of s_toggle package
+* Added SToggle widget: A customizable animated toggle switch for Flutter
+* Features smooth elastic animation with bounce effect during state transitions
+* Supports customizable size, colors (on/off), and animation duration
+* Includes onChange callback for handling state changes
+* Supports both programmatic and user-initiated state changes via didUpdateWidget
+* Built with CustomPaint for efficient rendering
+* Uses TweenAnimationBuilder for smooth animations with elastic easing
+* Includes comprehensive test coverage for widget functionality

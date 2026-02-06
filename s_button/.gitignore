@@ -1,0 +1,36 @@
+# Dart/Flutter build artifacts
+build/
+.dart_tool/
+.packages
+
+# Example build artifacts
+example/build/
+example/.dart_tool/
+example/.packages
+
+# IDE and editor files
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test cache
+test/.test_cache/
+.test_cache/
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+
+# Coverage
+coverage/
+
+# Pubspec lock (optional for packages)
+# pubspec.lock
