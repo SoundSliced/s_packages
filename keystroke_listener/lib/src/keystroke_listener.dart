@@ -242,6 +242,14 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
   void _handleFocusChange() {
     if (_effectiveFocusNode.hasPrimaryFocus) {
       debugPrint(">>>>> _focusNode has primary focus!");
+    } else {
+      // Focus was lost, request it back after a brief delay
+      // This allows clicks/taps to complete but maintains keyboard listening
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && !_effectiveFocusNode.hasPrimaryFocus) {
+          _effectiveFocusNode.requestFocus();
+        }
+      });
     }
   }
 
