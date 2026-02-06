@@ -25,6 +25,7 @@ dependencies:
   soundsliced_tween_animation_builder: ^1.2.0
   s_context_menu: ^1.0.0
   universal_html: ^2.3.0
+  keystroke_listener: ^1.1.2
 
 
 dev_dependencies:

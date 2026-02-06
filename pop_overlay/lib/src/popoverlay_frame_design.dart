@@ -1283,8 +1283,3 @@ class _SuccessButtonState extends State<_SuccessButton> {
 
 //******************************** */
 
-/// FocusNode with a stable role identifier preserved in release builds.
-class RoleFocusNode extends FocusNode {
-  final String role;
-  RoleFocusNode(this.role, {super.skipTraversal}) : super(debugLabel: role);
-}
