@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_client/s_client.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SClientExampleScreen extends StatefulWidget {
   const SClientExampleScreen({super.key});

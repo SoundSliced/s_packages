@@ -3,7 +3,7 @@ description: A unified package gathering multiple widgets and tools.
 issue_tracker: https://github.com/SoundSliced/s_packages/issues
 repository: https://github.com/SoundSliced/s_packages
 homepage: https://github.com/SoundSliced/s_packages
-version: 1.0.3
+version: 1.1.0
 
 
 environment:
@@ -13,6 +13,37 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_animate: ^4.5.2
+  xid: ^1.2.1
+  universal_html: ^2.3.0
+  states_rebuilder: ^6.4.0
+  signals_flutter: ^6.3.0
+  sizer: ^3.1.3
+  assorted_layout_widgets: ^11.0.0
+  circular_countdown_timer: ^0.2.4
+  pausable_timer: ^3.1.0+3 
+  icons_plus: ^5.0.0
+  lucide_icons: ^0.257.0
+  dio: ^5.9.1
+  http: ^1.6.0
+  internet_connection_checker_plus: ^2.9.1+2
+  nb_utils: ^7.2.0
+  rxdart: ^0.28.0
+  file_saver: ^0.3.1
+  dart_helper_utils: ^6.0.0
+  shared_preferences: ^2.5.4
+  pointer_interceptor: ^0.10.1+2
+  webview_flutter: ^4.13.1
+  new_loading_indicator: ^1.2.1
+  flutter_web_frame: ^1.0.0
+  signals: ^6.3.0
+  fpdart: ^1.2.0
+  desktop_webview_window: ^0.2.3
+  webview_flutter_web: ^0.2.3+4
+  calendar_date_picker2: ^2.0.1
+  universal_io: ^2.3.1
+  web: ^1.1.1
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:

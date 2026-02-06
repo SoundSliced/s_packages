@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_modal/s_modal.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SModalExampleScreen extends StatelessWidget {
   const SModalExampleScreen({super.key});

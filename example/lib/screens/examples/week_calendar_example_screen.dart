@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:week_calendar/week_calendar.dart';
+import 'package:s_packages/s_packages.dart';
 
 class WeekCalendarExampleScreen extends StatefulWidget {
   const WeekCalendarExampleScreen({super.key});

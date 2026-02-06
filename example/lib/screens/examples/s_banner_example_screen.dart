@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_banner/s_banner.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SBannerExampleScreen extends StatefulWidget {
   const SBannerExampleScreen({super.key});

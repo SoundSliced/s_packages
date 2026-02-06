@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:shaker/shaker.dart';
+import 'package:s_packages/s_packages.dart';
 
 class ShakerExampleScreen extends StatefulWidget {
   const ShakerExampleScreen({super.key});

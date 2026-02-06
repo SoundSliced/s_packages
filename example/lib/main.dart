@@ -1,7 +1,7 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:s_modal/s_modal.dart';
+import 'dart:ui';
+
+import 'package:s_packages/s_packages.dart';
+
 import 'screens/home_screen.dart';
 
 void main() {

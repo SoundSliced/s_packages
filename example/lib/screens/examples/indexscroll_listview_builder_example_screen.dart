@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:indexscroll_listview_builder/indexscroll_listview_builder.dart';
+import 'package:s_packages/s_packages.dart';
 
 class IndexscrollListviewBuilderExampleScreen extends StatefulWidget {
   const IndexscrollListviewBuilderExampleScreen({super.key});

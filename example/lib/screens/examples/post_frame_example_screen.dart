@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:post_frame/post_frame.dart';
+import 'package:s_packages/s_packages.dart';
 
 class PostFrameExampleScreen extends StatefulWidget {
   const PostFrameExampleScreen({super.key});

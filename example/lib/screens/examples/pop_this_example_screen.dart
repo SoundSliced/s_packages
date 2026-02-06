@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:pop_this/pop_this.dart';
+import 'package:s_packages/s_packages.dart';
 
 class PopThisExampleScreen extends StatelessWidget {
   const PopThisExampleScreen({super.key});

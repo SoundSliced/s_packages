@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_button/s_button.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SButtonExampleScreen extends StatefulWidget {
   const SButtonExampleScreen({super.key});

@@ -1,4 +1,4 @@
-import 'package:s_webview/s_webview.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SWebviewExampleScreen extends StatefulWidget {
   const SWebviewExampleScreen({super.key});

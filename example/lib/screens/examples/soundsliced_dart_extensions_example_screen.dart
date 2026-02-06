@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:soundsliced_dart_extensions/soundsliced_dart_extensions.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SoundslicedDartExtensionsExampleScreen extends StatefulWidget {
   const SoundslicedDartExtensionsExampleScreen({super.key});
@@ -45,20 +44,20 @@ class _SoundslicedDartExtensionsExampleScreenState
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        '5.seconds = ${5.seconds}',
+                        '5.seconds = ${5.sec}',
                         style: const TextStyle(fontFamily: 'monospace'),
                       ),
                       Text(
-                        '2.minutes = ${2.minutes}',
+                        '2.minutes = ${2.min}',
                         style: const TextStyle(fontFamily: 'monospace'),
                       ),
                       Text(
-                        '1.hours = ${1.hours}',
+                        '1.hours = ${1.hr}',
                         style: const TextStyle(fontFamily: 'monospace'),
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Combined: ${(5.seconds + 2.minutes + 1.hours).convertToEasyReadString()}',
+                        'Combined: ${(5.sec + 2.min + 1.hr).convertToEasyReadString()}',
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.blue,

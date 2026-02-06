@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_time/s_time.dart';
+import 'package:s_packages/s_packages.dart';
 
 class STimeExampleScreen extends StatefulWidget {
   const STimeExampleScreen({super.key});
@@ -90,7 +89,7 @@ class _STimeExampleScreenState extends State<STimeExampleScreen> {
               width: 150,
               child: TimeInput(
                 title: 'Start Time',
-                time: _textFieldTime?.toDateTime(),
+                time: _textFieldTime?.toDateTime(DateTime.now().toUtc()),
                 onSubmitted: (time) {
                   setState(() {
                     _textFieldTime = time;

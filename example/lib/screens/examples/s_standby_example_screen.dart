@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_standby/s_standby.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SStandbyExampleScreen extends StatefulWidget {
   const SStandbyExampleScreen({super.key});

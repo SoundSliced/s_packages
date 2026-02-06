@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_expendable_menu/s_expendable_menu.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SExpendableMenuExampleScreen extends StatefulWidget {
   const SExpendableMenuExampleScreen({super.key});

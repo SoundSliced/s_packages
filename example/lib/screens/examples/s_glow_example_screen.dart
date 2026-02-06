@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_glow/s_glow.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SGlowExampleScreen extends StatefulWidget {
   const SGlowExampleScreen({super.key});

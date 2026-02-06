@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
-import 'package:indexscroll_listview_builder/indexscroll_listview_builder.dart';
-import 'package:s_gridview/s_gridview.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SGridviewExampleScreen extends StatefulWidget {
   const SGridviewExampleScreen({super.key});

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_widgets/s_widgets.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SWidgetsExampleScreen extends StatelessWidget {
   const SWidgetsExampleScreen({super.key});

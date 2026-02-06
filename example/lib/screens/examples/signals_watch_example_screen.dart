@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:signals_watch/signals_watch.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SignalsWatchExampleScreen extends StatefulWidget {
   const SignalsWatchExampleScreen({super.key});

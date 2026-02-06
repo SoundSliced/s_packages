@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_sidebar/s_sidebar.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SSidebarExampleScreen extends StatefulWidget {
   const SSidebarExampleScreen({super.key});

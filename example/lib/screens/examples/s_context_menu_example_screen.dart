@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_context_menu/s_context_menu.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SContextMenuExampleScreen extends StatefulWidget {
   const SContextMenuExampleScreen({super.key});

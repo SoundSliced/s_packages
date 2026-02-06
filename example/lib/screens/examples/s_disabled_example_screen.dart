@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_disabled/s_disabled.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SDisabledExampleScreen extends StatefulWidget {
   const SDisabledExampleScreen({super.key});

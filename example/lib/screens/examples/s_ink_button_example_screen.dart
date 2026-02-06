@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_ink_button/s_ink_button.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SInkButtonExampleScreen extends StatefulWidget {
   const SInkButtonExampleScreen({super.key});

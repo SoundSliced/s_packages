@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_future_button/s_future_button.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SFutureButtonExampleScreen extends StatefulWidget {
   const SFutureButtonExampleScreen({super.key});

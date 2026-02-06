@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:keystroke_listener/keystroke_listener.dart';
+import 'package:s_packages/s_packages.dart';
+
 
 class KeystrokeListenerExampleScreen extends StatefulWidget {
   const KeystrokeListenerExampleScreen({super.key});

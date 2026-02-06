@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:settings_item/settings_item.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SettingsItemExampleScreen extends StatefulWidget {
   const SettingsItemExampleScreen({super.key});

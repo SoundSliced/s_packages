@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:states_rebuilder_extended/states_rebuilder_extended.dart';
+import 'package:s_packages/s_packages.dart';
 
 class StatesRebuilderExtendedExampleScreen extends StatelessWidget {
   const StatesRebuilderExtendedExampleScreen({super.key});

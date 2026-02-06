@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_connectivity/s_connectivity.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SConnectivityExampleScreen extends StatefulWidget {
   const SConnectivityExampleScreen({super.key});

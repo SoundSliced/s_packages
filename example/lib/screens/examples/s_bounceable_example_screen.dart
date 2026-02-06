@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_bounceable/s_bounceable.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SBounceableExampleScreen extends StatefulWidget {
   const SBounceableExampleScreen({super.key});

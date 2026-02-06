@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_maintenance_button/s_maintenance_button.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SMaintenanceButtonExampleScreen extends StatefulWidget {
   const SMaintenanceButtonExampleScreen({super.key});

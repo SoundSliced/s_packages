@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_liquid_pull_to_refresh/s_liquid_pull_to_refresh.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SLiquidPullToRefreshExampleScreen extends StatefulWidget {
   const SLiquidPullToRefreshExampleScreen({super.key});

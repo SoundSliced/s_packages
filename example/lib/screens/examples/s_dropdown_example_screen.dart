@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_dropdown/s_dropdown.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SDropdownExampleScreen extends StatefulWidget {
   const SDropdownExampleScreen({super.key});

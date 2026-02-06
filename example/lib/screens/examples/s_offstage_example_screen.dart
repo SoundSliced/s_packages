@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_offstage/s_offstage.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SOffstageExampleScreen extends StatefulWidget {
   const SOffstageExampleScreen({super.key});

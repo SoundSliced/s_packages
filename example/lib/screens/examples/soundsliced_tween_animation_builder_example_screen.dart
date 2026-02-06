@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:soundsliced_tween_animation_builder/soundsliced_tween_animation_builder.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SoundslicedTweenAnimationBuilderExampleScreen extends StatefulWidget {
   const SoundslicedTweenAnimationBuilderExampleScreen({super.key});

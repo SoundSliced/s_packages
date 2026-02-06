@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_animated_tabs/s_animated_tabs.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SAnimatedTabsExampleScreen extends StatefulWidget {
   const SAnimatedTabsExampleScreen({super.key});

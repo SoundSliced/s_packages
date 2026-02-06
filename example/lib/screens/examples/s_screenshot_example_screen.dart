@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_screenshot/s_screenshot.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SScreenshotExampleScreen extends StatefulWidget {
   const SScreenshotExampleScreen({super.key});

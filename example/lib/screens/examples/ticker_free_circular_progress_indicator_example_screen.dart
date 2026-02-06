@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:ticker_free_circular_progress_indicator/ticker_free_circular_progress_indicator.dart';
+import 'package:s_packages/s_packages.dart';
 
 class TickerFreeCircularProgressIndicatorExampleScreen extends StatefulWidget {
   const TickerFreeCircularProgressIndicatorExampleScreen({super.key});

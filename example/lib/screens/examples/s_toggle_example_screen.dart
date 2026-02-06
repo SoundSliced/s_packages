@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:s_toggle/s_toggle.dart';
+import 'package:s_packages/s_packages.dart';
 
 class SToggleExampleScreen extends StatefulWidget {
   const SToggleExampleScreen({super.key});

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:bubble_label/bubble_label.dart';
+ 
+import 'package:s_packages/s_packages.dart';
 
 class BubbleLabelExampleScreen extends StatelessWidget {
   const BubbleLabelExampleScreen({super.key});

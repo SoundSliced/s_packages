@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:pop_overlay/pop_overlay.dart';
+import 'package:s_packages/s_packages.dart';
 
 class PopOverlayExampleScreen extends StatelessWidget {
   const PopOverlayExampleScreen({super.key});
