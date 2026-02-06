@@ -1,4 +1,3 @@
- 
 import 'package:s_packages/s_packages.dart';
 
 /// Configuration for AM/PM toggle buttons styling

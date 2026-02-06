@@ -2,8 +2,6 @@ import 'dart:math' as math;
 
 import 'package:s_packages/s_packages.dart';
 
- 
-
 /// A widget that adds a glowing effect around its child.
 class Glow2 extends StatefulWidget {
   /// Creates an [Glow2] widget.

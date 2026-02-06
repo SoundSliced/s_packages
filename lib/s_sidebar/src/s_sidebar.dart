@@ -1,4 +1,3 @@
- 
 import 'package:s_packages/s_packages.dart';
 
 /// A customizable and responsive sidebar widget for Flutter applications.

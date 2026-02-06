@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:s_packages/post_frame/src/post_frame.dart'; 
+import 'package:s_packages/post_frame/src/post_frame.dart';
 
 /// A specialized scroll controller that enables programmatic scrolling to specific
 /// indexed items within a scrollable list.

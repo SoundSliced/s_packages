@@ -1,4 +1,3 @@
-
 import 'package:s_packages/s_packages.dart';
 
 /// The type of transition animation to apply when showing/hiding content.

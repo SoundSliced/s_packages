@@ -1,5 +1,3 @@
-
- 
 import 'package:s_packages/s_packages.dart';
 import 'package:universal_html/universal_html.dart' as html;
 

@@ -1,5 +1,3 @@
- 
-
 import 'package:s_packages/s_packages.dart';
 
 class Glow1 extends StatefulWidget {
