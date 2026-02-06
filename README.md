@@ -16,66 +16,66 @@ NOTE: this `s_packages` package is the grouping of all of these, as a main repo
 This unified package brings together 43 carefully crafted packages organized into 11 categories:
 
 ### 🎨 UI Components (20 packages)
-- **bubble_label** - Bubble-style labels for tags and badges
-- **s_animated_tabs** - Smooth animated tab bars
-- **s_banner** - Customizable notification banners
-- **s_button** - Advanced custom buttons
-- **s_context_menu** - Right-click context menus
-- **s_disabled** - Disabled state management
-- **s_dropdown** - Feature-rich dropdowns
-- **s_error_widget** - Beautiful error displays
-- **s_expendable_menu** - Expandable hierarchical menus
-- **s_future_button** - Async operation buttons
-- **s_ink_button** - Ink ripple effect buttons
-- **s_liquid_pull_to_refresh** - Liquid-style pull-to-refresh
-- **s_maintenance_button** - Maintenance mode buttons
-- **s_modal** - Modal dialog system
-- **s_standby** - Loading state widgets
-- **s_toggle** - Toggle switches
-- **s_widgets** - Widget collection
-- **settings_item** - Settings screen items
-- **ticker_free_circular_progress_indicator** - Ticker-free progress indicators
+- **[bubble_label](https://pub.dev/packages/bubble_label)** - Bubble-style labels for tags and badges
+- **[s_animated_tabs](https://pub.dev/packages/s_animated_tabs)** - Smooth animated tab bars
+- **[s_banner](https://pub.dev/packages/s_banner)** - Customizable notification banners
+- **[s_button](https://pub.dev/packages/s_button)** - Advanced custom buttons
+- **[s_context_menu](https://pub.dev/packages/s_context_menu)** - Right-click context menus
+- **[s_disabled](https://pub.dev/packages/s_disabled)** - Disabled state management
+- **[s_dropdown](https://pub.dev/packages/s_dropdown)** - Feature-rich dropdowns
+- **[s_error_widget](https://pub.dev/packages/s_error_widget)** - Beautiful error displays
+- **[s_expendable_menu](https://pub.dev/packages/s_expendable_menu)** - Expandable hierarchical menus
+- **[s_future_button](https://pub.dev/packages/s_future_button)** - Async operation buttons
+- **[s_ink_button](https://pub.dev/packages/s_ink_button)** - Ink ripple effect buttons
+- **[s_liquid_pull_to_refresh](https://pub.dev/packages/s_liquid_pull_to_refresh)** - Liquid-style pull-to-refresh
+- **[s_maintenance_button](https://pub.dev/packages/s_maintenance_button)** - Maintenance mode buttons
+- **[s_modal](https://pub.dev/packages/s_modal)** - Modal dialog system
+- **[s_standby](https://pub.dev/packages/s_standby)** - Loading state widgets
+- **[s_toggle](https://pub.dev/packages/s_toggle)** - Toggle switches
+- **[s_widgets](https://pub.dev/packages/s_widgets)** - Widget collection
+- **[settings_item](https://pub.dev/packages/settings_item)** - Settings screen items
+- **[ticker_free_circular_progress_indicator](https://pub.dev/packages/ticker_free_circular_progress_indicator)** - Ticker-free progress indicators
 
 ### 📋 Lists & Collections
-- **indexscroll_listview_builder** - Index-scrollable lists
-- **s_gridview** - Enhanced grid views
+- **[indexscroll_listview_builder](https://pub.dev/packages/indexscroll_listview_builder)** - Index-scrollable lists
+- **[s_gridview](https://pub.dev/packages/s_gridview)** - Enhanced grid views
 
 ### ✨ Animations
-- **s_bounceable** - Bounceable interactions
-- **s_glow** - Glow effects
-- **shaker** - Shake animations
-- **soundsliced_tween_animation_builder** - Custom tween builders
+- **[s_bounceable](https://pub.dev/packages/s_bounceable)** - Bounceable interactions
+- **[s_glow](https://pub.dev/packages/s_glow)** - Glow effects
+- **[shaker](https://pub.dev/packages/shaker)** - Shake animations
+- **[soundsliced_tween_animation_builder](https://pub.dev/packages/soundsliced_tween_animation_builder)** - Custom tween builders
 
 ### 🧭 Navigation
-- **pop_overlay** - Overlay management
-- **pop_this** - Navigation utilities
-- **s_sidebar** - Sidebar navigation
+- **[pop_overlay](https://pub.dev/packages/pop_overlay)** - Overlay management
+- **[pop_this](https://pub.dev/packages/pop_this)** - Navigation utilities
+- **[s_sidebar](https://pub.dev/packages/s_sidebar)** - Sidebar navigation
 
 ### 🌐 Networking
-- **s_client** - HTTP client utilities
-- **s_connectivity** - Connectivity monitoring
+- **[s_client](https://pub.dev/packages/s_client)** - HTTP client utilities
+- **[s_connectivity](https://pub.dev/packages/s_connectivity)** - Connectivity monitoring
 
 ### 🔄 State Management
-- **signals_watch** - Reactive signal watching
-- **states_rebuilder_extended** - Extended state management
+- **[signals_watch](https://pub.dev/packages/signals_watch)** - Reactive signal watching
+- **[states_rebuilder_extended](https://pub.dev/packages/states_rebuilder_extended)** - Extended state management
 
 ### ⌨️ Input & Interaction
-- **keystroke_listener** - Keyboard event handling
+- **[keystroke_listener](https://pub.dev/packages/keystroke_listener)** - Keyboard event handling
 
 ### 📐 Layout
-- **s_offstage** - Conditional rendering utilities
+- **[s_offstage](https://pub.dev/packages/s_offstage)** - Conditional rendering utilities
 
 ### 📱 Platform Integration
-- **s_webview** - WebView integration
+- **[s_webview](https://pub.dev/packages/s_webview)** - WebView integration
 
 ### 🛠️ Utilities
-- **post_frame** - Post-frame callbacks
-- **s_screenshot** - Screenshot capture
-- **s_time** - Time utilities
-- **soundsliced_dart_extensions** - Dart extensions
+- **[post_frame](https://pub.dev/packages/post_frame)** - Post-frame callbacks
+- **[s_screenshot](https://pub.dev/packages/s_screenshot)** - Screenshot capture
+- **[s_time](https://pub.dev/packages/s_time)** - Time utilities
+- **[soundsliced_dart_extensions](https://pub.dev/packages/soundsliced_dart_extensions)** - Dart extensions
 
 ### 📅 Calendar
-- **week_calendar** - Week-based calendars
+- **[week_calendar](https://pub.dev/packages/week_calendar)** - Week-based calendars
 
 ## 🚀 Installation
 
@@ -83,7 +83,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  s_packages: ^1.1.0
+  s_packages: ^1.1.1
 ```
 
 Then run:
