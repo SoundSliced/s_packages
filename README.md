@@ -7,6 +7,10 @@ A comprehensive collection of **43 Flutter packages** designed to accelerate dev
 
 ![S Packages Example App](https://raw.githubusercontent.com/SoundSliced/s_packages/main/example/assets/example.gif)
 
+If you want to see a better GIF for each of these sub packages, then find their individual package in pub.dev (eg. search for `s_button` and you will see it in more detail and clearer). 
+
+NOTE: this `s_packages` package is the grouping of all of these, as a main repo  
+
 ## 📦 What's Included
 
 This unified package brings together 43 carefully crafted packages organized into 11 categories:
@@ -79,7 +83,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  s_packages: ^1.0.0
+  s_packages: ^1.0.1
 ```
 
 Then run:
