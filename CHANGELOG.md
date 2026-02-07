@@ -1,6 +1,6 @@
 ## 1.1.2
 
-* Version 1.1.2
+* all Flutter platforms made enabled
 
 # Changelog
 
