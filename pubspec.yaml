@@ -3,7 +3,7 @@ description: A unified package gathering multiple widgets and tools.
 issue_tracker: https://github.com/SoundSliced/s_packages/issues
 repository: https://github.com/SoundSliced/s_packages
 homepage: https://github.com/SoundSliced/s_packages
-version: 1.1.1
+version: 1.1.2
 
 
 environment:
@@ -54,3 +54,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  # Explicitly specify supported platforms
+platforms:
+  android:
+  ios:
+  web:
+  macos:
+  windows:
+  linux:
