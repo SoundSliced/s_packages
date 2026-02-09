@@ -3,7 +3,7 @@ description: A unified package gathering multiple widgets and tools.
 issue_tracker: https://github.com/SoundSliced/s_packages/issues
 repository: https://github.com/SoundSliced/s_packages
 homepage: https://github.com/SoundSliced/s_packages
-version: 1.1.2
+version: 1.1.3
 
 
 environment:
@@ -46,6 +46,31 @@ dependencies:
   path: ^1.9.1
   collection: ^1.19.1
   async: ^2.13.0
+
+  # Extra packages not used in this package but included for export convenience, so users don't have to add them separately when using the widgets that depend on them.
+  overlay_support: ^2.1.0
+  hive_ce: ^2.19.3
+  hive_ce_flutter: ^2.3.4
+  email_validator: ^3.0.0
+  regexed_validator: ^2.0.0+1
+  strings: ^4.0.1
+  cryptography: ^2.9.0
+  roundcheckbox: ^2.0.5
+  swipeable_tile: ^2.0.1
+  supabase_flutter: ^2.12.0
+  syncfusion_flutter_xlsio: ^32.2.3
+  get: ^4.7.3
+  chewie: ^1.13.0
+  video_player: ^2.10.1
+  toastification: ^3.0.3
+  syncfusion_flutter_pdfviewer: ^32.2.3
+  syncfusion_flutter_pdf: ^32.2.3 
+  sync_scroll_controller: ^1.0.1
+  animated_list_plus: ^0.5.2
+  google_fonts: ^8.0.1
+  simple_animations: ^5.2.0
+
+dependency_overrides:
 
 dev_dependencies:
   flutter_test:

@@ -864,6 +864,17 @@ extension StringExtensions on String {
     //and return the list of Strings
     return substring(1, length - 1).split(', ');
   }
+
+  // ignore: unintended_html_in_doc_comment
+  /// Converts a string representation of a list of integers to a List<int>
+  /// Example: "[43, 168, 248, 193]" -> [43, 168, 248, 193]
+  List<int> convertToListInt() {
+    // Remove the square brackets and whitespace
+    String cleaned = replaceAll('[', '').replaceAll(']', '').trim();
+
+    // Split by comma and convert each element to int
+    return cleaned.split(',').map((e) => int.parse(e.trim())).toList();
+  }
 }
 
 //********************************** */
@@ -3589,3 +3600,17 @@ extension AlignmentAdd on Alignment {
 }
 
 //********************************** */
+
+extension BeautifiedJsonListExtension on List<Map<String, dynamic>> {
+  String get encodedJsonString {
+    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+    return encoder.convert(this);
+  }
+}
+
+extension BeautifiedJsonMapExtension on Map<String, dynamic> {
+  String get encodedJsonString {
+    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+    return encoder.convert(this);
+  }
+}

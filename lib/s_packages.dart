@@ -41,18 +41,6 @@ export 'states_rebuilder_extended/states_rebuilder_extended.dart' hide Animate;
 export 'ticker_free_circular_progress_indicator/ticker_free_circular_progress_indicator.dart';
 export 'week_calendar/week_calendar.dart';
 
-// dart and flutter and other foundational packages
-export 'package:xid/xid.dart';
-export 'package:flutter/services.dart';
-export 'dart:async';
-export 'package:flutter_animate/flutter_animate.dart';
-export 'package:flutter/foundation.dart';
-export 'package:flutter/material.dart';
-export 'package:sizer/sizer.dart';
-export 'package:assorted_layout_widgets/assorted_layout_widgets.dart'
-    hide Delayed;
-export 'package:circular_countdown_timer/circular_countdown_timer.dart';
-export 'package:icons_plus/icons_plus.dart';
-export 'package:lucide_icons/lucide_icons.dart';
-export 'package:pausable_timer/pausable_timer.dart';
-export 'package:s_packages/s_packages.dart';
+export 's_packages_extra1.dart';
+ 
+

@@ -1,3 +1,8 @@
+## 1.1.3
+
+- dependencies upgraded
+- new dependencies added not used in this package but included for export convenience, so users don't have to add them separately when using the widgets that depend on them.
+
 ## 1.1.2
 
 * all Flutter platforms made enabled

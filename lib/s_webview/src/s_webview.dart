@@ -3,9 +3,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:s_packages/s_packages.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '_s_webview/webview_controller/webview_controller.dart';
 import '_s_webview/widget/widget.dart';
