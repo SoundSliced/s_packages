@@ -1,3 +1,7 @@
+## 1.1.4
+
+- removed some conflicting dependencies
+
 ## 1.1.3
 
 - dependencies upgraded
