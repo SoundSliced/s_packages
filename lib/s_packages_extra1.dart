@@ -22,7 +22,6 @@ export 'package:pointer_interceptor/pointer_interceptor.dart';
 export 'package:new_loading_indicator/new_loading_indicator.dart';
 export 'package:flutter_web_frame/flutter_web_frame.dart';
 export 'package:desktop_webview_window/desktop_webview_window.dart';
-export 'package:webview_flutter_web/webview_flutter_web.dart';
 export 'package:universal_io/io.dart';
 export 'package:email_validator/email_validator.dart';
 export 'package:regexed_validator/regexed_validator.dart';

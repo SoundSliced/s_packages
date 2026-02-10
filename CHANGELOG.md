@@ -1,4 +1,8 @@
 
+## 1.2.3
+
+- No longer exporting web exclusive packages (`universal_html`, `web`...)
+
 ## 1.2.2
 
 - SDK constraint upgrade
