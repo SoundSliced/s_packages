@@ -120,6 +120,44 @@ class PopOverlayExampleScreen extends StatelessWidget {
     );
   }
 
+  void _showAnimatedFromOffsetPopup(BuildContext context, Offset startOffset) {
+    PopOverlay.addPop(
+      PopOverlayContent(
+        id: 'animated_offset_popup',
+        offsetToPopFrom: startOffset,
+        popPositionAnimationCurve: Curves.easeOutBack,
+        popPositionAnimationDuration: const Duration(milliseconds: 600),
+        widget: Container(
+          width: 250,
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: const Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.animation, size: 48, color: Colors.purple),
+              SizedBox(height: 16),
+              Text(
+                'I popped from the button!',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'This popup animated from the button position to the center.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+        shouldDismissOnBackgroundTap: true,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,6 +183,27 @@ class PopOverlayExampleScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => _showFramedPopup(context),
                 child: const Text('Show Framed Popup'),
+              ),
+              const SizedBox(height: 16),
+              SButton(
+                onTap: (position) {
+                  _showAnimatedFromOffsetPopup(context, position);
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Text(
+                    'Show Animated Popup from Here',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

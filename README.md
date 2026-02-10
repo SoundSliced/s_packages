@@ -3,7 +3,7 @@
 [![pub package](https://img.shields.io/pub/v/s_packages.svg?label=s_packages&color=blue)](https://pub.dev/packages/s_packages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A comprehensive collection of **43 Flutter packages** designed to accelerate development with reusable UI components, utilities, and tools. Built for modern Flutter applications with Material Design 3 support.
+A comprehensive collection of **40 Flutter packages** designed to accelerate development with reusable UI components, utilities, and tools. Built for modern Flutter applications with Material Design 3 support.
 
 ![S Packages Example App](https://raw.githubusercontent.com/SoundSliced/s_packages/main/example/assets/example.gif)
 
@@ -13,9 +13,9 @@ NOTE: this `s_packages` package is the grouping of all of these, as a main repo
 
 ## 📦 What's Included
 
-This unified package brings together 43 carefully crafted packages organized into 11 categories:
+This unified package brings together 40 carefully crafted packages organized into 11 categories:
 
-### 🎨 UI Components (20 packages)
+### 🎨 UI Components (19 packages)
 - **[bubble_label](https://pub.dev/packages/bubble_label)** - Bubble-style labels for tags and badges
 - **[s_animated_tabs](https://pub.dev/packages/s_animated_tabs)** - Smooth animated tab bars
 - **[s_banner](https://pub.dev/packages/s_banner)** - Customizable notification banners
@@ -83,7 +83,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  s_packages: ^1.1.4
+  s_packages: ^1.2.0
 ```
 
 Then run:
@@ -307,7 +307,7 @@ class AnimatedUIExample extends StatelessWidget {
 
 ## 📱 Running the Example App
 
-This package includes a comprehensive example app showcasing all 43 packages:
+This package includes a comprehensive example app showcasing all 40 packages:
 
 ```bash
 cd example
@@ -338,7 +338,7 @@ s_packages/
 ├── bubble_label/                # Individual packages...
 ├── s_modal/
 ├── s_button/
-└── ... (41 more packages)
+└── ... (37 more packages)
 ```
 
 ## 🛠️ Development
@@ -385,7 +385,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## ✨ Features
 
-- ✅ 43 production-ready packages
+- ✅ 40 production-ready packages
 - ✅ Material Design 3 support
 - ✅ Light and dark theme compatibility
 - ✅ Cross-platform (iOS, Android, Web, Desktop)
@@ -396,9 +396,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📊 Package Stats
 
-- **Total Packages**: 43
+- **Total Packages**: 40
 - **Categories**: 11
-- **Example Demos**: 43+
+- **Example Demos**: 40+
 - **Minimum Flutter Version**: 3.0.0
 - **Minimum Dart Version**: 3.0.0
 

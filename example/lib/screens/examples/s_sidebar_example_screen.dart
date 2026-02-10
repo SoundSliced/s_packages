@@ -130,10 +130,13 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.info_outline,
-                              size: 64,
-                              color: Colors.blue.shade300,
+                            SButton(
+                              onTap: (pos) => log("Icon Position: $pos"),
+                              child: Icon(
+                                Icons.info_outline,
+                                size: 64,
+                                color: Colors.blue.shade300,
+                              ),
                             ),
                             const SizedBox(height: 16),
                             const Text(
@@ -147,9 +150,12 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                             const Text('• Click minimize button to collapse'),
                             const Text('• Badges show notifications'),
                             const Text('• Hover effects on items'),
+
                             const SizedBox(height: 16),
-                            ElevatedButton.icon(
-                              onPressed: () {
+
+                            /// Popup sidebar button
+                            SButton(
+                              onTap: (position) {
                                 SideBarController.activateSideBar(
                                   sSideBar: SSideBar(
                                     sidebarItems: [
@@ -170,10 +176,45 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                                     sideBarColor: const Color(0xFF1A237E),
                                     sideBarHeight: 300,
                                   ),
+                                  // Directly use the global position from the tap
+                                  offset: Offset(
+                                      position.dx - 50, position.dy - 220),
+                                  useGlobalPosition: true,
+                                  animateFromOffset: position,
+                                  curve: Curves.easeOutBack,
+                                  animationDuration:
+                                      const Duration(milliseconds: 600),
+                                  popFrameColor: Colors.yellow.shade800,
                                 );
                               },
-                              icon: const Icon(Icons.add_box),
-                              label: const Text('Show Popup Sidebar'),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.add_box,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      'Show Popup Sidebar, \nanimating it from the button \nto the final position',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),

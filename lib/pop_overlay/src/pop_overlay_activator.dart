@@ -339,7 +339,15 @@ class _TransformWrapper extends StatelessWidget {
         final currentPosition = popContent.positionController.state;
 
         // Determine final position based on popPositionOffset
-        final finalPosition = popContent.popPositionOffset ?? Offset.zero;
+        var finalPosition = popContent.popPositionOffset ?? Offset.zero;
+
+        // Convert global position to center-relative if needed
+        if (popContent.useGlobalPosition) {
+          final screenSize = MediaQuery.of(context).size;
+          final screenCenter =
+              Offset(screenSize.width / 2, screenSize.height / 2);
+          finalPosition = finalPosition - screenCenter;
+        }
 
         // Combine drag position with final position
         final totalOffset = finalPosition + currentPosition;
@@ -425,9 +433,15 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
       // Get screen center position
       final screenSize = MediaQuery.of(context).size;
       final screenCenter = Offset(screenSize.width / 2, screenSize.height / 2);
-      final targetOffset = widget.popContent.popPositionOffset ?? Offset.zero;
+      var targetOffset = widget.popContent.popPositionOffset ?? Offset.zero;
+
+      if (widget.popContent.useGlobalPosition) {
+        targetOffset = targetOffset - screenCenter;
+      }
 
       // Calculate start offset for animation
+      // We subtract screenCenter because the popup is positioned relative to center (via Align(center) + Transform)
+      // We subtract targetOffset because positionController adds to it
       final startOffset =
           widget.popContent.offsetToPopFrom! - screenCenter - targetOffset;
 
@@ -481,7 +495,8 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
             ),
             duration: widget.popContent.popPositionAnimationDuration ??
                 const Duration(milliseconds: 250),
-            curve: Curves.fastEaseInToSlowEaseOut,
+            curve: widget.popContent.popPositionAnimationCurve ??
+                Curves.fastEaseInToSlowEaseOut,
             builder: (context, offset, child) {
               // Update positionController with animated value
               WidgetsBinding.instance.addPostFrameCallback((_) {

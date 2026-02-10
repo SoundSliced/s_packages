@@ -271,9 +271,6 @@ class _SSideBarState extends State<SSideBar> {
     ///using animated container for the side bar for smooth responsive
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Use the provided height or the maximum available height
-        final double effectiveHeight = sidebarHeight ?? constraints.maxHeight;
-
         // Calculate estimated height needed for all items
         final int itemCount = widget.sidebarItems.length;
         final double separatorHeight = widget.compactMode ? 4 : 8;
@@ -291,6 +288,14 @@ class _SSideBarState extends State<SSideBar> {
 
         final double totalNeededHeight =
             logoHeight + estimatedItemsHeight + buttonMinHeight;
+
+        // Use the provided height or the maximum available height
+        // If constraints.maxHeight is infinite, use the total needed height
+        double effectiveHeight = sidebarHeight ?? constraints.maxHeight;
+        if (effectiveHeight.isInfinite) {
+          effectiveHeight = totalNeededHeight;
+        }
+
         final bool hasExtraSpace = effectiveHeight > totalNeededHeight;
 
         return AnimatedContainer(
@@ -870,8 +875,16 @@ class SideBarController {
   ///   ),
   /// );
   /// ```
-  static void activateSideBar(
-      {Widget? sSideBar, Offset? offset, BorderRadius? borderRadius}) {
+  static void activateSideBar({
+    Widget? sSideBar,
+    Offset? offset,
+    BorderRadius? borderRadius,
+    Offset? animateFromOffset,
+    Curve? curve,
+    Color? popFrameColor,
+    Duration? animationDuration,
+    bool useGlobalPosition = false,
+  }) {
     _sideBarController
         .update<SideBarController>((newState) => newState.isActive = true);
 
@@ -891,9 +904,12 @@ class SideBarController {
         id: 'activate_sidebar',
         dismissBarrierColor: Colors.black.withValues(alpha: 0.3),
         borderRadius: borderRadius ?? BorderRadius.circular(20),
-        // frameColor: Colors.transparent,
-
+        frameColor: popFrameColor ?? Colors.black,
         popPositionOffset: offset ?? Offset(15, 30),
+        offsetToPopFrom: animateFromOffset,
+        popPositionAnimationCurve: curve,
+        popPositionAnimationDuration: animationDuration,
+        useGlobalPosition: useGlobalPosition,
       ),
     );
   }

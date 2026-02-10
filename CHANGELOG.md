@@ -1,3 +1,14 @@
+## 1.2.0
+
+- **`s_sidebar` & `pop_overlay` sub-packages upgrades**:
+  - Added `animateFromOffset` to `activateSideBar` to allow animating the sidebar popup from a specific screen position (e.g., button tap location).
+  - Added `curve` parameter to customize the animation curve.
+  - Added `animationDuration` parameter to control the popup animation speed.
+  - Added `useGlobalPosition` parameter to `activateSideBar` and `PopOverlay`, simplifying coordinate handling by automatically converting global tap positions.
+  - Fixed an issue where `SSideBar` could error with infinite height constraints when used in an overlay.
+  - Example app's showcases updated accordingly for both `s_sidebar` & `pop_overlay` sub-packages
+- `README` updated
+
 ## 1.1.4
 
 - removed some conflicting dependencies

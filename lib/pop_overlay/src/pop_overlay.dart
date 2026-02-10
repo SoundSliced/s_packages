@@ -181,6 +181,10 @@ class PopOverlayContent {
 
   final bool shouldMakeInvisibleOnDismiss;
 
+  /// Whether the [popPositionOffset] is a global coordinate (relative to screen top-left)
+  /// or relative to the screen center (default).
+  final bool useGlobalPosition;
+
   /// Whether the popup should start in invisible state when first added
   /// When true and shouldMakeInvisibleOnDismiss is also true, the popup will be added
   /// to the invisible list immediately upon creation
@@ -191,6 +195,9 @@ class PopOverlayContent {
   final Function? onMadeInvisible, initState;
 
   final Duration? popPositionAnimationDuration;
+
+  /// Optional Animation Curve for the popup position animation
+  final Curve? popPositionAnimationCurve;
 
   /// Optional [borderRadius] border radius for the popup
   final BorderRadiusGeometry? borderRadius;
@@ -207,7 +214,7 @@ class PopOverlayContent {
   /// - [dismissBarrierColor]: Color for the background barrier when tappable
   /// - [shouldAnimatePopup]: Whether to use animations for the overlay
   /// - [popPositionOffset]: Optional offset for the popup position
-  /// - [offsetToPopFrom]: Optional offset from which the popup should animate from (global position)
+  /// - [offsetToPopFrom]: Optional offset for the popup start animation position
   /// - [frameColor]: Color for the frame around the overlay content
   /// - [frameWidth]: Width of the frame around the overlay content
   /// - [isDraggeable]: Whether the popup can be dragged around the screen
@@ -233,9 +240,11 @@ class PopOverlayContent {
     this.frameDesign,
     this.shouldMakeInvisibleOnDismiss = false,
     this.shouldStartInvisible = false,
+    this.useGlobalPosition = false,
     this.onMadeInvisible,
     this.initState,
     this.popPositionAnimationDuration,
+    this.popPositionAnimationCurve,
     this.borderRadius,
   });
 
