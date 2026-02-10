@@ -3,7 +3,7 @@ description: A unified package gathering multiple widgets and tools.
 issue_tracker: https://github.com/SoundSliced/s_packages/issues
 repository: https://github.com/SoundSliced/s_packages
 homepage: https://github.com/SoundSliced/s_packages
-version: 1.2.0
+version: 1.2.1
 
 
 environment:
@@ -41,7 +41,6 @@ dependencies:
   webview_flutter_web: ^0.2.3+4
   calendar_date_picker2: ^2.0.1
   universal_io: ^2.3.1
-  web: ^1.1.1
   path: ^1.9.1
   collection: ^1.19.1
   async: ^2.13.0

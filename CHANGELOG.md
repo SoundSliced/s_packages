@@ -1,3 +1,7 @@
+## 1.2.1
+
+- no longer depending on `web` ^1.1.1
+
 ## 1.2.0
 
 - **`s_sidebar` & `pop_overlay` sub-packages upgrades**:
