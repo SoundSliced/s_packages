@@ -6,6 +6,7 @@
 /// Uses `package:universal_html` for WASM compatibility instead of `dart:html`.
 library;
 
+// ignore: depend_on_referenced_packages
 import 'package:universal_html/universal_html.dart' as web;
 
 /// Opens a URL in a new browser tab (web platform only).

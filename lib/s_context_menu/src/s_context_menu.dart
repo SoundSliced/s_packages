@@ -80,6 +80,7 @@ export 's_context_menu_types.dart';
 export 's_context_menu_controllers.dart';
 export 's_context_menu_theme.dart';
 
+// ignore: depend_on_referenced_packages
 import 'package:universal_html/universal_html.dart' as html;
 
 enum _DismissReason { action, escape, outsideTap, programmatic }

@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:webview_flutter/webview_flutter.dart' as webview_flutter;
 import '../webview_desktop/webview_desktop.dart' as webview_desktop;
 

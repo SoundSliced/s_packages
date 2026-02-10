@@ -1,4 +1,5 @@
 import 'package:s_packages/s_packages.dart';
+// ignore: depend_on_referenced_packages
 import 'package:universal_html/universal_html.dart' as html;
 
 /// Simple, reliable escape key handler that works globally without focus dependencies

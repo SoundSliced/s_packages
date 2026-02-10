@@ -4,6 +4,7 @@
 /// This file provides Android platform support for s_webview using webview_flutter.
 library;
 
+// ignore: depend_on_referenced_packages
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 
