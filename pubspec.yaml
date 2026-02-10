@@ -56,6 +56,7 @@ dependencies:
   animated_list_plus: ^0.5.2
   google_fonts: ^8.0.1
   simple_animations: ^5.2.0
+  universal_html: ^2.3.0
 
 
 dependency_overrides:
@@ -65,7 +66,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  universal_html: ^2.3.0
   webview_flutter_web: ^0.2.3+4
   webview_flutter: ^4.13.1
 
