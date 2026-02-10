@@ -368,7 +368,7 @@ class _PopOverlayFrameDesignWidgetState
           // It's a percentage value, try to convert it to screen percentage
           try {
             // First try using Sizer if available
-            final screenHeight = MediaQuery.of(context).size.height;
+            final screenHeight = 100.h;
             finalHeight = screenHeight * _computedHeight!;
           } catch (e) {
             // Fallback to a reasonable default

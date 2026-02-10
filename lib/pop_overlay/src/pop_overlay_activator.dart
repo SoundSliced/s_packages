@@ -282,7 +282,6 @@ class _DismissBarrier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return SInkButton(
       color:
           popContent.dismissBarrierColor?.withValues(alpha: 0.8).darken(0.2) ??
@@ -300,8 +299,8 @@ class _DismissBarrier extends StatelessWidget {
             }
           : null,
       child: Container(
-        height: size.height,
-        width: size.width,
+        height: 100.h,
+        width: 100.w,
         color: popContent.dismissBarrierColor ??
             Colors.black.withValues(alpha: 0.4),
       ).animate(
@@ -344,7 +343,7 @@ class _TransformWrapper extends StatelessWidget {
 
         // Convert global position to center-relative if needed
         if (popContent.useGlobalPosition) {
-          final screenSize = MediaQuery.of(context).size;
+          final screenSize = Size(100.w, 100.h);
           final screenPoint = alignment
               .resolve(Directionality.of(context))
               .alongSize(screenSize);
@@ -433,7 +432,7 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
       _hasInitializedAnimation = true;
 
       // Get screen center position
-      final screenSize = MediaQuery.of(context).size;
+      final screenSize = Size(100.w, 100.h);
       final alignment = widget.popContent.alignment ?? Alignment.center;
       final screenPoint =
           alignment.resolve(Directionality.of(context)).alongSize(screenSize);

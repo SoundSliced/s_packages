@@ -114,6 +114,87 @@ class SWidgetsExampleScreen extends StatelessWidget {
                   'Tap outside text field to dismiss keyboard',
                   style: TextStyle(fontSize: 12, color: Colors.grey),
                 ),
+                const SizedBox(height: 32),
+
+                // Pop Overlay Demo
+                const Text(
+                  'Pop Overlay Demo',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 16),
+                STextButton(
+                  buttonTitle: 'Show Demo Popup',
+                  backgroundColor: Colors.purple,
+                  onTap: (offset) {
+                    PopOverlay.addPop(
+                      PopOverlayContent(
+                        id: 'demo_popup',
+                        widget: Container(
+                          padding: const EdgeInsets.all(24),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.2),
+                                blurRadius: 20,
+                                spreadRadius: 5,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 48,
+                              ),
+                              const SizedBox(height: 16),
+                              const Text(
+                                'Demo Popup!',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'This is a sample popup using\nthe pop_overlay subpackage',
+                                textAlign: TextAlign.center,
+                                style:
+                                    TextStyle(fontSize: 14, color: Colors.grey),
+                              ),
+                              const SizedBox(height: 24),
+                              STextButton(
+                                buttonTitle: 'Close',
+                                backgroundColor: Colors.purple,
+                                onTap: (_) =>
+                                    PopOverlay.removePop('demo_popup'),
+                                height: 40,
+                                width: 120,
+                              ),
+                            ],
+                          ),
+                        ),
+                        shouldBlurBackground: true,
+                        shouldDismissOnBackgroundTap: true,
+                        dismissBarrierColor:
+                            Colors.black.withValues(alpha: 0.5),
+                        shouldAnimatePopup: true,
+                        isDraggeable: true,
+                        duration: const Duration(seconds: 10),
+                      ),
+                    );
+                  },
+                  height: 48,
+                  width: 200,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Tap to show a draggable popup with blur effect',
+                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                ),
               ],
             ),
           ),

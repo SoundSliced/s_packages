@@ -1,3 +1,11 @@
+## 1.2.5
+
+- **`pop_overlay` sub-package improvements**:
+  - Replaced `pop_overlay`'s use of `MediaQuery.of(context).size` with `Size(100.w, 100.h)` for better responsive sizing using the `sizer` package throughout the overlay system
+  - Improved cross-platform compatibility and responsive behavior
+- **Example app enhancements**:
+  - Wrapped `MaterialApp` with `ForcePhoneSizeOnWeb` for better web demo experience with consistent phone-sized viewport
+  - Added comprehensive Pop Overlay Demo section in `s_widgets_example_screen.dart` showcasing draggable popup with blur effects, custom styling, and interactive features
 
 ## 1.2.4
 
