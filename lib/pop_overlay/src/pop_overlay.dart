@@ -202,6 +202,9 @@ class PopOverlayContent {
   /// Optional [borderRadius] border radius for the popup
   final BorderRadiusGeometry? borderRadius;
 
+  /// Optional [alignment] for the popup. Defaults to [Alignment.center]
+  final AlignmentGeometry? alignment;
+
   /// Creates a new pop overlay content configuration
   ///
   /// Parameters:
@@ -221,6 +224,7 @@ class PopOverlayContent {
   /// - [shouldMakeInvisibleOnDismiss]: Whether the popup should become invisible instead of being removed when dismissed
   /// - [shouldStartInvisible]: Whether the popup should start in invisible state (requires shouldMakeInvisibleOnDismiss to be true)
   /// - [frameDesign]: Optional frame design template to wrap the widget with a standardized UI
+  /// - [alignment]: Optional alignment for the popup. Defaults to [Alignment.center]
   PopOverlayContent({
     required this.widget,
     required this.id,
@@ -246,6 +250,7 @@ class PopOverlayContent {
     this.popPositionAnimationDuration,
     this.popPositionAnimationCurve,
     this.borderRadius,
+    this.alignment = Alignment.center,
   });
 
   /// Optimized dispose method to clean up resources

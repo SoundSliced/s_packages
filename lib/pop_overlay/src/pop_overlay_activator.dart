@@ -340,13 +340,15 @@ class _TransformWrapper extends StatelessWidget {
 
         // Determine final position based on popPositionOffset
         var finalPosition = popContent.popPositionOffset ?? Offset.zero;
+        final alignment = popContent.alignment ?? Alignment.center;
 
         // Convert global position to center-relative if needed
         if (popContent.useGlobalPosition) {
           final screenSize = MediaQuery.of(context).size;
-          final screenCenter =
-              Offset(screenSize.width / 2, screenSize.height / 2);
-          finalPosition = finalPosition - screenCenter;
+          final screenPoint = alignment
+              .resolve(Directionality.of(context))
+              .alongSize(screenSize);
+          finalPosition = finalPosition - screenPoint;
         }
 
         // Combine drag position with final position
@@ -356,7 +358,7 @@ class _TransformWrapper extends StatelessWidget {
           child: Transform.translate(
             offset: totalOffset,
             child: Align(
-              alignment: Alignment.center,
+              alignment: alignment,
               child: RepaintBoundary(
                 child: _PopupContentIsolated(
                   key: key,
@@ -432,18 +434,21 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
 
       // Get screen center position
       final screenSize = MediaQuery.of(context).size;
-      final screenCenter = Offset(screenSize.width / 2, screenSize.height / 2);
+      final alignment = widget.popContent.alignment ?? Alignment.center;
+      final screenPoint =
+          alignment.resolve(Directionality.of(context)).alongSize(screenSize);
+
       var targetOffset = widget.popContent.popPositionOffset ?? Offset.zero;
 
       if (widget.popContent.useGlobalPosition) {
-        targetOffset = targetOffset - screenCenter;
+        targetOffset = targetOffset - screenPoint;
       }
 
       // Calculate start offset for animation
       // We subtract screenCenter because the popup is positioned relative to center (via Align(center) + Transform)
       // We subtract targetOffset because positionController adds to it
       final startOffset =
-          widget.popContent.offsetToPopFrom! - screenCenter - targetOffset;
+          widget.popContent.offsetToPopFrom! - screenPoint - targetOffset;
 
       // Store the start offset and generate unique animation key
       _animationStartOffset = startOffset;

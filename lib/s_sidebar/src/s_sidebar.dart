@@ -884,6 +884,7 @@ class SideBarController {
     Color? popFrameColor,
     Duration? animationDuration,
     bool useGlobalPosition = false,
+    Alignment? alignment,
   }) {
     _sideBarController
         .update<SideBarController>((newState) => newState.isActive = true);
@@ -910,6 +911,7 @@ class SideBarController {
         popPositionAnimationCurve: curve,
         popPositionAnimationDuration: animationDuration,
         useGlobalPosition: useGlobalPosition,
+        alignment: alignment ?? Alignment.centerLeft,
       ),
     );
   }

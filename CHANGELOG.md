@@ -1,4 +1,10 @@
 
+## 1.2.4
+
+- **`s_sidebar` & `pop_overlay` sub-packages upgrades**:
+  - `s_sidebar`: Added default left alignment for sidebar activation, allowing the sidebar to stay anchored to the left while minimizing.
+  - `pop_overlay`: Added `alignment` property to `PopOverlayContent` (defaulting to `Alignment.center`) and updated `_PopOverlayActivator` to support popup alignment.
+
 ## 1.2.3
 
 - No longer exporting web exclusive packages (`universal_html`, `web`...)
