@@ -1,3 +1,8 @@
+
+## 1.2.2
+
+- SDK constraint upgrade
+
 ## 1.2.1
 
 - no longer depending on `web` ^1.1.1
