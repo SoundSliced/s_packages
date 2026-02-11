@@ -1,3 +1,12 @@
+## 1.2.7
+
+- **`s_sidebar` sub-package improvements**:
+  - Enhanced `SideBarController.activateSideBar` with additional customization options:
+    - Added `dismissBarrierColor` parameter for custom barrier colors
+    - Added `shouldBlurDismissBarrier` parameter for optional blur effect on barrier
+    - Added `initState` callback for initialization logic
+    - Added `onDismissed` callback to handle sidebar dismissal events
+
 ## 1.2.6
 
 - **`pop_overlay` sub-package animation improvements**:

@@ -882,9 +882,13 @@ class SideBarController {
     Offset? animateFromOffset,
     Curve? curve,
     Color? popFrameColor,
+    Color? dismissBarrierColor,
     Duration? animationDuration,
     bool useGlobalPosition = false,
+    bool shouldBlurDismissBarrier = false,
     Alignment? alignment,
+    Function? initState,
+    Function? onDismissed,
   }) {
     _sideBarController
         .update<SideBarController>((newState) => newState.isActive = true);
@@ -903,7 +907,8 @@ class SideBarController {
               onTapForAllTabButtons: (index) {},
             ),
         id: 'activate_sidebar',
-        dismissBarrierColor: Colors.black.withValues(alpha: 0.3),
+        dismissBarrierColor:
+            dismissBarrierColor ?? Colors.black.withValues(alpha: 0.3),
         borderRadius: borderRadius ?? BorderRadius.circular(20),
         frameColor: popFrameColor ?? Colors.black,
         popPositionOffset: offset ?? Offset(15, 30),
@@ -912,6 +917,9 @@ class SideBarController {
         popPositionAnimationDuration: animationDuration,
         useGlobalPosition: useGlobalPosition,
         alignment: alignment ?? Alignment.centerLeft,
+        shouldBlurBackground: shouldBlurDismissBarrier,
+        initState: initState,
+        onDismissed: onDismissed,
       ),
     );
   }
