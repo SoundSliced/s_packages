@@ -220,7 +220,16 @@ class _PopOverlayFrameDesignWidgetState
   Widget build(BuildContext context) {
     // If no design template, return a simple wrapper with the original styling
     if (widget.frameDesign == null) {
-      return _buildNonTemplateWrapper();
+      return _buildNonTemplateWrapper().animate(
+        effects: [
+          FadeEffect(
+            duration: 0.4.sec,
+            begin: 0,
+            end: 1,
+            curve: Curves.fastEaseInToSlowEaseOut,
+          ),
+        ],
+      );
     }
 
     // Use LayoutBuilder to ensure we have proper sizing context for template popups
@@ -281,7 +290,7 @@ class _PopOverlayFrameDesignWidgetState
 
                 if (isOffstage == false)
                   AnimatedSize(
-                    duration: const Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 500),
                     curve: Curves.fastEaseInToSlowEaseOut,
                     alignment: Alignment.topCenter,
                     child: _PopOverlayContainer(
@@ -356,7 +365,16 @@ class _PopOverlayFrameDesignWidgetState
           if (widget.frameDesign != null) {
             built = FocusTraversalGroup(policy: traversalPolicy, child: built);
           }
-          return built;
+          return built.animate(
+            effects: [
+              FadeEffect(
+                duration: 0.6.sec,
+                begin: 0,
+                end: 1,
+                curve: Curves.fastEaseInToSlowEaseOut,
+              ),
+            ],
+          );
         }
 
         // Legacy fixed-size mode
@@ -421,7 +439,16 @@ class _PopOverlayFrameDesignWidgetState
           ),
         );
         legacy = FocusTraversalGroup(policy: traversalPolicy, child: legacy);
-        return legacy;
+        return legacy.animate(
+          effects: [
+            FadeEffect(
+              duration: 0.4.sec,
+              begin: 0,
+              end: 1,
+              curve: Curves.fastEaseInToSlowEaseOut,
+            ),
+          ],
+        );
       },
     );
   }

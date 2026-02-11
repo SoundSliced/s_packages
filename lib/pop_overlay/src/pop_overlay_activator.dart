@@ -247,7 +247,7 @@ class _BlurBackground extends StatelessWidget {
           begin: isExiting ? 5.0 : 0.0,
           end: isExiting ? 0.0 : 5.0,
         ),
-        duration: const Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
         builder: (context, blurRadius, child) {
           return Container(
@@ -304,10 +304,10 @@ class _DismissBarrier extends StatelessWidget {
         color: popContent.dismissBarrierColor ??
             Colors.black.withValues(alpha: 0.4),
       ).animate(
-        key: ValueKey("Barrier-${popContent.id}-$isExiting"),
+        // key: ValueKey("Barrier-${popContent.id}-$isExiting"),
         effects: [
           FadeEffect(
-            duration: isExiting ? 0.4.sec : 0.5.sec,
+            duration: isExiting ? 0.8.sec : 1.0.sec,
             begin: isExiting ? 1 : 0,
             end: isExiting ? 0 : 1,
             curve: Curves.fastEaseInToSlowEaseOut,

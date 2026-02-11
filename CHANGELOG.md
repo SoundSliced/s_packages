@@ -1,3 +1,11 @@
+## 1.2.6
+
+- **`pop_overlay` sub-package animation improvements**:
+  - Added smooth fade-in animations to all popup types; fixes flash issue in `FrameDesign` popups by smoothly animating appearance during auto dynamic dimension calculation time
+  - Extended animation durations for smoother transitions: blur background (400ms → 600ms), barrier fade (0.4-0.5s → 0.8-1.0s), and animated size (300ms → 500ms)
+  - Added `borderRadius` support to example demos for better visual consistency
+  - Optimized popup entrance animations with `Curves.fastEaseInToSlowEaseOut` for more natural motion
+
 ## 1.2.5
 
 - **`pop_overlay` sub-package improvements**:

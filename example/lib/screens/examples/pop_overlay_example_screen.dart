@@ -7,6 +7,7 @@ class PopOverlayExampleScreen extends StatelessWidget {
     PopOverlay.addPop(
       PopOverlayContent(
         id: 'basic_popup',
+        borderRadius: BorderRadius.circular(16),
         widget: Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
@@ -39,6 +40,7 @@ class PopOverlayExampleScreen extends StatelessWidget {
     PopOverlay.addPop(
       PopOverlayContent(
         id: 'draggable_popup',
+        borderRadius: BorderRadius.circular(16),
         isDraggeable: true,
         widget: Container(
           padding: const EdgeInsets.all(24),
