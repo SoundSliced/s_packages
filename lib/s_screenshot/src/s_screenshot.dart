@@ -45,27 +45,40 @@ class SScreenshot {
         await Future.delayed(config.captureDelay!);
       }
 
-      // Capture the rendered widget as an image
+      // Wait for the rendering pipeline to fully complete
       final boundary = renderObject;
-      await Future.microtask(() {}); // Ensure rendering pipeline completes
+      await WidgetsBinding.instance.endOfFrame;
+
+      // Capture and immediately extract byte data, then dispose the native image
       final image = await boundary.toImage(pixelRatio: config.pixelRatio);
-      final byteData = await image.toByteData(
-          format: config.format == ScreenshotFormat.png
-              ? ui.ImageByteFormat.png
-              : ui.ImageByteFormat.rawRgba);
+      final ByteData? byteData;
+      try {
+        byteData = await image.toByteData(
+            format: config.format == ScreenshotFormat.png
+                ? ui.ImageByteFormat.png
+                : ui.ImageByteFormat.rawRgba);
+      } finally {
+        image.dispose();
+      }
 
       if (byteData == null) {
         throw ScreenshotException('Failed to convert image to byte data');
       }
 
-      final buffer = byteData.buffer.asUint8List();
+      // Use precise offset and length to avoid reading beyond actual data
+      final buffer = byteData.buffer
+          .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
 
       if (kDebugMode && config.shouldShowDebugLogs) {
         debugPrint('Screenshot captured: ${buffer.length} bytes');
       }
       switch (config.resultType) {
         case ScreenshotResultType.base64:
-          final base64String = base64Encode(buffer);
+          // Offload base64 encoding to a separate isolate on native platforms;
+          // on web, isolates aren't supported so we encode on the main thread.
+          final base64String = kIsWeb
+              ? base64Encode(buffer)
+              : await compute(base64Encode, buffer);
           if (kDebugMode && config.shouldShowDebugLogs) {
             debugPrint('Base64 length: ${base64String.length}');
           }

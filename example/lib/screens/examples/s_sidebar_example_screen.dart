@@ -24,72 +24,73 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
       appBar: AppBar(
         title: const Text('SSidebar Example'),
       ),
-      body: Row(
-        children: [
-          // Sidebar
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SSideBar(
-              sidebarItems: [
-                SSideBarItem(
-                  iconSelected: Icons.dashboard,
-                  iconUnselected: Icons.dashboard_outlined,
-                  title: "Dashboard",
-                  tooltip: "Dashboard",
-                  badgeText: "3",
-                  badgeColor: Colors.green.shade400,
-                ),
-                SSideBarItem(
-                  iconSelected: Icons.analytics,
-                  iconUnselected: Icons.analytics_outlined,
-                  title: "Analytics",
-                  tooltip: "Analytics",
-                ),
-                SSideBarItem(
-                  iconSelected: Icons.message,
-                  iconUnselected: Icons.message_outlined,
-                  title: "Messages",
-                  tooltip: "Messages",
-                  badgeText: "12",
-                  badgeColor: Colors.redAccent,
-                ),
-                SSideBarItem(
-                  iconSelected: Icons.settings,
-                  iconUnselected: Icons.settings_outlined,
-                  title: "Settings",
-                  tooltip: "Settings",
-                ),
-              ],
-              onTapForAllTabButtons: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              preSelectedItemIndex: _selectedIndex,
-              isMinimized: _isMinimized,
-              minimizeButtonOnTap: (minimized) {
-                setState(() {
-                  _isMinimized = minimized;
-                });
-              },
-              settingsDivider: true,
-              sideBarColor:
-                  Theme.of(context).colorScheme.surfaceContainerHighest,
-              selectedIconBackgroundColor:
-                  Theme.of(context).colorScheme.primaryContainer,
-              selectedIconColor:
-                  Theme.of(context).colorScheme.onPrimaryContainer,
-              unselectedIconColor:
-                  Theme.of(context).colorScheme.onSurfaceVariant,
-              selectedTextColor: Theme.of(context).colorScheme.onSurface,
-              unSelectedTextColor:
-                  Theme.of(context).colorScheme.onSurfaceVariant,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            // Sidebar
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SSideBar(
+                sidebarItems: [
+                  SSideBarItem(
+                    iconSelected: Icons.dashboard,
+                    iconUnselected: Icons.dashboard_outlined,
+                    title: "Dashboard",
+                    tooltip: "Dashboard",
+                    badgeText: "3",
+                    badgeColor: Colors.green.shade400,
+                  ),
+                  SSideBarItem(
+                    iconSelected: Icons.analytics,
+                    iconUnselected: Icons.analytics_outlined,
+                    title: "Analytics",
+                    tooltip: "Analytics",
+                  ),
+                  SSideBarItem(
+                    iconSelected: Icons.message,
+                    iconUnselected: Icons.message_outlined,
+                    title: "Messages",
+                    tooltip: "Messages",
+                    badgeText: "12",
+                    badgeColor: Colors.redAccent,
+                  ),
+                  SSideBarItem(
+                    iconSelected: Icons.settings,
+                    iconUnselected: Icons.settings_outlined,
+                    title: "Settings",
+                    tooltip: "Settings",
+                  ),
+                ],
+                onTapForAllTabButtons: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                preSelectedItemIndex: _selectedIndex,
+                isMinimized: _isMinimized,
+                minimizeButtonOnTap: (minimized) {
+                  setState(() {
+                    _isMinimized = minimized;
+                  });
+                },
+                settingsDivider: true,
+                sideBarColor:
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
+                selectedIconBackgroundColor:
+                    Theme.of(context).colorScheme.primaryContainer,
+                selectedIconColor:
+                    Theme.of(context).colorScheme.onPrimaryContainer,
+                unselectedIconColor:
+                    Theme.of(context).colorScheme.onSurfaceVariant,
+                selectedTextColor: Theme.of(context).colorScheme.onSurface,
+                unSelectedTextColor:
+                    Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
-          ),
 
-          // Main content
-          Expanded(
-            child: Container(
+            // Main content
+            Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,6 +156,7 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
 
                             /// Popup sidebar button
                             SButton(
+                              bounceScale: 0.95,
                               onTap: (position) {
                                 SideBarController.activateSideBar(
                                   sSideBar: SSideBar(
@@ -224,8 +226,8 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

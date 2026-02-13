@@ -62,9 +62,20 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
     if (PopOverlay.isActive) {
       final overlays = PopOverlay.controller.state;
       if (overlays.isNotEmpty) {
-        final last = overlays.last;
-        _log('Dismissing overlay id=${last.id}');
-        PopOverlay.dismissPop(last.id);
+        // Find the topmost overlay that allows escape key dismissal
+        for (int i = overlays.length - 1; i >= 0; i--) {
+          final overlay = overlays[i];
+          // Skip invisible overlays
+          if (PopOverlay.invisibleController.state.contains(overlay.id)) {
+            continue;
+          }
+          if (overlay.shouldDismissOnEscapeKey) {
+            _log('Dismissing overlay id=${overlay.id}');
+            PopOverlay.dismissPop(overlay.id);
+          }
+          // Whether or not it's dismissable, stop at the topmost visible overlay
+          break;
+        }
       }
     }
   }

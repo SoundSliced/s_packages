@@ -93,6 +93,14 @@ class _SoundslicedDartExtensionsExampleScreenState
                           color: Colors.green,
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Truncated (15): "${inputText.truncate(15)}"',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.orange,
+                        ),
+                      ),
                       const SizedBox(height: 12),
                       const Divider(),
                       const SizedBox(height: 8),
@@ -164,7 +172,7 @@ class _SoundslicedDartExtensionsExampleScreenState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Safe List Access',
+                        'Safe List Access & GroupBy',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 12),
@@ -191,6 +199,15 @@ class _SoundslicedDartExtensionsExampleScreenState
                       Text(
                         'Chunks of 2: ${numbers.splitInChunks(2)}',
                         style: const TextStyle(fontFamily: 'monospace'),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'GroupBy (odd/even): ${numbers.groupBy((n) => n.isOdd ? "odd" : "even")}',
+                        style: const TextStyle(
+                          fontFamily: 'monospace',
+                          color: Colors.purple,
+                          fontSize: 12,
+                        ),
                       ),
                     ],
                   ),

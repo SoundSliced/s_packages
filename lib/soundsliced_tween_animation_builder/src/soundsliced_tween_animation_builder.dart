@@ -15,6 +15,8 @@ class STweenAnimationBuilder<T> extends StatefulWidget {
     this.onEnd,
     this.animationKey,
     this.autoRepeat = false,
+    this.delay,
+    this.repeatCount,
   });
 
   final Tween<T> tween;
@@ -26,6 +28,14 @@ class STweenAnimationBuilder<T> extends StatefulWidget {
   final Object? animationKey;
   final bool autoRepeat;
 
+  /// Delay before the animation starts. Applied on initial build
+  /// and each time the animation restarts (key change, repeat).
+  final Duration? delay;
+
+  /// Number of times to repeat the animation. If null and [autoRepeat]
+  /// is true, repeats indefinitely. Ignored when [autoRepeat] is false.
+  final int? repeatCount;
+
   @override
   State<STweenAnimationBuilder<T>> createState() =>
       _STweenAnimationBuilderState<T>();
@@ -35,8 +45,10 @@ class _STweenAnimationBuilderState<T> extends State<STweenAnimationBuilder<T>> {
   static const _frameInterval = Duration(milliseconds: 16);
 
   Timer? _ticker;
+  Timer? _delayTimer;
   late T _currentValue;
   DateTime? _startTime;
+  int _repeatsDone = 0;
 
   @override
   void initState() {
@@ -54,6 +66,7 @@ class _STweenAnimationBuilderState<T> extends State<STweenAnimationBuilder<T>> {
     final curveChanged = widget.curve != oldWidget.curve;
 
     if (hasChangedTween || keyChanged || durationChanged || curveChanged) {
+      _repeatsDone = 0;
       _startAnimation();
       return;
     }
@@ -74,7 +87,14 @@ class _STweenAnimationBuilderState<T> extends State<STweenAnimationBuilder<T>> {
   @override
   void dispose() {
     _stopAnimation();
+    _delayTimer?.cancel();
     super.dispose();
+  }
+
+  bool get _canRepeat {
+    if (!widget.autoRepeat) return false;
+    if (widget.repeatCount == null) return true;
+    return _repeatsDone < widget.repeatCount!;
   }
 
   void _startAnimation() {
@@ -84,10 +104,23 @@ class _STweenAnimationBuilderState<T> extends State<STweenAnimationBuilder<T>> {
       return;
     }
 
+    if (widget.delay != null && widget.delay! > Duration.zero) {
+      _delayTimer?.cancel();
+      _delayTimer = Timer(widget.delay!, () {
+        if (mounted) _startAnimationImmediate();
+      });
+      return;
+    }
+
+    _startAnimationImmediate();
+  }
+
+  void _startAnimationImmediate() {
     if (widget.duration <= Duration.zero) {
       _setProgress(1.0);
       widget.onEnd?.call();
-      if (widget.autoRepeat) {
+      if (_canRepeat) {
+        _repeatsDone++;
         WidgetsBinding.instance.addPostFrameCallback((_) => _startAnimation());
       }
       return;
@@ -120,7 +153,8 @@ class _STweenAnimationBuilderState<T> extends State<STweenAnimationBuilder<T>> {
         timer.cancel();
         _ticker = null;
         widget.onEnd?.call();
-        if (widget.autoRepeat && mounted) {
+        if (_canRepeat && mounted) {
+          _repeatsDone++;
           _startAnimation();
         }
       }

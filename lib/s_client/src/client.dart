@@ -983,6 +983,63 @@ class SClient {
     }
   }
 
+  /// Performs a PUT request with typed JSON response.
+  ///
+  /// Automatically parses the response body as JSON and deserializes it
+  /// using the provided [fromJson] function.
+  Future<ClientResult> putJson<T>({
+    required String url,
+    required Map<String, dynamic> body,
+    required T Function(Map<String, dynamic> json) fromJson,
+    required OnSuccessTyped<T> onSuccess,
+    required OnError onError,
+    Map<String, String>? headers,
+    Duration? timeout,
+    ClientType? clientType,
+    String? cancelKey,
+    OnHttpError? onHttpError,
+    Map<int, OnStatus>? onStatus,
+    Set<int>? successCodes,
+    Set<int>? errorCodes,
+  }) async {
+    return put(
+      url: url,
+      body: body,
+      headers: headers,
+      timeout: timeout,
+      clientType: clientType,
+      cancelKey: cancelKey,
+      onSuccess: (response) {
+        try {
+          final json = response.jsonBody;
+          if (json == null) {
+            onError(ClientException(
+              message: 'Invalid JSON response',
+              url: url,
+              type: ClientErrorType.badResponse,
+              responseBody: response.body,
+            ));
+            return;
+          }
+          final data = fromJson(json);
+          onSuccess(data, response);
+        } catch (e) {
+          onError(ClientException(
+            message: 'Failed to parse JSON: $e',
+            url: url,
+            type: ClientErrorType.unknown,
+            originalError: e,
+          ));
+        }
+      },
+      onError: onError,
+      onHttpError: onHttpError,
+      onStatus: onStatus,
+      successCodes: successCodes,
+      errorCodes: errorCodes,
+    );
+  }
+
   // ============================================================================
   // PATCH Methods
   // ============================================================================
@@ -1112,6 +1169,63 @@ class SClient {
       if (cancelKey != null) _cancelTokens.remove(cancelKey);
       return (null, _toException(e, request.url));
     }
+  }
+
+  /// Performs a PATCH request with typed JSON response.
+  ///
+  /// Automatically parses the response body as JSON and deserializes it
+  /// using the provided [fromJson] function.
+  Future<ClientResult> patchJson<T>({
+    required String url,
+    required Map<String, dynamic> body,
+    required T Function(Map<String, dynamic> json) fromJson,
+    required OnSuccessTyped<T> onSuccess,
+    required OnError onError,
+    Map<String, String>? headers,
+    Duration? timeout,
+    ClientType? clientType,
+    String? cancelKey,
+    OnHttpError? onHttpError,
+    Map<int, OnStatus>? onStatus,
+    Set<int>? successCodes,
+    Set<int>? errorCodes,
+  }) async {
+    return patch(
+      url: url,
+      body: body,
+      headers: headers,
+      timeout: timeout,
+      clientType: clientType,
+      cancelKey: cancelKey,
+      onSuccess: (response) {
+        try {
+          final json = response.jsonBody;
+          if (json == null) {
+            onError(ClientException(
+              message: 'Invalid JSON response',
+              url: url,
+              type: ClientErrorType.badResponse,
+              responseBody: response.body,
+            ));
+            return;
+          }
+          final data = fromJson(json);
+          onSuccess(data, response);
+        } catch (e) {
+          onError(ClientException(
+            message: 'Failed to parse JSON: $e',
+            url: url,
+            type: ClientErrorType.unknown,
+            originalError: e,
+          ));
+        }
+      },
+      onError: onError,
+      onHttpError: onHttpError,
+      onStatus: onStatus,
+      successCodes: successCodes,
+      errorCodes: errorCodes,
+    );
   }
 
   // ============================================================================
@@ -1246,6 +1360,63 @@ class SClient {
       if (cancelKey != null) _cancelTokens.remove(cancelKey);
       return (null, _toException(e, request.url));
     }
+  }
+
+  /// Performs a DELETE request with typed JSON response.
+  ///
+  /// Automatically parses the response body as JSON and deserializes it
+  /// using the provided [fromJson] function.
+  Future<ClientResult> deleteJson<T>({
+    required String url,
+    required T Function(Map<String, dynamic> json) fromJson,
+    required OnSuccessTyped<T> onSuccess,
+    required OnError onError,
+    Map<String, dynamic>? body,
+    Map<String, String>? headers,
+    Duration? timeout,
+    ClientType? clientType,
+    String? cancelKey,
+    OnHttpError? onHttpError,
+    Map<int, OnStatus>? onStatus,
+    Set<int>? successCodes,
+    Set<int>? errorCodes,
+  }) async {
+    return delete(
+      url: url,
+      body: body,
+      headers: headers,
+      timeout: timeout,
+      clientType: clientType,
+      cancelKey: cancelKey,
+      onSuccess: (response) {
+        try {
+          final json = response.jsonBody;
+          if (json == null) {
+            onError(ClientException(
+              message: 'Invalid JSON response',
+              url: url,
+              type: ClientErrorType.badResponse,
+              responseBody: response.body,
+            ));
+            return;
+          }
+          final data = fromJson(json);
+          onSuccess(data, response);
+        } catch (e) {
+          onError(ClientException(
+            message: 'Failed to parse JSON: $e',
+            url: url,
+            type: ClientErrorType.unknown,
+            originalError: e,
+          ));
+        }
+      },
+      onError: onError,
+      onHttpError: onHttpError,
+      onStatus: onStatus,
+      successCodes: successCodes,
+      errorCodes: errorCodes,
+    );
   }
 
   // ============================================================================

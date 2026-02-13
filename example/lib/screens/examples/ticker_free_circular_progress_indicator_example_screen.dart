@@ -60,13 +60,30 @@ class _TickerFreeCircularProgressIndicatorExampleScreenState
 
               // Indeterminate progress
               const Text(
-                'Indeterminate Progress:',
+                'Indeterminate Progress (small & large):',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 16),
-              const TickerFreeCircularProgressIndicator(
-                color: Colors.blue,
-                strokeWidth: 4.0,
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TickerFreeCircularProgressIndicator(
+                    color: Colors.blue,
+                    strokeWidth: 3.0,
+                    size: 24,
+                  ),
+                  SizedBox(width: 24),
+                  TickerFreeCircularProgressIndicator(
+                    color: Colors.blue,
+                    strokeWidth: 4.0,
+                  ),
+                  SizedBox(width: 24),
+                  TickerFreeCircularProgressIndicator(
+                    color: Colors.blue,
+                    strokeWidth: 6.0,
+                    size: 56,
+                  ),
+                ],
               ),
               const SizedBox(height: 40),
 

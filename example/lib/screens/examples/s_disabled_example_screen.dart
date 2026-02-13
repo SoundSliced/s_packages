@@ -69,13 +69,15 @@ class _SDisabledExampleScreenState extends State<SDisabledExampleScreen> {
 
               // Custom opacity example
               const Text(
-                'Custom Opacity (0.3):',
+                'Custom Opacity + Grayscale (0.3):',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 12),
               SDisabled(
                 isDisabled: _isWidgetDisabled,
                 opacityWhenDisabled: 0.3,
+                applyGrayscale: true,
+                disabledSemanticLabel: 'This widget is currently disabled',
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -90,12 +92,55 @@ class _SDisabledExampleScreenState extends State<SDisabledExampleScreen> {
                           size: 32),
                       const SizedBox(height: 8),
                       Text(
-                        'Information Widget',
+                        'Grayscale When Disabled',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
+
+              // Disabled child swap example
+              const Text(
+                'Disabled Child Swap:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 12),
+              SDisabled(
+                isDisabled: _isWidgetDisabled,
+                disabledChild: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.lock, color: Colors.grey, size: 32),
+                      SizedBox(height: 8),
+                      Text('Feature Locked',
+                          style: TextStyle(color: Colors.grey)),
+                    ],
+                  ),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.lock_open, color: Colors.white, size: 32),
+                      SizedBox(height: 8),
+                      Text('Feature Available',
+                          style: TextStyle(color: Colors.white)),
                     ],
                   ),
                 ),

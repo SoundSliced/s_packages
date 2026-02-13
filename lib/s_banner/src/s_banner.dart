@@ -26,12 +26,17 @@ class SBanner extends StatefulWidget {
     this.clipBannerToChild = true,
     this.isChildCircular = false,
     this.childBorderRadius,
+    this.onTap,
+    this.gradient,
+    this.animateVisibility = false,
+    this.animationDuration = const Duration(milliseconds: 300),
   });
 
   /// The position where the banner is displayed.
   final SBannerPosition bannerPosition;
 
   /// The color of the banner, which appears behind the [bannerContent] content.
+  /// Ignored when [gradient] is provided.
   final Color bannerColor;
 
   /// The elevation of the banner, which impacts the size of the shadow.
@@ -60,6 +65,19 @@ class SBanner extends StatefulWidget {
   /// Optional override for the child's border radius when using circular banners.
   /// If null, the radius is inferred from the child's rendered size.
   final double? childBorderRadius;
+
+  /// Optional callback when the banner is tapped.
+  final VoidCallback? onTap;
+
+  /// Optional gradient to use instead of [bannerColor].
+  /// When provided, overrides the solid [bannerColor].
+  final Gradient? gradient;
+
+  /// When true, animates the banner in/out when [isActive] changes.
+  final bool animateVisibility;
+
+  /// Duration of the show/hide animation when [animateVisibility] is true.
+  final Duration animationDuration;
 
   @override
   State<SBanner> createState() => _SBannerState();
@@ -103,7 +121,21 @@ class _SBannerState extends State<SBanner> {
       child: widget.child,
     );
 
-    if (!widget.isActive) return measuredChild;
+    if (!widget.isActive) {
+      if (widget.animateVisibility) {
+        return Stack(
+          children: [
+            measuredChild,
+            AnimatedOpacity(
+              opacity: 0,
+              duration: widget.animationDuration,
+              child: const SizedBox.shrink(),
+            ),
+          ],
+        );
+      }
+      return measuredChild;
+    }
 
     // If we don't have the child size yet, wrap in LayoutBuilder to get it
     // This allows immediate display without waiting for a callback
@@ -117,6 +149,22 @@ class _SBannerState extends State<SBanner> {
 
     final ribbon = _buildBannerForCurrentMode();
 
+    Widget bannerWidget = ribbon;
+    if (widget.onTap != null) {
+      bannerWidget = GestureDetector(
+        onTap: widget.onTap,
+        child: bannerWidget,
+      );
+    }
+
+    if (widget.animateVisibility) {
+      bannerWidget = AnimatedOpacity(
+        opacity: 1.0,
+        duration: widget.animationDuration,
+        child: bannerWidget,
+      );
+    }
+
     return SizedBox(
       width: _childSize!.width,
       height: _childSize!.height,
@@ -127,7 +175,7 @@ class _SBannerState extends State<SBanner> {
           measuredChild,
           Align(
             alignment: _alignmentFor(widget.bannerPosition),
-            child: ribbon,
+            child: bannerWidget,
           ),
         ],
       ),
@@ -143,6 +191,7 @@ class _SBannerState extends State<SBanner> {
         shadowColor: widget.shadowColor,
         bannerContent: widget.bannerContent,
         paintBannerShape: true,
+        gradient: widget.gradient,
       );
     }
 
@@ -203,6 +252,7 @@ class _BannerBox extends SingleChildRenderObjectWidget {
     required this.shadowColor,
     required Widget bannerContent,
     required this.paintBannerShape,
+    this.gradient,
   }) : super(child: bannerContent);
 
   final SBannerPosition bannerPosition;
@@ -210,6 +260,7 @@ class _BannerBox extends SingleChildRenderObjectWidget {
   final double elevation;
   final Color shadowColor;
   final bool paintBannerShape;
+  final Gradient? gradient;
 
   @override
   RenderObject createRenderObject(BuildContext context) {
@@ -219,6 +270,7 @@ class _BannerBox extends SingleChildRenderObjectWidget {
       elevation: elevation,
       shadowColor: shadowColor,
       paintBannerShape: paintBannerShape,
+      gradient: gradient,
     );
   }
 
@@ -229,7 +281,8 @@ class _BannerBox extends SingleChildRenderObjectWidget {
       ..bannerColor = bannerColor
       ..elevation = elevation
       ..shadowColor = shadowColor
-      ..paintBannerShape = paintBannerShape;
+      ..paintBannerShape = paintBannerShape
+      ..gradient = gradient;
   }
 }
 
@@ -240,11 +293,13 @@ class _RenderBanner extends RenderBox with RenderObjectWithChildMixin {
     required double elevation,
     required Color shadowColor,
     required bool paintBannerShape,
+    Gradient? gradient,
   })  : _bannerPosition = bannerPosition,
         _bannerColor = bannerColor,
         _elevation = elevation,
         _shadowColor = shadowColor,
-        _paintBannerShape = paintBannerShape;
+        _paintBannerShape = paintBannerShape,
+        _gradient = gradient;
 
   SBannerPosition _bannerPosition;
   set bannerPosition(SBannerPosition newPosition) {
@@ -282,6 +337,14 @@ class _RenderBanner extends RenderBox with RenderObjectWithChildMixin {
   set paintBannerShape(bool value) {
     if (value != _paintBannerShape) {
       _paintBannerShape = value;
+      markNeedsPaint();
+    }
+  }
+
+  Gradient? _gradient;
+  set gradient(Gradient? value) {
+    if (value != _gradient) {
+      _gradient = value;
       markNeedsPaint();
     }
   }
@@ -328,7 +391,8 @@ class _RenderBanner extends RenderBox with RenderObjectWithChildMixin {
           bannerPath,
           Paint()
             ..color = _bannerColor
-            ..style = PaintingStyle.fill,
+            ..style = PaintingStyle.fill
+            ..shader = _gradient?.createShader(bannerPath.getBounds()),
         );
     }
 

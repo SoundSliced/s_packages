@@ -204,8 +204,10 @@ class _BubbleBuildWidgetState extends State<_BubbleBuildWidget>
       top: _currentPosition.dy - widget.content.floatingVerticalPadding,
 
       // Calculate initial left position
-      // to center the bubble on the child widget
-      left: _currentPosition.dx + _currentSize.width / 2,
+      // to center the bubble on the child widget, with optional horizontal offset
+      left: _currentPosition.dx +
+          _currentSize.width / 2 +
+          widget.content.horizontalOffset,
       child: FractionalTranslation(
         // Center horizontally and align bottom to the top coordinate
         translation: const Offset(-0.5, -1.0),
@@ -463,6 +465,27 @@ class BubbleLabelContent {
   /// Called before `dismissOnBackgroundTap` logic is applied.
   final void Function(TapDownDetails event)? onTapOutside;
 
+  /// Duration of the show/dismiss animation.
+  /// Defaults to 200ms.
+  final Duration animationDuration;
+
+  /// Curve used for the show animation.
+  /// Defaults to [Curves.easeIn].
+  final Curve showCurve;
+
+  /// Curve used for the dismiss animation.
+  /// Defaults to [Curves.easeOutBack].
+  final Curve dismissCurve;
+
+  /// Horizontal offset in logical pixels to shift the bubble from its
+  /// default centered position above the anchor.
+  /// Positive values shift right, negative values shift left.
+  final double horizontalOffset;
+
+  /// When true, the bubble will automatically show on mouse hover and
+  /// dismiss on mouse exit (all platforms, not just web).
+  final bool showOnHover;
+
   /// Creates a `BubbleLabelContent`.
   ///
   /// The `bubbleColor`, `labelWidth`, and `labelHeight` parameters
@@ -481,6 +504,11 @@ class BubbleLabelContent {
     this.shouldIgnorePointer = true,
     this.onTapInside,
     this.onTapOutside,
+    this.animationDuration = const Duration(milliseconds: 200),
+    this.showCurve = Curves.easeIn,
+    this.dismissCurve = Curves.easeOutBack,
+    this.horizontalOffset = 0.0,
+    this.showOnHover = false,
   })  : id = id ?? Xid().toString(),
         // Default: slightly above anchor (5 px)
         floatingVerticalPadding = verticalPadding ?? 5.0,
@@ -500,6 +528,11 @@ class BubbleLabelContent {
     this.shouldIgnorePointer = true,
     this.onTapInside,
     this.onTapOutside,
+    this.animationDuration = const Duration(milliseconds: 200),
+    this.showCurve = Curves.easeIn,
+    this.dismissCurve = Curves.easeOutBack,
+    this.horizontalOffset = 0.0,
+    this.showOnHover = false,
   })  : id = id ?? Xid().toString(),
         floatingVerticalPadding = verticalPadding ?? 5.0,
         _childWidgetRenderBox = null;
@@ -533,6 +566,11 @@ class BubbleLabelContent {
     bool? shouldIgnorePointer,
     void Function(TapDownDetails event)? onTapInside,
     void Function(TapDownDetails event)? onTapOutside,
+    Duration? animationDuration,
+    Curve? showCurve,
+    Curve? dismissCurve,
+    double? horizontalOffset,
+    bool? showOnHover,
   }) {
     return BubbleLabelContent._internal(
       id: id ?? this.id,
@@ -550,6 +588,11 @@ class BubbleLabelContent {
       shouldIgnorePointer: shouldIgnorePointer ?? this.shouldIgnorePointer,
       onTapInside: onTapInside ?? this.onTapInside,
       onTapOutside: onTapOutside ?? this.onTapOutside,
+      animationDuration: animationDuration ?? this.animationDuration,
+      showCurve: showCurve ?? this.showCurve,
+      dismissCurve: dismissCurve ?? this.dismissCurve,
+      horizontalOffset: horizontalOffset ?? this.horizontalOffset,
+      showOnHover: showOnHover ?? this.showOnHover,
     );
   }
 
@@ -568,6 +611,11 @@ class BubbleLabelContent {
       shouldIgnorePointer: shouldIgnorePointer,
       onTapInside: onTapInside,
       onTapOutside: onTapOutside,
+      animationDuration: animationDuration,
+      showCurve: showCurve,
+      dismissCurve: dismissCurve,
+      horizontalOffset: horizontalOffset,
+      showOnHover: showOnHover,
     );
   }
 }
@@ -630,6 +678,11 @@ class BubbleLabel {
   /// This is used internally to animate the bubble.
   static List<Effect<dynamic>> _getEffects() {
     List<Effect<dynamic>> effects = [];
+    final content = controller.state;
+    final duration =
+        content?.animationDuration ?? const Duration(milliseconds: 200);
+    final showCurve = content?.showCurve ?? Curves.easeIn;
+    final dismissCurve = content?.dismissCurve ?? Curves.easeOutBack;
 
     if (_bubbleLabelIsActiveAnimationController.state != null) {
       if (_bubbleLabelIsActiveAnimationController.state!) {
@@ -637,14 +690,14 @@ class BubbleLabel {
           FadeEffect(
             begin: 0,
             end: 1,
-            duration: 0.2.sec,
-            curve: Curves.easeIn,
+            duration: duration,
+            curve: showCurve,
           ),
           MoveEffect(
             begin: Offset(0, 5),
             end: Offset(0, -1),
-            duration: 0.2.sec,
-            curve: Curves.easeIn,
+            duration: duration,
+            curve: showCurve,
           )
         ];
       } else {
@@ -652,15 +705,16 @@ class BubbleLabel {
           MoveEffect(
             begin: Offset(0, -1),
             end: Offset(0, 5),
-            duration: 0.2.sec,
-            curve: Curves.easeOutBack,
+            duration: duration,
+            curve: dismissCurve,
           ),
           FadeEffect(
             begin: 1,
             end: 0,
-            delay: 0.1.sec,
-            duration: 0.2.sec,
-            curve: Curves.easeOutBack,
+            delay:
+                Duration(milliseconds: (duration.inMilliseconds * 0.5).round()),
+            duration: duration,
+            curve: dismissCurve,
           ),
         ];
       }
@@ -780,7 +834,14 @@ class BubbleLabel {
       // Use a Completer to allow awaiting the timer completion
       final completer = Completer<void>();
 
-      _dismissAnimationTimer = Timer(0.3.sec, () {
+      // Use the content's animation duration + buffer for dismiss timer
+      final content = controller.state;
+      final dismissDelay = Duration(
+        milliseconds:
+            ((content?.animationDuration.inMilliseconds ?? 200) * 1.5).round(),
+      );
+
+      _dismissAnimationTimer = Timer(dismissDelay, () {
         _dismissAnimationTimer = null;
         _activeAnchorKey = null; // Clear anchor key
         _bubbleLabelOverlayRenderBoxController.state =

@@ -192,7 +192,27 @@ class PopOverlayContent {
 
   final FrameDesign? frameDesign;
 
-  final Function? onMadeInvisible, initState;
+  final Function? onMadeInvisible, onMadeVisible, initState;
+
+  /// Optional callback invoked when dragging starts
+  final Function? onDragStart;
+
+  /// Optional callback invoked when dragging ends
+  final Function? onDragEnd;
+
+  /// Whether pressing the Escape key should dismiss this overlay.
+  /// Defaults to `true`. Set to `false` for critical confirmation dialogs
+  /// that should not be dismissed via Escape.
+  final bool shouldDismissOnEscapeKey;
+
+  /// Optional [Rect] that constrains how far the popup can be dragged
+  /// from its base position. The rect values represent offset limits:
+  /// - `left` / `top` = minimum offset (typically negative)
+  /// - `right` / `bottom` = maximum offset (typically positive)
+  ///
+  /// Use `Rect.fromCenter(center: Offset.zero, width: …, height: …)`
+  /// to create symmetric bounds around the original position.
+  final Rect? dragBounds;
 
   final Duration? popPositionAnimationDuration;
 
@@ -225,6 +245,11 @@ class PopOverlayContent {
   /// - [shouldStartInvisible]: Whether the popup should start in invisible state (requires shouldMakeInvisibleOnDismiss to be true)
   /// - [frameDesign]: Optional frame design template to wrap the widget with a standardized UI
   /// - [alignment]: Optional alignment for the popup. Defaults to [Alignment.center]
+  /// - [shouldDismissOnEscapeKey]: Whether pressing Escape should dismiss this overlay (defaults to true)
+  /// - [dragBounds]: Optional [Rect] to constrain dragging within a region
+  /// - [onMadeVisible]: Callback invoked when the overlay becomes visible again
+  /// - [onDragStart]: Callback invoked when dragging starts
+  /// - [onDragEnd]: Callback invoked when dragging ends
   PopOverlayContent({
     required this.widget,
     required this.id,
@@ -240,13 +265,18 @@ class PopOverlayContent {
     this.hasBoxShadow = true,
     this.frameColor,
     this.frameWidth = 0.5,
-    this.isDraggeable = true,
+    this.isDraggeable = false,
     this.frameDesign,
     this.shouldMakeInvisibleOnDismiss = false,
     this.shouldStartInvisible = false,
     this.useGlobalPosition = false,
     this.onMadeInvisible,
+    this.onMadeVisible,
     this.initState,
+    this.shouldDismissOnEscapeKey = true,
+    this.dragBounds,
+    this.onDragStart,
+    this.onDragEnd,
     this.popPositionAnimationDuration,
     this.popPositionAnimationCurve,
     this.borderRadius,
@@ -298,6 +328,11 @@ class PopOverlayContent {
 /// PopOverlay.removePop("notification_1");
 /// ```
 class PopOverlay {
+  //--------------------------------------------------//
+  // Internal key for the overlay area, used for global-to-local coordinate conversion
+  // (e.g. when the app is constrained by ForcePhoneSizeOnWeb / FlutterWebFrame).
+  static final GlobalKey _overlayAreaKey = GlobalKey();
+
   //--------------------------------------------------//
   // Public accessors for pop overlay state
 
@@ -403,6 +438,27 @@ class PopOverlay {
     }
     return null;
   }
+
+  /// Returns `true` if the overlay with [id] is both active and currently visible
+  /// (i.e. not in the invisible list).
+  static bool isVisibleById(String id) =>
+      isActiveById(id) && !_invisibleController.state.contains(id);
+
+  /// Returns only the currently visible (non-invisible) overlays.
+  static List<PopOverlayContent> getVisiblePops() => _controller.state
+      .where((o) => !_invisibleController.state.contains(o.id))
+      .toList();
+
+  /// Returns only the currently invisible overlays.
+  static List<PopOverlayContent> getInvisiblePops() => _controller.state
+      .where((o) => _invisibleController.state.contains(o.id))
+      .toList();
+
+  /// The number of currently visible overlays.
+  static int get visibleCount => getVisiblePops().length;
+
+  /// The number of currently invisible overlays.
+  static int get invisibleCount => getInvisiblePops().length;
 
   //--------------------------------------------------//
   // Core Pop Overlay functionality
@@ -603,6 +659,72 @@ class PopOverlay {
     }
   }
 
+  /// Dismisses all active pop overlays, respecting each overlay's
+  /// `shouldMakeInvisibleOnDismiss` setting.
+  ///
+  /// Overlays with `shouldMakeInvisibleOnDismiss` set to `true` will be made
+  /// invisible rather than removed. All other overlays will be fully removed.
+  ///
+  /// If [includeInvisible] is `true`, overlays that are already invisible
+  /// will also be fully removed.
+  ///
+  /// Example:
+  /// ```dart
+  /// PopOverlay.dismissAllPops();
+  /// PopOverlay.dismissAllPops(includeInvisible: true);
+  /// ```
+  static void dismissAllPops({
+    bool includeInvisible = false,
+    List<String> except = const [],
+  }) {
+    if (includeInvisible) {
+      // Remove all overlays including invisible ones
+      final allIds = _controller.state
+          .map((overlay) => overlay.id)
+          .where((id) => !except.contains(id))
+          .toList();
+      for (final id in allIds) {
+        removePop(id);
+      }
+    } else {
+      // Only dismiss visible overlays, respecting shouldMakeInvisibleOnDismiss
+      final visibleIds = _controller.state
+          .where((overlay) =>
+              !_invisibleController.state.contains(overlay.id) &&
+              !except.contains(overlay.id))
+          .map((overlay) => overlay.id)
+          .toList();
+      for (final id in visibleIds) {
+        dismissPop(id);
+      }
+    }
+  }
+
+  /// Atomically replaces an existing overlay with a new one.
+  ///
+  /// The overlay identified by [id] is removed (without animation) and
+  /// [newContent] is added in its place. If no overlay with [id] exists,
+  /// [newContent] is simply added.
+  static void replacePop(String id, PopOverlayContent newContent) {
+    if (isActiveById(id)) {
+      // Remove old overlay immediately without animation
+      _controller.update<List<PopOverlayContent>>((state) {
+        state.removeWhere((element) {
+          if (element.id == id) {
+            element.dispose();
+          }
+          return element.id == id;
+        });
+        return state;
+      });
+      _invisibleController.update<List<String>>((state) {
+        state.remove(id);
+        return state;
+      });
+    }
+    addPop(newContent);
+  }
+
   //--------------------------------------------------//
   static void _makePopOverlayInvisible(PopOverlayContent popContent) {
     // Find the popup content by ID
@@ -640,6 +762,7 @@ class PopOverlay {
 
         _invisibleController.update<List<String>>((state) {
           state.remove(popContent.id);
+          popContent.onMadeVisible?.call();
           return state;
         });
       }

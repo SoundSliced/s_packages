@@ -70,7 +70,15 @@ void _storeSignalMetadata<T>(
                 [currentValue],
               );
             } catch (_) {
-              // Ignore callback errors
+              try {
+                // Fallback to zero parameters
+                Function.apply(
+                  metadata.onValueUpdated!,
+                  [],
+                );
+              } catch (_) {
+                // Ignore callback errors
+              }
             }
           }
         }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// A widget that displays an error message with customizable styles.
 ///
@@ -21,7 +22,7 @@ import 'package:flutter/material.dart';
 /// - [retryText]: Text to display on the retry button. Defaults to "Retry".
 /// - [retryButtonStyle]: Custom style for the retry button.
 /// - [exceptionBuilder]: A builder to customize the exception display.
-class SErrorWidget extends StatelessWidget {
+class SErrorWidget extends StatefulWidget {
   /// The text to display in the header.
   /// Defaults to "Error!" if not provided.
   final String? headerText;
@@ -60,6 +61,19 @@ class SErrorWidget extends StatelessWidget {
   final Widget Function(BuildContext context, String exceptionText)?
       exceptionBuilder;
 
+  /// An optional error code displayed below the header (e.g., "404", "ERR_NETWORK").
+  final String? errorCode;
+
+  /// Optional stack trace text. When provided, an expandable section is shown
+  /// allowing the user to view the full stack trace.
+  final String? stackTrace;
+
+  /// Whether to show a copy-to-clipboard button for the error text.
+  final bool showCopyButton;
+
+  /// Additional action buttons displayed below the retry button.
+  final List<Widget>? actions;
+
   /// The main widget constructor
   const SErrorWidget({
     super.key,
@@ -73,12 +87,41 @@ class SErrorWidget extends StatelessWidget {
     this.retryText,
     this.retryButtonStyle,
     this.exceptionBuilder,
+    this.errorCode,
+    this.stackTrace,
+    this.showCopyButton = false,
+    this.actions,
   });
+
+  @override
+  State<SErrorWidget> createState() => _SErrorWidgetState();
+}
+
+class _SErrorWidgetState extends State<SErrorWidget> {
+  bool _stackTraceExpanded = false;
+
+  void _copyErrorToClipboard() {
+    final buffer = StringBuffer();
+    buffer.writeln(widget.headerText ?? 'Error!');
+    if (widget.errorCode != null) buffer.writeln('Code: ${widget.errorCode}');
+    buffer.writeln(widget.exceptionText);
+    if (widget.stackTrace != null) {
+      buffer.writeln('\nStack Trace:');
+      buffer.writeln(widget.stackTrace);
+    }
+    Clipboard.setData(ClipboardData(text: buffer.toString()));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Error details copied to clipboard'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: backgroundColor ?? const Color(0xFF38C071),
+      color: widget.backgroundColor ?? const Color(0xFF38C071),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -86,12 +129,12 @@ class SErrorWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              if (icon != null)
-                icon!
+              if (widget.icon != null)
+                widget.icon!
               else
                 Text(
                   "\u26A0",
-                  style: headerTextStyle?.copyWith(fontSize: 40) ??
+                  style: widget.headerTextStyle?.copyWith(fontSize: 40) ??
                       const TextStyle(
                         color: Colors.white,
                         fontSize: 40,
@@ -99,25 +142,37 @@ class SErrorWidget extends StatelessWidget {
                 ),
               const SizedBox(height: 8),
               Text(
-                headerText ?? "Error!",
+                widget.headerText ?? "Error!",
                 textAlign: TextAlign.center,
-                style: headerTextStyle ??
+                style: widget.headerTextStyle ??
                     const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
               ),
+              if (widget.errorCode != null) ...[
+                const SizedBox(height: 4),
+                Text(
+                  'Code: ${widget.errorCode}',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
               const SizedBox(height: 10),
               Flexible(
-                child: exceptionBuilder != null
-                    ? exceptionBuilder!(context, exceptionText)
+                child: widget.exceptionBuilder != null
+                    ? widget.exceptionBuilder!(context, widget.exceptionText)
                     : SelectableText(
-                        exceptionText,
+                        widget.exceptionText,
                         textDirection: TextDirection.ltr,
                         cursorColor: Colors.white,
                         textAlign: TextAlign.center,
-                        style: exceptionTextStyle ??
+                        style: widget.exceptionTextStyle ??
                             const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -125,18 +180,86 @@ class SErrorWidget extends StatelessWidget {
                             ),
                       ),
               ),
-              if (onRetry != null) ...[
+              if (widget.stackTrace != null) ...[
+                const SizedBox(height: 12),
+                GestureDetector(
+                  onTap: () => setState(
+                      () => _stackTraceExpanded = !_stackTraceExpanded),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        _stackTraceExpanded
+                            ? Icons.expand_less
+                            : Icons.expand_more,
+                        color: Colors.white70,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        _stackTraceExpanded
+                            ? 'Hide Stack Trace'
+                            : 'Show Stack Trace',
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (_stackTraceExpanded) ...[
+                  const SizedBox(height: 8),
+                  Flexible(
+                    child: Container(
+                      constraints: const BoxConstraints(maxHeight: 200),
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: SingleChildScrollView(
+                        child: SelectableText(
+                          widget.stackTrace!,
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+              if (widget.showCopyButton) ...[
+                const SizedBox(height: 12),
+                TextButton.icon(
+                  onPressed: _copyErrorToClipboard,
+                  icon: const Icon(Icons.copy, size: 16, color: Colors.white70),
+                  label: const Text(
+                    'Copy Error',
+                    style: TextStyle(color: Colors.white70, fontSize: 12),
+                  ),
+                ),
+              ],
+              if (widget.onRetry != null) ...[
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: onRetry,
-                  style: retryButtonStyle ??
+                  onPressed: widget.onRetry,
+                  style: widget.retryButtonStyle ??
                       ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.black,
                         elevation: 2,
                       ),
-                  child: Text(retryText ?? "Retry"),
+                  child: Text(widget.retryText ?? "Retry"),
                 ),
+              ],
+              if (widget.actions != null) ...[
+                const SizedBox(height: 8),
+                ...widget.actions!,
               ],
             ],
           ),

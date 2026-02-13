@@ -40,6 +40,15 @@ class _SGlowExampleScreenState extends State<SGlowExampleScreen> {
                 isEnabled: _isGlow1Enabled,
                 color: Theme.of(context).colorScheme.primary,
                 opacity: 0.5,
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(context).colorScheme.tertiary,
+                  ],
+                ),
+                onAnimationComplete: () {
+                  debugPrint('Glow1 animation cycle complete');
+                },
                 child: Container(
                   width: 120,
                   height: 120,
@@ -79,6 +88,9 @@ class _SGlowExampleScreenState extends State<SGlowExampleScreen> {
                     .withValues(alpha: 0.4),
                 glowShape: BoxShape.circle,
                 duration: const Duration(milliseconds: 2500),
+                onAnimationComplete: () {
+                  debugPrint('Glow2 ripple cycle complete');
+                },
                 child: Container(
                   width: 100,
                   height: 100,

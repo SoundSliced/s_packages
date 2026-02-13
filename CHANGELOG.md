@@ -1,3 +1,109 @@
+
+## 1.3.0
+- **`pop_overlay` sub-package improvements**:
+  - `PopOverlay.dismissAllPops` added with optional `includeInvisible` and `except` parameters
+  - `PopOverlay.replacePop` for atomically replacing an overlay with a new one
+  - Added query helpers: `isVisibleById`, `getVisiblePops`, `getInvisiblePops`, `visibleCount`, `invisibleCount`
+  - Added `shouldDismissOnEscapeKey` flag on `PopOverlayContent` to opt out of Escape key dismissal per overlay
+  - Added `onMadeVisible` callback on `PopOverlayContent` (counterpart to `onMadeInvisible`)
+  - Added `onDragStart` and `onDragEnd` callbacks on `PopOverlayContent`
+  - Added `dragBounds` on `PopOverlayContent` to constrain dragging within a `Rect`
+  - **`FrameDesign` additions**:
+    - `subtitle` property for secondary text below the title
+    - `titleBarColor` and `bottomBarColor` for per-popup color customization
+    - `headerTrailingWidgets` for extra action widgets in the header
+- **`bubble_label` sub-package improvements**:
+  - Added `animationDuration` for custom show/dismiss timing
+  - Added `showCurve` and `dismissCurve` for independent animation curves
+  - Added `horizontalOffset` for horizontal positioning control
+  - Added `showOnHover` flag to trigger label display on mouse hover
+- **`s_bounceable` sub-package improvements**:
+  - Added `onLongPress` callback
+  - Added `curve` for custom bounce animation curve
+  - Added `enableHapticFeedback` flag for tactile feedback on tap
+- **`s_disabled` sub-package improvements**:
+  - Added `applyGrayscale` flag to apply a grayscale filter when disabled
+  - Added `disabledSemanticLabel` for custom accessibility label when disabled
+  - Added `disabledChild` to show an alternative widget when disabled
+- **`s_banner` sub-package improvements**:
+  - Added `onTap` callback
+  - Added `gradient` for gradient background support
+  - Added `animateVisibility` to animate show/hide transitions
+- **`s_glow` sub-package improvements**:
+  - Added `onAnimationComplete` callback to Glow1 and Glow2
+  - Added `gradient` support for multi-color glow effects in Glow1
+- **`shaker` sub-package improvements**:
+  - Added `ShakeController` for programmatic shake triggering via `controller.shake()`
+- **`s_maintenance_button` sub-package improvements**:
+  - Added `icon` for custom button icon
+  - Added `showConfirmation` flag and `confirmationMessage` for confirmation dialog before action
+- **`s_ink_button` sub-package improvements**:
+  - Added `onHover` and `onFocusChange` callbacks
+  - Added `hoverColor` for custom hover state color
+  - Added `splashDuration` for custom splash animation timing
+- **`settings_item` sub-package improvements**:
+  - Added `subtitle`, `description`, and `trailing` to `ExpandableParameters`
+  - Updated `copyWith`, `==`, and `hashCode` accordingly
+- **`s_error_widget` sub-package improvements**:
+  - Converted to `StatefulWidget` for expandable stack trace state
+  - Added `errorCode`, `stackTrace` (expandable monospace view), `showCopyButton`, and `actions`
+  - Copy button copies full error details to clipboard
+- **`keystroke_listener` sub-package improvements**:
+  - Added `actionHandlers` map for customizable intent callbacks per intent type
+- **`s_context_menu` sub-package improvements**:
+  - Added `disabled` and `shortcutHint` fields to `SContextMenuItem`
+  - Disabled items render at reduced opacity with forbidden cursor
+  - Shortcut hints display as right-aligned secondary text in menu items
+- **`s_animated_tabs` sub-package improvements**:
+  - Added `tabIcons` list for optional per-tab icons
+  - Added `tabBadges` list for optional per-tab badge pills
+- **`s_expendable_menu` sub-package improvements**:
+  - Added `onExpansionChanged` callback to `SExpandableMenu`
+  - Added `tooltip` and `disabled` fields to `SExpandableItem`
+  - Disabled items render at reduced opacity with null tap handler
+- **`s_future_button` sub-package improvements**:
+  - Added `successDuration` and `errorDuration` for configurable state display timing
+  - Added `loadingWidget` for custom loading indicator replacement
+- **`s_gridview` sub-package improvements**:
+  - Added `emptyStateWidget` to display when children list is empty
+- **`ticker_free_circular_progress_indicator` sub-package improvements**:
+  - Added `size` parameter (replaces hardcoded 36.0 diameter)
+- **`soundsliced_tween_animation_builder` sub-package improvements**:
+  - Added `delay` for pre-animation delay
+  - Added `repeatCount` to limit number of auto-repeat cycles
+- **`week_calendar` sub-package improvements**:
+  - Added `minDate` and `maxDate` for date boundary constraints
+  - Added `eventIndicatorDates` and `eventIndicatorColor` for event dot indicators on days
+- **`s_client` sub-package improvements**:
+  - Added `putJson<T>()` typed variant for PUT requests with JSON deserialization
+  - Added `patchJson<T>()` typed variant for PATCH requests with JSON deserialization
+  - Added `deleteJson<T>()` typed variant for DELETE requests with JSON deserialization
+- **`soundsliced_dart_extensions` sub-package improvements**:
+  - Added `String.truncate(maxLength, {ellipsis})` extension
+  - Added `List<T>.groupBy<K>(keyOf)` extension for grouping elements by key
+- **`s_liquid_pull_to_refresh` sub-package improvements**:
+  - Added `triggerDistance` for customizable drag threshold
+  - Added `onDragProgress` callback reporting drag progress (0.0 to 1.0)
+- **`s_screenshot` sub-package performance improvements**:
+  - Fixed `ui.Image` memory leak — native GPU resources are now properly disposed after byte extraction
+  - Base64 encoding is now offloaded to a separate isolate via `compute()` on native platforms to avoid blocking the UI thread (falls back to main thread on web where isolates aren't available)
+  - Replaced `Future.microtask(() {})` with `WidgetsBinding.instance.endOfFrame` for more reliable rendering pipeline synchronization
+  - Fixed `ByteData` buffer view to use precise `offsetInBytes`/`lengthInBytes` instead of unbounded `asUint8List()`
+- **`s_connectivity` sub-package improvements**:
+  - **BREAKING:** Removed `NoInternetConnectionPopup` widget; connectivity warnings now use the Modal snackbar system
+  - Added `showNoInternetSnackbar` static property to auto-show/dismiss a staggered snackbar on connectivity changes
+  - Added `noInternetSnackbarMessage` parameter to `initialiseInternetConnectivityListener()` for custom messages
+  - Added `toggleConnectivitySnackbar()` static method for manual snackbar control
+  - Removed dependencies on `assorted_layout_widgets` and `sizer`
+- **`s_modal` sub-package improvements**:
+  - **BREAKING:** Renamed `showSuffixIcon` parameter to `showCloseIcon` in `Modal.showSnackbar()`
+  - Replaced barrier `SBounceable` with `SInkButton` for ink-splash feedback and long-press dismiss support
+  - Improved snackbar default layout: text uses `Flexible` instead of `Expanded`, consistent spacing/alignment
+- **`signals_watch` sub-package improvements**:
+  - Metadata is now always stored for signals created via `SignalsWatch.signal()`, ensuring `.reset()` works even without lifecycle callbacks
+  - `onValueUpdated` callback now supports zero-parameter signatures (fallback invocation if one-parameter call fails)
+
+
 ## 1.2.7
 
 - **`s_sidebar` sub-package improvements**:

@@ -12,6 +12,7 @@ class _SGridviewExampleScreenState extends State<SGridviewExampleScreen> {
   int _crossAxisCount = 3;
   Axis _direction = Axis.vertical;
   bool _showIndicators = true;
+  bool _showEmpty = false;
 
   @override
   void dispose() {
@@ -78,7 +79,7 @@ class _SGridviewExampleScreenState extends State<SGridviewExampleScreen> {
                             : Axis.vertical;
                       }),
                       child: Text(
-                        _direction == Axis.vertical ? 'Vertical' : 'Horizontal',
+                        _direction == Axis.vertical ? 'Horizontal' : 'Vertical',
                       ),
                     ),
                     ElevatedButton(
@@ -87,6 +88,14 @@ class _SGridviewExampleScreenState extends State<SGridviewExampleScreen> {
                       }),
                       child: Text(
                         _showIndicators ? 'Hide Indicators' : 'Show Indicators',
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => setState(() {
+                        _showEmpty = !_showEmpty;
+                      }),
+                      child: Text(
+                        _showEmpty ? 'Show Items' : 'Show Empty State',
                       ),
                     ),
                   ],
@@ -116,7 +125,18 @@ class _SGridviewExampleScreenState extends State<SGridviewExampleScreen> {
                 itemPadding: const EdgeInsets.all(4),
                 showScrollIndicators: _showIndicators,
                 indicatorColor: Colors.amber,
-                children: items,
+                emptyStateWidget: const Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.inbox, size: 64, color: Colors.grey),
+                      SizedBox(height: 16),
+                      Text('No items to display',
+                          style: TextStyle(color: Colors.grey, fontSize: 16)),
+                    ],
+                  ),
+                ),
+                children: _showEmpty ? [] : items,
               ),
             ),
           ),

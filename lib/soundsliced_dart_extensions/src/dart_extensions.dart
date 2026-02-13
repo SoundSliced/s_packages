@@ -875,6 +875,38 @@ extension StringExtensions on String {
     // Split by comma and convert each element to int
     return cleaned.split(',').map((e) => int.parse(e.trim())).toList();
   }
+
+  /// Truncates the string to [maxLength] characters.
+  /// If the string is longer than [maxLength], it is cut and [ellipsis]
+  /// (default '...') is appended. The returned string's total length
+  /// will not exceed [maxLength].
+  String truncate(int maxLength, {String ellipsis = '...'}) {
+    if (length <= maxLength) return this;
+    final cutoff = maxLength - ellipsis.length;
+    if (cutoff <= 0) return ellipsis.substring(0, maxLength);
+    return '${substring(0, cutoff)}$ellipsis';
+  }
+}
+
+//********************************** */
+
+/// Groups list elements by a key computed from each element.
+extension ListGroupByExtension<T> on List<T> {
+  /// Groups elements by the value returned by [keyOf].
+  ///
+  /// Example:
+  /// ```dart
+  /// ['cat', 'car', 'dog'].groupBy((s) => s[0]);
+  /// // {'c': ['cat', 'car'], 'd': ['dog']}
+  /// ```
+  Map<K, List<T>> groupBy<K>(K Function(T element) keyOf) {
+    final map = <K, List<T>>{};
+    for (final element in this) {
+      final key = keyOf(element);
+      (map[key] ??= []).add(element);
+    }
+    return map;
+  }
 }
 
 //********************************** */

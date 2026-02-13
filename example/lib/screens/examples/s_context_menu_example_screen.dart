@@ -69,12 +69,21 @@ class _SContextMenuExampleScreenState extends State<SContextMenuExampleScreen> {
                     SContextMenuItem(
                       label: 'Edit',
                       icon: Icons.edit,
+                      shortcutHint: '⌘E',
                       onPressed: () => _updateAction('Edit'),
                     ),
                     SContextMenuItem(
                       label: 'Copy',
                       icon: Icons.copy,
+                      shortcutHint: '⌘C',
                       onPressed: () => _updateAction('Copy'),
+                    ),
+                    SContextMenuItem(
+                      label: 'Paste',
+                      icon: Icons.paste,
+                      shortcutHint: '⌘V',
+                      disabled: true,
+                      onPressed: () => _updateAction('Paste'),
                     ),
                     SContextMenuItem(
                       label: 'Delete',

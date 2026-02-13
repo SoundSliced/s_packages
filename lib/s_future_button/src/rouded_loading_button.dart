@@ -86,6 +86,9 @@ class MyRoundedLoadingButton extends StatefulWidget {
   final FocusNode? focusNode;
   final void Function(bool)? onFocusChange;
 
+  /// Custom widget to display while loading.
+  final Widget? customLoaderWidget;
+
   /// initialize constructor
   MyRoundedLoadingButton({
     super.key,
@@ -114,6 +117,7 @@ class MyRoundedLoadingButton extends StatefulWidget {
     this.disabledColor,
     this.focusNode,
     this.onFocusChange,
+    this.customLoaderWidget,
   })  : assert(height.isFinite, 'Height must be a finite number'),
         assert(width.isFinite, 'Width must be a finite number'),
         assert(borderRadius.isFinite, 'Border radius must be a finite number');
@@ -137,15 +141,16 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
     final theme = Theme.of(context);
     final targetHeight = _safeDouble(widget.height, 50);
 
-    Widget loader = SizedBox(
-      height: widget.loaderSize,
-      width: widget.loaderSize,
-      child: TickerFreeCircularProgressIndicator(
-        color: widget.valueColor,
-        strokeWidth: widget.loaderStrokeWidth,
-        strokeCap: StrokeCap.round,
-      ),
-    );
+    Widget loader = widget.customLoaderWidget ??
+        SizedBox(
+          height: widget.loaderSize,
+          width: widget.loaderSize,
+          child: TickerFreeCircularProgressIndicator(
+            color: widget.valueColor,
+            strokeWidth: widget.loaderStrokeWidth,
+            strokeCap: StrokeCap.round,
+          ),
+        );
 
     Widget childStream = StreamBuilder(
       stream: _state,

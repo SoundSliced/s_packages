@@ -163,26 +163,19 @@ class SignalsWatch<T> extends StatefulWidget {
       autoDispose: autoDispose,
     );
 
-    // Store metadata if any lifecycle callbacks or metadata provided
-    if (onInit != null ||
-        onValueUpdated != null ||
-        onAfterBuild != null ||
-        onDispose != null ||
-        debugTrace ||
-        metadata != null) {
-      _storeSignalMetadata(
-        created,
-        _SignalMetadata<T>(
-          initialValue: initialValue,
-          onInit: onInit,
-          onValueUpdated: onValueUpdated,
-          onAfterBuild: onAfterBuild,
-          onDispose: onDispose,
-          debugTrace: debugTrace,
-          metadata: metadata,
-        ),
-      );
-    }
+    // Always store metadata so .reset() can access initialValue
+    _storeSignalMetadata(
+      created,
+      _SignalMetadata<T>(
+        initialValue: initialValue,
+        onInit: onInit,
+        onValueUpdated: onValueUpdated,
+        onAfterBuild: onAfterBuild,
+        onDispose: onDispose,
+        debugTrace: debugTrace,
+        metadata: metadata,
+      ),
+    );
 
     return register(created);
   }

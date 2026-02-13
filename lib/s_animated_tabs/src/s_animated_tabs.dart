@@ -9,6 +9,13 @@ class SAnimatedTabs extends StatefulWidget {
   /// List of tab titles
   final List<String> tabTitles;
 
+  /// Optional icons for each tab, shown before the title text.
+  final List<IconData?>? tabIcons;
+
+  /// Optional badge values for each tab (e.g., unread counts).
+  /// A null or empty string means no badge for that tab.
+  final List<String?>? tabBadges;
+
   /// Active tab text style
   final TextStyle? activeTextStyle;
 
@@ -67,6 +74,8 @@ class SAnimatedTabs extends StatefulWidget {
     super.key,
     required this.onTabSelected,
     required this.tabTitles,
+    this.tabIcons,
+    this.tabBadges,
     this.activeTextStyle,
     this.inactiveTextStyle,
     this.height,
@@ -385,11 +394,21 @@ class _SAnimatedTabsState extends State<SAnimatedTabs> {
                     child: Row(
                       children: List.generate(tabCount, (index) {
                         final isSelected = index == _selectedIndex;
+                        final icon = widget.tabIcons != null &&
+                                index < widget.tabIcons!.length
+                            ? widget.tabIcons![index]
+                            : null;
+                        final badge = widget.tabBadges != null &&
+                                index < widget.tabBadges!.length
+                            ? widget.tabBadges![index]
+                            : null;
 
                         return Expanded(
                           child: _EnhancedTabButton(
                             isSelected: isSelected,
                             title: widget.tabTitles[index],
+                            icon: icon,
+                            badge: badge,
                             activeStyle: activeTextStyle,
                             inactiveStyle: inactiveTextStyle,
                             animationDuration: widget.animationDuration,
@@ -415,6 +434,8 @@ class _SAnimatedTabsState extends State<SAnimatedTabs> {
 class _EnhancedTabButton extends StatefulWidget {
   final bool isSelected;
   final String title;
+  final IconData? icon;
+  final String? badge;
   final TextStyle activeStyle;
   final TextStyle inactiveStyle;
   final Duration animationDuration;
@@ -425,6 +446,8 @@ class _EnhancedTabButton extends StatefulWidget {
   const _EnhancedTabButton({
     required this.isSelected,
     required this.title,
+    this.icon,
+    this.badge,
     required this.activeStyle,
     required this.inactiveStyle,
     required this.animationDuration,
@@ -491,18 +514,58 @@ class _EnhancedTabButtonState extends State<_EnhancedTabButton> {
                 style: widget.isSelected
                     ? widget.activeStyle
                     : widget.inactiveStyle,
-                child: Text(
-                  widget.title,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: widget.isSelected
-                      ? TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          inherit: false,
-                        )
-                      : null, // Let inactive style take precedence
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (widget.icon != null) ...[
+                      Icon(
+                        widget.icon,
+                        size: 16,
+                        color: widget.isSelected
+                            ? widget.activeStyle.color
+                            : widget.inactiveStyle.color,
+                      ),
+                      const SizedBox(width: 4),
+                    ],
+                    Flexible(
+                      child: Text(
+                        widget.title,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: widget.isSelected
+                            ? TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                inherit: false,
+                              )
+                            : null,
+                      ),
+                    ),
+                    if (widget.badge != null && widget.badge!.isNotEmpty) ...[
+                      const SizedBox(width: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 1),
+                        decoration: BoxDecoration(
+                          color: widget.isSelected
+                              ? Colors.white.withValues(alpha: 0.3)
+                              : Colors.red,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          widget.badge!,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            inherit: false,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ),

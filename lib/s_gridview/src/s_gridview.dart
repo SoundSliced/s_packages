@@ -64,6 +64,10 @@ class SGridView extends StatefulWidget {
   /// Must be greater than 0. Defaults to 1.0.
   final double indicatorScrollFraction;
 
+  /// Widget to display when [children] is empty.
+  /// If null, an empty SizedBox is shown.
+  final Widget? emptyStateWidget;
+
   /// Creates a [SGridView].
   const SGridView({
     super.key,
@@ -77,6 +81,7 @@ class SGridView extends StatefulWidget {
     this.autoScrollToIndex,
     this.initialIndicatorJump = 2,
     this.indicatorScrollFraction = 1.0,
+    this.emptyStateWidget,
   })  : assert(crossAxisItemCount > 0,
             'crossAxisItemCount must be greater than zero'),
         assert(indicatorScrollFraction > 0,
@@ -323,6 +328,10 @@ class _SGridViewState extends State<SGridView> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.children.isEmpty && widget.emptyStateWidget != null) {
+      return widget.emptyStateWidget!;
+    }
+
     final gridView = widget.children.isNotEmpty
         ? widget.children.splitInChunks(widget.crossAxisItemCount)
         : <List<Widget>>[];

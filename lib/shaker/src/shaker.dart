@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+/// A controller for programmatically triggering shake animations.
+///
+/// Use with [Shaker] by passing a [ShakeController] instance.
+/// Call [shake] to trigger the animation and [stop] to cancel it.
+class ShakeController extends ChangeNotifier {
+  bool _isShaking = false;
+
+  /// Whether a shake is currently active.
+  bool get isShaking => _isShaking;
+
+  /// Triggers a shake animation.
+  void shake() {
+    _isShaking = true;
+    notifyListeners();
+  }
+
+  /// Stops the current shake animation.
+  void stop() {
+    _isShaking = false;
+    notifyListeners();
+  }
+}
+
 /// A widget that applies a shake animation effect to its child.
 ///
 /// The [Shaker] widget wraps a child widget and can trigger a shake animation
-/// when [isShaking] is true. The shake effect can be customized with various
-/// parameters including duration, curve, frequency, rotation, and offset.
+/// when [isShaking] is true or via a [ShakeController].
 ///
 /// Example:
 /// ```dart
@@ -15,7 +37,18 @@ import 'package:flutter_animate/flutter_animate.dart';
 ///   child: Text('Shake me!'),
 /// )
 /// ```
-class Shaker extends StatelessWidget {
+///
+/// With controller:
+/// ```dart
+/// final controller = ShakeController();
+/// Shaker(
+///   controller: controller,
+///   child: Text('Shake me!'),
+/// )
+/// // Later:
+/// controller.shake();
+/// ```
+class Shaker extends StatefulWidget {
   /// The widget to apply the shake effect to.
   final Widget child;
 
@@ -54,6 +87,9 @@ class Shaker extends StatelessWidget {
   /// If not specified, defaults to Offset(0.2, 0.5).
   final Offset? offset;
 
+  /// Optional controller for programmatic shake triggering.
+  final ShakeController? controller;
+
   /// Creates a [Shaker] widget.
   ///
   /// The [child] parameter must not be null.
@@ -67,23 +103,67 @@ class Shaker extends StatelessWidget {
     this.hz,
     this.rotation,
     this.offset,
+    this.controller,
   });
 
   @override
+  State<Shaker> createState() => _ShakerState();
+}
+
+class _ShakerState extends State<Shaker> {
+  bool _controllerShaking = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller?.addListener(_onControllerChanged);
+    _controllerShaking = widget.controller?.isShaking ?? false;
+  }
+
+  @override
+  void didUpdateWidget(covariant Shaker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller != widget.controller) {
+      oldWidget.controller?.removeListener(_onControllerChanged);
+      widget.controller?.addListener(_onControllerChanged);
+      _controllerShaking = widget.controller?.isShaking ?? false;
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.controller?.removeListener(_onControllerChanged);
+    super.dispose();
+  }
+
+  void _onControllerChanged() {
+    if (mounted) {
+      setState(() {
+        _controllerShaking = widget.controller?.isShaking ?? false;
+      });
+    }
+  }
+
+  bool get _shouldShake => widget.isShaking || _controllerShaking;
+
+  @override
   Widget build(BuildContext context) {
-    return child.animate(
-      effects: isShaking == true
+    return widget.child.animate(
+      effects: _shouldShake
           ? [
               ShakeEffect(
-                duration: duration ?? const Duration(milliseconds: 1500),
-                curve: curve ?? Curves.easeInOut,
-                hz: hz ?? 4,
-                rotation: rotation ?? -0.03,
-                offset: offset ?? const Offset(0.2, 0.5),
+                duration: widget.duration ?? const Duration(milliseconds: 1500),
+                curve: widget.curve ?? Curves.easeInOut,
+                hz: widget.hz ?? 4,
+                rotation: widget.rotation ?? -0.03,
+                offset: widget.offset ?? const Offset(0.2, 0.5),
               ),
             ]
           : null,
-      onComplete: (controller) => onComplete?.call(),
+      onComplete: (controller) {
+        widget.controller?.stop();
+        widget.onComplete?.call();
+      },
     );
   }
 }

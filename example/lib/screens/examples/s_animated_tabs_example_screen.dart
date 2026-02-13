@@ -39,6 +39,8 @@ class _SAnimatedTabsExampleScreenState
               const SizedBox(height: 12),
               SAnimatedTabs(
                 tabTitles: const ['Home', 'Profile', 'Settings'],
+                tabIcons: const [Icons.home, Icons.person, Icons.settings],
+                tabBadges: const ['3', null, '!'],
                 onTabSelected: (index) {
                   setState(() {
                     _selectedIndex = index;

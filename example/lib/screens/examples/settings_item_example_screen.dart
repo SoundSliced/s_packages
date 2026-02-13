@@ -39,7 +39,10 @@ class _SettingsItemExampleScreenState extends State<SettingsItemExampleScreen> {
             parameters: ExpandableParameters(
               prefixIcon: Icons.notifications,
               title: 'Notifications',
+              subtitle: 'Manage push notifications',
+              description: 'Control how and when you receive alerts',
               isSwitch: true,
+              trailing: Icon(Icons.info_outline, size: 18),
             ),
             initialState: true,
           ),

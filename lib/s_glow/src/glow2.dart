@@ -19,6 +19,7 @@ class Glow2 extends StatefulWidget {
     this.curve = Curves.fastOutSlowIn,
     this.glowRadiusFactor = 0.5,
     this.startInsetFactor = 0.1,
+    this.onAnimationComplete,
   }) : assert(
           glowShape != BoxShape.circle || glowBorderRadius == null,
           'Cannot specify a border radius if the shape is a circle.',
@@ -68,6 +69,9 @@ class Glow2 extends StatefulWidget {
   ///
   /// Range: 0.0 (start at border) to 1.0 (start at center). Defaults to 0.1.
   final double startInsetFactor;
+
+  /// Called when the glow animation completes a cycle.
+  final VoidCallback? onAnimationComplete;
 
   @override
   State<Glow2> createState() => _Glow2State();
@@ -162,6 +166,7 @@ class _Glow2State extends State<Glow2> {
         glowRadiusFactor: widget.glowRadiusFactor,
         child: widget.child,
         onEndCallback: () {
+          widget.onAnimationComplete?.call();
           if (widget.repeat && mounted) {
             _animationKey.update<int>((s) => s + 1);
           }

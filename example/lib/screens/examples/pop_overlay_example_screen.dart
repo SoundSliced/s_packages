@@ -42,6 +42,12 @@ class PopOverlayExampleScreen extends StatelessWidget {
         id: 'draggable_popup',
         borderRadius: BorderRadius.circular(16),
         isDraggeable: true,
+        shouldDismissOnEscapeKey: false,
+        dragBounds:
+            Rect.fromCenter(center: Offset.zero, width: 600, height: 800),
+        onDragStart: () => debugPrint('Drag started'),
+        onDragEnd: () => debugPrint('Drag ended'),
+        onMadeVisible: () => debugPrint('Popup visible'),
         widget: Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
@@ -56,6 +62,11 @@ class PopOverlayExampleScreen extends StatelessWidget {
               const Text(
                 'Drag me around!',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Bounded drag • Escape disabled',
+                style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               const SizedBox(height: 24),
               ElevatedButton(
@@ -72,8 +83,17 @@ class PopOverlayExampleScreen extends StatelessWidget {
   void _showFramedPopup(BuildContext context) {
     final template = FrameDesign(
       title: 'Settings',
+      subtitle: 'App preferences',
       showCloseButton: true,
       titlePrefixIcon: Icons.settings,
+      titleBarColor: Colors.indigo.shade50,
+      bottomBarColor: Colors.grey.shade100,
+      headerTrailingWidgets: [
+        IconButton(
+          icon: const Icon(Icons.help_outline, size: 20),
+          onPressed: () {},
+        ),
+      ],
       successButtonTitle: 'Save',
       cancelButtonTitle: 'Cancel',
       onSuccess: () {
@@ -206,6 +226,24 @@ class PopOverlayExampleScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  _showBasicPopup(context);
+                  _showDraggablePopup(context);
+                  Future.delayed(const Duration(seconds: 2), () {
+                    PopOverlay.dismissAllPops();
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Visible: ${PopOverlay.visibleCount} popups — dismissing all in 2s',
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Dismiss All (after 2s)'),
               ),
             ],
           ),

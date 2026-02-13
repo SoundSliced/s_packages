@@ -45,11 +45,19 @@ class _SInkButtonExampleScreenState extends State<SInkButtonExampleScreen> {
 
               // Basic ink button
               const Text(
-                'Basic Ink Button:',
+                'Basic Ink Button (with hover):',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 12),
               SInkButton(
+                hoverColor: Colors.blue.withValues(alpha: 0.15),
+                splashDuration: const Duration(milliseconds: 400),
+                onHover: (isHovering) {
+                  if (isHovering) _showMessage('Hovering');
+                },
+                onFocusChange: (hasFocus) {
+                  if (hasFocus) _showMessage('Focused');
+                },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 12),

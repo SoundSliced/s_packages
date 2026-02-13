@@ -39,6 +39,11 @@ class _KeystrokeListenerExampleScreenState
       ),
       body: KeystrokeListener(
         enableVisualDebug: _enableVisualDebug,
+        actionHandlers: {
+          CopySelectionTextIntent: () => _logEvent('Copy (action handler)'),
+          PasteTextIntent: () => _logEvent('Paste (action handler)'),
+          SelectAllTextIntent: () => _logEvent('Select All (action handler)'),
+        },
         onKeyEvent: (event) {
           final isCtrlPressed = HardwareKeyboard.instance.isControlPressed;
           final isMetaPressed = HardwareKeyboard.instance.isMetaPressed;

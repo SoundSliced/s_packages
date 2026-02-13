@@ -12,6 +12,7 @@ class _SLiquidPullToRefreshExampleScreenState
     extends State<SLiquidPullToRefreshExampleScreen> {
   final List<int> _items = List.generate(15, (index) => index);
   int _refreshCount = 0;
+  double _dragProgress = 0.0;
 
   Future<void> _handleRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
@@ -39,7 +40,7 @@ class _SLiquidPullToRefreshExampleScreenState
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'Pull down to refresh • Refreshed $_refreshCount times',
+                    'Pull down to refresh • Refreshed $_refreshCount times • Drag: ${(_dragProgress * 100).toInt()}%',
                     style: TextStyle(color: Colors.blue.shade900),
                   ),
                 ),
@@ -51,6 +52,10 @@ class _SLiquidPullToRefreshExampleScreenState
           Expanded(
             child: SLiquidPullToRefresh(
               onRefresh: _handleRefresh,
+              triggerDistance: 0.3,
+              onDragProgress: (progress) {
+                setState(() => _dragProgress = progress);
+              },
               child: ListView.builder(
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(16),

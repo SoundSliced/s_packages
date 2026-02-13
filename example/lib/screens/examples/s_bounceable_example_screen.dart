@@ -42,6 +42,8 @@ class _SBounceableExampleScreenState extends State<SBounceableExampleScreen> {
               // Basic bounceable
               SBounceable(
                 scaleFactor: _scaleFactor,
+                curve: Curves.easeOutBack,
+                enableHapticFeedback: true,
                 onTap: () {
                   setState(() => _tapCount++);
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -61,6 +63,15 @@ class _SBounceableExampleScreenState extends State<SBounceableExampleScreen> {
                     ),
                   );
                 },
+                onLongPress: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Long press detected!'),
+                      backgroundColor: Colors.orange,
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                },
                 child: Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
@@ -68,7 +79,7 @@ class _SBounceableExampleScreenState extends State<SBounceableExampleScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    'Tap or Double Tap Me!',
+                    'Tap, Double Tap, or Long Press!',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: 18,

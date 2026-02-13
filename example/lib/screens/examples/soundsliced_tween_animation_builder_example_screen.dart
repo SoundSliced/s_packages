@@ -104,7 +104,7 @@ class _SoundslicedTweenAnimationBuilderExampleScreenState
 
                 // Auto-repeat rotation
                 const Text(
-                  'Auto-Repeat Rotation:',
+                  'Auto-Repeat Rotation (3 times with delay):',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 16),
@@ -112,6 +112,8 @@ class _SoundslicedTweenAnimationBuilderExampleScreenState
                   tween: Tween(begin: 0.0, end: 360.0),
                   duration: const Duration(seconds: 3),
                   autoRepeat: true,
+                  repeatCount: 3,
+                  delay: const Duration(milliseconds: 500),
                   builder: (context, value, child) {
                     return Transform.rotate(
                       angle: value * 3.14159 / 180, // Convert to radians

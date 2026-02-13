@@ -106,24 +106,29 @@ class _SExpendableMenuExampleScreenState
                   items: [
                     SExpandableItem(
                       icon: Icons.home,
+                      tooltip: 'Home',
                       onTap: (pos) {
                         setState(() => _lastTapped = 'Home');
                       },
                     ),
                     SExpandableItem(
                       icon: Icons.search,
+                      tooltip: 'Search',
                       onTap: (pos) {
                         setState(() => _lastTapped = 'Search');
                       },
                     ),
                     SExpandableItem(
                       icon: Icons.favorite,
+                      tooltip: 'Favorite',
                       onTap: (pos) {
                         setState(() => _lastTapped = 'Favorite');
                       },
                     ),
                     SExpandableItem(
                       icon: Icons.settings,
+                      tooltip: 'Settings',
+                      disabled: true,
                       onTap: (pos) {
                         setState(() => _lastTapped = 'Settings');
                       },
@@ -134,6 +139,9 @@ class _SExpendableMenuExampleScreenState
                   backgroundColor: backgroundColor,
                   iconColor: iconColor,
                   expandDirection: _expandDirection,
+                  onExpansionChanged: (isExpanded) {
+                    debugPrint('Menu expanded: $isExpanded');
+                  },
                 ),
               ),
             ),

@@ -179,6 +179,18 @@ class WeekCalendar extends StatefulWidget {
   /// Toggles the display of the calendar popup on header tap
   final bool showCalendarPopupOnHeaderTap;
 
+  /// Earliest selectable date. Days before this are disabled.
+  final DateTime? minDate;
+
+  /// Latest selectable date. Days after this are disabled.
+  final DateTime? maxDate;
+
+  /// Set of dates that should display an event indicator dot.
+  final Set<DateTime>? eventIndicatorDates;
+
+  /// Color of the event indicator dot. Defaults to the theme's primary color.
+  final Color? eventIndicatorColor;
+
   /// Default constructor for standard calendar
   const WeekCalendar({
     super.key,
@@ -203,6 +215,10 @@ class WeekCalendar extends StatefulWidget {
     this.onHeaderTodayDate,
     this.isUtc = true,
     this.showCalendarPopupOnHeaderTap = true,
+    this.minDate,
+    this.maxDate,
+    this.eventIndicatorDates,
+    this.eventIndicatorColor,
   });
 
   /// Preconfigured constructor for outlined variant
@@ -228,6 +244,10 @@ class WeekCalendar extends StatefulWidget {
     this.onHeaderTodayDate,
     this.isUtc = true,
     this.showCalendarPopupOnHeaderTap = true,
+    this.minDate,
+    this.maxDate,
+    this.eventIndicatorDates,
+    this.eventIndicatorColor,
   }) : calendarType = WeekCalendarType.outlined;
 
   /// Preconfigured constructor for minimal variant
@@ -257,6 +277,10 @@ class WeekCalendar extends StatefulWidget {
     this.onHeaderTodayDate,
     this.isUtc = true,
     this.showCalendarPopupOnHeaderTap = true,
+    this.minDate,
+    this.maxDate,
+    this.eventIndicatorDates,
+    this.eventIndicatorColor,
   }) : calendarType = WeekCalendarType.minimal;
 
   @override
@@ -494,8 +518,30 @@ class _WeekCalendarState extends State<WeekCalendar> {
     }
   }
 
+  /// Returns true if the day is outside the min/max date boundaries
+  bool _isDayDisabled(DateTime day) {
+    if (widget.minDate != null) {
+      final min = DateTime(
+          widget.minDate!.year, widget.minDate!.month, widget.minDate!.day);
+      if (day.isBefore(min)) return true;
+    }
+    if (widget.maxDate != null) {
+      final max = DateTime(
+          widget.maxDate!.year, widget.maxDate!.month, widget.maxDate!.day);
+      if (day.isAfter(max)) return true;
+    }
+    return false;
+  }
+
+  /// Returns true if the day has an event indicator
+  bool _hasEvent(DateTime day) {
+    if (widget.eventIndicatorDates == null) return false;
+    return widget.eventIndicatorDates!.any((d) => _isSameDay(d, day));
+  }
+
   /// Handles date selection logic and month transitions
   void _handleDaySelection(DateTime day) {
+    if (_isDayDisabled(day)) return;
     widget.onDateSelected(day);
     final selectedMonth = DateTime(day.year, day.month);
     if (selectedMonth != DateTime(_headerDate.year, _headerDate.month)) {
@@ -530,7 +576,7 @@ class _WeekCalendarState extends State<WeekCalendar> {
     return Padding(
       padding: isMinimal
           ? const EdgeInsets.symmetric(horizontal: 8)
-          : const EdgeInsets.symmetric(horizontal: 16),
+          : const EdgeInsets.symmetric(horizontal: 8),
       child: Box(
         height: isMinimal ? 24 : 36,
         // color: Colors.yellow,
@@ -540,7 +586,7 @@ class _WeekCalendarState extends State<WeekCalendar> {
           children: [
             Expanded(
               child: Padding(
-                padding: const Pad(horizontal: 11.0),
+                padding: const Pad(horizontal: 5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -925,7 +971,8 @@ class _WeekCalendarState extends State<WeekCalendar> {
                                 child: SizedBox(
                                   width: dayWidth,
                                   child: SDisabled(
-                                    isDisabled: day.isAfter(today),
+                                    isDisabled: day.isAfter(today) ||
+                                        _isDayDisabled(day),
                                     child: SInkButton(
                                       color: Colors.blueAccent,
                                       onTap: (pos) {
@@ -959,6 +1006,20 @@ class _WeekCalendarState extends State<WeekCalendar> {
                                           Flexible(
                                               child: _buildDayIndicator(
                                                   day, isSelected)),
+                                          if (_hasEvent(day))
+                                            Container(
+                                              width: 5,
+                                              height: 5,
+                                              margin:
+                                                  const EdgeInsets.only(top: 2),
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: widget
+                                                        .eventIndicatorColor ??
+                                                    Theme.of(context)
+                                                        .primaryColor,
+                                              ),
+                                            ),
                                         ],
                                       ),
                                     ),

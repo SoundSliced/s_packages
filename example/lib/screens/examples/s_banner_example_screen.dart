@@ -25,13 +25,22 @@ class _SBannerExampleScreenState extends State<SBannerExampleScreen> {
             children: [
               // Basic banner example
               const Text(
-                'Basic Banner:',
+                'Basic Banner (with onTap + animateVisibility):',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 16),
               SBanner(
                 bannerPosition: _position,
                 isActive: _isActive,
+                animateVisibility: true,
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Banner tapped!'),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                },
                 bannerContent: Builder(
                   builder: (context) => Text(
                     'NEW',
@@ -56,9 +65,9 @@ class _SBannerExampleScreenState extends State<SBannerExampleScreen> {
               ),
               const SizedBox(height: 32),
 
-              // Icon banner example
+              // Icon banner example with gradient
               const Text(
-                'Banner with Icon:',
+                'Gradient Banner:',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 16),
@@ -71,6 +80,9 @@ class _SBannerExampleScreenState extends State<SBannerExampleScreen> {
                   size: 20,
                 ),
                 bannerColor: Colors.purple,
+                gradient: const LinearGradient(
+                  colors: [Colors.purple, Colors.deepPurple],
+                ),
                 child: Container(
                   width: 200,
                   height: 120,

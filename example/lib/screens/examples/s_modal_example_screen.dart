@@ -22,6 +22,7 @@ class SModalExampleScreen extends StatelessWidget {
     Modal.showSnackbar(
       text: 'Something went wrong! ❌',
       backgroundColor: Colors.red,
+      barrierColor: Colors.red.shade100.withValues(alpha: 0.5),
       prefixIcon: Icons.error,
       duration: const Duration(seconds: 3),
     );
@@ -50,6 +51,7 @@ class SModalExampleScreen extends StatelessWidget {
       ),
       modalType: ModalType.sheet,
       size: 300,
+      barrierColor: Colors.black.withValues(alpha: 0.5),
     );
   }
 
@@ -103,6 +105,7 @@ class SModalExampleScreen extends StatelessWidget {
       ),
       modalType: ModalType.dialog,
       shouldBlurBackground: true,
+      barrierColor: Colors.yellow.shade700.withValues(alpha: 0.3),
     );
   }
 

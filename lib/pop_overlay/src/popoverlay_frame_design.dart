@@ -79,6 +79,22 @@ class FrameDesign {
   final String? info;
 
   final Color? successButtonColor, cancelButtonColor;
+
+  /// Optional color for the title bar background.
+  /// Defaults to a dark color if not provided.
+  final Color? titleBarColor;
+
+  /// Optional color for the bottom bar background.
+  /// Defaults to a light grey if not provided.
+  final Color? bottomBarColor;
+
+  /// Optional subtitle text displayed below the title in the header.
+  final String? subtitle;
+
+  /// Optional list of trailing widgets to display in the header,
+  /// placed between the info button and the close button.
+  final List<Widget>? headerTrailingWidgets;
+
   // Optional generic focus traversal customization
   final FocusTraversalPolicy? traversalPolicy;
   final bool cycleFocusWithinGroup;
@@ -94,6 +110,7 @@ class FrameDesign {
     this.onCancel,
     this.cancelButtonTitle = "Cancel",
     this.title = "Title",
+    this.subtitle,
     this.successButtonTitle = "Save",
     this.showCloseButton = true,
     this.conditionToDisableSuccessButton = false,
@@ -106,6 +123,9 @@ class FrameDesign {
     this.info,
     this.successButtonColor,
     this.cancelButtonColor,
+    this.titleBarColor,
+    this.bottomBarColor,
+    this.headerTrailingWidgets,
     this.traversalPolicy,
     this.cycleFocusWithinGroup = false,
     this.cancelButtonFocusNode,
@@ -303,11 +323,15 @@ class _PopOverlayFrameDesignWidgetState
                         children: [
                           _PopOverlayHeader(
                             title: widget.frameDesign!.title,
+                            subtitle: widget.frameDesign!.subtitle,
                             titlePrefixIcon:
                                 widget.frameDesign!.titlePrefixIcon,
                             showCloseButton:
                                 widget.frameDesign!.showCloseButton,
                             titleBarHeight: _computedTitleBarHeight,
+                            titleBarColor: widget.frameDesign!.titleBarColor,
+                            headerTrailingWidgets:
+                                widget.frameDesign!.headerTrailingWidgets,
                             width: null,
                             isDraggable: widget.isDraggable,
                             popContent: widget.popContent,
@@ -327,6 +351,8 @@ class _PopOverlayFrameDesignWidgetState
                                   widget.frameDesign!.successButtonColor,
                               cancelButtonColor:
                                   widget.frameDesign!.cancelButtonColor,
+                              bottomBarColor:
+                                  widget.frameDesign!.bottomBarColor,
                               successButtonTitle:
                                   widget.frameDesign!.successButtonTitle,
                               cancelButtonTitle:
@@ -403,9 +429,13 @@ class _PopOverlayFrameDesignWidgetState
             children: [
               _PopOverlayHeader(
                 title: widget.frameDesign!.title,
+                subtitle: widget.frameDesign!.subtitle,
                 titlePrefixIcon: widget.frameDesign!.titlePrefixIcon,
                 showCloseButton: widget.frameDesign!.showCloseButton,
                 titleBarHeight: _computedTitleBarHeight,
+                titleBarColor: widget.frameDesign!.titleBarColor,
+                headerTrailingWidgets:
+                    widget.frameDesign!.headerTrailingWidgets,
                 width: _computedWidth ?? 600.0,
                 isDraggable: widget.isDraggable,
                 popContent: widget.popContent,
@@ -416,6 +446,7 @@ class _PopOverlayFrameDesignWidgetState
                 height: widget.frameDesign!.bottomBarHeight,
                 cancelButtonTitle: widget.frameDesign!.cancelButtonTitle,
                 successButtonTitle: widget.frameDesign!.successButtonTitle,
+                bottomBarColor: widget.frameDesign!.bottomBarColor,
                 isSuccessButtonDisabled:
                     widget.frameDesign!.conditionToDisableSuccessButton,
                 showBottomButtonBar: widget.frameDesign!.showBottomButtonBar,
@@ -489,7 +520,9 @@ class _PopOverlayFrameDesignWidgetState
         cursor: SystemMouseCursors.move,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
+          onPanStart: (_) => widget.popContent.onDragStart?.call(),
           onPanUpdate: _handleNonTemplateDrag,
+          onPanEnd: (_) => widget.popContent.onDragEnd?.call(),
           child: styledContent,
         ),
       );
@@ -500,14 +533,18 @@ class _PopOverlayFrameDesignWidgetState
 
   /// Handles dragging for non-template popups using the same system as template popups
   void _handleNonTemplateDrag(DragUpdateDetails details) {
-    // Use the same dragging logic as template popups - this ensures consistency
-    final currentOffset = widget.popContent.positionController.state;
-    final newOffset = currentOffset + details.delta;
+    var newOffset = widget.popContent.positionController.state + details.delta;
 
-    // Only update if the change is significant enough (reduces micro-updates)
-    if ((newOffset - currentOffset).distance > 0.5) {
-      widget.popContent.positionController.state = newOffset;
+    // Clamp to dragBounds if specified
+    if (widget.popContent.dragBounds != null) {
+      final bounds = widget.popContent.dragBounds!;
+      newOffset = Offset(
+        newOffset.dx.clamp(bounds.left, bounds.right),
+        newOffset.dy.clamp(bounds.top, bounds.bottom),
+      );
     }
+
+    widget.popContent.positionController.state = newOffset;
   }
 }
 
@@ -592,6 +629,7 @@ class _PopOverlayContainerState extends State<_PopOverlayContainer> {
 /// This widget only rebuilds when header-specific properties change.
 class _PopOverlayHeader extends StatelessWidget {
   final String title;
+  final String? subtitle;
   final IconData titlePrefixIcon;
   final bool showCloseButton;
   final double titleBarHeight;
@@ -599,6 +637,8 @@ class _PopOverlayHeader extends StatelessWidget {
   final bool isDraggable;
   final PopOverlayContent popContent;
   final String? info;
+  final Color? titleBarColor;
+  final List<Widget>? headerTrailingWidgets;
   static const double _titleBarBorderRadius = 10.0;
   static const EdgeInsets _headerPadding = EdgeInsets.symmetric(horizontal: 15);
 
@@ -610,7 +650,10 @@ class _PopOverlayHeader extends StatelessWidget {
     required this.width,
     required this.isDraggable,
     required this.popContent,
+    this.subtitle,
     this.info,
+    this.titleBarColor,
+    this.headerTrailingWidgets,
   });
 
   @override
@@ -618,10 +661,11 @@ class _PopOverlayHeader extends StatelessWidget {
     return Container(
       height: titleBarHeight,
       width: width,
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 40, 45,
-            50), // Slightly lighter dark color for better visibility
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: titleBarColor ??
+            const Color.fromARGB(255, 40, 45,
+                50), // Slightly lighter dark color for better visibility
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(_titleBarBorderRadius),
           topRight: Radius.circular(_titleBarBorderRadius),
         ),
@@ -635,6 +679,7 @@ class _PopOverlayHeader extends StatelessWidget {
             Expanded(
               child: _DraggableTitle(
                 title: title,
+                subtitle: subtitle,
                 titlePrefixIcon: titlePrefixIcon,
                 isDraggable: isDraggable,
                 popContent: popContent,
@@ -642,6 +687,7 @@ class _PopOverlayHeader extends StatelessWidget {
             ),
             if (info != null)
               PopOverlay.infoButton(info: info!, popContentId: popContent.id),
+            if (headerTrailingWidgets != null) ...headerTrailingWidgets!,
             if (showCloseButton) PopOverlay.closeButton(popContent.id),
           ],
         ),
@@ -656,6 +702,7 @@ class _PopOverlayHeader extends StatelessWidget {
 /// This widget only rebuilds when title or dragging properties change.
 class _DraggableTitle extends StatelessWidget {
   final String title;
+  final String? subtitle;
   final IconData titlePrefixIcon;
   final bool isDraggable;
   final PopOverlayContent popContent;
@@ -669,12 +716,14 @@ class _DraggableTitle extends StatelessWidget {
     required this.titlePrefixIcon,
     required this.isDraggable,
     required this.popContent,
+    this.subtitle,
   });
 
   @override
   Widget build(BuildContext context) {
     final titleContent = _TitleContent(
       title: title,
+      subtitle: subtitle,
       titlePrefixIcon: titlePrefixIcon,
     );
 
@@ -691,7 +740,9 @@ class _DraggableTitle extends StatelessWidget {
       cursor: SystemMouseCursors.move,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
+        onPanStart: (_) => popContent.onDragStart?.call(),
         onPanUpdate: _handlePanUpdate,
+        onPanEnd: (_) => popContent.onDragEnd?.call(),
         child: Container(
           height: _containerHeight,
           alignment: _containerAlignment,
@@ -702,17 +753,19 @@ class _DraggableTitle extends StatelessWidget {
   }
 
   /// Handles pan update for dragging functionality
-  ///
-  /// Optimized to minimize allocations and use efficient state updates
   void _handlePanUpdate(DragUpdateDetails details) {
-    // OPTIMIZATION: Batch position updates to reduce rebuild frequency
-    final currentOffset = popContent.positionController.state;
-    final newOffset = currentOffset + details.delta;
+    var newOffset = popContent.positionController.state + details.delta;
 
-    // Only update if the change is significant enough (reduces micro-updates)
-    if ((newOffset - currentOffset).distance > 0.5) {
-      popContent.positionController.state = newOffset;
+    // Clamp to dragBounds if specified
+    if (popContent.dragBounds != null) {
+      final bounds = popContent.dragBounds!;
+      newOffset = Offset(
+        newOffset.dx.clamp(bounds.left, bounds.right),
+        newOffset.dy.clamp(bounds.top, bounds.bottom),
+      );
     }
+
+    popContent.positionController.state = newOffset;
   }
 }
 
@@ -722,6 +775,7 @@ class _DraggableTitle extends StatelessWidget {
 /// This widget only rebuilds when title or icon properties change.
 class _TitleContent extends StatelessWidget {
   final String title;
+  final String? subtitle;
   final IconData titlePrefixIcon;
 
   static const double _iconSize = 24.0;
@@ -730,6 +784,7 @@ class _TitleContent extends StatelessWidget {
   const _TitleContent({
     required this.title,
     required this.titlePrefixIcon,
+    this.subtitle,
   });
 
   @override
@@ -746,14 +801,30 @@ class _TitleContent extends StatelessWidget {
         ),
         const SizedBox(width: _iconTextSpacing),
         Flexible(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey[300],
-            ),
-            overflow: TextOverflow.ellipsis,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey[300],
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+              if (subtitle != null)
+                Text(
+                  subtitle!,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey[500],
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+            ],
           ),
         ),
       ],
@@ -777,6 +848,7 @@ class _PopOverlayBottomBar extends StatelessWidget {
   final double? height;
   final double? width; // Added for width control
   final Color? successButtonColor, cancelButtonColor;
+  final Color? bottomBarColor;
   final bool? cycleFocusWithinGroup;
   final FocusNode? cancelButtonFocusNode;
   final FocusNode? saveButtonFocusNode;
@@ -797,6 +869,7 @@ class _PopOverlayBottomBar extends StatelessWidget {
     this.width, // Added for width control
     this.successButtonColor,
     this.cancelButtonColor,
+    this.bottomBarColor,
     this.cycleFocusWithinGroup,
     this.cancelButtonFocusNode,
     this.saveButtonFocusNode,
@@ -812,6 +885,7 @@ class _PopOverlayBottomBar extends StatelessWidget {
       cancelButtonTitle: cancelButtonTitle,
       successButtonColor: successButtonColor,
       cancelButtonColor: cancelButtonColor,
+      bottomBarColor: bottomBarColor,
       cancelButtonFocusNode: cancelButtonFocusNode ??
           popContent.frameDesign?.cancelButtonFocusNode,
       saveButtonFocusNode:
@@ -890,6 +964,7 @@ class _BottomBarButtons extends StatelessWidget {
   static const double _buttonHeight = 48.0;
   static const double _borderRadiusValue = 12.0;
   final Color? successButtonColor, cancelButtonColor;
+  final Color? bottomBarColor;
   final FocusNode? cancelButtonFocusNode;
   final FocusNode? saveButtonFocusNode;
   final bool cycleFocusWithinGroup;
@@ -910,6 +985,7 @@ class _BottomBarButtons extends StatelessWidget {
     this.width, // Added for width control
     this.successButtonColor,
     this.cancelButtonColor,
+    this.bottomBarColor,
     this.cancelButtonFocusNode,
     this.saveButtonFocusNode,
     this.cycleFocusWithinGroup = false,
@@ -926,10 +1002,11 @@ class _BottomBarButtons extends StatelessWidget {
     final container = Container(
       height: height,
       padding: EdgeInsets.all(height == null ? _containerPadding : 8),
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(
-            198, 216, 222, 233), // More opaque for better visibility
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: bottomBarColor ??
+            const Color.fromARGB(
+                198, 216, 222, 233), // More opaque for better visibility
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(10),
           bottomRight: Radius.circular(10),
         ),

@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:s_packages/s_modal/src/s_modal_libs.dart';
 import 'package:s_packages/soundsliced_dart_extensions/src/dart_extensions.dart';
-
-import 'package:sizer/sizer.dart';
 
 ValueNotifier<bool> _connectionNotifier = ValueNotifier<bool>(false);
 
@@ -22,6 +20,8 @@ class AppInternetConnectivity {
   // Simple, synchronous dedupe of noisy status events.
   // No timers/futures: we only react when the value actually changes.
   static bool? _lastEmitted;
+  static bool _showNoInternetSnackbar = false;
+  static String _noInternetSnackbarMessage = "No Internet Connection";
 
   /// Current connectivity state.
   ///
@@ -33,12 +33,29 @@ class AppInternetConnectivity {
   /// Example:
   /// `ValueListenableBuilder(valueListenable: AppInternetConnectivity.listenable, ...)`
   static ValueListenable<bool> get listenable => _connectionNotifier;
+
+  /// Whether the no-internet snackbar overlay is enabled.
+  static bool get showNoInternetSnackbar => _showNoInternetSnackbar;
+  static set showNoInternetSnackbar(bool value) {
+    _showNoInternetSnackbar = value;
+    if (!value) {
+      // Dismiss any active snackbar when disabled
+      Modal.dismissById("_NoInternetConnectionSnack_");
+    } else if (!isConnected) {
+      // Show snackbar immediately if currently offline
+      toggleConnectivitySnackbar(false,
+          noInternetMessage: _noInternetSnackbarMessage);
+    }
+  }
+
   static StreamSubscription<InternetStatus>? _onConnectivityChangedSubs;
 
   static Future<void> initialiseInternetConnectivityListener({
     VoidCallback? onConnected,
     VoidCallback? onDisconnected,
     bool showDebugLog = false,
+    bool showNoInternetSnackbar = false,
+    String? noInternetSnackbarMessage,
     bool emitInitialStatus = false,
   }) async {
     // Touch debug revision so it's not tree-shaken during analysis.
@@ -46,6 +63,13 @@ class AppInternetConnectivity {
     if (showDebugLog) {
       _showDebugPrint = true;
       debugPrint('AppInternetConnectivity revision=$_debugApiRevision');
+    }
+
+    if (noInternetSnackbarMessage != null) {
+      _noInternetSnackbarMessage = noInternetSnackbarMessage;
+    }
+    if (showNoInternetSnackbar) {
+      _showNoInternetSnackbar = showNoInternetSnackbar;
     }
     // Allow re-initialization safely.
     _isDisposed = false;
@@ -142,6 +166,8 @@ class AppInternetConnectivity {
       }
       try {
         _onConnectedCallback?.call();
+
+        toggleConnectivitySnackbar(true);
       } catch (e) {
         debugPrint('Error in onConnected callback: $e');
       }
@@ -151,6 +177,12 @@ class AppInternetConnectivity {
       }
       try {
         _onDisconnectedCallback?.call();
+        if (_showNoInternetSnackbar) {
+          toggleConnectivitySnackbar(
+            false,
+            noInternetMessage: _noInternetSnackbarMessage,
+          );
+        }
       } catch (e) {
         debugPrint('Error in onDisconnected callback: $e');
       }
@@ -165,95 +197,31 @@ class AppInternetConnectivity {
     await _onConnectivityChangedSubs?.cancel();
     _onConnectivityChangedSubs = null;
   }
-}
 
-///**************************************************** */
-
-class NoInternetConnectionPopup extends StatelessWidget {
-  const NoInternetConnectionPopup({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.topCenter,
-      children: [
-        //background overlay
-        Box(
-          height: 100.h,
-          width: 100.w,
-          color: Colors.red.shade900.withValues(alpha: 0.3),
-          child: Container(),
-        ),
-
-        // Popup
-        //
-        // Important (Flutter Web): avoid external ticker-driven animations here.
-        // During hot restart / view detach, ticker frames can outlive the view and
-        // trigger "Trying to render a disposed EngineFlutterView".
-        //
-        // These implicit animations are driven by the widget tree and stop when
-        // the subtree is removed.
-        AnimatedSlide(
-          offset: const Offset(0, 0.20),
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeInBack,
-          child: AnimatedOpacity(
-            opacity: 1,
-            duration: const Duration(milliseconds: 250),
-            curve: Curves.easeOut,
-            child: Container(
-              height: 70,
-              width: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.red.shade300.withValues(alpha: 0.9),
-                border: Border.all(color: Colors.red.shade700, width: 0.5),
-                boxShadow: const [
-                  BoxShadow(
-                    offset: Offset(0, 5),
-                    blurRadius: 15,
-                    spreadRadius: -10,
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Text(
-                        "Offline ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Text(
-                        "No Internet connection",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+  //
+  static void toggleConnectivitySnackbar(
+    bool status, {
+    Color? dismissBarrierColor,
+    Color? snackColor,
+    IconData? prefixIcon,
+    String? noInternetMessage,
+  }) {
+    if (status == false) {
+      Modal.showSnackbar(
+        id: "_NoInternetConnectionSnack_",
+        barrierColor:
+            dismissBarrierColor ?? Colors.red.shade200.withValues(alpha: 0.5),
+        backgroundColor: snackColor ?? Colors.red.shade900,
+        text: noInternetMessage ?? _noInternetSnackbarMessage,
+        isDismissible: false,
+        showDurationTimer: false,
+        showCloseIcon: false,
+        displayMode: SnackbarDisplayMode.staggered,
+        prefixIcon: prefixIcon ?? Icons.wifi_off,
+      );
+    } else {
+      Modal.dismissById("_NoInternetConnectionSnack_");
+    }
   }
 }
 

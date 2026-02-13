@@ -10,8 +10,21 @@ class SignalsWatchExampleScreen extends StatefulWidget {
 
 class _SignalsWatchExampleScreenState extends State<SignalsWatchExampleScreen> {
   // Create signals with debug labels
-  final counter = SignalsWatch.signal(0, debugLabel: 'example.counter');
-  final userName = SignalsWatch.signal('Guest', debugLabel: 'example.userName');
+  final counter = SignalsWatch.signal(
+    0, /* debugLabel: 'example.counter' */
+  );
+  late final userName = SignalsWatch.signal(
+    '',
+    /* debugLabel: 'example.userName' */
+    onValueUpdated: _onUserNameUpdated,
+  );
+
+  void _onUserNameUpdated() {
+    log("yoo: '${userName.value}'");
+    if (userName.value.isEmpty) {
+      _nameController.clear();
+    }
+  }
 
   // Computed signal derived from counter
   late final doubled = SignalsWatch.computed(
@@ -20,6 +33,14 @@ class _SignalsWatchExampleScreenState extends State<SignalsWatchExampleScreen> {
       debugPrint('Doubled changed: $previous -> $value');
     },
   );
+
+  final _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    SignalsWatch.initializeSignalsObserver();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +144,7 @@ class _SignalsWatchExampleScreenState extends State<SignalsWatchExampleScreen> {
                       ),
                       const SizedBox(height: 12),
                       TextField(
+                        controller: _nameController,
                         decoration: const InputDecoration(
                           labelText: 'Enter your name',
                           border: OutlineInputBorder(),
@@ -151,7 +173,7 @@ class _SignalsWatchExampleScreenState extends State<SignalsWatchExampleScreen> {
               OutlinedButton.icon(
                 onPressed: () {
                   counter.reset();
-                  userName.value = 'Guest';
+                  userName.reset();
                 },
                 icon: const Icon(Icons.refresh),
                 label: const Text('Reset All'),
@@ -165,7 +187,7 @@ class _SignalsWatchExampleScreenState extends State<SignalsWatchExampleScreen> {
 
   @override
   void dispose() {
-    // Signals are auto-registered and disposed
+    _nameController.dispose();
     super.dispose();
   }
 }

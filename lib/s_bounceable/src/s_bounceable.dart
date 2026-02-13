@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// A Bounceable widget that supports both single tap and double tap
 class SBounceable extends StatefulWidget {
   final Widget child;
   final VoidCallback? onTap;
   final VoidCallback? onDoubleTap;
+  final VoidCallback? onLongPress;
   final double? scaleFactor;
   final Duration? duration;
   final bool isBounceEnabled;
+
+  /// The animation curve for the bounce effect.
+  /// Defaults to [Curves.easeInOut].
+  final Curve curve;
+
+  /// Whether to trigger haptic feedback on tap.
+  final bool enableHapticFeedback;
 
   const SBounceable({
     super.key,
     required this.child,
     this.onTap,
     this.onDoubleTap,
+    this.onLongPress,
     this.scaleFactor,
     this.duration,
     this.isBounceEnabled = true,
+    this.curve = Curves.easeInOut,
+    this.enableHapticFeedback = false,
   });
 
   @override
@@ -28,7 +40,7 @@ class _SBounceableState extends State<SBounceable> {
 
   double get _scaleFactor => widget.scaleFactor ?? 0.95;
   Duration get _duration =>
-      widget.duration ?? const Duration(milliseconds: 100);
+      widget.duration ?? const Duration(milliseconds: 200);
 
   void _onPointerDown(PointerDownEvent event) {
     if (widget.isBounceEnabled) {
@@ -54,6 +66,13 @@ class _SBounceableState extends State<SBounceable> {
     }
   }
 
+  void _handleTap() {
+    if (widget.enableHapticFeedback) {
+      HapticFeedback.lightImpact();
+    }
+    widget.onTap?.call();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Listener(
@@ -61,12 +80,13 @@ class _SBounceableState extends State<SBounceable> {
       onPointerUp: _onPointerUp,
       onPointerCancel: _onPointerCancel,
       child: GestureDetector(
-        onTap: widget.onTap,
+        onTap: widget.onTap != null ? _handleTap : null,
         onDoubleTap: widget.onDoubleTap,
+        onLongPress: widget.onLongPress,
         child: AnimatedScale(
           scale: widget.isBounceEnabled ? _scale : 1.0,
           duration: _duration,
-          curve: Curves.easeInOut,
+          curve: widget.curve,
           child: widget.child,
         ),
       ),

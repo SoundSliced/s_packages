@@ -13,6 +13,14 @@ class _WeekCalendarExampleScreenState extends State<WeekCalendarExampleScreen> {
   DateTime _initialDate = DateTime.now();
   WeekCalendarType _calendarType = WeekCalendarType.standard;
 
+  // Event dates for indicator demo
+  late final Set<DateTime> _eventDates = {
+    DateTime.now(),
+    DateTime.now().add(const Duration(days: 2)),
+    DateTime.now().add(const Duration(days: 5)),
+    DateTime.now().subtract(const Duration(days: 1)),
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +61,11 @@ class _WeekCalendarExampleScreenState extends State<WeekCalendarExampleScreen> {
                           initialDate: _initialDate,
                           selectedDate: _selectedDate,
                           calendarType: _calendarType,
+                          minDate:
+                              DateTime.now().subtract(const Duration(days: 30)),
+                          maxDate: DateTime.now().add(const Duration(days: 60)),
+                          eventIndicatorDates: _eventDates,
+                          eventIndicatorColor: Colors.red,
                           onDateSelected: (date) {
                             setState(() {
                               _selectedDate = date;

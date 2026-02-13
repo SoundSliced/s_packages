@@ -40,6 +40,9 @@ class BubbleLabelExampleScreen extends StatelessWidget {
                           ),
                           bubbleColor: Colors.blue,
                           backgroundOverlayLayerOpacity: 0.3,
+                          animationDuration: const Duration(milliseconds: 400),
+                          showCurve: Curves.easeOutBack,
+                          dismissCurve: Curves.easeIn,
                         ),
                         animate: true,
                       );
@@ -125,6 +128,7 @@ class BubbleLabelExampleScreen extends StatelessWidget {
                           ),
                           bubbleColor: Colors.purple,
                           backgroundOverlayLayerOpacity: 0.5,
+                          horizontalOffset: 60.0,
                           onTapOutside: (_) {
                             BubbleLabel.dismiss(animate: true);
                           },
@@ -133,7 +137,8 @@ class BubbleLabelExampleScreen extends StatelessWidget {
                       );
                     },
                     child: const Text(
-                      'Purple Info Bubble',
+                      'Purple Info Bubble \n (bubble horizontally offset by 60)',
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white),
                     ),
                   );
@@ -149,6 +154,42 @@ class BubbleLabelExampleScreen extends StatelessWidget {
                   }
                 },
                 child: const Text('Dismiss Active Bubble'),
+              ),
+              const SizedBox(height: 24),
+
+              // Hover bubble
+              const Text(
+                'Hover over this icon:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 12),
+              Builder(
+                builder: (btnContext) {
+                  return MouseRegion(
+                    onEnter: (_) {
+                      BubbleLabel.show(
+                        context: btnContext,
+                        bubbleContent: BubbleLabelContent(
+                          child: const Padding(
+                            padding: EdgeInsets.all(12),
+                            child: Text(
+                              'Hovering!',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          bubbleColor: Colors.teal,
+                          backgroundOverlayLayerOpacity: 0.0,
+                          showOnHover: true,
+                        ),
+                        animate: true,
+                      );
+                    },
+                    onExit: (_) {
+                      BubbleLabel.dismiss(animate: true);
+                    },
+                    child: const Icon(Icons.info_outline, size: 40),
+                  );
+                },
               ),
             ],
           ),

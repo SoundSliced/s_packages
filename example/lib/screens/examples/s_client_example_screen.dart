@@ -156,6 +156,49 @@ class _SClientExampleScreenState extends State<SClientExampleScreen> {
               label: const Text('POST Request (JSONPlaceholder)'),
             ),
 
+            const SizedBox(height: 12),
+
+            // PUT Request button (typed)
+            ElevatedButton.icon(
+              onPressed: _isLoading
+                  ? null
+                  : () async {
+                      setState(() {
+                        _isLoading = true;
+                        _responseText = 'PUT request...';
+                      });
+                      await SClient.instance.putJson<Map<String, dynamic>>(
+                        url: 'https://jsonplaceholder.typicode.com/posts/1',
+                        body: {
+                          'id': 1,
+                          'title': 'Updated Title',
+                          'body': 'Updated body via putJson',
+                          'userId': 1,
+                        },
+                        fromJson: (json) => json,
+                        onSuccess: (data, response) {
+                          if (mounted) {
+                            setState(() {
+                              _isLoading = false;
+                              _responseText =
+                                  'PUT Success (${response.statusCode})!\n\n${data.toString()}';
+                            });
+                          }
+                        },
+                        onError: (error) {
+                          if (mounted) {
+                            setState(() {
+                              _isLoading = false;
+                              _responseText = 'PUT Error: ${error.message}';
+                            });
+                          }
+                        },
+                      );
+                    },
+              icon: const Icon(Icons.edit),
+              label: const Text('PUT Request (typed)'),
+            ),
+
             const SizedBox(height: 24),
 
             // Response display

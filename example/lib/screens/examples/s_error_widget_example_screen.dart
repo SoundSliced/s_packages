@@ -17,6 +17,26 @@ class _SErrorWidgetExampleScreenState extends State<SErrorWidgetExampleScreen> {
           'widget': const _RetryExample(),
         },
         {
+          'title': 'Error Code + Stack',
+          'widget': Builder(
+            builder: (context) => SErrorWidget(
+              headerText: 'Server Error',
+              exceptionText: 'Internal server error occurred.',
+              errorCode: 'ERR_500',
+              stackTrace:
+                  '#0      _handleRequest (server.dart:42)\n#1      Server.listen (server.dart:15)\n#2      main (main.dart:8)',
+              showCopyButton: true,
+              actions: [
+                TextButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(Icons.bug_report),
+                  label: const Text('Report Bug'),
+                ),
+              ],
+            ),
+          ),
+        },
+        {
           'title': 'Custom Colors',
           'widget': Builder(
             builder: (context) => SErrorWidget(

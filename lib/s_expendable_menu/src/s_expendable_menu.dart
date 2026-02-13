@@ -58,6 +58,9 @@ class SExpandableMenu extends StatefulWidget {
   /// Defaults to [ExpandDirection.auto] for screen-aware positioning.
   final ExpandDirection expandDirection;
 
+  /// Callback when the menu expansion state changes.
+  final void Function(bool isExpanded)? onExpansionChanged;
+
   const SExpandableMenu({
     super.key,
     this.width = 50.0,
@@ -69,6 +72,7 @@ class SExpandableMenu extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 400),
     this.animationCurve = Curves.easeOutCubic,
     this.expandDirection = ExpandDirection.auto,
+    this.onExpansionChanged,
   });
 
   @override
@@ -195,6 +199,7 @@ class _SExpandableMenuState extends State<SExpandableMenu>
       _isExpanded = !_isExpanded;
       _controller.toggle();
     });
+    widget.onExpansionChanged?.call(_isExpanded);
   }
 
   void _collapse() {
@@ -650,13 +655,13 @@ class _ExpandableMenuItem extends StatelessWidget {
     final Color containerColor =
         itemContainerColor ?? Colors.white.withValues(alpha: 0.4);
 
-    return Opacity(
+    Widget child = Opacity(
       opacity: itemT,
       child: Transform.scale(
         scale: 0.92 + 0.08 * itemT,
         alignment: Alignment.center,
         child: SButton(
-          onTap: (pos) => item.onTap?.call(pos),
+          onTap: item.disabled ? null : (pos) => item.onTap?.call(pos),
           splashColor: containerColor,
           child: Center(
             child: Container(
@@ -671,7 +676,9 @@ class _ExpandableMenuItem extends StatelessWidget {
               ),
               child: Icon(
                 item.icon,
-                color: iconColor,
+                color: item.disabled
+                    ? iconColor.withValues(alpha: 0.38)
+                    : iconColor,
                 size: item.size ?? itemSize * 0.9,
               ),
             ),
@@ -679,6 +686,12 @@ class _ExpandableMenuItem extends StatelessWidget {
         ),
       ),
     );
+
+    if (item.tooltip != null) {
+      child = Tooltip(message: item.tooltip!, child: child);
+    }
+
+    return child;
   }
 }
 
@@ -755,9 +768,17 @@ class SExpandableItem {
   /// Callback invoked when the item is tapped.
   final void Function(Offset position)? onTap;
 
+  /// Optional tooltip shown on long press or hover.
+  final String? tooltip;
+
+  /// Whether this item is disabled (grayed out, non-interactive).
+  final bool disabled;
+
   SExpandableItem({
     required this.icon,
     this.size,
     this.onTap,
+    this.tooltip,
+    this.disabled = false,
   });
 }

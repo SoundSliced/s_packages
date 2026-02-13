@@ -41,6 +41,7 @@ class _PopOverlayActivator extends StatelessWidget {
                   type: MaterialType.transparency,
                   child: EscapeKeyHandler(
                     child: SizedBox(
+                      key: PopOverlay._overlayAreaKey,
                       height: 100.h,
                       width: 100.w,
                       child: _AppContentWithOverlays(child: child),
@@ -341,13 +342,25 @@ class _TransformWrapper extends StatelessWidget {
         var finalPosition = popContent.popPositionOffset ?? Offset.zero;
         final alignment = popContent.alignment ?? Alignment.center;
 
-        // Convert global position to center-relative if needed
+        // Convert global position to overlay-local coordinates.
+        // Uses the overlay area's RenderBox so that FittedBox transforms
+        // (e.g. ForcePhoneSizeOnWeb) are accounted for.
         if (popContent.useGlobalPosition) {
-          final screenSize = Size(100.w, 100.h);
-          final screenPoint = alignment
-              .resolve(Directionality.of(context))
-              .alongSize(screenSize);
-          finalPosition = finalPosition - screenPoint;
+          final overlayBox = PopOverlay._overlayAreaKey.currentContext
+              ?.findRenderObject() as RenderBox?;
+          if (overlayBox != null && overlayBox.hasSize) {
+            final localPos = overlayBox.globalToLocal(finalPosition);
+            final screenPoint = alignment
+                .resolve(Directionality.of(context))
+                .alongSize(overlayBox.size);
+            finalPosition = localPos - screenPoint;
+          } else {
+            final screenSize = Size(100.w, 100.h);
+            final screenPoint = alignment
+                .resolve(Directionality.of(context))
+                .alongSize(screenSize);
+            finalPosition = finalPosition - screenPoint;
+          }
         }
 
         // Combine drag position with final position
@@ -430,44 +443,52 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
         widget.popContent.offsetToPopFrom != null &&
         widget.popContent.shouldAnimatePopup) {
       _hasInitializedAnimation = true;
-
-      // Get screen center position
-      final screenSize = Size(100.w, 100.h);
-      final alignment = widget.popContent.alignment ?? Alignment.center;
-      final screenPoint =
-          alignment.resolve(Directionality.of(context)).alongSize(screenSize);
-
-      var targetOffset = widget.popContent.popPositionOffset ?? Offset.zero;
-
-      if (widget.popContent.useGlobalPosition) {
-        targetOffset = targetOffset - screenPoint;
-      }
-
-      // Calculate start offset for animation
-      // We subtract screenCenter because the popup is positioned relative to center (via Align(center) + Transform)
-      // We subtract targetOffset because positionController adds to it
-      final startOffset =
-          widget.popContent.offsetToPopFrom! - screenPoint - targetOffset;
-
-      // Store the start offset and generate unique animation key
-      _animationStartOffset = startOffset;
       _animationKey =
           '${widget.popContent.id}-${DateTime.now().millisecondsSinceEpoch}';
 
-      // Schedule state updates after current frame completes
+      // Defer position computation until after layout so globalToLocal
+      // produces accurate results (accounts for FittedBox transforms
+      // from ForcePhoneSizeOnWeb / FlutterWebFrame).
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
 
-        // Set initial position to prevent flash at final position
+        final alignment = widget.popContent.alignment ?? Alignment.center;
+        final overlayBox = PopOverlay._overlayAreaKey.currentContext
+            ?.findRenderObject() as RenderBox?;
+        final Size overlaySize = (overlayBox != null && overlayBox.hasSize)
+            ? overlayBox.size
+            : Size(100.w, 100.h);
+        final screenPoint = alignment
+            .resolve(Directionality.of(context))
+            .alongSize(overlaySize);
+
+        var targetOffset = widget.popContent.popPositionOffset ?? Offset.zero;
+
+        if (widget.popContent.useGlobalPosition) {
+          if (overlayBox != null && overlayBox.hasSize) {
+            targetOffset = overlayBox.globalToLocal(targetOffset) - screenPoint;
+          } else {
+            targetOffset = targetOffset - screenPoint;
+          }
+        }
+
+        // Convert offsetToPopFrom from global to overlay-local
+        Offset localOrigin;
+        if (overlayBox != null && overlayBox.hasSize) {
+          localOrigin =
+              overlayBox.globalToLocal(widget.popContent.offsetToPopFrom!);
+        } else {
+          localOrigin = widget.popContent.offsetToPopFrom!;
+        }
+
+        final startOffset = localOrigin - screenPoint - targetOffset;
+
+        _animationStartOffset = startOffset;
         widget.popContent.positionController.state = startOffset;
 
         setState(() {
           _isReadyToShow = true;
         });
-
-        assert(() {
-          return true;
-        }());
       });
     }
   }

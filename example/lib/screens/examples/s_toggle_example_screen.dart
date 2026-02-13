@@ -11,6 +11,7 @@ class _SToggleExampleScreenState extends State<SToggleExampleScreen> {
   bool _toggle1 = false;
   bool _toggle2 = true;
   bool _toggle3 = false;
+  bool _toggle4 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class _SToggleExampleScreenState extends State<SToggleExampleScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Basic toggle
+              // Basic toggle with labels
               SToggle(
                 value: _toggle1,
                 onChange: (value) => setState(() => _toggle1 = value),
@@ -46,7 +47,7 @@ class _SToggleExampleScreenState extends State<SToggleExampleScreen> {
               Text('Toggle 2: ${_toggle2 ? 'ON' : 'OFF'}'),
               const SizedBox(height: 40),
 
-              // Larger toggle
+              // Larger toggle with thumb icon
               SToggle(
                 value: _toggle3,
                 onChange: (value) => setState(() => _toggle3 = value),
@@ -55,7 +56,17 @@ class _SToggleExampleScreenState extends State<SToggleExampleScreen> {
                 offColor: Colors.orange,
               ),
               const SizedBox(height: 16),
-              Text('Toggle 3: ${_toggle3 ? 'ON' : 'OFF'}'),
+              Text('Toggle 3: ${_toggle3 ? 'ON' : 'OFF'} (No Haptic)'),
+              const SizedBox(height: 40),
+
+              // Disabled toggle
+              SToggle(
+                value: _toggle4,
+                onChange: (value) => setState(() => _toggle4 = value),
+                onColor: Colors.blue,
+              ),
+              const SizedBox(height: 16),
+              Text('Toggle 4: ${_toggle4 ? 'ON' : 'OFF'}'),
             ],
           ),
         ),

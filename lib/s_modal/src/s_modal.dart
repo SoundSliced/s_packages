@@ -927,12 +927,14 @@ class _ModalContent {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (prefixIcon != null) ...[
                       Icon(prefixIcon, color: iconColor, size: 24),
                       const SizedBox(width: 12),
                     ],
-                    Expanded(
+                    Flexible(
                       child: Text(
                         text,
                         style: TextStyle(
@@ -942,8 +944,8 @@ class _ModalContent {
                         ),
                       ),
                     ),
+                    const SizedBox(width: 12),
                     if (showSuffixIcon) ...[
-                      const SizedBox(width: 12),
                       GestureDetector(
                         onTap: () {
                           // Dismiss this specific snackbar by its ID (captured in closure)
@@ -951,6 +953,8 @@ class _ModalContent {
                         },
                         child: Icon(Icons.close, color: iconColor, size: 20),
                       ),
+                    ] else ...[
+                      SizedBox(width: 20),
                     ],
                   ],
                 ),
@@ -2164,7 +2168,7 @@ class Modal {
     // Simplified API parameters
     String? text,
     IconData? prefixIcon,
-    bool showSuffixIcon = true,
+    bool showCloseIcon = true,
     Color? backgroundColor,
     Color textColor = Colors.white,
     Color iconColor = Colors.white,
@@ -2214,7 +2218,7 @@ class Modal {
                 ? ([_]) => _ModalContent.defaultSnackbar(
                       text: text,
                       prefixIcon: prefixIcon,
-                      showSuffixIcon: showSuffixIcon,
+                      showSuffixIcon: showCloseIcon,
                       backgroundColor: backgroundColor,
                       textColor: textColor,
                       iconColor: iconColor,
@@ -2252,7 +2256,7 @@ class Modal {
       final content = _ModalContent.defaultSnackbar(
         text: text,
         prefixIcon: prefixIcon,
-        showSuffixIcon: showSuffixIcon,
+        showSuffixIcon: showCloseIcon,
         backgroundColor: backgroundColor,
         textColor: textColor,
         iconColor: iconColor,
@@ -4374,6 +4378,54 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                         )!
                                       : BorderRadius.zero;
 
+                                  //Define the tap handler for the barrier
+                                  void onBarrierTap() {
+                                    if (Modal.isDismissing) {
+                                      if (_showDebugPrints) {
+                                        debugPrint(
+                                            'SBounceable.onTap ignored: Modal.isDismissing is true');
+                                      }
+                                      return;
+                                    }
+                                    if (Modal.isDialogActive &&
+                                        (_dialogController
+                                                .state?.isDismissable ??
+                                            true)) {
+                                      Modal.dismissDialog();
+                                    } else if (Modal.isSheetActive &&
+                                        (_sheetController
+                                                .state?.isDismissable ??
+                                            true)) {
+                                      Modal.dismissBottomSheet();
+                                    } else if (Modal.isSideSheetActive &&
+                                        (_sideSheetController
+                                                .state?.isDismissable ??
+                                            true)) {
+                                      Modal.dismissSideSheet();
+                                    }
+                                  }
+
+                                  // Determine the effective barrier color based on active modal type
+                                  final Color effectiveBarrierColor;
+                                  if (Modal.isSheetActive) {
+                                    effectiveBarrierColor =
+                                        _sheetController.state?.barrierColor ??
+                                            Colors.transparent;
+                                  } else if (Modal.isSideSheetActive) {
+                                    effectiveBarrierColor = _sideSheetController
+                                            .state?.barrierColor ??
+                                        Colors.transparent;
+                                  } else if (Modal.isDialogActive) {
+                                    effectiveBarrierColor =
+                                        _dialogController.state?.barrierColor ??
+                                            Colors.transparent;
+                                  } else {
+                                    effectiveBarrierColor =
+                                        Modal.controller.state?.barrierColor ??
+                                            Colors.transparent;
+                                  }
+
+                                  // The background layer with blur and tap handling
                                   return ImageFiltered(
                                     imageFilter: ImageFilter.blur(
                                       sigmaX: blurAmount,
@@ -4381,37 +4433,17 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: borderRadius,
-                                      child: SBounceable(
-                                        scaleFactor: 0.985,
-                                        duration: 0.2.seconds,
-                                        isBounceEnabled: (widget.shouldBounce &&
-                                            (Modal.isSheetActive ||
-                                                Modal.isDialogActive)),
-                                        onTap: () {
-                                          if (Modal.isDismissing) {
-                                            if (_showDebugPrints) {
-                                              debugPrint(
-                                                  'SBounceable.onTap ignored: Modal.isDismissing is true');
-                                            }
-                                            return;
-                                          }
-                                          if (Modal.isDialogActive &&
-                                              (_dialogController
-                                                      .state?.isDismissable ??
-                                                  true)) {
-                                            Modal.dismissDialog();
-                                          } else if (Modal.isSheetActive &&
-                                              (_sheetController
-                                                      .state?.isDismissable ??
-                                                  true)) {
-                                            Modal.dismissBottomSheet();
-                                          } else if (Modal.isSideSheetActive &&
-                                              (_sideSheetController
-                                                      .state?.isDismissable ??
-                                                  true)) {
-                                            Modal.dismissSideSheet();
-                                          }
-                                        },
+                                      child: SInkButton(
+                                        scaleFactor: (widget.shouldBounce &&
+                                                (Modal.isSheetActive ||
+                                                    Modal.isDialogActive))
+                                            ? 0.985
+                                            : 1,
+                                        color:
+                                            effectiveBarrierColor.darken(0.2),
+                                        onTap: (pos) => onBarrierTap(),
+                                        onLongPressEnd: (details) =>
+                                            onBarrierTap(),
                                         child: SizedBox.expand(
                                           child: Stack(
                                             children: [
@@ -4432,51 +4464,14 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                                           milliseconds: 50),
                                                       curve: Curves.easeInOut,
                                                       decoration: BoxDecoration(
-                                                        color: () {
-                                                          final Color
-                                                              effectiveBarrierColor;
-                                                          if (Modal
-                                                              .isSheetActive) {
-                                                            effectiveBarrierColor =
-                                                                _sheetController
-                                                                        .state
-                                                                        ?.barrierColor ??
-                                                                    Colors
-                                                                        .transparent;
-                                                          } else if (Modal
-                                                              .isSideSheetActive) {
-                                                            effectiveBarrierColor =
-                                                                _sideSheetController
-                                                                        .state
-                                                                        ?.barrierColor ??
-                                                                    Colors
-                                                                        .transparent;
-                                                          } else if (Modal
-                                                              .isDialogActive) {
-                                                            effectiveBarrierColor =
-                                                                _dialogController
-                                                                        .state
-                                                                        ?.barrierColor ??
-                                                                    Colors
-                                                                        .transparent;
-                                                          } else {
-                                                            effectiveBarrierColor = Modal
-                                                                    .controller
-                                                                    .state
-                                                                    ?.barrierColor ??
-                                                                Colors
-                                                                    .transparent;
-                                                          }
-                                                          return effectiveBarrierColor
-                                                              .withValues(
-                                                            alpha: _backgroundLayerAnimationNotifier
-                                                                    .state *
-                                                                effectiveBarrierColor
-                                                                    .a,
-                                                          );
-                                                        }(),
-                                                        // borderRadius:
-                                                        //     widget.borderRadius,
+                                                        color:
+                                                            effectiveBarrierColor
+                                                                .withValues(
+                                                          alpha: _backgroundLayerAnimationNotifier
+                                                                  .state *
+                                                              effectiveBarrierColor
+                                                                  .a,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),

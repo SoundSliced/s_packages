@@ -31,6 +31,12 @@ class Glow1 extends StatefulWidget {
   /// Blur radius for the glow effect
   final double startScaleRadius, endScaleRadius;
 
+  /// Called when the glow animation completes a cycle.
+  final VoidCallback? onAnimationComplete;
+
+  /// Optional gradient to use instead of solid [color] for the glow.
+  final Gradient? gradient;
+
   const Glow1({
     super.key,
     required this.child,
@@ -44,6 +50,8 @@ class Glow1 extends StatefulWidget {
     this.animationCurve = Curves.fastEaseInToSlowEaseOut,
     this.startScaleRadius = 1.08,
     this.endScaleRadius = 1.1,
+    this.onAnimationComplete,
+    this.gradient,
   }) : assert(opacity >= 0.0 && opacity <= 1.0,
             'glowOpacity must be between 0.0 and 1.0');
 
@@ -90,6 +98,7 @@ class _Glow1State extends State<Glow1> {
 
   void _onAnimationEnd() {
     if (!mounted) return;
+    widget.onAnimationComplete?.call();
 
     if (widget.repeatAnimation && widget.isEnabled) {
       // Restart animation after a brief delay
@@ -178,7 +187,10 @@ class _Glow1State extends State<Glow1> {
                         opacity: opacity,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: widget.color ?? Colors.blue.shade400,
+                            color: widget.gradient == null
+                                ? (widget.color ?? Colors.blue.shade400)
+                                : null,
+                            gradient: widget.gradient,
                             borderRadius: widget.borderRadius ??
                                 BorderRadius.circular(12),
                             boxShadow: [

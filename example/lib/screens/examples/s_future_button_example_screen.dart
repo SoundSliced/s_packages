@@ -75,6 +75,7 @@ class _SFutureButtonExampleScreenState
                   onTap: _simulateSuccess,
                   label: 'Submit',
                   bgColor: Colors.blue.shade700,
+                  successDuration: const Duration(seconds: 3),
                   onPostSuccess: () {
                     _updateStatus('Operation completed successfully!');
                   },
@@ -98,6 +99,15 @@ class _SFutureButtonExampleScreenState
                   onTap: _simulateValidationError,
                   label: 'Validate Form',
                   bgColor: Colors.orange.shade700,
+                  errorDuration: const Duration(seconds: 2),
+                  loadingWidget: const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
+                  ),
                   onPostError: (error) {
                     _updateStatus('Validation failed: $error');
                   },

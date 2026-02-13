@@ -70,6 +70,10 @@ class SInkButton extends StatefulWidget {
     this.isCircleButton = false,
     this.tooltipMessage,
     this.hitTestBehavior,
+    this.onHover,
+    this.onFocusChange,
+    this.hoverColor,
+    this.splashDuration,
   });
 
   /// The widget displayed inside the button.
@@ -158,6 +162,20 @@ class SInkButton extends StatefulWidget {
   /// and how it interacts with other widgets in the hit test
   /// hierarchy.
   final HitTestBehavior? hitTestBehavior;
+
+  /// Called when the hover state changes.
+  final void Function(bool isHovered)? onHover;
+
+  /// Called when the focus state changes.
+  final void Function(bool hasFocus)? onFocusChange;
+
+  /// Custom color for the hover overlay.
+  /// If null, uses a darkened version of [color].
+  final Color? hoverColor;
+
+  /// Duration of the splash animation.
+  /// If null, defaults to 800ms.
+  final Duration? splashDuration;
 
   @override
   State<SInkButton> createState() => _SInkButtonState();
@@ -387,10 +405,18 @@ class _SInkButtonState extends State<SInkButton> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter:
-          widget.isActive ? (_) => setState(() => _isHovered = true) : null,
-      onExit:
-          widget.isActive ? (_) => setState(() => _isHovered = false) : null,
+      onEnter: widget.isActive
+          ? (_) {
+              setState(() => _isHovered = true);
+              widget.onHover?.call(true);
+            }
+          : null,
+      onExit: widget.isActive
+          ? (_) {
+              setState(() => _isHovered = false);
+              widget.onHover?.call(false);
+            }
+          : null,
       child: GestureDetector(
         behavior: widget.hitTestBehavior ?? HitTestBehavior.translucent,
         onTapDown: widget.isActive ? _handleTapDown : null,
@@ -458,15 +484,17 @@ class _SInkButtonState extends State<SInkButton> {
                             IgnorePointer(
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                  color: _splashColor
-                                      .darken()
-                                      .withValues(alpha: 0.04),
+                                  color: widget.hoverColor ??
+                                      _splashColor
+                                          .darken()
+                                          .withValues(alpha: 0.04),
                                 ),
                               ),
                             ),
 
                           // Splash overlay
-                          if (_tapPosition != null)
+                          if (_tapPosition != null &&
+                              _splashColor != Colors.transparent)
                             Positioned.fill(
                               child: LayoutBuilder(
                                 builder: (context, constraints) {
@@ -500,7 +528,7 @@ class _SInkButtonState extends State<SInkButton> {
         key: ValueKey('splash_$_splashKey$_isAnimationReversing'),
         tween:
             Tween<double>(begin: 0.0, end: _isAnimationReversing ? 0.0 : 1.0),
-        duration: const Duration(milliseconds: 800),
+        duration: widget.splashDuration ?? const Duration(milliseconds: 800),
         curve: _isAnimationReversing ? Curves.easeInCubic : Curves.easeOutCubic,
         onEnd: () {
           if (_isAnimationReversing && mounted) {

@@ -17,6 +17,7 @@ class TickerFreeCircularProgressIndicator extends StatefulWidget {
     this.semanticsValue,
     this.delay,
     this.defaultWidgetAfterDelay,
+    this.size,
   });
 
   /// If non-null, the value of this progress indicator (0.0 to 1.0).
@@ -49,6 +50,9 @@ class TickerFreeCircularProgressIndicator extends StatefulWidget {
 
   /// Widget to display after the delay period expires.
   final Widget? defaultWidgetAfterDelay;
+
+  /// The diameter of the progress indicator. Defaults to 36.0.
+  final double? size;
 
   @override
   State<TickerFreeCircularProgressIndicator> createState() =>
@@ -159,13 +163,14 @@ class _TickerFreeCircularProgressIndicatorState
     }
 
     final Color valueColor = _getValueColor(context);
+    final double effectiveSize = widget.size ?? 36.0;
 
     if (widget.value != null) {
       // Determinate progress indicator
       return _buildSemanticsWrapper(
         child: SizedBox(
-          width: 36.0,
-          height: 36.0,
+          width: effectiveSize,
+          height: effectiveSize,
           child: CustomPaint(
             painter: _TickerFreeCircularProgressPainter(
               backgroundColor: widget.backgroundColor,
@@ -192,8 +197,8 @@ class _TickerFreeCircularProgressIndicatorState
 
     return _buildSemanticsWrapper(
       child: SizedBox(
-        width: 36.0,
-        height: 36.0,
+        width: effectiveSize,
+        height: effectiveSize,
         child: CustomPaint(
           painter: _TickerFreeCircularProgressPainter(
             backgroundColor: widget.backgroundColor,

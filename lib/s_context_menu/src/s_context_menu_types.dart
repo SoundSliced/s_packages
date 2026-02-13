@@ -10,6 +10,12 @@ class SContextMenuItem {
   final bool destructive; // style hint for dangerous actions
   final bool keepMenuOpen; // when true, menu stays open after button press
 
+  /// Whether this item is disabled (grayed out, non-interactive).
+  final bool disabled;
+
+  /// Optional keyboard shortcut hint displayed on the right side (e.g., "⌘C").
+  final String? shortcutHint;
+
   SContextMenuItem({
     required this.label,
     this.icon,
@@ -18,6 +24,8 @@ class SContextMenuItem {
     this.semanticsLabel,
     this.destructive = false,
     this.keepMenuOpen = false,
+    this.disabled = false,
+    this.shortcutHint,
   });
 
   @override

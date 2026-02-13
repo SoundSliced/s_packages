@@ -69,7 +69,7 @@ class _SMaintenanceButtonExampleScreenState
 
               // Example 2: Scaled up for demo
               const Text(
-                'Interactive Button:',
+                'Interactive Button (with confirmation):',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 16),
@@ -79,6 +79,10 @@ class _SMaintenanceButtonExampleScreenState
                   isOnMaintenance: _isOnMaintenance,
                   activeColor: Theme.of(context).colorScheme.error,
                   nonActiveColor: Theme.of(context).colorScheme.primary,
+                  icon: const Icon(Icons.engineering),
+                  showConfirmation: true,
+                  confirmationMessage:
+                      'Are you sure you want to toggle maintenance mode?',
                   onTap: _handleTap,
                 ),
               ),

@@ -50,6 +50,8 @@ class SLiquidPullToRefresh extends StatefulWidget {
     this.springAnimationDurationInMilliseconds = 1000,
     this.borderWidth = 2.0,
     this.showChildOpacityTransition = true,
+    this.triggerDistance,
+    this.onDragProgress,
   }) : assert(animSpeedFactor >= 1.0);
 
   /// The widget below this widget in the tree.
@@ -100,6 +102,14 @@ class SLiquidPullToRefresh extends StatefulWidget {
   /// The progress indicator's background color. The current theme's
   /// [ThemeData.canvasColor] by default.
   final Color? backgroundColor;
+
+  /// The drag distance required to trigger a refresh, as a percentage
+  /// of the scrollable's container extent. Defaults to 0.25 (25%).
+  /// Must be between 0.0 and 1.0.
+  final double? triggerDistance;
+
+  /// Called during the drag phase with the current drag progress (0.0 to 1.0).
+  final ValueChanged<double>? onDragProgress;
 
   @override
   SLiquidPullToRefreshState createState() => SLiquidPullToRefreshState();
@@ -434,8 +444,9 @@ class SLiquidPullToRefreshState extends State<SLiquidPullToRefresh> {
   void _checkDragOffset(double containerExtent) {
     assert(_mode == _SLiquidPullToRefreshMode.drag ||
         _mode == _SLiquidPullToRefreshMode.armed);
-    double newValue =
-        _dragOffset! / (containerExtent * _kDragContainerExtentPercentage);
+    final triggerFraction =
+        widget.triggerDistance ?? _kDragContainerExtentPercentage;
+    double newValue = _dragOffset! / (containerExtent * triggerFraction);
     if (_mode == _SLiquidPullToRefreshMode.armed) {
       newValue = math.max(newValue, 1.0 / _kDragSizeFactorLimit);
     }
@@ -443,6 +454,7 @@ class SLiquidPullToRefreshState extends State<SLiquidPullToRefresh> {
       _positionValue = newValue.clamp(0.0, 1.0);
       _updateValueColor();
     });
+    widget.onDragProgress?.call(_positionValue);
     if (_mode == _SLiquidPullToRefreshMode.drag &&
         _valueColorValue != null &&
         (_valueColorValue!.a * 255.0).round().clamp(0, 255) == 255) {

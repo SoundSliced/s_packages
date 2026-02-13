@@ -137,6 +137,11 @@ class KeystrokeListener extends StatefulWidget {
   final FocusNode? focusNode;
   final bool requestFocusOnInit;
   final bool autoFocus;
+
+  /// Custom action handlers for keyboard intents. When provided, these override
+  /// the default debugPrint actions. Keys are Intent types, values are callbacks.
+  final Map<Type, VoidCallback>? actionHandlers;
+
   const KeystrokeListener({
     super.key,
     required this.child,
@@ -145,6 +150,7 @@ class KeystrokeListener extends StatefulWidget {
     this.focusNode,
     this.requestFocusOnInit = true,
     this.autoFocus = true,
+    this.actionHandlers,
   });
 
   @override
@@ -279,46 +285,43 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
 
   @override
   Widget build(BuildContext context) {
+    final handlers = widget.actionHandlers;
+
+    CallbackAction<T> action<T extends Intent>(String label) {
+      final callback = handlers?[T];
+      return CallbackAction<T>(
+        onInvoke: (_) {
+          if (callback != null) {
+            callback();
+          } else {
+            debugPrint('$label Action invoked!');
+          }
+          return null;
+        },
+      );
+    }
+
     return Actions(
       actions: <Type, Action<Intent>>{
-        EscapeIntent:
-            CallbackAction(onInvoke: (_) => debugPrint('ESC Action invoked!')),
-        NavigateUpIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('Navigate Up Action invoked!')),
-        NavigateDownIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('Navigate Down Action invoked!')),
-        NavigateLeftIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('Navigate Left Action invoked!')),
-        NavigateRightIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('Navigate Right Action invoked!')),
-        SubmitIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('Submit Action invoked!')),
-        DeleteIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('Delete Action invoked!')),
-        SaveIntent:
-            CallbackAction(onInvoke: (_) => debugPrint('Save Action invoked!')),
-        UndoIntent:
-            CallbackAction(onInvoke: (_) => debugPrint('Undo Action invoked!')),
-        RedoIntent:
-            CallbackAction(onInvoke: (_) => debugPrint('Redo Action invoked!')),
-        SelectAllIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('SelectAll Action invoked!')),
-        CopyIntent:
-            CallbackAction(onInvoke: (_) => debugPrint('Copy Action invoked!')),
-        PasteIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('Paste Action invoked!')),
-        CutIntent:
-            CallbackAction(onInvoke: (_) => debugPrint('Cut Action invoked!')),
-        TabIntent:
-            CallbackAction(onInvoke: (_) => debugPrint('Tab Action invoked!')),
-        ReverseTabIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('ReverseTab Action invoked!')),
-        ToggleCommentIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('ToggleComment Action invoked!')),
-        HelpIntent:
-            CallbackAction(onInvoke: (_) => debugPrint('Help Action invoked!')),
-        SpaceIntent: CallbackAction(
-            onInvoke: (_) => debugPrint('Space Action invoked!')),
+        EscapeIntent: action<EscapeIntent>('ESC'),
+        NavigateUpIntent: action<NavigateUpIntent>('Navigate Up'),
+        NavigateDownIntent: action<NavigateDownIntent>('Navigate Down'),
+        NavigateLeftIntent: action<NavigateLeftIntent>('Navigate Left'),
+        NavigateRightIntent: action<NavigateRightIntent>('Navigate Right'),
+        SubmitIntent: action<SubmitIntent>('Submit'),
+        DeleteIntent: action<DeleteIntent>('Delete'),
+        SaveIntent: action<SaveIntent>('Save'),
+        UndoIntent: action<UndoIntent>('Undo'),
+        RedoIntent: action<RedoIntent>('Redo'),
+        SelectAllIntent: action<SelectAllIntent>('SelectAll'),
+        CopyIntent: action<CopyIntent>('Copy'),
+        PasteIntent: action<PasteIntent>('Paste'),
+        CutIntent: action<CutIntent>('Cut'),
+        TabIntent: action<TabIntent>('Tab'),
+        ReverseTabIntent: action<ReverseTabIntent>('ReverseTab'),
+        ToggleCommentIntent: action<ToggleCommentIntent>('ToggleComment'),
+        HelpIntent: action<HelpIntent>('Help'),
+        SpaceIntent: action<SpaceIntent>('Space'),
       },
       child: Shortcuts(
         shortcuts: <LogicalKeySet, Intent>{

@@ -359,6 +359,8 @@ class _SContextMenuState extends State<SContextMenu>
             expand: true,
             itemIndex: i,
             menuTheme: theme,
+            disabled: item.disabled,
+            shortcutHint: item.shortcutHint,
           );
         });
 
@@ -631,6 +633,8 @@ class _ToolbarIconTextButton extends StatelessWidget {
     this.expand = false,
     this.itemIndex,
     this.menuTheme,
+    this.disabled = false,
+    this.shortcutHint,
   });
   final IconData icon;
   final String label;
@@ -638,8 +642,10 @@ class _ToolbarIconTextButton extends StatelessWidget {
   final String? semanticsLabel;
   final bool destructive;
   final bool expand;
-  final int? itemIndex; // used only for debug / identification
+  final int? itemIndex;
   final SContextMenuTheme? menuTheme;
+  final bool disabled;
+  final String? shortcutHint;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -672,6 +678,8 @@ class _ToolbarIconTextButton extends StatelessWidget {
       isDark: isDark,
       itemIndex: itemIndex,
       hoverColor: hoverColor,
+      disabled: disabled,
+      shortcutHint: shortcutHint,
     );
   }
 }
@@ -689,6 +697,8 @@ class _MenuButtonVisual extends StatefulWidget {
   final bool isDark;
   final int? itemIndex;
   final Color? hoverColor;
+  final bool disabled;
+  final String? shortcutHint;
   const _MenuButtonVisual({
     required this.icon,
     required this.label,
@@ -702,6 +712,8 @@ class _MenuButtonVisual extends StatefulWidget {
     this.semanticsLabel,
     this.itemIndex,
     this.hoverColor,
+    this.disabled = false,
+    this.shortcutHint,
   });
   @override
   State<_MenuButtonVisual> createState() => _MenuButtonVisualState();
@@ -717,17 +729,23 @@ class _MenuButtonVisualState extends State<_MenuButtonVisual> {
     final inheritedIndex = _InheritedHoveredIndex.maybeOf(context);
     final bool keyboardHover =
         inheritedIndex != null && (widget.itemIndex == inheritedIndex);
-    final bool interactive = _hovered || _pressed || keyboardHover;
+    final bool interactive =
+        !widget.disabled && (_hovered || _pressed || keyboardHover);
     final Color accent = widget.destructive ? widget.danger : widget.primary;
-    final Color textColor =
-        widget.destructive ? widget.danger : accent.withValues(alpha: 0.92);
+    final double disabledAlpha = widget.disabled ? 0.38 : 1.0;
+    final Color textColor = widget.disabled
+        ? (widget.destructive ? widget.danger : accent).withValues(alpha: 0.38)
+        : widget.destructive
+            ? widget.danger
+            : accent.withValues(alpha: 0.92);
     final Color defaultHover = widget.isDark
         ? Colors.white.withValues(alpha: 0.07)
         : Colors.black.withValues(alpha: 0.05);
     final Color bg =
         interactive ? (widget.hoverColor ?? defaultHover) : Colors.transparent;
-    final double barOpacity = (_hovered || keyboardHover) ? 0.55 : 0.0;
-    final double scale = _pressed ? 0.97 : 1.0;
+    final double barOpacity =
+        !widget.disabled && (_hovered || keyboardHover) ? 0.55 : 0.0;
+    final double scale = _pressed && !widget.disabled ? 0.97 : 1.0;
     final row = Row(
       mainAxisSize: widget.expand ? MainAxisSize.max : MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -740,6 +758,16 @@ class _MenuButtonVisualState extends State<_MenuButtonVisual> {
               softWrap: false,
               style: widget.baseTextStyle.copyWith(color: textColor)),
         ),
+        if (widget.shortcutHint != null) ...[
+          const SizedBox(width: 12),
+          Text(
+            widget.shortcutHint!,
+            style: widget.baseTextStyle.copyWith(
+              color: textColor.withValues(alpha: disabledAlpha * 0.5),
+              fontSize: 11,
+            ),
+          ),
+        ],
       ],
     );
     final child = AnimatedContainer(
@@ -772,19 +800,25 @@ class _MenuButtonVisualState extends State<_MenuButtonVisual> {
       label: widget.semanticsLabel ?? widget.label,
       onTapHint: 'Activate',
       child: MouseRegion(
-        onEnter: (_) {
-          _setHovered(true);
-          if (widget.itemIndex != null) {
-            _HoveredIndexController.of(context)?.setIndex(widget.itemIndex!);
-          }
-        },
-        onExit: (_) => _setHovered(false),
+        onEnter: widget.disabled
+            ? null
+            : (_) {
+                _setHovered(true);
+                if (widget.itemIndex != null) {
+                  _HoveredIndexController.of(context)
+                      ?.setIndex(widget.itemIndex!);
+                }
+              },
+        onExit: widget.disabled ? null : (_) => _setHovered(false),
+        cursor: widget.disabled
+            ? SystemMouseCursors.forbidden
+            : SystemMouseCursors.click,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTapDown: (_) => _setPressed(true),
-          onTapCancel: () => _setPressed(false),
-          onTapUp: (_) => _setPressed(false),
-          onTap: widget.onPressed,
+          onTapDown: widget.disabled ? null : (_) => _setPressed(true),
+          onTapCancel: widget.disabled ? null : () => _setPressed(false),
+          onTapUp: widget.disabled ? null : (_) => _setPressed(false),
+          onTap: widget.disabled ? null : widget.onPressed,
           child: child,
         ),
       ),

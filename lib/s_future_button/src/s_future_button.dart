@@ -42,6 +42,19 @@ class SFutureButton extends StatefulWidget {
   final void Function(bool)? onFocusChange;
 
   final double? loadingCircleSize;
+
+  /// Duration to display the success state before resetting.
+  /// Defaults to 400ms.
+  final Duration? successDuration;
+
+  /// Duration to display the error state before resetting.
+  /// Defaults to 1500ms.
+  final Duration? errorDuration;
+
+  /// Custom widget to display while loading. Replaces the default
+  /// circular progress indicator inside the button.
+  final Widget? loadingWidget;
+
   const SFutureButton({
     super.key,
     this.onTap,
@@ -60,6 +73,9 @@ class SFutureButton extends StatefulWidget {
     this.focusNode,
     this.onFocusChange,
     this.loadingCircleSize,
+    this.successDuration,
+    this.errorDuration,
+    this.loadingWidget,
   });
 
   @override
@@ -88,13 +104,14 @@ class _SFutureButtonState extends State<SFutureButton> {
         return;
       }
       // result == true or any other truthy value - show success
-      await _controller.success();
+      await _controller.success(duration: widget.successDuration);
       // Call the post-success callback if provided
       widget.onPostSuccess?.call();
     } catch (error) {
       //  log("Error in SFutureButton: $error");
       await _controller.error(
         message: error.toString(),
+        duration: widget.errorDuration,
         then: () => widget.onPostError?.call(error.toString()),
       );
     }
@@ -117,6 +134,7 @@ class _SFutureButtonState extends State<SFutureButton> {
               children: [
                 MyRoundedLoadingButton(
                     loaderSize: widget.loadingCircleSize ?? 24,
+                    customLoaderWidget: widget.loadingWidget,
                     width: (widget.width != null && widget.width!.isFinite)
                         ? widget.width!
                         : 150,
@@ -217,8 +235,10 @@ class _SFutureButtonController {
   }
 
 // error method to indicate an error occurred
-  Future<void> error({String? message, Function? then}) async {
-    //show the red overlay layer for 1.8 seconds
+  Future<void> error(
+      {String? message, Duration? duration, Function? then}) async {
+    final errorDur = duration ?? 1.5.sec;
+    //show the red overlay layer
     overlayController.state = true;
 
     //if an error message is provided, show it
@@ -229,7 +249,7 @@ class _SFutureButtonController {
     errorMessageController.update<String?>((s) => message);
 
     // reset the button state after a delay
-    await Future.delayed(1.5.sec, () async {
+    await Future.delayed(errorDur, () async {
       await Future.delayed(
         0.3.sec,
         () => then?.call(),
@@ -242,12 +262,12 @@ class _SFutureButtonController {
     });
   } // success method to indicate a successful operation
 
-  Future<void> success({Function? then}) async {
+  Future<void> success({Duration? duration, Function? then}) async {
     controller.state.success();
 
     // reset the button state after a delay
     await Future.delayed(
-      0.4.sec,
+      duration ?? 0.4.sec,
       () => then?.call(),
     );
 

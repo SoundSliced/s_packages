@@ -197,16 +197,49 @@ class _SettingsItemState extends State<SettingsItem> {
             const SizedBox(width: 16),
           ],
 
-          // Title
+          // Title & subtitle
           Expanded(
-            child: Text(
-              widget.parameters.title ?? "Settings Item",
-              style: theme.textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: colorScheme.onSurface,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.parameters.title ?? "Settings Item",
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: colorScheme.onSurface,
+                  ),
+                ),
+                if (widget.parameters.subtitle != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Text(
+                      widget.parameters.subtitle!,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                if (widget.parameters.description != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text(
+                      widget.parameters.description!,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color:
+                            colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
+
+          // Trailing value widget
+          if (widget.parameters.trailing != null) ...[
+            widget.parameters.trailing!,
+            const SizedBox(width: 8),
+          ],
 
           // Suffix Widget
           _buildSuffixWidget(colorScheme),
@@ -216,7 +249,8 @@ class _SettingsItemState extends State<SettingsItem> {
 
     return SBounceable(
       onTap: _handleTap,
-      isBounceEnabled: !widget.parameters.isExpandeable,
+      isBounceEnabled:
+          !widget.parameters.isExpandeable || widget.parameters.isSwitch,
       scaleFactor: 0.95,
       child: headerContent,
     );
@@ -279,6 +313,16 @@ class ExpandableParameters {
   final Widget? suffixWidget;
   final VoidCallback? onExpandedSectionToggle;
 
+  /// Optional subtitle text displayed below the title.
+  final String? subtitle;
+
+  /// Optional description text displayed below the subtitle in a smaller font.
+  final String? description;
+
+  /// Optional trailing widget displayed to the right of the title,
+  /// useful for showing a current value (e.g., "English", "Dark").
+  final Widget? trailing;
+
   const ExpandableParameters({
     this.prefixIcon,
     this.title,
@@ -287,6 +331,9 @@ class ExpandableParameters {
     this.expandedWidget,
     this.suffixWidget,
     this.onExpandedSectionToggle,
+    this.subtitle,
+    this.description,
+    this.trailing,
   });
 
   ExpandableParameters copyWith({
@@ -297,6 +344,9 @@ class ExpandableParameters {
     Widget? expandedWidget,
     Widget? suffixWidget,
     VoidCallback? onExpandedSectionToggle,
+    String? subtitle,
+    String? description,
+    Widget? trailing,
   }) {
     return ExpandableParameters(
       prefixIcon: prefixIcon ?? this.prefixIcon,
@@ -307,6 +357,9 @@ class ExpandableParameters {
       suffixWidget: suffixWidget ?? this.suffixWidget,
       onExpandedSectionToggle:
           onExpandedSectionToggle ?? this.onExpandedSectionToggle,
+      subtitle: subtitle ?? this.subtitle,
+      description: description ?? this.description,
+      trailing: trailing ?? this.trailing,
     );
   }
 
@@ -319,7 +372,10 @@ class ExpandableParameters {
         other.isSwitch == isSwitch &&
         other.isExpandeable == isExpandeable &&
         other.expandedWidget == expandedWidget &&
-        other.suffixWidget == suffixWidget;
+        other.suffixWidget == suffixWidget &&
+        other.subtitle == subtitle &&
+        other.description == description &&
+        other.trailing == trailing;
   }
 
   @override
@@ -331,6 +387,9 @@ class ExpandableParameters {
       isExpandeable,
       expandedWidget,
       suffixWidget,
+      subtitle,
+      description,
+      trailing,
     );
   }
 }
