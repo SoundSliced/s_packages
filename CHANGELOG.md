@@ -1,4 +1,13 @@
 
+## 1.4.0
+- **`s_modal` sub-package improvements**:
+  - Added `Modal.isAppBuilderInstalled` public getter — allows other packages to check whether `Modal.appBuilder` has already been installed in the widget tree
+  - Made `Modal.appBuilder` idempotent — calling it more than once now safely returns the child as-is instead of double-nesting the internal `_ActivatorWidget`
+- **`s_connectivity` sub-package improvements**:
+  - Added `SConnectivityOverlay` widget — a convenience wrapper that sets up the Modal overlay system so the "No Internet" snackbar works without requiring users to know about or manually call `Modal.appBuilder`
+  - Added `SConnectivityOverlay.appBuilder` static method — drop-in replacement for `Modal.appBuilder` that can be passed directly to `MaterialApp(builder: ...)`
+  - Safe to use alongside an existing `Modal.appBuilder` call — double-wrapping is prevented automatically thanks to the idempotent `appBuilder`
+
 ## 1.3.0
 - **`pop_overlay` sub-package improvements**:
   - `PopOverlay.dismissAllPops` added with optional `includeInvisible` and `except` parameters

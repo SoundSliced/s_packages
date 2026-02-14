@@ -1503,6 +1503,18 @@ class Modal {
   /// in debug builds if the app forgot to wrap `MaterialApp.builder`.
   static bool _appBuilderInstalled = false;
 
+  /// Whether [Modal.appBuilder] has already been installed in the widget tree.
+  ///
+  /// Other packages (e.g. s_connectivity) can check this before calling
+  /// [appBuilder] again to avoid double-wrapping the activator widget.
+  ///
+  /// ```dart
+  /// if (!Modal.isAppBuilderInstalled) {
+  ///   // safe to call Modal.appBuilder
+  /// }
+  /// ```
+  static bool get isAppBuilderInstalled => _appBuilderInstalled;
+
   /// Hook for `MaterialApp.builder` / `WidgetsApp.builder`.
   ///
   /// This is the supported way to ensure `_ActivatorWidget` becomes a **parent**
@@ -1539,6 +1551,13 @@ class Modal {
       'Modal.appBuilder requires the MaterialApp/WidgetsApp builder child. '
       'Make sure your app builder passes the provided child into Modal.appBuilder.',
     );
+
+    // Idempotent: if appBuilder was already installed, return the child as-is
+    // to prevent double-nesting of _ActivatorWidget.
+    if (_appBuilderInstalled) {
+      return child ?? const SizedBox.shrink();
+    }
+
     _appBuilderInstalled = true;
     _showDebugPrints = showDebugPrints;
     return _ActivatorWidget(

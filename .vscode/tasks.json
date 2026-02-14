@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run update packages script",
+			"type": "shell",
+			"command": "python3 '/Users/christophechanteur/Development/Flutter_projects/s_packages - with individual git/_update_packages.py'",
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Update packages script",
+			"type": "shell",
+			"command": "python3 '/Users/christophechanteur/Development/Flutter_projects/s_packages - with individual git/_update_packages.py'"
+		}
+	]
+}

@@ -21,7 +21,6 @@ class AppInternetConnectivity {
   // No timers/futures: we only react when the value actually changes.
   static bool? _lastEmitted;
   static bool _showNoInternetSnackbar = false;
-  static String _noInternetSnackbarMessage = "No Internet Connection";
 
   /// Current connectivity state.
   ///
@@ -34,8 +33,14 @@ class AppInternetConnectivity {
   /// `ValueListenableBuilder(valueListenable: AppInternetConnectivity.listenable, ...)`
   static ValueListenable<bool> get listenable => _connectionNotifier;
 
+  static NoInternetSnackbar _noInternetSnackbar = NoInternetSnackbar(
+    dismissBarrierColor: Colors.red.shade200.withValues(alpha: 0.5),
+    snackBackgroundColor: Colors.red.shade900,
+    prefixIcon: Icons.wifi_off,
+    snackMessage: "No Internet Connection",
+  );
+
   /// Whether the no-internet snackbar overlay is enabled.
-  static bool get showNoInternetSnackbar => _showNoInternetSnackbar;
   static set showNoInternetSnackbar(bool value) {
     _showNoInternetSnackbar = value;
     if (!value) {
@@ -43,8 +48,7 @@ class AppInternetConnectivity {
       Modal.dismissById("_NoInternetConnectionSnack_");
     } else if (!isConnected) {
       // Show snackbar immediately if currently offline
-      toggleConnectivitySnackbar(false,
-          noInternetMessage: _noInternetSnackbarMessage);
+      toggleConnectivitySnackbar(false);
     }
   }
 
@@ -55,7 +59,7 @@ class AppInternetConnectivity {
     VoidCallback? onDisconnected,
     bool showDebugLog = false,
     bool showNoInternetSnackbar = false,
-    String? noInternetSnackbarMessage,
+    NoInternetSnackbar? customNoInternetSnackbar,
     bool emitInitialStatus = false,
   }) async {
     // Touch debug revision so it's not tree-shaken during analysis.
@@ -65,12 +69,15 @@ class AppInternetConnectivity {
       debugPrint('AppInternetConnectivity revision=$_debugApiRevision');
     }
 
-    if (noInternetSnackbarMessage != null) {
-      _noInternetSnackbarMessage = noInternetSnackbarMessage;
+    // if the user wants to show the no internet snackbar (or to show their own custom one)
+    if (showNoInternetSnackbar || customNoInternetSnackbar != null) {
+      _showNoInternetSnackbar = true;
+
+      if (customNoInternetSnackbar != null) {
+        _noInternetSnackbar = customNoInternetSnackbar;
+      }
     }
-    if (showNoInternetSnackbar) {
-      _showNoInternetSnackbar = showNoInternetSnackbar;
-    }
+
     // Allow re-initialization safely.
     _isDisposed = false;
     final int myGeneration = ++_generation;
@@ -178,10 +185,7 @@ class AppInternetConnectivity {
       try {
         _onDisconnectedCallback?.call();
         if (_showNoInternetSnackbar) {
-          toggleConnectivitySnackbar(
-            false,
-            noInternetMessage: _noInternetSnackbarMessage,
-          );
+          toggleConnectivitySnackbar(false);
         }
       } catch (e) {
         debugPrint('Error in onDisconnected callback: $e');
@@ -200,29 +204,142 @@ class AppInternetConnectivity {
 
   //
   static void toggleConnectivitySnackbar(
-    bool status, {
-    Color? dismissBarrierColor,
-    Color? snackColor,
-    IconData? prefixIcon,
-    String? noInternetMessage,
-  }) {
+    bool status,
+  ) {
     if (status == false) {
       Modal.showSnackbar(
         id: "_NoInternetConnectionSnack_",
-        barrierColor:
-            dismissBarrierColor ?? Colors.red.shade200.withValues(alpha: 0.5),
-        backgroundColor: snackColor ?? Colors.red.shade900,
-        text: noInternetMessage ?? _noInternetSnackbarMessage,
+        barrierColor: _noInternetSnackbar.dismissBarrierColor,
+        backgroundColor: _noInternetSnackbar.snackBackgroundColor,
+        text: _noInternetSnackbar.snackMessage,
         isDismissible: false,
         showDurationTimer: false,
         showCloseIcon: false,
         displayMode: SnackbarDisplayMode.staggered,
-        prefixIcon: prefixIcon ?? Icons.wifi_off,
+        prefixIcon: _noInternetSnackbar.prefixIcon,
       );
     } else {
       Modal.dismissById("_NoInternetConnectionSnack_");
     }
   }
+}
+
+/// A convenience wrapper that sets up the Modal overlay system so that
+/// [AppInternetConnectivity]'s "No Internet" snackbar (and any other
+/// [Modal] features) work without the user having to know about
+/// [Modal.appBuilder].
+///
+/// **Safe to use even if you already wrap with `Modal.appBuilder`.**
+/// [Modal.appBuilder] is idempotent — calling it more than once simply
+/// returns the child as-is, so no double-nesting can occur.
+///
+/// ## Usage
+///
+/// **Option 1 – static builder (simplest, replaces `Modal.appBuilder`):**
+/// ```dart
+/// MaterialApp(
+///   builder: SConnectivityOverlay.appBuilder,
+///   home: MyHomePage(),
+/// )
+/// ```
+///
+/// **Option 2 – widget wrapper (if you need to chain multiple builders or
+/// customise Modal parameters):**
+/// ```dart
+/// MaterialApp(
+///   builder: (context, child) {
+///     return SConnectivityOverlay(
+///       child: child!,
+///     );
+///   },
+///   home: MyHomePage(),
+/// )
+/// ```
+///
+/// **Option 3 – used alongside an existing `Modal.appBuilder` (safe):**
+/// ```dart
+/// MaterialApp(
+///   builder: (context, child) {
+///     // Either order is fine — Modal.appBuilder is idempotent.
+///     child = Modal.appBuilder(context, child);
+///     return SConnectivityOverlay(child: child!);
+///   },
+///   home: MyHomePage(),
+/// )
+/// ```
+///
+/// In all cases the full Modal system (snackbars, dialogs, sheets) is
+/// available throughout the app.
+class SConnectivityOverlay extends StatelessWidget {
+  /// The app content to wrap.
+  final Widget child;
+
+  /// Border radius applied to the background when a sheet modal is active.
+  final BorderRadius? borderRadius;
+
+  /// Whether the modal background should bounce when the dismiss barrier
+  /// is tapped.
+  final bool shouldBounceOnTap;
+
+  /// Background color visible behind the scaled app content when a sheet
+  /// modal is active.
+  final Color backgroundColor;
+
+  /// Whether to print debug information for Modal events.
+  final bool showDebugPrints;
+
+  const SConnectivityOverlay({
+    super.key,
+    required this.child,
+    this.borderRadius,
+    this.shouldBounceOnTap = true,
+    this.backgroundColor = Colors.black,
+    this.showDebugPrints = false,
+  });
+
+  /// Drop-in replacement for [Modal.appBuilder] that can be passed directly
+  /// to `MaterialApp(builder: ...)`.
+  ///
+  /// Safe to combine with an existing `Modal.appBuilder` — the call is
+  /// idempotent and will not wrap a second time.
+  ///
+  /// ```dart
+  /// MaterialApp(
+  ///   builder: SConnectivityOverlay.appBuilder,
+  ///   home: MyHomePage(),
+  /// )
+  /// ```
+  static Widget appBuilder(BuildContext context, Widget? child) {
+    assert(child != null,
+        'SConnectivityOverlay.appBuilder requires a non-null child.');
+    return Modal.appBuilder(context, child);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Modal.appBuilder(
+      context,
+      child,
+      borderRadius: borderRadius,
+      shouldBounceOnTap: shouldBounceOnTap,
+      backgroundColor: backgroundColor,
+      showDebugPrints: showDebugPrints,
+    );
+  }
+}
+
+/// class to enable the user to customize their own No Internet Snackbar
+class NoInternetSnackbar {
+  final Color dismissBarrierColor;
+  final Color snackBackgroundColor;
+  final String snackMessage;
+  final IconData prefixIcon;
+  const NoInternetSnackbar({
+    required this.prefixIcon,
+    required this.snackMessage,
+    required this.snackBackgroundColor,
+    required this.dismissBarrierColor,
+  });
 }
 
 //********************************************** */

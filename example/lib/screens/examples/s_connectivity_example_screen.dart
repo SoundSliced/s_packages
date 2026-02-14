@@ -11,6 +11,7 @@ class SConnectivityExampleScreen extends StatefulWidget {
 class _SConnectivityExampleScreenState
     extends State<SConnectivityExampleScreen> {
   final _eventLog = <String>[];
+  bool _showNoInternetSnackbar = false;
 
   @override
   void initState() {
@@ -193,9 +194,10 @@ class _SConnectivityExampleScreenState
                     SwitchListTile(
                       title:
                           const Text('Enable package snackbar warning Overlay'),
-                      value: AppInternetConnectivity.showNoInternetSnackbar,
+                      value: _showNoInternetSnackbar,
                       onChanged: (value) {
                         setState(() {
+                          _showNoInternetSnackbar = value;
                           AppInternetConnectivity.showNoInternetSnackbar =
                               value;
                         });
