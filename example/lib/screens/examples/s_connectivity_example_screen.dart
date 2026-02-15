@@ -20,7 +20,7 @@ class _SConnectivityExampleScreenState
   }
 
   Future<void> _initializeConnectivity() async {
-    await AppInternetConnectivity.initialiseInternetConnectivityListener(
+    await SConnectivity.initialiseInternetConnectivityListener(
       emitInitialStatus: true,
       showDebugLog: false,
       showNoInternetSnackbar: false,
@@ -42,7 +42,7 @@ class _SConnectivityExampleScreenState
 
   @override
   void dispose() {
-    AppInternetConnectivity.disposeInternetConnectivityListener();
+    SConnectivity.disposeInternetConnectivityListener();
     super.dispose();
   }
 
@@ -86,7 +86,7 @@ class _SConnectivityExampleScreenState
                     ),
                     const SizedBox(height: 12),
                     ValueListenableBuilder<bool>(
-                      valueListenable: AppInternetConnectivity.listenable,
+                      valueListenable: SConnectivity.listenable,
                       builder: (context, isConnected, _) {
                         return Row(
                           children: [
@@ -198,8 +198,7 @@ class _SConnectivityExampleScreenState
                       onChanged: (value) {
                         setState(() {
                           _showNoInternetSnackbar = value;
-                          AppInternetConnectivity.showNoInternetSnackbar =
-                              value;
+                          SConnectivity.showNoInternetSnackbar = value;
                         });
                       },
                       dense: true,

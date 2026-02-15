@@ -8,7 +8,7 @@ import 'package:s_packages/soundsliced_dart_extensions/src/dart_extensions.dart'
 
 ValueNotifier<bool> _connectionNotifier = ValueNotifier<bool>(false);
 
-class AppInternetConnectivity {
+class SConnectivity {
   // Increment when debugging web hot-restart issues to ensure you are running
   // the latest compiled JS.
   static const int _debugApiRevision = 1;
@@ -30,7 +30,7 @@ class AppInternetConnectivity {
   /// Preferred listener for new code.
   ///
   /// Example:
-  /// `ValueListenableBuilder(valueListenable: AppInternetConnectivity.listenable, ...)`
+  /// `ValueListenableBuilder(valueListenable: SConnectivity.listenable, ...)`
   static ValueListenable<bool> get listenable => _connectionNotifier;
 
   static NoInternetSnackbar _noInternetSnackbar = NoInternetSnackbar(
@@ -48,7 +48,7 @@ class AppInternetConnectivity {
       Modal.dismissById("_NoInternetConnectionSnack_");
     } else if (!isConnected) {
       // Show snackbar immediately if currently offline
-      toggleConnectivitySnackbar(false);
+      _toggleConnectivitySnackbar(false);
     }
   }
 
@@ -66,7 +66,7 @@ class AppInternetConnectivity {
     // ignore: avoid_print
     if (showDebugLog) {
       _showDebugPrint = true;
-      debugPrint('AppInternetConnectivity revision=$_debugApiRevision');
+      debugPrint('SConnectivity revision=$_debugApiRevision');
     }
 
     // if the user wants to show the no internet snackbar (or to show their own custom one)
@@ -174,7 +174,7 @@ class AppInternetConnectivity {
       try {
         _onConnectedCallback?.call();
 
-        toggleConnectivitySnackbar(true);
+        _toggleConnectivitySnackbar(true);
       } catch (e) {
         debugPrint('Error in onConnected callback: $e');
       }
@@ -185,7 +185,7 @@ class AppInternetConnectivity {
       try {
         _onDisconnectedCallback?.call();
         if (_showNoInternetSnackbar) {
-          toggleConnectivitySnackbar(false);
+          _toggleConnectivitySnackbar(false);
         }
       } catch (e) {
         debugPrint('Error in onDisconnected callback: $e');
@@ -203,7 +203,7 @@ class AppInternetConnectivity {
   }
 
   //
-  static void toggleConnectivitySnackbar(
+  static void _toggleConnectivitySnackbar(
     bool status,
   ) {
     if (status == false) {
@@ -225,7 +225,7 @@ class AppInternetConnectivity {
 }
 
 /// A convenience wrapper that sets up the Modal overlay system so that
-/// [AppInternetConnectivity]'s "No Internet" snackbar (and any other
+/// [SConnectivity]'s "No Internet" snackbar (and any other
 /// [Modal] features) work without the user having to know about
 /// [Modal.appBuilder].
 ///
@@ -377,7 +377,7 @@ class _NoInternetWidgetState extends State<NoInternetWidget> {
     // If the shouldShowWhenNoInternet flag changed, update visibility
     if (oldWidget.shouldShowWhenNoInternet != widget.shouldShowWhenNoInternet) {
       if (mounted) {
-        _updateVisibility(AppInternetConnectivity.isConnected);
+        _updateVisibility(SConnectivity.isConnected);
       }
     }
   }
@@ -390,7 +390,7 @@ class _NoInternetWidgetState extends State<NoInternetWidget> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-      valueListenable: AppInternetConnectivity.listenable,
+      valueListenable: SConnectivity.listenable,
       builder: (context, isConnected, _) {
         if (!widget.shouldShowWhenNoInternet) {
           return const SizedBox.shrink();

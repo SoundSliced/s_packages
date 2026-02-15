@@ -1,4 +1,11 @@
 
+## 1.4.1
+- **`s_connectivity` sub-package BREAKING improvements**:
+  - **BREAKING:** Renamed `AppInternetConnectivity` class to `SConnectivity` — all call sites must be updated (e.g. `AppInternetConnectivity.listenable` → `SConnectivity.listenable`)
+  - **BREAKING:** Renamed source file from `s_connection.dart` to `s_connectivity.dart` — direct imports must be updated
+  - Made `toggleConnectivitySnackbar()` private (`_toggleConnectivitySnackbar`) — use the `showNoInternetSnackbar` setter instead for manual snackbar control
+
+
 ## 1.4.0
 - **`s_modal` sub-package improvements**:
   - Added `Modal.isAppBuilderInstalled` public getter — allows other packages to check whether `Modal.appBuilder` has already been installed in the widget tree

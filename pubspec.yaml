@@ -3,7 +3,7 @@ description: A unified package gathering multiple widgets and tools.
 issue_tracker: https://github.com/SoundSliced/s_packages/issues
 repository: https://github.com/SoundSliced/s_packages
 homepage: https://github.com/SoundSliced/s_packages
-version: 1.4.0
+version: 1.4.1
 
 
 environment:
