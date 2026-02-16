@@ -83,7 +83,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  s_packages: ^1.4.2
+  s_packages: ^1.5.0
 ```
 
 Then run:

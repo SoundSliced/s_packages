@@ -1,3 +1,9 @@
+## 1.5.0
+- **`s_client` sub-package improvements**:
+  - Added `validateStatus` parameter (`bool Function(int?)?`) to all HTTP methods (`get`, `getJson`, `getJsonList`, `post`, `postJson`, `put`, `putJson`, `patch`, `patchJson`, `delete`, `deleteJson`, `head`, `download`, `downloadToFile`, `uploadFile`) — allows per-request control over which status codes are treated as valid
+  - Fixed Dio request options: `followRedirects`, `maxRedirects`, and `validateStatus` are now correctly forwarded to all `_perform*` methods — previously only `receiveTimeout` and `headers` were passed through
+  - flutter/Dart SDKs updated
+
 ## 1.4.2
 - **`s_modal` sub-package improvements**:
   — Added `_appBuilderInstalled = false` in both `disposeActivator()` and `_ActivatorWidgetState.dispose()`. Without this, after the first test tears down its widget tree, subsequent tests' `Modal.appBuilder` calls skip creating the `_ActivatorWidget`, so modals never render.

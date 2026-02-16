@@ -81,17 +81,19 @@ class SClient {
 
   /// Gets or creates the Dio client.
   dio.Dio get _dio {
-    _dioClient ??= dio.Dio(dio.BaseOptions(
-      baseUrl: config.baseUrl ?? '',
-      connectTimeout: config.connectTimeout,
-      receiveTimeout: config.receiveTimeout,
-      // sendTimeout cannot be used without a request body on Web platform
-      sendTimeout: kIsWeb ? null : config.sendTimeout,
-      headers: config.defaultHeaders,
-      followRedirects: config.followRedirects,
-      maxRedirects: config.maxRedirects,
-      validateStatus: (status) => true, // Don't throw on any status
-    ));
+    _dioClient ??= dio.Dio(
+      dio.BaseOptions(
+        baseUrl: config.baseUrl ?? '',
+        connectTimeout: config.connectTimeout,
+        receiveTimeout: config.receiveTimeout,
+        // sendTimeout cannot be used without a request body on Web platform
+        sendTimeout: kIsWeb ? null : config.sendTimeout,
+        headers: config.defaultHeaders,
+        followRedirects: config.followRedirects,
+        maxRedirects: config.maxRedirects,
+        validateStatus: (status) => true, // Don't throw on any status
+      ),
+    );
     return _dioClient!;
   }
 
@@ -173,8 +175,8 @@ class SClient {
     final body = response.data is String
         ? response.data as String
         : response.data != null
-            ? jsonEncode(response.data)
-            : '';
+        ? jsonEncode(response.data)
+        : '';
 
     return ClientResponse(
       statusCode: response.statusCode ?? 0,
@@ -309,10 +311,12 @@ class SClient {
     }
 
     if (response == null) {
-      onError?.call(const ClientException(
-        message: 'No response received',
-        type: ClientErrorType.unknown,
-      ));
+      onError?.call(
+        const ClientException(
+          message: 'No response received',
+          type: ClientErrorType.unknown,
+        ),
+      );
       return;
     }
 
@@ -333,13 +337,15 @@ class SClient {
       if (onHttpError != null) {
         onHttpError(response.statusCode, response);
       } else {
-        onError?.call(ClientException(
-          message: 'HTTP error ${response.statusCode}',
-          url: response.requestUrl,
-          statusCode: response.statusCode,
-          type: ClientErrorType.badResponse,
-          responseBody: response.body,
-        ));
+        onError?.call(
+          ClientException(
+            message: 'HTTP error ${response.statusCode}',
+            url: response.requestUrl,
+            statusCode: response.statusCode,
+            type: ClientErrorType.badResponse,
+            responseBody: response.body,
+          ),
+        );
       }
       return;
     }
@@ -351,13 +357,15 @@ class SClient {
       if (onHttpError != null) {
         onHttpError(response.statusCode, response);
       } else {
-        onError?.call(ClientException(
-          message: 'HTTP error ${response.statusCode}',
-          url: response.requestUrl,
-          statusCode: response.statusCode,
-          type: ClientErrorType.badResponse,
-          responseBody: response.body,
-        ));
+        onError?.call(
+          ClientException(
+            message: 'HTTP error ${response.statusCode}',
+            url: response.requestUrl,
+            statusCode: response.statusCode,
+            type: ClientErrorType.badResponse,
+            responseBody: response.body,
+          ),
+        );
       }
     }
   }
@@ -403,6 +411,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     // Optional callbacks
     OnSuccess? onSuccess,
     OnError? onError,
@@ -424,7 +433,9 @@ class SClient {
       final result = (
         null,
         ClientException(
-            message: 'Request cancelled by interceptor', url: fullUrl)
+          message: 'Request cancelled by interceptor',
+          url: fullUrl,
+        ),
       );
       _handleCallbacks(
         response: result.$1,
@@ -443,8 +454,10 @@ class SClient {
     final cachedResponse =
         processedRequest.extra['cachedResponse'] as ClientResponse?;
     if (cachedResponse != null) {
-      final response =
-          await _runResponseInterceptors(processedRequest, cachedResponse);
+      final response = await _runResponseInterceptors(
+        processedRequest,
+        cachedResponse,
+      );
       final result = (response, null);
       _handleCallbacks(
         response: result.$1,
@@ -461,8 +474,13 @@ class SClient {
 
     final result = await _executeWithRetry(
       request: processedRequest,
-      execute: () =>
-          _performGet(processedRequest, timeout, clientType, cancelKey),
+      execute: () => _performGet(
+        processedRequest,
+        timeout,
+        clientType,
+        cancelKey,
+        validateStatus,
+      ),
     );
 
     _handleCallbacks(
@@ -493,6 +511,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     OnHttpError? onHttpError,
     Map<int, OnStatus>? onStatus,
     Set<int>? successCodes,
@@ -505,27 +524,32 @@ class SClient {
       timeout: timeout,
       clientType: clientType,
       cancelKey: cancelKey,
+      validateStatus: validateStatus,
       onSuccess: (response) {
         try {
           final json = response.jsonBody;
           if (json == null) {
-            onError(ClientException(
-              message: 'Invalid JSON response',
-              url: url,
-              type: ClientErrorType.badResponse,
-              responseBody: response.body,
-            ));
+            onError(
+              ClientException(
+                message: 'Invalid JSON response',
+                url: url,
+                type: ClientErrorType.badResponse,
+                responseBody: response.body,
+              ),
+            );
             return;
           }
           final data = fromJson(json);
           onSuccess(data, response);
         } catch (e) {
-          onError(ClientException(
-            message: 'Failed to parse JSON: $e',
-            url: url,
-            type: ClientErrorType.unknown,
-            originalError: e,
-          ));
+          onError(
+            ClientException(
+              message: 'Failed to parse JSON: $e',
+              url: url,
+              type: ClientErrorType.unknown,
+              originalError: e,
+            ),
+          );
         }
       },
       onError: onError,
@@ -550,6 +574,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     OnHttpError? onHttpError,
     Map<int, OnStatus>? onStatus,
     Set<int>? successCodes,
@@ -562,28 +587,34 @@ class SClient {
       timeout: timeout,
       clientType: clientType,
       cancelKey: cancelKey,
+      validateStatus: validateStatus,
       onSuccess: (response) {
         try {
           final list = response.jsonListBody;
           if (list == null) {
-            onError(ClientException(
-              message: 'Invalid JSON array response',
-              url: url,
-              type: ClientErrorType.badResponse,
-              responseBody: response.body,
-            ));
+            onError(
+              ClientException(
+                message: 'Invalid JSON array response',
+                url: url,
+                type: ClientErrorType.badResponse,
+                responseBody: response.body,
+              ),
+            );
             return;
           }
-          final items =
-              list.map((e) => fromJson(e as Map<String, dynamic>)).toList();
+          final items = list
+              .map((e) => fromJson(e as Map<String, dynamic>))
+              .toList();
           onSuccess(items, response);
         } catch (e) {
-          onError(ClientException(
-            message: 'Failed to parse JSON list: $e',
-            url: url,
-            type: ClientErrorType.unknown,
-            originalError: e,
-          ));
+          onError(
+            ClientException(
+              message: 'Failed to parse JSON list: $e',
+              url: url,
+              type: ClientErrorType.unknown,
+              originalError: e,
+            ),
+          );
         }
       },
       onError: onError,
@@ -599,6 +630,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
   ) async {
     final useClient = clientType ?? config.clientType;
     final stopwatch = Stopwatch()..start();
@@ -613,10 +645,12 @@ class SClient {
 
         var uri = Uri.parse(request.url);
         if (request.queryParameters != null) {
-          uri = uri.replace(queryParameters: {
-            ...uri.queryParameters,
-            ...request.queryParameters!,
-          });
+          uri = uri.replace(
+            queryParameters: {
+              ...uri.queryParameters,
+              ...request.queryParameters!,
+            },
+          );
         }
 
         final response = await _dio.getUri(
@@ -624,6 +658,9 @@ class SClient {
           options: dio.Options(
             headers: request.headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            followRedirects: config.followRedirects,
+            maxRedirects: config.maxRedirects,
+            validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
         );
@@ -631,18 +668,25 @@ class SClient {
         stopwatch.stop();
         if (cancelKey != null) _cancelTokens.remove(cancelKey);
 
-        final httpResponse =
-            _dioToResponse(response, 'GET', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _dioToResponse(
+          response,
+          'GET',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       } else {
         var uri = Uri.parse(request.url);
         if (request.queryParameters != null) {
-          uri = uri.replace(queryParameters: {
-            ...uri.queryParameters,
-            ...request.queryParameters!,
-          });
+          uri = uri.replace(
+            queryParameters: {
+              ...uri.queryParameters,
+              ...request.queryParameters!,
+            },
+          );
         }
 
         final response = await _http
@@ -651,10 +695,15 @@ class SClient {
 
         stopwatch.stop();
 
-        final httpResponse =
-            _httpToResponse(response, 'GET', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _httpToResponse(
+          response,
+          'GET',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       }
     } catch (e) {
@@ -680,6 +729,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     // Optional callbacks
     OnSuccess? onSuccess,
     OnError? onError,
@@ -701,7 +751,9 @@ class SClient {
       final result = (
         null,
         ClientException(
-            message: 'Request cancelled by interceptor', url: fullUrl)
+          message: 'Request cancelled by interceptor',
+          url: fullUrl,
+        ),
       );
       _handleCallbacks(
         response: result.$1,
@@ -718,8 +770,13 @@ class SClient {
 
     final result = await _executeWithRetry(
       request: processedRequest,
-      execute: () =>
-          _performPost(processedRequest, timeout, clientType, cancelKey),
+      execute: () => _performPost(
+        processedRequest,
+        timeout,
+        clientType,
+        cancelKey,
+        validateStatus,
+      ),
     );
 
     _handleCallbacks(
@@ -750,6 +807,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     OnHttpError? onHttpError,
     Map<int, OnStatus>? onStatus,
     Set<int>? successCodes,
@@ -762,27 +820,32 @@ class SClient {
       timeout: timeout,
       clientType: clientType,
       cancelKey: cancelKey,
+      validateStatus: validateStatus,
       onSuccess: (response) {
         try {
           final json = response.jsonBody;
           if (json == null) {
-            onError(ClientException(
-              message: 'Invalid JSON response',
-              url: url,
-              type: ClientErrorType.badResponse,
-              responseBody: response.body,
-            ));
+            onError(
+              ClientException(
+                message: 'Invalid JSON response',
+                url: url,
+                type: ClientErrorType.badResponse,
+                responseBody: response.body,
+              ),
+            );
             return;
           }
           final data = fromJson(json);
           onSuccess(data, response);
         } catch (e) {
-          onError(ClientException(
-            message: 'Failed to parse JSON: $e',
-            url: url,
-            type: ClientErrorType.unknown,
-            originalError: e,
-          ));
+          onError(
+            ClientException(
+              message: 'Failed to parse JSON: $e',
+              url: url,
+              type: ClientErrorType.unknown,
+              originalError: e,
+            ),
+          );
         }
       },
       onError: onError,
@@ -798,6 +861,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
   ) async {
     final useClient = clientType ?? config.clientType;
     final stopwatch = Stopwatch()..start();
@@ -816,6 +880,9 @@ class SClient {
           options: dio.Options(
             headers: request.headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            followRedirects: config.followRedirects,
+            maxRedirects: config.maxRedirects,
+            validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
         );
@@ -823,10 +890,15 @@ class SClient {
         stopwatch.stop();
         if (cancelKey != null) _cancelTokens.remove(cancelKey);
 
-        final httpResponse =
-            _dioToResponse(response, 'POST', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _dioToResponse(
+          response,
+          'POST',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       } else {
         final response = await _http
@@ -839,10 +911,15 @@ class SClient {
 
         stopwatch.stop();
 
-        final httpResponse =
-            _httpToResponse(response, 'POST', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _httpToResponse(
+          response,
+          'POST',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       }
     } catch (e) {
@@ -868,6 +945,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     // Optional callbacks
     OnSuccess? onSuccess,
     OnError? onError,
@@ -889,7 +967,9 @@ class SClient {
       final result = (
         null,
         ClientException(
-            message: 'Request cancelled by interceptor', url: fullUrl)
+          message: 'Request cancelled by interceptor',
+          url: fullUrl,
+        ),
       );
       _handleCallbacks(
         response: result.$1,
@@ -906,8 +986,13 @@ class SClient {
 
     final result = await _executeWithRetry(
       request: processedRequest,
-      execute: () =>
-          _performPut(processedRequest, timeout, clientType, cancelKey),
+      execute: () => _performPut(
+        processedRequest,
+        timeout,
+        clientType,
+        cancelKey,
+        validateStatus,
+      ),
     );
 
     _handleCallbacks(
@@ -929,6 +1014,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
   ) async {
     final useClient = clientType ?? config.clientType;
     final stopwatch = Stopwatch()..start();
@@ -947,6 +1033,9 @@ class SClient {
           options: dio.Options(
             headers: request.headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            followRedirects: config.followRedirects,
+            maxRedirects: config.maxRedirects,
+            validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
         );
@@ -954,10 +1043,15 @@ class SClient {
         stopwatch.stop();
         if (cancelKey != null) _cancelTokens.remove(cancelKey);
 
-        final httpResponse =
-            _dioToResponse(response, 'PUT', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _dioToResponse(
+          response,
+          'PUT',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       } else {
         final response = await _http
@@ -970,10 +1064,15 @@ class SClient {
 
         stopwatch.stop();
 
-        final httpResponse =
-            _httpToResponse(response, 'PUT', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _httpToResponse(
+          response,
+          'PUT',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       }
     } catch (e) {
@@ -997,6 +1096,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     OnHttpError? onHttpError,
     Map<int, OnStatus>? onStatus,
     Set<int>? successCodes,
@@ -1009,27 +1109,32 @@ class SClient {
       timeout: timeout,
       clientType: clientType,
       cancelKey: cancelKey,
+      validateStatus: validateStatus,
       onSuccess: (response) {
         try {
           final json = response.jsonBody;
           if (json == null) {
-            onError(ClientException(
-              message: 'Invalid JSON response',
-              url: url,
-              type: ClientErrorType.badResponse,
-              responseBody: response.body,
-            ));
+            onError(
+              ClientException(
+                message: 'Invalid JSON response',
+                url: url,
+                type: ClientErrorType.badResponse,
+                responseBody: response.body,
+              ),
+            );
             return;
           }
           final data = fromJson(json);
           onSuccess(data, response);
         } catch (e) {
-          onError(ClientException(
-            message: 'Failed to parse JSON: $e',
-            url: url,
-            type: ClientErrorType.unknown,
-            originalError: e,
-          ));
+          onError(
+            ClientException(
+              message: 'Failed to parse JSON: $e',
+              url: url,
+              type: ClientErrorType.unknown,
+              originalError: e,
+            ),
+          );
         }
       },
       onError: onError,
@@ -1056,6 +1161,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     // Optional callbacks
     OnSuccess? onSuccess,
     OnError? onError,
@@ -1077,7 +1183,9 @@ class SClient {
       final result = (
         null,
         ClientException(
-            message: 'Request cancelled by interceptor', url: fullUrl)
+          message: 'Request cancelled by interceptor',
+          url: fullUrl,
+        ),
       );
       _handleCallbacks(
         response: result.$1,
@@ -1094,8 +1202,13 @@ class SClient {
 
     final result = await _executeWithRetry(
       request: processedRequest,
-      execute: () =>
-          _performPatch(processedRequest, timeout, clientType, cancelKey),
+      execute: () => _performPatch(
+        processedRequest,
+        timeout,
+        clientType,
+        cancelKey,
+        validateStatus,
+      ),
     );
 
     _handleCallbacks(
@@ -1117,6 +1230,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
   ) async {
     final useClient = clientType ?? config.clientType;
     final stopwatch = Stopwatch()..start();
@@ -1135,6 +1249,9 @@ class SClient {
           options: dio.Options(
             headers: request.headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            followRedirects: config.followRedirects,
+            maxRedirects: config.maxRedirects,
+            validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
         );
@@ -1142,10 +1259,15 @@ class SClient {
         stopwatch.stop();
         if (cancelKey != null) _cancelTokens.remove(cancelKey);
 
-        final httpResponse =
-            _dioToResponse(response, 'PATCH', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _dioToResponse(
+          response,
+          'PATCH',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       } else {
         final response = await _http
@@ -1158,10 +1280,15 @@ class SClient {
 
         stopwatch.stop();
 
-        final httpResponse =
-            _httpToResponse(response, 'PATCH', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _httpToResponse(
+          response,
+          'PATCH',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       }
     } catch (e) {
@@ -1185,6 +1312,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     OnHttpError? onHttpError,
     Map<int, OnStatus>? onStatus,
     Set<int>? successCodes,
@@ -1197,27 +1325,32 @@ class SClient {
       timeout: timeout,
       clientType: clientType,
       cancelKey: cancelKey,
+      validateStatus: validateStatus,
       onSuccess: (response) {
         try {
           final json = response.jsonBody;
           if (json == null) {
-            onError(ClientException(
-              message: 'Invalid JSON response',
-              url: url,
-              type: ClientErrorType.badResponse,
-              responseBody: response.body,
-            ));
+            onError(
+              ClientException(
+                message: 'Invalid JSON response',
+                url: url,
+                type: ClientErrorType.badResponse,
+                responseBody: response.body,
+              ),
+            );
             return;
           }
           final data = fromJson(json);
           onSuccess(data, response);
         } catch (e) {
-          onError(ClientException(
-            message: 'Failed to parse JSON: $e',
-            url: url,
-            type: ClientErrorType.unknown,
-            originalError: e,
-          ));
+          onError(
+            ClientException(
+              message: 'Failed to parse JSON: $e',
+              url: url,
+              type: ClientErrorType.unknown,
+              originalError: e,
+            ),
+          );
         }
       },
       onError: onError,
@@ -1244,6 +1377,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     // Optional callbacks
     OnSuccess? onSuccess,
     OnError? onError,
@@ -1265,7 +1399,9 @@ class SClient {
       final result = (
         null,
         ClientException(
-            message: 'Request cancelled by interceptor', url: fullUrl)
+          message: 'Request cancelled by interceptor',
+          url: fullUrl,
+        ),
       );
       _handleCallbacks(
         response: result.$1,
@@ -1282,8 +1418,13 @@ class SClient {
 
     final result = await _executeWithRetry(
       request: processedRequest,
-      execute: () =>
-          _performDelete(processedRequest, timeout, clientType, cancelKey),
+      execute: () => _performDelete(
+        processedRequest,
+        timeout,
+        clientType,
+        cancelKey,
+        validateStatus,
+      ),
     );
 
     _handleCallbacks(
@@ -1305,6 +1446,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
   ) async {
     final useClient = clientType ?? config.clientType;
     final stopwatch = Stopwatch()..start();
@@ -1323,6 +1465,9 @@ class SClient {
           options: dio.Options(
             headers: request.headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            followRedirects: config.followRedirects,
+            maxRedirects: config.maxRedirects,
+            validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
         );
@@ -1330,10 +1475,15 @@ class SClient {
         stopwatch.stop();
         if (cancelKey != null) _cancelTokens.remove(cancelKey);
 
-        final httpResponse =
-            _dioToResponse(response, 'DELETE', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _dioToResponse(
+          response,
+          'DELETE',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       } else {
         final httpRequest = http.Request('DELETE', Uri.parse(request.url));
@@ -1349,10 +1499,15 @@ class SClient {
 
         stopwatch.stop();
 
-        final httpResponse =
-            _httpToResponse(response, 'DELETE', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _httpToResponse(
+          response,
+          'DELETE',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       }
     } catch (e) {
@@ -1376,6 +1531,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     OnHttpError? onHttpError,
     Map<int, OnStatus>? onStatus,
     Set<int>? successCodes,
@@ -1388,27 +1544,32 @@ class SClient {
       timeout: timeout,
       clientType: clientType,
       cancelKey: cancelKey,
+      validateStatus: validateStatus,
       onSuccess: (response) {
         try {
           final json = response.jsonBody;
           if (json == null) {
-            onError(ClientException(
-              message: 'Invalid JSON response',
-              url: url,
-              type: ClientErrorType.badResponse,
-              responseBody: response.body,
-            ));
+            onError(
+              ClientException(
+                message: 'Invalid JSON response',
+                url: url,
+                type: ClientErrorType.badResponse,
+                responseBody: response.body,
+              ),
+            );
             return;
           }
           final data = fromJson(json);
           onSuccess(data, response);
         } catch (e) {
-          onError(ClientException(
-            message: 'Failed to parse JSON: $e',
-            url: url,
-            type: ClientErrorType.unknown,
-            originalError: e,
-          ));
+          onError(
+            ClientException(
+              message: 'Failed to parse JSON: $e',
+              url: url,
+              type: ClientErrorType.unknown,
+              originalError: e,
+            ),
+          );
         }
       },
       onError: onError,
@@ -1434,6 +1595,7 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     // Optional callbacks
     OnSuccess? onSuccess,
     OnError? onError,
@@ -1454,7 +1616,9 @@ class SClient {
       final result = (
         null,
         ClientException(
-            message: 'Request cancelled by interceptor', url: fullUrl)
+          message: 'Request cancelled by interceptor',
+          url: fullUrl,
+        ),
       );
       _handleCallbacks(
         response: result.$1,
@@ -1471,7 +1635,8 @@ class SClient {
 
     final result = await _executeWithRetry(
       request: processedRequest,
-      execute: () => _performHead(processedRequest, timeout, clientType),
+      execute: () =>
+          _performHead(processedRequest, timeout, clientType, validateStatus),
     );
 
     _handleCallbacks(
@@ -1492,6 +1657,7 @@ class SClient {
     ClientRequest request,
     Duration? timeout,
     ClientType? clientType,
+    bool Function(int?)? validateStatus,
   ) async {
     final useClient = clientType ?? config.clientType;
     final stopwatch = Stopwatch()..start();
@@ -1503,15 +1669,23 @@ class SClient {
           options: dio.Options(
             headers: request.headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            followRedirects: config.followRedirects,
+            maxRedirects: config.maxRedirects,
+            validateStatus: validateStatus ?? (status) => true,
           ),
         );
 
         stopwatch.stop();
 
-        final httpResponse =
-            _dioToResponse(response, 'HEAD', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _dioToResponse(
+          response,
+          'HEAD',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       } else {
         final response = await _http
@@ -1520,10 +1694,15 @@ class SClient {
 
         stopwatch.stop();
 
-        final httpResponse =
-            _httpToResponse(response, 'HEAD', stopwatch.elapsedMilliseconds);
-        final processedResponse =
-            await _runResponseInterceptors(request, httpResponse);
+        final httpResponse = _httpToResponse(
+          response,
+          'HEAD',
+          stopwatch.elapsedMilliseconds,
+        );
+        final processedResponse = await _runResponseInterceptors(
+          request,
+          httpResponse,
+        );
         return (processedResponse, null);
       }
     } catch (e) {
@@ -1547,6 +1726,7 @@ class SClient {
     ClientType? clientType,
     OnProgress? onProgress,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     // Optional callbacks
     void Function(List<int> bytes)? onSuccess,
     OnError? onError,
@@ -1568,6 +1748,9 @@ class SClient {
             headers: headers,
             responseType: dio.ResponseType.bytes,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            followRedirects: config.followRedirects,
+            maxRedirects: config.maxRedirects,
+            validateStatus: validateStatus ?? (status) => true,
           ),
           onReceiveProgress: onProgress,
           cancelToken: cancelToken,
@@ -1591,7 +1774,7 @@ class SClient {
               url: fullUrl,
               statusCode: response.statusCode,
               type: ClientErrorType.badResponse,
-            )
+            ),
           );
           onError?.call(result.$2);
           return result;
@@ -1613,7 +1796,7 @@ class SClient {
               url: fullUrl,
               statusCode: response.statusCode,
               type: ClientErrorType.badResponse,
-            )
+            ),
           );
           onError?.call(result.$2);
           return result;
@@ -1652,6 +1835,7 @@ class SClient {
     OnProgress? onProgress,
     String? cancelKey,
     dio.FileAccessMode? fileAccessMode,
+    bool Function(int?)? validateStatus,
     // Optional callbacks
     void Function(String savedPath)? onSuccess,
     OnError? onError,
@@ -1673,6 +1857,9 @@ class SClient {
           options: dio.Options(
             headers: headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            followRedirects: config.followRedirects,
+            maxRedirects: config.maxRedirects,
+            validateStatus: validateStatus ?? (status) => true,
           ),
           onReceiveProgress: onProgress,
           cancelToken: cancelToken,
@@ -1695,7 +1882,7 @@ class SClient {
               url: fullUrl,
               statusCode: response.statusCode,
               type: ClientErrorType.badResponse,
-            )
+            ),
           );
           onError?.call(result.$2);
           return result;
@@ -1720,7 +1907,7 @@ class SClient {
               url: fullUrl,
               statusCode: response.statusCode,
               type: ClientErrorType.badResponse,
-            )
+            ),
           );
           onError?.call(result.$2);
           return result;
@@ -1739,7 +1926,8 @@ class SClient {
     // Using dart:io File - only available on non-web platforms
     if (kIsWeb) {
       throw UnsupportedError(
-          'downloadToFile with http backend is not supported on web. Use ClientType.dio instead.');
+        'downloadToFile with http backend is not supported on web. Use ClientType.dio instead.',
+      );
     }
     final file = File(path);
     await file.writeAsBytes(bytes);
@@ -1760,6 +1948,7 @@ class SClient {
     ClientType? clientType,
     OnProgress? onProgress,
     String? cancelKey,
+    bool Function(int?)? validateStatus,
     // Optional callbacks
     OnSuccess? onSuccess,
     OnError? onError,
@@ -1791,6 +1980,9 @@ class SClient {
           options: dio.Options(
             headers: headers,
             sendTimeout: timeout ?? config.sendTimeout,
+            followRedirects: config.followRedirects,
+            maxRedirects: config.maxRedirects,
+            validateStatus: validateStatus ?? (status) => true,
           ),
           onSendProgress: onProgress,
           cancelToken: cancelToken,
@@ -1801,7 +1993,7 @@ class SClient {
 
         final result = (
           _dioToResponse(response, 'POST', stopwatch.elapsedMilliseconds),
-          null
+          null,
         );
 
         _handleCallbacks(
@@ -1822,18 +2014,20 @@ class SClient {
         if (headers != null) request.headers.addAll(headers);
         if (fields != null) request.fields.addAll(fields);
 
-        request.files
-            .add(await http.MultipartFile.fromPath(fileField, filePath));
+        request.files.add(
+          await http.MultipartFile.fromPath(fileField, filePath),
+        );
 
-        final streamedResponse =
-            await _http.send(request).timeout(timeout ?? config.sendTimeout);
+        final streamedResponse = await _http
+            .send(request)
+            .timeout(timeout ?? config.sendTimeout);
         final response = await http.Response.fromStream(streamedResponse);
 
         stopwatch.stop();
 
         final result = (
           _httpToResponse(response, 'POST', stopwatch.elapsedMilliseconds),
-          null
+          null,
         );
 
         _handleCallbacks(
@@ -1881,8 +2075,11 @@ class SClient {
   /// A URL is considered reachable if we get ANY response from the server,
   /// even error responses like 404 or 500 - because that means the server
   /// is online and responding. Only connection failures return false.
-  Future<bool> isReachable(String url,
-      {Duration? timeout, ClientType? clientType}) async {
+  Future<bool> isReachable(
+    String url, {
+    Duration? timeout,
+    ClientType? clientType,
+  }) async {
     final effectiveTimeout = timeout ?? const Duration(seconds: 10);
 
     // First try HEAD request (lighter weight)
@@ -1951,8 +2148,11 @@ class SClient {
     Duration? timeout,
     ClientType? clientType,
   }) async {
-    final result =
-        await isReachable(url, timeout: timeout, clientType: clientType);
+    final result = await isReachable(
+      url,
+      timeout: timeout,
+      clientType: clientType,
+    );
     onResult(result);
   }
 
