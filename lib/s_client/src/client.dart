@@ -175,8 +175,8 @@ class SClient {
     final body = response.data is String
         ? response.data as String
         : response.data != null
-        ? jsonEncode(response.data)
-        : '';
+            ? jsonEncode(response.data)
+            : '';
 
     return ClientResponse(
       statusCode: response.statusCode ?? 0,
@@ -602,9 +602,8 @@ class SClient {
             );
             return;
           }
-          final items = list
-              .map((e) => fromJson(e as Map<String, dynamic>))
-              .toList();
+          final items =
+              list.map((e) => fromJson(e as Map<String, dynamic>)).toList();
           onSuccess(items, response);
         } catch (e) {
           onError(
@@ -2018,9 +2017,8 @@ class SClient {
           await http.MultipartFile.fromPath(fileField, filePath),
         );
 
-        final streamedResponse = await _http
-            .send(request)
-            .timeout(timeout ?? config.sendTimeout);
+        final streamedResponse =
+            await _http.send(request).timeout(timeout ?? config.sendTimeout);
         final response = await http.Response.fromStream(streamedResponse);
 
         stopwatch.stop();
