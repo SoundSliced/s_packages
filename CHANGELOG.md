@@ -1,3 +1,6 @@
+## 1.4.2
+- **`s_modal` sub-package improvements**:
+  — Added `_appBuilderInstalled = false` in both `disposeActivator()` and `_ActivatorWidgetState.dispose()`. Without this, after the first test tears down its widget tree, subsequent tests' `Modal.appBuilder` calls skip creating the `_ActivatorWidget`, so modals never render.
 
 ## 1.4.1
 - **`s_connectivity` sub-package BREAKING improvements**:
