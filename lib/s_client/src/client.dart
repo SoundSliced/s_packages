@@ -729,6 +729,7 @@ class SClient {
     ClientType? clientType,
     String? cancelKey,
     bool Function(int?)? validateStatus,
+    Set<int>? autoRedirectStatusCodes,
     // Optional callbacks
     OnSuccess? onSuccess,
     OnError? onError,
@@ -775,6 +776,7 @@ class SClient {
         clientType,
         cancelKey,
         validateStatus,
+        autoRedirectStatusCodes,
       ),
     );
 
@@ -807,6 +809,7 @@ class SClient {
     ClientType? clientType,
     String? cancelKey,
     bool Function(int?)? validateStatus,
+    Set<int>? autoRedirectStatusCodes,
     OnHttpError? onHttpError,
     Map<int, OnStatus>? onStatus,
     Set<int>? successCodes,
@@ -820,6 +823,7 @@ class SClient {
       clientType: clientType,
       cancelKey: cancelKey,
       validateStatus: validateStatus,
+      autoRedirectStatusCodes: autoRedirectStatusCodes,
       onSuccess: (response) {
         try {
           final json = response.jsonBody;
@@ -861,6 +865,7 @@ class SClient {
     ClientType? clientType,
     String? cancelKey,
     bool Function(int?)? validateStatus,
+    Set<int>? autoRedirectStatusCodes,
   ) async {
     final useClient = clientType ?? config.clientType;
     final stopwatch = Stopwatch()..start();
@@ -886,11 +891,35 @@ class SClient {
           cancelToken: cancelToken,
         );
 
+        dio.Response effectiveResponse = response;
+        if (autoRedirectStatusCodes != null &&
+            autoRedirectStatusCodes.contains(response.statusCode ?? -1)) {
+          final redirectUrl = response.headers.value('location');
+          if (redirectUrl != null && redirectUrl.isNotEmpty) {
+            final resolvedRedirectUri = Uri.parse(
+              request.url,
+            ).resolve(redirectUrl);
+            final redirectResponse = await _dio.getUri(
+              resolvedRedirectUri,
+              options: dio.Options(
+                headers: request.headers,
+                receiveTimeout: timeout ?? config.receiveTimeout,
+                followRedirects: config.followRedirects,
+                maxRedirects:
+                    config.followRedirects ? config.maxRedirects : null,
+                validateStatus: validateStatus ?? (status) => true,
+              ),
+              cancelToken: cancelToken,
+            );
+            effectiveResponse = redirectResponse;
+          }
+        }
+
         stopwatch.stop();
         if (cancelKey != null) _cancelTokens.remove(cancelKey);
 
         final httpResponse = _dioToResponse(
-          response,
+          effectiveResponse,
           'POST',
           stopwatch.elapsedMilliseconds,
         );
@@ -908,10 +937,25 @@ class SClient {
             )
             .timeout(timeout ?? config.receiveTimeout);
 
+        http.Response effectiveResponse = response;
+        if (autoRedirectStatusCodes != null &&
+            autoRedirectStatusCodes.contains(response.statusCode)) {
+          final redirectUrl = response.headers['location'];
+          if (redirectUrl != null && redirectUrl.isNotEmpty) {
+            final resolvedRedirectUri = Uri.parse(
+              request.url,
+            ).resolve(redirectUrl);
+            final redirectResponse = await _http
+                .get(resolvedRedirectUri, headers: request.headers)
+                .timeout(timeout ?? config.receiveTimeout);
+            effectiveResponse = redirectResponse;
+          }
+        }
+
         stopwatch.stop();
 
         final httpResponse = _httpToResponse(
-          response,
+          effectiveResponse,
           'POST',
           stopwatch.elapsedMilliseconds,
         );
@@ -945,6 +989,7 @@ class SClient {
     ClientType? clientType,
     String? cancelKey,
     bool Function(int?)? validateStatus,
+    Set<int>? autoRedirectStatusCodes,
     // Optional callbacks
     OnSuccess? onSuccess,
     OnError? onError,
@@ -991,6 +1036,7 @@ class SClient {
         clientType,
         cancelKey,
         validateStatus,
+        autoRedirectStatusCodes,
       ),
     );
 
@@ -1014,6 +1060,7 @@ class SClient {
     ClientType? clientType,
     String? cancelKey,
     bool Function(int?)? validateStatus,
+    Set<int>? autoRedirectStatusCodes,
   ) async {
     final useClient = clientType ?? config.clientType;
     final stopwatch = Stopwatch()..start();
@@ -1033,17 +1080,41 @@ class SClient {
             headers: request.headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
             followRedirects: config.followRedirects,
-            maxRedirects: config.maxRedirects,
+            maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
         );
 
+        dio.Response effectiveResponse = response;
+        if (autoRedirectStatusCodes != null &&
+            autoRedirectStatusCodes.contains(response.statusCode ?? -1)) {
+          final redirectUrl = response.headers.value('location');
+          if (redirectUrl != null && redirectUrl.isNotEmpty) {
+            final resolvedRedirectUri = Uri.parse(
+              request.url,
+            ).resolve(redirectUrl);
+            final redirectResponse = await _dio.getUri(
+              resolvedRedirectUri,
+              options: dio.Options(
+                headers: request.headers,
+                receiveTimeout: timeout ?? config.receiveTimeout,
+                followRedirects: config.followRedirects,
+                maxRedirects:
+                    config.followRedirects ? config.maxRedirects : null,
+                validateStatus: validateStatus ?? (status) => true,
+              ),
+              cancelToken: cancelToken,
+            );
+            effectiveResponse = redirectResponse;
+          }
+        }
+
         stopwatch.stop();
         if (cancelKey != null) _cancelTokens.remove(cancelKey);
 
         final httpResponse = _dioToResponse(
-          response,
+          effectiveResponse,
           'PUT',
           stopwatch.elapsedMilliseconds,
         );
@@ -1061,10 +1132,25 @@ class SClient {
             )
             .timeout(timeout ?? config.receiveTimeout);
 
+        http.Response effectiveResponse = response;
+        if (autoRedirectStatusCodes != null &&
+            autoRedirectStatusCodes.contains(response.statusCode)) {
+          final redirectUrl = response.headers['location'];
+          if (redirectUrl != null && redirectUrl.isNotEmpty) {
+            final resolvedRedirectUri = Uri.parse(
+              request.url,
+            ).resolve(redirectUrl);
+            final redirectResponse = await _http
+                .get(resolvedRedirectUri, headers: request.headers)
+                .timeout(timeout ?? config.receiveTimeout);
+            effectiveResponse = redirectResponse;
+          }
+        }
+
         stopwatch.stop();
 
         final httpResponse = _httpToResponse(
-          response,
+          effectiveResponse,
           'PUT',
           stopwatch.elapsedMilliseconds,
         );
@@ -1096,6 +1182,7 @@ class SClient {
     ClientType? clientType,
     String? cancelKey,
     bool Function(int?)? validateStatus,
+    Set<int>? autoRedirectStatusCodes,
     OnHttpError? onHttpError,
     Map<int, OnStatus>? onStatus,
     Set<int>? successCodes,
@@ -1109,6 +1196,7 @@ class SClient {
       clientType: clientType,
       cancelKey: cancelKey,
       validateStatus: validateStatus,
+      autoRedirectStatusCodes: autoRedirectStatusCodes,
       onSuccess: (response) {
         try {
           final json = response.jsonBody;

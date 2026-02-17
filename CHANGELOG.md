@@ -1,3 +1,8 @@
+## 1.5.2
+- **`s_client` sub-package improvements**:
+  - Added `autoRedirectStatusCodes` parameter to `put()`, `putJson()`, and `_performPut()` — enables manual redirect handling for PUT, POST requests, automatically following the `Location` header with a GET request when the response status code matches (consistent with existing POST redirect behavior)
+  - Fixed `maxRedirects` guard in `_performPut()` — now only set when `followRedirects` is enabled (matching POST behavior)
+
 ## 1.5.1
 - **`s_client` sub-package fixes**:
   - Fixed Dio redirect option handling by only setting `maxRedirects` when `followRedirects` is enabled
