@@ -1,3 +1,8 @@
+## 1.5.1
+- **`s_client` sub-package fixes**:
+  - Fixed Dio redirect option handling by only setting `maxRedirects` when `followRedirects` is enabled
+  - Applied this fix consistently to base Dio options and per-request Dio options in GET and POST flows
+
 ## 1.5.0
 - **`s_client` sub-package improvements**:
   - Added `validateStatus` parameter (`bool Function(int?)?`) to all HTTP methods (`get`, `getJson`, `getJsonList`, `post`, `postJson`, `put`, `putJson`, `patch`, `patchJson`, `delete`, `deleteJson`, `head`, `download`, `downloadToFile`, `uploadFile`) — allows per-request control over which status codes are treated as valid

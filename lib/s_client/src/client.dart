@@ -90,7 +90,7 @@ class SClient {
         sendTimeout: kIsWeb ? null : config.sendTimeout,
         headers: config.defaultHeaders,
         followRedirects: config.followRedirects,
-        maxRedirects: config.maxRedirects,
+        maxRedirects: config.followRedirects ? config.maxRedirects : null,
         validateStatus: (status) => true, // Don't throw on any status
       ),
     );
@@ -658,7 +658,7 @@ class SClient {
             headers: request.headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
             followRedirects: config.followRedirects,
-            maxRedirects: config.maxRedirects,
+            maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
@@ -880,7 +880,7 @@ class SClient {
             headers: request.headers,
             receiveTimeout: timeout ?? config.receiveTimeout,
             followRedirects: config.followRedirects,
-            maxRedirects: config.maxRedirects,
+            maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
