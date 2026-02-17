@@ -250,17 +250,15 @@ class SScreenshot {
           fileName ?? 'screenshot_${DateTime.now().millisecondsSinceEpoch}.png';
 
       // First capture as bytes
-      final bytes =
-          await capture(
-                key,
-                config: ScreenshotConfig(
-                  pixelRatio: pixelRatio,
-                  resultType: ScreenshotResultType.bytes,
-                  captureDelay: captureDelay,
-                  shouldShowDebugLogs: shouldShowDebugLogs,
-                ),
-              )
-              as List<int>;
+      final bytes = await capture(
+        key,
+        config: ScreenshotConfig(
+          pixelRatio: pixelRatio,
+          resultType: ScreenshotResultType.bytes,
+          captureDelay: captureDelay,
+          shouldShowDebugLogs: shouldShowDebugLogs,
+        ),
+      ) as List<int>;
 
       // Then download
       return await downloadScreenshot(
