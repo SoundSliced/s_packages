@@ -18,7 +18,7 @@ const Set<int> defaultSuccessCodes = {
   206,
   207,
   208,
-  226
+  226,
 };
 
 /// Default error status codes (4xx and 5xx).
@@ -73,14 +73,14 @@ class ClientConfig {
   /// Base URL to prepend to all requests.
   final String? baseUrl;
 
-  /// Default timeout for connection.
-  final Duration connectTimeout;
+  /// Default timeout for connection. Null means no timeout.
+  final Duration? connectTimeout;
 
-  /// Default timeout for receiving data.
-  final Duration receiveTimeout;
+  /// Default timeout for receiving data. Null means no timeout.
+  final Duration? receiveTimeout;
 
-  /// Default timeout for sending data.
-  final Duration sendTimeout;
+  /// Default timeout for sending data. Null means no timeout.
+  final Duration? sendTimeout;
 
   /// Default headers to include in all requests.
   final Map<String, String> defaultHeaders;
@@ -121,9 +121,9 @@ class ClientConfig {
   const ClientConfig({
     this.clientType = ClientType.http,
     this.baseUrl,
-    this.connectTimeout = const Duration(seconds: 30),
-    this.receiveTimeout = const Duration(seconds: 30),
-    this.sendTimeout = const Duration(seconds: 30),
+    this.connectTimeout,
+    this.receiveTimeout,
+    this.sendTimeout,
     this.defaultHeaders = defaultJsonHeaders,
     this.interceptors = const [],
     this.followRedirects = true,

@@ -1,3 +1,12 @@
+## 1.5.3
+- **`s_client` sub-package improvements**:
+  - Stripped Dio `BaseOptions` down to only `baseUrl` and `validateStatus` — all other configuration (`connectTimeout`, `receiveTimeout`, `sendTimeout`, `headers`, `followRedirects`, `maxRedirects`) is now applied per-request via `dio.Options`, avoiding web-specific XHR issues (e.g. `connectTimeout` setting `xhr.timeout`, default `Content-Type` triggering CORS preflights)
+  - `connectTimeout` and `sendTimeout` are now forwarded to every `_perform*` method (GET, POST, PUT, PATCH, DELETE, HEAD, download, downloadToFile, uploadFile) — previously only `receiveTimeout` was passed through
+  - Explicitly forwarded `Content-Type` from request headers to `dio.Options.contentType` in POST, PUT, and PATCH — ensures Dio's request transformer uses the correct encoder (e.g. form-urlencoded vs JSON) regardless of `BaseOptions` defaults
+  - Changed `ClientConfig.connectTimeout`, `receiveTimeout`, and `sendTimeout` defaults from `Duration(seconds: 30)` to `null` (no timeout)
+  - Added `_withTimeout<T>()` helper — applies `.timeout()` only when the duration is non-null, replacing all inline `.timeout()` calls on `http` package requests
+  - Applied `maxRedirects` guard (`config.followRedirects ? config.maxRedirects : null`) consistently to PATCH, DELETE, HEAD, download, downloadToFile, and uploadFile — these methods were previously passing `config.maxRedirects` unconditionally
+
 ## 1.5.2
 - **`s_client` sub-package improvements**:
   - Added `autoRedirectStatusCodes` parameter to `put()`, `putJson()`, and `_performPut()` — enables manual redirect handling for PUT, POST requests, automatically following the `Location` header with a GET request when the response status code matches (consistent with existing POST redirect behavior)

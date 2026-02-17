@@ -80,17 +80,17 @@ class SClient {
   }
 
   /// Gets or creates the Dio client.
+  ///
+  /// Only [baseUrl] and [validateStatus] are set on [BaseOptions].
+  /// All other configuration (timeouts, headers, redirects) is applied
+  /// per-request via [dio.Options] so that the Dio instance stays as
+  /// close to a bare `Dio()` as possible — avoiding web-specific XHR
+  /// issues caused by baked-in BaseOptions (e.g. connectTimeout setting
+  /// xhr.timeout, or default Content-Type triggering CORS preflights).
   dio.Dio get _dio {
     _dioClient ??= dio.Dio(
       dio.BaseOptions(
         baseUrl: config.baseUrl ?? '',
-        connectTimeout: config.connectTimeout,
-        receiveTimeout: config.receiveTimeout,
-        // sendTimeout cannot be used without a request body on Web platform
-        sendTimeout: kIsWeb ? null : config.sendTimeout,
-        headers: config.defaultHeaders,
-        followRedirects: config.followRedirects,
-        maxRedirects: config.followRedirects ? config.maxRedirects : null,
         validateStatus: (status) => true, // Don't throw on any status
       ),
     );
@@ -175,8 +175,8 @@ class SClient {
     final body = response.data is String
         ? response.data as String
         : response.data != null
-            ? jsonEncode(response.data)
-            : '';
+        ? jsonEncode(response.data)
+        : '';
 
     return ClientResponse(
       statusCode: response.statusCode ?? 0,
@@ -602,8 +602,9 @@ class SClient {
             );
             return;
           }
-          final items =
-              list.map((e) => fromJson(e as Map<String, dynamic>)).toList();
+          final items = list
+              .map((e) => fromJson(e as Map<String, dynamic>))
+              .toList();
           onSuccess(items, response);
         } catch (e) {
           onError(
@@ -656,7 +657,9 @@ class SClient {
           uri,
           options: dio.Options(
             headers: request.headers,
+            connectTimeout: config.connectTimeout,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            sendTimeout: config.sendTimeout,
             followRedirects: config.followRedirects,
             maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
@@ -688,9 +691,10 @@ class SClient {
           );
         }
 
-        final response = await _http
-            .get(uri, headers: request.headers)
-            .timeout(timeout ?? config.receiveTimeout);
+        final response = await _withTimeout(
+          _http.get(uri, headers: request.headers),
+          timeout ?? config.receiveTimeout,
+        );
 
         stopwatch.stop();
 
@@ -878,12 +882,21 @@ class SClient {
           _cancelTokens[cancelKey] = cancelToken;
         }
 
+        // Extract content type from headers to set it explicitly on Options.
+        // This ensures Dio's request transformer uses the correct encoder
+        // (e.g. form-urlencoded vs JSON) regardless of BaseOptions defaults.
+        final contentType =
+            request.headers['Content-Type'] ?? request.headers['content-type'];
+
         final response = await _dio.post(
           request.url,
           data: request.body,
           options: dio.Options(
             headers: request.headers,
+            contentType: contentType,
+            connectTimeout: config.connectTimeout,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            sendTimeout: config.sendTimeout,
             followRedirects: config.followRedirects,
             maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
@@ -903,10 +916,13 @@ class SClient {
               resolvedRedirectUri,
               options: dio.Options(
                 headers: request.headers,
+                connectTimeout: config.connectTimeout,
                 receiveTimeout: timeout ?? config.receiveTimeout,
+                sendTimeout: config.sendTimeout,
                 followRedirects: config.followRedirects,
-                maxRedirects:
-                    config.followRedirects ? config.maxRedirects : null,
+                maxRedirects: config.followRedirects
+                    ? config.maxRedirects
+                    : null,
                 validateStatus: validateStatus ?? (status) => true,
               ),
               cancelToken: cancelToken,
@@ -929,13 +945,14 @@ class SClient {
         );
         return (processedResponse, null);
       } else {
-        final response = await _http
-            .post(
-              Uri.parse(request.url),
-              headers: request.headers,
-              body: jsonEncode(request.body),
-            )
-            .timeout(timeout ?? config.receiveTimeout);
+        final response = await _withTimeout(
+          _http.post(
+            Uri.parse(request.url),
+            headers: request.headers,
+            body: jsonEncode(request.body),
+          ),
+          timeout ?? config.receiveTimeout,
+        );
 
         http.Response effectiveResponse = response;
         if (autoRedirectStatusCodes != null &&
@@ -945,9 +962,10 @@ class SClient {
             final resolvedRedirectUri = Uri.parse(
               request.url,
             ).resolve(redirectUrl);
-            final redirectResponse = await _http
-                .get(resolvedRedirectUri, headers: request.headers)
-                .timeout(timeout ?? config.receiveTimeout);
+            final redirectResponse = await _withTimeout(
+              _http.get(resolvedRedirectUri, headers: request.headers),
+              timeout ?? config.receiveTimeout,
+            );
             effectiveResponse = redirectResponse;
           }
         }
@@ -1073,12 +1091,18 @@ class SClient {
           _cancelTokens[cancelKey] = cancelToken;
         }
 
+        final putContentType =
+            request.headers['Content-Type'] ?? request.headers['content-type'];
+
         final response = await _dio.put(
           request.url,
           data: request.body,
           options: dio.Options(
             headers: request.headers,
+            contentType: putContentType,
+            connectTimeout: config.connectTimeout,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            sendTimeout: config.sendTimeout,
             followRedirects: config.followRedirects,
             maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
@@ -1098,10 +1122,13 @@ class SClient {
               resolvedRedirectUri,
               options: dio.Options(
                 headers: request.headers,
+                connectTimeout: config.connectTimeout,
                 receiveTimeout: timeout ?? config.receiveTimeout,
+                sendTimeout: config.sendTimeout,
                 followRedirects: config.followRedirects,
-                maxRedirects:
-                    config.followRedirects ? config.maxRedirects : null,
+                maxRedirects: config.followRedirects
+                    ? config.maxRedirects
+                    : null,
                 validateStatus: validateStatus ?? (status) => true,
               ),
               cancelToken: cancelToken,
@@ -1124,13 +1151,14 @@ class SClient {
         );
         return (processedResponse, null);
       } else {
-        final response = await _http
-            .put(
-              Uri.parse(request.url),
-              headers: request.headers,
-              body: jsonEncode(request.body),
-            )
-            .timeout(timeout ?? config.receiveTimeout);
+        final response = await _withTimeout(
+          _http.put(
+            Uri.parse(request.url),
+            headers: request.headers,
+            body: jsonEncode(request.body),
+          ),
+          timeout ?? config.receiveTimeout,
+        );
 
         http.Response effectiveResponse = response;
         if (autoRedirectStatusCodes != null &&
@@ -1140,9 +1168,10 @@ class SClient {
             final resolvedRedirectUri = Uri.parse(
               request.url,
             ).resolve(redirectUrl);
-            final redirectResponse = await _http
-                .get(resolvedRedirectUri, headers: request.headers)
-                .timeout(timeout ?? config.receiveTimeout);
+            final redirectResponse = await _withTimeout(
+              _http.get(resolvedRedirectUri, headers: request.headers),
+              timeout ?? config.receiveTimeout,
+            );
             effectiveResponse = redirectResponse;
           }
         }
@@ -1330,14 +1359,20 @@ class SClient {
           _cancelTokens[cancelKey] = cancelToken;
         }
 
+        final patchContentType =
+            request.headers['Content-Type'] ?? request.headers['content-type'];
+
         final response = await _dio.patch(
           request.url,
           data: request.body,
           options: dio.Options(
             headers: request.headers,
+            contentType: patchContentType,
+            connectTimeout: config.connectTimeout,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            sendTimeout: config.sendTimeout,
             followRedirects: config.followRedirects,
-            maxRedirects: config.maxRedirects,
+            maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
@@ -1357,13 +1392,14 @@ class SClient {
         );
         return (processedResponse, null);
       } else {
-        final response = await _http
-            .patch(
-              Uri.parse(request.url),
-              headers: request.headers,
-              body: jsonEncode(request.body),
-            )
-            .timeout(timeout ?? config.receiveTimeout);
+        final response = await _withTimeout(
+          _http.patch(
+            Uri.parse(request.url),
+            headers: request.headers,
+            body: jsonEncode(request.body),
+          ),
+          timeout ?? config.receiveTimeout,
+        );
 
         stopwatch.stop();
 
@@ -1551,9 +1587,11 @@ class SClient {
           data: request.body,
           options: dio.Options(
             headers: request.headers,
+            connectTimeout: config.connectTimeout,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            sendTimeout: config.sendTimeout,
             followRedirects: config.followRedirects,
-            maxRedirects: config.maxRedirects,
+            maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
           ),
           cancelToken: cancelToken,
@@ -1579,9 +1617,10 @@ class SClient {
           httpRequest.body = jsonEncode(request.body);
         }
 
-        final streamedResponse = await _http
-            .send(httpRequest)
-            .timeout(timeout ?? config.receiveTimeout);
+        final streamedResponse = await _withTimeout(
+          _http.send(httpRequest),
+          timeout ?? config.receiveTimeout,
+        );
         final response = await http.Response.fromStream(streamedResponse);
 
         stopwatch.stop();
@@ -1755,9 +1794,11 @@ class SClient {
           request.url,
           options: dio.Options(
             headers: request.headers,
+            connectTimeout: config.connectTimeout,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            sendTimeout: config.sendTimeout,
             followRedirects: config.followRedirects,
-            maxRedirects: config.maxRedirects,
+            maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
           ),
         );
@@ -1775,9 +1816,10 @@ class SClient {
         );
         return (processedResponse, null);
       } else {
-        final response = await _http
-            .head(Uri.parse(request.url), headers: request.headers)
-            .timeout(timeout ?? config.receiveTimeout);
+        final response = await _withTimeout(
+          _http.head(Uri.parse(request.url), headers: request.headers),
+          timeout ?? config.receiveTimeout,
+        );
 
         stopwatch.stop();
 
@@ -1834,9 +1876,11 @@ class SClient {
           options: dio.Options(
             headers: headers,
             responseType: dio.ResponseType.bytes,
+            connectTimeout: config.connectTimeout,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            sendTimeout: config.sendTimeout,
             followRedirects: config.followRedirects,
-            maxRedirects: config.maxRedirects,
+            maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
           ),
           onReceiveProgress: onProgress,
@@ -1867,9 +1911,10 @@ class SClient {
           return result;
         }
       } else {
-        final response = await _http
-            .get(Uri.parse(fullUrl), headers: headers)
-            .timeout(timeout ?? config.receiveTimeout);
+        final response = await _withTimeout(
+          _http.get(Uri.parse(fullUrl), headers: headers),
+          timeout ?? config.receiveTimeout,
+        );
 
         if (response.statusCode >= 200 && response.statusCode < 300) {
           final result = (response.bodyBytes, null);
@@ -1943,9 +1988,11 @@ class SClient {
           savePath,
           options: dio.Options(
             headers: headers,
+            connectTimeout: config.connectTimeout,
             receiveTimeout: timeout ?? config.receiveTimeout,
+            sendTimeout: config.sendTimeout,
             followRedirects: config.followRedirects,
-            maxRedirects: config.maxRedirects,
+            maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
           ),
           onReceiveProgress: onProgress,
@@ -1976,9 +2023,10 @@ class SClient {
         }
       } else {
         // For http package, we need to download and write manually
-        final response = await _http
-            .get(Uri.parse(fullUrl), headers: headers)
-            .timeout(timeout ?? config.receiveTimeout);
+        final response = await _withTimeout(
+          _http.get(Uri.parse(fullUrl), headers: headers),
+          timeout ?? config.receiveTimeout,
+        );
 
         if (response.statusCode >= 200 && response.statusCode < 300) {
           // Write to file (note: fileAccessMode not supported with http package)
@@ -2066,9 +2114,11 @@ class SClient {
           data: formData,
           options: dio.Options(
             headers: headers,
+            connectTimeout: config.connectTimeout,
+            receiveTimeout: config.receiveTimeout,
             sendTimeout: timeout ?? config.sendTimeout,
             followRedirects: config.followRedirects,
-            maxRedirects: config.maxRedirects,
+            maxRedirects: config.followRedirects ? config.maxRedirects : null,
             validateStatus: validateStatus ?? (status) => true,
           ),
           onSendProgress: onProgress,
@@ -2105,8 +2155,10 @@ class SClient {
           await http.MultipartFile.fromPath(fileField, filePath),
         );
 
-        final streamedResponse =
-            await _http.send(request).timeout(timeout ?? config.sendTimeout);
+        final streamedResponse = await _withTimeout(
+          _http.send(request),
+          timeout ?? config.sendTimeout,
+        );
         final response = await http.Response.fromStream(streamedResponse);
 
         stopwatch.stop();
@@ -2152,6 +2204,11 @@ class SClient {
   // ============================================================================
   // Utility Methods
   // ============================================================================
+
+  /// Applies a timeout to a future only if the duration is non-null.
+  Future<T> _withTimeout<T>(Future<T> future, Duration? duration) {
+    return duration != null ? future.timeout(duration) : future;
+  }
 
   /// Checks if a URL is reachable.
   ///
