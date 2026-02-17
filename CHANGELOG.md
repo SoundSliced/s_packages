@@ -1,3 +1,11 @@
+## 1.6.0
+- **`s_screenshot` sub-package performance improvements**:
+  - Fixed `ui.Image` memory leak — native GPU resources are now properly disposed after byte extraction
+  - Base64 encoding is now offloaded to a separate isolate via `compute()` on native platforms to avoid blocking the UI thread (falls back to main thread on web where isolates aren't available)
+  - Replaced `Future.microtask(() {})` with `WidgetsBinding.instance.endOfFrame` for more reliable rendering pipeline synchronization
+  - Fixed `ByteData` buffer view to use precise `offsetInBytes`/`lengthInBytes` instead of unbounded `asUint8List()`
+  - Added `_chunkedBase64Encode()` method for chunked base64 encoding on web — processes in 192KB chunks with event loop yields to keep animations running
+
 ## 1.5.3
 - **`s_client` sub-package improvements**:
   - Stripped Dio `BaseOptions` down to only `baseUrl` and `validateStatus` — all other configuration (`connectTimeout`, `receiveTimeout`, `sendTimeout`, `headers`, `followRedirects`, `maxRedirects`) is now applied per-request via `dio.Options`, avoiding web-specific XHR issues (e.g. `connectTimeout` setting `xhr.timeout`, default `Content-Type` triggering CORS preflights)

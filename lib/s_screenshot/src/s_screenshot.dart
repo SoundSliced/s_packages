@@ -20,25 +20,29 @@ class SScreenshot {
       if (config.resultType == ScreenshotResultType.download &&
           (config.fileName == null || config.fileName!.isEmpty)) {
         throw ScreenshotException(
-            'fileName is required when resultType is download');
+          'fileName is required when resultType is download',
+        );
       }
 
       // Get render object before any async operations to avoid BuildContext issues
       final context = key.currentContext;
       if (context == null) {
         throw ScreenshotException(
-            'Widget is not yet rendered. Make sure the GlobalKey is attached to a widget in the tree.');
+          'Widget is not yet rendered. Make sure the GlobalKey is attached to a widget in the tree.',
+        );
       }
 
       final renderObject = context.findRenderObject();
       if (renderObject == null) {
         throw ScreenshotException(
-            'RenderObject not found. Make sure the widget is visible.');
+          'RenderObject not found. Make sure the widget is visible.',
+        );
       }
 
       if (renderObject is! RenderRepaintBoundary) {
         throw ScreenshotException(
-            'The widget must be wrapped in a RepaintBoundary.');
+          'The widget must be wrapped in a RepaintBoundary.',
+        );
       }
 
       if (config.captureDelay != null) {
@@ -54,9 +58,10 @@ class SScreenshot {
       final ByteData? byteData;
       try {
         byteData = await image.toByteData(
-            format: config.format == ScreenshotFormat.png
-                ? ui.ImageByteFormat.png
-                : ui.ImageByteFormat.rawRgba);
+          format: config.format == ScreenshotFormat.png
+              ? ui.ImageByteFormat.png
+              : ui.ImageByteFormat.rawRgba,
+        );
       } finally {
         image.dispose();
       }
@@ -66,8 +71,10 @@ class SScreenshot {
       }
 
       // Use precise offset and length to avoid reading beyond actual data
-      final buffer = byteData.buffer
-          .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+      final buffer = byteData.buffer.asUint8List(
+        byteData.offsetInBytes,
+        byteData.lengthInBytes,
+      );
 
       if (kDebugMode && config.shouldShowDebugLogs) {
         debugPrint('Screenshot captured: ${buffer.length} bytes');
@@ -75,9 +82,10 @@ class SScreenshot {
       switch (config.resultType) {
         case ScreenshotResultType.base64:
           // Offload base64 encoding to a separate isolate on native platforms;
-          // on web, isolates aren't supported so we encode on the main thread.
+          // on web, isolates aren't supported so we chunk-encode to avoid
+          // blocking the main thread (which would freeze animations).
           final base64String = kIsWeb
-              ? base64Encode(buffer)
+              ? await _chunkedBase64Encode(buffer)
               : await compute(base64Encode, buffer);
           if (kDebugMode && config.shouldShowDebugLogs) {
             debugPrint('Base64 length: ${base64String.length}');
@@ -242,15 +250,17 @@ class SScreenshot {
           fileName ?? 'screenshot_${DateTime.now().millisecondsSinceEpoch}.png';
 
       // First capture as bytes
-      final bytes = await capture(
-        key,
-        config: ScreenshotConfig(
-          pixelRatio: pixelRatio,
-          resultType: ScreenshotResultType.bytes,
-          captureDelay: captureDelay,
-          shouldShowDebugLogs: shouldShowDebugLogs,
-        ),
-      ) as List<int>;
+      final bytes =
+          await capture(
+                key,
+                config: ScreenshotConfig(
+                  pixelRatio: pixelRatio,
+                  resultType: ScreenshotResultType.bytes,
+                  captureDelay: captureDelay,
+                  shouldShowDebugLogs: shouldShowDebugLogs,
+                ),
+              )
+              as List<int>;
 
       // Then download
       return await downloadScreenshot(
@@ -268,6 +278,32 @@ class SScreenshot {
       }
       throw ScreenshotException('Failed to capture and download screenshot', e);
     }
+  }
+
+  /// Encodes bytes to base64 in chunks, yielding to the event loop between
+  /// chunks so that UI animations (e.g. progress indicators) keep running.
+  /// This is used on web where isolates are not available.
+  static Future<String> _chunkedBase64Encode(Uint8List bytes) async {
+    // Process in ~192 KB raw-byte chunks (produces 256 KB base64 per chunk).
+    // 192 KB ≈ 196608 bytes; must be a multiple of 3 so base64 chunks align.
+    const chunkSize = 196608; // 192 * 1024, divisible by 3
+
+    if (bytes.length <= chunkSize) {
+      return base64Encode(bytes);
+    }
+
+    final buffer = StringBuffer();
+    for (var offset = 0; offset < bytes.length; offset += chunkSize) {
+      final end = (offset + chunkSize < bytes.length)
+          ? offset + chunkSize
+          : bytes.length;
+      buffer.write(base64Encode(Uint8List.sublistView(bytes, offset, end)));
+
+      // Yield to the event loop so the UI can paint a frame
+      await Future<void>.delayed(Duration.zero);
+    }
+
+    return buffer.toString();
   }
 }
 
