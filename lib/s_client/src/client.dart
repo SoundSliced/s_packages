@@ -175,8 +175,8 @@ class SClient {
     final body = response.data is String
         ? response.data as String
         : response.data != null
-        ? jsonEncode(response.data)
-        : '';
+            ? jsonEncode(response.data)
+            : '';
 
     return ClientResponse(
       statusCode: response.statusCode ?? 0,
@@ -602,9 +602,8 @@ class SClient {
             );
             return;
           }
-          final items = list
-              .map((e) => fromJson(e as Map<String, dynamic>))
-              .toList();
+          final items =
+              list.map((e) => fromJson(e as Map<String, dynamic>)).toList();
           onSuccess(items, response);
         } catch (e) {
           onError(
@@ -920,9 +919,8 @@ class SClient {
                 receiveTimeout: timeout ?? config.receiveTimeout,
                 sendTimeout: config.sendTimeout,
                 followRedirects: config.followRedirects,
-                maxRedirects: config.followRedirects
-                    ? config.maxRedirects
-                    : null,
+                maxRedirects:
+                    config.followRedirects ? config.maxRedirects : null,
                 validateStatus: validateStatus ?? (status) => true,
               ),
               cancelToken: cancelToken,
@@ -1126,9 +1124,8 @@ class SClient {
                 receiveTimeout: timeout ?? config.receiveTimeout,
                 sendTimeout: config.sendTimeout,
                 followRedirects: config.followRedirects,
-                maxRedirects: config.followRedirects
-                    ? config.maxRedirects
-                    : null,
+                maxRedirects:
+                    config.followRedirects ? config.maxRedirects : null,
                 validateStatus: validateStatus ?? (status) => true,
               ),
               cancelToken: cancelToken,
