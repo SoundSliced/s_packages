@@ -3,7 +3,7 @@
 [![pub package](https://img.shields.io/pub/v/s_packages.svg?label=s_packages&color=blue)](https://pub.dev/packages/s_packages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A comprehensive collection of **40 Flutter packages** designed to accelerate development with reusable UI components, utilities, and tools. Built for modern Flutter applications with Material Design 3 support.
+A comprehensive collection of **41 Flutter packages** designed to accelerate development with reusable UI components, utilities, and tools. Built for modern Flutter applications with Material Design 3 support.
 
 ![S Packages Example App](https://raw.githubusercontent.com/SoundSliced/s_packages/main/example/assets/example.gif)
 
@@ -13,7 +13,7 @@ NOTE: this `s_packages` package is the grouping of all of these, as a main repo
 
 ## 📦 What's Included
 
-This unified package brings together 40 carefully crafted packages organized into 11 categories:
+This unified package brings together 41 carefully crafted packages organized into 11 categories:
 
 ### 🎨 UI Components (19 packages)
 - **[bubble_label](https://pub.dev/packages/bubble_label)** - Bubble-style labels for tags and badges
@@ -51,9 +51,11 @@ This unified package brings together 40 carefully crafted packages organized int
 - **[pop_this](https://pub.dev/packages/pop_this)** - Navigation utilities
 - **[s_sidebar](https://pub.dev/packages/s_sidebar)** - Sidebar navigation
 
+
 ### 🌐 Networking
 - **[s_client](https://pub.dev/packages/s_client)** - HTTP client utilities
 - **[s_connectivity](https://pub.dev/packages/s_connectivity)** - Connectivity monitoring
+- **[s_metar](https://pub.dev/packages/s_metar)** - METAR & TAF aviation weather parser and fetcher
 
 ### 🔄 State Management
 - **[signals_watch](https://pub.dev/packages/signals_watch)** - Reactive signal watching
@@ -307,7 +309,7 @@ class AnimatedUIExample extends StatelessWidget {
 
 ## 📱 Running the Example App
 
-This package includes a comprehensive example app showcasing all 40 packages:
+This package includes a comprehensive example app showcasing all 41 packages:
 
 ```bash
 cd example
@@ -338,7 +340,7 @@ s_packages/
 ├── bubble_label/                # Individual packages...
 ├── s_modal/
 ├── s_button/
-└── ... (37 more packages)
+└── ... (38 more packages)
 ```
 
 ## 🛠️ Development
@@ -385,7 +387,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## ✨ Features
 
-- ✅ 40 production-ready packages
+- ✅ 41 production-ready packages
 - ✅ Material Design 3 support
 - ✅ Light and dark theme compatibility
 - ✅ Cross-platform (iOS, Android, Web, Desktop)
@@ -396,9 +398,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📊 Package Stats
 
-- **Total Packages**: 40
+- **Total Packages**: 41
 - **Categories**: 11
-- **Example Demos**: 40+
+- **Example Demos**: 41+
 - **Minimum Flutter Version**: 3.0.0
 - **Minimum Dart Version**: 3.0.0
 
