@@ -1,3 +1,29 @@
+## 1.7.2
+- **`s_metar` sub-package improvements**:
+  - **NEW: Live METAR/TAF fetching**:
+    - Added `MetarTafFetcher` class for fetching live weather data from aviationweather.gov API
+    - Added `MetarTafResult` class for typed fetch results with parsed `Metar`/`Taf` objects and raw data
+    - ICAO code validation: ensures 4-character codes (first char letter, rest alphanumeric) via `isValidIcao()`
+    - DateTime validation: rejects future dates and returns descriptive error
+    - Integration with `s_client` API for HTTP requests with automatic retry and error handling
+  - **CORS proxy support for web builds**:
+    - `proxyUrls` static list for configurable proxy URLs (default: two Cloudflare Workers for redundancy)
+    - `customProxyUrls` parameter on `fetch()` for per-request proxy override
+    - Automatic proxy fallback: tries each proxy in order, switches on rate limit (429/503 status codes)
+    - Direct API fallback when all proxies fail
+  - **Deployment resources**:
+    - Cloudflare Worker implementation in `lib/s_metar/deployment/cloudflare-worker.js`
+    - Vercel Edge Function implementation in `lib/s_metar/deployment/vercel-edge-function.js`
+    - Comprehensive deployment guide in `lib/s_metar/deployment/README.md`
+    - Usage examples in `lib/s_metar/deployment/USAGE_EXAMPLES.dart`
+  - **Example app integration**:
+    - Added interactive `s_metar` example screen with 3-tab interface:
+      - METAR tab: preset samples (EGLL, KJFK, Winter, CAVOK) + custom input with live parsing
+      - TAF tab: editable TAF code with live parsing
+      - Live Fetch tab: ICAO input, date/time picker, and real-time API fetching
+    - Expandable cards showing parsed weather data (wind, visibility, clouds, temperatures, pressure)
+    - Registered in package examples registry under "Networking" category
+
 ## 1.7.1
 - **`s_metar` bug fixes**:
   - Fixed `toString()` in `Distance`, `Pressure`, `Temperature` (base), `MetarTrendIndicator`, and `TafTemperature` — `${super}` in string interpolation was invoking `Object.toString()` on the superclass proxy, returning the runtime type string (e.g. `"Instance of 'Numeric'"`) instead of the formatted value; changed to `${super.toString()}` throughout

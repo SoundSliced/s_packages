@@ -24,6 +24,7 @@ import 'package:s_packages_example/screens/examples/s_gridview_example_screen.da
 import 'package:s_packages_example/screens/examples/s_ink_button_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_liquid_pull_to_refresh_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_maintenance_button_example_screen.dart';
+import 'package:s_packages_example/screens/examples/s_metar_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_modal_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_offstage_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_screenshot_example_screen.dart';
@@ -64,6 +65,7 @@ class PackageExamplesRegistry {
     's_ink_button': () => const SInkButtonExampleScreen(),
     's_liquid_pull_to_refresh': () => const SLiquidPullToRefreshExampleScreen(),
     's_maintenance_button': () => const SMaintenanceButtonExampleScreen(),
+    's_metar': () => const SMetarExampleScreen(),
     's_modal': () => const SModalExampleScreen(),
     's_offstage': () => const SOffstageExampleScreen(),
     's_screenshot': () => const SScreenshotExampleScreen(),

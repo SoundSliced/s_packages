@@ -131,6 +131,11 @@ class _HomeScreenState extends State<HomeScreen> {
       category: 'UI Components',
     ),
     PackageInfo(
+      name: 's_metar',
+      description: 'METAR & TAF parser and fetcher',
+      category: 'Networking',
+    ),
+    PackageInfo(
       name: 's_modal',
       description: 'Modal dialogs',
       category: 'UI Components',
