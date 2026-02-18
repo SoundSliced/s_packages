@@ -1,3 +1,7 @@
+## 1.7.1
+- **`s_metar` bug fixes**:
+  - Fixed `toString()` in `Distance`, `Pressure`, `Temperature` (base), `MetarTrendIndicator`, and `TafTemperature` — `${super}` in string interpolation was invoking `Object.toString()` on the superclass proxy, returning the runtime type string (e.g. `"Instance of 'Numeric'"`) instead of the formatted value; changed to `${super.toString()}` throughout
+
 ## 1.7.0
 - **NEW `s_metar` sub-package added**:
   - **METAR parsing**: Full support for aviation routine weather reports with `Metar(String code)` constructor

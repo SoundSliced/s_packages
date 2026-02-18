@@ -15,8 +15,10 @@ class Temperature extends Numeric {
       code += '0';
     }
 
-    assert(code.replaceFirst('-', '').length == 3,
-        'temperature code must have 3 or 2 digits length');
+    assert(
+      code.replaceFirst('-', '').length == 3,
+      'temperature code must have 3 or 2 digits length',
+    );
 
     double? temperature;
     try {
@@ -30,7 +32,7 @@ class Temperature extends Numeric {
   @override
   String toString() {
     if (_value != null) {
-      return '${super}°C';
+      return '${super.toString()}°C';
     }
 
     return super.toString();

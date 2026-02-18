@@ -12,7 +12,7 @@ class Pressure extends Numeric {
   @override
   String toString() {
     if (_value != null) {
-      return '${super} hPa';
+      return '${super.toString()} hPa';
     }
 
     return super.toString();
@@ -41,9 +41,6 @@ class Pressure extends Numeric {
 
   @override
   Map<String, Object?> asMap() {
-    return {
-      'units': 'hectopascals',
-      'pressure': inHPa,
-    };
+    return {'units': 'hectopascals', 'pressure': inHPa};
   }
 }

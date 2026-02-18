@@ -19,7 +19,7 @@ class Distance extends Numeric {
   @override
   String toString() {
     if (_value != null) {
-      return '${super} m';
+      return '${super.toString()} m';
     }
 
     return super.toString();
@@ -42,10 +42,6 @@ class Distance extends Numeric {
 
   @override
   Map<String, Object?> asMap() {
-    return {
-      'units': 'meters',
-      'distance': inMeters,
-      'is_maximum': isMaximum,
-    };
+    return {'units': 'meters', 'distance': inMeters, 'is_maximum': isMaximum};
   }
 }

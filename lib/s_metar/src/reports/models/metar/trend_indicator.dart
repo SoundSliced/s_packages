@@ -20,11 +20,11 @@ class MetarTrendIndicator extends ChangeIndicator {
   @override
   String toString() {
     if (_at != null) {
-      return '${super} at $_at';
+      return '${super.toString()} at $_at';
     }
 
     if (_translation != null) {
-      return '${super} from $_from until $_until';
+      return '${super.toString()} from $_from until $_until';
     }
 
     return super.toString();
