@@ -5,7 +5,7 @@ class TafTemperature extends Temperature with GroupMixin {
   late final Time? _time;
 
   TafTemperature(String? code, RegExpMatch? match, DateTime time)
-    : super(null) {
+      : super(null) {
     _code = code;
     time = DateTime(time.year, time.month, time.day, time.hour, 0, 0);
 
