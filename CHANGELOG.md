@@ -1,3 +1,47 @@
+## 1.7.0
+- **NEW `s_metar` sub-package added**:
+  - **METAR parsing**: Full support for aviation routine weather reports with `Metar(String code)` constructor
+  - **TAF parsing**: Terminal Aerodrome Forecast support with `Taf(String code)` constructor
+  - **Wind data**:
+    - Speed in multiple units: knots, m/s, km/h, mph via `speedInKnot`, `speedInMps`, `speedInKph`, `speedInMiph`
+    - Gust speed in same units via `gustInKnot`, `gustInMps`, `gustInKph`, `gustInMiph`
+    - Direction in degrees and cardinal direction (N, NE, E, etc.)
+    - Wind variation range (from/to degrees)
+    - Beaufort scale number (0-12) and description via `beaufort` and `beaufortDescription`
+    - `isCalm` boolean flag for calm wind conditions (00000KT)
+  - **Visibility**:
+    - Prevailing and minimum visibility in meters, kilometers, sea miles, and feet
+    - `isMaximum` flag for visibility ≥10 km
+    - CAVOK detection
+  - **Weather phenomena**:
+    - Intensity, descriptor, precipitation, obscuration, and other phenomena
+    - `precipitationCodes` list for compound weather (e.g., RASN → ['RA', 'SN'])
+    - Recent weather parsing
+  - **Cloud layers**:
+    - Cover amount with ICAO code (`coverCode`: FEW/SCT/BKN/OVC/NSC) and translation
+    - Height in feet, meters, and kilometers
+    - Cloud type codes (CB, TCU) with `cloudTypeCode` and `cloudType`
+    - Oktas (eighths of sky coverage)
+    - `ceiling` property (true when ≤1500 ft and BKN/OVC)
+  - **Temperature data**:
+    - Temperature and dewpoint in Celsius, Fahrenheit, Kelvin, and Rankine
+    - Derived meteorological quantities:
+      - `relativeHumidity` percentage
+      - `dewpointSpread` in °C
+      - `heatIndex` in °C (valid when temp ≥27°C and RH ≥40%)
+      - `windChill(double? windSpeedKph)` in °C (valid when temp ≤10°C and wind ≥4.8 km/h)
+  - **Pressure**:
+    - Support for 7 units: hPa, inHg, mbar, Pa, kPa, bar, atm via `inHPa`, `inInHg`, `inMbar`, `inPa`, `inKPa`, `inBar`, `inAtm`
+  - **Flight rules**: Automatic VFR/MVFR/IFR/LIFR/VLIFR classification via `flightRules` property
+  - **CAVOK validation**: `shouldBeCavok()` method checks if conditions meet CAVOK criteria
+  - **Additional METAR fields**: Runway visual range (RVR), windshear, sea state, runway state, weather trends (TEMPO/BECMG)
+  - **TAF features**: Valid period, change indicators (FM/TEMPO/BECMG/PROB), max/min temperature forecasts, change period details
+  - **Serialization**: `asMap()` method for JSON-serializable output
+  - **GroupList utilities**: `asList()` method for converting group lists (clouds, weather, etc.) to `List<Map<String, Object?>>`
+  - **Flexible parsing**: Optional `year` and `month` parameters for accurate timestamp resolution, `truncate` option for remark handling
+  - **Unparsed groups tracking**: `unparsedGroups` property lists any METAR/TAF groups that weren't recognized
+
+
 ## 1.6.0
 - **`s_screenshot` sub-package performance improvements**:
   - Fixed `ui.Image` memory leak — native GPU resources are now properly disposed after byte extraction

@@ -1,0 +1,30 @@
+part of '../../reports.dart';
+
+final Map<String, String> types = <String, String>{
+  'METAR': 'Meteorological Aerodrome Report',
+  'SPECI': 'Special Aerodrome Report',
+  'TAF': 'Terminal Aerodrome Forecast',
+};
+
+class ReportType extends Group {
+  late final String _type;
+
+  ReportType(String code) : super(code) {
+    _type = types[code]!;
+  }
+
+  @override
+  String toString() {
+    return '$_type ($_code)';
+  }
+
+  /// Get the type of the report.
+  String get type => _type;
+
+  @override
+  Map<String, String?> asMap() {
+    final map = super.asMap();
+    map.addAll({'type': type});
+    return map.cast<String, String?>();
+  }
+}
