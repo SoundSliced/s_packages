@@ -14,7 +14,6 @@ export 'package:lucide_icons/lucide_icons.dart';
 export 'package:pausable_timer/pausable_timer.dart';
 export 'package:dio/dio.dart';
 export 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-export 'package:nb_utils/nb_utils.dart';
 export 'package:rxdart/rxdart.dart';
 export 'package:file_saver/file_saver.dart';
 export 'package:shared_preferences/shared_preferences.dart';

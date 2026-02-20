@@ -102,11 +102,6 @@ extension DecodeBeautifiedJson on String {
 ///
 /// ex: 1.seconds -> Duration(seconds: 1);
 extension MyEasyDurationInt on int {
-  /// Returns current int in Duration of seconds
-  Duration get seconds {
-    return Duration(seconds: this);
-  }
-
   /// Short-hand for [seconds]
   Duration get sec {
     return Duration(seconds: this);
@@ -122,29 +117,14 @@ extension MyEasyDurationInt on int {
     return Duration(milliseconds: this);
   }
 
-  /// Return curretn int in  Duration of microseconds
-  Duration get microseconds {
-    return Duration(microseconds: this);
-  }
-
   /// Short-hand for microseconds
   Duration get micSec {
     return Duration(microseconds: this);
   }
 
-  /// Return current int in Duration of minutes
-  Duration get minutes {
-    return Duration(minutes: this);
-  }
-
   /// Short-hand for minutes
   Duration get min {
     return Duration(minutes: this);
-  }
-
-  /// Return current int in Duration of hours
-  Duration get hours {
-    return Duration(hours: this);
   }
 
   /// Short-hand for hours
@@ -412,6 +392,42 @@ extension DurationExtensions<dynamics extends Duration> on Duration {
   double convertTimeIntoHourDecimal([int decimalPoint = 1]) {
     return (inMinutes / 60).roundDoubleToDecimalPlace(decimalPoint);
   }
+
+  /// Formats to compact text like `1h 03m 07s`, `12m 04s`, `8s`.
+  String formatCompactDuration({bool includeSeconds = true}) {
+    final h = inHours;
+    final m = inMinutes.remainder(60);
+    final s = inSeconds.remainder(60);
+
+    if (h > 0) {
+      if (includeSeconds) {
+        return '${h}h ${m.toString().padLeft(2, '0')}m ${s.toString().padLeft(2, '0')}s';
+      }
+      return '${h}h ${m.toString().padLeft(2, '0')}m';
+    }
+
+    if (inMinutes > 0) {
+      if (includeSeconds) {
+        return '${inMinutes}m ${s.toString().padLeft(2, '0')}s';
+      }
+      return '${inMinutes}m';
+    }
+
+    return '${inSeconds}s';
+  }
+
+  /// Formats to a digital clock representation: `MM:SS` or `HH:MM:SS`.
+  String toClockString({bool alwaysShowHours = false}) {
+    final h = inHours;
+    final m = inMinutes.remainder(60);
+    final s = inSeconds.remainder(60);
+
+    if (alwaysShowHours || h > 0) {
+      return '${h.toString().padLeft(2, '0')}:${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
+    }
+
+    return '${inMinutes.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
+  }
 }
 
 //Extension to convert Duration to DateTime
@@ -467,6 +483,14 @@ extension DurationExtensions2<dynamics extends Duration?> on Duration? {
 extension DateTimeExtensions<dynamics extends DateTime> on DateTime {
   bool isDateWithinTodaysMonth() =>
       eqvMonth(DateTime.now().toUtc()) && eqvYear(DateTime.now().toUtc());
+
+  /// Clamps this date between [min] and [max].
+  DateTime clampTo(DateTime min, DateTime max) {
+    assert(!max.isBefore(min), 'max must be >= min');
+    if (isBefore(min)) return min;
+    if (isAfter(max)) return max;
+    return this;
+  }
 
 //extension to convert a RangeSlider Duration to a BetterPlayer Duration format
   Duration convertToDuration() {
@@ -802,6 +826,18 @@ extension ToggleExtension on bool {
 //********************************** */
 
 extension StringExtensions on String {
+  /// Returns true if the string is empty or only whitespace.
+  bool get isBlank => trim().isEmpty;
+
+  /// Returns [fallback] when this string is blank.
+  String ifBlank(String fallback) => isBlank ? fallback : this;
+
+  /// Returns null when parsing fails.
+  int? toIntOrNull() => int.tryParse(trim());
+
+  /// Returns null when parsing fails.
+  double? toDoubleOrNull() => double.tryParse(trim());
+
   bool parseBool() {
     if (toLowerCase() == 'true') {
       return true;
@@ -885,6 +921,68 @@ extension StringExtensions on String {
     final cutoff = maxLength - ellipsis.length;
     if (cutoff <= 0) return ellipsis.substring(0, maxLength);
     return '${substring(0, cutoff)}$ellipsis';
+  }
+
+  List<String> _splitIdentifierWords() {
+    final normalized = replaceAllMapped(
+      RegExp(r'([a-z0-9])([A-Z])'),
+      (m) => '${m.group(1)} ${m.group(2)}',
+    ).replaceAll(RegExp(r'[_\-\s]+'), ' ').trim();
+
+    if (normalized.isEmpty) return [];
+
+    return normalized
+        .split(' ')
+        .where((w) => w.isNotEmpty)
+        .map((w) => w.toLowerCase())
+        .toList();
+  }
+
+  /// Converts identifiers and phrases to Title Case.
+  String toTitleCase() => _splitIdentifierWords()
+      .map((w) => w[0].toUpperCase() + w.substring(1))
+      .join(' ');
+
+  /// Removes common latin diacritics for normalized matching/search.
+  String removeDiacritics() {
+    var value = this;
+
+    const groups = <String, String>{
+      r'[àáâãäåāăą]': 'a',
+      r'[çćĉċč]': 'c',
+      r'[ďđ]': 'd',
+      r'[èéêëēĕėęě]': 'e',
+      r'[ƒ]': 'f',
+      r'[ĝğġģ]': 'g',
+      r'[ĥħ]': 'h',
+      r'[ìíîïĩīĭįı]': 'i',
+      r'[ĵ]': 'j',
+      r'[ķĸ]': 'k',
+      r'[ĺļľŀł]': 'l',
+      r'[ñńņňŉŋ]': 'n',
+      r'[òóôõöøōŏő]': 'o',
+      r'[ŕŗř]': 'r',
+      r'[śŝşš]': 's',
+      r'[ţťŧ]': 't',
+      r'[ùúûüũūŭůűų]': 'u',
+      r'[ŵ]': 'w',
+      r'[ýÿŷ]': 'y',
+      r'[źżž]': 'z',
+      r'[æ]': 'ae',
+      r'[œ]': 'oe',
+      r'[ß]': 'ss',
+    };
+
+    groups.forEach((pattern, replacement) {
+      final regex = RegExp(pattern, caseSensitive: false);
+      value = value.replaceAllMapped(regex, (match) {
+        final source = match.group(0)!;
+        final isUppercase = source == source.toUpperCase();
+        return isUppercase ? replacement.toUpperCase() : replacement;
+      });
+    });
+
+    return value;
   }
 }
 
@@ -977,6 +1075,76 @@ extension OnMapExtensions on Map<dynamic, dynamic> {
   }
 }
 
+extension MapTransformExtensions<K, V> on Map<K, V> {
+  /// Returns a new map with transformed keys.
+  Map<K2, V> mapKeys<K2>(K2 Function(K key, V value) transform) {
+    final output = <K2, V>{};
+    forEach((key, value) {
+      output[transform(key, value)] = value;
+    });
+    return output;
+  }
+
+  /// Returns a new map with transformed values.
+  Map<K, V2> mapValues<V2>(V2 Function(K key, V value) transform) {
+    final output = <K, V2>{};
+    forEach((key, value) {
+      output[key] = transform(key, value);
+    });
+    return output;
+  }
+
+  /// Keeps only entries with keys satisfying [test].
+  Map<K, V> filterKeys(bool Function(K key) test) {
+    final output = <K, V>{};
+    forEach((key, value) {
+      if (test(key)) output[key] = value;
+    });
+    return output;
+  }
+
+  /// Keeps only entries with values satisfying [test].
+  Map<K, V> filterValues(bool Function(V value) test) {
+    final output = <K, V>{};
+    forEach((key, value) {
+      if (test(value)) output[key] = value;
+    });
+    return output;
+  }
+
+  String? getString(Object? key) {
+    final value = this[key];
+    return value is String ? value : null;
+  }
+
+  int? getIntOrNull(Object? key) {
+    final value = this[key];
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    if (value is String) return int.tryParse(value.trim());
+    return null;
+  }
+
+  double? getDoubleOrNull(Object? key) {
+    final value = this[key];
+    if (value is double) return value;
+    if (value is num) return value.toDouble();
+    if (value is String) return double.tryParse(value.trim());
+    return null;
+  }
+
+  bool? getBoolOrNull(Object? key) {
+    final value = this[key];
+    if (value is bool) return value;
+    if (value is String) {
+      final normalized = value.trim().toLowerCase();
+      if (normalized == 'true') return true;
+      if (normalized == 'false') return false;
+    }
+    return null;
+  }
+}
+
 //********************************** */
 
 //https://stackoverflow.com/questions/72276120/convert-string-to-list-of-dates-in-flutter
@@ -1061,20 +1229,29 @@ extension MyScrollExtension on ScrollController {
 extension MyStringExtension on String {
   //method to convert a String into a list of Strings
 //https://stackoverflow.com/questions/52288553/flutter-how-to-convert-string-to-liststring
+  @Deprecated(
+      'Use StringExtensions.convertToListString() or top-level convertStringIntoStringList(String) instead.')
   List<String> convertStringIntoStringList() {
-    List<String> stringList = [];
+    // Preserve legacy behavior for backward compatibility.
+    return length <= 2 ? [] : substring(1, length - 1).split(', ');
+  }
+}
 
-    //stringList.length <= 2 means the String is only "[]"
-    //or empty or has 1 character (meaning definitely not a list of String which would have minimum 2 characters for an empty list [])
-    //therefore return an empty list
-    //Furthermore, because the String received from the database
-    //is of format "[string1, string2, ...]"
-    //therefore when converting it, omit the first and last characters
-    //(eg. the "[" and "]" characters of the String)
-    //furthermore, each date is separated by the folowing two characters ", "
-    stringList = length <= 2 ? [] : substring(1, length - 1).split(', ');
+//********************************************** */
 
-    return stringList;
+extension NullableNumExtensions on num? {
+  /// Clamps nullable numbers and returns null when source value is null.
+  num? clampOrNull(num lowerLimit, num upperLimit) {
+    final value = this;
+    if (value == null) return null;
+    return value.clamp(lowerLimit, upperLimit);
+  }
+
+  /// Clamps nullable numbers and always returns a double.
+  double? clampToDoubleOrNull(double lowerLimit, double upperLimit) {
+    final value = this;
+    if (value == null) return null;
+    return value.toDouble().clamp(lowerLimit, upperLimit);
   }
 }
 
@@ -1864,6 +2041,128 @@ extension MyfindFirstWhereOrNullExt<T> on Iterable<T> {
     }
     return null;
   }
+}
+
+//******************************************************* */
+
+extension IterableQueryExtensions<T> on Iterable<T> {
+  /// Returns true when no element satisfies [test].
+  bool none(bool Function(T element) test) => !any(test);
+
+  /// Counts elements matching [test].
+  int countWhere(bool Function(T element) test) {
+    var count = 0;
+    for (final element in this) {
+      if (test(element)) count++;
+    }
+    return count;
+  }
+
+  /// Returns the single matching element, or `null` if zero or multiple match.
+  T? singleWhereOrNull(bool Function(T element) test) {
+    T? matched;
+    var found = false;
+    for (final element in this) {
+      if (!test(element)) continue;
+      if (found) return null;
+      matched = element;
+      found = true;
+    }
+    return matched;
+  }
+
+  /// Returns a list with duplicates removed by [keyOf], preserving order.
+  List<T> distinctBy<K>(K Function(T element) keyOf) {
+    final seen = <K>{};
+    final output = <T>[];
+    for (final element in this) {
+      final key = keyOf(element);
+      if (seen.add(key)) {
+        output.add(element);
+      }
+    }
+    return output;
+  }
+
+  /// Returns a sorted copy by comparable [keyOf].
+  List<T> sortedBy<K extends Comparable<Object?>>(K Function(T element) keyOf,
+      {bool descending = false}) {
+    final copy = toList();
+    copy.sort((a, b) {
+      final order = keyOf(a).compareTo(keyOf(b));
+      return descending ? -order : order;
+    });
+    return copy;
+  }
+
+  /// Splits values into fixed-size chunks.
+  List<List<T>> chunked(int size) {
+    if (size <= 0) {
+      throw ArgumentError.value(size, 'size', 'must be greater than 0');
+    }
+    final source = toList();
+    final output = <List<T>>[];
+    for (var i = 0; i < source.length; i += size) {
+      final end = min(i + size, source.length);
+      output.add(source.sublist(i, end));
+    }
+    return output;
+  }
+
+  /// Returns sliding windows of [size].
+  List<List<T>> windowed(int size,
+      {int step = 1, bool partialWindows = false}) {
+    if (size <= 0) {
+      throw ArgumentError.value(size, 'size', 'must be greater than 0');
+    }
+    if (step <= 0) {
+      throw ArgumentError.value(step, 'step', 'must be greater than 0');
+    }
+
+    final source = toList();
+    final output = <List<T>>[];
+    for (var i = 0; i < source.length; i += step) {
+      final end = i + size;
+      if (end <= source.length) {
+        output.add(source.sublist(i, end));
+      } else if (partialWindows && i < source.length) {
+        output.add(source.sublist(i));
+      }
+    }
+    return output;
+  }
+}
+
+//******************************************************* */
+
+/// Null-safe list helpers frequently used in collection workflows.
+extension NullableListQueries<T> on List<T> {
+  /// Returns the first element matching [test], or `null` when not found.
+  T? firstWhereOrNull(bool Function(T element) test) {
+    for (final element in this) {
+      if (test(element)) return element;
+    }
+    return null;
+  }
+
+  /// Returns the last element matching [test], or `null` when not found.
+  T? lastWhereOrNull(bool Function(T element) test) {
+    for (var i = length - 1; i >= 0; i--) {
+      final element = this[i];
+      if (test(element)) return element;
+    }
+    return null;
+  }
+
+  /// Returns `null` instead of throwing if the list is empty.
+  T? get firstOrNull => isEmpty ? null : first;
+
+  /// Returns `null` instead of throwing if the list is empty.
+  T? get lastOrNull => isEmpty ? null : last;
+
+  /// Returns the element at [index] or `null` when out of bounds.
+  T? elementAtOrNull(int index) =>
+      (index < 0 || index >= length) ? null : this[index];
 }
 
 //******************************************************* */
