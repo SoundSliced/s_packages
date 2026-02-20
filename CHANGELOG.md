@@ -1,3 +1,6 @@
+## 1.8.1
+- CHANGELOG and README updated
+
 ## 1.8.0
 - **`soundsliced_dart_extensions` new utilities added:**
   - **Iterable/List helpers:** `none`, `countWhere`, `singleWhereOrNull`, `distinctBy`, `sortedBy`, `chunked`, `windowed`, `firstWhereOrNull`, `lastWhereOrNull`, `firstOrNull`, `lastOrNull`, `elementAtOrNull`.
@@ -19,6 +22,8 @@
 - **`s_packages` export changes:**
   - Exported `nb_utils` directly from `s_packages.dart`.
   - Removed duplicate `nb_utils` export from `s_packages_extra1.dart`.
+
+## 1.7.2
 
 - **`s_metar` sub-package improvements**:
   - **NEW: Live METAR/TAF fetching**:
