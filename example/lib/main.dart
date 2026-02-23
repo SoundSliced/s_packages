@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:s_packages/s_packages.dart';
 
 import 'screens/home_screen.dart';
