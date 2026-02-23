@@ -85,7 +85,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  s_packages: ^1.8.1
+  s_packages: ^1.9.0
 ```
 
 Then run:

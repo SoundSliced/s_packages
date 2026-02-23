@@ -6,6 +6,7 @@ library;
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/foundation.dart';
+import '../_debug_log.dart';
 
 /// Initializes WebView for Linux platform
 ///
@@ -17,7 +18,7 @@ import 'package:flutter/foundation.dart';
 /// - Install: sudo dnf install webkit2-gtk3-devel (Fedora)
 void initializeLinuxWebView() {
   if (defaultTargetPlatform == TargetPlatform.linux) {
-    debugPrint('Linux WebView initialized via WebKitGTK');
+    SWebViewDebug.log('Linux WebView initialized via WebKitGTK');
   }
 }
 

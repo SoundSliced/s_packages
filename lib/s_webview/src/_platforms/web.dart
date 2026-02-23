@@ -7,6 +7,7 @@ library;
 // ignore: depend_on_referenced_packages
 import 'package:webview_flutter_web/webview_flutter_web.dart';
 import 'package:flutter/foundation.dart';
+import '../_debug_log.dart';
 
 /// Initializes WebView for Web platform
 ///
@@ -16,6 +17,6 @@ import 'package:flutter/foundation.dart';
 /// - CORS proxy may be needed for cross-origin requests
 void initializeWebView() {
   if (kIsWeb) {
-    debugPrint('Web WebView initialized');
+    SWebViewDebug.log('Web WebView initialized');
   }
 }

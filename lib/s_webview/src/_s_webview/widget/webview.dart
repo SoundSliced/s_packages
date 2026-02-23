@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 // ignore: depend_on_referenced_packages
 import 'package:webview_flutter/webview_flutter.dart' as webview_flutter;
 import '../webview_controller/webview_controller.dart' as webview_controller;
@@ -22,6 +23,9 @@ class WebView extends StatelessWidget {
   /// The controller for this WebView instance.
   final webview_controller.WebViewController controller;
 
+  /// When true, this WebView ignores all pointer events.
+  final bool ignorePointerEvents;
+
   /// Creates a WebView widget.
   ///
   /// The [controller] parameter must not be null and should be initialized
@@ -29,6 +33,7 @@ class WebView extends StatelessWidget {
   const WebView({
     super.key,
     required this.controller,
+    this.ignorePointerEvents = false,
   });
 
   @override
@@ -48,8 +53,17 @@ class WebView extends StatelessWidget {
       return Visibility(
         visible: controller.is_init,
         replacement: const SizedBox.shrink(),
-        child: webview_flutter.WebViewWidget(
-          controller: controller.webview_mobile_controller,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            webview_flutter.WebViewWidget(
+              controller: controller.webview_mobile_controller,
+            ),
+            if (ignorePointerEvents)
+              const Positioned.fill(
+                child: _PointerBlockerOverlay(),
+              ),
+          ],
         ),
       );
     }
@@ -65,13 +79,44 @@ class WebView extends StatelessWidget {
       return Visibility(
         visible: controller.is_init,
         replacement: const SizedBox.shrink(),
-        child: Container(
-          color: Colors.transparent,
-          child: const SizedBox.expand(),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(
+              color: Colors.transparent,
+              child: const SizedBox.expand(),
+            ),
+            if (ignorePointerEvents)
+              const Positioned.fill(
+                child: _PointerBlockerOverlay(),
+              ),
+          ],
         ),
       );
     }
 
     return const SizedBox.shrink();
+  }
+}
+
+class _PointerBlockerOverlay extends StatelessWidget {
+  const _PointerBlockerOverlay();
+
+  @override
+  Widget build(BuildContext context) {
+    final blocker = AbsorbPointer(
+      absorbing: true,
+      child: const ColoredBox(color: Colors.transparent),
+    );
+
+    // On web, PointerInterceptor inserts a DOM layer that reliably blocks
+    // pointer events from reaching underlying HtmlElementView/iframe content.
+    if (kIsWeb) {
+      return PointerInterceptor(
+        child: blocker,
+      );
+    }
+
+    return blocker;
   }
 }

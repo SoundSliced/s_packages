@@ -7,6 +7,7 @@ library;
 // ignore: depend_on_referenced_packages
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
+import '../_debug_log.dart';
 
 /// Initializes WebView for Android platform
 ///
@@ -18,7 +19,7 @@ import 'package:flutter/foundation.dart';
 void initializeAndroidWebView() {
   if (defaultTargetPlatform == TargetPlatform.android) {
     // Initialize Android-specific WebView
-    debugPrint('Android WebView initialized');
+    SWebViewDebug.log('Android WebView initialized');
   }
 }
 

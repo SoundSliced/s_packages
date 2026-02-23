@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../_debug_log.dart';
 import 'webview_controller_web.dart';
 
 /// Extension methods for [WebViewController] providing cookie management.
@@ -26,13 +27,15 @@ extension WebViewCookieManagement on WebViewController {
 
         await webview_mobile_controller.runJavaScript(
             'document.cookie = "${cookieStr.replaceAll('"', '\\"')}"');
+        setMemoryCookie(cookie.name, cookie.value, domain: cookie.domain);
         return true;
       }
+      setMemoryCookie(cookie.name, cookie.value, domain: cookie.domain);
+      return true;
     } catch (e) {
-      debugPrint('Error setting cookie: $e');
+      SWebViewDebug.log('Error setting cookie: $e');
       return false;
     }
-    return false;
   }
 
   /// Gets cookies from the WebView.
@@ -45,13 +48,24 @@ extension WebViewCookieManagement on WebViewController {
 
     try {
       if (is_mobile) {
-        await webview_mobile_controller.runJavaScript('document.cookie');
-        // Note: JavaScript execution in webview_flutter doesn't return values easily
-        // Cookies can be accessed via JavaScript channel
-        return [];
+        final dynamic raw = await webview_mobile_controller
+            .runJavaScriptReturningResult('document.cookie');
+        final cookieString = _normalizeJsResultToString(raw);
+        if (cookieString == null || cookieString.trim().isEmpty) {
+          return [];
+        }
+        return cookieString
+            .split(';')
+            .map((entry) => entry.trim())
+            .where((entry) => entry.isNotEmpty)
+            .toList(growable: false);
       }
+      return getMemoryCookies()
+          .entries
+          .map((entry) => '${entry.key}=${entry.value}')
+          .toList(growable: false);
     } catch (e) {
-      debugPrint('Error getting cookies: $e');
+      SWebViewDebug.log('Error getting cookies: $e');
     }
     return [];
   }
@@ -70,13 +84,13 @@ extension WebViewCookieManagement on WebViewController {
           })
         ''';
         await webview_mobile_controller.runJavaScript(clearScript);
-        return true;
       }
+      clearMemoryCookies();
+      return true;
     } catch (e) {
-      debugPrint('Error clearing cookies: $e');
+      SWebViewDebug.log('Error clearing cookies: $e');
       return false;
     }
-    return false;
   }
 }
 
@@ -94,7 +108,7 @@ extension WebViewCacheManagement on WebViewController {
         return true;
       }
     } catch (e) {
-      debugPrint('Error clearing cache: $e');
+      SWebViewDebug.log('Error clearing cache: $e');
       return false;
     }
     return false;
@@ -183,13 +197,14 @@ extension WebViewPageMetadata on WebViewController {
   Future<void> updatePageTitle() async {
     if (is_init && is_mobile) {
       try {
-        final title = await webview_mobile_controller
-            .runJavaScript('document.title') as String?;
+        final dynamic raw = await webview_mobile_controller
+            .runJavaScriptReturningResult('document.title');
+        final title = _normalizeJsResultToString(raw);
         if (title != null && title.isNotEmpty) {
           pageTitleNotifier.value = title;
         }
       } catch (e) {
-        debugPrint('Error updating page title: $e');
+        SWebViewDebug.log('Error updating page title: $e');
       }
     }
   }
@@ -217,12 +232,12 @@ extension WebViewPageSearch on WebViewController {
             return matches ? matches.length : 0;
           })()
         ''';
-        await webview_mobile_controller.runJavaScript(script);
-        // For now, return a placeholder
-        return text.isNotEmpty ? 1 : 0;
+        final dynamic result = await webview_mobile_controller
+            .runJavaScriptReturningResult(script);
+        return _normalizeJsResultToInt(result) ?? 0;
       }
     } catch (e) {
-      debugPrint('Error finding text: $e');
+      SWebViewDebug.log('Error finding text: $e');
     }
     return 0;
   }
@@ -255,7 +270,7 @@ extension WebViewPageSearch on WebViewController {
         return true;
       }
     } catch (e) {
-      debugPrint('Error highlighting text: $e');
+      SWebViewDebug.log('Error highlighting text: $e');
       return false;
     }
     return false;
@@ -285,9 +300,36 @@ extension WebViewPageSearch on WebViewController {
         return true;
       }
     } catch (e) {
-      debugPrint('Error clearing highlights: $e');
+      SWebViewDebug.log('Error clearing highlights: $e');
       return false;
     }
     return false;
   }
+}
+
+String? _normalizeJsResultToString(dynamic raw) {
+  if (raw == null) {
+    return null;
+  }
+  if (raw is String) {
+    final trimmed = raw.trim();
+    if (trimmed.length >= 2 &&
+        ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+            (trimmed.startsWith("'") && trimmed.endsWith("'")))) {
+      return trimmed.substring(1, trimmed.length - 1);
+    }
+    return trimmed;
+  }
+  return raw.toString();
+}
+
+int? _normalizeJsResultToInt(dynamic raw) {
+  if (raw == null) {
+    return null;
+  }
+  if (raw is num) {
+    return raw.toInt();
+  }
+  final value = _normalizeJsResultToString(raw);
+  return int.tryParse(value ?? '');
 }

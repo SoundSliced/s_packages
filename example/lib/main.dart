@@ -1,11 +1,44 @@
+import 'dart:async';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:s_packages/s_packages.dart';
 
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(const SPackagesExampleApp());
+  _installDebugNullLogFilter();
+
+  runZonedGuarded(
+    () {
+      runApp(const SPackagesExampleApp());
+    },
+    (error, stackTrace) {},
+    zoneSpecification: kDebugMode
+        ? ZoneSpecification(
+            print: (self, parent, zone, line) {
+              final trimmed = line.trim().toLowerCase();
+              if (trimmed == 'null') {
+                return;
+              }
+              parent.print(zone, line);
+            },
+          )
+        : null,
+  );
+}
+
+void _installDebugNullLogFilter() {
+  if (!kDebugMode) return;
+
+  final previousDebugPrint = debugPrint;
+  debugPrint = (String? message, {int? wrapWidth}) {
+    final trimmed = message?.trim().toLowerCase();
+    if (trimmed == null || trimmed.isEmpty || trimmed == 'null') {
+      return;
+    }
+    previousDebugPrint(message, wrapWidth: wrapWidth);
+  };
 }
 
 class SPackagesExampleApp extends StatelessWidget {

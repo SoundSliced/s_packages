@@ -1,10 +1,41 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:webview_flutter/webview_flutter.dart' as webview_flutter;
+import '../../_debug_log.dart';
 import '../webview_desktop/webview_desktop.dart' as webview_desktop;
+
+/// A navigation decision for URL requests.
+enum SWebViewNavigationDecision {
+  navigate,
+  prevent,
+}
+
+/// Signature for intercepting URL requests before navigation.
+typedef SWebViewNavigationRequestCallback = SWebViewNavigationDecision Function(
+  Uri uri,
+);
+
+/// Capability matrix for current platform support.
+class SWebViewPlatformCapabilities {
+  final bool canUseNativeWebView;
+  final bool supportsJavaScript;
+  final bool supportsDesktopWebview;
+  final bool supportsNavigationDelegate;
+  final bool supportsCookieJavaScript;
+
+  const SWebViewPlatformCapabilities({
+    required this.canUseNativeWebView,
+    required this.supportsJavaScript,
+    required this.supportsDesktopWebview,
+    required this.supportsNavigationDelegate,
+    required this.supportsCookieJavaScript,
+  });
+}
 
 /// Cookie management data class
 class WebViewCookie {
@@ -114,8 +145,39 @@ class WebViewController {
   /// Proxy URL (optional)
   String? proxyUrl;
 
+  /// Optional callback for progress updates.
+  ValueChanged<int>? onProgress;
+
+  /// Optional callback for page started events.
+  ValueChanged<Uri>? onPageStarted;
+
+  /// Optional callback for URL changes.
+  ValueChanged<Uri>? onUrlChanged;
+
+  /// Optional callback for page finished events.
+  ValueChanged<Uri>? onPageFinished;
+
+  /// Optional callback for JavaScript channel messages.
+  ValueChanged<String>? onJavaScriptMessage;
+
+  /// Optional callback to decide whether a navigation should proceed.
+  SWebViewNavigationRequestCallback? onNavigationRequest;
+
+  /// Current platform capabilities.
+  SWebViewPlatformCapabilities get capabilities => SWebViewPlatformCapabilities(
+        canUseNativeWebView: true,
+        supportsJavaScript: true,
+        supportsDesktopWebview: is_desktop,
+        supportsNavigationDelegate: is_mobile,
+        supportsCookieJavaScript: is_mobile,
+      );
+
   /// Cookie jar for storing and managing cookies
   final Map<String, Map<String, String>> _cookieJar = {};
+
+  Uri? _initialUri;
+  bool _isInitializing = false;
+  Completer<void>? _initializationCompleter;
 
   /// Creates a new WebViewController instance.
   WebViewController();
@@ -141,6 +203,12 @@ class WebViewController {
     Duration? requestTimeout,
     bool? followRedirects,
     String? proxyUrl,
+    ValueChanged<int>? onProgress,
+    ValueChanged<Uri>? onPageStarted,
+    ValueChanged<Uri>? onUrlChanged,
+    ValueChanged<Uri>? onPageFinished,
+    ValueChanged<String>? onJavaScriptMessage,
+    SWebViewNavigationRequestCallback? onNavigationRequest,
   }) async {
     // Only apply custom headers if explicitly provided
     this.customHeaders = customHeaders ?? {};
@@ -149,123 +217,179 @@ class WebViewController {
     this.requestTimeout = requestTimeout ?? const Duration(seconds: 30);
     this.followRedirects = followRedirects ?? true;
     this.proxyUrl = proxyUrl;
+    this.onProgress = onProgress;
+    this.onPageStarted = onPageStarted;
+    this.onUrlChanged = onUrlChanged;
+    this.onPageFinished = onPageFinished;
+    this.onJavaScriptMessage = onJavaScriptMessage;
+    this.onNavigationRequest = onNavigationRequest;
+    _initialUri = uri;
 
-    if (isTestMode) {
-      is_init = true;
-      currentUrlNotifier.value = uri;
-      // In test mode, immediately set loaded state without timer
-      isLoadingNotifier.value = false;
-      setState(() {});
+    if (_isInitializing) {
+      await _initializationCompleter?.future;
+      if (is_init) {
+        await loadUri(uri);
+      }
       return;
     }
 
-    if (is_mobile) {
-      final webview_flutter.PlatformWebViewControllerCreationParams params =
-          const webview_flutter.PlatformWebViewControllerCreationParams();
+    if (is_init) {
+      await loadUri(uri);
+      return;
+    }
 
-      webview_mobile_controller =
-          webview_flutter.WebViewController.fromPlatformCreationParams(params);
-      setState(() {});
-      if (!kIsWeb) {
-        webview_mobile_controller
-            .setJavaScriptMode(webview_flutter.JavaScriptMode.unrestricted);
+    _isInitializing = true;
+    _initializationCompleter = Completer<void>();
 
-        // Set custom User-Agent if provided
-        if (customUserAgent != null) {
-          webview_mobile_controller.setUserAgent(customUserAgent);
-        }
+    try {
+      if (isTestMode) {
+        is_init = true;
+        currentUrlNotifier.value = uri;
+        // In test mode, immediately set loaded state without timer
+        isLoadingNotifier.value = false;
+        setState(() {});
+        return;
+      }
 
-        webview_mobile_controller.setNavigationDelegate(
-          webview_flutter.NavigationDelegate(
-            onProgress: (int progress) {
-              isLoadingNotifier.value = progress < 100;
-              debugPrint('WebView is loading (progress : $progress%)');
-            },
-            onPageStarted: (String url) {
-              isLoadingNotifier.value = true;
-              currentUrlNotifier.value = Uri.parse(url);
-              debugPrint('Page started loading: $url');
-            },
-            onPageFinished: (String url) {
-              isLoadingNotifier.value = false;
-              currentUrlNotifier.value = Uri.parse(url);
-              _updatePageTitle();
-              debugPrint('Page finished loading: $url');
-            },
-            onWebResourceError: (webview_flutter.WebResourceError error) {
-              isLoadingNotifier.value = false;
-              debugPrint('''
+      if (is_mobile) {
+        final webview_flutter.PlatformWebViewControllerCreationParams params =
+            const webview_flutter.PlatformWebViewControllerCreationParams();
+
+        webview_mobile_controller =
+            webview_flutter.WebViewController.fromPlatformCreationParams(
+                params);
+        setState(() {});
+        if (!kIsWeb) {
+          webview_mobile_controller
+              .setJavaScriptMode(webview_flutter.JavaScriptMode.unrestricted);
+
+          // Set custom User-Agent if provided
+          if (customUserAgent != null) {
+            webview_mobile_controller.setUserAgent(customUserAgent);
+          }
+
+          webview_mobile_controller.setNavigationDelegate(
+            webview_flutter.NavigationDelegate(
+              onProgress: (int progress) {
+                isLoadingNotifier.value = progress < 100;
+                this.onProgress?.call(progress);
+                SWebViewDebug.log('WebView is loading (progress : $progress%)');
+              },
+              onPageStarted: (String url) {
+                isLoadingNotifier.value = true;
+                final uri = Uri.tryParse(url);
+                if (uri != null) {
+                  currentUrlNotifier.value = uri;
+                  onPageStarted?.call(uri);
+                  this.onUrlChanged?.call(uri);
+                }
+                SWebViewDebug.log('Page started loading: $url');
+              },
+              onPageFinished: (String url) {
+                isLoadingNotifier.value = false;
+                final uri = Uri.tryParse(url);
+                if (uri != null) {
+                  currentUrlNotifier.value = uri;
+                  onPageFinished?.call(uri);
+                  this.onUrlChanged?.call(uri);
+                }
+                _updatePageTitle();
+                SWebViewDebug.log('Page finished loading: $url');
+              },
+              onWebResourceError: (webview_flutter.WebResourceError error) {
+                isLoadingNotifier.value = false;
+                SWebViewDebug.log('''
 Page resource error:
   code: ${error.errorCode}
   description: ${error.description}
   errorType: ${error.errorType}
   isForMainFrame: ${error.isForMainFrame}
           ''');
-            },
-            onNavigationRequest: (webview_flutter.NavigationRequest request) {
-              if (request.url.startsWith('https://www.youtube.com/')) {
-                debugPrint('blocking navigation to ${request.url}');
-                return webview_flutter.NavigationDecision.prevent;
-              }
-              debugPrint('allowing navigation to ${request.url}');
-              return webview_flutter.NavigationDecision.navigate;
-            },
-          ),
-        );
-        webview_mobile_controller.addJavaScriptChannel(
-          'Toaster',
-          onMessageReceived: (webview_flutter.JavaScriptMessage message) {
-            final messenger = ScaffoldMessenger.maybeOf(context);
-            if (messenger == null) return; // Avoid calling on disposed context
-            messenger.hideCurrentSnackBar();
-            messenger.showSnackBar(SnackBar(content: Text(message.message)));
-          },
-        );
-      }
+              },
+              onNavigationRequest: (webview_flutter.NavigationRequest request) {
+                final requestUri = Uri.tryParse(request.url);
+                if (requestUri == null) {
+                  return webview_flutter.NavigationDecision.navigate;
+                }
 
-      // Load URL with headers only if explicitly provided (to avoid blocking)
-      if (this.customHeaders.isNotEmpty) {
-        await webview_mobile_controller.loadRequest(
-          uri,
-          headers: this.customHeaders,
-        );
-      } else {
-        await webview_mobile_controller.loadRequest(uri);
-      }
+                if (!this.followRedirects && _initialUri != null) {
+                  final originalHost = _initialUri!.host;
+                  if (originalHost.isNotEmpty &&
+                      requestUri.host != originalHost) {
+                    SWebViewDebug.log(
+                        'Navigation prevented by followRedirects=false: ${request.url}');
+                    return webview_flutter.NavigationDecision.prevent;
+                  }
+                }
 
-      // #docregion platform_features
-      if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-        try {
-          (webview_mobile_controller.platform as dynamic)
-              .setMediaPlaybackRequiresUserGesture(false);
-        } catch (e) {
-          debugPrint('Error setting media playback requires user gesture: $e');
+                final decision = onNavigationRequest?.call(requestUri);
+                if (decision == SWebViewNavigationDecision.prevent) {
+                  SWebViewDebug.log(
+                      'Navigation prevented by callback: ${request.url}');
+                  return webview_flutter.NavigationDecision.prevent;
+                }
+
+                SWebViewDebug.log('allowing navigation to ${request.url}');
+                return webview_flutter.NavigationDecision.navigate;
+              },
+            ),
+          );
+          webview_mobile_controller.addJavaScriptChannel(
+            'Toaster',
+            onMessageReceived: (webview_flutter.JavaScriptMessage message) {
+              onJavaScriptMessage?.call(message.message);
+              final messenger = ScaffoldMessenger.maybeOf(context);
+              if (messenger == null) return;
+              messenger.hideCurrentSnackBar();
+              messenger.showSnackBar(SnackBar(content: Text(message.message)));
+            },
+          );
         }
-      }
-      setState(() {});
-      is_init = true;
-    } else if (is_desktop) {
-      final bool isWebviewAvailable =
-          await webview_desktop.WebviewWindow.isWebviewAvailable();
-      if (isWebviewAvailable) {
-        final webview_desktop.Webview localWebviewController =
-            await webview_desktop.WebviewWindow.create(
-          configuration: webview_desktop.CreateConfiguration(
-            titleBarTopPadding:
-                defaultTargetPlatform == TargetPlatform.macOS ? 20 : 0,
-          ),
-        );
-        webview_desktop_controller = localWebviewController;
-        webview_desktop_controller.setBrightness(Brightness.dark);
-        webview_desktop_controller.launch(uri.toString());
-        currentUrlNotifier.value = uri;
+        await _loadRequest(uri);
+
+        // #docregion platform_features
+        if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+          try {
+            (webview_mobile_controller.platform as dynamic)
+                .setMediaPlaybackRequiresUserGesture(false);
+          } catch (e) {
+            SWebViewDebug.log(
+                'Error setting media playback requires user gesture: $e');
+          }
+        }
         setState(() {});
         is_init = true;
+      } else if (is_desktop) {
+        final bool isWebviewAvailable =
+            await webview_desktop.WebviewWindow.isWebviewAvailable();
+        if (isWebviewAvailable) {
+          final webview_desktop.Webview localWebviewController =
+              await webview_desktop.WebviewWindow.create(
+            configuration: webview_desktop.CreateConfiguration(
+              titleBarTopPadding:
+                  defaultTargetPlatform == TargetPlatform.macOS ? 20 : 0,
+            ),
+          );
+          webview_desktop_controller = localWebviewController;
+          webview_desktop_controller.setBrightness(Brightness.dark);
+          webview_desktop_controller.launch(resolveUriForLoad(uri).toString());
+          currentUrlNotifier.value = uri;
+          setState(() {});
+          is_init = true;
+        } else {
+          throw StateError(
+            'Desktop WebView runtime is not available on this machine.',
+          );
+        }
       } else {
-        throw StateError(
-          'Desktop WebView runtime is not available on this machine.',
-        );
+        throw StateError('Unsupported platform for WebViewController.');
       }
+    } finally {
+      _isInitializing = false;
+      if (!(_initializationCompleter?.isCompleted ?? true)) {
+        _initializationCompleter?.complete();
+      }
+      _initializationCompleter = null;
     }
   }
 
@@ -273,13 +397,14 @@ Page resource error:
   Future<void> _updatePageTitle() async {
     if (is_mobile && is_init) {
       try {
-        final String? title = await webview_mobile_controller
-            .runJavaScript('document.title') as String?;
+        final dynamic raw = await webview_mobile_controller
+            .runJavaScriptReturningResult('document.title');
+        final String? title = _normalizeJsString(raw);
         if (title != null && title.isNotEmpty) {
           pageTitleNotifier.value = title;
         }
       } catch (e) {
-        debugPrint('Error getting page title: $e');
+        SWebViewDebug.log('Error getting page title: $e');
       }
     }
   }
@@ -293,7 +418,7 @@ Page resource error:
       try {
         webview_desktop_controller.close();
       } catch (e) {
-        debugPrint('Error closing desktop webview: $e');
+        SWebViewDebug.log('Error closing desktop webview: $e');
       }
     }
     currentUrlNotifier.dispose();
@@ -303,25 +428,78 @@ Page resource error:
     is_init = false;
   }
 
-  /// Sets a cookie for persistence across navigation
-  void setCookie(String name, String value, {String? domain}) {
+  /// Stores a cookie in memory for caller-managed usage.
+  void setMemoryCookie(String name, String value, {String? domain}) {
     final host = domain ?? currentUrlNotifier.value?.host ?? 'default';
     if (!_cookieJar.containsKey(host)) {
       _cookieJar[host] = {};
     }
     _cookieJar[host]![name] = value;
-    debugPrint('Cookie set: $name=$value for domain $host');
+    SWebViewDebug.log('Cookie set: $name=$value for domain $host');
   }
 
-  /// Gets stored cookies for a domain
-  Map<String, String> getCookies({String? domain}) {
+  /// Gets stored in-memory cookies for a domain.
+  Map<String, String> getMemoryCookies({String? domain}) {
     final host = domain ?? currentUrlNotifier.value?.host ?? 'default';
     return _cookieJar[host] ?? {};
   }
 
-  /// Clears all stored cookies
-  void clearCookies() {
+  /// Clears all stored in-memory cookies.
+  void clearMemoryCookies() {
     _cookieJar.clear();
-    debugPrint('All cookies cleared');
+    SWebViewDebug.log('All cookies cleared');
+  }
+
+  /// Resolves a URL to load, applying proxy URL if configured.
+  Uri resolveUriForLoad(Uri uri) {
+    if (proxyUrl == null || proxyUrl!.trim().isEmpty) {
+      return uri;
+    }
+    if (!(uri.scheme == 'http' || uri.scheme == 'https')) {
+      return uri;
+    }
+    return Uri.parse('${proxyUrl!}${Uri.encodeComponent(uri.toString())}');
+  }
+
+  /// Loads a URL in the active webview honoring timeout, headers and proxy settings.
+  Future<void> loadUri(Uri uri) async {
+    if (!is_init) {
+      return;
+    }
+    final target = resolveUriForLoad(uri);
+    if (is_mobile) {
+      await _loadRequest(target);
+      return;
+    }
+    if (is_desktop) {
+      webview_desktop_controller.launch(target.toString());
+      currentUrlNotifier.value = target;
+    }
+  }
+
+  Future<void> _loadRequest(Uri uri) async {
+    if (customHeaders.isNotEmpty) {
+      await webview_mobile_controller
+          .loadRequest(uri, headers: customHeaders)
+          .timeout(requestTimeout);
+    } else {
+      await webview_mobile_controller.loadRequest(uri).timeout(requestTimeout);
+    }
+  }
+
+  String? _normalizeJsString(dynamic raw) {
+    if (raw == null) {
+      return null;
+    }
+    if (raw is String) {
+      final trimmed = raw.trim();
+      if (trimmed.length >= 2 &&
+          ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+              (trimmed.startsWith("'") && trimmed.endsWith("'")))) {
+        return trimmed.substring(1, trimmed.length - 1);
+      }
+      return trimmed;
+    }
+    return raw.toString();
   }
 }

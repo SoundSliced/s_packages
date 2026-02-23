@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../../../_debug_log.dart';
 
 import 'message_channel.dart';
 
@@ -39,7 +40,7 @@ bool runWebViewTitleBarWidget(
     },
     onError ??
         (e, s) {
-          debugPrint('WebViewTitleBar: unhandled expections: $e, $s');
+          SWebViewDebug.log('WebViewTitleBar: unhandled expections: $e, $s');
         },
   );
 

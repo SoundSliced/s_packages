@@ -6,6 +6,7 @@ library;
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/foundation.dart';
+import '../_debug_log.dart';
 
 /// Initializes WebView for Windows platform
 ///
@@ -16,7 +17,7 @@ import 'package:flutter/foundation.dart';
 /// - Visual C++ Redistributable may be required
 void initializeWindowsWebView() {
   if (defaultTargetPlatform == TargetPlatform.windows) {
-    debugPrint('Windows WebView initialized via WebView2');
+    SWebViewDebug.log('Windows WebView initialized via WebView2');
   }
 }
 

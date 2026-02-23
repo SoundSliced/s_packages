@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:s_packages/s_packages.dart';
 
+import '_debug_log.dart';
 import '_s_webview/webview_controller/webview_controller.dart';
 import '_s_webview/widget/widget.dart';
 import '_s_webview/web_utils/web_utils.dart' as web_utils;
@@ -15,12 +16,89 @@ import '_s_webview/web_utils/web_utils.dart' as web_utils;
 // When showToolbar=false, the toolbar is never shown (even if page fails to load)
 // When showToolbar=true, the toolbar with retry and open-in-new-tab buttons is displayed
 
+class SWebViewConfig {
+  /// Automatically detect frame restrictions and apply proxy only when needed.
+  final bool autoDetectFrameRestrictions;
+
+  /// List of CORS proxies used as fallback on web platform.
+  ///
+  /// ⚠️ Avoid using public proxies for sensitive or authenticated content.
+  final List<String> corsProxyUrls;
+
+  /// Domains known to block iframe embedding.
+  final Set<String> knownRestrictedDomains;
+
+  /// Restriction cache entry TTL.
+  final Duration proxyCacheTtl;
+
+  /// When true, cache proxy decisions by host instead of full URL.
+  final bool cacheProxyByHost;
+
+  const SWebViewConfig({
+    this.autoDetectFrameRestrictions = true,
+    this.corsProxyUrls = const [
+      'https://api.codetabs.com/v1/proxy?quest=',
+      'https://cors.bridged.cc/',
+      'https://api.allorigins.win/raw?url=',
+    ],
+    this.knownRestrictedDomains = const {
+      'google.com',
+      'github.com',
+      'facebook.com',
+      'twitter.com',
+      'instagram.com',
+      'linkedin.com',
+      'pinterest.com',
+      'reddit.com',
+      'amazon.com',
+      'ebay.com',
+    },
+    this.proxyCacheTtl = const Duration(days: 7),
+    this.cacheProxyByHost = true,
+  });
+}
+
+class _RestrictionCacheEntry {
+  final bool needsProxy;
+  final int updatedAtMillis;
+
+  const _RestrictionCacheEntry({
+    required this.needsProxy,
+    required this.updatedAtMillis,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'needsProxy': needsProxy,
+        'updatedAtMillis': updatedAtMillis,
+      };
+
+  factory _RestrictionCacheEntry.fromJson(Map<String, dynamic> json) {
+    return _RestrictionCacheEntry(
+      needsProxy: json['needsProxy'] == true,
+      updatedAtMillis: (json['updatedAtMillis'] as num?)?.toInt() ?? 0,
+    );
+  }
+}
+
 class SWebView extends StatefulWidget {
   /// The URL to load in the WebView
   final String url;
 
-  /// Callback for load errors
+  /// Optional externally managed controller.
+  ///
+  /// When provided, [SWebView] will not dispose it.
+  final WebViewController? controller;
+
+  /// Optional advanced typed config.
+  final SWebViewConfig config;
+
+  /// Callback for load errors.
+  ///
+  /// Called only when a load fails.
   final Function(String? error)? onError;
+
+  /// Callback when page load succeeds.
+  final VoidCallback? onLoaded;
 
   /// Callback when iframe is blocked (web platform only)
   final VoidCallback? onIframeBlocked;
@@ -35,21 +113,54 @@ class SWebView extends StatefulWidget {
   final bool autoDetectFrameRestrictions;
 
   /// List of CORS proxies to try in order (with fallback)
-  /// Default proxies are ordered by speed/reliability
+  /// Default is empty: falls back to [config.corsProxyUrls].
   final List<String> corsProxyUrls;
+
+  /// When true, SWebView debug logs are shown in debug mode.
+  /// Default: false
+  final bool showDebugLogs;
+
+  /// When true, the embedded WebView ignores all pointer events.
+  /// Default: false
+  final bool ignorePointerEvents;
+
+  /// Callback with page loading progress (0..100).
+  final ValueChanged<int>? onProgress;
+
+  /// Callback when a page starts loading.
+  final ValueChanged<Uri>? onPageStarted;
+
+  /// Callback when URL changes.
+  final ValueChanged<Uri>? onUrlChanged;
+
+  /// Callback when a page finishes loading.
+  final ValueChanged<Uri>? onPageFinished;
+
+  /// Callback to decide whether navigation is allowed.
+  final SWebViewNavigationRequestCallback? onNavigationRequest;
+
+  /// Callback for JavaScript channel messages.
+  final ValueChanged<String>? onJavaScriptMessage;
 
   const SWebView({
     super.key,
     this.url = "https://flutter.dev",
+    this.controller,
+    this.config = const SWebViewConfig(),
     this.onError,
+    this.onLoaded,
     this.onIframeBlocked,
     this.autoDetectFrameRestrictions = /* kIsWeb ? true : false */ true,
-    this.corsProxyUrls = const [
-      'https://api.codetabs.com/v1/proxy?quest=',
-      'https://cors.bridged.cc/',
-      'https://api.allorigins.win/raw?url=',
-    ],
+    this.corsProxyUrls = const [],
     this.showToolbar = kIsWeb,
+    this.showDebugLogs = false,
+    this.ignorePointerEvents = false,
+    this.onProgress,
+    this.onPageStarted,
+    this.onUrlChanged,
+    this.onPageFinished,
+    this.onNavigationRequest,
+    this.onJavaScriptMessage,
   });
 
   @override
@@ -112,16 +223,22 @@ class SWebView extends StatefulWidget {
   ///   ),
   /// ])
   /// ```
-  static Future<void> retryWithProxy(String url) async {
-    if (kDebugMode) {
+  static Future<void> retryWithProxy(
+    String url, {
+    bool showDebugLogs = false,
+  }) async {
+    if (kDebugMode && showDebugLogs) {
       debugPrint('SWebView: User requested retry with proxy for $url');
       debugPrint(
           'SWebView: ⚠️ SUGGESTION: Add "${Uri.parse(url).host}" to restrictedDomains list');
     }
 
-    // Mark URL as needing proxy for future loads
-    _SWebViewState._restrictionCache[url] = true;
-    await _SWebViewState._saveCache();
+    final key = _SWebViewState.cacheKeyFromUrl(url, cacheByHost: true);
+    _SWebViewState._restrictionCache[key] = _RestrictionCacheEntry(
+      needsProxy: true,
+      updatedAtMillis: DateTime.now().millisecondsSinceEpoch,
+    );
+    await _SWebViewState._saveCache(showDebugLogs: showDebugLogs);
   }
 
   /// Static method to open a URL in a new browser tab
@@ -164,8 +281,9 @@ class SWebView extends StatefulWidget {
   static Future<void> openInNewTab(
     String url, {
     bool addToProxyCacheForNextTime = true,
+    bool showDebugLogs = false,
   }) async {
-    if (kDebugMode) {
+    if (kDebugMode && showDebugLogs) {
       debugPrint('SWebView: Opening in new tab: $url');
       if (addToProxyCacheForNextTime) {
         debugPrint('SWebView: URL marked to use proxy for next load: $url');
@@ -177,9 +295,13 @@ class SWebView extends StatefulWidget {
 
     // Mark URL as needing proxy for future loads (default behavior)
     if (addToProxyCacheForNextTime) {
-      _SWebViewState._restrictionCache[url] = true;
+      final key = _SWebViewState.cacheKeyFromUrl(url, cacheByHost: true);
+      _SWebViewState._restrictionCache[key] = _RestrictionCacheEntry(
+        needsProxy: true,
+        updatedAtMillis: DateTime.now().millisecondsSinceEpoch,
+      );
     }
-    await _SWebViewState._saveCache();
+    await _SWebViewState._saveCache(showDebugLogs: showDebugLogs);
 
     // Open in new tab (web platform)
     if (kIsWeb) {
@@ -207,37 +329,52 @@ class SWebView extends StatefulWidget {
   ///   ),
   /// ])
   /// ```
-  static Future<void> removeFromCache(String url) async {
-    if (kDebugMode) {
+  static Future<void> removeFromCache(
+    String url, {
+    bool showDebugLogs = false,
+  }) async {
+    if (kDebugMode && showDebugLogs) {
       debugPrint('SWebView: Removing $url from proxy cache');
     }
 
-    _SWebViewState._restrictionCache.remove(url);
-    await _SWebViewState._saveCache();
+    final key = _SWebViewState.cacheKeyFromUrl(url, cacheByHost: true);
+    _SWebViewState._restrictionCache.remove(key);
+    await _SWebViewState._saveCache(showDebugLogs: showDebugLogs);
   }
 
   /// Get a read-only copy of the current proxy cache
   /// Returns a map of URLs to whether they require a proxy
   /// Key: URL string, Value: bool (true = needs proxy)
   static Map<String, bool> getProxyCache() {
-    return Map<String, bool>.from(_SWebViewState._restrictionCache);
+    return _SWebViewState._restrictionCache.map(
+      (key, value) => MapEntry(key, value.needsProxy),
+    );
   }
 
   /// Check if a specific URL is in the proxy cache and requires a proxy
   /// Returns true if the URL is cached and requires a proxy, false otherwise
   static bool isUrlInProxyCache(String url) {
-    return _SWebViewState._restrictionCache[url] ?? false;
+    final key = _SWebViewState.cacheKeyFromUrl(url, cacheByHost: true);
+    return _SWebViewState._restrictionCache[key]?.needsProxy ?? false;
   }
 }
 
 class _SWebViewState extends State<SWebView> {
   WebViewController? webViewController;
+  bool _ownsController = false;
   bool? isLoaded;
   bool _isUsingProxy = false;
+
+  void _log(String message) {
+    if (kDebugMode && widget.showDebugLogs) {
+      debugPrint(message);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    SWebViewDebug.enabled = widget.showDebugLogs;
     _initializeWithCache();
   }
 
@@ -245,19 +382,64 @@ class _SWebViewState extends State<SWebView> {
   Future<void> _initializeWithCache() async {
     // Skip cache loading in test mode to avoid SharedPreferences dependency
     if (!WebViewController.isTestMode) {
-      await _loadCache();
+      await _loadCache(showDebugLogs: widget.showDebugLogs);
     }
     await initialisation();
   }
 
   /// Cache for frame restriction detection
-  /// Maps URLs to whether they require a proxy
-  /// Key: URL string, Value: bool (true = needs proxy)
-  static final Map<String, bool> _restrictionCache = {};
+  /// Maps URL/host keys to whether they require a proxy.
+  static final Map<String, _RestrictionCacheEntry> _restrictionCache = {};
   static const String _cacheKey = 'swebview_restriction_cache';
 
+  static String cacheKeyFromUrl(String rawUrl, {required bool cacheByHost}) {
+    if (!cacheByHost) {
+      return rawUrl;
+    }
+    final uri = Uri.tryParse(rawUrl);
+    final host = uri?.host.trim().toLowerCase();
+    if (host == null || host.isEmpty) {
+      return rawUrl;
+    }
+    return host;
+  }
+
+  bool get _autoDetectFrameRestrictions =>
+      widget.config.autoDetectFrameRestrictions &&
+      widget.autoDetectFrameRestrictions;
+
+  List<String> get _corsProxyUrls => widget.corsProxyUrls.isNotEmpty
+      ? widget.corsProxyUrls
+      : widget.config.corsProxyUrls;
+
+  bool get _cacheByHost => widget.config.cacheProxyByHost;
+
+  Duration get _proxyCacheTtl => widget.config.proxyCacheTtl;
+
+  Set<String> get _knownRestrictedDomains =>
+      widget.config.knownRestrictedDomains;
+
+  String _cacheKeyFor(String url) =>
+      cacheKeyFromUrl(url, cacheByHost: _cacheByHost);
+
+  bool _isEntryFresh(_RestrictionCacheEntry entry) {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final age = now - entry.updatedAtMillis;
+    return age <= _proxyCacheTtl.inMilliseconds;
+  }
+
+  Future<void> _cacheRestriction(String key, bool needsProxy) async {
+    _restrictionCache[key] = _RestrictionCacheEntry(
+      needsProxy: needsProxy,
+      updatedAtMillis: DateTime.now().millisecondsSinceEpoch,
+    );
+    await _saveCache(showDebugLogs: widget.showDebugLogs);
+  }
+
   /// Load restriction cache from persistent storage
-  static Future<void> _loadCache() async {
+  static Future<void> _loadCache({
+    bool showDebugLogs = false,
+  }) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final cacheJson = prefs.getString(_cacheKey);
@@ -266,138 +448,142 @@ class _SWebViewState extends State<SWebView> {
         final Map<String, dynamic> decoded = json.decode(cacheJson);
         _restrictionCache.clear();
         decoded.forEach((key, value) {
-          _restrictionCache[key] = value as bool;
+          if (value is bool) {
+            _restrictionCache[key] = _RestrictionCacheEntry(
+              needsProxy: value,
+              updatedAtMillis: 0,
+            );
+          } else if (value is Map<String, dynamic>) {
+            _restrictionCache[key] = _RestrictionCacheEntry.fromJson(value);
+          } else if (value is Map) {
+            _restrictionCache[key] = _RestrictionCacheEntry.fromJson(
+              Map<String, dynamic>.from(value),
+            );
+          }
         });
 
-        if (kDebugMode) {
+        if (kDebugMode && showDebugLogs) {
           debugPrint(
               'SWebView: Loaded ${_restrictionCache.length} cached restrictions from storage');
         }
       } else {
-        if (kDebugMode) {
+        if (kDebugMode && showDebugLogs) {
           debugPrint('SWebView: No cached restrictions found in storage');
         }
       }
     } catch (e) {
-      if (kDebugMode) {
+      if (kDebugMode && showDebugLogs) {
         debugPrint('SWebView: Error loading cache: $e');
       }
     }
   }
 
   /// Save restriction cache to persistent storage
-  static Future<void> _saveCache() async {
+  static Future<void> _saveCache({
+    bool showDebugLogs = false,
+  }) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final cacheJson = json.encode(_restrictionCache);
+      final cacheJson = json.encode(
+        _restrictionCache.map((key, value) => MapEntry(key, value.toJson())),
+      );
       await prefs.setString(_cacheKey, cacheJson);
 
-      if (kDebugMode) {
+      if (kDebugMode && showDebugLogs) {
         debugPrint(
             'SWebView: Saved ${_restrictionCache.length} restrictions to storage');
       }
     } catch (e) {
-      if (kDebugMode) {
+      if (kDebugMode && showDebugLogs) {
         debugPrint('SWebView: Error saving cache: $e');
       }
     }
   }
 
   /// Detects frame restrictions by testing with each CORS proxy
-  /// Restricted sites (Google, GitHub) fail to load even through proxies (or fail fast)
-  /// Unrestricted sites load successfully through at least one proxy
+  /// Uses known domain rules and response headers/content hints.
   /// Returns true if we should use proxy, false for direct load
   Future<bool> _checkHeadersForRestrictions(String url) async {
     if (!kIsWeb) return false; // Native platforms don't need proxy
 
+    final cacheKey = _cacheKeyFor(url);
+
+    // Check configured known restricted domains first.
+    final host = Uri.tryParse(url)?.host.toLowerCase() ?? '';
+    final isKnownRestricted =
+        _knownRestrictedDomains.any((domain) => host.endsWith(domain));
+    if (isKnownRestricted) {
+      _log('SWebView: Known restricted domain detected for $host');
+      await _cacheRestriction(cacheKey, true);
+      return true;
+    }
+
     // Check cache first
-    if (_restrictionCache.containsKey(url)) {
-      final cached = _restrictionCache[url]!;
-      if (kDebugMode) {
-        debugPrint(
-            'SWebView: Using cached restriction check - needs proxy: $cached');
-      }
-      return cached;
+    final cachedEntry = _restrictionCache[cacheKey];
+    if (cachedEntry != null && _isEntryFresh(cachedEntry)) {
+      _log(
+          'SWebView: Using cached restriction check - needs proxy: ${cachedEntry.needsProxy}');
+      return cachedEntry.needsProxy;
+    }
+    if (cachedEntry != null && !_isEntryFresh(cachedEntry)) {
+      _restrictionCache.remove(cacheKey);
     }
 
     try {
-      if (kDebugMode) {
-        debugPrint('SWebView: Testing URL restrictions for $url...');
-      }
+      _log('SWebView: Testing URL restrictions for $url...');
 
-      // Strategy: Try to fetch a small portion of the page via proxy
-      // If proxy works, the site is accessible, so direct load might work
-      // If all proxies fail, assume no restrictions (let direct load try)
-      // If one proxy works, we know restrictions exist (direct load would fail)
-
-      final testUrl = url;
-
-      // Test with first proxy only (fastest)
-      if (widget.corsProxyUrls.isNotEmpty) {
+      // Test via proxy and inspect headers for frame restrictions.
+      if (_corsProxyUrls.isNotEmpty) {
         try {
-          final proxyUrl =
-              '${widget.corsProxyUrls[0]}${Uri.encodeComponent(testUrl)}';
+          final proxyUrl = '${_corsProxyUrls[0]}${Uri.encodeComponent(url)}';
 
-          if (kDebugMode) {
-            debugPrint('SWebView: Testing proxy access...');
-          }
+          _log('SWebView: Testing proxy access...');
 
           final response = await http.get(Uri.parse(proxyUrl)).timeout(
                 const Duration(seconds: 3),
               );
 
-          if (response.statusCode == 200 && response.body.isNotEmpty) {
-            // Proxy succeeded - check if this is a restricted domain
-            // High-profile restricted sites: google.com, github.com, facebook.com, etc.
-            final lowerUrl = url.toLowerCase();
-            final restrictedDomains = [
-              'google.com',
-              'github.com',
-              'facebook.com',
-              'twitter.com',
-              'instagram.com',
-              'linkedin.com',
-              'pinterest.com',
-              'reddit.com',
-              'amazon.com',
-              'ebay.com',
-            ];
+          if (response.statusCode == 200) {
+            final xFrameOptions =
+                response.headers['x-frame-options']?.toLowerCase() ?? '';
+            final csp =
+                response.headers['content-security-policy']?.toLowerCase() ??
+                    '';
+            final body = response.body.toLowerCase();
 
-            final isKnownRestricted = restrictedDomains.any(
-                (domain) => lowerUrl.contains(domain.replaceAll('.com', '')));
+            final hasRestrictedXFrame = xFrameOptions.contains('deny') ||
+                xFrameOptions.contains('sameorigin');
+            final hasRestrictedCsp = csp.contains('frame-ancestors') &&
+                (csp.contains("'none'") ||
+                    csp.contains("'self'") ||
+                    csp.contains('none'));
+            final bodySignalsFrameRestriction =
+                body.contains('x-frame-options') ||
+                    body.contains('refused to connect') ||
+                    body.contains('frame-ancestors');
 
-            if (kDebugMode) {
-              debugPrint(
-                  'SWebView: Proxy test succeeded. Known restricted domain: $isKnownRestricted');
-            }
+            final shouldUseProxy = hasRestrictedXFrame ||
+                hasRestrictedCsp ||
+                bodySignalsFrameRestriction;
 
-            // For known restricted domains or if we detect restrictions, use proxy
-            // Otherwise try direct load first
-            _restrictionCache[url] = isKnownRestricted;
-            await _saveCache(); // Persist to storage
-            return isKnownRestricted;
+            _log(
+                'SWebView: Restriction check result -> proxy: $shouldUseProxy');
+            await _cacheRestriction(cacheKey, shouldUseProxy);
+            return shouldUseProxy;
           }
         } catch (e) {
-          if (kDebugMode) {
-            debugPrint('SWebView: Proxy test failed: $e');
-          }
+          _log('SWebView: Proxy test failed: $e');
         }
       }
 
       // Default: assume no restrictions and try direct load
-      if (kDebugMode) {
-        debugPrint('SWebView: No restrictions detected, will try direct load');
-      }
-      _restrictionCache[url] = false;
-      await _saveCache(); // Persist to storage
+      _log('SWebView: No restrictions detected, will try direct load');
+      await _cacheRestriction(cacheKey, false);
       return false;
     } catch (e) {
-      if (kDebugMode) {
-        debugPrint('SWebView: Error checking restrictions: $e');
-      }
+      _log('SWebView: Error checking restrictions: $e');
       // On any error, assume no restrictions (fail gracefully)
-      _restrictionCache[url] = false;
-      await _saveCache(); // Persist to storage
+      await _cacheRestriction(cacheKey, false);
       return false;
     }
   }
@@ -410,38 +596,35 @@ class _SWebViewState extends State<SWebView> {
       return null; // Not on web, don't fetch
     }
 
-    for (int i = 0; i < widget.corsProxyUrls.length; i++) {
+    if (kDebugMode && widget.showDebugLogs) {
+      _log(
+          'SWebView: ⚠️ Proxy mode enabled. Avoid sensitive/authenticated pages.');
+    }
+
+    for (int i = 0; i < _corsProxyUrls.length; i++) {
       try {
-        final proxyBase = widget.corsProxyUrls[i];
+        final proxyBase = _corsProxyUrls[i];
         final encodedUrl = Uri.encodeComponent(url);
         final proxiedUrl = '$proxyBase$encodedUrl';
 
-        if (kDebugMode) {
-          debugPrint('SWebView: Fetching via proxy ($i): $url -> $proxiedUrl');
-        }
+        _log('SWebView: Fetching via proxy ($i): $url -> $proxiedUrl');
 
         final response = await http
             .get(Uri.parse(proxiedUrl))
             .timeout(const Duration(seconds: 15));
 
         if (response.statusCode == 200) {
-          if (kDebugMode) {
-            debugPrint('SWebView: Successfully fetched via proxy');
-          }
+          _log('SWebView: Successfully fetched via proxy');
           return response.body;
         } else {
           throw Exception('Proxy returned status ${response.statusCode}');
         }
       } catch (e) {
-        if (kDebugMode) {
-          debugPrint('SWebView: Proxy $i failed: $e');
-        }
+        _log('SWebView: Proxy $i failed: $e');
 
-        if (i == widget.corsProxyUrls.length - 1) {
+        if (i == _corsProxyUrls.length - 1) {
           // Last proxy failed
-          if (kDebugMode) {
-            debugPrint('SWebView: All proxies exhausted');
-          }
+          _log('SWebView: All proxies exhausted');
           return null;
         }
         // Try next proxy
@@ -450,6 +633,41 @@ class _SWebViewState extends State<SWebView> {
     }
 
     return null;
+  }
+
+  void _ensureController() {
+    final injected = widget.controller;
+    if (injected != null) {
+      if (!identical(webViewController, injected)) {
+        webViewController = injected;
+        _ownsController = false;
+      }
+      return;
+    }
+
+    if (webViewController == null) {
+      webViewController = WebViewController();
+      _ownsController = true;
+    }
+  }
+
+  Future<void> _initControllerWithUri(Uri uri) async {
+    _ensureController();
+    await webViewController!.init(
+      context: context,
+      uri: uri,
+      setState: (fn) {
+        if (mounted) {
+          setState(fn);
+        }
+      },
+      onProgress: widget.onProgress,
+      onPageStarted: widget.onPageStarted,
+      onUrlChanged: widget.onUrlChanged,
+      onPageFinished: widget.onPageFinished,
+      onNavigationRequest: widget.onNavigationRequest,
+      onJavaScriptMessage: widget.onJavaScriptMessage,
+    );
   }
 
   /// Detects if a URL requires CORS proxy by checking HTTP response headers
@@ -462,54 +680,38 @@ class _SWebViewState extends State<SWebView> {
           isLoaded = null;
         });
       }
-      webViewController = WebViewController();
+      _ensureController();
 
       // In test mode, skip all network calls and just mark as loaded
       if (WebViewController.isTestMode) {
-        await webViewController!.init(
-          context: context,
-          uri: Uri.parse(widget.url),
-          setState: (fn) {
-            if (mounted) setState(fn);
-          },
-        );
+        await _initControllerWithUri(Uri.parse(widget.url));
         if (mounted) {
           setState(() {
             isLoaded = true;
           });
+          widget.onLoaded?.call();
         }
         return;
       }
 
-      // A safe setState wrapper that no-ops when the State is disposed
-      void safeSetState(void Function() fn) {
-        if (!mounted) return;
-        setState(fn);
-      }
-
-      if (kIsWeb && widget.autoDetectFrameRestrictions) {
+      if (kIsWeb && _autoDetectFrameRestrictions) {
         // Check cache first
         bool needsProxy;
-        if (_restrictionCache.containsKey(widget.url)) {
-          needsProxy = _restrictionCache[widget.url]!;
-          if (kDebugMode) {
-            debugPrint(
-                'SWebView: Using cached result - needs proxy: $needsProxy');
-          }
+        final cacheKey = _cacheKeyFor(widget.url);
+        final cached = _restrictionCache[cacheKey];
+        if (cached != null && _isEntryFresh(cached)) {
+          needsProxy = cached.needsProxy;
+          _log('SWebView: Using cached result - needs proxy: $needsProxy');
         } else {
           // Check headers to detect restrictions
-          if (kDebugMode) {
-            debugPrint(
-                'SWebView: Checking headers for restrictions on ${widget.url}...');
-          }
+          _log(
+              'SWebView: Checking headers for restrictions on ${widget.url}...');
           needsProxy = await _checkHeadersForRestrictions(widget.url);
         }
 
         if (needsProxy) {
           // Use proxy
-          if (kDebugMode) {
-            debugPrint('SWebView: Loading via proxy...');
-          }
+          _log('SWebView: Loading via proxy...');
           _isUsingProxy = true;
           var pageSource = await _fetchPageSourceViaProxy(widget.url);
 
@@ -527,111 +729,31 @@ class _SWebViewState extends State<SWebView> {
 
             final base64Html = base64.encode(utf8.encode(pageSource));
             final dataUri = Uri.parse('data:text/html;base64,$base64Html');
-
-            webViewController!
-                .init(
-              context: context,
-              uri: dataUri,
-              setState: (fn) {
-                if (mounted) safeSetState(fn);
-              },
-            )
-                .then((_) {
-              if (mounted) {
-                setState(() {
-                  isLoaded = true;
-                });
-                widget.onError?.call(null);
-              }
-            }).catchError((e) {
-              debugPrint('Error initializing webview: $e');
-              final errorMessage =
-                  'Failed to load: ${e.toString().replaceAll('Exception: ', '')}';
-              if (kIsWeb && mounted) {
-                widget.onIframeBlocked?.call();
-              }
-              if (mounted) {
-                setState(() {
-                  isLoaded = false;
-                });
-                widget.onError?.call(errorMessage);
-              }
-            });
+            await _initControllerWithUri(dataUri);
           } else {
             throw Exception('Failed to load via proxy');
           }
         } else {
           // Load directly
-          if (kDebugMode) {
-            debugPrint(
-                'SWebView: Loading directly (no restrictions detected)...');
-          }
+          _log('SWebView: Loading directly (no restrictions detected)...');
           _isUsingProxy = false;
 
-          webViewController!
-              .init(
-            context: context,
-            uri: Uri.parse(widget.url),
-            setState: (fn) {
-              if (mounted) safeSetState(fn);
-            },
-          )
-              .then((_) {
-            if (mounted) {
-              setState(() {
-                isLoaded = true;
-              });
-              widget.onError?.call(null);
-            }
-          }).catchError((e) {
-            debugPrint('Error initializing webview: $e');
-            final errorMessage =
-                'Failed to load: ${e.toString().replaceAll('Exception: ', '')}';
-            if (kIsWeb && mounted) {
-              widget.onIframeBlocked?.call();
-            }
-            if (mounted) {
-              setState(() {
-                isLoaded = false;
-              });
-              widget.onError?.call(errorMessage);
-            }
-          });
+          await _initControllerWithUri(Uri.parse(widget.url));
         }
       } else {
         // Auto-detection disabled or native platform, load directly
-        webViewController!
-            .init(
-          context: context,
-          uri: Uri.parse(widget.url),
-          setState: (fn) {
-            if (mounted) safeSetState(fn);
-          },
-        )
-            .then((_) {
-          if (mounted) {
-            setState(() {
-              isLoaded = true;
-            });
-            widget.onError?.call(null);
-          }
-        }).catchError((e) {
-          debugPrint('Error initializing webview: $e');
-          final errorMessage =
-              'Failed to load: ${e.toString().replaceAll('Exception: ', '')}';
-          if (kIsWeb && mounted) {
-            widget.onIframeBlocked?.call();
-          }
-          if (mounted) {
-            setState(() {
-              isLoaded = false;
-            });
-            widget.onError?.call(errorMessage);
-          }
+        _isUsingProxy = false;
+        await _initControllerWithUri(Uri.parse(widget.url));
+      }
+
+      if (mounted) {
+        setState(() {
+          isLoaded = true;
         });
+        widget.onLoaded?.call();
       }
     } catch (e) {
-      debugPrint('Error initializing webview: $e');
+      _log('Error initializing webview: $e');
       final errorMessage =
           'Failed to load: ${e.toString().replaceAll('Exception: ', '')}';
 
@@ -661,6 +783,7 @@ class _SWebViewState extends State<SWebView> {
         setState(() {
           isLoaded = true;
         });
+        widget.onLoaded?.call();
       }
       return;
     }
@@ -672,29 +795,24 @@ class _SWebViewState extends State<SWebView> {
         });
       }
 
-      if (kIsWeb && widget.autoDetectFrameRestrictions) {
+      if (kIsWeb && _autoDetectFrameRestrictions) {
         // Check cache first
         bool needsProxy;
-        if (_restrictionCache.containsKey(url)) {
-          needsProxy = _restrictionCache[url]!;
-          if (kDebugMode) {
-            debugPrint(
-                'SWebView: Using cached result - needs proxy: $needsProxy');
-          }
+        final cacheKey = _cacheKeyFor(url);
+        final cached = _restrictionCache[cacheKey];
+        if (cached != null && _isEntryFresh(cached)) {
+          needsProxy = cached.needsProxy;
+          _log('SWebView: Using cached result - needs proxy: $needsProxy');
         } else {
           // Check headers to detect restrictions
-          if (kDebugMode) {
-            debugPrint(
-                'SWebView: Checking headers for restrictions on $url...');
-          }
+          _log('SWebView: Checking headers for restrictions on $url...');
           needsProxy = await _checkHeadersForRestrictions(url);
         }
 
         if (needsProxy) {
           // Use proxy
-          if (kDebugMode) {
-            debugPrint('SWebView: Loading via proxy...');
-          }
+          _log('SWebView: Loading via proxy...');
+          _isUsingProxy = true;
           var pageSource = await _fetchPageSourceViaProxy(url);
           if (pageSource != null) {
             // Inject <base> tag to fix relative links
@@ -716,14 +834,13 @@ class _SWebViewState extends State<SWebView> {
           }
         } else {
           // Load directly
-          if (kDebugMode) {
-            debugPrint(
-                'SWebView: Loading directly (no restrictions detected)...');
-          }
+          _log('SWebView: Loading directly (no restrictions detected)...');
+          _isUsingProxy = false;
           await webViewController!.go(uri: Uri.parse(url));
         }
       } else {
         // Auto-detection disabled or native platform, load directly
+        _isUsingProxy = false;
         await webViewController!.go(uri: Uri.parse(url));
       }
 
@@ -731,10 +848,10 @@ class _SWebViewState extends State<SWebView> {
         setState(() {
           isLoaded = true;
         });
-        widget.onError?.call(null);
+        widget.onLoaded?.call();
       }
     } catch (e) {
-      debugPrint('Error loading new url: $e');
+      _log('Error loading new url: $e');
       final errorMessage =
           'Failed to load: ${e.toString().replaceAll('Exception: ', '')}';
 
@@ -755,6 +872,18 @@ class _SWebViewState extends State<SWebView> {
   @override
   void didUpdateWidget(SWebView oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (oldWidget.showDebugLogs != widget.showDebugLogs) {
+      SWebViewDebug.enabled = widget.showDebugLogs;
+    }
+    if (!identical(oldWidget.controller, widget.controller)) {
+      if (_ownsController) {
+        webViewController?.dispose();
+      }
+      webViewController = widget.controller;
+      _ownsController = widget.controller == null;
+      unawaited(initialisation());
+      return;
+    }
     if (oldWidget.url != widget.url) {
       _loadUrl(widget.url);
     }
@@ -762,7 +891,9 @@ class _SWebViewState extends State<SWebView> {
 
   @override
   void dispose() {
-    webViewController?.dispose();
+    if (_ownsController) {
+      webViewController?.dispose();
+    }
     super.dispose();
   }
 
@@ -774,7 +905,10 @@ class _SWebViewState extends State<SWebView> {
     // Build the webview widget only if controller is initialized
     Widget webviewWidget =
         webViewController != null && webViewController!.is_init
-            ? WebView(controller: webViewController!)
+            ? WebView(
+                controller: webViewController!,
+                ignorePointerEvents: widget.ignorePointerEvents,
+              )
             : const SizedBox.shrink();
 
     // Apply animations only when not in test mode
@@ -837,7 +971,10 @@ class _SWebViewState extends State<SWebView> {
                     'Remove this URL from the proxy cache and reload directly',
                 child: FilledButton.icon(
                   onPressed: () async {
-                    await SWebView.removeFromCache(widget.url);
+                    await SWebView.removeFromCache(
+                      widget.url,
+                      showDebugLogs: widget.showDebugLogs,
+                    );
                     // Reload without proxy
                     if (mounted) {
                       setState(() {
@@ -869,7 +1006,10 @@ class _SWebViewState extends State<SWebView> {
                 message: 'Try loading this page through a CORS proxy',
                 child: FilledButton.icon(
                   onPressed: () async {
-                    await SWebView.retryWithProxy(widget.url);
+                    await SWebView.retryWithProxy(
+                      widget.url,
+                      showDebugLogs: widget.showDebugLogs,
+                    );
                     // Reload with proxy
                     if (mounted) {
                       setState(() {
@@ -894,7 +1034,10 @@ class _SWebViewState extends State<SWebView> {
             Tooltip(
               message: 'Open this page in a new browser tab',
               child: OutlinedButton.icon(
-                onPressed: () => SWebView.openInNewTab(widget.url),
+                onPressed: () => SWebView.openInNewTab(
+                  widget.url,
+                  showDebugLogs: widget.showDebugLogs,
+                ),
                 icon: const Icon(Icons.open_in_new, size: 18),
                 label: const Text('Open in New Tab'),
                 style: OutlinedButton.styleFrom(

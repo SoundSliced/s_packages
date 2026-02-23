@@ -6,9 +6,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
+import '../../_debug_log.dart';
 
 import 'src/create_configuration.dart';
 import 'src/message_channel.dart';
@@ -37,15 +37,15 @@ class WebviewWindow {
       try {
         return await _handleMethodCall(call);
       } catch (e, s) {
-        debugPrint("method: ${call.method} args: ${call.arguments}");
-        debugPrint('handleMethodCall error: $e $s');
+        SWebViewDebug.log("method: ${call.method} args: ${call.arguments}");
+        SWebViewDebug.log('handleMethodCall error: $e $s');
       }
     });
     _otherIsolateMessageHandler.setMessageHandler((call) async {
       try {
         return await _handleOtherIsolateMethodCall(call);
       } catch (e, s) {
-        debugPrint('_handleOtherIsolateMethodCall error: $e $s');
+        SWebViewDebug.log('_handleOtherIsolateMethodCall error: $e $s');
       }
     });
   }
@@ -188,7 +188,7 @@ class WebviewWindow {
             await webview2Dir.delete(recursive: true);
             break;
           } catch (e) {
-            debugPrint("delete cache failed. retring.... $e");
+            SWebViewDebug.log("delete cache failed. retring.... $e");
           }
           // wait to ensure all web window has been closed and file handle has been release.
           await Future.delayed(const Duration(seconds: 1));

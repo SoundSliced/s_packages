@@ -5,6 +5,7 @@ library;
 // ignore: depend_on_referenced_packages
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
+import '../_debug_log.dart';
 
 /// Initializes WebView for iOS platform
 ///
@@ -15,7 +16,7 @@ import 'package:flutter/foundation.dart';
 void initializeIOSWebView() {
   if (defaultTargetPlatform == TargetPlatform.iOS) {
     // Initialization happens automatically when WebViewController is created
-    debugPrint('iOS WebView initialized');
+    SWebViewDebug.log('iOS WebView initialized');
   }
 }
 

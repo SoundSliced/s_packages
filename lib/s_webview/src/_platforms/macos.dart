@@ -6,6 +6,7 @@ library;
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/foundation.dart';
+import '../_debug_log.dart';
 
 /// Initializes WebView for macOS platform
 ///
@@ -16,7 +17,7 @@ import 'package:flutter/foundation.dart';
 /// - Web capabilities enabled in Xcode project
 void initializeMacOSWebView() {
   if (defaultTargetPlatform == TargetPlatform.macOS) {
-    debugPrint('macOS WebView initialized via WKWebView');
+    SWebViewDebug.log('macOS WebView initialized via WKWebView');
   }
 }
 
