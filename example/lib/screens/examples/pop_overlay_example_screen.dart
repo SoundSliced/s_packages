@@ -86,11 +86,15 @@ class PopOverlayExampleScreen extends StatelessWidget {
       subtitle: 'App preferences',
       showCloseButton: true,
       titlePrefixIcon: Icons.settings,
-      titleBarColor: Colors.indigo.shade50,
+      titleBarColor: Colors.blue.shade900.darken(),
       bottomBarColor: Colors.grey.shade100,
       headerTrailingWidgets: [
         IconButton(
-          icon: const Icon(Icons.help_outline, size: 20),
+          icon: const Icon(
+            Icons.help_outline,
+            size: 20,
+            color: Colors.white,
+          ),
           onPressed: () {},
         ),
       ],
