@@ -32,21 +32,9 @@ enum SOffstageTransition {
 ///
 /// **Example:**
 /// ```dart
-/// MyOffstage(
+/// SOffstage(
 ///   isOffstage: isLoading,
 ///   fadeDuration: Duration(milliseconds: 500),
-///   child: YourContentWidget(),
-/// )
-/// ```
-///
-/// **Example with custom loading indicator:**
-/// ```dart
-/// MyOffstage(
-///   isOffstage: isLoading,
-///   loadingIndicator: CircularProgressIndicator(
-///     color: Colors.blue,
-///     strokeWidth: 3.0,
-///   ),
 ///   child: YourContentWidget(),
 /// )
 /// ```
@@ -423,48 +411,44 @@ class _SOffstageState extends State<SOffstage>
 
   @override
   Widget build(BuildContext context) {
-    return Sizer(
-      builder: (context, orientation, screenType) {
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            // 1. Child Content
-            _TransitionContainer(
-              isVisible: !_actualOffstageState,
-              offstage: _effectiveOffstage,
-              maintainState: widget.maintainState,
-              transition: widget.transition,
-              fadeDuration: widget.fadeDuration,
-              fadeInCurve: widget.fadeInCurve,
-              fadeOutCurve: widget.fadeOutCurve,
-              scaleCurve: widget.scaleCurve,
-              slideDirection: widget.slideDirection,
-              slideOffset: widget.slideOffset,
-              child: widget.child,
-            ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        // 1. Child Content
+        _TransitionContainer(
+          isVisible: !_actualOffstageState,
+          offstage: _effectiveOffstage,
+          maintainState: widget.maintainState,
+          transition: widget.transition,
+          fadeDuration: widget.fadeDuration,
+          fadeInCurve: widget.fadeInCurve,
+          fadeOutCurve: widget.fadeOutCurve,
+          scaleCurve: widget.scaleCurve,
+          slideDirection: widget.slideDirection,
+          slideOffset: widget.slideOffset,
+          child: widget.child,
+        ),
 
-            // 2. Alternative Content (Loader / HiddenContent)
-            if (_showLoading &&
-                (widget.showLoadingIndicator || widget.showHiddenContent))
-              _TransitionContainer(
-                isVisible: _actualOffstageState,
-                offstage: _loaderOffstage,
-                maintainState: false,
-                transition: widget.transition,
-                fadeDuration: widget.fadeDuration,
-                fadeInCurve: widget.fadeInCurve,
-                fadeOutCurve: widget.fadeOutCurve,
-                scaleCurve: widget.scaleCurve,
-                slideDirection: widget.slideDirection,
-                slideOffset: widget.slideOffset,
-                child: _buildAlternativeContent(),
-              ),
+        // 2. Alternative Content (Loader / HiddenContent)
+        if (_showLoading &&
+            (widget.showLoadingIndicator || widget.showHiddenContent))
+          _TransitionContainer(
+            isVisible: _actualOffstageState,
+            offstage: _loaderOffstage,
+            maintainState: false,
+            transition: widget.transition,
+            fadeDuration: widget.fadeDuration,
+            fadeInCurve: widget.fadeInCurve,
+            fadeOutCurve: widget.fadeOutCurve,
+            scaleCurve: widget.scaleCurve,
+            slideDirection: widget.slideDirection,
+            slideOffset: widget.slideOffset,
+            child: _buildAlternativeContent(),
+          ),
 
-            // 3. Reveal Button Overlay
-            if (widget.showRevealButton) _buildRevealButtonOverlay(),
-          ],
-        );
-      },
+        // 3. Reveal Button Overlay
+        if (widget.showRevealButton) _buildRevealButtonOverlay(),
+      ],
     );
   }
 
@@ -630,7 +614,9 @@ class _TransitionContainer extends StatelessWidget {
 
       case SOffstageTransition.scale:
         content = AnimatedScale(
-          scale: isVisible ? 1.0 : 0.97,
+          // In scale-only mode, animate fully out so it doesn't appear to
+          // suddenly disappear when Offstage is applied at animation end.
+          scale: isVisible ? 1.0 : 0.0,
           duration: fadeDuration,
           curve: scaleCurve,
           child: content,

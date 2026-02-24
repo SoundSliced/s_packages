@@ -1,3 +1,19 @@
+## 2.0.0
+- **`pop_overlay` sub-package improvements**:
+  - Improved overlay bootstrap resolution to prefer the nearest overlay context before falling back to the root overlay.
+  - Fixed popup positioning for framed/scaled layouts (notably web) by keeping overlays in the same coordinate space as the caller.
+
+- **`s_offstage` sub-package improvements**:
+  - Removed the internal `Sizer` wrapper from `SOffstage` to avoid forcing an extra layout context around the widget tree.
+  - Improved scale-only transitions: hidden state now scales to `0.0` (instead of `0.97`) for a cleaner and fully smooth disappearance at animation end.
+  - Updated inline documentation examples to use `SOffstage` naming consistently.
+
+- **Example app update**:
+  - `ForcePhoneSizeOnWeb` now uses an explicit size (`2048 x 2732`) in `example/lib/main.dart` for improved demo consistency.
+
+- **Package metadata**:
+  - Bumped package version to `2.0.0` and updated README installation snippet accordingly.
+
 ## 1.9.0
 - **`s_webview` major upgrade**:
   - Added typed config API with `SWebViewConfig` (auto restriction detection, proxy list fallback, host-based cache option, cache TTL, known restricted domains).
