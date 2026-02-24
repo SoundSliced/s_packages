@@ -45,7 +45,6 @@ class SPackagesExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ForcePhoneSizeOnWeb(
-      size: const Size(2048, 2732),
       child: MaterialApp(
         title: 'S Packages Examples',
         debugShowCheckedModeBanner: false,
