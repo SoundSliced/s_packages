@@ -201,7 +201,7 @@ class _SnackbarModalState extends State<SnackbarModal>
     // Initialize the animation controller for this snackbar instance
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
     );
 
     // Set up entrance animations (will be updated for dismiss)

@@ -1590,7 +1590,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
       case SheetPosition.bottom:
         return [
           MoveEffect(
-            duration: 0.3.sec,
+            duration: 0.2.sec,
             // Start from zero transform (sheet already offset by -dragOffset in Positioned)
             begin: Offset(0, 0),
             // End offset should include dragOffset so final visual end matches off-screen target
@@ -1604,7 +1604,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
       case SheetPosition.top:
         return [
           MoveEffect(
-            duration: 0.3.sec,
+            duration: 0.2.sec,
             begin: Offset(0, 0),
             end: Offset(
                 0,
@@ -1616,7 +1616,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
       case SheetPosition.left:
         return [
           MoveEffect(
-            duration: 0.3.sec,
+            duration: 0.2.sec,
             begin: Offset(0, 0),
             end: Offset(
                 -(MediaQuery.maybeOf(context)?.size.width ?? 1000.0) -
@@ -1628,7 +1628,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
       case SheetPosition.right:
         return [
           MoveEffect(
-            duration: 0.3.sec,
+            duration: 0.2.sec,
             begin: Offset(0, 0),
             end: Offset(
                 (MediaQuery.maybeOf(context)?.size.width ?? 1000.0) +

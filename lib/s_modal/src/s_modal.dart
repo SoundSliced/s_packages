@@ -384,20 +384,7 @@ void _removeSnackbarAfterDismiss(
     }
   } else {
     // Queue is empty
-    _snackbarController.refresh();
-    // Only clear active modal if no other modals active
-    if (!Modal.isDialogActive && !Modal.isSheetActive) {
-      if (_activeModalController.state?.modalType == ModalType.snackbar) {
-        _activeModalController.refresh();
-        // Reset background/blur if nothing else is active
-        _backgroundLayerAnimationNotifier.state = 0.0;
-        _blurAnimationStateNotifier.state = 0.0;
-      }
-    } else if (Modal.isDialogActive) {
-      _activeModalController.state = _dialogController.state;
-    } else if (Modal.isSheetActive) {
-      _activeModalController.state = _sheetController.state;
-    }
+    Modal._onAllSnackbarsDismissed();
   }
 
   // Run callbacks
@@ -2770,20 +2757,7 @@ class Modal {
           }
         } else {
           // No more snackbars in any queue - clean up snackbar state only
-          _snackbarController.refresh();
-          _clearAllSnackbarDismissing();
-
-          // Update active modal controller to point to remaining modal if any
-          if (Modal.isDialogActive) {
-            _activeModalController.state = _dialogController.state;
-          } else if (Modal.isSheetActive) {
-            _activeModalController.state = _sheetController.state;
-          } else {
-            // No other modals active - clear everything
-            _activeModalController.refresh();
-            _backgroundLayerAnimationNotifier.state = 0.0;
-            _blurAnimationStateNotifier.state = 0.0;
-          }
+          _onAllSnackbarsDismissed();
         }
 
         // Call the onDismissed callback if provided
@@ -2876,18 +2850,7 @@ class Modal {
 
     if (!hasAnySnackbars) {
       // No more snackbars - clean up state
-      _snackbarController.refresh();
-      _clearAllSnackbarDismissing();
-
-      if (Modal.isDialogActive) {
-        _activeModalController.state = _dialogController.state;
-      } else if (Modal.isSheetActive) {
-        _activeModalController.state = _sheetController.state;
-      } else {
-        _activeModalController.refresh();
-        _backgroundLayerAnimationNotifier.state = 0.0;
-        _blurAnimationStateNotifier.state = 0.0;
-      }
+      _onAllSnackbarsDismissed();
     }
 
     // Call the onDismissed callback if provided
@@ -3155,6 +3118,71 @@ class Modal {
 
   /// Timer for background animation during dismissal
   static Timer? _backgroundAnimationTimer;
+
+  /// Helper to animate the background barrier out and clear modal state
+  /// Used when the last snackbar is dismissed to ensure smooth barrier fade-out
+  static void _animateBackgroundAndClear() {
+    // Only animate if background has opacity (barrier is visible)
+    // and no other modals are active (which would need the barrier)
+    final needsAnimation = _backgroundLayerAnimationNotifier.state > 0 &&
+        !Modal.isDialogActive &&
+        !Modal.isSheetActive;
+
+    if (!needsAnimation) {
+      _snackbarController.refresh();
+      _activeModalController.refresh();
+      _backgroundLayerAnimationNotifier.state = 0.0;
+      _blurAnimationStateNotifier.state = 0.0;
+      return;
+    }
+
+    _backgroundAnimationTimer?.cancel();
+    // Decreased duration for faster dismissal feedback (Request: slightly decrease fade duration)
+    const animSteps = 10;
+    const totalDuration = 200;
+    final stepDuration = Duration(milliseconds: totalDuration ~/ animSteps);
+    final double startValue = _backgroundLayerAnimationNotifier.state;
+    final double step = startValue / animSteps;
+    int currentStep = 0;
+
+    _backgroundAnimationTimer = Timer.periodic(stepDuration, (timer) {
+      currentStep++;
+      if (currentStep > animSteps) {
+        timer.cancel();
+        _backgroundAnimationTimer = null;
+
+        // Final cleanup after animation
+        _snackbarController.refresh();
+        // Only clear active modal if no other modals appeared during animation
+        if (!Modal.isDialogActive &&
+            !Modal.isSheetActive &&
+            !Modal.isSnackbarActive) {
+          _activeModalController.refresh();
+          _backgroundLayerAnimationNotifier.state = 0.0;
+          _blurAnimationStateNotifier.state = 0.0;
+        }
+      } else {
+        _backgroundLayerAnimationNotifier.state =
+            startValue - (step * currentStep);
+      }
+    });
+  }
+
+  /// Helper to handle cleanup when all snackbars are dismissed
+  static void _onAllSnackbarsDismissed() {
+    _clearAllSnackbarDismissing();
+
+    if (Modal.isDialogActive) {
+      _snackbarController.refresh();
+      _activeModalController.state = _dialogController.state;
+    } else if (Modal.isSheetActive) {
+      _snackbarController.refresh();
+      _activeModalController.state = _sheetController.state;
+    } else {
+      // No other modals active - animate background out
+      _animateBackgroundAndClear();
+    }
+  }
 
   /// Dismisses the currently active modal
   ///
@@ -3439,8 +3467,9 @@ class Modal {
       // Animate background out (if no other modals need it)
       if (!Modal.isSheetActive) {
         _backgroundAnimationTimer?.cancel();
+        // Decreased duration for faster dismissal feedback
         const animSteps = 10;
-        const totalDuration = 300;
+        const totalDuration = 200;
         final stepDuration = Duration(milliseconds: totalDuration ~/ animSteps);
         double startValue = _backgroundLayerAnimationNotifier.state;
         double step = startValue / animSteps;
@@ -3467,7 +3496,7 @@ class Modal {
       // where callbacks show new snackbars and the cleanup later clears them.
       // debugPrint(
       //     'Modal.dismissDialog: start (activeId=${_activeModalController.state?.uniqueId}, dialogId=${_dialogController.state?.uniqueId})');
-      await Future.delayed(0.4.sec, () {
+      await Future.delayed(0.2.sec, () {
         // VALIDATE: Check if the dialog ID still matches what we intended to dismiss
         final currentDialogId = _dialogController.state?.uniqueId;
         if (currentDialogId != null && currentDialogId != targetDialogId) {
@@ -3625,8 +3654,9 @@ class Modal {
       // Animate background out (if no other modals need it)
       if (!Modal.isDialogActive) {
         _backgroundAnimationTimer?.cancel();
+        // Decreased duration for faster dismissal feedback
         const animSteps = 10;
-        const totalDuration = 300;
+        const totalDuration = 200;
         final stepDuration = Duration(milliseconds: totalDuration ~/ animSteps);
         double startValue = _backgroundLayerAnimationNotifier.state;
         double step = startValue / animSteps;
@@ -3648,7 +3678,7 @@ class Modal {
       // Animate out
       _dismissModalAnimationController.state = true;
 
-      await Future.delayed(0.4.sec, () {
+      await Future.delayed(0.2.sec, () {
         // VALIDATE: Check if the sheet ID still matches what we intended to dismiss
         final currentSheetId = _sheetController.state?.uniqueId;
         if (currentSheetId != null && currentSheetId != targetSheetId) {
@@ -4269,7 +4299,7 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                             _blurAnimationStateNotifier.state) {
                           _blurStateTimer?.cancel();
                           const int animSteps = 10;
-                          const int totalDurationMs = 300;
+                          const int totalDurationMs = 200;
                           final stepDuration = Duration(
                             milliseconds: totalDurationMs ~/ animSteps,
                           );
@@ -4309,7 +4339,7 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                         if (newBlurAmount != _blurAmountNotifier.state) {
                           _blurAmountTimer?.cancel();
                           const int animSteps = 10;
-                          const int totalDurationMs = 300;
+                          const int totalDurationMs = 200;
                           final stepDuration = Duration(
                             milliseconds: totalDurationMs ~/ animSteps,
                           );
@@ -4358,7 +4388,7 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                       if (!shouldPreserveExistingBlur) {
                         _backgroundTimer?.cancel();
                         const int animSteps = 10;
-                        const int totalDurationMs = 300;
+                        const int totalDurationMs = 200;
                         final stepDuration = Duration(
                           milliseconds: totalDurationMs ~/ animSteps,
                         );

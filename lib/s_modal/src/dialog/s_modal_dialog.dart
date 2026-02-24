@@ -133,13 +133,13 @@ class _DialogModalState extends State<DialogModal> {
           ? [
               // Fade out and scale down when dismissing
               FadeEffect(
-                duration: 0.3.sec,
+                duration: 0.2.sec,
                 begin: 1.0,
                 end: 0.0,
                 curve: Curves.easeOut,
               ),
               ScaleEffect(
-                duration: 0.3.sec,
+                duration: 0.2.sec,
                 begin: const Offset(1.0, 1.0),
                 end: const Offset(0.9, 0.9),
                 curve: Curves.easeOut,
@@ -148,13 +148,13 @@ class _DialogModalState extends State<DialogModal> {
           : [
               // Fade in and scale up when appearing
               FadeEffect(
-                duration: 0.3.sec,
+                duration: 0.2.sec,
                 begin: 0.0,
                 end: 1.0,
                 curve: Curves.easeOut,
               ),
               ScaleEffect(
-                duration: 0.3.sec,
+                duration: 0.2.sec,
                 begin: const Offset(0.9, 0.9),
                 end: const Offset(1.0, 1.0),
                 curve: Curves.easeOut,

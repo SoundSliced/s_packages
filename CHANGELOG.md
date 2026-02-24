@@ -1,3 +1,11 @@
+## 2.1.0
+- **`s_modal` sub-package improvements**:
+  - **Synchronized Barrier & Modal Dismissal**: The background barrier now fades out in perfect sync with the modal content (Dialogs, BottomSheets, Snackbars). No more lingering barriers or premature disappearances.
+  - **Snappier Animations**: Reduced exit animation durations from ~300-400ms to **200ms** for a faster, more responsive UI feel.
+  - **Cleanup & Fixes**:
+    - Fixed an issue where the snackbar barrier was not fading out correctly.
+    - Updated internal logic to wait exactly for the animation duration (200ms) before disposing of the modal controller, preventing race conditions or UI lag.
+
 ## 2.0.0
 - **`pop_overlay` sub-package improvements**:
   - Improved overlay bootstrap resolution to prefer the nearest overlay context before falling back to the root overlay.
