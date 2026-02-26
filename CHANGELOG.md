@@ -1,6 +1,9 @@
+## 3.0.1
+- **`s_webview` fix:** restored `webview_flutter_web` dependency that was accidentally removed in 3.0.0, causing URL loading to fail on web platform (no web platform backend registered).
+
 ## 3.0.0
 - **Dependency unbloat (BREAKING):** removed convenience-only third-party dependencies that were not required by core `s_packages` widgets/controllers.
-  - Removed from `dependencies`: `overlay_support`, `email_validator`, `regexed_validator`, `strings`, `cryptography`, `roundcheckbox`, `swipeable_tile`, `toastification`, `sync_scroll_controller`, `animated_list_plus`, `google_fonts`, `simple_animations`, `universal_html`, `webview_flutter_web`, `webview_flutter`.
+  - Removed from `dependencies`: `overlay_support`, `email_validator`, `regexed_validator`, `strings`, `cryptography`, `roundcheckbox`, `swipeable_tile`, `toastification`, `sync_scroll_controller`, `animated_list_plus`, `google_fonts`, `simple_animations`.
 - **API surface cleanup (BREAKING):** `s_packages.dart` no longer exports `s_packages_extra1.dart` by default.
 - **Legacy convenience barrels slimmed:** `s_packages_extra1.dart` and `s_packages_extra2.dart` now expose only lightweight/foundational exports and are no longer intended as "install-everything" shortcuts.
 - **Migration note:** apps needing removed third-party packages should add them directly in their own `pubspec.yaml`.
