@@ -6,7 +6,8 @@ export 'package:flutter_animate/flutter_animate.dart';
 export 'package:flutter/foundation.dart';
 export 'package:flutter/material.dart';
 export 'package:sizer/sizer.dart';
-export 'package:assorted_layout_widgets/assorted_layout_widgets.dart' hide Delayed;
+export 'package:assorted_layout_widgets/assorted_layout_widgets.dart'
+    hide Delayed;
 export 'package:circular_countdown_timer/circular_countdown_timer.dart';
 export 'package:icons_plus/icons_plus.dart';
 export 'package:lucide_icons/lucide_icons.dart';

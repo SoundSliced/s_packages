@@ -4,7 +4,7 @@
 /// This file provides Web platform support for s_webview using webview_flutter_web.
 library;
 
-// ignore: depend_on_referenced_packages 
+// ignore: depend_on_referenced_packages
 import 'package:flutter/foundation.dart';
 import '../_debug_log.dart';
 
