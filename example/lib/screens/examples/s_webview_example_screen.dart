@@ -92,22 +92,104 @@ class _SWebviewExampleScreenState extends State<SWebviewExampleScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => _setUrl('https://flutter.dev'),
-                      child: const Text('Flutter.dev'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => _setUrl('https://pub.dev'),
-                      child: const Text('Pub.dev'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => _setUrl('https://github.com'),
-                      child: const Text('GitHub'),
-                    ),
-                  ],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 5,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://flutter.dev'),
+                        child: const Text('Flutter.dev'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://pub.dev'),
+                        child: const Text('Pub.dev'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://github.com'),
+                        child: const Text('GitHub'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () =>
+                            _setUrl('https://news.ycombinator.com'),
+                        child: const Text('Hacker News'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.nytimes.com'),
+                        child: const Text('NY Times'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.wikipedia.org'),
+                        child: const Text('Wikipedia'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.youtube.com'),
+                        child: const Text('YouTube'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.reddit.com'),
+                        child: const Text('Reddit'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.twitter.com'),
+                        child: const Text('Twitter'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.facebook.com'),
+                        child: const Text('Facebook'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.instagram.com'),
+                        child: const Text('Instagram'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.linkedin.com'),
+                        child: const Text('LinkedIn'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.amazon.com'),
+                        child: const Text('Amazon'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.netflix.com'),
+                        child: const Text('Netflix'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.spotify.com'),
+                        child: const Text('Spotify'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.apple.com'),
+                        child: const Text('Apple'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.microsoft.com'),
+                        child: const Text('Microsoft'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.adobe.com'),
+                        child: const Text('Adobe'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () =>
+                            _setUrl('https://www.stackoverflow.com'),
+                        child: const Text('StackOverflow'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.medium.com'),
+                        child: const Text('Medium'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.paypal.com'),
+                        child: const Text('PayPal'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _setUrl('https://www.airbnb.com'),
+                        child: const Text('Airbnb'),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(

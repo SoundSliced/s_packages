@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:s_packages/s_packages.dart';
 
+import '_proxy_html_utils.dart';
 import '_debug_log.dart';
 import '_s_webview/webview_controller/webview_controller.dart';
 import '_s_webview/widget/widget.dart';
@@ -617,7 +618,10 @@ class _SWebViewState extends State<SWebView> {
 
         if (response.statusCode == 200) {
           _log('SWebView: Successfully fetched via proxy');
-          return response.body;
+          return SWebViewProxyHtmlUtils.normalizeProxyHtml(
+            response.body,
+            headers: response.headers,
+          );
         } else {
           throw Exception('Proxy returned status ${response.statusCode}');
         }
@@ -718,16 +722,11 @@ class _SWebViewState extends State<SWebView> {
           var pageSource = await _fetchPageSourceViaProxy(widget.url);
 
           if (pageSource != null) {
-            // Inject <base> tag to fix relative links
-            if (!pageSource.contains('<base')) {
-              final headIndex = pageSource.indexOf('<head>');
-              if (headIndex != -1) {
-                pageSource = pageSource.replaceFirst(
-                    '<head>', '<head><base href="${widget.url}">');
-              } else {
-                pageSource = '<base href="${widget.url}">$pageSource';
-              }
-            }
+            // Inject <base> tag to fix relative links.
+            pageSource = SWebViewProxyHtmlUtils.injectBaseTagIfMissing(
+              pageSource,
+              widget.url,
+            );
 
             final base64Html = base64.encode(utf8.encode(pageSource));
             final dataUri = Uri.parse('data:text/html;base64,$base64Html');
@@ -817,16 +816,11 @@ class _SWebViewState extends State<SWebView> {
           _isUsingProxy = true;
           var pageSource = await _fetchPageSourceViaProxy(url);
           if (pageSource != null) {
-            // Inject <base> tag to fix relative links
-            if (!pageSource.contains('<base')) {
-              final headIndex = pageSource.indexOf('<head>');
-              if (headIndex != -1) {
-                pageSource = pageSource.replaceFirst(
-                    '<head>', '<head><base href="$url">');
-              } else {
-                pageSource = '<base href="$url">$pageSource';
-              }
-            }
+            // Inject <base> tag to fix relative links.
+            pageSource = SWebViewProxyHtmlUtils.injectBaseTagIfMissing(
+              pageSource,
+              url,
+            );
 
             final base64Html = base64.encode(utf8.encode(pageSource));
             final dataUri = Uri.parse('data:text/html;base64,$base64Html');
