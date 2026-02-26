@@ -36,7 +36,7 @@ Update ALL 40 individual sub-package projects to reflect this s_packages version
 3. **README.md** — update the version reference in the installation `pubspec.yaml` code block AND update content to reflect any new/changed/removed APIs
 
 ### The 40 individual packages are:
-bubble_label, indexscroll_listview_builder, keystroke_listener, pop_overlay, pop_this, post_frame, s_animated_tabs, s_banner, s_bounceable, s_button, s_client, s_connectivity, s_context_menu, s_disabled, s_dropdown, s_error_widget, s_expendable_menu, s_future_button, s_glow, s_gridview, s_ink_button, s_liquid_pull_to_refresh, s_maintenance_button, s_modal, s_offstage, s_screenshot, s_sidebar, s_standby, s_time, s_toggle, s_webview, s_widgets, settings_item, shaker, signals_watch, soundsliced_dart_extensions, soundsliced_tween_animation_builder, states_rebuilder_extended, ticker_free_circular_progress_indicator, week_calendar
+bubble_label, indexscroll_listview_builder, keystroke_listener, pop_overlay, pop_this, post_frame, s_animated_tabs, s_banner, s_bounceable, s_button, s_client, s_connectivity, s_context_menu, s_disabled, s_dropdown, s_error_widget, s_expendable_menu, s_future_button, s_glow, s_gridview, s_ink_button, s_liquid_pull_to_refresh, s_maintenance_button, s_modal, s_offstage, s_screenshot, s_sidebar, s_standby, s_time, s_toggle, s_webview, s_widgets, settings_item, shaker, signals_watch, soundsliced_dart_extensions, soundsliced_tween_animation_builder, states_rebuilder_extended, ticker_free_circular_progress_indicator, week_calendar, s_metar
 
 ### Versioning Rules
 

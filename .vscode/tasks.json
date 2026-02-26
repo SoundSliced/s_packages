@@ -12,6 +12,15 @@
 			"label": "Update packages script",
 			"type": "shell",
 			"command": "python3 '/Users/christophechanteur/Development/Flutter_projects/s_packages - with individual git/_update_packages.py'"
+		},
+		{
+			"label": "Update All Packages",
+			"type": "shell",
+			"command": "bash \"/Users/christophechanteur/Development/Flutter_projects/s_packages/update_packages_v2.sh\"",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

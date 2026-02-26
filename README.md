@@ -11,6 +11,13 @@ If you want to see a better GIF for each of these sub packages, then find their 
 
 NOTE: this `s_packages` package is the grouping of all of these, as a main repo  
 
+## Core vs Full companion
+
+- `s_packages` (this package): **lean/core-first** for better `flutter pub get`, hot reload, and IDE performance.
+- `s_packages_full`: **convenience companion** that re-exports `s_packages` plus optional third-party ecosystem packages.
+
+Choose `s_packages` for performance-sensitive apps, and `s_packages_full` when one-line convenience is preferred.
+
 ## 📦 What's Included
 
 This unified package brings together 41 carefully crafted packages organized into 11 categories:
