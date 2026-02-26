@@ -3,10 +3,12 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:new_loading_indicator/new_loading_indicator.dart';
 import 'package:s_packages/s_packages.dart';
+import 'package:sizer/sizer.dart' show SizerExt;
 
 // Static widgets for performance optimization
 class _StaticBuilderWidgets {

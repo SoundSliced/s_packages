@@ -1,3 +1,10 @@
+## 3.0.0
+- **Dependency unbloat (BREAKING):** removed convenience-only third-party dependencies that were not required by core `s_packages` widgets/controllers.
+  - Removed from `dependencies`: `overlay_support`, `email_validator`, `regexed_validator`, `strings`, `cryptography`, `roundcheckbox`, `swipeable_tile`, `toastification`, `sync_scroll_controller`, `animated_list_plus`, `google_fonts`, `simple_animations`, `universal_html`, `webview_flutter_web`, `webview_flutter`.
+- **API surface cleanup (BREAKING):** `s_packages.dart` no longer exports `s_packages_extra1.dart` by default.
+- **Legacy convenience barrels slimmed:** `s_packages_extra1.dart` and `s_packages_extra2.dart` now expose only lightweight/foundational exports and are no longer intended as "install-everything" shortcuts.
+- **Migration note:** apps needing removed third-party packages should add them directly in their own `pubspec.yaml`.
+
 ## 2.1.1
 - **`s_modal` sub-package improvements**:
   - **Removed idempotent guard in `Modal.appBuilder()`**: Previously, calling `appBuilder` more than once (e.g. during hot reload) would skip reinstallation to avoid double-nesting `_ActivatorWidget`. This guard has been removed so that `appBuilder` always installs a fresh activator widget, fixing cases where hot reload could leave the modal system in a stale state.

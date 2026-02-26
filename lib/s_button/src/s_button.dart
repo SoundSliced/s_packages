@@ -1,3 +1,4 @@
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:s_packages/s_packages.dart';
 
 part 'bubble_label_mixin.dart';

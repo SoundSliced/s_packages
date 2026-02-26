@@ -5,9 +5,9 @@
 library;
 
 // ignore: depend_on_referenced_packages
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/foundation.dart';
 import '../_debug_log.dart';
+import '../_s_webview/webview_controller/webview_controller_web.dart';
 
 /// Initializes WebView for Android platform
 ///

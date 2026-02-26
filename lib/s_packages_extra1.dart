@@ -6,8 +6,7 @@ export 'package:flutter_animate/flutter_animate.dart';
 export 'package:flutter/foundation.dart';
 export 'package:flutter/material.dart';
 export 'package:sizer/sizer.dart';
-export 'package:assorted_layout_widgets/assorted_layout_widgets.dart'
-    hide Delayed;
+export 'package:assorted_layout_widgets/assorted_layout_widgets.dart' hide Delayed;
 export 'package:circular_countdown_timer/circular_countdown_timer.dart';
 export 'package:icons_plus/icons_plus.dart';
 export 'package:lucide_icons/lucide_icons.dart';
@@ -22,13 +21,7 @@ export 'package:new_loading_indicator/new_loading_indicator.dart';
 export 'package:flutter_web_frame/flutter_web_frame.dart';
 export 'package:desktop_webview_window/desktop_webview_window.dart';
 export 'package:universal_io/io.dart';
-export 'package:email_validator/email_validator.dart';
-export 'package:regexed_validator/regexed_validator.dart';
-export 'package:cryptography/cryptography.dart';
-export 'package:roundcheckbox/roundcheckbox.dart';
-export 'package:swipeable_tile/swipeable_tile.dart';
-export 'package:sync_scroll_controller/sync_scroll_controller.dart';
-export 'package:animated_list_plus/animated_list_plus.dart';
-export 'package:google_fonts/google_fonts.dart';
-export 'package:simple_animations/simple_animations.dart';
+@Deprecated(
+  'Use package:s_packages/s_packages.dart. This legacy convenience barrel is intentionally slimmed to avoid dependency bloat.',
+)
 export 'package:s_packages/s_packages.dart';

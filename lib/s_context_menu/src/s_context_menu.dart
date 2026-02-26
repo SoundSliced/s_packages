@@ -73,6 +73,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
+import 'package:pausable_timer/pausable_timer.dart';
 
 import 'package:s_packages/s_packages.dart';
 

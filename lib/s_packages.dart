@@ -41,6 +41,9 @@ export 'states_rebuilder_extended/states_rebuilder_extended.dart' hide Animate;
 export 'ticker_free_circular_progress_indicator/ticker_free_circular_progress_indicator.dart';
 export 'week_calendar/week_calendar.dart';
 
+// External package exports
 export 'package:nb_utils/nb_utils.dart';
-
-export 's_packages_extra1.dart';
+export 'package:flutter/material.dart';
+export 'package:flutter/services.dart';
+export 'dart:async';
+export 'package:flutter/foundation.dart';

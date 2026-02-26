@@ -85,7 +85,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  s_packages: ^2.1.1
+  s_packages: ^3.0.0
 ```
 
 Then run:
@@ -93,6 +93,15 @@ Then run:
 ```bash
 flutter pub get
 ```
+
+### Dependency policy (v3+)
+
+`s_packages` now focuses on shipping its own components and their required internals.
+
+- It **does not** aim to re-export every third-party ecosystem package anymore.
+- If your app directly uses a third-party package API (for example `google_fonts`, `toastification`, `webview_flutter`, etc.), add that package explicitly to your app's `pubspec.yaml`.
+
+This keeps dependency graphs smaller and improves `flutter pub get`, hot reload, hot restart, and IDE analysis performance.
 
 ## 💡 Basic Usage
 
