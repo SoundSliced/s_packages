@@ -583,9 +583,21 @@ class _SplashPainter extends CustomPainter {
     if (radius <= 0.1) return;
 
     final effectiveRadius = radius.clamp(0.1, double.infinity);
+    final coreColor = color.withValues(alpha: color.a * 0.95);
+    final midColor = color.withValues(alpha: color.a * 0.6);
 
     final paint = Paint()
-      ..color = color
+      ..shader = RadialGradient(
+        colors: [
+          color.withValues(alpha: 0.0),
+          coreColor,
+          midColor,
+          color.withValues(alpha: 0.0),
+        ],
+        stops: const [0.0, 0.35, 0.78, 1.0],
+      ).createShader(
+        Rect.fromCircle(center: center, radius: effectiveRadius),
+      )
       ..style = PaintingStyle.fill
       ..isAntiAlias = true;
 

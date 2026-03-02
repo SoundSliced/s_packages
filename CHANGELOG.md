@@ -1,3 +1,10 @@
+## 3.1.0
+- **`s_ink_button` splash animation enhancement:**
+  - Updated splash rendering to a radial-gradient style so the splash is no longer a flat filled circle.
+  - Added a soft fade in the splash interior (center) for a cleaner ink effect.
+  - Added a smooth fade on the outer splash edge (border) for more natural ripple falloff.
+  - **Affected sub-packages using `SInkButton`:** `pop_overlay`, `s_button`, `s_expendable_menu`, `s_modal`, `s_time`, `week_calendar`.
+
 ## 3.0.2
 - **`s_webview` proxy HTML normalization refactor:**
   - Extracted new `SWebViewProxyHtmlUtils` utility class (`_proxy_html_utils.dart`) to centralize proxy response handling.
