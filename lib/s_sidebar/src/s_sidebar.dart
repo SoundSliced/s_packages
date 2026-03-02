@@ -548,125 +548,118 @@ Widget _sSideBarItem({
   final bool isSelected = selectedItemIndex == itemIndex;
   final Color effectiveBadgeColor = badgeColor ?? Colors.redAccent;
 
-  Widget content = Material(
-    color: Colors.transparent,
-    borderRadius: BorderRadius.circular(itemBorderRadius),
-    clipBehavior: Clip.antiAliasWithSaveLayer,
-    child: InkWell(
-      onTap: onTap,
-      onTapDown: (details) {
-        if (onTappedCallbackOffsetPosition != null) {
-          onTappedCallbackOffsetPosition(details.globalPosition);
-        }
-      },
-      hoverColor: hoverColor,
-      splashColor: splashColor,
-      highlightColor: highlightColor,
-      child: Stack(
-        children: [
-          Padding(
-            padding: minimize ? Pad(left: 5, right: 5) : Pad.zero,
+  Widget content = SInkButton(
+    color: splashColor,
+    hoverColor: hoverColor,
+    hoverAndSplashBorderRadius: BorderRadius.circular(itemBorderRadius),
+    enableHapticFeedback: false,
+    onTap: (position) {
+      onTap();
+      onTappedCallbackOffsetPosition?.call(position);
+    },
+    child: Stack(
+      children: [
+        Padding(
+          padding: minimize ? Pad(left: 5, right: 5) : Pad.zero,
+          child: AnimatedContainer(
+            duration: 0.3.sec,
+            height: height,
+            curve: Curves.easeInOut,
+            decoration: BoxDecoration(
+              color:
+                  isSelected ? selectedIconBackgroundColor : Colors.transparent,
+              borderRadius: BorderRadius.circular(itemBorderRadius),
+            ),
+          ),
+        ),
+        if (isSelected)
+          Positioned(
+            left: 0,
+            top: 6,
+            bottom: 6,
             child: AnimatedContainer(
               duration: 0.3.sec,
-              height: height,
-              curve: Curves.easeInOut,
+              width: 3,
               decoration: BoxDecoration(
-                color: isSelected
-                    ? selectedIconBackgroundColor
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(itemBorderRadius),
+                color: selectedIconColor.withValues(alpha: 0.9),
+                borderRadius: BorderRadius.circular(2),
               ),
             ),
           ),
-          if (isSelected)
-            Positioned(
-              left: 0,
-              top: 6,
-              bottom: 6,
-              child: AnimatedContainer(
-                duration: 0.3.sec,
-                width: 3,
-                decoration: BoxDecoration(
-                  color: selectedIconColor.withValues(alpha: 0.9),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-          Box(
-            height: height,
-            // color: yellow,
-            alignment: minimize ? Alignment.center : Alignment.centerLeft,
-            child: Padding(
-              padding: Pad(left: minimize ? 0 : itemHorizontalPadding),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Icon(
-                          icon,
-                          color: isSelected
-                              ? selectedIconColor
-                              : unselectedIconColor,
+        Box(
+          height: height,
+          // color: yellow,
+          alignment: minimize ? Alignment.center : Alignment.centerLeft,
+          child: Padding(
+            padding: Pad(left: minimize ? 0 : itemHorizontalPadding),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Icon(
+                        icon,
+                        color: isSelected
+                            ? selectedIconColor
+                            : unselectedIconColor,
+                      ),
+                      if (badgeText != null && minimize)
+                        Positioned(
+                          right: -12,
+                          top: -10,
+                          child: _badgeChip(
+                            badgeText: badgeText,
+                            badgeColor: effectiveBadgeColor,
+                            badgeTextStyle: badgeTextStyle,
+                          ),
                         ),
-                        if (badgeText != null && minimize)
-                          Positioned(
-                            right: -12,
-                            top: -10,
-                            child: _badgeChip(
-                              badgeText: badgeText,
-                              badgeColor: effectiveBadgeColor,
-                              badgeTextStyle: badgeTextStyle,
+                    ],
+                  ),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    switchInCurve: Curves.easeOut,
+                    switchOutCurve: Curves.easeIn,
+                    child: minimize
+                        ? const SizedBox.shrink(key: ValueKey("min"))
+                        : Padding(
+                            key: const ValueKey("text"),
+                            padding: EdgeInsets.only(
+                              left: itemIconTextSpacing,
+                            ),
+                            child: Text(
+                              text,
+                              overflow: isSelected
+                                  ? TextOverflow.ellipsis
+                                  : TextOverflow.clip,
+                              style: textStyle.copyWith(
+                                color: isSelected
+                                    ? selectedTextColor
+                                    : unSelectedTextColor,
+                              ),
+                              textAlign: isSelected
+                                  ? TextAlign.center
+                                  : TextAlign.left,
                             ),
                           ),
-                      ],
-                    ),
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 250),
-                      switchInCurve: Curves.easeOut,
-                      switchOutCurve: Curves.easeIn,
-                      child: minimize
-                          ? const SizedBox.shrink(key: ValueKey("min"))
-                          : Padding(
-                              key: const ValueKey("text"),
-                              padding: EdgeInsets.only(
-                                left: itemIconTextSpacing,
-                              ),
-                              child: Text(
-                                text,
-                                overflow: isSelected
-                                    ? TextOverflow.ellipsis
-                                    : TextOverflow.clip,
-                                style: textStyle.copyWith(
-                                  color: isSelected
-                                      ? selectedTextColor
-                                      : unSelectedTextColor,
-                                ),
-                                textAlign: isSelected
-                                    ? TextAlign.center
-                                    : TextAlign.left,
-                              ),
-                            ),
-                    ),
-                    if (badgeText != null && !minimize)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: _badgeChip(
-                          badgeText: badgeText,
-                          badgeColor: effectiveBadgeColor,
-                          badgeTextStyle: badgeTextStyle,
-                        ),
+                  ),
+                  if (badgeText != null && !minimize)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: _badgeChip(
+                        badgeText: badgeText,
+                        badgeColor: effectiveBadgeColor,
+                        badgeTextStyle: badgeTextStyle,
                       ),
-                  ],
-                ),
+                    ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 

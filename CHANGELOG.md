@@ -1,3 +1,9 @@
+## 3.2.0
+- **`s_sidebar` sub-package bug fix:**
+  - Fixed issue where `SSideBarItem.onTap` callback was incorrectly triggered during long presses.
+  - Replaced `InkWell` with `SInkButton` which uses `onTapUp` internally, ensuring the callback only fires on completed taps.
+  - This cleaner solution eliminates the need for wrapper widgets while preserving all visual effects and providing correct tap position data.
+
 ## 3.1.0
 - **`s_ink_button` splash animation enhancement:**
   - Updated splash rendering to a radial-gradient style so the splash is no longer a flat filled circle.
