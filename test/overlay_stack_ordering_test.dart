@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:s_packages/s_packages.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   tearDown(() {
     PopOverlay.clearAll();
     Modal.dismissAll();
