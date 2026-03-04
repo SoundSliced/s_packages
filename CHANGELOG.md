@@ -1,3 +1,22 @@
+## 3.3.0
+- **`pop_overlay` stack layering upgrade:**
+  - Added `stackLevel` to `PopOverlayContent` with default `PopOverlayStackLevels.overlay`.
+  - Added stack APIs: `getStackLevel`, `setStackLevel`, `bringToFront`, `sendToBack`, and `activeIdsByStackOrder`.
+  - Added stack constants helpers: `PopOverlayStackLevels` and `PopOverlayStackLevelBands`.
+  - Replaced hard-coded priority-only ordering with stable effective-level sorting while preserving legacy priority bonuses for known critical overlays.
+  - Improved reactivation/update flow for invisible overlays when `offsetToPopFrom` or `stackLevel` changes, including proper replacement cleanup.
+
+- **`s_modal` stack layering and runtime robustness improvements:**
+  - Added `stackLevel` support across modal creation/update paths (`ModalBuilder`, `Modal.show`, `Modal.showSnackbar`, `Modal.updateParams`).
+  - Added stack-level constants and guidance: `ModalStackLevels`, `ModalStackLevelBands`.
+  - Added modal stack APIs: `activeIdsByStackOrder`, `topMostActiveId`, `getStackLevel`, `setStackLevel`, `bringToFront`, and `sendToBack`.
+  - Added viewport-aware sizing helpers (`_ModalViewportScope`, `_modalViewportSizeOf`) to better handle framed/responsive layouts and swipe thresholds.
+  - Improved dismiss-all scheduling safety by deferring only during frame-critical scheduler phases and preventing duplicate deferred callbacks.
+  - Improved snackbar visuals and consistency (entrance timing/barrier fade synchronization, viewport-based gesture calculations).
+
+- **Testing:**
+  - Added `test/overlay_stack_ordering_test.dart` covering overlay stack ordering helpers and modal stack smoke checks.
+
 ## 3.2.0
 - **`s_sidebar` sub-package bug fix:**
   - Fixed issue where `SSideBarItem.onTap` callback was incorrectly triggered during long presses.

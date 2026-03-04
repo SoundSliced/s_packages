@@ -137,8 +137,7 @@ class SnackbarModal extends StatefulWidget {
   State<SnackbarModal> createState() => _SnackbarModalState();
 }
 
-class _SnackbarModalState extends State<SnackbarModal>
-    with SingleTickerProviderStateMixin {
+class _SnackbarModalState extends State<SnackbarModal> with SingleTickerProviderStateMixin {
   /// Internal animation controller for entrance and exit animations
   /// This controller is owned by this snackbar instance, ensuring
   /// animations don't conflict with other snackbars
@@ -201,7 +200,7 @@ class _SnackbarModalState extends State<SnackbarModal>
     // Initialize the animation controller for this snackbar instance
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 400),
     );
 
     // Set up entrance animations (will be updated for dismiss)
@@ -221,9 +220,7 @@ class _SnackbarModalState extends State<SnackbarModal>
     widget.controller?._attach(this);
 
     // Use snackbarId if available for stable key, otherwise generate unique key
-    _dismissibleKey = widget.snackbarId != null
-        ? ValueKey('dismissible_${widget.snackbarId}')
-        : UniqueKey();
+    _dismissibleKey = widget.snackbarId != null ? ValueKey('dismissible_${widget.snackbarId}') : UniqueKey();
 
     // If not already dismissing, play entrance animation
     if (!widget.isDismissing) {
@@ -243,8 +240,7 @@ class _SnackbarModalState extends State<SnackbarModal>
     );
 
     final slideBegin = Offset(0, _isFromTop ? -0.5 : 0.5);
-    _slideAnimation =
-        Tween<Offset>(begin: slideBegin, end: Offset.zero).animate(
+    _slideAnimation = Tween<Offset>(begin: slideBegin, end: Offset.zero).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Curves.easeOutCubic,
@@ -332,9 +328,7 @@ class _SnackbarModalState extends State<SnackbarModal>
     final currentGeneration = _timerGeneration;
 
     // Only start timer if we have a duration and not already dismissing
-    if (widget.autoDismissDuration != null &&
-        !widget.isDismissing &&
-        !_isDismissAnimating) {
+    if (widget.autoDismissDuration != null && !widget.isDismissing && !_isDismissAnimating) {
       _autoDismissTimer = Timer(widget.autoDismissDuration!, () {
         // Guard: Check if this callback is still valid (generation matches)
         // This prevents stale callbacks from firing after the timer was restarted
@@ -343,20 +337,14 @@ class _SnackbarModalState extends State<SnackbarModal>
         }
 
         // Double-check mounted status before calling callback
-        if (mounted &&
-            !_isDisposed &&
-            !widget.isDismissing &&
-            !_isDismissAnimating) {
+        if (mounted && !_isDisposed && !widget.isDismissing && !_isDismissAnimating) {
           // Guard: If a global dismissal is in progress (e.g. bottom sheet closing),
           // defer the auto-dismiss to avoid state conflicts and visual glitches.
           if (Modal.isDismissing) {
             // Retry after a short delay (enough for dismissal to complete)
             _autoDismissTimer = Timer(const Duration(milliseconds: 500), () {
               if (_timerGeneration != currentGeneration || _isDisposed) return;
-              if (mounted &&
-                  !_isDisposed &&
-                  !widget.isDismissing &&
-                  !_isDismissAnimating) {
+              if (mounted && !_isDisposed && !widget.isDismissing && !_isDismissAnimating) {
                 _autoDismissTimer = null;
                 // Play dismiss animation FIRST, then notify parent when complete
                 _playDismissAnimation(
@@ -392,8 +380,7 @@ class _SnackbarModalState extends State<SnackbarModal>
     // Only restart timer if dismissing state or duration actually changed.
     // Don't restart on every rebuild - widget.child reference may change even
     // if the content is identical, causing unnecessary timer restarts.
-    if (oldWidget.isDismissing != widget.isDismissing ||
-        oldWidget.autoDismissDuration != widget.autoDismissDuration) {
+    if (oldWidget.isDismissing != widget.isDismissing || oldWidget.autoDismissDuration != widget.autoDismissDuration) {
       if (widget.isDismissing) {
         _autoDismissTimer?.cancel();
         _autoDismissTimer = null;
@@ -426,8 +413,7 @@ class _SnackbarModalState extends State<SnackbarModal>
     }
 
     // Update dismissible key if snackbarId changes
-    if (widget.snackbarId != oldWidget.snackbarId &&
-        widget.snackbarId != null) {
+    if (widget.snackbarId != oldWidget.snackbarId && widget.snackbarId != null) {
       _dismissibleKey = ValueKey('dismissible_${widget.snackbarId}');
     }
   }
@@ -503,8 +489,7 @@ class _SnackbarModalState extends State<SnackbarModal>
     _autoDismissTimer?.cancel();
 
     // Set local direction for this snackbar's animation
-    _localSwipeDirection =
-        direction == DismissDirection.startToEnd ? 'left' : 'right';
+    _localSwipeDirection = direction == DismissDirection.startToEnd ? 'left' : 'right';
 
     // Use special marker to tell parent to skip dismiss animation
     // since Dismissible already handled the visual exit
@@ -520,10 +505,9 @@ class _SnackbarModalState extends State<SnackbarModal>
       _isSwipingHorizontally = details.progress > 0;
       // Approximate horizontal offset based on progress
       // Progress is 0-1, so multiply by screen width for offset
-      final screenWidth = MediaQuery.of(context).size.width;
-      _horizontalSwipeOffset = details.progress *
-          screenWidth *
-          (details.direction == DismissDirection.startToEnd ? 1 : -1);
+      final screenWidth = _modalViewportSizeOf(context).width;
+      _horizontalSwipeOffset =
+          details.progress * screenWidth * (details.direction == DismissDirection.startToEnd ? 1 : -1);
     });
 
     // Pause timer while dragging
@@ -558,7 +542,7 @@ class _SnackbarModalState extends State<SnackbarModal>
   void _onVerticalDragEnd(DragEndDetails details) {
     if (!widget.isSwipeable || _isLocallyDismissing) return;
 
-    final screenHeight = MediaQuery.of(context).size.height;
+    final screenHeight = max(_modalViewportSizeOf(context).height, 1.0);
     final swipePercent = _verticalSwipeOffset.abs() / screenHeight;
 
     if (swipePercent > _verticalDismissThreshold) {
@@ -626,9 +610,8 @@ class _SnackbarModalState extends State<SnackbarModal>
 
     // Calculate stagger translation for offset-based positioning
     // When offset is used, we apply stagger via Transform.translate instead of padding
-    final staggerTranslation = widget.offset != null
-        ? Offset(0, _isFromTop ? staggerVerticalOffset : -staggerVerticalOffset)
-        : Offset.zero;
+    final staggerTranslation =
+        widget.offset != null ? Offset(0, _isFromTop ? staggerVerticalOffset : -staggerVerticalOffset) : Offset.zero;
 
     Widget snackbarContent = AnimatedPadding(
       duration: 400.ms,
@@ -645,9 +628,8 @@ class _SnackbarModalState extends State<SnackbarModal>
 
     // Apply stagger translation when using offset-based positioning
     if (widget.offset != null && staggerTranslation != Offset.zero) {
-      snackbarContent = TweenAnimationBuilder<Offset>(
-        tween:
-            Tween<Offset>(begin: staggerTranslation, end: staggerTranslation),
+      snackbarContent = STweenAnimationBuilder<Offset>(
+        tween: Tween<Offset>(begin: staggerTranslation, end: staggerTranslation),
         duration: 400.ms,
         curve: Curves.easeOutCubic,
         builder: (context, offset, child) {
@@ -664,28 +646,22 @@ class _SnackbarModalState extends State<SnackbarModal>
     // and GestureDetector for vertical swipe (up/down based on position)
     if (widget.isSwipeable && !_isLocallyDismissing) {
       // Calculate opacity based on swipe progress (both vertical and horizontal)
-      final screenHeight = MediaQuery.of(context).size.height;
-      final screenWidth = MediaQuery.of(context).size.width;
+      final viewportSize = _modalViewportSizeOf(context);
+      final screenHeight = max(viewportSize.height, 1.0);
+      final screenWidth = max(viewportSize.width, 1.0);
 
       // Vertical swipe opacity
       final verticalSwipeOpacity = _isSwipingVertically
-          ? (1.0 -
-                  (_verticalSwipeOffset.abs() / screenHeight * 2)
-                      .clamp(0.0, 0.6))
-              .clamp(0.4, 1.0)
+          ? (1.0 - (_verticalSwipeOffset.abs() / screenHeight * 2).clamp(0.0, 0.6)).clamp(0.4, 1.0)
           : 1.0;
 
       // Horizontal swipe opacity
       final horizontalSwipeOpacity = _isSwipingHorizontally
-          ? (1.0 -
-                  (_horizontalSwipeOffset.abs() / screenWidth * 1.5)
-                      .clamp(0.0, 0.6))
-              .clamp(0.4, 1.0)
+          ? (1.0 - (_horizontalSwipeOffset.abs() / screenWidth * 1.5).clamp(0.0, 0.6)).clamp(0.4, 1.0)
           : 1.0;
 
       // Combined opacity (use minimum for smooth fade during any swipe)
-      final combinedOpacity =
-          (verticalSwipeOpacity * horizontalSwipeOpacity).clamp(0.4, 1.0);
+      final combinedOpacity = (verticalSwipeOpacity * horizontalSwipeOpacity).clamp(0.4, 1.0);
 
       // Wrap content with vertical gesture detection first
       Widget verticalSwipeWrapper = GestureDetector(
@@ -718,8 +694,7 @@ class _SnackbarModalState extends State<SnackbarModal>
           DismissDirection.endToStart: 0.25,
         },
         movementDuration: const Duration(milliseconds: 200),
-        resizeDuration:
-            null, // Disable resize animation (we handle removal ourselves)
+        resizeDuration: null, // Disable resize animation (we handle removal ourselves)
         behavior: HitTestBehavior.opaque,
         child: verticalSwipeWrapper,
       );
@@ -748,7 +723,7 @@ class _SnackbarModalState extends State<SnackbarModal>
     if (widget.width != null) {
       maxWidth = widget.width!;
     } else {
-      final screenWidth = MediaQuery.of(context).size.width;
+      final screenWidth = _modalViewportSizeOf(context).width;
       final isDesktop = screenWidth > 600; // Breakpoint for tablet/desktop
 
       if (isDesktop) {
@@ -776,8 +751,7 @@ class _SnackbarModalState extends State<SnackbarModal>
 
     // Check if this is an immediate dismiss (from Dismissible horizontal swipe or vertical swipe)
     // In that case, the widget has already been animated off-screen visually
-    final isImmediateDismiss = widget.swipeDirection == 'dismiss_immediate' ||
-        _localSwipeDirection.isNotEmpty;
+    final isImmediateDismiss = widget.swipeDirection == 'dismiss_immediate' || _localSwipeDirection.isNotEmpty;
 
     // Apply animation to the snackbar content BEFORE positioning
     // This ensures Positioned/Align is a direct child of Stack for proper positioning
@@ -846,16 +820,17 @@ class _SnackbarModalState extends State<SnackbarModal>
           AnimatedBuilder(
             animation: _animationController,
             builder: (context, child) {
-              // Fade the barrier with the snackbar animation
-              final barrierOpacity =
-                  _fadeAnimation.value * widget.barrierColor.a;
+              // Sync barrier fade-in with snackbar entrance animation.
+              // Keep dismiss fade-out behavior tied to dismiss animation.
+              final barrierOpacity = _isDismissAnimating
+                  ? (_fadeAnimation.value * widget.barrierColor.a)
+                  : (Curves.easeOutCubic.transform(_animationController.value.clamp(0.0, 1.0)) * widget.barrierColor.a);
               return SInkButton(
                 scaleFactor: 1,
                 color: widget.barrierColor.darken(0.2),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color:
-                        widget.barrierColor.withValues(alpha: barrierOpacity),
+                child: SizedBox.expand(
+                  child: ColoredBox(
+                    color: widget.barrierColor.withValues(alpha: barrierOpacity),
                   ),
                 ),
               );
@@ -912,12 +887,10 @@ class SnackbarDurationIndicator extends StatefulWidget {
   });
 
   @override
-  State<SnackbarDurationIndicator> createState() =>
-      _SnackbarDurationIndicatorState();
+  State<SnackbarDurationIndicator> createState() => _SnackbarDurationIndicatorState();
 }
 
-class _SnackbarDurationIndicatorState extends State<SnackbarDurationIndicator>
-    with SingleTickerProviderStateMixin {
+class _SnackbarDurationIndicatorState extends State<SnackbarDurationIndicator> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -951,8 +924,7 @@ class _SnackbarDurationIndicatorState extends State<SnackbarDurationIndicator>
   @override
   Widget build(BuildContext context) {
     final effectiveColor = widget.color ?? Colors.white.withValues(alpha: 0.7);
-    final effectiveBgColor =
-        widget.backgroundColor ?? Colors.white.withValues(alpha: 0.2);
+    final effectiveBgColor = widget.backgroundColor ?? Colors.white.withValues(alpha: 0.2);
     final effectiveBorderRadius = widget.borderRadius ??
         const BorderRadius.only(
           bottomLeft: Radius.circular(12),
@@ -960,9 +932,8 @@ class _SnackbarDurationIndicatorState extends State<SnackbarDurationIndicator>
         );
 
     // Determine alignment based on direction
-    final alignment = widget.direction == DurationIndicatorDirection.leftToRight
-        ? Alignment.centerLeft
-        : Alignment.centerRight;
+    final alignment =
+        widget.direction == DurationIndicatorDirection.leftToRight ? Alignment.centerLeft : Alignment.centerRight;
 
     return ClipRRect(
       borderRadius: effectiveBorderRadius,
