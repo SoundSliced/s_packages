@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:s_packages/s_packages.dart';
 
@@ -50,17 +49,20 @@ void main() {
       ];
 
       expect(PopOverlay.bringToFront('a'), isTrue);
-      expect(PopOverlay.getStackLevel('a')! > PopOverlay.getStackLevel('b')!, isTrue);
+      expect(PopOverlay.getStackLevel('a')! > PopOverlay.getStackLevel('b')!,
+          isTrue);
 
       expect(PopOverlay.sendToBack('b'), isTrue);
-      expect(PopOverlay.getStackLevel('b')! < PopOverlay.getStackLevel('a')!, isTrue);
+      expect(PopOverlay.getStackLevel('b')! < PopOverlay.getStackLevel('a')!,
+          isTrue);
     });
   });
 
   group('s_modal stack smoke checks', () {
     test('stack constants and empty state helpers', () {
       expect(ModalStackLevels.critical > ModalStackLevels.snackbar, isTrue);
-      expect(ModalStackLevelBands.criticalMin >= ModalStackLevels.critical, isTrue);
+      expect(ModalStackLevelBands.criticalMin >= ModalStackLevels.critical,
+          isTrue);
 
       expect(Modal.activeIdsByStackOrder, isEmpty);
       expect(Modal.topMostActiveId, isNull);
