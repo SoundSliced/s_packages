@@ -1998,10 +1998,12 @@ class Modal {
     if (current == null) return false;
 
     final levels = <int>[];
-    if (_sheetController.state != null)
+    if (_sheetController.state != null) {
       levels.add(_sheetController.state!.stackLevel);
-    if (_dialogController.state != null)
+    }
+    if (_dialogController.state != null) {
       levels.add(_dialogController.state!.stackLevel);
+    }
     if (_activeModalController.state != null) {
       levels.add(_activeModalController.state!.stackLevel);
     }
@@ -2021,10 +2023,12 @@ class Modal {
     if (current == null) return false;
 
     final levels = <int>[];
-    if (_sheetController.state != null)
+    if (_sheetController.state != null) {
       levels.add(_sheetController.state!.stackLevel);
-    if (_dialogController.state != null)
+    }
+    if (_dialogController.state != null) {
       levels.add(_dialogController.state!.stackLevel);
+    }
     if (_activeModalController.state != null) {
       levels.add(_activeModalController.state!.stackLevel);
     }
