@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:s_packages/soundsliced_dart_extensions/soundsliced_dart_extensions.dart';
+
+import 'package:s_packages/s_packages.dart';
 
 void main() {
   group('s_packages', () {
@@ -132,6 +133,62 @@ void main() {
       expect(n1.clampOrNull(0, 10), equals(10));
       expect(n2.clampOrNull(0, 10), isNull);
       expect(n1.clampToDoubleOrNull(0, 11), equals(11.0));
+    });
+
+    testWidgets('SInkButton uses click cursor when active', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SInkButton(
+              onTap: (_) {},
+              child: const Text('Tap me'),
+            ),
+          ),
+        ),
+      );
+
+      final mouseRegion = tester.widget<MouseRegion>(
+        find.descendant(
+          of: find.byType(SInkButton),
+          matching: find.byWidgetPredicate(
+            (widget) =>
+                widget is MouseRegion &&
+                widget.cursor == SystemMouseCursors.click &&
+                widget.onEnter != null &&
+                widget.onExit != null,
+          ),
+        ),
+      );
+
+      expect(mouseRegion.cursor, equals(SystemMouseCursors.click));
+    });
+
+    testWidgets('SInkButton uses basic cursor when inactive', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SInkButton(
+              isActive: false,
+              child: Text('Disabled'),
+            ),
+          ),
+        ),
+      );
+
+      final mouseRegion = tester.widget<MouseRegion>(
+        find.descendant(
+          of: find.byType(SInkButton),
+          matching: find.byWidgetPredicate(
+            (widget) =>
+                widget is MouseRegion &&
+                widget.cursor == SystemMouseCursors.basic &&
+                widget.onEnter == null &&
+                widget.onExit == null,
+          ),
+        ),
+      );
+
+      expect(mouseRegion.cursor, equals(SystemMouseCursors.basic));
     });
   });
 }

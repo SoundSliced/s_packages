@@ -1,5 +1,10 @@
 
 
+## 3.4.0
+- **`s_ink_button` hover feedback improvement:**
+  - Active `SInkButton` widgets now show the click cursor on web/desktop hover, giving clearer visual feedback that the widget is interactive.
+  - Disabled `SInkButton` widgets keep the basic cursor so non-interactive states remain visually distinct.
+
 ## 3.3.1
 - **`pop_overlay` interaction and layout refinements:**
   - Added optional `TapRegion` integration to `PopOverlayContent` (`tapRegionGroupId`, `onTapRegionOutside`, `onTapRegionInside`, `tapRegionBehavior`, `tapRegionConsumeOutsideTaps`) so overlay content can participate in grouped inside/outside tap handling.

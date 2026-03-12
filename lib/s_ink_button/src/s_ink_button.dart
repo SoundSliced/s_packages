@@ -405,6 +405,8 @@ class _SInkButtonState extends State<SInkButton> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
+      cursor:
+          widget.isActive ? SystemMouseCursors.click : SystemMouseCursors.basic,
       onEnter: widget.isActive
           ? (_) {
               setState(() => _isHovered = true);
