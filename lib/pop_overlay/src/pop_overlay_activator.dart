@@ -11,46 +11,37 @@ class _PopOverlayActivator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OnBuilder(
-      listenTo: PopOverlay.controller,
-      builder: () {
-        return Sizer(
-          builder: (context, orientation, screenType) {
-            return MaterialApp(
-              color: Colors.transparent,
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                colorScheme: Theme.of(context).colorScheme,
-                textTheme: Theme.of(context).textTheme,
-                useMaterial3: true,
-              ),
-              scrollBehavior: MaterialScrollBehavior().copyWith(
-                physics: BouncingScrollPhysics(),
-                scrollbars: true,
-                dragDevices: {
-                  PointerDeviceKind.mouse,
-                  PointerDeviceKind.touch,
-                  PointerDeviceKind.stylus,
-                  PointerDeviceKind.unknown,
-                  PointerDeviceKind.trackpad
-                },
-              ),
-              home: Directionality(
-                textDirection: TextDirection.ltr,
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: EscapeKeyHandler(
-                    child: SizedBox(
-                      key: PopOverlay._overlayAreaKey,
-                      height: 100.h,
-                      width: 100.w,
-                      child: _AppContentWithOverlays(child: child),
-                    ),
+    return Sizer(
+      builder: (context, orientation, screenType) {
+        return Theme(
+          data: Theme.of(context).copyWith(useMaterial3: true),
+          child: ScrollConfiguration(
+            behavior: MaterialScrollBehavior().copyWith(
+              physics: BouncingScrollPhysics(),
+              scrollbars: true,
+              dragDevices: {
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.touch,
+                PointerDeviceKind.stylus,
+                PointerDeviceKind.unknown,
+                PointerDeviceKind.trackpad,
+              },
+            ),
+            child: Directionality(
+              textDirection: Directionality.maybeOf(context) ?? TextDirection.ltr,
+              child: Material(
+                type: MaterialType.transparency,
+                child: EscapeKeyHandler(
+                  child: SizedBox(
+                    key: PopOverlay._overlayAreaKey,
+                    height: 100.h,
+                    width: 100.w,
+                    child: _AppContentWithOverlays(child: child),
                   ),
                 ),
               ),
-            );
-          },
+            ),
+          ),
         );
       },
     );
@@ -106,8 +97,8 @@ class _OverlayStack extends StatelessWidget {
       listenTo: PopOverlay.invisibleController,
       builder: () {
         // Check if this overlay should be invisible
-        final isInvisible = popContent.shouldMakeInvisibleOnDismiss &&
-            PopOverlay.invisibleController.state.contains(popContent.id);
+        final isInvisible =
+            popContent.shouldMakeInvisibleOnDismiss && PopOverlay.invisibleController.state.contains(popContent.id);
 
         return _AnimatedVisibilityWrapper(
           isInvisible: isInvisible,
@@ -129,12 +120,10 @@ class _AnimatedVisibilityWrapper extends StatefulWidget {
   });
 
   @override
-  State<_AnimatedVisibilityWrapper> createState() =>
-      _AnimatedVisibilityWrapperState();
+  State<_AnimatedVisibilityWrapper> createState() => _AnimatedVisibilityWrapperState();
 }
 
-class _AnimatedVisibilityWrapperState
-    extends State<_AnimatedVisibilityWrapper> {
+class _AnimatedVisibilityWrapperState extends State<_AnimatedVisibilityWrapper> {
   bool _shouldBeOffstage = false;
 
   // Cache the main content widget to prevent recreation
@@ -145,15 +134,13 @@ class _AnimatedVisibilityWrapperState
     super.initState();
     // Only set offstage immediately if starting invisible (shouldStartInvisible = true)
     // Otherwise, let didUpdateWidget handle the delayed offstage
-    _shouldBeOffstage =
-        widget.isInvisible && widget.popContent.shouldStartInvisible;
+    _shouldBeOffstage = widget.isInvisible && widget.popContent.shouldStartInvisible;
     _buildCachedContent();
   }
 
   void _buildCachedContent() {
     _cachedContent = _TransformWrapper(
-      key: ValueKey(
-          '${widget.popContent.id}-${DateTime.now().millisecondsSinceEpoch}'),
+      key: ValueKey('${widget.popContent.id}-${DateTime.now().millisecondsSinceEpoch}'),
       popContent: widget.popContent,
     );
   }
@@ -179,8 +166,7 @@ class _AnimatedVisibilityWrapperState
           _shouldBeOffstage = false;
         });
         // If offsetToPopFrom is set, rebuild cached content to restart animation
-        if (widget.popContent.offsetToPopFrom != null &&
-            widget.popContent.shouldAnimatePopup) {
+        if (widget.popContent.offsetToPopFrom != null && widget.popContent.shouldAnimatePopup) {
           _buildCachedContent();
         }
       }
@@ -284,9 +270,7 @@ class _DismissBarrier extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SInkButton(
-      color:
-          popContent.dismissBarrierColor?.withValues(alpha: 0.8).darken(0.2) ??
-              Colors.lightBlueAccent,
+      color: popContent.dismissBarrierColor?.withValues(alpha: 0.8).darken(0.2) ?? Colors.lightBlueAccent,
       scaleFactor: 1,
       onTap: PopOverlay.isActive
           ? (pos) {
@@ -302,8 +286,7 @@ class _DismissBarrier extends StatelessWidget {
       child: Container(
         height: 100.h,
         width: 100.w,
-        color: popContent.dismissBarrierColor ??
-            Colors.black.withValues(alpha: 0.4),
+        color: popContent.dismissBarrierColor ?? Colors.black.withValues(alpha: 0.4),
       ).animate(
         // key: ValueKey("Barrier-${popContent.id}-$isExiting"),
         effects: [
@@ -346,19 +329,14 @@ class _TransformWrapper extends StatelessWidget {
         // Uses the overlay area's RenderBox so that FittedBox transforms
         // (e.g. ForcePhoneSizeOnWeb) are accounted for.
         if (popContent.useGlobalPosition) {
-          final overlayBox = PopOverlay._overlayAreaKey.currentContext
-              ?.findRenderObject() as RenderBox?;
+          final overlayBox = PopOverlay._overlayAreaKey.currentContext?.findRenderObject() as RenderBox?;
           if (overlayBox != null && overlayBox.hasSize) {
             final localPos = overlayBox.globalToLocal(finalPosition);
-            final screenPoint = alignment
-                .resolve(Directionality.of(context))
-                .alongSize(overlayBox.size);
+            final screenPoint = alignment.resolve(Directionality.of(context)).alongSize(overlayBox.size);
             finalPosition = localPos - screenPoint;
           } else {
             final screenSize = Size(100.w, 100.h);
-            final screenPoint = alignment
-                .resolve(Directionality.of(context))
-                .alongSize(screenSize);
+            final screenPoint = alignment.resolve(Directionality.of(context)).alongSize(screenSize);
             finalPosition = finalPosition - screenPoint;
           }
         }
@@ -412,8 +390,7 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
     super.initState();
 
     // Hide popup until animation is ready to prevent flash
-    if (widget.popContent.offsetToPopFrom != null &&
-        widget.popContent.shouldAnimatePopup) {
+    if (widget.popContent.offsetToPopFrom != null && widget.popContent.shouldAnimatePopup) {
       _isReadyToShow = false;
       _hasInitializedAnimation = false;
     }
@@ -443,8 +420,7 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
         widget.popContent.offsetToPopFrom != null &&
         widget.popContent.shouldAnimatePopup) {
       _hasInitializedAnimation = true;
-      _animationKey =
-          '${widget.popContent.id}-${DateTime.now().millisecondsSinceEpoch}';
+      _animationKey = '${widget.popContent.id}-${DateTime.now().millisecondsSinceEpoch}';
 
       // Defer position computation until after layout so globalToLocal
       // produces accurate results (accounts for FittedBox transforms
@@ -453,14 +429,9 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
         if (!mounted) return;
 
         final alignment = widget.popContent.alignment ?? Alignment.center;
-        final overlayBox = PopOverlay._overlayAreaKey.currentContext
-            ?.findRenderObject() as RenderBox?;
-        final Size overlaySize = (overlayBox != null && overlayBox.hasSize)
-            ? overlayBox.size
-            : Size(100.w, 100.h);
-        final screenPoint = alignment
-            .resolve(Directionality.of(context))
-            .alongSize(overlaySize);
+        final overlayBox = PopOverlay._overlayAreaKey.currentContext?.findRenderObject() as RenderBox?;
+        final Size overlaySize = (overlayBox != null && overlayBox.hasSize) ? overlayBox.size : Size(100.w, 100.h);
+        final screenPoint = alignment.resolve(Directionality.of(context)).alongSize(overlaySize);
 
         var targetOffset = widget.popContent.popPositionOffset ?? Offset.zero;
 
@@ -475,8 +446,7 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
         // Convert offsetToPopFrom from global to overlay-local
         Offset localOrigin;
         if (overlayBox != null && overlayBox.hasSize) {
-          localOrigin =
-              overlayBox.globalToLocal(widget.popContent.offsetToPopFrom!);
+          localOrigin = overlayBox.globalToLocal(widget.popContent.offsetToPopFrom!);
         } else {
           localOrigin = widget.popContent.offsetToPopFrom!;
         }
@@ -518,10 +488,8 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
               begin: _animationStartOffset!,
               end: Offset.zero,
             ),
-            duration: widget.popContent.popPositionAnimationDuration ??
-                const Duration(milliseconds: 250),
-            curve: widget.popContent.popPositionAnimationCurve ??
-                Curves.fastEaseInToSlowEaseOut,
+            duration: widget.popContent.popPositionAnimationDuration ?? const Duration(milliseconds: 250),
+            curve: widget.popContent.popPositionAnimationCurve ?? Curves.fastEaseInToSlowEaseOut,
             builder: (context, offset, child) {
               // Update positionController with animated value
               WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -601,11 +569,27 @@ class _PopupContentWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     // UNIFIED APPROACH: All popups now use _PopOverlayFrameDesignWidget
     // Both framed and non-framed popups get the same treatment
-    return _PopOverlayFrameDesignWidget(
+    Widget content = _PopOverlayFrameDesignWidget(
       frameDesign: popContent.frameDesign, // Can be null
       isDraggable: popContent.isDraggeable,
       popContent: popContent,
       child: popContent.widget,
     );
+
+    if (popContent.tapRegionGroupId != null ||
+        popContent.onTapRegionOutside != null ||
+        popContent.onTapRegionInside != null ||
+        popContent.tapRegionConsumeOutsideTaps) {
+      content = TapRegion(
+        groupId: popContent.tapRegionGroupId,
+        behavior: popContent.tapRegionBehavior,
+        consumeOutsideTaps: popContent.tapRegionConsumeOutsideTaps,
+        onTapOutside: popContent.onTapRegionOutside,
+        onTapInside: popContent.onTapRegionInside,
+        child: content,
+      );
+    }
+
+    return content;
   }
 }

@@ -1,3 +1,14 @@
+
+
+## 3.3.1
+- **`pop_overlay` interaction and layout refinements:**
+  - Added optional `TapRegion` integration to `PopOverlayContent` (`tapRegionGroupId`, `onTapRegionOutside`, `onTapRegionInside`, `tapRegionBehavior`, `tapRegionConsumeOutsideTaps`) so overlay content can participate in grouped inside/outside tap handling.
+  - Updated the overlay activator to inherit the surrounding app theme, scroll behavior, and text direction instead of spinning up a nested `MaterialApp`, improving integration inside host applications.
+  - Improved dismissal safety by ensuring delayed removals only dispose the exact overlay instance that started exiting, preventing stale dismiss timers from removing a newer overlay that reused the same ID.
+  - Improved framed popup sizing with responsive width/height resolution, maximum viewport constraints, and better handling of fractional dimensions for web and constrained layouts.
+  - Improved drag lifecycle tracking so drag state is reset consistently on drag start/end/cancel for both popup bodies and draggable headers.
+  - Fixed auto-dismiss behavior to trigger `onDismissed` correctly when overlays are made invisible on dismiss.
+
 ## 3.3.0
 - **`pop_overlay` stack layering upgrade:**
   - Added `stackLevel` to `PopOverlayContent` with default `PopOverlayStackLevels.overlay`.
