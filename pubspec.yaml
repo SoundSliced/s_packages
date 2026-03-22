@@ -41,7 +41,6 @@ dependencies:
   collection: ^1.19.1
   async: ^2.13.0
   fpdart: ^1.2.0
-  universal_html: ^2.3.0
   webview_flutter: ^4.13.1
   webview_flutter_web: ^0.2.3+4
   desktop_webview_window: ^0.2.3
