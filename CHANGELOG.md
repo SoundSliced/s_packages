@@ -1,4 +1,18 @@
 
+## 3.5.0
+- **`s_dropdown` clear-selection upgrade:**
+  - Added a controller API to clear the current selection programmatically, with support for either restoring the initial item or clearing all the way back to the hint state.
+  - Added an inline clear suffix button powered by `SInkButton`, so the current selection can be cleared directly from the dropdown header.
+  - Preserved overlay-open and overlay-closed behavior so clearing works consistently in both states.
+  - Added focused tests and example updates covering both clear-to-initial and clear-to-hint flows.
+
+- **`s_metar` live fetch flexibility upgrade:**
+  - Added configurable fetch options for alternate METAR/TAF endpoints.
+  - Added custom success-code handling for non-standard API responses.
+  - Added configurable JSON field mapping and item extraction so raw METAR/TAF strings can be read from different response shapes.
+  - Added a proxy toggle so callers can disable proxy attachment entirely when talking directly to an API.
+  - Added focused tests covering custom parsing and direct-only fetch behavior.
+
 
 ## 3.4.0
 - **`s_ink_button` hover feedback improvement:**

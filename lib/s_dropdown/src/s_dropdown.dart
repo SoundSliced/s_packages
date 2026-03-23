@@ -94,6 +94,19 @@ class SDropdownController {
     _state?._selectPreviousItem();
   }
 
+  /// Clear the current selection.
+  ///
+  /// When [restoreInitialSelection] is `true`, the dropdown returns to the
+  /// initial selection it started with (if any). When it is `false`, the
+  /// dropdown is cleared completely and the hint/header placeholder is shown.
+  ///
+  /// This works whether the overlay is currently open or closed.
+  void clearSelection({bool restoreInitialSelection = true}) {
+    _state?._clearSelection(
+      restoreInitialSelection: restoreInitialSelection,
+    );
+  }
+
   void closeWithoutSelection() {
     _state?._closeWithoutSelection();
   }
@@ -211,6 +224,19 @@ class SDropdown extends StatefulWidget {
   /// Suffix icon for the closed dropdown
   final Widget? suffixIcon;
 
+  /// Optional clear button shown in the suffix area when an item is selected.
+  ///
+  /// When provided or when [showClearButton] is true, this button replaces the
+  /// normal dropdown chevron while a selection is active.
+  final Widget? clearButtonIcon;
+
+  /// Whether to show a clear button when the dropdown has a selection.
+  final bool showClearButton;
+
+  /// Whether the clear button restores the initial selection instead of
+  /// clearing to the hint state.
+  final bool clearButtonRestoresInitialSelection;
+
   /// Prefix icon for the closed dropdown
   final Widget? prefixIcon;
 
@@ -272,6 +298,9 @@ class SDropdown extends StatefulWidget {
     this.alignment,
     this.maxLines = 1,
     this.suffixIcon,
+    this.clearButtonIcon,
+    this.showClearButton = true,
+    this.clearButtonRestoresInitialSelection = false,
     this.prefixIcon,
     this.validator,
     this.validateOnChange = true,
@@ -284,10 +313,7 @@ class SDropdown extends StatefulWidget {
     this.useKeyboardNavigation = true,
     this.focusNode,
     this.requestFocusOnInit = false,
-  }) : assert(
-          initialItem == null,
-          'Use selectedItem instead of initialItem',
-        );
+  });
 
   @override
   State<SDropdown> createState() => _SDropdownState();
@@ -296,6 +322,7 @@ class SDropdown extends StatefulWidget {
 class _SDropdownState extends State<SDropdown> {
   Object? tapRegionID;
   String? _currentSelection;
+  String? _initialSelection;
   bool _isExpanded = false;
   final LayerLink _layerLink = LayerLink();
   OverlayEntry? _overlayEntry;
@@ -379,6 +406,7 @@ class _SDropdownState extends State<SDropdown> {
   @override
   void initState() {
     super.initState();
+    _initialSelection = widget.initialItem ?? widget.selectedItem;
     _currentSelection = widget.initialItem ?? widget.selectedItem;
 
     if (widget.itemsScrollController != null) {
@@ -411,6 +439,10 @@ class _SDropdownState extends State<SDropdown> {
   @override
   void didUpdateWidget(SDropdown oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    if (widget.initialItem != oldWidget.initialItem) {
+      _initialSelection = widget.initialItem;
+    }
 
     final bool selectionChanged = widget.selectedItem != oldWidget.selectedItem;
     if (selectionChanged) {
@@ -633,6 +665,41 @@ class _SDropdownState extends State<SDropdown> {
 
   void _closeWithoutSelection() {
     _removeOverlay();
+  }
+
+  void _clearSelection({required bool restoreInitialSelection}) {
+    final String? nextSelection =
+        restoreInitialSelection ? _initialSelection : null;
+
+    final bool selectionChanged = _currentSelection != nextSelection;
+    if (selectionChanged) {
+      _setStateSafely(() {
+        _currentSelection = nextSelection;
+      }, rebuildOverlay: _isExpanded);
+    } else if (_isExpanded) {
+      _scheduleOverlayRebuild();
+    }
+
+    if (widget.validateOnChange) {
+      widget.validator?.call(nextSelection);
+    }
+
+    widget.onChanged?.call(nextSelection);
+
+    if (_isExpanded) {
+      _refreshVisibleOptions(keepHighlight: false);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _ensureHighlightInitialized();
+        }
+      });
+    }
+  }
+
+  void _handleClearButtonTap() {
+    _clearSelection(
+      restoreInitialSelection: widget.clearButtonRestoresInitialSelection,
+    );
   }
 
   void _showOverlay() {
@@ -1124,7 +1191,7 @@ class _SDropdownState extends State<SDropdown> {
             ],
             Expanded(
               child: Text(
-                widget.selectedItemText ??
+                (_currentSelection != null ? widget.selectedItemText : null) ??
                     _currentSelection ??
                     widget.hintText ??
                     'Select an option',
@@ -1136,15 +1203,31 @@ class _SDropdownState extends State<SDropdown> {
               ),
             ),
             const SizedBox(width: 8),
-            AnimatedRotation(
-              duration: const Duration(milliseconds: 200),
-              turns: _isExpanded ? 0.5 : 0.0,
-              child: _isExpanded
-                  ? (finalDecoration.expandedSuffixIcon ??
-                      const Icon(Icons.keyboard_arrow_down, size: 20))
-                  : (finalDecoration.closedSuffixIcon ??
-                      const Icon(Icons.keyboard_arrow_down, size: 20)),
-            ),
+            if (widget.showClearButton && _currentSelection != null)
+              SInkButton(
+                isActive: widget.enabled,
+                tooltipMessage: 'Clear selection',
+                hitTestBehavior: HitTestBehavior.opaque,
+                onTap: (_) => _handleClearButtonTap(),
+                child: SizedBox(
+                  width: 28,
+                  height: 28,
+                  child: Center(
+                    child: widget.clearButtonIcon ??
+                        const Icon(Icons.close, size: 18),
+                  ),
+                ),
+              )
+            else
+              AnimatedRotation(
+                duration: const Duration(milliseconds: 200),
+                turns: _isExpanded ? 0.5 : 0.0,
+                child: _isExpanded
+                    ? (finalDecoration.expandedSuffixIcon ??
+                        const Icon(Icons.keyboard_arrow_down, size: 20))
+                    : (finalDecoration.closedSuffixIcon ??
+                        const Icon(Icons.keyboard_arrow_down, size: 20)),
+              ),
           ],
         ),
       ),
@@ -1379,6 +1462,9 @@ extension SDropdownExtension on SDropdown {
     AlignmentGeometry? alignment,
     int? maxLines,
     Widget? suffixIcon,
+    Widget? clearButtonIcon,
+    bool? showClearButton,
+    bool? clearButtonRestoresInitialSelection,
     Widget? prefixIcon,
     String? Function(String?)? validator,
     bool? validateOnChange,
@@ -1424,6 +1510,11 @@ extension SDropdownExtension on SDropdown {
       alignment: alignment ?? this.alignment,
       maxLines: maxLines ?? this.maxLines,
       suffixIcon: suffixIcon ?? this.suffixIcon,
+      clearButtonIcon: clearButtonIcon ?? this.clearButtonIcon,
+      showClearButton: showClearButton ?? this.showClearButton,
+      clearButtonRestoresInitialSelection:
+          clearButtonRestoresInitialSelection ??
+              this.clearButtonRestoresInitialSelection,
       prefixIcon: prefixIcon ?? this.prefixIcon,
       validator: validator ?? this.validator,
       validateOnChange: validateOnChange ?? this.validateOnChange,

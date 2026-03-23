@@ -3,6 +3,60 @@ import 'dart:convert';
 import 'package:s_packages/s_client/s_client.dart';
 import 'package:s_packages/s_metar/src/reports/reports.dart';
 
+/// Extracts the iterable items that contain METAR/TAF payloads from decoded JSON.
+typedef MetarTafJsonItemsExtractor = Iterable<dynamic> Function(
+  dynamic decodedJson,
+);
+
+/// Configuration for a METAR/TAF fetch request.
+///
+/// Use this to point the fetcher at a different endpoint, change the expected
+/// HTTP success code, or adapt parsing to a different JSON shape.
+class MetarTafFetchOptions {
+  /// The base URL used to build the request.
+  ///
+  /// If omitted, the Aviation Weather API default is used.
+  final String? baseUrl;
+
+  /// A custom builder for the request URI.
+  ///
+  /// When provided, this takes precedence over [baseUrl] and the default
+  /// Aviation Weather URI construction.
+  final Uri Function(String icao, DateTime dateTime)? requestUriBuilder;
+
+  /// The HTTP status code that should be treated as success.
+  ///
+  /// If omitted, any 2xx response is accepted.
+  final int? successStatusCode;
+
+  /// The JSON field name containing the raw METAR string.
+  final String rawMetarFieldName;
+
+  /// The JSON field name containing the raw TAF string.
+  final String rawTafFieldName;
+
+  /// Extracts the JSON items that should be scanned for METAR/TAF payloads.
+  ///
+  /// The default assumes the decoded response is a JSON list.
+  final MetarTafJsonItemsExtractor? itemsExtractor;
+
+  /// Whether proxy URLs should be prepended before the direct request URL.
+  ///
+  /// When false, the fetcher skips both the built-in proxy URLs and any custom
+  /// proxy URLs passed to [MetarTafFetcher.fetch].
+  final bool useProxyUrls;
+
+  const MetarTafFetchOptions({
+    this.baseUrl,
+    this.requestUriBuilder,
+    this.successStatusCode,
+    this.rawMetarFieldName = 'rawOb',
+    this.rawTafFieldName = 'rawTaf',
+    this.itemsExtractor,
+    this.useProxyUrls = true,
+  });
+}
+
 /// Result of a METAR/TAF fetch operation.
 ///
 /// Contains the parsed [Metar] and [Taf] objects if available,
@@ -20,8 +74,8 @@ class MetarTafResult {
   /// The raw TAF string from the API.
   final String? rawTaf;
 
-  /// The raw JSON response data.
-  final List<dynamic>? rawJson;
+  /// The decoded JSON response data.
+  final dynamic rawJson;
 
   /// Any error message if the fetch failed.
   final String? error;
@@ -88,6 +142,7 @@ class MetarTafFetcher {
     required DateTime dateTime,
     SClient? client,
     List<String>? customProxyUrls,
+    MetarTafFetchOptions fetchOptions = const MetarTafFetchOptions(),
   }) async {
     final normalizedIcao = icao.toUpperCase();
 
@@ -109,20 +164,29 @@ class MetarTafFetcher {
 
     final formattedDate = _formatDate(dateTime);
 
-    // Use custom proxies if provided, otherwise use static proxyUrls
+    // Use custom proxies if provided, otherwise use static proxyUrls.
     final proxiesToUse = customProxyUrls ?? proxyUrls;
 
-    // Build the complete target URL with query parameters
-    final targetUrl = Uri.parse(_aviationBaseUrl).replace(queryParameters: {
-      'ids': normalizedIcao,
-      'date': formattedDate,
-      'format': 'json',
-      'taf': 'true',
-    }).toString();
+    // Build the complete target URL with query parameters unless a custom
+    // request URI builder is provided.
+    final targetUri = fetchOptions.requestUriBuilder?.call(
+          normalizedIcao,
+          dateTime,
+        ) ??
+        Uri.parse(fetchOptions.baseUrl ?? _aviationBaseUrl).replace(
+          queryParameters: {
+            'ids': normalizedIcao,
+            'date': formattedDate,
+            'format': 'json',
+            'taf': 'true',
+          },
+        );
+    final targetUrl = targetUri.toString();
 
     // Build list of URLs to try: proxies first, then direct
     final urlsToTry = [
-      ...proxiesToUse.map((proxy) => proxy + targetUrl),
+      if (fetchOptions.useProxyUrls)
+        ...proxiesToUse.map((proxy) => proxy + targetUrl),
       targetUrl, // Direct call as final fallback
     ];
 
@@ -147,6 +211,20 @@ class MetarTafFetcher {
         continue; // Try next proxy
       }
 
+      // Check for the expected success code when a custom code is provided.
+      if (response != null &&
+          fetchOptions.successStatusCode != null &&
+          response.statusCode != fetchOptions.successStatusCode) {
+        errors.add(
+          'URL $i unexpected status code (${response.statusCode}); '
+          'expected ${fetchOptions.successStatusCode}',
+        );
+        if (!isLastAttempt) continue;
+        return MetarTafResult(
+          error: 'All attempts failed:\n${errors.join('\n')}',
+        );
+      }
+
       // Check for other errors
       if (error != null) {
         errors.add('URL $i error: ${error.message}');
@@ -167,7 +245,7 @@ class MetarTafFetcher {
       }
 
       // Success! Parse and return
-      return _parseResponse(response);
+      return _parseResponse(response, fetchOptions: fetchOptions);
     }
 
     return MetarTafResult(
@@ -185,13 +263,16 @@ class MetarTafFetcher {
     return '$y$m${d}_$h$min';
   }
 
-  /// Parses the API JSON response into a [MetarTafResult].
-  static MetarTafResult _parseResponse(ClientResponse response) {
+  /// Parses the API JSON response body into a [MetarTafResult].
+  static MetarTafResult parseResponseBody(
+    String body, {
+    MetarTafFetchOptions fetchOptions = const MetarTafFetchOptions(),
+  }) {
     try {
-      final body = response.body;
       final decoded = jsonDecode(body);
 
-      if (decoded is! List || decoded.isEmpty) {
+      final items = _extractItems(decoded, fetchOptions.itemsExtractor);
+      if (items.isEmpty) {
         return const MetarTafResult(
           error: 'No METAR/TAF data found for this station and time.',
         );
@@ -202,11 +283,12 @@ class MetarTafFetcher {
       Metar? metar;
       Taf? taf;
 
-      for (final entry in decoded) {
+      for (final entry in items) {
         if (entry is Map<String, dynamic>) {
           // Extract raw METAR string
-          if (entry.containsKey('rawOb') && entry['rawOb'] != null) {
-            rawMetar = entry['rawOb'] as String;
+          if (entry.containsKey(fetchOptions.rawMetarFieldName) &&
+              entry[fetchOptions.rawMetarFieldName] != null) {
+            rawMetar = entry[fetchOptions.rawMetarFieldName] as String;
             try {
               metar = Metar(rawMetar);
             } catch (_) {
@@ -215,8 +297,9 @@ class MetarTafFetcher {
           }
 
           // Extract raw TAF string
-          if (entry.containsKey('rawTaf') && entry['rawTaf'] != null) {
-            rawTaf = entry['rawTaf'] as String;
+          if (entry.containsKey(fetchOptions.rawTafFieldName) &&
+              entry[fetchOptions.rawTafFieldName] != null) {
+            rawTaf = entry[fetchOptions.rawTafFieldName] as String;
             try {
               taf = Taf(rawTaf);
             } catch (_) {
@@ -236,5 +319,43 @@ class MetarTafFetcher {
     } catch (e) {
       return MetarTafResult(error: 'Failed to parse response: $e');
     }
+  }
+
+  /// Parses the API response and applies the configured parsing options.
+  static MetarTafResult _parseResponse(
+    ClientResponse response, {
+    required MetarTafFetchOptions fetchOptions,
+  }) {
+    return parseResponseBody(
+      response.body,
+      fetchOptions: fetchOptions,
+    );
+  }
+
+  static Iterable<dynamic> _extractItems(
+    dynamic decoded,
+    MetarTafJsonItemsExtractor? itemsExtractor,
+  ) {
+    if (itemsExtractor != null) {
+      return itemsExtractor(decoded);
+    }
+
+    if (decoded is List<dynamic>) {
+      return decoded;
+    }
+
+    if (decoded is Map<String, dynamic>) {
+      final directList = decoded['data'];
+      if (directList is List<dynamic>) {
+        return directList;
+      }
+
+      final nestedList = decoded['results'];
+      if (nestedList is List<dynamic>) {
+        return nestedList;
+      }
+    }
+
+    return const <dynamic>[];
   }
 }
