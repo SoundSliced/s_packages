@@ -3,7 +3,8 @@ import 'package:s_packages/s_packages.dart';
 
 void main() {
   group('SDropdown clear selection', () {
-    testWidgets('restores the initial selection when cleared while closed', (tester) async {
+    testWidgets('restores the initial selection when cleared while closed',
+        (tester) async {
       const String initialItem = 'Banana';
       final controller = SDropdownController();
       String? selectedItem = initialItem;
@@ -46,7 +47,8 @@ void main() {
       expect(find.text(initialItem), findsOneWidget);
     });
 
-    testWidgets('clears to the hint while the overlay stays open', (tester) async {
+    testWidgets('clears to the hint while the overlay stays open',
+        (tester) async {
       final controller = SDropdownController();
       String? selectedItem = 'Banana';
 
@@ -87,7 +89,8 @@ void main() {
       expect(find.text('Pick a fruit'), findsOneWidget);
     });
 
-    testWidgets('shows an inline clear button that clears the selection', (tester) async {
+    testWidgets('shows an inline clear button that clears the selection',
+        (tester) async {
       String? selectedItem = 'Banana';
 
       await tester.pumpWidget(
@@ -123,7 +126,8 @@ void main() {
       expect(find.byType(SInkButton), findsNothing);
     });
 
-    testWidgets('does not show a clear button when only the hint is shown', (tester) async {
+    testWidgets('does not show a clear button when only the hint is shown',
+        (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -139,7 +143,8 @@ void main() {
       expect(find.byType(SInkButton), findsNothing);
     });
 
-    testWidgets('inherits a popup tap-region group for the overlay', (tester) async {
+    testWidgets('inherits a popup tap-region group for the overlay',
+        (tester) async {
       final controller = SDropdownController();
       final inheritedGroupId = Object();
 
