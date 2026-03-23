@@ -341,6 +341,9 @@ class _SDropdownState extends State<SDropdown> {
     return widget.focusNode ?? _internalFocusNode;
   }
 
+  bool get _hasSelectedItem =>
+      _currentSelection != null && widget.items.contains(_currentSelection);
+
   static const double _itemExtent = 35.0;
 
   // Animation trigger - toggle to start expand/collapse animation
@@ -1203,7 +1206,7 @@ class _SDropdownState extends State<SDropdown> {
               ),
             ),
             const SizedBox(width: 8),
-            if (widget.showClearButton && _currentSelection != null)
+            if (widget.showClearButton && _hasSelectedItem)
               SInkButton(
                 isActive: widget.enabled,
                 tooltipMessage: 'Clear selection',
@@ -1214,7 +1217,11 @@ class _SDropdownState extends State<SDropdown> {
                   height: 28,
                   child: Center(
                     child: widget.clearButtonIcon ??
-                        const Icon(Icons.close, size: 18),
+                        const Icon(
+                          Icons.close,
+                          size: 12,
+                          color: Colors.red,
+                        ),
                   ),
                 ),
               )

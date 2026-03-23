@@ -125,5 +125,22 @@ void main() {
       expect(find.text('Pick a fruit'), findsOneWidget);
       expect(find.byType(SInkButton), findsNothing);
     });
+
+    testWidgets('does not show a clear button when only the hint is shown',
+        (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SDropdown(
+              items: ['Apple', 'Banana', 'Cherry', 'Durian'],
+              hintText: 'Pick a fruit',
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Pick a fruit'), findsOneWidget);
+      expect(find.byType(SInkButton), findsNothing);
+    });
   });
 }
