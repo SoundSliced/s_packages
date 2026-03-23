@@ -252,6 +252,15 @@ class SDropdown extends StatefulWidget {
   /// Controller used to manage the dropdown programmatically
   final SDropdownController? controller;
 
+  /// Optional tap-region group ID for the dropdown overlay.
+  ///
+  /// When provided, the dropdown's overlay joins this shared region so it can
+  /// coexist with parent popups that use outside-tap detection.
+  /// If omitted, the dropdown automatically inherits the nearest
+  /// [PopOverlayTapRegionScope] when available, then falls back to its own
+  /// controller tap-region group.
+  final Object? tapRegionGroupId;
+
   final int? autoScrollMaxFrameDelay;
   final int? autoScrollEndOfFrameDelay;
 
@@ -308,6 +317,7 @@ class SDropdown extends StatefulWidget {
     this.headerExpandedColor,
     this.selectedItemText,
     this.controller,
+    this.tapRegionGroupId,
     this.autoScrollMaxFrameDelay,
     this.autoScrollEndOfFrameDelay,
     this.useKeyboardNavigation = true,
@@ -321,6 +331,7 @@ class SDropdown extends StatefulWidget {
 
 class _SDropdownState extends State<SDropdown> {
   Object? tapRegionID;
+  Object? _resolvedTapRegionGroupId;
   String? _currentSelection;
   String? _initialSelection;
   bool _isExpanded = false;
@@ -341,8 +352,7 @@ class _SDropdownState extends State<SDropdown> {
     return widget.focusNode ?? _internalFocusNode;
   }
 
-  bool get _hasSelectedItem =>
-      _currentSelection != null && widget.items.contains(_currentSelection);
+  bool get _hasSelectedItem => _currentSelection != null && widget.items.contains(_currentSelection);
 
   static const double _itemExtent = 35.0;
 
@@ -351,8 +361,7 @@ class _SDropdownState extends State<SDropdown> {
 
   bool get _canMutateStateNow {
     final SchedulerPhase phase = SchedulerBinding.instance.schedulerPhase;
-    return phase == SchedulerPhase.idle ||
-        phase == SchedulerPhase.postFrameCallbacks;
+    return phase == SchedulerPhase.idle || phase == SchedulerPhase.postFrameCallbacks;
   }
 
   void _setStateSafely(VoidCallback mutation, {bool rebuildOverlay = false}) {
@@ -427,8 +436,7 @@ class _SDropdownState extends State<SDropdown> {
   }
 
   void _syncInternalFocusNode() {
-    final bool needsInternal =
-        widget.useKeyboardNavigation && widget.focusNode == null;
+    final bool needsInternal = widget.useKeyboardNavigation && widget.focusNode == null;
     if (needsInternal) {
       _internalFocusNode ??= FocusNode(debugLabel: 'SDropdownInternal');
     } else {
@@ -437,6 +445,10 @@ class _SDropdownState extends State<SDropdown> {
         _internalFocusNode = null;
       }
     }
+  }
+
+  Object? _resolveTapRegionGroupId(BuildContext context) {
+    return widget.tapRegionGroupId ?? PopOverlayTapRegionScope.maybeOf(context) ?? tapRegionID;
   }
 
   @override
@@ -474,17 +486,13 @@ class _SDropdownState extends State<SDropdown> {
       _closeWithoutSelection();
     }
 
-    if (!widget.useKeyboardNavigation &&
-        oldWidget.useKeyboardNavigation &&
-        _isExpanded) {
+    if (!widget.useKeyboardNavigation && oldWidget.useKeyboardNavigation && _isExpanded) {
       _closeWithoutSelection();
     }
 
     final bool itemsChanged = !_stringListEquals(widget.items, oldWidget.items);
-    final bool namesChanged = !_stringListEquals(
-        widget.customItemsNamesDisplayed, oldWidget.customItemsNamesDisplayed);
-    final bool excludeChanged =
-        widget.excludeSelected != oldWidget.excludeSelected;
+    final bool namesChanged = !_stringListEquals(widget.customItemsNamesDisplayed, oldWidget.customItemsNamesDisplayed);
+    final bool excludeChanged = widget.excludeSelected != oldWidget.excludeSelected;
 
     if (selectionChanged || itemsChanged || namesChanged || excludeChanged) {
       final bool keepHighlight = _isExpanded && !selectionChanged;
@@ -536,9 +544,7 @@ class _SDropdownState extends State<SDropdown> {
       return KeyEventResult.handled;
     }
 
-    if (key == LogicalKeyboardKey.enter ||
-        key == LogicalKeyboardKey.numpadEnter ||
-        key == LogicalKeyboardKey.space) {
+    if (key == LogicalKeyboardKey.enter || key == LogicalKeyboardKey.numpadEnter || key == LogicalKeyboardKey.space) {
       if (_isExpanded) {
         _selectHighlightedItem();
       } else {
@@ -554,8 +560,7 @@ class _SDropdownState extends State<SDropdown> {
       return KeyEventResult.ignored;
     }
 
-    if (key == LogicalKeyboardKey.escape ||
-        key == LogicalKeyboardKey.backspace) {
+    if (key == LogicalKeyboardKey.escape || key == LogicalKeyboardKey.backspace) {
       if (_isExpanded) {
         _closeWithoutSelection();
         return KeyEventResult.handled;
@@ -569,6 +574,8 @@ class _SDropdownState extends State<SDropdown> {
   Widget build(BuildContext context) {
     final double effectiveScale = widget.scale ?? 1.0;
 
+    _resolvedTapRegionGroupId = _resolveTapRegionGroupId(context);
+
     Widget buildCore({required bool hasFocus}) {
       return CompositedTransformTarget(
         link: _layerLink,
@@ -577,8 +584,7 @@ class _SDropdownState extends State<SDropdown> {
           curve: Curves.easeOut,
           decoration: widget.useKeyboardNavigation
               ? BoxDecoration(
-                  borderRadius:
-                      widget.closedBorderRadius ?? BorderRadius.circular(8),
+                  borderRadius: widget.closedBorderRadius ?? BorderRadius.circular(8),
                   boxShadow: hasFocus
                       ? [
                           BoxShadow(
@@ -590,10 +596,7 @@ class _SDropdownState extends State<SDropdown> {
                       : null,
                   border: Border.all(
                     width: (hasFocus ? 1 : 0.5) * effectiveScale,
-                    color: hasFocus
-                        ? Colors.blue.shade600
-                        : (widget.closedBorder?.top.color ??
-                            Colors.transparent),
+                    color: hasFocus ? Colors.blue.shade600 : (widget.closedBorder?.top.color ?? Colors.transparent),
                   ),
                 )
               : null,
@@ -620,8 +623,7 @@ class _SDropdownState extends State<SDropdown> {
                     return Listener(
                       onPointerDown: (_) {
                         if (!hasFocus && _effectiveFocusNode != null) {
-                          FocusScope.of(context)
-                              .requestFocus(_effectiveFocusNode);
+                          FocusScope.of(context).requestFocus(_effectiveFocusNode);
                         }
                       },
                       child: buildCore(hasFocus: hasFocus),
@@ -671,8 +673,7 @@ class _SDropdownState extends State<SDropdown> {
   }
 
   void _clearSelection({required bool restoreInitialSelection}) {
-    final String? nextSelection =
-        restoreInitialSelection ? _initialSelection : null;
+    final String? nextSelection = restoreInitialSelection ? _initialSelection : null;
 
     final bool selectionChanged = _currentSelection != nextSelection;
     if (selectionChanged) {
@@ -719,8 +720,7 @@ class _SDropdownState extends State<SDropdown> {
     int? initialHighlight;
     if (_visibleOptions.isNotEmpty) {
       if (_currentSelection != null) {
-        final int selectedIndex = _visibleOptions
-            .indexWhere((option) => option.value == _currentSelection);
+        final int selectedIndex = _visibleOptions.indexWhere((option) => option.value == _currentSelection);
         if (selectedIndex != -1) {
           initialHighlight = selectedIndex;
         }
@@ -816,8 +816,7 @@ class _SDropdownState extends State<SDropdown> {
 
   void _refreshVisibleOptions({required bool keepHighlight}) {
     final List<_DropdownOption> next = _computeVisibleOptions();
-    final bool highlightOutOfRange =
-        _highlightedIndex != null && _highlightedIndex! >= next.length;
+    final bool highlightOutOfRange = _highlightedIndex != null && _highlightedIndex! >= next.length;
     final bool shouldResetHighlight = !keepHighlight || highlightOutOfRange;
 
     if (_isExpanded) {
@@ -857,10 +856,7 @@ class _SDropdownState extends State<SDropdown> {
         continue;
       }
 
-      final String displayText =
-          customNames.length > i && customNames[i].isNotEmpty
-              ? customNames[i]
-              : value;
+      final String displayText = customNames.length > i && customNames[i].isNotEmpty ? customNames[i] : value;
 
       result.add(
         _DropdownOption(
@@ -919,8 +915,7 @@ class _SDropdownState extends State<SDropdown> {
 
     if (nextHighlight == null || nextHighlight >= _visibleOptions.length) {
       if (_currentSelection != null) {
-        final int selectedIndex = _visibleOptions
-            .indexWhere((option) => option.value == _currentSelection);
+        final int selectedIndex = _visibleOptions.indexWhere((option) => option.value == _currentSelection);
         if (selectedIndex != -1) {
           nextHighlight = selectedIndex;
         }
@@ -1001,15 +996,13 @@ class _SDropdownState extends State<SDropdown> {
   void _setHighlightAtIndex(int originalIndex) {
     _requestFocusIfNeeded();
     // Map original index (index in widget.items) to visible overlay index
-    final int visibleIndex =
-        _visibleOptions.indexWhere((o) => o.originalIndex == originalIndex);
+    final int visibleIndex = _visibleOptions.indexWhere((o) => o.originalIndex == originalIndex);
     if (visibleIndex == -1) {
       // Item not visible (could be excluded). If overlay is closed, open it to recompute.
       if (!_isExpanded) {
         _openFromController();
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          final int idx = _visibleOptions
-              .indexWhere((o) => o.originalIndex == originalIndex);
+          final int idx = _visibleOptions.indexWhere((o) => o.originalIndex == originalIndex);
           if (idx != -1) {
             _setStateSafely(() {
               _keyboardNavigationActive = true;
@@ -1043,8 +1036,7 @@ class _SDropdownState extends State<SDropdown> {
 
   void _setHighlightForValue(String value) {
     _requestFocusIfNeeded();
-    final int visibleIndex =
-        _visibleOptions.indexWhere((o) => o.value == value);
+    final int visibleIndex = _visibleOptions.indexWhere((o) => o.value == value);
     if (visibleIndex == -1) {
       if (!_isExpanded) {
         _openFromController();
@@ -1097,18 +1089,13 @@ class _SDropdownState extends State<SDropdown> {
   }
 
   void _selectNextItem() {
-    final int currentIndex = _currentSelection != null
-        ? widget.items.indexOf(_currentSelection!)
-        : -1;
-    final int nextIndex =
-        currentIndex == -1 ? 0 : (currentIndex + 1) % widget.items.length;
+    final int currentIndex = _currentSelection != null ? widget.items.indexOf(_currentSelection!) : -1;
+    final int nextIndex = currentIndex == -1 ? 0 : (currentIndex + 1) % widget.items.length;
     _selectItem(widget.items[nextIndex]);
   }
 
   void _selectPreviousItem() {
-    final int currentIndex = _currentSelection != null
-        ? widget.items.indexOf(_currentSelection!)
-        : -1;
+    final int currentIndex = _currentSelection != null ? widget.items.indexOf(_currentSelection!) : -1;
     int previousIndex = currentIndex == -1 ? 0 : currentIndex - 1;
     if (previousIndex < 0) {
       previousIndex = widget.items.length - 1;
@@ -1133,37 +1120,26 @@ class _SDropdownState extends State<SDropdown> {
   }
 
   Widget _buildDropdownButton() {
-    final SDropdownDecoration effectiveDecoration =
-        SDropdownDecoration.defaultDecoration.merge(
+    final SDropdownDecoration effectiveDecoration = SDropdownDecoration.defaultDecoration.merge(
       widget.decoration,
     );
 
     final SDropdownDecoration finalDecoration = effectiveDecoration.copyWith(
-      closedFillColor:
-          widget.closedFillColor ?? effectiveDecoration.closedFillColor,
-      expandedFillColor:
-          widget.expandedFillColor ?? effectiveDecoration.expandedFillColor,
+      closedFillColor: widget.closedFillColor ?? effectiveDecoration.closedFillColor,
+      expandedFillColor: widget.expandedFillColor ?? effectiveDecoration.expandedFillColor,
       closedBorder: widget.closedBorder ?? effectiveDecoration.closedBorder,
-      expandedBorder:
-          widget.expandedBorder ?? effectiveDecoration.expandedBorder,
-      closedBorderRadius:
-          widget.closedBorderRadius ?? effectiveDecoration.closedBorderRadius,
-      expandedBorderRadius: widget.expandedBorderRadius ??
-          effectiveDecoration.expandedBorderRadius,
+      expandedBorder: widget.expandedBorder ?? effectiveDecoration.expandedBorder,
+      closedBorderRadius: widget.closedBorderRadius ?? effectiveDecoration.closedBorderRadius,
+      expandedBorderRadius: widget.expandedBorderRadius ?? effectiveDecoration.expandedBorderRadius,
       headerStyle: widget.headerTextStyle ?? effectiveDecoration.headerStyle,
       hintStyle: widget.hintTextStyle ?? effectiveDecoration.hintStyle,
       listItemStyle: widget.itemTextStyle ?? effectiveDecoration.listItemStyle,
-      closedSuffixIcon:
-          widget.suffixIcon ?? effectiveDecoration.closedSuffixIcon,
+      closedSuffixIcon: widget.suffixIcon ?? effectiveDecoration.closedSuffixIcon,
       prefixIcon: widget.prefixIcon ?? effectiveDecoration.prefixIcon,
-      closedHeaderPadding:
-          widget.closedHeaderPadding ?? effectiveDecoration.closedHeaderPadding,
-      expandedHeaderPadding: widget.expandedHeaderPadding ??
-          effectiveDecoration.expandedHeaderPadding,
-      itemsListPadding:
-          widget.itemsListPadding ?? effectiveDecoration.itemsListPadding,
-      listItemPadding:
-          widget.listItemPadding ?? effectiveDecoration.listItemPadding,
+      closedHeaderPadding: widget.closedHeaderPadding ?? effectiveDecoration.closedHeaderPadding,
+      expandedHeaderPadding: widget.expandedHeaderPadding ?? effectiveDecoration.expandedHeaderPadding,
+      itemsListPadding: widget.itemsListPadding ?? effectiveDecoration.itemsListPadding,
+      listItemPadding: widget.listItemPadding ?? effectiveDecoration.listItemPadding,
       overlayHeight: widget.overlayHeight ?? effectiveDecoration.overlayHeight,
       maxLines: widget.maxLines,
     );
@@ -1173,18 +1149,10 @@ class _SDropdownState extends State<SDropdown> {
       child: Container(
         padding: finalDecoration.closedHeaderPadding,
         decoration: BoxDecoration(
-          color: _isExpanded
-              ? finalDecoration.headerExpandedColor
-              : finalDecoration.closedFillColor,
-          border: _isExpanded
-              ? finalDecoration.expandedBorder
-              : finalDecoration.closedBorder,
-          borderRadius: _isExpanded
-              ? finalDecoration.expandedBorderRadius
-              : finalDecoration.closedBorderRadius,
-          boxShadow: _isExpanded
-              ? finalDecoration.expandedShadow
-              : finalDecoration.closedShadow,
+          color: _isExpanded ? finalDecoration.headerExpandedColor : finalDecoration.closedFillColor,
+          border: _isExpanded ? finalDecoration.expandedBorder : finalDecoration.closedBorder,
+          borderRadius: _isExpanded ? finalDecoration.expandedBorderRadius : finalDecoration.closedBorderRadius,
+          boxShadow: _isExpanded ? finalDecoration.expandedShadow : finalDecoration.closedShadow,
         ),
         child: Row(
           children: [
@@ -1198,9 +1166,7 @@ class _SDropdownState extends State<SDropdown> {
                     _currentSelection ??
                     widget.hintText ??
                     'Select an option',
-                style: _currentSelection != null
-                    ? finalDecoration.headerStyle
-                    : finalDecoration.hintStyle,
+                style: _currentSelection != null ? finalDecoration.headerStyle : finalDecoration.hintStyle,
                 maxLines: finalDecoration.maxLines ?? 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -1230,10 +1196,8 @@ class _SDropdownState extends State<SDropdown> {
                 duration: const Duration(milliseconds: 200),
                 turns: _isExpanded ? 0.5 : 0.0,
                 child: _isExpanded
-                    ? (finalDecoration.expandedSuffixIcon ??
-                        const Icon(Icons.keyboard_arrow_down, size: 20))
-                    : (finalDecoration.closedSuffixIcon ??
-                        const Icon(Icons.keyboard_arrow_down, size: 20)),
+                    ? (finalDecoration.expandedSuffixIcon ?? const Icon(Icons.keyboard_arrow_down, size: 20))
+                    : (finalDecoration.closedSuffixIcon ?? const Icon(Icons.keyboard_arrow_down, size: 20)),
               ),
           ],
         ),
@@ -1242,36 +1206,27 @@ class _SDropdownState extends State<SDropdown> {
   }
 
   Widget _buildOverlay(Size buttonSize) {
-    final SDropdownDecoration effectiveDecoration =
-        SDropdownDecoration.defaultDecoration.merge(
+    final SDropdownDecoration effectiveDecoration = SDropdownDecoration.defaultDecoration.merge(
       widget.decoration,
     );
 
     final SDropdownDecoration finalDecoration = effectiveDecoration.copyWith(
       overlayHeight: widget.overlayHeight ?? effectiveDecoration.overlayHeight,
       overlayWidth: widget.overlayWidth ?? effectiveDecoration.overlayWidth,
-      expandedFillColor:
-          widget.expandedFillColor ?? effectiveDecoration.expandedFillColor,
-      expandedBorder:
-          widget.expandedBorder ?? effectiveDecoration.expandedBorder,
-      expandedBorderRadius: widget.expandedBorderRadius ??
-          effectiveDecoration.expandedBorderRadius,
-      itemsListPadding:
-          widget.itemsListPadding ?? effectiveDecoration.itemsListPadding,
-      listItemPadding:
-          widget.listItemPadding ?? effectiveDecoration.listItemPadding,
+      expandedFillColor: widget.expandedFillColor ?? effectiveDecoration.expandedFillColor,
+      expandedBorder: widget.expandedBorder ?? effectiveDecoration.expandedBorder,
+      expandedBorderRadius: widget.expandedBorderRadius ?? effectiveDecoration.expandedBorderRadius,
+      itemsListPadding: widget.itemsListPadding ?? effectiveDecoration.itemsListPadding,
+      listItemPadding: widget.listItemPadding ?? effectiveDecoration.listItemPadding,
       listItemStyle: widget.itemTextStyle ?? effectiveDecoration.listItemStyle,
       maxLines: widget.maxLines,
     );
 
-    final double overlayWidth =
-        widget.overlayWidth ?? widget.width ?? buttonSize.width;
+    final double overlayWidth = widget.overlayWidth ?? widget.width ?? buttonSize.width;
 
     const double itemHeight = _itemExtent;
-    final double topBottomPadding =
-        finalDecoration.itemsListPadding?.vertical ?? 16.0;
-    final double calculatedHeight =
-        (_visibleOptions.length * itemHeight) + topBottomPadding;
+    final double topBottomPadding = finalDecoration.itemsListPadding?.vertical ?? 16.0;
+    final double calculatedHeight = (_visibleOptions.length * itemHeight) + topBottomPadding;
 
     double overlayHeightValue;
     if (widget.overlayHeight != null) {
@@ -1309,7 +1264,7 @@ class _SDropdownState extends State<SDropdown> {
                   child: Material(
                     color: Colors.transparent,
                     child: TapRegion(
-                      groupId: tapRegionID,
+                      groupId: _resolvedTapRegionGroupId ?? tapRegionID,
                       onTapOutside: (event) {
                         // debugPrint('SDropdown: Tap outside detected');
                         if (widget.canCloseOutsideBounds) {
@@ -1336,17 +1291,14 @@ class _SDropdownState extends State<SDropdown> {
                           shrinkWrap: true,
                           itemCount: _visibleOptions.length,
                           indexToScrollTo: _scrollTargetIndex,
-                          scrollAnimationDuration:
-                              const Duration(milliseconds: 300),
+                          scrollAnimationDuration: const Duration(milliseconds: 300),
                           onScrolledTo: (index) {
                             if (_scrollTargetIndex != index) {
                               _scrollTargetIndex = index;
                             }
                           },
-                          autoScrollMaxFrameDelay:
-                              widget.autoScrollMaxFrameDelay,
-                          autoScrollEndOfFrameDelay:
-                              widget.autoScrollEndOfFrameDelay,
+                          autoScrollMaxFrameDelay: widget.autoScrollMaxFrameDelay,
+                          autoScrollEndOfFrameDelay: widget.autoScrollEndOfFrameDelay,
                           physics: const BouncingScrollPhysics(),
                           showScrollbar: true,
                           scrollbarThumbVisibility: true,
@@ -1354,37 +1306,27 @@ class _SDropdownState extends State<SDropdown> {
                           suppressPlatformScrollbars: true,
                           scrollAlignment: 0.2,
                           itemBuilder: (context, index) {
-                            final _DropdownOption option =
-                                _visibleOptions[index];
-                            final bool isSelected =
-                                option.value == _currentSelection;
-                            final bool isHighlighted =
-                                _keyboardNavigationActive &&
-                                    _highlightedIndex == index;
+                            final _DropdownOption option = _visibleOptions[index];
+                            final bool isSelected = option.value == _currentSelection;
+                            final bool isHighlighted = _keyboardNavigationActive && _highlightedIndex == index;
 
-                            final TextStyle itemStyle =
-                                widget.itemSpecificStyles?[option.value] ??
-                                    finalDecoration.listItemStyle ??
-                                    const TextStyle(fontSize: 14);
+                            final TextStyle itemStyle = widget.itemSpecificStyles?[option.value] ??
+                                finalDecoration.listItemStyle ??
+                                const TextStyle(fontSize: 14);
 
-                            final ColorScheme colorScheme =
-                                Theme.of(context).colorScheme;
-                            final bool isActiveSelection =
-                                isSelected && isHighlighted;
-                            final Color highlightColor = colorScheme.primary
-                                .withValues(
-                                    alpha: isActiveSelection ? 0.3 : 0.22);
-                            final Color selectedColor = colorScheme.primary
-                                .withValues(
-                                    alpha: isActiveSelection ? 0.18 : 0.08);
+                            final ColorScheme colorScheme = Theme.of(context).colorScheme;
+                            final bool isActiveSelection = isSelected && isHighlighted;
+                            final Color highlightColor =
+                                colorScheme.primary.withValues(alpha: isActiveSelection ? 0.3 : 0.22);
+                            final Color selectedColor =
+                                colorScheme.primary.withValues(alpha: isActiveSelection ? 0.18 : 0.08);
                             final Color resolvedBackground = isSelected
                                 ? highlightColor
                                 : isHighlighted
                                     ? selectedColor
                                     : Colors.transparent;
                             final Color resolvedBorder = isSelected
-                                ? colorScheme.primary.withValues(
-                                    alpha: isActiveSelection ? 0.75 : 0.55)
+                                ? colorScheme.primary.withValues(alpha: isActiveSelection ? 0.75 : 0.55)
                                 : Colors.transparent;
 
                             return MouseRegion(
@@ -1409,9 +1351,7 @@ class _SDropdownState extends State<SDropdown> {
                                   child: Text(
                                     option.displayText,
                                     style: itemStyle.copyWith(
-                                      fontWeight: isSelected || isHighlighted
-                                          ? FontWeight.w600
-                                          : FontWeight.normal,
+                                      fontWeight: isSelected || isHighlighted ? FontWeight.w600 : FontWeight.normal,
                                     ),
                                     maxLines: finalDecoration.maxLines ?? 1,
                                     overflow: TextOverflow.ellipsis,
@@ -1477,6 +1417,7 @@ extension SDropdownExtension on SDropdown {
     bool? validateOnChange,
     SDropdownDecoration? decoration,
     SDropdownController? controller,
+    Object? tapRegionGroupId,
     bool? useKeyboardNavigation,
     FocusNode? focusNode,
     bool? requestFocusOnInit,
@@ -1504,15 +1445,12 @@ extension SDropdownExtension on SDropdown {
       closedBorderRadius: closedBorderRadius ?? this.closedBorderRadius,
       expandedBorderRadius: expandedBorderRadius ?? this.expandedBorderRadius,
       closedHeaderPadding: closedHeaderPadding ?? this.closedHeaderPadding,
-      expandedHeaderPadding:
-          expandedHeaderPadding ?? this.expandedHeaderPadding,
+      expandedHeaderPadding: expandedHeaderPadding ?? this.expandedHeaderPadding,
       itemsListPadding: itemsListPadding ?? this.itemsListPadding,
       listItemPadding: listItemPadding ?? this.listItemPadding,
-      itemsScrollController:
-          itemsScrollController ?? this.itemsScrollController,
+      itemsScrollController: itemsScrollController ?? this.itemsScrollController,
       excludeSelected: excludeSelected ?? this.excludeSelected,
-      canCloseOutsideBounds:
-          canCloseOutsideBounds ?? this.canCloseOutsideBounds,
+      canCloseOutsideBounds: canCloseOutsideBounds ?? this.canCloseOutsideBounds,
       enabled: enabled ?? this.enabled,
       alignment: alignment ?? this.alignment,
       maxLines: maxLines ?? this.maxLines,
@@ -1520,18 +1458,17 @@ extension SDropdownExtension on SDropdown {
       clearButtonIcon: clearButtonIcon ?? this.clearButtonIcon,
       showClearButton: showClearButton ?? this.showClearButton,
       clearButtonRestoresInitialSelection:
-          clearButtonRestoresInitialSelection ??
-              this.clearButtonRestoresInitialSelection,
+          clearButtonRestoresInitialSelection ?? this.clearButtonRestoresInitialSelection,
       prefixIcon: prefixIcon ?? this.prefixIcon,
       validator: validator ?? this.validator,
       validateOnChange: validateOnChange ?? this.validateOnChange,
       decoration: decoration ?? this.decoration,
       controller: controller ?? this.controller,
+      tapRegionGroupId: tapRegionGroupId ?? this.tapRegionGroupId,
       headerExpandedColor: headerExpandedColor,
       selectedItemText: selectedItemText,
       customItemsNamesDisplayed: customItemsNamesDisplayed,
-      useKeyboardNavigation:
-          useKeyboardNavigation ?? this.useKeyboardNavigation,
+      useKeyboardNavigation: useKeyboardNavigation ?? this.useKeyboardNavigation,
       focusNode: focusNode ?? this.focusNode,
       requestFocusOnInit: requestFocusOnInit ?? this.requestFocusOnInit,
     );
