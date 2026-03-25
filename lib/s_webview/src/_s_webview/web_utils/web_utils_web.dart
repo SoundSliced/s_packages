@@ -7,7 +7,7 @@
 library;
 
 // ignore: depend_on_referenced_packages
-import 'package:universal_html/universal_html.dart' as web;
+import 'package:web/web.dart' as web;
 
 /// Opens a URL in a new browser tab (web platform only).
 void openInNewTab(String url) {

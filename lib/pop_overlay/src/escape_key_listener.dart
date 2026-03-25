@@ -1,6 +1,8 @@
+import 'dart:js_interop';
+
 import 'package:s_packages/s_packages.dart';
 // ignore: depend_on_referenced_packages
-import 'package:universal_html/universal_html.dart' as html;
+import 'package:web/web.dart' as web;
 
 /// Simple, reliable escape key handler that works globally without focus dependencies
 ///
@@ -113,7 +115,7 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
     HardwareKeyboard.instance.removeHandler(_hardwareHandler);
 
     if (kIsWeb && _htmlListener != null) {
-      html.window.removeEventListener('keydown', _htmlListener, true);
+      web.window.removeEventListener('keydown', _htmlListener.toJS, true.toJS);
       _htmlListener = null;
     }
 

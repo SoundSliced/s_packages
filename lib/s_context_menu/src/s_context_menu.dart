@@ -67,6 +67,7 @@ library;
 // accessibility announcements, throttling, callbacks, theming, overflow scrolling,
 // and keyboard event listening.
 
+import 'dart:js_interop';
 import 'dart:math' as math;
 import 'dart:ui';
 
@@ -82,7 +83,8 @@ export 's_context_menu_controllers.dart';
 export 's_context_menu_theme.dart';
 
 // ignore: depend_on_referenced_packages
-import 'package:universal_html/universal_html.dart' as html;
+import 'package:web/web.dart' as web;
+
 
 enum _DismissReason { action, escape, outsideTap, programmatic }
 
@@ -137,7 +139,9 @@ class SContextMenu extends StatefulWidget {
   //https://stackoverflow.com/questions/62209594/how-to-disable-right-click-context-menu-in-flutter-web
 
   static void preventBrowserContextMenu() =>
-      html.document.onContextMenu.listen((event) => event.preventDefault());
+      web.document.addEventListener('contextmenu', ((web.Event event) {
+        event.preventDefault();
+      }).toJS);
 
   static _SContextMenuState? _activeMenuState;
 
