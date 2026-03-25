@@ -340,6 +340,32 @@ class PopOverlayContent {
   int get hashCode => id.hashCode;
 }
 
+/// Inherited scope used by popup content to expose a shared tap-region group.
+///
+/// Widgets inside a popup can read this scope and enroll their own overlay
+/// surfaces into the same [TapRegion] group, which keeps interactions like
+/// dropdown menus from being misclassified as outside taps.
+class PopOverlayTapRegionScope extends InheritedWidget {
+  final Object? tapRegionGroupId;
+
+  const PopOverlayTapRegionScope({
+    super.key,
+    required this.tapRegionGroupId,
+    required super.child,
+  });
+
+  static Object? maybeOf(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<PopOverlayTapRegionScope>()
+        ?.tapRegionGroupId;
+  }
+
+  @override
+  bool updateShouldNotify(covariant PopOverlayTapRegionScope oldWidget) {
+    return oldWidget.tapRegionGroupId != tapRegionGroupId;
+  }
+}
+
 /// Default rendering stack levels for pop overlays.
 ///
 /// Higher values render above lower values.

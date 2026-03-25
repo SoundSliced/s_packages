@@ -199,6 +199,24 @@ class _PopOverlayFrameDesignWidgetState
         widget.frameDesign?.titleBarHeight ?? _defaultTitleBarHeight;
   }
 
+  Widget _wrapPopupContent(Widget child) {
+    final tapRegionGroupId = widget.popContent.tapRegionGroupId;
+    if (tapRegionGroupId == null) {
+      return child;
+    }
+
+    return PopOverlayTapRegionScope(
+      tapRegionGroupId: tapRegionGroupId,
+      child: TapRegion(
+        groupId: tapRegionGroupId,
+        behavior: widget.popContent.tapRegionBehavior,
+        onTapOutside: widget.popContent.onTapRegionOutside,
+        onTapInside: widget.popContent.onTapRegionInside,
+        child: child,
+      ),
+    );
+  }
+
   double _resolveResponsiveDimension({
     required double? value,
     required double fallback,
@@ -317,7 +335,7 @@ class _PopOverlayFrameDesignWidgetState
                         }
                         //  });
                       },
-                      child: widget.child,
+                      child: _wrapPopupContent(widget.child),
                     ),
                   ),
 
@@ -333,74 +351,77 @@ class _PopOverlayFrameDesignWidgetState
                         maxWidth: 96.w,
                         maxHeight: 96.h,
                       ),
-                      child: _PopOverlayContainer(
-                        height: _computedHeight,
-                        width: _computedWidth,
-                        borderRadius: widget.popContent.borderRadius,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _PopOverlayHeader(
-                              title: widget.frameDesign!.title,
-                              subtitle: widget.frameDesign!.subtitle,
-                              titlePrefixIcon:
-                                  widget.frameDesign!.titlePrefixIcon,
-                              showCloseButton:
-                                  widget.frameDesign!.showCloseButton,
-                              titleBarHeight: _computedTitleBarHeight,
-                              titleBarColor: widget.frameDesign!.titleBarColor,
-                              headerTrailingWidgets:
-                                  widget.frameDesign!.headerTrailingWidgets,
-                              width: null,
-                              isDraggable: widget.isDraggable,
-                              popContent: widget.popContent,
-                              info: widget.frameDesign!.info,
-                            ),
-
-                            // Use MyOffstage to measure child size without rendering it initially
-
-                            // Only render the child if we have a valid size
-                            Flexible(child: widget.child),
-
-                            // Bottom bar
-                            if (widget.frameDesign!.showBottomButtonBar)
-                              _PopOverlayBottomBar(
-                                height: widget.frameDesign!.bottomBarHeight,
-                                successButtonColor:
-                                    widget.frameDesign!.successButtonColor,
-                                cancelButtonColor:
-                                    widget.frameDesign!.cancelButtonColor,
-                                bottomBarColor:
-                                    widget.frameDesign!.bottomBarColor,
-                                successButtonTitle:
-                                    widget.frameDesign!.successButtonTitle,
-                                cancelButtonTitle:
-                                    widget.frameDesign!.cancelButtonTitle,
-                                isSuccessButtonDisabled: widget.frameDesign!
-                                    .conditionToDisableSuccessButton,
-                                showBottomButtonBar:
-                                    widget.frameDesign!.showBottomButtonBar,
-                                onSuccess: widget.frameDesign!.onSuccess,
-                                onFutureSuccess:
-                                    widget.frameDesign!.onFutureSuccess,
-                                onFutureSuccessValidator: widget
-                                    .frameDesign!.onFutureSuccessValidator,
-                                onCancel: widget.frameDesign!.onCancel,
-                                popContent: widget.popContent,
+                      child: _wrapPopupContent(
+                        _PopOverlayContainer(
+                          height: _computedHeight,
+                          width: _computedWidth,
+                          borderRadius: widget.popContent.borderRadius,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _PopOverlayHeader(
+                                title: widget.frameDesign!.title,
+                                subtitle: widget.frameDesign!.subtitle,
+                                titlePrefixIcon:
+                                    widget.frameDesign!.titlePrefixIcon,
+                                showCloseButton:
+                                    widget.frameDesign!.showCloseButton,
+                                titleBarHeight: _computedTitleBarHeight,
+                                titleBarColor:
+                                    widget.frameDesign!.titleBarColor,
+                                headerTrailingWidgets:
+                                    widget.frameDesign!.headerTrailingWidgets,
                                 width: null,
-                                cycleFocusWithinGroup:
-                                    widget.frameDesign!.cycleFocusWithinGroup,
-                                cancelButtonFocusNode:
-                                    widget.frameDesign!.cancelButtonFocusNode,
-                                saveButtonFocusNode:
-                                    widget.frameDesign!.saveButtonFocusNode,
-                                wrapFocusTargetRoleBuilder: widget
-                                    .frameDesign!.cycleFocusTargetRoleBuilder,
-                                wrapFocusSkipRoles:
-                                    widget.frameDesign!.cycleFocusSkipRoles,
+                                isDraggable: widget.isDraggable,
+                                popContent: widget.popContent,
+                                info: widget.frameDesign!.info,
                               ),
-                          ],
+
+                              // Use MyOffstage to measure child size without rendering it initially
+
+                              // Only render the child if we have a valid size
+                              Flexible(child: widget.child),
+
+                              // Bottom bar
+                              if (widget.frameDesign!.showBottomButtonBar)
+                                _PopOverlayBottomBar(
+                                  height: widget.frameDesign!.bottomBarHeight,
+                                  successButtonColor:
+                                      widget.frameDesign!.successButtonColor,
+                                  cancelButtonColor:
+                                      widget.frameDesign!.cancelButtonColor,
+                                  bottomBarColor:
+                                      widget.frameDesign!.bottomBarColor,
+                                  successButtonTitle:
+                                      widget.frameDesign!.successButtonTitle,
+                                  cancelButtonTitle:
+                                      widget.frameDesign!.cancelButtonTitle,
+                                  isSuccessButtonDisabled: widget.frameDesign!
+                                      .conditionToDisableSuccessButton,
+                                  showBottomButtonBar:
+                                      widget.frameDesign!.showBottomButtonBar,
+                                  onSuccess: widget.frameDesign!.onSuccess,
+                                  onFutureSuccess:
+                                      widget.frameDesign!.onFutureSuccess,
+                                  onFutureSuccessValidator: widget
+                                      .frameDesign!.onFutureSuccessValidator,
+                                  onCancel: widget.frameDesign!.onCancel,
+                                  popContent: widget.popContent,
+                                  width: null,
+                                  cycleFocusWithinGroup:
+                                      widget.frameDesign!.cycleFocusWithinGroup,
+                                  cancelButtonFocusNode:
+                                      widget.frameDesign!.cancelButtonFocusNode,
+                                  saveButtonFocusNode:
+                                      widget.frameDesign!.saveButtonFocusNode,
+                                  wrapFocusTargetRoleBuilder: widget
+                                      .frameDesign!.cycleFocusTargetRoleBuilder,
+                                  wrapFocusSkipRoles:
+                                      widget.frameDesign!.cycleFocusSkipRoles,
+                                ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -438,53 +459,55 @@ class _PopOverlayFrameDesignWidgetState
           maxDimension: 96.w,
         );
 
-        Widget legacy = _PopOverlayContainer(
-          height: finalHeight,
-          width: finalWidth,
-          borderRadius: widget.popContent.borderRadius,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _PopOverlayHeader(
-                title: widget.frameDesign!.title,
-                subtitle: widget.frameDesign!.subtitle,
-                titlePrefixIcon: widget.frameDesign!.titlePrefixIcon,
-                showCloseButton: widget.frameDesign!.showCloseButton,
-                titleBarHeight: _computedTitleBarHeight,
-                titleBarColor: widget.frameDesign!.titleBarColor,
-                headerTrailingWidgets:
-                    widget.frameDesign!.headerTrailingWidgets,
-                width: finalWidth,
-                isDraggable: widget.isDraggable,
-                popContent: widget.popContent,
-                info: widget.frameDesign!.info, // Pass info if available
-              ),
-              Expanded(child: widget.child),
-              _PopOverlayBottomBar(
-                height: widget.frameDesign!.bottomBarHeight,
-                cancelButtonTitle: widget.frameDesign!.cancelButtonTitle,
-                successButtonTitle: widget.frameDesign!.successButtonTitle,
-                bottomBarColor: widget.frameDesign!.bottomBarColor,
-                isSuccessButtonDisabled:
-                    widget.frameDesign!.conditionToDisableSuccessButton,
-                showBottomButtonBar: widget.frameDesign!.showBottomButtonBar,
-                onSuccess: widget.frameDesign!.onSuccess,
-                onFutureSuccess: widget.frameDesign!.onFutureSuccess,
-                onFutureSuccessValidator:
-                    widget.frameDesign!.onFutureSuccessValidator,
-                onCancel: widget.frameDesign!.onCancel,
-                popContent: widget
-                    .popContent, // Pass full popContent instead of just ID
-                cycleFocusWithinGroup:
-                    widget.frameDesign!.cycleFocusWithinGroup,
-                cancelButtonFocusNode:
-                    widget.frameDesign!.cancelButtonFocusNode,
-                saveButtonFocusNode: widget.frameDesign!.saveButtonFocusNode,
-                wrapFocusTargetRoleBuilder:
-                    widget.frameDesign!.cycleFocusTargetRoleBuilder,
-                wrapFocusSkipRoles: widget.frameDesign!.cycleFocusSkipRoles,
-              ),
-            ],
+        Widget legacy = _wrapPopupContent(
+          _PopOverlayContainer(
+            height: finalHeight,
+            width: finalWidth,
+            borderRadius: widget.popContent.borderRadius,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _PopOverlayHeader(
+                  title: widget.frameDesign!.title,
+                  subtitle: widget.frameDesign!.subtitle,
+                  titlePrefixIcon: widget.frameDesign!.titlePrefixIcon,
+                  showCloseButton: widget.frameDesign!.showCloseButton,
+                  titleBarHeight: _computedTitleBarHeight,
+                  titleBarColor: widget.frameDesign!.titleBarColor,
+                  headerTrailingWidgets:
+                      widget.frameDesign!.headerTrailingWidgets,
+                  width: finalWidth,
+                  isDraggable: widget.isDraggable,
+                  popContent: widget.popContent,
+                  info: widget.frameDesign!.info, // Pass info if available
+                ),
+                Expanded(child: widget.child),
+                _PopOverlayBottomBar(
+                  height: widget.frameDesign!.bottomBarHeight,
+                  cancelButtonTitle: widget.frameDesign!.cancelButtonTitle,
+                  successButtonTitle: widget.frameDesign!.successButtonTitle,
+                  bottomBarColor: widget.frameDesign!.bottomBarColor,
+                  isSuccessButtonDisabled:
+                      widget.frameDesign!.conditionToDisableSuccessButton,
+                  showBottomButtonBar: widget.frameDesign!.showBottomButtonBar,
+                  onSuccess: widget.frameDesign!.onSuccess,
+                  onFutureSuccess: widget.frameDesign!.onFutureSuccess,
+                  onFutureSuccessValidator:
+                      widget.frameDesign!.onFutureSuccessValidator,
+                  onCancel: widget.frameDesign!.onCancel,
+                  popContent: widget
+                      .popContent, // Pass full popContent instead of just ID
+                  cycleFocusWithinGroup:
+                      widget.frameDesign!.cycleFocusWithinGroup,
+                  cancelButtonFocusNode:
+                      widget.frameDesign!.cancelButtonFocusNode,
+                  saveButtonFocusNode: widget.frameDesign!.saveButtonFocusNode,
+                  wrapFocusTargetRoleBuilder:
+                      widget.frameDesign!.cycleFocusTargetRoleBuilder,
+                  wrapFocusSkipRoles: widget.frameDesign!.cycleFocusSkipRoles,
+                ),
+              ],
+            ),
           ),
         );
         legacy = FocusTraversalGroup(policy: traversalPolicy, child: legacy);
@@ -504,7 +527,7 @@ class _PopOverlayFrameDesignWidgetState
 
   /// Builds a simple wrapper for non-template popups that mimics the original styling
   Widget _buildNonTemplateWrapper() {
-    Widget content = widget.child;
+    Widget content = _wrapPopupContent(widget.child);
 
     // Apply the same styling as the original non-template popups
     Widget styledContent = FittedBox(

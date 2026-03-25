@@ -1,4 +1,32 @@
 
+## 3.6.0
+- **Popup tap-region coordination upgrade:**
+  - Added a shared `PopOverlayTapRegionScope` so popup content can expose a common `TapRegion` group to nested overlays.
+  - Updated `pop_overlay` frame templates to wrap popup surfaces in the shared tap-region scope when one is available, keeping child interactions from being misclassified as outside taps.
+  - Extended `s_context_menu` and `s_dropdown` with optional tap-region group support so both widgets can live safely inside popups without premature dismissal.
+  - Added regression coverage for the new tap-region inheritance flow, including dropdown and context-menu overlays.
+
+## 3.5.1
+- **`s_dropdown` clear-button visibility fix:**
+  - The inline clear button now appears only when a real selection is present, including the initial selected item and any user-selected item.
+  - The clear button stays hidden when the dropdown is showing only the hint state, preventing a no-op clear affordance.
+  - Added a regression test covering the hint-only state to keep the suffix area behavior stable.
+
+
+## 3.5.0
+- **`s_dropdown` clear-selection upgrade:**
+  - Added a controller API to clear the current selection programmatically, with support for either restoring the initial item or clearing all the way back to the hint state.
+  - Added an inline clear suffix button powered by `SInkButton`, so the current selection can be cleared directly from the dropdown header.
+  - Preserved overlay-open and overlay-closed behavior so clearing works consistently in both states.
+  - Added focused tests and example updates covering both clear-to-initial and clear-to-hint flows.
+
+- **`s_metar` live fetch flexibility upgrade:**
+  - Added configurable fetch options for alternate METAR/TAF endpoints.
+  - Added custom success-code handling for non-standard API responses.
+  - Added configurable JSON field mapping and item extraction so raw METAR/TAF strings can be read from different response shapes.
+  - Added a proxy toggle so callers can disable proxy attachment entirely when talking directly to an API.
+  - Added focused tests covering custom parsing and direct-only fetch behavior.
+
 
 ## 3.4.0
 - **`s_ink_button` hover feedback improvement:**

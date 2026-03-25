@@ -108,6 +108,14 @@ class SContextMenu extends StatefulWidget {
   final double? backgroundOpacity;
   final Color? highlightColor;
 
+  /// Optional tap-region group ID for the context menu overlay.
+  ///
+  /// When provided, the menu joins that shared region so it can live inside a
+  /// parent popup without causing outside-tap dismissal there. If omitted, the
+  /// menu automatically inherits the nearest [PopOverlayTapRegionScope] when
+  /// available.
+  final Object? tapRegionGroupId;
+
   const SContextMenu({
     super.key,
     required this.child,
@@ -123,6 +131,7 @@ class SContextMenu extends StatefulWidget {
     this.allowMultipleMenus = false,
     this.backgroundOpacity,
     this.highlightColor,
+    this.tapRegionGroupId,
     this.shouldPreventWebBrowserContextMenu = kIsWeb,
   });
   // ---- Global active menu tracking ----------------------------------------
@@ -201,6 +210,10 @@ class _SContextMenuState extends State<SContextMenu>
   PausableTimer? _holdTimer;
   static const double _dragSlop = kTouchSlop;
   late final WidgetsBinding _binding = WidgetsBinding.instance;
+
+  Object? _resolveTapRegionGroupId(BuildContext context) {
+    return widget.tapRegionGroupId ?? PopOverlayTapRegionScope.maybeOf(context);
+  }
 
   static SContextMenuItem get _defaultButton => SContextMenuItem(
         label: SContextMenu.defaultButtonLabel,
@@ -421,6 +434,7 @@ class _SContextMenuState extends State<SContextMenu>
             }
           },
           theme: theme,
+          tapRegionGroupId: _resolveTapRegionGroupId(context),
           child: panel,
         );
         return widget.followAnchor
@@ -981,6 +995,7 @@ class _AnimatedMenuShell extends StatefulWidget {
   final int buttonCount;
   final void Function(int index) requestActivate; // called on ENTER/SPACE
   final SContextMenuTheme theme;
+  final Object? tapRegionGroupId;
   const _AnimatedMenuShell({
     required this.animationForward,
     required this.showDuration,
@@ -996,6 +1011,7 @@ class _AnimatedMenuShell extends StatefulWidget {
     required this.buttonCount,
     required this.requestActivate,
     required this.theme,
+    this.tapRegionGroupId,
   });
   @override
   State<_AnimatedMenuShell> createState() => _AnimatedMenuShellState();
@@ -1073,30 +1089,35 @@ class _AnimatedMenuShellState extends State<_AnimatedMenuShell> {
             );
           },
           child: Stack(children: [
-            // Background tap detector - but we need to exclude the menu area
-            Positioned.fill(
-              child: Listener(
-                behavior: HitTestBehavior.translucent,
-                onPointerDown: (event) {
-                  if (event.buttons == kSecondaryMouseButton) {
-                    widget.onOverlayRightClick(event.position);
-                  } else {
-                    // Check if tap is outside the panel rect
-                    if (!widget.panelRect.contains(event.localPosition)) {
-                      widget.onDismissOutsideTap();
+            TapRegion(
+              groupId: widget.tapRegionGroupId,
+              child: Positioned.fill(
+                child: Listener(
+                  behavior: HitTestBehavior.translucent,
+                  onPointerDown: (event) {
+                    if (event.buttons == kSecondaryMouseButton) {
+                      widget.onOverlayRightClick(event.position);
+                    } else {
+                      // Check if tap is outside the panel rect
+                      if (!widget.panelRect.contains(event.localPosition)) {
+                        widget.onDismissOutsideTap();
+                      }
                     }
-                  }
-                },
-                child: const SizedBox.expand(),
+                  },
+                  child: const SizedBox.expand(),
+                ),
               ),
             ),
-            Positioned(
-              left: widget.panelRect.left,
-              top: widget.panelRect.top,
-              width: widget.panelRect.width,
-              child: _InheritedHoveredIndex(
-                hoveredIndex: _hovered,
-                child: widget.child,
+            TapRegion(
+              groupId: widget.tapRegionGroupId,
+              child: Positioned(
+                left: widget.panelRect.left,
+                top: widget.panelRect.top,
+                width: widget.panelRect.width,
+                child: _InheritedHoveredIndex(
+                  hoveredIndex: _hovered,
+                  child: widget.child,
+                ),
               ),
             ),
             arrow,

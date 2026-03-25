@@ -8,6 +8,8 @@ class SDropdownExampleScreen extends StatefulWidget {
 }
 
 class _SDropdownExampleScreenState extends State<SDropdownExampleScreen> {
+  static const String _initialFruit = 'Banana';
+
   final List<String> _fruits = [
     'Apple',
     'Banana',
@@ -18,7 +20,7 @@ class _SDropdownExampleScreenState extends State<SDropdownExampleScreen> {
     'Grape',
   ];
 
-  String? _selectedFruit;
+  String? _selectedFruit = _initialFruit;
   final SDropdownController _controller = SDropdownController();
 
   @override
@@ -106,7 +108,9 @@ class _SDropdownExampleScreenState extends State<SDropdownExampleScreen> {
               SDropdown(
                 items: _fruits,
                 selectedItem: _selectedFruit,
+                initialItem: _initialFruit,
                 hintText: 'Use buttons below',
+                clearButtonRestoresInitialSelection: false,
                 onChanged: (value) {
                   setState(() {
                     _selectedFruit = value;
@@ -130,6 +134,16 @@ class _SDropdownExampleScreenState extends State<SDropdownExampleScreen> {
                   ElevatedButton(
                     onPressed: () => _controller.selectIndex(0),
                     child: const Text('Select First'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _controller.clearSelection(),
+                    child: const Text('Reset to Initial'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _controller.clearSelection(
+                      restoreInitialSelection: false,
+                    ),
+                    child: const Text('Clear to Hint'),
                   ),
                 ],
               ),
