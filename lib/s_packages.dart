@@ -2,7 +2,7 @@
 export 'bubble_label/bubble_label.dart';
 export 'indexscroll_listview_builder/indexscroll_listview_builder.dart';
 export 'keystroke_listener/keystroke_listener.dart';
-export 'pop_overlay/pop_overlay.dart';
+export 'modoverlay/pop_overlay/pop_overlay.dart';
 export 'pop_this/pop_this.dart';
 export 'post_frame/post_frame.dart';
 export 's_animated_tabs/s_animated_tabs.dart';
@@ -22,7 +22,7 @@ export 's_gridview/s_gridview.dart';
 export 's_ink_button/s_ink_button.dart';
 export 's_liquid_pull_to_refresh/s_liquid_pull_to_refresh.dart';
 export 's_maintenance_button/s_maintenance_button.dart';
-export 's_modal/s_modal.dart';
+export 'modoverlay/s_modal/s_modal.dart';
 export 's_offstage/s_offstage.dart';
 export 's_screenshot/s_screenshot.dart';
 export 's_sidebar/s_sidebar.dart';
@@ -37,6 +37,9 @@ export 'signals_watch/signals_watch.dart';
 export 'soundsliced_dart_extensions/soundsliced_dart_extensions.dart'
     hide TimeOfDayExtension;
 export 'soundsliced_tween_animation_builder/soundsliced_tween_animation_builder.dart';
+export 'modoverlay/modoverlay.dart';
+export 'modoverlay/smodal_popoverlay/stack_order.dart';
+export 'modoverlay/smodal_popoverlay/interleave_manager.dart';
 export 'states_rebuilder_extended/states_rebuilder_extended.dart' hide Animate;
 export 'ticker_free_circular_progress_indicator/ticker_free_circular_progress_indicator.dart';
 export 'week_calendar/week_calendar.dart';

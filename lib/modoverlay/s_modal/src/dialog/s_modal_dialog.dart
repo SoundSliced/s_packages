@@ -50,6 +50,7 @@ class DialogModal extends StatefulWidget {
   });
 
   @override
+  // Create the dialog state holder.
   State<DialogModal> createState() => _DialogModalState();
 }
 
@@ -58,28 +59,27 @@ class _DialogModalState extends State<DialogModal> {
   Offset _dragOffset = Offset.zero;
 
   @override
+  // Keep drag offset in sync with configuration changes.
   void didUpdateWidget(covariant DialogModal oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // Reset drag offset when draggable is disabled
-    // This ensures the dialog snaps back to its base position
-    if (!widget.isDraggable && oldWidget.isDraggable) {
-      setState(() {
-        _dragOffset = Offset.zero;
-      });
-    }
+    // Reset drag offset only once per widget update when needed.
+    // This avoids multiple setState calls in a single lifecycle pass.
+    final shouldResetOffset = (!widget.isDraggable && oldWidget.isDraggable) ||
+        (widget.position != oldWidget.position);
 
-    // Reset drag offset when position changes
-    // This ensures the dialog moves to the new position cleanly
-    if (widget.position != oldWidget.position) {
+    if (shouldResetOffset && _dragOffset != Offset.zero) {
+      // Reset the drag offset when dragging is disabled or alignment changes.
       setState(() {
         _dragOffset = Offset.zero;
       });
     }
   }
 
+  // Apply drag deltas when the dialog is draggable.
   void _onPanUpdate(DragUpdateDetails details) {
     if (widget.isDraggable) {
+      // Accumulate the drag delta into the local offset.
       setState(() {
         _dragOffset += details.delta;
       });
@@ -87,11 +87,13 @@ class _DialogModalState extends State<DialogModal> {
   }
 
   @override
+  // Build dialog content with drag handling and animations.
   Widget build(BuildContext context) {
     Widget dialogContent = widget.child;
 
     // Wrap with MouseRegion and GestureDetector if draggable
     if (widget.isDraggable) {
+      // Wrap with pointer cursor and drag gesture support.
       dialogContent = MouseRegion(
         cursor: SystemMouseCursors.move,
         child: GestureDetector(
@@ -170,6 +172,7 @@ class _DialogModalState extends State<DialogModal> {
     Alignment effectiveAlignment;
 
     if (widget.offset != null) {
+      // Convert pixel offset into alignment coordinates.
       // Offset mode: convert pixel offset to alignment coordinates
       // Map offset to alignment space (-1 to 1)
       final centerX = widget.offset!.dx / screenSize.width * 2 - 1;
@@ -188,6 +191,7 @@ class _DialogModalState extends State<DialogModal> {
 
     // For offset mode, we need to adjust positioning since Alignment centers the widget
     if (widget.offset != null) {
+      // Constrain width in offset mode to keep dialog visible.
       // Wrap in ConstrainedBox to limit width if needed
       final double availableWidth = screenSize.width - widget.offset!.dx - 48.0;
       final double maxWidth =

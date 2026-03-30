@@ -1,16 +1,18 @@
 // ignore_for_file: unnecessary_import
 
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui' as ui;
 import 'dart:ui';
 // ignore: unused_import
 import 'dart:developer' as developer;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:s_packages/pop_overlay/src/escape_key_listener.dart';
+import 'package:s_packages/modoverlay/pop_overlay/src/escape_key_listener.dart';
 import 'package:s_packages/s_packages.dart';
 import 'package:sizer/sizer.dart';
 
@@ -30,6 +32,16 @@ part 'popoverlay_frame_design.dart';
 ///
 /// This file contains the complete implementation of the pop overlay system,
 /// including the public API, content configuration, and rendering components.
+///
+/// ## Mental model for new contributors
+/// 1) Callers create a [PopOverlayContent] and pass it to [PopOverlay.addPop].
+/// 2) The content is stored in [_controller] (and optionally [_invisibleController]).
+/// 3) The activator widget (_PopOverlayActivator) listens to those controllers
+///    and builds the overlay stack.
+/// 4) Each overlay is rendered by _AnimatedVisibilityWrapper -> _PopupContent,
+///    which handles blur, barrier, and popup animations.
+/// 5) Dismissals either remove the entry or move it to the invisible list,
+///    depending on [PopOverlayContent.shouldMakeInvisibleOnDismiss].
 //************************************************ */
 // Global State Management
 
@@ -86,6 +98,7 @@ class _DragStateNotifier extends ValueNotifier<bool?> {
   /// Optimized dispose method
   @override
   void dispose() {
+    // Mark disposed and cancel timers.
     _isDisposed = true;
     _resetTimer?.cancel();
     super.dispose();
@@ -103,10 +116,21 @@ final _controller = RM.inject<List<PopOverlayContent>>(
 );
 
 /// Controller that manages the list of invisible pop overlays
+///
+/// Overlays in this list remain allocated (so they can be restored quickly)
+/// but are considered hidden by the rendering layer and dismiss logic.
 final _invisibleController = RM.inject<List<String>>(
   () => <String>[], // Empty list of invisible overlay IDs
   autoDisposeWhenNotUsed: true,
 );
+
+void _debugPopOverlayLog(String message) {
+  // Debug-only logger (stripped in release builds).
+  assert(() {
+    debugPrint('[PopOverlay] $message');
+    return true;
+  }());
+}
 
 //************************************************ */
 
@@ -219,6 +243,10 @@ class PopOverlayContent {
   /// Higher values render above lower values.
   int stackLevel;
 
+  /// Global activation order used to preserve show-call ordering across
+  /// PopOverlay and s_modal when stack levels are equal.
+  final int activationOrder;
+
   final Duration? popPositionAnimationDuration;
 
   /// Optional Animation Curve for the popup position animation
@@ -304,6 +332,7 @@ class PopOverlayContent {
     this.shouldDismissOnEscapeKey = true,
     this.dragBounds,
     this.stackLevel = PopOverlayStackLevels.overlay,
+    int? activationOrder,
     this.onDragStart,
     this.onDragEnd,
     this.popPositionAnimationDuration,
@@ -315,10 +344,11 @@ class PopOverlayContent {
     this.onTapRegionInside,
     this.tapRegionBehavior = HitTestBehavior.deferToChild,
     this.tapRegionConsumeOutsideTaps = false,
-  });
+  }) : activationOrder = activationOrder ?? OverlayActivationOrder.next();
 
   /// Optimized dispose method to clean up resources
   void dispose() {
+    // Cancel timers and dispose controllers owned by this overlay.
     _autoDismissTimer?.cancel();
     animationController.dispose();
     positionController.dispose();
@@ -332,6 +362,7 @@ class PopOverlayContent {
   /// Memory-efficient equality check for duplicate prevention
   @override
   bool operator ==(Object other) {
+    // Equality is based on id to prevent duplicates.
     if (identical(this, other)) return true;
     return other is PopOverlayContent && other.id == id;
   }
@@ -355,6 +386,7 @@ class PopOverlayTapRegionScope extends InheritedWidget {
   });
 
   static Object? maybeOf(BuildContext context) {
+    // Look up the nearest PopOverlayTapRegionScope.
     return context
         .dependOnInheritedWidgetOfExactType<PopOverlayTapRegionScope>()
         ?.tapRegionGroupId;
@@ -362,6 +394,7 @@ class PopOverlayTapRegionScope extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant PopOverlayTapRegionScope oldWidget) {
+    // Notify when the group id changes.
     return oldWidget.tapRegionGroupId != tapRegionGroupId;
   }
 }
@@ -421,6 +454,12 @@ class PopOverlay {
   static Injected<List<String>> get hiddenPopsController =>
       _invisibleController;
 
+  /// Promotes the PopOverlay host entry in the root overlay.
+  static void bringOverlayHostToFront({BuildContext? context}) {
+    // Request the PopOverlay host to be the top overlay entry.
+    _PopOverlayBootstrapper.bringToFront(context: context);
+  }
+
   /// Returns a default frame design pop overlay for testing
   ///
   /// Useful for quick testing and demonstration
@@ -470,6 +509,7 @@ class PopOverlay {
         'closeButton_$popoverlayName',
         () => SInkButton(
           onTap: (pos) {
+            // Close button respects invisible-on-dismiss behavior.
             final popContent = PopOverlay.getActiveById(popoverlayName);
             if (popContent != null && popContent.shouldMakeInvisibleOnDismiss) {
               PopOverlay._makePopOverlayInvisible(popContent);
@@ -506,12 +546,14 @@ class PopOverlay {
 
   /// Returns the current stack level for an active overlay ID.
   static int? getStackLevel(String id) {
+    // Lookup the active overlay and return its stack level.
     final content = getActiveById(id);
     return content?.stackLevel;
   }
 
   /// Returns active overlay IDs sorted by effective stack level (bottom to top).
   static List<String> get activeIdsByStackOrder {
+    // Return active ids ordered by effective stack (bottom -> top).
     final sorted = List<PopOverlayContent>.from(_controller.state);
     _sortPopList(sorted);
     return sorted.map((e) => e.id).toList();
@@ -521,6 +563,7 @@ class PopOverlay {
   ///
   /// Returns true if updated.
   static bool setStackLevel(String id, int stackLevel) {
+    // Update the stack level and keep ordering consistent.
     final index = _controller.state.indexWhere((e) => e.id == id);
     if (index == -1) return false;
 
@@ -540,6 +583,7 @@ class PopOverlay {
 
   /// Brings an active overlay above all current overlays.
   static bool bringToFront(String id, {int step = 1}) {
+    // Raise an overlay above the current topmost entry.
     final current = getStackLevel(id);
     if (current == null) return false;
     final top = _controller.state
@@ -550,6 +594,7 @@ class PopOverlay {
 
   /// Sends an active overlay below all current overlays.
   static bool sendToBack(String id, {int step = 1}) {
+    // Push an overlay below the current bottom entry.
     final current = getStackLevel(id);
     if (current == null) return false;
     final bottom = _controller.state
@@ -559,6 +604,7 @@ class PopOverlay {
   }
 
   static PopOverlayContent? getActiveById(String id) {
+    // Retrieve active overlay by id, if present.
     if (isActiveById(id)) {
       return _controller.state.firstWhere((element) => element.id == id);
     }
@@ -586,6 +632,15 @@ class PopOverlay {
   /// The number of currently invisible overlays.
   static int get invisibleCount => getInvisiblePops().length;
 
+  /// The newest activation order among active pop overlays.
+  static int get latestActivationOrder {
+    // Return newest activation order (or -1 if empty).
+    if (_controller.state.isEmpty) return -1;
+    return _controller.state
+        .map((content) => content.activationOrder)
+        .reduce(max);
+  }
+
   //--------------------------------------------------//
   // Core Pop Overlay functionality
 
@@ -612,8 +667,19 @@ class PopOverlay {
   /// ));
   /// ```
   static void addPop(PopOverlayContent popContent, {BuildContext? context}) {
+    // Main entrypoint for showing a popup.
     // Ensure the overlay system is installed before adding content
     _PopOverlayBootstrapper.ensureInstalled(context: context);
+    // If s_modal is active and interleaving is disabled, we later promote
+    // the overlay host to ensure the new popup is visually on top.
+    final shouldPromoteHost =
+        Modal.isActive && !OverlayInterleaveManager.enabled;
+
+    _debugPopOverlayLog(
+      'addPop(start) id=${popContent.id} stack=${popContent.stackLevel} '
+      'active=${_controller.state.map((e) => e.id).toList()} '
+      'invisible=${_invisibleController.state}',
+    );
 
     _debugWarnForOverlayStackLevel(
         id: popContent.id, level: popContent.stackLevel);
@@ -621,6 +687,7 @@ class PopOverlay {
     // Check if the overlay is already active but invisible
     if (PopOverlay.isActiveById(popContent.id) &&
         _invisibleController.state.contains(popContent.id)) {
+      // Re-show an existing invisible overlay (refresh if needed).
       final existingOverlay = PopOverlay.getActiveById(popContent.id);
       if (existingOverlay != null) {
         // Check if offsetToPopFrom has changed
@@ -629,7 +696,13 @@ class PopOverlay {
         final hasStackLevelChanged =
             existingOverlay.stackLevel != popContent.stackLevel;
 
+        _debugPopOverlayLog(
+          'addPop(existing-invisible) id=${popContent.id} '
+          'offsetChanged=$hasOffsetChanged stackChanged=$hasStackLevelChanged',
+        );
+
         if (hasOffsetChanged || hasStackLevelChanged) {
+          // Replace the existing overlay instance to update properties.
           // Replace the existing overlay with the new one (which has updated offsetToPopFrom)
           _controller.update<List<PopOverlayContent>>((state) {
             final index =
@@ -663,12 +736,56 @@ class PopOverlay {
             ? popContent
             : existingOverlay;
         PopOverlay._makePopOverlayVisible(overlayToShow);
+        _registerInterleavedLayerForPop(overlayToShow, context: context);
+        _debugPopOverlayLog(
+          'addPop(existing-invisible) id=${popContent.id} '
+          'madeVisible=${overlayToShow.id} active=${_controller.state.map((e) => e.id).toList()} '
+          'invisible=${_invisibleController.state}',
+        );
+        if (shouldPromoteHost) {
+          _PopOverlayBootstrapper.bringToFront();
+        }
+      }
+      return;
+    }
+
+    // If an overlay with this ID is already active and visible,
+    // treat this call as a refresh/re-show instead of a no-op.
+    if (PopOverlay.isActiveById(popContent.id)) {
+      // Refresh an already-visible overlay by replacing its content.
+      popContent.initState?.call();
+
+      _controller.update<List<PopOverlayContent>>((state) {
+        final index =
+            state.indexWhere((element) => element.id == popContent.id);
+        if (index != -1) {
+          final previousOverlay = state[index];
+          state[index] = popContent;
+          PopOverlay._sortPopList(state);
+          previousOverlay.dispose();
+        }
+        return state;
+      });
+
+      _invisibleController.update<List<String>>((state) {
+        state.remove(popContent.id);
+        return state;
+      });
+
+      _registerInterleavedLayerForPop(popContent, context: context);
+      _debugPopOverlayLog(
+        'addPop(existing-visible-refresh) id=${popContent.id} active=${_controller.state.map((e) => e.id).toList()}',
+      );
+
+      if (shouldPromoteHost) {
+        _PopOverlayBootstrapper.bringToFront();
       }
       return;
     }
 
     // Only add if an overlay with this ID doesn't already exist
     if (PopOverlay.isActiveById(popContent.id) == false) {
+      // Create a brand-new overlay entry.
       // If onBeforeCreatingPop callback is provided, call it before adding the overlay
       popContent.initState?.call();
 
@@ -679,23 +796,35 @@ class PopOverlay {
 
         // // Sort the list based on priority rules
         PopOverlay._sortPopList(state);
+        _debugPopOverlayLog(
+          'addPop(added) id=${popContent.id} sortedActive=${state.map((e) => e.id).toList()}',
+        );
         return state;
       });
+
+      _registerInterleavedLayerForPop(popContent, context: context);
 
       // If shouldStartInvisible is true and shouldMakeInvisibleOnDismiss is also true,
       // immediately make the popup invisible
       if (popContent.shouldStartInvisible &&
           popContent.shouldMakeInvisibleOnDismiss) {
+        // Immediately hide if configured to start invisible.
         PopOverlay._makePopOverlayInvisible(popContent);
       }
 
       // Handle auto-dismissal if duration is specified
       if (popContent.duration != null) {
+        // Auto-dismiss after the configured duration.
         // Cancel any existing timer for this popup
         popContent._autoDismissTimer?.cancel();
 
         // Create a new timer for auto-dismissal
         popContent._autoDismissTimer = Timer(popContent.duration!, () {
+          // Timer fired: dismiss if still active and visible.
+          _debugPopOverlayLog(
+            'autoDismiss fired id=${popContent.id} active=${PopOverlay.isActiveById(popContent.id)} '
+            'invisible=${_invisibleController.state.contains(popContent.id)}',
+          );
           // Check if popup still exists and is visible before dismissing
           if (PopOverlay.isActiveById(popContent.id) &&
               !_invisibleController.state.contains(popContent.id)) {
@@ -707,6 +836,10 @@ class PopOverlay {
             }
           }
         });
+      }
+
+      if (shouldPromoteHost) {
+        _PopOverlayBootstrapper.bringToFront();
       }
     }
   }
@@ -733,10 +866,17 @@ class PopOverlay {
   /// PopOverlay.removePop("notification_1");
   /// ```
   static void removePop(String id) {
+    // Dismiss an overlay by id with animation.
     // Early return if no overlay with this ID exists
     if (PopOverlay.isActiveById(id) == false) {
+      _debugPopOverlayLog('removePop(skip) id=$id not active');
       return;
     }
+
+    _debugPopOverlayLog(
+      'removePop(start) id=$id active=${_controller.state.map((e) => e.id).toList()} '
+      'invisible=${_invisibleController.state}',
+    );
 
     // Find the popup content by ID
     final popupIndex =
@@ -744,16 +884,28 @@ class PopOverlay {
     if (popupIndex != -1) {
       final popContent = _controller.state[popupIndex];
 
+      _debugPopOverlayLog(
+        'removePop(found) id=$id shouldMakeInvisible=${popContent.shouldMakeInvisibleOnDismiss} '
+        'isAnimated=${popContent.shouldAnimatePopup}',
+      );
+
       // Trigger the exit animation by setting the animation controller state
       popContent.animationController.state = true;
 
       // Wait for the animation to finish before removing from the list
       // This creates a smooth dismissal experience
       Future.delayed(const Duration(milliseconds: 450), () {
+        // Wait for exit animation to finish before removing.
+        // Delay avoids tearing during exit animations. We also re-check the
+        // identity to prevent removing a newer overlay that reused the same id.
         // Double-check that the same overlay instance still exists.
         // This prevents a delayed dismissal from removing a newer overlay
         // that reused the same ID after the original one started exiting.
         final currentOverlay = PopOverlay.getActiveById(id);
+        _debugPopOverlayLog(
+          'removePop(delay-finished) id=$id currentOverlay=${currentOverlay?.id} '
+          'sameInstance=${identical(currentOverlay, popContent)}',
+        );
         if (identical(currentOverlay, popContent)) {
           _controller.update<List<PopOverlayContent>>((state) {
             // Remove the overlay and call its dismissal callback
@@ -766,6 +918,7 @@ class PopOverlay {
               }
               return element.id == id;
             });
+            _unregisterInterleavedLayerForPopId(id);
 
             // Remove the overlay from the invisible list
             //if it's being dismissed
@@ -777,6 +930,19 @@ class PopOverlay {
 
             // Re-sort the remaining overlays
             PopOverlay._sortPopList(state);
+            _debugPopOverlayLog(
+              'removePop(done) id=$id remaining=${state.map((e) => e.id).toList()} '
+              'invisible=${_invisibleController.state}',
+            );
+            final popLatest = PopOverlay.latestActivationOrder;
+            final modalLatest = Modal.latestActivationOrder;
+            // Promote whichever system has the newest activation when not interleaving.
+            if (!OverlayInterleaveManager.enabled && modalLatest > popLatest) {
+              Modal.bringOverlayHostToFront();
+            } else if (!OverlayInterleaveManager.enabled &&
+                popLatest > modalLatest) {
+              PopOverlay.bringOverlayHostToFront();
+            }
             return state;
           });
         }
@@ -792,6 +958,7 @@ class PopOverlay {
   /// Parameters:
   /// - `id`: The unique identifier of the overlay to dismiss
   static void dismissPop(String id) {
+    // Dismiss while respecting shouldMakeInvisibleOnDismiss.
     final popContent = getActiveById(id);
     if (popContent != null) {
       if (popContent.shouldMakeInvisibleOnDismiss) {
@@ -818,6 +985,7 @@ class PopOverlay {
   /// ```
   static void dismissAllPops(
       {bool includeInvisible = false, List<String> except = const []}) {
+    // Dismiss multiple overlays, optionally including hidden ones.
     if (includeInvisible) {
       // Remove all overlays including invisible ones
       final allIds = _controller.state
@@ -847,11 +1015,13 @@ class PopOverlay {
   /// [newContent] is added in its place. If no overlay with [id] exists,
   /// [newContent] is simply added.
   static void replacePop(String id, PopOverlayContent newContent) {
+    // Replace an existing overlay without running exit animations.
     if (isActiveById(id)) {
       // Remove old overlay immediately without animation
       _controller.update<List<PopOverlayContent>>((state) {
         state.removeWhere((element) {
           if (element.id == id) {
+            _unregisterInterleavedLayerForPopId(element.id);
             element.dispose();
           }
           return element.id == id;
@@ -868,6 +1038,7 @@ class PopOverlay {
 
   //--------------------------------------------------//
   static void _makePopOverlayInvisible(PopOverlayContent popContent) {
+    // Move the overlay to the invisible list (keeps it allocated).
     // Find the popup content by ID
     if (PopOverlay.isActiveById(popContent.id)) {
       final popupIndex = PopOverlay.controller.state
@@ -885,6 +1056,9 @@ class PopOverlay {
           if (!state.contains(popContent.id)) {
             state.add(popContent.id);
             popContent.onMadeInvisible?.call();
+            _debugPopOverlayLog(
+              '_makePopOverlayInvisible id=${popContent.id} invisible=$state',
+            );
           }
           return state;
         });
@@ -893,6 +1067,7 @@ class PopOverlay {
   }
 
   static void _makePopOverlayVisible(PopOverlayContent popContent) {
+    // Remove the overlay from the invisible list and re-animate entry.
     // Find the popup content by ID
     if (PopOverlay.isActiveById(popContent.id)) {
       final popupIndex = PopOverlay.controller.state
@@ -904,6 +1079,9 @@ class PopOverlay {
         _invisibleController.update<List<String>>((state) {
           state.remove(popContent.id);
           popContent.onMadeVisible?.call();
+          _debugPopOverlayLog(
+            '_makePopOverlayVisible id=${popContent.id} invisible=$state',
+          );
           return state;
         });
       }
@@ -947,13 +1125,39 @@ class PopOverlay {
   };
 
   static int _effectiveStackLevel(PopOverlayContent content) {
+    // Apply legacy priority bonuses to the configured stack level.
     return content.stackLevel + (_legacyPriorityBonuses[content.id] ?? 0);
+  }
+
+  static String _interleavedLayerIdFor(String id) => 'pop:$id';
+
+  static void _registerInterleavedLayerForPop(
+    PopOverlayContent popContent, {
+    BuildContext? context,
+  }) {
+    if (!OverlayInterleaveManager.enabled) return;
+
+    // Register a lightweight layer into the shared interleave host.
+    OverlayInterleaveManager.registerLayer(
+      id: _interleavedLayerIdFor(popContent.id),
+      activationOrder: popContent.activationOrder,
+      stackLevel: _effectiveStackLevel(popContent),
+      context: context,
+      builder: () => _InterleavedPopLayer(popId: popContent.id),
+    );
+  }
+
+  static void _unregisterInterleavedLayerForPopId(String id) {
+    if (!OverlayInterleaveManager.enabled) return;
+    // Remove the interleaved layer for this overlay.
+    OverlayInterleaveManager.unregisterLayer(_interleavedLayerIdFor(id));
   }
 
   static void _debugWarnForOverlayStackLevel(
       {required String id, required int level}) {
     // Always keep this lightweight and debug-only.
     assert(() {
+      // Warn when using critical band outside legacy ids.
       if (level >= PopOverlayStackLevelBands.criticalMin &&
           !_legacyPriorityBonuses.containsKey(id)) {
         debugPrint(
@@ -967,6 +1171,7 @@ class PopOverlay {
 
   // Sort the list of popups based on priority - OPTIMIZED VERSION
   static void _sortPopList(List<PopOverlayContent> list) {
+    // Sort by effective stack level, then activation order, then insertion.
     // Early return if list is empty or has only one element
     if (list.length <= 1) return;
 
@@ -977,6 +1182,9 @@ class PopOverlay {
       final bLevel = _effectiveStackLevel(b.value);
       final byLevel = aLevel.compareTo(bLevel);
       if (byLevel != 0) return byLevel;
+      final byOrder =
+          a.value.activationOrder.compareTo(b.value.activationOrder);
+      if (byOrder != 0) return byOrder;
       return a.key.compareTo(b.key);
     });
 
@@ -989,6 +1197,7 @@ class PopOverlay {
 
   /// Performance monitoring - returns metrics about current overlays
   static Map<String, dynamic> get performanceMetrics {
+    // Gather lightweight overlay stats for profiling.
     final overlays = _controller.state;
     final expensiveOverlays =
         overlays.where((o) => o.hasExpensiveFeatures).length;
@@ -1007,6 +1216,7 @@ class PopOverlay {
   static void removeMultiplePops(List<String> ids) {
     if (ids.isEmpty) return;
 
+    // Remove multiple overlays in one controller update.
     _controller.update<List<PopOverlayContent>>((state) {
       // Find overlays to remove and clean them up
       final toRemove = <PopOverlayContent>[];
@@ -1020,6 +1230,7 @@ class PopOverlay {
 
       // Remove all at once for better performance
       for (final element in toRemove) {
+        _unregisterInterleavedLayerForPopId(element.id);
         state.remove(element);
       }
 
@@ -1039,8 +1250,12 @@ class PopOverlay {
 
   /// Clear all overlays efficiently
   static void clearAll() {
+    // Clear overlays and cached widgets.
     _controller.update<List<PopOverlayContent>>((state) {
       // Dispose all overlays first
+      for (final overlay in state) {
+        _unregisterInterleavedLayerForPopId(overlay.id);
+      }
       for (final overlay in state) {
         overlay.dispose();
       }
@@ -1065,6 +1280,7 @@ class _PopOverlayBootstrapper {
   static bool _installScheduled = false;
 
   static void ensureInstalled({BuildContext? context}) {
+    // Lazily install the PopOverlay OverlayEntry.
     if (_entry?.mounted == true) return;
 
     if (_entry != null && _entry?.mounted != true) {
@@ -1075,6 +1291,7 @@ class _PopOverlayBootstrapper {
     _installScheduled = true;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Complete installation after the current frame.
       _installScheduled = false;
 
       if (_entry?.mounted == true) return;
@@ -1083,6 +1300,7 @@ class _PopOverlayBootstrapper {
       if (overlayState == null) return;
 
       final entry = OverlayEntry(
+          maintainState: true,
           builder: (context) => const _PopOverlayBootstrapperEntry());
 
       overlayState.insert(entry);
@@ -1090,24 +1308,58 @@ class _PopOverlayBootstrapper {
     });
   }
 
-  static OverlayState? _resolveRootOverlay(BuildContext? context) {
-    if (context != null) {
-      // Prefer the nearest overlay first so we stay in the same coordinate space
-      // as the caller (important for framed/scaled web layouts).
-      final nearestOverlay = Overlay.maybeOf(context, rootOverlay: false);
-      if (nearestOverlay != null) return nearestOverlay;
+  static void bringToFront({BuildContext? context}) {
+    // Promote the overlay host entry.
+    final entry = _entry;
+    if (entry == null) {
+      _debugPopOverlayLog('bringToFront: no entry, calling ensureInstalled');
+      ensureInstalled(context: context);
+      return;
+    }
 
-      // Fallback to root overlay when a nearest one is unavailable.
+    final overlayState = _resolveRootOverlay(context);
+    if (overlayState == null) {
+      _debugPopOverlayLog('bringToFront: overlayState is null, skipping');
+      return;
+    }
+
+    _debugPopOverlayLog(
+        'bringToFront: rearranging entry mounted=${entry.mounted}');
+    if (entry.mounted) {
+      // Reorder so this entry is the top-most overlay entry.
+      overlayState.rearrange([entry]);
+      return;
+    }
+
+    overlayState.insert(entry);
+  }
+
+  static OverlayState? _resolveRootOverlay(BuildContext? context) {
+    // Resolve the most appropriate root overlay.
+    if (context != null) {
       final rootOverlay = Overlay.maybeOf(context, rootOverlay: true);
       if (rootOverlay != null) return rootOverlay;
+
+      // Fallback to the nearest overlay only if a root overlay is unavailable.
+      // This keeps PopOverlay aligned with s_modal when both packages are active,
+      // while still allowing local overlays in unusual embedding scenarios.
+      final nearestOverlay = Overlay.maybeOf(context, rootOverlay: false);
+      if (nearestOverlay != null) return nearestOverlay;
     }
 
     final rootElement = WidgetsBinding.instance.rootElement;
     if (rootElement == null) return null;
 
+    // When no context is supplied, prefer the true root overlay first.
+    // This avoids accidentally attaching to nested Navigator overlays such as
+    // the one created by s_modal's app builder wrapper.
+    final rootOverlay = Overlay.maybeOf(rootElement, rootOverlay: true);
+    if (rootOverlay != null) return rootOverlay;
+
     OverlayState? found;
 
     void visit(Element element) {
+      // DFS search for any overlay as a last resort.
       if (found != null) return;
       if (element is StatefulElement && element.state is OverlayState) {
         found = element.state as OverlayState;
@@ -1127,12 +1379,34 @@ class _PopOverlayBootstrapperEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Watch both active and invisible controllers.
     return OnBuilder(
       listenTo: PopOverlay.controller,
       builder: () {
         return OnBuilder(
           listenTo: PopOverlay.invisibleController,
           builder: () {
+            _debugPopOverlayLog(
+              '_PopOverlayBootstrapperEntry build active=${PopOverlay.controller.state.map((e) => e.id).toList()} '
+              'invisible=${PopOverlay.invisibleController.state} visible=${PopOverlay.isActiveAndVisible} '
+              'interleave=${OverlayInterleaveManager.enabled}',
+            );
+
+            if (OverlayInterleaveManager.enabled) {
+              // Ensure interleave host is installed and keep legacy host inert.
+              // Fallback install path: addPop calls may not pass a BuildContext.
+              // Bootstrapper entry is mounted in a real overlay, so its context
+              // can always resolve the correct root overlay for the interleave host.
+              OverlayInterleaveManager.ensureInstalled(context: context);
+
+              // Interleaved mode renders PopOverlay layers via OverlayInterleaveManager.
+              // Keep this legacy host inert to avoid duplicate layering/hit testing.
+              return const IgnorePointer(
+                ignoring: true,
+                child: SizedBox.shrink(),
+              );
+            }
+
             return IgnorePointer(
               ignoring: !PopOverlay.isActiveAndVisible,
               child: _PopOverlayActivator(child: const SizedBox.shrink()),
@@ -1157,12 +1431,14 @@ class _PopOverlayWidgetCache {
   /// Used internally by closeButton() and template getter to avoid
   /// recreating the same widgets repeatedly.
   static Widget getOrCreate(String key, Widget Function() factory) {
+    // Return cached widget if it exists.
     if (_cache.containsKey(key)) {
       return _cache[key]!;
     }
 
     // Clear cache if it gets too large
     if (_cache.length >= _maxCacheSize) {
+      // Simple eviction strategy: clear all when full.
       _cache.clear();
     }
 
@@ -1198,6 +1474,7 @@ class _FrameDesignTemplatePop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Build the template popup UI with a simple entry animation.
     return SInkButton(
       child: Stack(
         alignment: Alignment.topCenter,

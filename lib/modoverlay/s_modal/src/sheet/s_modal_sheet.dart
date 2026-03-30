@@ -158,6 +158,7 @@ class _DragHandleState extends State<_DragHandle> {
 
   @override
   void initState() {
+    // Capture the initial dimension after first layout.
     super.initState();
     // Store the original dimension when the drag handle is initialized
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -175,6 +176,7 @@ class _DragHandleState extends State<_DragHandle> {
   void didUpdateWidget(covariant _DragHandle oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    // React to expanded height changes from updateParams.
     // Check if expandedHeight was changed via updateParams
     if (widget.expandedHeight != oldWidget.expandedHeight) {
       // Calculate new max expanded dimension using MediaQuery
@@ -191,6 +193,7 @@ class _DragHandleState extends State<_DragHandle> {
       // If sheet is currently expanded but the new max is now at or below
       // the original dimension, we need to collapse it
       if (isExpanded && originalSheetDimension > 0) {
+        // If expansion is no longer valid, collapse.
         // If new expanded dimension <= original dimension, expansion is disabled
         if (newMaxExpanded <= originalSheetDimension) {
           // Collapse the sheet back to original dimension
@@ -198,6 +201,7 @@ class _DragHandleState extends State<_DragHandle> {
         }
         // If we're expanded beyond the new max, also collapse
         else if (currentHeight > newMaxExpanded) {
+          // Clamp to the new max if currently oversized.
           // Animate to new max or collapse
           _modalSheetHeightNotifier.state = originalSheetDimension;
           _modalSheetHeightNotifier.notify();
@@ -210,6 +214,7 @@ class _DragHandleState extends State<_DragHandle> {
       }
       // If expansion was just enabled (new max > original), update tracking
       else if (!isExpanded && newMaxExpanded > originalSheetDimension) {
+        // Expansion just became possible; update baseline dimension.
         // Just update the originalSheetDimension in case it wasn't set properly
         if (originalSheetDimension == 0 && currentHeight > 0) {
           originalSheetDimension = currentHeight;
@@ -230,6 +235,7 @@ class _DragHandleState extends State<_DragHandle> {
   /// For right sheet: drag left (negative delta) expands, drag right (positive delta) dismisses
   /// For left sheet: drag right (positive delta) expands, drag left (negative delta) dismisses (REVERSED)
   double _normalizeDelta(double delta) {
+    // Normalize drag delta so negative = expand, positive = dismiss.
     switch (widget.position) {
       case SheetPosition.bottom:
       case SheetPosition.right:
@@ -245,6 +251,7 @@ class _DragHandleState extends State<_DragHandle> {
   /// synchronize internal state to avoid transient jitter while the user
   /// is still dragging. Returns true when a lock was applied.
   bool _lockToExpandedIfNeeded(double sheetHeight) {
+    // Clamp sheet to maxExpandedDimension to avoid jitter.
     const double tolerance = 1.0; // pixels
     if (sheetHeight >= maxExpandedDimension - tolerance) {
       if (_showDebugPrints) {
@@ -287,6 +294,7 @@ class _DragHandleState extends State<_DragHandle> {
   /// Returns the new drag distance
   /// Note: deltaY should be normalized via _normalizeDelta before calling
   double _handleUpwardDrag(double deltaY, double sheetHeight) {
+    // Update drag distance and sheet height for expansion.
     // If we're already at (or very near) max expanded dimension, lock to it
     if (_lockToExpandedIfNeeded(sheetHeight)) {
       return dragDistance;
@@ -317,6 +325,7 @@ class _DragHandleState extends State<_DragHandle> {
   /// Returns the new drag distance or null if quick collapse was triggered
   /// Note: deltaY should be normalized via _normalizeDelta before calling
   double? _handleExpandedDownwardDrag(double deltaY, double collapseDistance) {
+    // Convert collapse drag into updated drag distance.
     // During collapse phase: dragDistance goes from -collapseDistance (fully expanded) to 0 (collapsed)
     // During dismiss phase: dragDistance goes from 0 (collapsed) to positive (dismissing)
 
@@ -330,6 +339,7 @@ class _DragHandleState extends State<_DragHandle> {
 
   /// Immediately collapses the sheet to its original dimension
   void _collapseSheet() {
+    // Reset to original dimension and clear expansion state.
     _modalSheetHeightNotifier.state = originalSheetDimension;
     _modalSheetHeightNotifier.notify();
     setState(() {
@@ -347,16 +357,19 @@ class _DragHandleState extends State<_DragHandle> {
 
   /// Updates the UI state based on the new drag distance
   void _updateUIFromDragDistance(double newDragDistance) {
+    // Sync notifier and visual state based on drag distance.
     // Calculate the effective height based on drag
     double effectiveHeight;
 
     if (newDragDistance < 0) {
+      // Expansion path: negative drag increases height/width.
       // Expanding or collapsing from expanded state
       // newDragDistance ranges from -collapseDistance (fully expanded) to 0 (collapsed)
       effectiveHeight = originalSheetDimension - newDragDistance;
       _modalSheetHeightNotifier.state = effectiveHeight;
       _modalSheetHeightNotifier.notify();
     } else {
+      // Dismiss path: keep size fixed, use offset for visual shift.
       // Normal dismiss drag (never was expanded, or already collapsed)
       effectiveHeight = originalSheetDimension;
       // Sheet stays at original size, drag offset handles the visual movement
@@ -374,6 +387,7 @@ class _DragHandleState extends State<_DragHandle> {
       isExpanded = effectiveHeight > originalSheetDimension;
     }); // Update background animation for downward/rightward drag
     if (newDragDistance >= 0) {
+      // Fade background as the sheet is dragged toward dismiss.
       double animationDragDistance = newDragDistance.clamp(0, maxDragDistance);
       double progress = animationDragDistance / maxDragDistance;
 
@@ -383,6 +397,7 @@ class _DragHandleState extends State<_DragHandle> {
       // Strategic haptic feedback at key interaction points
       // Provides subtle feedback when approaching dismiss threshold
       if (kEnableHapticFeedback) {
+        // Provide haptics at key thresholds.
         // First feedback at 50% of dismiss threshold
         if (progress > 0.5 && progress < 0.52) {
           HapticFeedback.selectionClick();
@@ -402,8 +417,10 @@ class _DragHandleState extends State<_DragHandle> {
 
   @override
   Widget build(BuildContext context) {
+    // Build drag handle with shared gesture logic.
     // Common drag update logic for both orientations
     void handleDragUpdate(double delta) {
+      // Normalize and route drag updates for expand/dismiss.
       // Debug: log incoming drag deltas and current dimensions
       if (_showDebugPrints) {
         debugPrint(
@@ -417,6 +434,7 @@ class _DragHandleState extends State<_DragHandle> {
       // IMPORTANT: Only check actual dimension, NOT the isExpanded flag,
       // because the flag may not be updated yet after a collapse animation.
       if (!_dragStartedFromExpanded) {
+        // Detect if the gesture started from an expanded state.
         final startDim = _modalSheetHeightNotifier.state;
         // Only consider the actual visual dimension to detect expanded state
         // Use a tolerance of 5px to account for floating point differences
@@ -435,6 +453,7 @@ class _DragHandleState extends State<_DragHandle> {
       // can temporarily disable entrance/exit animations that might collide
       // with the user's drag gestures.
       if (!_modalIsInteractingNotifier.state) {
+        // Mark as interacting to disable conflicting animations.
         _modalIsInteractingNotifier.state = true;
       }
 
@@ -467,6 +486,7 @@ class _DragHandleState extends State<_DragHandle> {
 
       // Handle different drag scenarios based on direction and state
       if (normalizedDelta < 0 && canExpand) {
+        // Expansion-direction drag.
         // Expansion direction drag
         newDragDistance = _handleUpwardDrag(normalizedDelta, sheetHeight);
         if (_showDebugPrints) {
@@ -474,6 +494,7 @@ class _DragHandleState extends State<_DragHandle> {
               '[DRAG_UPDATE] expansion delta normalized=$normalizedDelta -> newDragDistance=$newDragDistance');
         }
       } else if (isExpanded) {
+        // Collapse/dismiss when currently expanded.
         // Dismiss direction drag while expanded - collapse or dismiss
         double collapseDistance = maxExpandedDimension - originalSheetDimension;
         newDragDistance =
@@ -491,6 +512,7 @@ class _DragHandleState extends State<_DragHandle> {
         }
         if (newDragDistance == null) return; // Quick collapse was triggered
       } else {
+        // Regular dismiss drag when not expanded.
         // Normal dismiss direction drag for dismissal
         newDragDistance = (dragDistance + normalizedDelta)
             .clamp(0, maxModalDragDistance)
@@ -503,6 +525,7 @@ class _DragHandleState extends State<_DragHandle> {
 
       // Only update if there's a meaningful change (performance optimization)
       if (newDragDistance != dragDistance) {
+        // Apply if the change is meaningful.
         if (_showDebugPrints) {
           debugPrint(
               '[DRAG_UPDATE] applying newDragDistance: from $dragDistance to $newDragDistance');
@@ -513,6 +536,7 @@ class _DragHandleState extends State<_DragHandle> {
 
     // Common drag end logic for both orientations
     void handleDragEnd(double velocity) {
+      // Finalize gesture and decide collapse vs dismiss.
       // Normalize velocity the same way we normalize delta
       // For top/left sheets, positive velocity means expansion, negative means dismiss
       // We need to flip the sign so positive velocity always means dismiss direction
@@ -532,6 +556,7 @@ class _DragHandleState extends State<_DragHandle> {
 
       // User is no longer interacting
       if (_modalIsInteractingNotifier.state) {
+        // Clear interacting flag.
         _modalIsInteractingNotifier.state = false;
       }
 
@@ -554,6 +579,7 @@ class _DragHandleState extends State<_DragHandle> {
       // we should handle collapse logic, NOT snap back to expanded.
       // dragFromExpanded > 0 means user moved the sheet away from expanded position.
       if (startedExpanded && dragFromExpanded > 0) {
+        // Collapse behavior when starting from expanded state.
         // User started from expanded and dragged outward - handle collapse cases
         final smallDragThreshold = kSmallDragCollapseThreshold; // 80px
         final dismissThreshold = maxDragDistance *
@@ -566,6 +592,7 @@ class _DragHandleState extends State<_DragHandle> {
 
         // STAGE 1: Small drag from expanded position (< 80px) = COLLAPSE back to original size
         if (dragFromExpanded < smallDragThreshold) {
+          // Small drag: collapse back to original size.
           if (_showDebugPrints) {
             debugPrint(
                 '[DRAG_END] Collapsing to original size (small drag from expanded)');
@@ -580,6 +607,7 @@ class _DragHandleState extends State<_DragHandle> {
             endHeight,
             duration: const Duration(milliseconds: 300),
             onComplete: () {
+              // Reset drag/expanded state after animation.
               if (_showDebugPrints) {
                 debugPrint('[DRAG_END] Small-collapse animation complete');
               }
@@ -600,6 +628,7 @@ class _DragHandleState extends State<_DragHandle> {
         // STAGE 2: Mid-range drag - collapse to original (not dismiss)
         // If we haven't passed the dismiss threshold, collapse
         if (dragDistance <= dismissThreshold) {
+          // Mid-range drag: collapse (do not dismiss).
           if (_showDebugPrints) {
             debugPrint(
                 '[DRAG_END] Collapsing to original size (mid-range drag)');
@@ -615,6 +644,7 @@ class _DragHandleState extends State<_DragHandle> {
             endHeight,
             duration: const Duration(milliseconds: 300),
             onComplete: () {
+              // Reset after collapse animation.
               if (_showDebugPrints) {
                 debugPrint('[DRAG_END] Mid-range collapse animation complete');
               }
@@ -636,6 +666,7 @@ class _DragHandleState extends State<_DragHandle> {
       // If we were expanding (negative drag) AND NOT coming from expanded state
       // This handles the case where user starts from original size and drags to expand
       if (dragDistance < 0 && !startedExpanded) {
+        // Expansion gesture from collapsed state.
         // Calculate how far we've dragged toward expansion (from original size)
         final dragTowardExpansion =
             (currentDimension - originalSheetDimension).abs();
@@ -648,6 +679,7 @@ class _DragHandleState extends State<_DragHandle> {
         // This makes it easy to expand with just a small gesture
         if (dragTowardExpansion > 0 &&
             dragTowardExpansion < smallDragThreshold) {
+          // Small drag: snap to fully expanded.
           // debugPrint(
           // '[DRAG_END] Expanding to max (small drag toward expansion)');
 
@@ -662,6 +694,7 @@ class _DragHandleState extends State<_DragHandle> {
             endHeight,
             duration: const Duration(milliseconds: 150),
             onComplete: () {
+              // Mark expanded and notify.
               // debugPrint('[DRAG_END] Small-expand animation complete');
               if (mounted) {
                 setState(() {
@@ -680,6 +713,7 @@ class _DragHandleState extends State<_DragHandle> {
         // Larger drag toward expansion = also SNAP TO EXPANDED
         // (Any intentional expansion gesture should complete the expansion)
         if (dragTowardExpansion >= smallDragThreshold) {
+          // Larger drag: also snap to fully expanded.
           // debugPrint(
           // '[DRAG_END] Expanding to max (larger drag toward expansion)');
 
@@ -694,6 +728,7 @@ class _DragHandleState extends State<_DragHandle> {
             endHeight,
             duration: const Duration(milliseconds: 150),
             onComplete: () {
+              // Mark expanded and notify.
               if (mounted) {
                 setState(() {
                   dragDistance =
@@ -726,6 +761,7 @@ class _DragHandleState extends State<_DragHandle> {
       // - OR dragged more than threshold distance
       if (normalizedVelocity > kFlickVelocityThreshold ||
           dragDistance > dismissThreshold) {
+        // Dismiss: either fast flick or beyond distance threshold.
         //
         // --- DISMISS THE SHEET ---
         //
@@ -741,6 +777,7 @@ class _DragHandleState extends State<_DragHandle> {
         // Call the proper dismiss method which handles all cleanup and animation
         Modal.dismissBottomSheet();
       } else {
+        // Snap back or collapse based on current state.
         //
         // --- SNAP BACK OR COLLAPSE ---
         //
@@ -752,6 +789,7 @@ class _DragHandleState extends State<_DragHandle> {
         // This makes the collapse behavior more lenient - any outward drag that doesn't
         // meet the dismiss threshold will collapse back to original size
         if ((isExpanded || startedExpanded) && dragDistance > 0) {
+          // Expanded state: collapse to original size.
           // debugPrint('[DRAG_END] Collapsing to original size (mid-range drag)');
 
           // Calculate animation values
@@ -771,6 +809,7 @@ class _DragHandleState extends State<_DragHandle> {
               }
             },
             onComplete: () {
+              // Reset flags after collapse.
               // debugPrint('[DRAG_END] Mid-range collapse animation complete');
               if (mounted) {
                 setState(() {
@@ -797,12 +836,14 @@ class _DragHandleState extends State<_DragHandle> {
             originalDragDistance > 0 ? originalDragDistance : 0.0;
 
         if (startOffset == 0.0) {
+          // No visible offset to animate back.
           // Simply ensure offset is zero
           _setModalDragOffset(0, reason: 'snapback startOffset==0');
           setState(() {
             dragDistance = 0;
           });
         } else {
+          // Animate the drag offset back to zero.
           // Animate the offset back to 0 smoothly
           // debugPrint('[🔄 SNAPBACK] Animating offset from $startOffset to 0');
 
@@ -817,6 +858,7 @@ class _DragHandleState extends State<_DragHandle> {
               }
             },
             onComplete: () {
+              // Finalize snapback.
               // debugPrint('[🔄 SNAPBACK] Animation complete');
               if (mounted) {
                 setState(() {
@@ -832,6 +874,7 @@ class _DragHandleState extends State<_DragHandle> {
 
     // Common drag cancel logic
     void handleDragCancel() {
+      // Reset transient drag state.
       // Reset the drag-start-expanded flag when the drag is cancelled
       _dragStartedFromExpanded = false;
       // Reset background layer to fully visible
@@ -852,6 +895,7 @@ class _DragHandleState extends State<_DragHandle> {
     }
 
     return GestureDetector(
+      // Wire drag callbacks based on orientation.
       // Handle continuous drag gestures - vertical for bottom sheets, horizontal for side sheets
       onVerticalDragUpdate: widget.isHorizontal
           ? null
@@ -882,6 +926,7 @@ class _DragHandleState extends State<_DragHandle> {
 
       // Visual representation of the drag handle
       child: Semantics(
+        // Provide accessibility hints for drag handles.
         label: 'Drag to dismiss',
         hint: 'Drag down to close the bottom sheet',
         button: true,
@@ -934,6 +979,7 @@ class _Sheet extends StatefulWidget {
   /// Animate the sheet to a target size
   static void animateToSize(double targetSize,
       {Duration? duration, VoidCallback? onComplete}) {
+    // Proxy to the current sheet state if present.
     currentState?.animateSheetSize(targetSize,
         duration: duration, onComplete: onComplete);
   }
@@ -1038,6 +1084,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
   /// Animate the sheet size smoothly to a target dimension
   void animateSheetSize(double targetSize,
       {Duration? duration, VoidCallback? onComplete}) {
+    // Smoothly animate to a target size.
     final currentSize = _modalSheetHeightNotifier.state;
     if (currentSize == targetSize) {
       onComplete?.call();
@@ -1069,6 +1116,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
     sizeAnimationController.duration =
         duration ?? const Duration(milliseconds: 300);
     sizeAnimationController.forward(from: 0).then((_) {
+      // Mark animation done and fire completion callback.
       _isAnimatingSize = false;
       onComplete?.call();
     });
@@ -1076,6 +1124,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
   // Start frame logging while user is interacting to capture transient shifts
   void startFrameLogging() {
+    // Debug-only frame logger during interactions.
     void logFrame(Duration _) {
       if (!mounted) return;
       if (sheetKey.currentContext != null) {
@@ -1101,6 +1150,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
   // Helper method to get current size - ensures values are always fresh
   // Returns height for vertical sheets, width for horizontal sheets
   double? getCurrentSize() {
+    // Return current size from notifier or fallback to widget height.
     return _modalSheetHeightNotifier.state > 0
         ? _modalSheetHeightNotifier.state
         : widget.height;
@@ -1108,6 +1158,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
   /// Measure the main dimension of the sheet (height for vertical, width for horizontal)
   void measureContentDimension() {
+    // Measure intrinsic size when fixed dimension is not provided.
     // Only measure when we don't have a fixed dimension
     final needsMeasure = (widget.position == SheetPosition.left ||
             widget.position == SheetPosition.right)
@@ -1149,6 +1200,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
+    // Initialize controller, observers, and initial sizing.
     super.initState();
     // Register this instance as the current state
     _Sheet.currentState = this;
@@ -1167,6 +1219,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
     // '[INIT] isHorizontal=$isHorizontal | width=${widget.width} | height=${widget.height} | initialDimension=$initialDimension | notifierState=${_modalSheetHeightNotifier.state}');
 
     if (initialDimension != null && initialDimension > 0) {
+      // Seed size to avoid initial layout jump.
       // Set the dimension immediately without animating to avoid visual jump
       _modalSheetHeightNotifier.state = initialDimension;
     }
@@ -1177,6 +1230,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
     // States_rebuilder observer to rebuild immediately when size changes
     // Skip during size animations to prevent layout jitter
     heightObserver = _modalSheetHeightNotifier.addObserver(listener: (state) {
+      // Rebuild on size changes unless animation is active.
       if (mounted &&
           !_isAnimatingSize &&
           currentSheetSize != _modalSheetHeightNotifier.state) {
@@ -1188,6 +1242,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
     // Observe drag offset changes for debugging unexpected shifts
     offsetObserver = _modalDragOffsetNotifier.addObserver(listener: (state) {
+      // Hook for drag offset debugging.
       // debugPrint('[OBSERVER] modalDragOffset changed: $state');
     });
 
@@ -1204,6 +1259,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
+    // Dispose controllers and observers.
     // Clear the static reference if this is the current instance
     if (_Sheet.currentState == this) {
       _Sheet.currentState = null;
@@ -1214,6 +1270,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
     // Clean up the observer when the widget is disposed
     if (heightObserver != null) {
+      // Dispose observer handle.
       if (heightObserver is Function) {
         heightObserver();
       } else {
@@ -1225,6 +1282,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
       }
     }
     if (offsetObserver != null) {
+      // Dispose offset observer handle.
       if (offsetObserver is Function) {
         offsetObserver();
       } else {
@@ -1236,6 +1294,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
       }
     }
     if (interactionObserver != null) {
+      // Dispose interaction observer handle.
       if (interactionObserver is Function) {
         interactionObserver();
       } else {
@@ -1253,6 +1312,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
   void didUpdateWidget(_Sheet oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    // Update sizing when configuration or content changes.
     // Determine if this is a horizontal sheet
     final isHorizontal = widget.position == SheetPosition.left ||
         widget.position == SheetPosition.right;
@@ -1262,10 +1322,12 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
     final newDimension = isHorizontal ? widget.width : widget.height;
 
     if (newDimension != oldDimension) {
+      // Fixed dimension changed; update immediately.
       if (newDimension != null) {
         // New modal has fixed dimension - set it immediately
         _modalSheetHeightNotifier.state = newDimension;
       } else {
+        // Auto dimension: reset and re-measure.
         // New modal has auto-dimension - reset flag and measure
         hasMeasuredAutoHeight = false;
         measureContentDimension();
@@ -1275,6 +1337,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
     else if (newDimension == null &&
         oldDimension == null &&
         widget.child != oldWidget.child) {
+      // Content changed under auto sizing: re-measure.
       // Reset measurement flag and re-measure for new content
       hasMeasuredAutoHeight = false;
       measureContentDimension();
@@ -1285,6 +1348,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    // Build the sheet container and apply optional animations.
     // For regular bottom sheet modals
     double dragOffset = _modalDragOffsetNotifier.state;
 
@@ -1316,6 +1380,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
     final needsMeasure =
         isHorizontal ? widget.width == null : widget.height == null;
     if (needsMeasure) {
+      // Ensure intrinsic size measurement for auto-sized sheets.
       measureContentDimension();
     }
 
@@ -1545,6 +1610,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
     // because they can interfere with precise drag interactions and cause
     // brief visual shifts. Effects are re-enabled when interaction ends.
     if (_modalIsInteractingNotifier.state) {
+      // Skip animations during drag for stability.
       return positionedSheet;
     }
 
@@ -1558,6 +1624,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
         widget.sheetId ?? widget.key?.toString() ?? 'unknown';
 
     if (shouldApplyShowEffects) {
+      // Play entry effects only once on first show.
       return positionedSheet.animate(
         key: ValueKey("sheet_anim_${animationKeyId}_show"),
         effects: getShowEffects(),
@@ -1574,6 +1641,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
     // Apply dismiss effects when dismissing
     if (widget.isDismissing) {
+      // Apply dismiss effects when modal is being closed.
       return positionedSheet.animate(
         key: ValueKey("sheet_anim_${animationKeyId}_dismissing"),
         effects: getDismissEffects(dragOffset),
@@ -1586,6 +1654,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
   /// Get dismiss animation effects based on sheet position
   List<Effect> getDismissEffects(double dragOffset) {
+    // Build exit animation effects per sheet position.
     switch (widget.position) {
       case SheetPosition.bottom:
         return [
@@ -1642,6 +1711,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
   /// Get show animation effects based on sheet position
   List<Effect> getShowEffects() {
+    // Build entry animation effects per sheet position.
     switch (widget.position) {
       case SheetPosition.bottom:
         return [

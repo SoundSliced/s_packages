@@ -1,3 +1,27 @@
+/// Escape Key Listener for Pop Overlays
+///
+/// This file implements global escape key handling for pop overlays.
+/// It provides reliable dismissal of overlays via the Escape key without
+/// requiring focus management or complex widget hierarchies.
+///
+/// Key Features:
+/// - Global HardwareKeyboard handler for reliable key detection
+/// - Works across modal boundaries and focus states
+/// - Dismisses the topmost visible overlay that allows escape dismissal
+/// - Integrates with context menus to avoid conflicts
+/// - Optional visual debug mode for development
+/// - Web fallback support for edge cases
+///
+/// The implementation uses HardwareKeyboard.instance.addHandler() for
+/// primary key detection, ensuring it works regardless of which widget
+/// currently has focus. This makes it much more reliable than traditional
+/// focus-based approaches for modal dismissal.
+///
+/// Usage:
+/// The EscapeKeyHandler is automatically installed by the PopOverlay
+/// activator and requires no manual setup for basic usage.
+library;
+
 import 'package:s_packages/s_packages.dart';
 // ignore: depend_on_referenced_packages
 import 'package:universal_html/universal_html.dart' as html;
@@ -36,30 +60,39 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
   late final LogicalKeyboardKey _effectiveKey;
   dynamic _htmlListener;
 
+  // Lightweight debug logger for this handler.
   void _log(String msg) {
+    // Keep logging centralized for easier toggling.
     debugPrint('[EscapeKeyHandler] $msg');
   }
 
   @override
+  // Initialize key mapping and install global handlers.
   void initState() {
     super.initState();
+    // Resolve the effective key (defaults to Escape).
     _effectiveKey = widget.dismissKey ?? LogicalKeyboardKey.escape;
     // _log('initState: dismissKey=${_effectiveKey.debugName}');
+    _log('initState: attaching global handlers');
     _attachGlobalHandlers();
   }
 
   @override
+  // Remove global handlers when the widget is disposed.
   void dispose() {
+    // Ensure key handlers are detached to prevent leaks.
     _detachGlobalHandlers();
     super.dispose();
   }
 
+  // Execute the dismissal flow for the topmost eligible overlay.
   void _handleDismiss(String source) {
     // _log('Key captured by $source');
     // Call the optional callback if provided
     widget.onKeyEvent?.call();
 
     if (PopOverlay.isActive) {
+      // Walk overlays from top to bottom to find the first visible one.
       final overlays = PopOverlay.controller.state;
       if (overlays.isNotEmpty) {
         // Find the topmost overlay that allows escape key dismissal
@@ -80,15 +113,18 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
     }
   }
 
+  // Primary HardwareKeyboard handler.
   bool _hardwareHandler(KeyEvent event) {
     if (event is KeyDownEvent &&
         event.logicalKey == _effectiveKey &&
         event is! KeyRepeatEvent) {
+      // Avoid dismissing overlays while context menus are open.
       // Ignore if any context menu is open
       if (SContextMenu.hasAnyOpenMenus == true) {
         return false;
       }
 
+      // Execute dismissal and optional debug UI.
       _handleDismiss('HardwareKeyboard');
 
       // Visual debug if enabled
@@ -103,16 +139,19 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
     return false;
   }
 
+  // Attach global handlers (HardwareKeyboard and web fallback).
   void _attachGlobalHandlers() {
     // Primary handler - works globally without focus
     HardwareKeyboard.instance.addHandler(_hardwareHandler);
-    // _log('HardwareKeyboard handler attached');
+    _log('Global handlers attached');
   }
 
+  // Detach global handlers to avoid leaks.
   void _detachGlobalHandlers() {
     HardwareKeyboard.instance.removeHandler(_hardwareHandler);
 
     if (kIsWeb && _htmlListener != null) {
+      // Clean up web listener if one was used.
       html.window.removeEventListener('keydown', _htmlListener, true);
       _htmlListener = null;
     }
@@ -120,6 +159,7 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
     _log('Global handlers detached');
   }
 
+  // Visual debug overlay that shows the last captured key.
   void _showKeyDebug(String keyName) {
     PopOverlay.addPop(
       PopOverlayContent(
@@ -152,7 +192,9 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
   }
 
   @override
+  // Simple passthrough build.
   Widget build(BuildContext context) {
+    // No focus nodes or gestures needed here.
     // Simple passthrough - no focus nodes, no gesture detection, no complexity
     return widget.child;
   }

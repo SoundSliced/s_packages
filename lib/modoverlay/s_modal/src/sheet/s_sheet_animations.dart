@@ -37,10 +37,12 @@ void createSmoothAnimation({
   required Function(double value) onUpdate,
   VoidCallback? onComplete,
 }) {
+  // Capture start time and compute the delta for interpolation.
   final startTime = DateTime.now();
   final totalChange = endValue - startValue;
 
   if (_showDebugPrints) {
+    // Optional trace to help tune animation timings.
     debugPrint(
         '[🎬 ANIM START] start=$startValue | end=$endValue | duration=${duration.inMilliseconds}ms | curve=$curve');
   }
@@ -50,6 +52,7 @@ void createSmoothAnimation({
 
   // Create a periodic timer for smooth animation
   Timer.periodic(frameInterval, (timer) {
+    // Compute normalized progress for this frame.
     // Calculate progress based on elapsed time (0.0 to 1.0)
     final elapsedMilliseconds =
         DateTime.now().difference(startTime).inMilliseconds;
@@ -64,6 +67,7 @@ void createSmoothAnimation({
 
     // Log every 5th frame to avoid spam
     if (elapsedMilliseconds % 80 < 20 && _showDebugPrints) {
+      // Throttle debug logs to avoid spam.
       debugPrint(
           '[🎬 ANIM] progress=${(normalizedProgress * 100).toStringAsFixed(0)}% | '
           'value=${currentValue.toStringAsFixed(1)} | '
@@ -75,6 +79,7 @@ void createSmoothAnimation({
 
     // Stop timer when animation completes
     if (normalizedProgress >= 1.0) {
+      // Stop timer and dispatch completion.
       timer.cancel();
       if (_showDebugPrints) {
         debugPrint('[🎬 ANIM COMPLETE] final value=$currentValue');

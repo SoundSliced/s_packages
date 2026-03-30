@@ -26,6 +26,7 @@ import 'package:s_packages_example/screens/examples/s_liquid_pull_to_refresh_exa
 import 'package:s_packages_example/screens/examples/s_maintenance_button_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_metar_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_modal_example_screen.dart';
+import 'package:s_packages_example/screens/examples/s_modal_pop_overlay_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_offstage_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_screenshot_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_sidebar_example_screen.dart';
@@ -87,6 +88,7 @@ class PackageExamplesRegistry {
     'keystroke_listener': () => const KeystrokeListenerExampleScreen(),
 
     // Navigation
+    's_modal_pop_overlay': () => const SModalPopOverlayExampleScreen(),
     'pop_this': () => const PopThisExampleScreen(),
 
     // Utilities

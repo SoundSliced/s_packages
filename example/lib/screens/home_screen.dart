@@ -36,6 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
       category: 'Navigation',
     ),
     PackageInfo(
+      name: 's_modal',
+      description: 'Modal dialogs',
+      category: 'Navigation',
+    ),
+    PackageInfo(
+      name: 's_modal_pop_overlay',
+      description: 'PopOverlay + s_modal stacking test',
+      category: 'Navigation',
+    ),
+    PackageInfo(
       name: 'pop_this',
       description: 'Navigation utilities',
       category: 'Navigation',
@@ -134,11 +144,6 @@ class _HomeScreenState extends State<HomeScreen> {
       name: 's_metar',
       description: 'METAR & TAF parser and fetcher',
       category: 'Networking',
-    ),
-    PackageInfo(
-      name: 's_modal',
-      description: 'Modal dialogs',
-      category: 'UI Components',
     ),
     PackageInfo(
       name: 's_offstage',
