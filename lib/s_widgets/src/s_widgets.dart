@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:new_loading_indicator/new_loading_indicator.dart';
 import 'package:s_packages/s_packages.dart';
 import 'package:sizer/sizer.dart' show SizerExt;
@@ -419,25 +418,28 @@ class STextButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //prefix Icon
-              if (prefixIcon != null) prefixIcon.flexible(),
+              if (prefixIcon != null) Flexible(child: prefixIcon!),
 
               //Button Title
               if (midIcon == null)
-                Text(
-                  buttonTitle ?? "Button",
-                  textAlign: TextAlign.center,
-                  style: textStyle ??
-                      TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black.withValues(alpha: 0.5),
-                      ),
-                ).expand(flex: 4),
+                Expanded(
+                  flex: 4,
+                  child: Text(
+                    buttonTitle ?? "Button",
+                    textAlign: TextAlign.center,
+                    style: textStyle ??
+                        TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black.withValues(alpha: 0.5),
+                        ),
+                  ),
+                ),
 
-              if (midIcon != null) Center(child: midIcon!).flexible(),
+              if (midIcon != null) Flexible(child: Center(child: midIcon!)),
 
               //suffix Icon
-              if (suffixIcon != null) suffixIcon!.flexible(),
+              if (suffixIcon != null) Flexible(child: suffixIcon!),
             ],
           ),
         ),

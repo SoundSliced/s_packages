@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
+import 'save_screenshot.dart';
 
 part 'tools.dart';
 
@@ -113,14 +114,14 @@ class SScreenshot {
   /// Downloads a screenshot file cross-platform.
   ///
   /// **Platform-specific behavior:**
-  /// - **Web**: Uses `file_saver` to trigger browser download
-  /// - **Native**: Saves to application documents directory using `path_provider`
+  /// - **Web**: Triggers a browser download using a generated blob URL
+  /// - **Native**: Saves to the application documents directory
   ///
   /// **Parameters:**
   /// - [bytes]: The image bytes to save
   /// - [fileName]: The name of the file (e.g., 'screenshot.png')
-  /// - [fileSaverCallback]: Callback for web downloads using `file_saver` package
-  /// - [pathProviderCallback]: Callback for native saves using `path_provider` package
+  /// - [fileSaverCallback]: Optional override for web downloads
+  /// - [pathProviderCallback]: Optional override for native saves
   ///
   /// **Returns:**
   /// - On web: Returns the [fileName] as a String
@@ -130,33 +131,10 @@ class SScreenshot {
   ///
   /// **Example:**
   /// ```dart
-  /// // On web
-  /// if (kIsWeb) {
-  ///   await SScreenshot.downloadScreenshot(
-  ///     bytes,
-  ///     fileName: 'screenshot.png',
-  ///     fileSaverCallback: (bytes, fileName) async {
-  ///       await FileSaver.instance.saveFile(
-  ///         name: fileName,
-  ///         bytes: bytes,
-  ///         ext: fileName.split('.').last,
-  ///         mimeType: MimeType.png,
-  ///       );
-  ///     },
-  ///   );
-  /// } else {
-  /// // On native
-  ///   await SScreenshot.downloadScreenshot(
-  ///     bytes,
-  ///     fileName: 'screenshot.png',
-  ///     pathProviderCallback: (bytes, fileName) async {
-  ///       final directory = await getApplicationDocumentsDirectory();
-  ///       final file = File('${directory.path}/$fileName');
-  ///       await file.writeAsBytes(bytes);
-  ///       return file;
-  ///     },
-  ///   );
-  /// }
+  /// await SScreenshot.downloadScreenshot(
+  ///   bytes,
+  ///   fileName: 'screenshot.png',
+  /// );
   /// ```
   static Future<dynamic> downloadScreenshot(
     List<int> bytes, {
@@ -170,25 +148,19 @@ class SScreenshot {
       }
 
       if (kIsWeb) {
-        // Web platform: use file_saver callback
-        if (fileSaverCallback == null) {
-          throw ScreenshotException(
-            'fileSaverCallback is required on web platform. '
-            'Make sure to import file_saver package and provide the callback.',
-          );
+        if (fileSaverCallback != null) {
+          await fileSaverCallback(bytes, fileName);
+          return fileName;
         }
-        await fileSaverCallback(bytes, fileName);
-        return fileName;
-      } else {
-        // Native platforms: use path_provider callback
-        if (pathProviderCallback == null) {
-          throw ScreenshotException(
-            'pathProviderCallback is required on native platforms. '
-            'Make sure to import path_provider package and provide the callback.',
-          );
-        }
+
+        return await saveScreenshot(bytes, fileName);
+      }
+
+      if (pathProviderCallback != null) {
         return await pathProviderCallback(bytes, fileName);
       }
+
+      return await saveScreenshot(bytes, fileName);
     } catch (e) {
       if (kDebugMode) {
         debugPrint('Screenshot download failed: $e');
@@ -210,8 +182,8 @@ class SScreenshot {
   /// - [pixelRatio]: The pixel ratio for capture quality. Defaults to 3.0
   /// - [captureDelay]: Optional delay before capturing to allow animations to complete
   /// - [shouldShowDebugLogs]: Enable debug logging. Defaults to false
-  /// - [fileSaverCallback]: Required on web. Callback for file saving using `file_saver`
-  /// - [pathProviderCallback]: Required on native. Callback for file saving using `path_provider`
+  /// - [fileSaverCallback]: Optional web override for file saving
+  /// - [pathProviderCallback]: Optional native override for file saving
   ///
   /// **Returns:** The result of [downloadScreenshot]
   ///
@@ -220,20 +192,6 @@ class SScreenshot {
   /// await SScreenshot.captureAndDownload(
   ///   _screenshotKey,
   ///   fileName: 'my_screenshot.png',
-  ///   fileSaverCallback: kIsWeb ? (bytes, name) async {
-  ///     await FileSaver.instance.saveFile(
-  ///       name: name,
-  ///       bytes: bytes,
-  ///       ext: name.split('.').last,
-  ///       mimeType: MimeType.png,
-  ///     );
-  ///   } : null,
-  ///   pathProviderCallback: !kIsWeb ? (bytes, name) async {
-  ///     final dir = await getApplicationDocumentsDirectory();
-  ///     final file = File('${dir.path}/$name');
-  ///     await file.writeAsBytes(bytes);
-  ///     return file;
-  ///   } : null,
   /// );
   /// ```
   static Future<dynamic> captureAndDownload(

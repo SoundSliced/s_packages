@@ -40,12 +40,10 @@ export 'soundsliced_tween_animation_builder/soundsliced_tween_animation_builder.
 export 'modoverlay/modoverlay.dart';
 export 'modoverlay/smodal_popoverlay/stack_order.dart';
 export 'modoverlay/smodal_popoverlay/interleave_manager.dart';
-export 'states_rebuilder_extended/states_rebuilder_extended.dart' hide Animate;
+export 'states_rebuilder_extended/states_rebuilder_extended.dart';
 export 'ticker_free_circular_progress_indicator/ticker_free_circular_progress_indicator.dart';
 export 'week_calendar/week_calendar.dart';
 
-// External package exports
-export 'package:nb_utils/nb_utils.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
 export 'dart:async';

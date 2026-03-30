@@ -132,7 +132,7 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SButton(
-                              onTap: (pos) => log("Icon Position: $pos"),
+                              onTap: (pos) => debugPrint("Icon Position: $pos"),
                               child: Icon(
                                 Icons.info_outline,
                                 size: 64,

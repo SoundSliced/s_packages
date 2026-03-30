@@ -2,7 +2,7 @@
 export 'package:xid/xid.dart';
 export 'package:flutter/services.dart';
 export 'dart:async';
-export 'package:flutter_animate/flutter_animate.dart';
+export 'package:flutter_animate/flutter_animate.dart' hide Animate;
 export 'package:flutter/foundation.dart';
 export 'package:flutter/material.dart';
 export 'package:sizer/sizer.dart';
@@ -15,7 +15,6 @@ export 'package:pausable_timer/pausable_timer.dart';
 export 'package:dio/dio.dart';
 export 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 export 'package:rxdart/rxdart.dart';
-export 'package:file_saver/file_saver.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:pointer_interceptor/pointer_interceptor.dart';
 export 'package:new_loading_indicator/new_loading_indicator.dart';

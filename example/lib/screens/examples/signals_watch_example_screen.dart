@@ -20,7 +20,6 @@ class _SignalsWatchExampleScreenState extends State<SignalsWatchExampleScreen> {
   );
 
   void _onUserNameUpdated() {
-    log("yoo: '${userName.value}'");
     if (userName.value.isEmpty) {
       _nameController.clear();
     }

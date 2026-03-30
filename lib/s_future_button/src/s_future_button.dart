@@ -131,10 +131,11 @@ class _SFutureButtonState extends State<SFutureButton> {
         child: Column(
           children: [
             //Login Button
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                MyRoundedLoadingButton(
+            Expanded(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  MyRoundedLoadingButton(
                     loaderSize: widget.loadingCircleSize ?? 24,
                     customLoaderWidget: widget.loadingWidget,
                     width: (widget.width != null && widget.width!.isFinite)
@@ -164,33 +165,35 @@ class _SFutureButtonState extends State<SFutureButton> {
                                 fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
-                    )),
-                _controller.overlayController.builderData<bool>(
-                  (isOverlayVisible) {
-                    return isOverlayVisible
-                        ? Container(
-                            decoration: BoxDecoration(
-                              color: Colors.red.withValues(alpha: 0.5),
-                              borderRadius: BorderRadius.circular(
-                                  (widget.borderRadius != null &&
-                                          widget.borderRadius!.isFinite)
-                                      ? widget.borderRadius!
-                                      : 35),
-                            ),
-                            width:
-                                (widget.width != null && widget.width!.isFinite)
-                                    ? widget.width!
-                                    : 150,
-                            height: (widget.height != null &&
-                                    widget.height!.isFinite)
-                                ? widget.height!
-                                : 40,
-                          )
-                        : const SizedBox();
-                  },
-                ),
-              ],
-            ).expand(),
+                    ),
+                  ),
+                  _controller.overlayController.builderData<bool>(
+                    (isOverlayVisible) {
+                      return isOverlayVisible
+                          ? Container(
+                              decoration: BoxDecoration(
+                                color: Colors.red.withValues(alpha: 0.5),
+                                borderRadius: BorderRadius.circular(
+                                    (widget.borderRadius != null &&
+                                            widget.borderRadius!.isFinite)
+                                        ? widget.borderRadius!
+                                        : 35),
+                              ),
+                              width: (widget.width != null &&
+                                      widget.width!.isFinite)
+                                  ? widget.width!
+                                  : 150,
+                              height: (widget.height != null &&
+                                      widget.height!.isFinite)
+                                  ? widget.height!
+                                  : 40,
+                            )
+                          : const SizedBox();
+                    },
+                  ),
+                ],
+              ),
+            ),
 
             //Login Button Error Message
             _controller.errorMessageController.builderData<String?>(
