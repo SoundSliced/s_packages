@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 typedef InterleavedLayerBuilder = Widget Function();
@@ -296,38 +297,41 @@ class _InterleavedOverlayHost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Listen to the layer registry for updates.
-    return ValueListenableBuilder<List<InterleavedOverlayLayer>>(
-      valueListenable: OverlayInterleaveManager._layers,
-      builder: (context, layers, child) {
-        if (layers.isEmpty) {
-          // When empty, keep host inert to avoid intercepting taps.
-          return const IgnorePointer(
-            ignoring: true,
-            child: SizedBox.shrink(),
-          );
-        }
+    return Material(
+      type: MaterialType.transparency,
+      child: ValueListenableBuilder<List<InterleavedOverlayLayer>>(
+        valueListenable: OverlayInterleaveManager._layers,
+        builder: (context, layers, child) {
+          if (layers.isEmpty) {
+            // When empty, keep host inert to avoid intercepting taps.
+            return const IgnorePointer(
+              ignoring: true,
+              child: SizedBox.shrink(),
+            );
+          }
 
-        // Render each layer in stack order.
-        return IgnorePointer(
-          ignoring: false,
-          child: SizedBox.expand(
-            child: Stack(
-              fit: StackFit.expand,
-              children: layers
-                  .map(
-                    (layer) => Positioned.fill(
-                      child: KeyedSubtree(
-                        key: ValueKey('interleave_layer_${layer.id}'),
-                        // Delegate actual content to the layer builder.
-                        child: layer.builder(),
+          // Render each layer in stack order.
+          return IgnorePointer(
+            ignoring: false,
+            child: SizedBox.expand(
+              child: Stack(
+                fit: StackFit.expand,
+                children: layers
+                    .map(
+                      (layer) => Positioned.fill(
+                        child: KeyedSubtree(
+                          key: ValueKey('interleave_layer_${layer.id}'),
+                          // Delegate actual content to the layer builder.
+                          child: layer.builder(),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(growable: false),
+                    )
+                    .toList(growable: false),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
