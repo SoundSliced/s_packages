@@ -1219,13 +1219,20 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
     // '[INIT] isHorizontal=$isHorizontal | width=${widget.width} | height=${widget.height} | initialDimension=$initialDimension | notifierState=${_modalSheetHeightNotifier.state}');
 
     if (initialDimension != null && initialDimension > 0) {
-      // Seed size to avoid initial layout jump.
-      // Set the dimension immediately without animating to avoid visual jump
-      _modalSheetHeightNotifier.state = initialDimension;
+      // Seed currentSheetSize immediately so the first build has the right
+      // dimension without a layout jump. We MUST NOT mutate the shared
+      // _modalSheetHeightNotifier here because initState is called during the
+      // Flutter build phase; a synchronous state-set would notify any still-
+      // mounted _Sheet that is being replaced, causing a
+      // "setState() called during build" error.
+      currentSheetSize = initialDimension;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _modalSheetHeightNotifier.state = initialDimension;
+      });
+    } else {
+      // Store initial size
+      currentSheetSize = _modalSheetHeightNotifier.state;
     }
-
-    // Store initial size
-    currentSheetSize = _modalSheetHeightNotifier.state;
 
     // States_rebuilder observer to rebuild immediately when size changes
     // Skip during size animations to prevent layout jitter
