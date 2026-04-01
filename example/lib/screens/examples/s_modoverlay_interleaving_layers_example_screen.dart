@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:s_packages/s_packages.dart';
 import 'dart:math' as math;
 
@@ -595,6 +594,74 @@ class _SModalPopOverlayExampleScreenState
     }
   }
 
+  Future<void> _scenarioPopDialogCustom() async {
+    await _clearAll();
+    _showPopOverlayPopup(
+      title: '1. Framed pop (base)',
+      kind: _DemoPopKind.framed,
+    );
+    await Future<void>.delayed(const Duration(milliseconds: 280));
+    if (!mounted) return;
+
+    _showModalDialog(title: '2. Dialog above pop');
+    await Future<void>.delayed(const Duration(milliseconds: 280));
+    if (!mounted) return;
+
+    _showModalCustom(title: '3. Custom above dialog');
+  }
+
+  Future<void> _scenarioPopCustomDialog() async {
+    await _clearAll();
+    _showPopOverlayPopup(
+      title: '1. Normal pop (base)',
+      kind: _DemoPopKind.normal,
+    );
+    await Future<void>.delayed(const Duration(milliseconds: 280));
+    if (!mounted) return;
+
+    _showModalCustom(title: '2. Custom above pop');
+    await Future<void>.delayed(const Duration(milliseconds: 280));
+    if (!mounted) return;
+
+    _showModalDialog(title: '3. Dialog above custom');
+  }
+
+  Future<void> _scenarioPopThenEachSheet() async {
+    await _clearAll();
+
+    final sheetPositions = <SheetPosition>[
+      SheetPosition.bottom,
+      SheetPosition.top,
+      SheetPosition.left,
+      SheetPosition.right,
+    ];
+
+    for (final position in sheetPositions) {
+      if (!mounted) return;
+
+      _showPopOverlayPopup(
+        title: 'Pop + ${position.name} sheet',
+        kind: _DemoPopKind.framed,
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 240));
+      if (!mounted) return;
+
+      _showModalSheetVariant(
+        position: position,
+        title: 'SheetPosition.${position.name}',
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 700));
+      if (!mounted) return;
+
+      await Modal.dismissBottomSheet();
+      await Future<void>.delayed(const Duration(milliseconds: 260));
+      if (!mounted) return;
+
+      PopOverlay.clearAll();
+      await Future<void>.delayed(const Duration(milliseconds: 220));
+    }
+  }
+
   Future<void> _resetForDemo() async {
     PopOverlay.clearAll();
     Modal.dismissAll();
@@ -787,6 +854,30 @@ class _SModalPopOverlayExampleScreenState
                   },
                   icon: const Icon(Icons.casino_outlined),
                   label: const Text('Random mixed sequence (n=14)'),
+                ),
+                const SizedBox(height: 12),
+                FilledButton.icon(
+                  onPressed: () {
+                    _scenarioPopDialogCustom();
+                  },
+                  icon: const Icon(Icons.rule),
+                  label: const Text('Scenario: Pop → Dialog → Custom'),
+                ),
+                const SizedBox(height: 12),
+                FilledButton.icon(
+                  onPressed: () {
+                    _scenarioPopCustomDialog();
+                  },
+                  icon: const Icon(Icons.rule_folder_outlined),
+                  label: const Text('Scenario: Pop → Custom → Dialog'),
+                ),
+                const SizedBox(height: 12),
+                FilledButton.icon(
+                  onPressed: () {
+                    _scenarioPopThenEachSheet();
+                  },
+                  icon: const Icon(Icons.fact_check_outlined),
+                  label: const Text('Scenario: Pop + each sheet variant'),
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(

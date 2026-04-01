@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:s_packages/modoverlay/pop_overlay/src/escape_key_listener.dart';
+import 'package:s_packages/s_modoverlay/pop_overlay/src/escape_key_listener.dart';
 import 'package:s_packages/s_packages.dart';
 import 'package:sizer/sizer.dart';
 
@@ -1281,9 +1281,10 @@ class _PopOverlayBootstrapper {
 
   static void ensureInstalled({BuildContext? context}) {
     // Lazily install the PopOverlay OverlayEntry.
-    if (_entry?.mounted == true) return;
-
-    if (_entry != null && _entry?.mounted != true) {
+    // If an entry already exists, keep it unless we can prove it's stale.
+    if (_entry != null) {
+      if (_entry!.mounted) return;
+      if (_installScheduled) return;
       _entry = null;
     }
 
@@ -1294,7 +1295,8 @@ class _PopOverlayBootstrapper {
       // Complete installation after the current frame.
       _installScheduled = false;
 
-      if (_entry?.mounted == true) return;
+      // Another call may have installed the entry while this callback queued.
+      if (_entry != null) return;
 
       final overlayState = _resolveRootOverlay(context);
       if (overlayState == null) return;
@@ -1326,12 +1328,18 @@ class _PopOverlayBootstrapper {
     _debugPopOverlayLog(
         'bringToFront: rearranging entry mounted=${entry.mounted}');
     if (entry.mounted) {
-      // Reorder so this entry is the top-most overlay entry.
-      overlayState.rearrange([entry]);
+      // Deterministically promote by re-inserting the same entry at top.
+      entry.remove();
+      overlayState.insert(entry);
       return;
     }
 
-    overlayState.insert(entry);
+    // Entry not mounted. If install is queued, let it finish.
+    if (_installScheduled) return;
+
+    // Recover from stale unmounted references.
+    _entry = null;
+    ensureInstalled(context: context);
   }
 
   static OverlayState? _resolveRootOverlay(BuildContext? context) {

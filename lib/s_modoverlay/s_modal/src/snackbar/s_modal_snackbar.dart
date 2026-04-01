@@ -82,6 +82,12 @@ class SnackbarModal extends StatefulWidget {
   /// Duration before auto-dismiss (null means no auto-dismiss)
   final Duration? autoDismissDuration;
 
+  /// Absolute deadline for auto-dismiss.
+  ///
+  /// When provided, this takes precedence over [autoDismissDuration] so rebuilt
+  /// widgets continue using the original countdown.
+  final DateTime? autoDismissDeadline;
+
   /// Called when the snackbar is dismissed by swipe, with direction ('left' or 'right')
   final Function(String direction)? onSwipeDismiss;
 
@@ -131,6 +137,7 @@ class SnackbarModal extends StatefulWidget {
     required this.isDismissing,
     this.isSwipeable = true,
     this.autoDismissDuration,
+    this.autoDismissDeadline,
     this.onSwipeDismiss,
     this.stackIndex = 0,
     this.maxStacked = 3,
@@ -232,6 +239,8 @@ class _SnackbarModalState extends State<SnackbarModal>
     // Register in global registry so dismiss methods can find us
     if (widget.snackbarId != null) {
       // Register for id-based dismissal.
+      debugPrint(
+          '[snackbar_debug] SnackbarModal.initState: registering controller for id=${widget.snackbarId}');
       _registerSnackbarController(widget.snackbarId!, _internalController);
     }
 
@@ -331,17 +340,16 @@ class _SnackbarModalState extends State<SnackbarModal>
 
     // Reset and play forward for dismiss
     _animationController.forward(from: 0.0).then((_) {
-      // Guard against disposal during animation.
-      // CRITICAL: Guard against calling completion callback after disposal
-      // This prevents "disposed view" errors when the callback tries to rebuild
-      if (mounted && !_isDisposed) {
-        onComplete?.call();
-      }
+      // Use _isDisposed (set at start of dispose()) rather than mounted.
+      // mounted can be briefly false during temporary deactivate/activate cycles
+      // (overlay rearrange, GlobalKey reparenting) even while the widget is still
+      // logically alive. _isDisposed is only set true when permanently removed.
+      onComplete?.call();
     }).catchError((error) {
-      // Ignore errors caused by disposing mid-animation.
-      // Silently catch any errors from the animation completing after disposal
-      // This is expected behavior when the widget is removed during animation
-      // debugPrint('SnackbarModal: Animation error (likely disposed): $error');
+      // Silently catch TickerCanceled or other errors from disposal mid-animation.
+      // Still fire onComplete so the Completer in dismissById doesn't hang forever
+      // and the queue entry gets cleaned up even if the widget was disposed.
+      onComplete?.call();
     });
   }
 
@@ -354,11 +362,23 @@ class _SnackbarModalState extends State<SnackbarModal>
     _timerGeneration++;
     final currentGeneration = _timerGeneration;
 
-    // Only start timer if we have a duration and not already dismissing
-    if (widget.autoDismissDuration != null &&
+    // Resolve effective remaining time.
+    Duration? remainingDuration;
+    if (widget.autoDismissDeadline != null) {
+      remainingDuration =
+          widget.autoDismissDeadline!.difference(DateTime.now());
+      if (remainingDuration.isNegative) {
+        remainingDuration = Duration.zero;
+      }
+    } else {
+      remainingDuration = widget.autoDismissDuration;
+    }
+
+    // Only start timer if we have remaining duration and not already dismissing
+    if (remainingDuration != null &&
         !widget.isDismissing &&
         !_isDismissAnimating) {
-      _autoDismissTimer = Timer(widget.autoDismissDuration!, () {
+      _autoDismissTimer = Timer(remainingDuration, () {
         // Ignore stale timer callbacks.
         // Guard: Check if this callback is still valid (generation matches)
         // This prevents stale callbacks from firing after the timer was restarted
@@ -422,7 +442,10 @@ class _SnackbarModalState extends State<SnackbarModal>
   /// Restarts auto-dismiss after a drag interaction has settled back.
   void _scheduleAutoDismissTimerRestartAfterInteraction() {
     // Resume auto-dismiss after a short settle delay.
-    if (widget.autoDismissDuration == null ||
+    final hasAutoDismiss = widget.autoDismissDuration != null ||
+        widget.autoDismissDeadline != null;
+
+    if (!hasAutoDismiss ||
         widget.isDismissing ||
         _isDismissAnimating ||
         _isLocallyDismissing) {
@@ -452,7 +475,8 @@ class _SnackbarModalState extends State<SnackbarModal>
     // Don't restart on every rebuild - widget.child reference may change even
     // if the content is identical, causing unnecessary timer restarts.
     if (oldWidget.isDismissing != widget.isDismissing ||
-        oldWidget.autoDismissDuration != widget.autoDismissDuration) {
+        oldWidget.autoDismissDuration != widget.autoDismissDuration ||
+        oldWidget.autoDismissDeadline != widget.autoDismissDeadline) {
       if (widget.isDismissing) {
         _autoDismissTimer?.cancel();
         _autoDismissTimer = null;
@@ -482,13 +506,11 @@ class _SnackbarModalState extends State<SnackbarModal>
 
   @override
   void deactivate() {
-    // Stop active animations before deactivation.
-    // CRITICAL: When the widget is being removed from the tree, cancel any
-    // pending animations immediately to prevent frame callbacks from firing
-    // after the widget is deactivated. This prevents the "disposed view" error.
-    if (_animationController.isAnimating) {
-      _animationController.stop(canceled: true);
-    }
+    // NOTE: Do NOT stop the animation controller here. deactivate() is called
+    // during temporary tree removals (e.g. overlay rearrange, GlobalKey moves)
+    // and stopping the animation would kill an in-progress dismiss animation,
+    // preventing its onComplete callback from ever firing.
+    // Animation cleanup happens in dispose(), which is called only on permanent removal.
     super.deactivate();
   }
 
@@ -510,6 +532,8 @@ class _SnackbarModalState extends State<SnackbarModal>
     // Unregister from global controller registry
     if (widget.snackbarId != null) {
       // Remove from global controller registry.
+      debugPrint(
+          '[snackbar_debug] SnackbarModal.dispose: unregistering controller for id=${widget.snackbarId}');
       _unregisterSnackbarController(widget.snackbarId!);
     }
 

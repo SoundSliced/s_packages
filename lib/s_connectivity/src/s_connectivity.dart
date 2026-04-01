@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:s_packages/modoverlay/s_modal/src/s_modal_libs.dart';
+import 'package:s_packages/s_modoverlay/s_modal/src/s_modal_libs.dart';
 import 'package:s_packages/soundsliced_dart_extensions/src/dart_extensions.dart';
 
 ValueNotifier<bool> _connectionNotifier = ValueNotifier<bool>(false);

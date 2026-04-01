@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 typedef InterleavedLayerBuilder = Widget Function();
 
@@ -184,9 +183,13 @@ class OverlayInterleaveManager {
   /// Ensure the interleaved overlay host is installed in the root overlay.
   static void ensureInstalled({BuildContext? context}) {
     if (!enabled) return;
-    if (_entry?.mounted == true) return;
-
-    if (_entry != null && _entry?.mounted != true) {
+    // If an entry already exists, keep it unless we can prove it's stale.
+    if (_entry != null) {
+      // Mounted entry is healthy.
+      if (_entry!.mounted) return;
+      // If an install is already queued, this unmounted entry is expected.
+      if (_installScheduled) return;
+      // Otherwise, recover from stale unmounted references.
       _entry = null;
     }
 
@@ -197,7 +200,8 @@ class OverlayInterleaveManager {
       // Complete the deferred install on the next frame.
       _installScheduled = false;
 
-      if (_entry?.mounted == true) return;
+      // Another call may have installed the entry while this callback was queued.
+      if (_entry != null) return;
 
       final overlayState = _resolveRootOverlay(context);
       if (overlayState == null) return;
@@ -225,13 +229,19 @@ class OverlayInterleaveManager {
     if (overlayState == null) return;
 
     if (entry.mounted) {
-      // Rearrange moves the entry to the top of the overlay stack.
-      overlayState.rearrange([entry]);
+      // Make promotion deterministic by re-inserting the same entry.
+      // This avoids ambiguous behavior from rearrange() when only a subset
+      // of overlay entries is provided.
+      entry.remove();
+      overlayState.insert(entry);
       return;
     }
 
-    // Entry is not mounted yet; installation callback will insert it.
-    // Avoid inserting here to prevent duplicate-entry assertions.
+    // Entry not mounted. If an install is queued, wait for that callback.
+    if (_installScheduled) return;
+
+    // Recover stale unmounted entry and reinstall.
+    _entry = null;
     ensureInstalled(context: context);
   }
 

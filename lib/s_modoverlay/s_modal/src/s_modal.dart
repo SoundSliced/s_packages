@@ -50,16 +50,19 @@ bool _showDebugPrints = false;
 /// Controller for dialog modals
 ///
 /// Manages dialog-specific state independently from other modal types.
-final _dialogController =
-    RM.inject<_ModalContent?>(() => null, autoDisposeWhenNotUsed: true);
+/// NOTE: autoDisposeWhenNotUsed MUST be false – between modal shows the
+/// interleaved layer is unregistered, leaving zero widget-tree observers.
+/// Auto-disposing would drop the state and make subsequent shows silently fail.
+final _dialogController = RM.inject<_ModalContent?>(() => null);
 
 /// Queue for managing multiple stacked dialogs.
 ///
 /// Dialogs are rendered in stack order so multiple dialogs with different IDs
 /// can coexist and be dismissed independently.
+/// NOTE: autoDisposeWhenNotUsed MUST be false for the same reason as
+/// _dialogController – layers are only mounted while a dialog is active.
 final _dialogStackNotifier = RM.inject<List<_ModalContent>>(
   () => <_ModalContent>[],
-  autoDisposeWhenNotUsed: true,
 );
 // Note: dialogs can stack; sheets/snackbars primarily use single controllers
 // with queues where needed (snackbar queue is per-position).
@@ -68,29 +71,43 @@ final _dialogStackNotifier = RM.inject<List<_ModalContent>>(
 ///
 /// Manages sheet-specific state independently from other modal types.
 /// Used for all sheet types: bottomSheet, topSheet, and sideSheet.
-final _sheetController =
-    RM.inject<_ModalContent?>(() => null, autoDisposeWhenNotUsed: true);
+/// NOTE: autoDisposeWhenNotUsed MUST be false – between modal shows the
+/// interleaved layer is unregistered, leaving zero widget-tree observers.
+/// Auto-disposing would drop the state and make subsequent shows silently fail.
+final _sheetController = RM.inject<_ModalContent?>(() => null);
 
 /// Controller for side sheet modals
 ///
 /// Manages side sheet-specific state independently from other modal types.
-final _sideSheetController =
-    RM.inject<_ModalContent?>(() => null, autoDisposeWhenNotUsed: true);
+/// NOTE: autoDisposeWhenNotUsed MUST be false for the same reason as
+/// _sheetController.
+final _sideSheetController = RM.inject<_ModalContent?>(() => null);
+
+/// Controller for custom modals
+///
+/// Keeps custom modal state independent from the global active controller so
+/// custom layers can remain visible when another modal type becomes active.
+final _customController = RM.inject<_ModalContent?>(() => null);
 
 /// Controller for snackbar modals
 ///
 /// Manages snackbar-specific state independently from other modal types.
 /// Works in conjunction with the snackbar queue for stacking.
-final _snackbarController =
-    RM.inject<_ModalContent?>(() => null, autoDisposeWhenNotUsed: true);
+/// NOTE: autoDisposeWhenNotUsed MUST be false – the interleaved overlay layer
+/// that would keep this alive is only registered when a snackbar is shown, so
+/// between snackbars there are zero widget-tree observers.  Allowing
+/// auto-dispose here causes states_rebuilder to drop the injected state, making
+/// every subsequent showSnackbar call silently fail.
+final _snackbarController = RM.inject<_ModalContent?>(() => null);
 
 /// Active modal controller - tracks the currently displayed modal
 ///
 /// Stores the current modal's configuration and content.
 /// When null, no modal is being displayed.
 /// For type-specific access, use _dialogController, _sheetController, or _snackbarController.
-final _activeModalController =
-    RM.inject<_ModalContent?>(() => null, autoDisposeWhenNotUsed: true);
+/// NOTE: autoDisposeWhenNotUsed MUST be false – see _snackbarController for
+/// the same reasoning; between shows there may be zero widget-tree observers.
+final _activeModalController = RM.inject<_ModalContent?>(() => null);
 
 /// Hot reload counter - incremented on every hot reload
 ///
@@ -125,6 +142,28 @@ final _dialogDismissingNotifier = RM.inject<bool>(() => false);
 /// Tracks if a sheet dismissal is in progress
 /// Used for all sheet types: bottomSheet, topSheet, and sideSheet
 final _sheetDismissingNotifier = RM.inject<bool>(() => false);
+
+/// Tracks which custom modal (if any) is currently being dismissed.
+///
+/// This must be independent from [Modal.isDismissing] because that global flag
+/// is also used by dialog/sheet/snackbar flows and can otherwise cause lower
+/// interleaved custom layers to animate their barrier out during unrelated
+/// dismissals (for example side-sheet dismissal).
+final _customDismissingIdNotifier = RM.inject<String?>(() => null);
+
+/// Suppresses custom barrier taps for a short window after a top modal
+/// (notably dialog) is dismissed to avoid tap-through dismissals.
+DateTime? _customBarrierTapSuppressedUntil;
+
+bool _isCustomBarrierTapSuppressed() {
+  final until = _customBarrierTapSuppressedUntil;
+  if (until == null) return false;
+  if (DateTime.now().isAfter(until)) {
+    _customBarrierTapSuppressedUntil = null;
+    return false;
+  }
+  return true;
+}
 
 /// Tracks which snackbar IDs are currently being dismissed
 /// Uses a Set instead of a boolean to allow each snackbar to have independent dismissal state.
@@ -253,6 +292,54 @@ void _syncInterleavedDialogLayersWithStack() {
 
 String _sheetInterleavedLayerId(String sheetId) => 'sheet:$sheetId';
 
+String _customInterleavedLayerId(String customId) => 'custom:$customId';
+
+void _registerInterleavedCustomLayer(_ModalContent content) {
+  if (!OverlayInterleaveManager.enabled) return;
+
+  OverlayInterleaveManager.registerLayer(
+    id: _customInterleavedLayerId(content.uniqueId),
+    activationOrder: content.activationOrder,
+    stackLevel: content.stackLevel,
+    builder: () => _InterleavedCustomLayer(customId: content.uniqueId),
+  );
+}
+
+void _setCustomModalContent(_ModalContent content) {
+  final previousCustomId = _customController.state?.uniqueId;
+  if (previousCustomId != null && previousCustomId != content.uniqueId) {
+    _unregisterInterleavedCustomLayer(previousCustomId);
+  }
+  _customController.state = content;
+  _registerInterleavedCustomLayer(content);
+}
+
+void _clearCustomModalContent({bool force = false}) {
+  final currentCustomId = _customController.state?.uniqueId;
+  if (currentCustomId != null) {
+    _unregisterInterleavedCustomLayer(currentCustomId);
+  }
+  _unregisterAllInterleavedCustomLayers(force: force);
+  _customController.state = null;
+}
+
+void _unregisterInterleavedCustomLayer(String customId) {
+  if (!OverlayInterleaveManager.enabled) return;
+  OverlayInterleaveManager.unregisterLayer(_customInterleavedLayerId(customId));
+}
+
+/// Remove every active custom modal layer (at most one custom modal is active).
+void _unregisterAllInterleavedCustomLayers({bool force = false}) {
+  if (!OverlayInterleaveManager.enabled) return;
+  // Defensive guard: avoid tearing down custom layers during unrelated modal
+  // transitions (for example dialog dismiss). Full teardown paths must pass
+  // force=true.
+  if (!force && _customController.state != null && _customDismissingIdNotifier.state == null) {
+    return;
+  }
+  OverlayInterleaveManager.unregisterWhere((id) => id.startsWith('custom:'));
+}
+
 void _registerInterleavedSheetLayer(_ModalContent content) {
   if (!OverlayInterleaveManager.enabled) return;
 
@@ -262,6 +349,11 @@ void _registerInterleavedSheetLayer(_ModalContent content) {
     stackLevel: content.stackLevel,
     builder: () => _InterleavedSheetLayer(sheetId: content.uniqueId),
   );
+}
+
+void _unregisterInterleavedSheetLayer(String sheetId) {
+  if (!OverlayInterleaveManager.enabled) return;
+  OverlayInterleaveManager.unregisterLayer(_sheetInterleavedLayerId(sheetId));
 }
 
 /// Remove every active sheet layer (at most one sheet is ever active).
@@ -507,9 +599,26 @@ void _removeSnackbarAfterDismiss(
       queueAtPosition.indexWhere((content) => content.uniqueId == uniqueId);
 
   if (matchIndex < 0) {
-    // Already removed; nothing to do.
-    // debugPrint(
-    //     '_removeSnackbarAfterDismiss: snackbar $uniqueId not found in queue');
+    // Already removed (e.g. replaced by a new snackbar in replace mode); clean up dismissing state.
+    _setSnackbarDismissing(uniqueId, false);
+    debugPrint(
+        '[snackbar_debug] _removeSnackbarAfterDismiss: $uniqueId already removed from queue; cleared dismissing state');
+    // If there are snackbars in the queue that were waiting for dismissal to complete, activate them.
+    final currentMap = _snackbarQueueNotifier.state;
+    if (currentMap.isNotEmpty) {
+      for (final entry in currentMap.entries) {
+        if (entry.value.isNotEmpty) {
+          final waiting = entry.value.first;
+          if (_snackbarController.state?.uniqueId != waiting.uniqueId) {
+            _snackbarController.state = waiting;
+            if (!Modal.isDialogActive && !Modal.isSheetActive) {
+              Modal.controller.state = waiting;
+            }
+          }
+          break;
+        }
+      }
+    }
     return;
   }
 
@@ -918,6 +1027,13 @@ class _ModalContent {
   /// Only applies to snackbar modals.
   final Duration? autoDismissDuration;
 
+  /// Absolute deadline for snackbar auto-dismiss.
+  ///
+  /// This is initialized once when the snackbar enters the queue and then reused
+  /// by rebuilt/remounted snackbar widgets so the remaining duration continues
+  /// from the original start time.
+  DateTime? _snackbarAutoDismissDeadline;
+
   /// How multiple snackbars should be displayed
   ///
   /// - [SnackbarDisplayMode.staggered]: Snackbars stack in staggered layers
@@ -1122,6 +1238,15 @@ class _ModalContent {
   ///
   /// Returns the user-provided [id] if set, otherwise returns the auto-generated internal ID.
   String get uniqueId => id ?? _internalId;
+
+  /// The absolute auto-dismiss deadline for snackbar modals, if any.
+  DateTime? get snackbarAutoDismissDeadline => _snackbarAutoDismissDeadline;
+
+  /// Ensures a stable auto-dismiss deadline exists for snackbar modals.
+  void ensureSnackbarAutoDismissDeadline() {
+    if (modalType != ModalType.snackbar || autoDismissDuration == null) return;
+    _snackbarAutoDismissDeadline ??= DateTime.now().add(autoDismissDuration!);
+  }
 
   /// Factory constructor for a default snackbar with simplified API
   ///
@@ -1921,8 +2046,15 @@ class Modal {
   static Injected<_ModalContent?> get sideSheetController =>
       _sideSheetController;
 
+  /// Access to the custom modal controller
+  static Injected<_ModalContent?> get customController => _customController;
+
   /// Promotes the s_modal host entry in the root overlay.
-  static void bringOverlayHostToFront({BuildContext? context}) {}
+  static void bringOverlayHostToFront({BuildContext? context}) {
+    if (!OverlayInterleaveManager.enabled) return;
+    OverlayInterleaveManager.ensureInstalled(context: context);
+    OverlayInterleaveManager.requestBringToFront(context: context);
+  }
 
   //--------------------------------------------------//
   // Type-Specific State Checks
@@ -1962,6 +2094,9 @@ class Modal {
   static bool get isSnackbarActive =>
       _snackbarController.state != null ||
       _snackbarQueueNotifier.state.isNotEmpty;
+
+  /// Returns true if a custom modal is currently active
+  static bool get isCustomActive => _customController.state != null;
 
   /// Returns true if a dialog dismissal is in progress
   static bool get isDialogDismissing => _dialogDismissingNotifier.state;
@@ -2026,7 +2161,8 @@ class Modal {
       _activeModalController.state != null ||
       isDialogActive ||
       isSheetActive ||
-      isSnackbarActive;
+      isSnackbarActive ||
+      isCustomActive;
 
   /// Controller that tracks the modal dismissal animation state
   ///
@@ -2541,9 +2677,9 @@ class Modal {
           }
           break;
         case ModalType.custom:
-          if (Modal.controller.state?.id == modalContent.id &&
-              Modal.controller.state?.modalType == ModalType.custom) {
-            existingModal = Modal.controller.state;
+          if (_customController.state?.id == modalContent.id &&
+              _customController.state?.modalType == ModalType.custom) {
+            existingModal = _customController.state;
           }
           break;
       }
@@ -2629,7 +2765,8 @@ class Modal {
           _setSnackbarDismissing(modalContent.uniqueId, false);
           break;
         case ModalType.custom:
-          // Custom modals use only the active modal controller
+          // Custom modals keep their own controller and dedicated layer.
+          _setCustomModalContent(modalContent);
           break;
       }
     }
@@ -3059,6 +3196,10 @@ class Modal {
     final position = content.modalPosition;
     final positionQueue = currentQueueMap[position] ?? [];
 
+    // Pin an absolute deadline once so snackbar auto-dismiss survives
+    // interleaving rebuild/remount cycles.
+    content.ensureSnackbarAutoDismissDeadline();
+
     // Helper to check if any snackbars are currently displayed
     bool hasAnySnackbars() {
       for (final queue in currentQueueMap.values) {
@@ -3078,7 +3219,12 @@ class Modal {
     // Helper to activate a snackbar as the current snackbar modal
     // NOTE: Registration is handled separately when adding to queue
     void activateSnackbar(_ModalContent snackbarContent) {
-      // Ensure this snackbar is not marked as dismissing (it's being activated)
+      // Cancel any in-progress background animation timer from a previous dismissal
+      // to prevent it from interfering with the new snackbar's lifecycle.
+      _backgroundAnimationTimer?.cancel();
+      _backgroundAnimationTimer = null;
+      debugPrint(
+          '[snackbar_debug] activateSnackbar: id=${snackbarContent.uniqueId}');
       _setSnackbarDismissing(snackbarContent.uniqueId, false);
       _snackbarController.state = snackbarContent;
 
@@ -3579,6 +3725,9 @@ class Modal {
     } else if (_snackbarController.state?.uniqueId == id ||
         _snackbarController.state?.id == id) {
       targetContent = _snackbarController.state;
+    } else if (_customController.state?.uniqueId == id ||
+        _customController.state?.id == id) {
+      targetContent = _customController.state;
     } else if (Modal.controller.state?.uniqueId == id ||
         Modal.controller.state?.id == id) {
       // Fallback for custom or if active controller is set but specific one isn't
@@ -3667,6 +3816,24 @@ class Modal {
       barrierColor: barrierColor ?? targetContent.barrierColor,
     );
 
+    // Preserve snackbar auto-dismiss absolute deadline across param updates so
+    // unrelated overlay/interleaving changes don't restart countdowns.
+    if (newModalType == ModalType.snackbar) {
+      final didExplicitlyChangeDuration = autoDismissDuration != null;
+      if (didExplicitlyChangeDuration) {
+        if (updatedContent.autoDismissDuration != null) {
+          updatedContent._snackbarAutoDismissDeadline =
+              DateTime.now().add(updatedContent.autoDismissDuration!);
+        } else {
+          updatedContent._snackbarAutoDismissDeadline = null;
+        }
+      } else {
+        updatedContent._snackbarAutoDismissDeadline =
+            targetContent.snackbarAutoDismissDeadline;
+        updatedContent.ensureSnackbarAutoDismissDeadline();
+      }
+    }
+
     // Apply update
     if (isInQueue && queuePosition != null && queueIndex != null) {
       // Update in queue
@@ -3699,6 +3866,9 @@ class Modal {
       switch (newModalType) {
         case ModalType.dialog:
           _dialogController.state = updatedContent;
+          if (targetContent.modalType == ModalType.custom) {
+            _clearCustomModalContent();
+          }
           // Clear other controllers if type changed
           if (targetContent.modalType != ModalType.dialog) {
             _sheetController.state = null;
@@ -3709,6 +3879,9 @@ class Modal {
         case ModalType.sheet:
           _sheetController.state = updatedContent;
           _registerInterleavedSheetLayer(updatedContent);
+          if (targetContent.modalType == ModalType.custom) {
+            _clearCustomModalContent();
+          }
           // Clear other controllers if type changed
           if (targetContent.modalType != ModalType.sheet) {
             _dialogController.state = null;
@@ -3717,6 +3890,9 @@ class Modal {
           break;
         case ModalType.snackbar:
           _snackbarController.state = updatedContent;
+          if (targetContent.modalType == ModalType.custom) {
+            _clearCustomModalContent();
+          }
           // Clear other controllers if type changed
           if (targetContent.modalType != ModalType.snackbar) {
             _dialogController.state = null;
@@ -3725,7 +3901,8 @@ class Modal {
           }
           break;
         case ModalType.custom:
-          // Custom modals use only active modal controller
+          // Custom modals keep their own controller and layer.
+          _setCustomModalContent(updatedContent);
           // Clear type-specific controllers if type changed
           if (targetContent.modalType != ModalType.custom) {
             _dialogController.state = null;
@@ -3774,10 +3951,14 @@ class Modal {
         !Modal.isSheetActive;
 
     if (!needsAnimation) {
-      _snackbarController.refresh();
-      _activeModalController.refresh();
-      _backgroundLayerAnimationNotifier.state = 0.0;
-      _blurAnimationStateNotifier.state = 0.0;
+      debugPrint(
+          '[snackbar_debug] _animateBackgroundAndClear: needsAnimation=false, queueEmpty=${_snackbarQueueNotifier.state.isEmpty}, snackbarState=${_snackbarController.state?.uniqueId}');
+      if (_snackbarQueueNotifier.state.isEmpty) {
+        _snackbarController.refresh();
+        _activeModalController.refresh();
+        _backgroundLayerAnimationNotifier.state = 0.0;
+        _blurAnimationStateNotifier.state = 0.0;
+      }
       return;
     }
 
@@ -3797,14 +3978,15 @@ class Modal {
         _backgroundAnimationTimer = null;
 
         // Final cleanup after animation
-        _snackbarController.refresh();
-        // Only clear active modal if no other modals appeared during animation
-        if (!Modal.isDialogActive &&
-            !Modal.isSheetActive &&
-            !Modal.isSnackbarActive) {
-          _activeModalController.refresh();
-          _backgroundLayerAnimationNotifier.state = 0.0;
-          _blurAnimationStateNotifier.state = 0.0;
+        // Only refresh if no new snackbar is in the queue (avoid interfering with B)
+        if (_snackbarQueueNotifier.state.isEmpty) {
+          _snackbarController.refresh();
+          // Only clear active modal if no other modals appeared during animation
+          if (!Modal.isDialogActive && !Modal.isSheetActive) {
+            _activeModalController.refresh();
+            _backgroundLayerAnimationNotifier.state = 0.0;
+            _blurAnimationStateNotifier.state = 0.0;
+          }
         }
       } else {
         _backgroundLayerAnimationNotifier.state =
@@ -4038,6 +4220,8 @@ class Modal {
 
     _sheetController.refresh();
     _unregisterAllInterleavedSheetLayers();
+    _unregisterAllInterleavedCustomLayers(force: true);
+    _customController.refresh();
     _sheetDismissingNotifier.state = false;
     _resetHeightCallback?.call();
     _modalSheetHeightNotifier.state = 0.0;
@@ -4288,7 +4472,8 @@ class Modal {
       // IMPORTANT: Only clear active modal controller if NO other modals are active
       if (currentQueue.isEmpty &&
           !Modal.isSheetActive &&
-          !Modal.isDialogActive) {
+          !Modal.isDialogActive &&
+          !Modal.isCustomActive) {
         _snackbarController.refresh();
         _activeModalController.refresh();
       } else if (currentQueue.isEmpty && Modal.isDialogActive) {
@@ -4298,6 +4483,10 @@ class Modal {
         // Bottom sheet is still active - make it the active modal
         _snackbarController.refresh();
         Modal.controller.state = _sheetController.state;
+      } else if (currentQueue.isEmpty && Modal.isCustomActive) {
+        // Custom modal is still active under the dismissed dialog
+        _snackbarController.refresh();
+        Modal.controller.state = _customController.state;
       }
       if (originallyDismissedType == ModalType.dialog) {
         // Dialog was already refreshed above; just clear the dismissing flag
@@ -4307,11 +4496,16 @@ class Modal {
       // Reset dismiss animation controller if no other modals active
       if (!Modal.isSheetActive &&
           !Modal.isSnackbarActive &&
-          !Modal.isDialogActive) {
+          !Modal.isDialogActive &&
+          !Modal.isCustomActive) {
         _dismissModalAnimationController.state = false;
       }
 
       // debugPrint('Modal.dismissDialog: finished');
+      if (Modal.isCustomActive) {
+        _customBarrierTapSuppressedUntil =
+        DateTime.now().add(const Duration(milliseconds: 250));
+      }
       Modal.isDismissing = false;
       final modalLatest = Modal.latestActivationOrder;
       final popLatest = PopOverlay.latestActivationOrder;
@@ -4374,6 +4568,15 @@ class Modal {
       Modal.isDismissing = true;
       _sheetDismissingNotifier.state = true;
 
+        // In interleaving mode, dismissing a sheet should not perturb remaining
+        // MODAL layers (dialog/custom/snackbar). Pop overlays are independent and
+        // must NOT keep s_modal's shared background alive.
+      final hasOtherInterleavedLayers = OverlayInterleaveManager.enabled &&
+          OverlayInterleaveManager.layers
+            .any((layer) =>
+              !layer.id.startsWith('sheet:') &&
+              !layer.id.startsWith('pop:'));
+
       // (intentionally not capturing dismissed type here) bottom sheet cleanup
       // is handled deterministically below when we refresh the controller.
 
@@ -4381,12 +4584,12 @@ class Modal {
       // If a dialog with blur is still showing, we must preserve its blur
       final dialogNeedsBlur = Modal.isDialogActive &&
           (_dialogController.state?.shouldBlurBackground ?? false);
-      if (!dialogNeedsBlur) {
+      if (!dialogNeedsBlur && !hasOtherInterleavedLayers) {
         _blurAnimationStateNotifier.state = 0.0;
       }
 
       // Animate background out (if no other modals need it)
-      if (!Modal.isDialogActive) {
+      if (!Modal.isDialogActive && !hasOtherInterleavedLayers) {
         _backgroundAnimationTimer?.cancel();
         // Decreased duration for faster dismissal feedback
         const animSteps = 10;
@@ -4410,7 +4613,9 @@ class Modal {
       }
 
       // Animate out
-      _dismissModalAnimationController.state = true;
+      if (!OverlayInterleaveManager.enabled) {
+        _dismissModalAnimationController.state = true;
+      }
 
       await Future.delayed(0.2.sec, () {
         // VALIDATE: Check if the sheet ID still matches what we intended to dismiss
@@ -4484,8 +4689,27 @@ class Modal {
           }
         }
 
+        // Remove only the dismissed sheet's interleaved layer first, then
+        // clear controller state. Removing all sheet layers here causes
+        // transient ordering jumps when multiple interleaved sheets exist.
+        _unregisterInterleavedSheetLayer(targetSheetId);
         _sheetController.refresh();
-        _unregisterAllInterleavedSheetLayers();
+
+        // Finalize shared background/blur state after sheet teardown.
+        // Keep barrier visuals only when a dialog remains; otherwise clear.
+        final hasOtherInterleavedLayersAfterDismiss =
+          OverlayInterleaveManager.enabled &&
+            OverlayInterleaveManager.layers.any((layer) =>
+              !layer.id.startsWith('sheet:') &&
+              !layer.id.startsWith('pop:'));
+        final shouldKeepSharedBackground =
+            Modal.isDialogActive || hasOtherInterleavedLayersAfterDismiss;
+        if (!shouldKeepSharedBackground) {
+          _backgroundAnimationTimer?.cancel();
+          _backgroundAnimationTimer = null;
+          _backgroundLayerAnimationNotifier.state = 0.0;
+          _blurAnimationStateNotifier.state = 0.0;
+        }
 
         // Unregister from modal registry only if the ID exists
         if (_modalRegistry.state.containsKey(targetSheetId)) {
@@ -4498,17 +4722,25 @@ class Modal {
         _sheetDismissingNotifier.state = false;
 
         // IMPORTANT: Only clear active modal controller if NO other modals are active
-        if (currentQueue.isEmpty && !Modal.isDialogActive) {
+        if (currentQueue.isEmpty &&
+            !Modal.isDialogActive &&
+            !Modal.isCustomActive) {
           _snackbarController.refresh();
           _activeModalController.refresh();
         } else if (currentQueue.isEmpty && Modal.isDialogActive) {
           // Dialog is still active - make it the active modal
           _snackbarController.refresh();
           Modal.controller.state = _dialogController.state;
+        } else if (currentQueue.isEmpty && Modal.isCustomActive) {
+          // Custom modal is still active under the dismissed sheet
+          _snackbarController.refresh();
+          Modal.controller.state = _customController.state;
         }
 
         // Reset dismiss animation controller if no other modals active
-        if (!Modal.isDialogActive && !Modal.isSnackbarActive) {
+        if (!Modal.isDialogActive &&
+            !Modal.isSnackbarActive &&
+            !Modal.isCustomActive) {
           if (_dismissModalAnimationController.state != false) {
             _dismissModalAnimationController.state = false;
           }
@@ -4695,10 +4927,13 @@ class Modal {
         break;
       case ModalType.custom:
         // Custom modals - dismiss by ID if one is active
-        if (Modal.isActive && Modal.controller.state?.modalType == type) {
-          final customModalId = Modal.controller.state?.uniqueId;
-          if (customModalId != null) {
-            await dismissById(customModalId);
+        final customModalId = _customController.state?.uniqueId;
+        if (customModalId != null) {
+          await dismissById(customModalId);
+        } else if (Modal.isActive && Modal.controller.state?.modalType == type) {
+          final fallbackCustomModalId = Modal.controller.state?.uniqueId;
+          if (fallbackCustomModalId != null) {
+            await dismissById(fallbackCustomModalId);
           }
         }
         break;
@@ -4781,6 +5016,51 @@ class Modal {
       }
     }
 
+    // Check if this ID matches the active custom modal
+    final activeCustom = _customController.state ?? Modal.controller.state;
+    if (activeCustom != null && activeCustom.modalType == ModalType.custom) {
+      if (activeCustom.id == id || activeCustom.uniqueId == id) {
+        if (_showDebugPrints) {
+          debugPrint(
+              'Modal.dismissById: found custom modal with ID=$id. Dismissing...');
+        }
+
+        Modal.isDismissing = true;
+        _customDismissingIdNotifier.state = activeCustom.uniqueId;
+        _dismissModalAnimationController.state = true;
+
+        await Future.delayed(0.2.sec, () {
+          _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
+              activeCustom, ModalLifecycleEventType.dismissed));
+
+          _unregisterModal(activeCustom.uniqueId);
+            _clearCustomModalContent(force: true);
+          _customController.refresh();
+
+          if (_activeModalController.state?.uniqueId == activeCustom.uniqueId) {
+            _activeModalController.refresh();
+          }
+          _dismissModalAnimationController.state = false;
+
+          // If no other modal types are active, clear background/blur state.
+          if (!Modal.isDialogActive &&
+              !Modal.isSheetActive &&
+              !Modal.isSnackbarActive) {
+            _backgroundLayerAnimationNotifier.state = 0.0;
+            _blurAnimationStateNotifier.state = 0.0;
+          }
+
+          Modal.isDismissing = false;
+          _customDismissingIdNotifier.state = null;
+
+          onDismissed?.call();
+          activeCustom.onDismissed?.call();
+        });
+
+        return true;
+      }
+    }
+
     // Search for and remove from snackbar queue
     final currentQueueMap = _snackbarQueueNotifier.state;
     bool found = false;
@@ -4805,13 +5085,23 @@ class Modal {
         // Check if this is the currently active snackbar
         final isActiveSnackbar =
             _snackbarController.state?.uniqueId == snackbar.uniqueId;
+        debugPrint(
+            '[snackbar_debug] dismissById: id=$id, isActive=$isActiveSnackbar, controllerState=${_snackbarController.state?.uniqueId}');
 
         // If this was the active snackbar, handle transition
         if (isActiveSnackbar) {
+          // If already dismissing (e.g. rapid taps on X button), skip duplicate dismiss attempt.
+          // The in-flight animation will handle cleanup.
+          if (_isSnackbarDismissing(snackbar.uniqueId)) {
+            return true;
+          }
+
           _setSnackbarDismissing(snackbar.uniqueId, true);
 
           // Try to use the snackbar's internal controller for dismiss animation
           final controller = _getSnackbarController(snackbar.uniqueId);
+          debugPrint(
+              '[snackbar_debug] dismissById: controller=$controller, isAttached=${controller?.isAttached}');
 
           if (controller != null && controller.isAttached) {
             // Use imperative dismiss via controller
@@ -4905,6 +5195,7 @@ class Modal {
     _dialogController.dispose();
     _sheetController.dispose();
     _snackbarController.dispose();
+    _customController.dispose();
 
     // Reset appBuilder installation flag so it can be re-installed
     // (important for tests where widget trees are recreated)
@@ -4916,6 +5207,7 @@ class Modal {
     _clearModalLifecycleListeners();
     OverlayInterleaveManager.unregisterWhere((id) => id.startsWith('dialog:'));
     _unregisterAllInterleavedSheetLayers();
+    _unregisterAllInterleavedCustomLayers(force: true);
     OverlayInterleaveManager.unregisterWhere(
         (id) => id.startsWith('snackbar:'));
   }
@@ -4967,9 +5259,16 @@ class _InterleavedDialogLayer extends StatelessWidget {
             return const SizedBox.shrink();
           }
 
-          final barrierChild = _buildModalBarrierSurface(
-            content.barrierColor,
-            _backgroundLayerAnimationNotifier.state * content.barrierColor.a,
+          final bool isDismissingLocal =
+              Modal.isDialogDismissing && topDialogId == content.uniqueId;
+          final barrierChild = AnimatedOpacity(
+            opacity: isDismissingLocal ? 0.0 : 1.0,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.fastEaseInToSlowEaseOut,
+            child: _buildModalBarrierSurface(
+              content.barrierColor,
+              _backgroundLayerAnimationNotifier.state * content.barrierColor.a,
+            ),
           );
 
           if (!shouldCaptureTaps) {
@@ -4984,7 +5283,7 @@ class _InterleavedDialogLayer extends StatelessWidget {
           return Positioned.fill(
             child: SInkButton(
               hitTestBehavior: HitTestBehavior.opaque,
-              scaleFactor: _modalOverlayShouldBounceOnTap ? 0.985 : 1,
+              scaleFactor: 1,
               color: content.barrierColor.darken(0.2),
               onTap: (pos) {
                 if (Modal.isDismissing) return;
@@ -5015,6 +5314,107 @@ class _InterleavedDialogLayer extends StatelessWidget {
               isDraggable: content.isDraggable,
               offset: content.offset,
               child: content.buildContent(),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _InterleavedCustomLayer extends StatelessWidget {
+  final String customId;
+
+  const _InterleavedCustomLayer({required this.customId});
+
+  @override
+  Widget build(BuildContext context) {
+    return OnBuilder(
+      listenToMany: [
+        _backgroundLayerAnimationNotifier,
+        _customController,
+        Modal.dismissModalAnimationController,
+        _customDismissingIdNotifier,
+        _hotReloadCounter,
+      ],
+      builder: () {
+        if (_hotReloadCounter.state < 0) return const SizedBox.shrink();
+
+        final content = _customController.state;
+        if (content == null ||
+            content.modalType != ModalType.custom ||
+            content.uniqueId != customId) {
+          return const SizedBox.shrink();
+        }
+
+        final hasVisibleBarrier = content.barrierColor.a > 0;
+        final shouldCaptureTaps = _shouldCaptureModalBarrierTaps(
+          isDismissable: content.isDismissable,
+          blockBackgroundInteraction: content.blockBackgroundInteraction,
+        );
+
+        Widget barrierLayer() {
+          if (!shouldCaptureTaps && !hasVisibleBarrier) {
+            return const SizedBox.shrink();
+          }
+
+            final bool isDismissingLocal =
+              _customDismissingIdNotifier.state == customId;
+          final barrierChild = AnimatedOpacity(
+            opacity: isDismissingLocal ? 0.0 : 1.0,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.fastEaseInToSlowEaseOut,
+            child: _buildModalBarrierSurface(
+              content.barrierColor,
+              _backgroundLayerAnimationNotifier.state * content.barrierColor.a,
+            ),
+          );
+
+          if (!shouldCaptureTaps) {
+            return Positioned.fill(
+              child: IgnorePointer(ignoring: true, child: barrierChild),
+            );
+          }
+
+          return Positioned.fill(
+            child: SInkButton(
+              hitTestBehavior: HitTestBehavior.opaque,
+              scaleFactor: /* _modalOverlayShouldBounceOnTap ? 0.985 : */ 1,
+              color: content.barrierColor.darken(0.2),
+              onTap: (pos) {
+                if (Modal.isDismissing || _isCustomBarrierTapSuppressed()) {
+                  return;
+                }
+                if (content.isDismissable) Modal.dismissById(content.uniqueId);
+              },
+              onLongPressEnd: (details) {
+                if (Modal.isDismissing || _isCustomBarrierTapSuppressed()) {
+                  return;
+                }
+                if (content.isDismissable) Modal.dismissById(content.uniqueId);
+              },
+              child: barrierChild,
+            ),
+          );
+        }
+
+        return Stack(
+          children: [
+            barrierLayer(),
+            Builder(
+              builder: (_) {
+                final isCustomDismissing =
+                    _customDismissingIdNotifier.state == customId;
+                return DialogModal(
+                  key: ValueKey('interleaved_custom_${content.uniqueId}'),
+                  dialogId: content.uniqueId,
+                  position: content.modalPosition,
+                  isDismissing: isCustomDismissing,
+                  isDraggable: content.isDraggable,
+                  offset: content.offset,
+                  child: content.buildContent(),
+                );
+              },
             ),
           ],
         );
@@ -5063,9 +5463,18 @@ class _InterleavedSheetLayer extends StatelessWidget {
             return const SizedBox.shrink();
           }
 
-          final barrierChild = _buildModalBarrierSurface(
-            content.barrierColor,
-            _backgroundLayerAnimationNotifier.state * content.barrierColor.a,
+          // Use an AnimatedOpacity so that the barrier fades out gracefully during
+          // dismissal (especially in interleaving mode where the shared background
+          // notifier does NOT fade to 0.0).
+          final bool isDismissingLocal = Modal.isSheetDismissing;
+          final barrierChild = AnimatedOpacity(
+            opacity: isDismissingLocal ? 0.0 : 1.0,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.fastEaseInToSlowEaseOut,
+            child: _buildModalBarrierSurface(
+              content.barrierColor,
+              _backgroundLayerAnimationNotifier.state * content.barrierColor.a,
+            ),
           );
 
           if (!shouldCaptureTaps) {
@@ -5173,6 +5582,8 @@ class _InterleavedSnackbarLayer extends StatelessWidget {
                 isDismissing: _isSnackbarDismissing(snackbarContent.uniqueId),
                 isSwipeable: snackbarContent.isSwipeable,
                 autoDismissDuration: snackbarContent.autoDismissDuration,
+                autoDismissDeadline:
+                    snackbarContent.snackbarAutoDismissDeadline,
                 offset: snackbarContent.offset,
                 barrierColor: snackbarContent.barrierColor,
                 blockBackgroundInteraction:
@@ -5207,6 +5618,8 @@ class _InterleavedSnackbarLayer extends StatelessWidget {
                   isDismissing: Modal.isSnackbarDismissing,
                   isSwipeable: snackbarContent.isSwipeable,
                   autoDismissDuration: snackbarContent.autoDismissDuration,
+                  autoDismissDeadline:
+                      snackbarContent.snackbarAutoDismissDeadline,
                   offset: snackbarContent.offset,
                   barrierColor: snackbarContent.barrierColor,
                   blockBackgroundInteraction:
@@ -5598,10 +6011,20 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                               final sheetPos =
                                   _sheetController.state?.sheetPosition;
 
+                              final isBottomSheetContext =
+                                  Modal.isSheetActive &&
+                                      sheetPos == SheetPosition.bottom;
+                              final isTopSheetContext = Modal.isSheetActive &&
+                                  sheetPos == SheetPosition.top;
+
+                              final shouldApplySideSheetBackgroundTransform =
+                                  Modal.isSideSheetActive &&
+                                      !OverlayInterleaveManager.enabled;
+
                               final double verticalOffset;
-                              if (Modal.isSheetActive) {
+                              if (isBottomSheetContext) {
                                 verticalOffset = animValue * -8.5;
-                              } else if (Modal.isTopSheetActive) {
+                              } else if (isTopSheetContext) {
                                 verticalOffset = animValue * 8.5;
                               } else {
                                 verticalOffset = 0.0;
@@ -5609,7 +6032,8 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
 
                               final double leftPosition;
                               final double rightPosition;
-                              if (Modal.isSideSheetActive && sheetPos != null) {
+                              if (shouldApplySideSheetBackgroundTransform &&
+                                  sheetPos != null) {
                                 if (sheetPos == SheetPosition.right) {
                                   leftPosition = 0.0;
                                   rightPosition = animValue * 8.5;
@@ -5622,16 +6046,16 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                 rightPosition = 0.0;
                               }
 
-                              final scaleValue = (Modal.isSheetActive ||
-                                      Modal.isSideSheetActive ||
-                                      Modal.isTopSheetActive)
+                                    final scaleValue = (isBottomSheetContext ||
+                                      shouldApplySideSheetBackgroundTransform ||
+                                      isTopSheetContext)
                                   ? 1 - (animValue * 0.02)
                                   : 1.0;
 
                               return Positioned.fill(
                                 child: Transform.translate(
                                   offset: Offset(
-                                    Modal.isSideSheetActive
+                                    shouldApplySideSheetBackgroundTransform
                                         ? (sheetPos == SheetPosition.right
                                             ? -leftPosition
                                             : rightPosition)
@@ -5640,11 +6064,13 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                   ),
                                   child: Transform.scale(
                                     scale: scaleValue,
-                                    alignment: Modal.isSheetActive
+                                    alignment: isBottomSheetContext
                                         ? Alignment.bottomCenter
-                                        : (Modal.isTopSheetActive
+                                      : (isTopSheetContext
                                             ? Alignment.topCenter
-                                            : (sheetPos == SheetPosition.right
+                                            : (shouldApplySideSheetBackgroundTransform &&
+                                                    sheetPos ==
+                                                        SheetPosition.right
                                                 ? Alignment.centerRight
                                                 : Alignment.centerLeft)),
                                     child: AnimatedContainer(
@@ -5652,7 +6078,7 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                           const Duration(milliseconds: 300),
                                       curve: Curves.easeInOut,
                                       decoration: BoxDecoration(
-                                        borderRadius: Modal.isSheetActive
+                                        borderRadius: isBottomSheetContext
                                             ? widget.borderRadius
                                             : BorderRadius.zero,
                                       ),
@@ -5676,13 +6102,12 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                           final animValue =
                                               _backgroundLayerAnimationNotifier
                                                   .state;
-                                          final borderRadius =
-                                              Modal.isSheetActive
-                                                  ? BorderRadius.lerp(
-                                                      BorderRadius.zero,
-                                                      widget.borderRadius,
-                                                      animValue)!
-                                                  : BorderRadius.zero;
+                                            final borderRadius = isBottomSheetContext
+                                              ? BorderRadius.lerp(
+                                                BorderRadius.zero,
+                                                widget.borderRadius,
+                                                animValue)!
+                                              : BorderRadius.zero;
 
                                           // The background layer with blur and tap handling
                                           return ImageFiltered(
@@ -5939,6 +6364,7 @@ Widget _buildCollapsedStaggeredView({
         isDismissing: _isSnackbarDismissing(snackbarContent.uniqueId),
         isSwipeable: isFrontSnackbar ? snackbarContent.isSwipeable : false,
         autoDismissDuration: snackbarContent.autoDismissDuration,
+        autoDismissDeadline: snackbarContent.snackbarAutoDismissDeadline,
         offset: snackbarContent.offset,
         barrierColor: snackbarContent.barrierColor,
         onSwipeDismiss: (direction) {
@@ -6161,6 +6587,7 @@ Widget _buildCollapsedNotificationBubbleView({
         isDismissing: _isSnackbarDismissing(snackbarContent.uniqueId),
         isSwipeable: snackbarContent.isSwipeable,
         autoDismissDuration: snackbarContent.autoDismissDuration,
+        autoDismissDeadline: snackbarContent.snackbarAutoDismissDeadline,
         offset: snackbarContent.offset,
         onSwipeDismiss: (direction) {
           final isImmediate = direction == 'dismiss_immediate';
