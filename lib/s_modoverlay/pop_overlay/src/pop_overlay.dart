@@ -578,6 +578,13 @@ class PopOverlay {
       return state;
     });
 
+    // Sync interleave layer z-order so the shared Stack reflects the new
+    // stackLevel immediately. Without this, the interleave manager's own copy
+    // of stackLevel stays stale and bringToFront/sendToBack have no visual
+    // effect in interleaved mode.
+    final updated = getActiveById(id);
+    if (updated != null) _registerInterleavedLayerForPop(updated);
+
     return true;
   }
 
@@ -1342,43 +1349,10 @@ class _PopOverlayBootstrapper {
     ensureInstalled(context: context);
   }
 
-  static OverlayState? _resolveRootOverlay(BuildContext? context) {
-    // Resolve the most appropriate root overlay.
-    if (context != null) {
-      final rootOverlay = Overlay.maybeOf(context, rootOverlay: true);
-      if (rootOverlay != null) return rootOverlay;
-
-      // Fallback to the nearest overlay only if a root overlay is unavailable.
-      // This keeps PopOverlay aligned with s_modal when both packages are active,
-      // while still allowing local overlays in unusual embedding scenarios.
-      final nearestOverlay = Overlay.maybeOf(context, rootOverlay: false);
-      if (nearestOverlay != null) return nearestOverlay;
-    }
-
-    final rootElement = WidgetsBinding.instance.rootElement;
-    if (rootElement == null) return null;
-
-    // When no context is supplied, prefer the true root overlay first.
-    // This avoids accidentally attaching to nested Navigator overlays such as
-    // the one created by s_modal's app builder wrapper.
-    final rootOverlay = Overlay.maybeOf(rootElement, rootOverlay: true);
-    if (rootOverlay != null) return rootOverlay;
-
-    OverlayState? found;
-
-    void visit(Element element) {
-      // DFS search for any overlay as a last resort.
-      if (found != null) return;
-      if (element is StatefulElement && element.state is OverlayState) {
-        found = element.state as OverlayState;
-        return;
-      }
-      element.visitChildElements(visit);
-    }
-
-    visit(rootElement);
-    return found;
-  }
+  // Delegate to the canonical implementation in OverlayInterleaveManager so
+  // both bootstrappers always use the same root-overlay resolution logic.
+  static OverlayState? _resolveRootOverlay(BuildContext? context) =>
+      OverlayInterleaveManager.resolveRootOverlay(context);
 }
 
 /// Overlay entry content that hosts the PopOverlay activator without intercepting taps when idle.

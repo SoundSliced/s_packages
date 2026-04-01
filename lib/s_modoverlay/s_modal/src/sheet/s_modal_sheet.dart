@@ -1258,8 +1258,11 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
         // Guard: when the global notifier is reset to 0.0 during ANOTHER sheet's
         // dismissal cleanup, do NOT corrupt this sheet's tracked size. Only accept
         // a 0.0 value if this sheet doesn't already have a valid size.
-        if (newSize == 0.0 && currentSheetSize != null && currentSheetSize! > 0)
+        if (newSize == 0.0 &&
+            currentSheetSize != null &&
+            currentSheetSize! > 0) {
           return;
+        }
         if (currentSheetSize != newSize) {
           setState(() {
             currentSheetSize = newSize;

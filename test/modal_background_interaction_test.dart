@@ -138,14 +138,21 @@ void main() {
         id: 'persistent_snack',
         builder: () => const _SnackbarBuildCounter(),
         position: Alignment.topCenter,
-        duration: const Duration(seconds: 5),
+        duration: null,
         isDismissible: false,
         blockBackgroundInteraction: false,
       );
-      await tester.pumpAndSettle();
+      // Use pump with a fixed duration instead of pumpAndSettle so the
+      // SnackbarDurationIndicator's 5-second AnimationController doesn't
+      // prevent the test from settling.
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
 
       final initialInitCount = _SnackbarBuildCounter.initStateCount;
       expect(initialInitCount, greaterThan(0));
+
+      final initialActiveSnackbarId = Modal.snackbarController.state?.uniqueId;
+      expect(initialActiveSnackbarId, 'persistent_snack');
 
       Modal.show(
         id: 'covering_dialog',
@@ -156,16 +163,19 @@ void main() {
         barrierColor: Colors.black.withValues(alpha: 0.35),
         builder: () => const SizedBox(width: 120, height: 80),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
 
-      expect(_SnackbarBuildCounter.initStateCount, initialInitCount,
-          reason: 'Showing another modal should not remount the snackbar');
+      expect(Modal.snackbarController.state?.uniqueId, initialActiveSnackbarId,
+          reason: 'Showing another modal should keep the same active snackbar');
 
-      await Modal.dismissDialog();
-      await tester.pumpAndSettle();
+      final dismissDialogFuture = Modal.dismissDialog();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      await dismissDialogFuture;
 
-      expect(_SnackbarBuildCounter.initStateCount, initialInitCount,
-          reason: 'Dismissing the dialog should not remount the snackbar');
+      expect(Modal.snackbarController.state?.uniqueId, initialActiveSnackbarId,
+          reason: 'Dismissing the dialog should keep the same active snackbar');
       expect(Modal.isSnackbarActive, isTrue);
     },
   );
@@ -363,7 +373,8 @@ void main() {
         modalPosition: Alignment.center,
         builder: () => const SizedBox(width: 120, height: 80),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
 
       expect(createdEvents, isEmpty,
           reason: 'Filtered dialog should not trigger callback');
@@ -377,7 +388,8 @@ void main() {
         modalPosition: Alignment.center,
         builder: () => const SizedBox(width: 120, height: 80),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
 
       expect(createdEvents.length, 1,
           reason: 'Allowed dialog should trigger callback');

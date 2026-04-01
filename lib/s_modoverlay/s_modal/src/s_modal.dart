@@ -4399,6 +4399,7 @@ class Modal {
     _dialogDismissingNotifier.state = false;
     _syncInterleavedDialogLayersWithStack();
     OverlayInterleaveManager.unregisterWhere((id) => id.startsWith('dialog:'));
+    OverlayInterleaveManager.teardownHost();
 
     _activeModalController.refresh();
     _dismissModalAnimationController.state = false;

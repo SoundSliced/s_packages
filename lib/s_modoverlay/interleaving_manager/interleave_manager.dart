@@ -95,7 +95,6 @@ class OverlayInterleaveManager {
       if (unchanged) {
         // Keep host installed and visible even if data didn't change.
         ensureInstalled(context: context);
-        requestBringToFront(context: context);
         return;
       }
 
@@ -108,7 +107,12 @@ class OverlayInterleaveManager {
     _layers.value = next;
     _entry?.markNeedsBuild();
     ensureInstalled(context: context);
-    requestBringToFront(context: context);
+    // Avoid forcing a remove+insert cycle when the host is already mounted;
+    // that remounts layer subtrees and can replay entry animations (for
+    // example active snackbars). Newly-installed hosts are inserted at top.
+    if (_entry == null || !_entry!.mounted) {
+      requestBringToFront(context: context);
+    }
     // Order is sorted by activationOrder (first) then stackLevel (second).
     // activationOrder preserves "first shown" semantics across systems.
     _debugInterleaveLog(
@@ -180,18 +184,32 @@ class OverlayInterleaveManager {
     _debugInterleaveLog('clearLayers order=[]');
   }
 
+  /// Removes the shared host overlay entry and optionally clears layer state.
+  ///
+  /// Useful for hard resets (for example test teardown) so stale host entries
+  /// do not accumulate across widget tree lifecycles.
+  static void teardownHost({bool clearLayers = true}) {
+    final entry = _entry;
+    _entry = null;
+    _installScheduled = false;
+    _bringToFrontScheduled = false;
+    _pendingBringContext = null;
+
+    if (entry != null && entry.mounted) {
+      entry.remove();
+    }
+
+    if (clearLayers) {
+      _layers.value = <InterleavedOverlayLayer>[];
+    }
+  }
+
   /// Ensure the interleaved overlay host is installed in the root overlay.
   static void ensureInstalled({BuildContext? context}) {
     if (!enabled) return;
-    // If an entry already exists, keep it unless we can prove it's stale.
-    if (_entry != null) {
-      // Mounted entry is healthy.
-      if (_entry!.mounted) return;
-      // If an install is already queued, this unmounted entry is expected.
-      if (_installScheduled) return;
-      // Otherwise, recover from stale unmounted references.
-      _entry = null;
-    }
+    // If we already have an entry reference, don't schedule another install.
+    // This keeps host installation idempotent and avoids duplicate hosts.
+    if (_entry != null) return;
 
     if (_installScheduled) return;
     _installScheduled = true;
@@ -203,7 +221,7 @@ class OverlayInterleaveManager {
       // Another call may have installed the entry while this callback was queued.
       if (_entry != null) return;
 
-      final overlayState = _resolveRootOverlay(context);
+      final overlayState = resolveRootOverlay(context);
       if (overlayState == null) return;
 
       final entry = OverlayEntry(
@@ -225,7 +243,7 @@ class OverlayInterleaveManager {
       return;
     }
 
-    final overlayState = _resolveRootOverlay(context);
+    final overlayState = resolveRootOverlay(context);
     if (overlayState == null) return;
 
     if (entry.mounted) {
@@ -246,7 +264,7 @@ class OverlayInterleaveManager {
   }
 
   /// Resolve the best root overlay from a context or the app root.
-  static OverlayState? _resolveRootOverlay(BuildContext? context) {
+  static OverlayState? resolveRootOverlay(BuildContext? context) {
     if (context != null) {
       // Prefer the true root overlay when available.
       final rootOverlay = Overlay.maybeOf(context, rootOverlay: true);
