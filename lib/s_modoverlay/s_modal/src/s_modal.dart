@@ -76,6 +76,12 @@ final _dialogStackNotifier = RM.inject<List<_ModalContent>>(
 /// Auto-disposing would drop the state and make subsequent shows silently fail.
 final _sheetController = RM.inject<_ModalContent?>(() => null);
 
+/// Stack for sheet modals (bottom, top, and side sheets)
+///
+/// Sheets can coexist in the interleaved host, so we keep the full stack here
+/// and let [_sheetController] mirror the current top-most sheet.
+final _sheetStackNotifier = RM.inject<List<_ModalContent>>(() => <_ModalContent>[]);
+
 /// Controller for side sheet modals
 ///
 /// Manages side sheet-specific state independently from other modal types.
@@ -142,6 +148,12 @@ final _dialogDismissingNotifier = RM.inject<bool>(() => false);
 /// Tracks if a sheet dismissal is in progress
 /// Used for all sheet types: bottomSheet, topSheet, and sideSheet
 final _sheetDismissingNotifier = RM.inject<bool>(() => false);
+
+/// Tracks which sheet is currently being dismissed.
+///
+/// This keeps interleaved sheet layers from treating every stacked sheet as
+/// dismissing when only the top-most one is animating out.
+final _sheetDismissingIdNotifier = RM.inject<String?>(() => null);
 
 /// Tracks which custom modal (if any) is currently being dismissed.
 ///
@@ -351,12 +363,96 @@ void _registerInterleavedSheetLayer(_ModalContent content) {
   );
 }
 
-void _unregisterInterleavedSheetLayer(String sheetId) {
-  if (!OverlayInterleaveManager.enabled) return;
-  OverlayInterleaveManager.unregisterLayer(_sheetInterleavedLayerId(sheetId));
+void _sortSheetStack(List<_ModalContent> sheets) {
+  if (sheets.length <= 1) return;
+
+  final indexed = sheets.asMap().entries.toList();
+  indexed.sort((a, b) {
+    final byOrder = a.value.activationOrder.compareTo(b.value.activationOrder);
+    if (byOrder != 0) return byOrder;
+    final byLevel = a.value.stackLevel.compareTo(b.value.stackLevel);
+    if (byLevel != 0) return byLevel;
+    return a.key.compareTo(b.key);
+  });
+
+  sheets
+    ..clear()
+    ..addAll(indexed.map((e) => e.value));
 }
 
-/// Remove every active sheet layer (at most one sheet is ever active).
+void _syncSheetControllersFromStack() {
+  if (_sheetStackNotifier.state.isEmpty) {
+    _sheetController.state = null;
+    _sheetDismissingNotifier.state = false;
+    _sheetDismissingIdNotifier.state = null;
+    return;
+  }
+
+  final topSheet = _sheetStackNotifier.state.last;
+  _sheetController.state = topSheet;
+  _activeModalController.state = topSheet;
+
+  // Keep the legacy side-sheet controller pointed at the current sheet when
+  // it is a side sheet so existing API checks continue to behave.
+  if (topSheet.sheetPosition == SheetPosition.left ||
+      topSheet.sheetPosition == SheetPosition.right) {
+    _sideSheetController.state = topSheet;
+  } else {
+    _sideSheetController.state = null;
+  }
+}
+
+void _registerSheetInStack(_ModalContent content) {
+  final stack = List<_ModalContent>.from(_sheetStackNotifier.state);
+  final existingIndex = stack.indexWhere(
+    (sheet) => sheet.id == content.id || sheet.uniqueId == content.id,
+  );
+
+  if (existingIndex != -1) {
+    stack[existingIndex] = content;
+  } else {
+    stack.add(content);
+  }
+
+  _sortSheetStack(stack);
+  _sheetStackNotifier.state = stack;
+  _syncSheetControllersFromStack();
+  _syncInterleavedSheetLayersWithStack();
+}
+
+void _removeSheetFromStack(String sheetId) {
+  final stack = List<_ModalContent>.from(_sheetStackNotifier.state);
+  stack.removeWhere((sheet) => sheet.uniqueId == sheetId);
+  _sheetStackNotifier.state = stack;
+  _syncSheetControllersFromStack();
+  _syncInterleavedSheetLayersWithStack();
+}
+
+void _syncInterleavedSheetLayersWithStack() {
+  if (!OverlayInterleaveManager.enabled) return;
+
+  final sheets = List<_ModalContent>.from(_sheetStackNotifier.state);
+  final activeLayerIds = sheets
+      .map((sheet) => _sheetInterleavedLayerId(sheet.uniqueId))
+      .toSet();
+
+  final existingSheetLayerIds = OverlayInterleaveManager.layers
+      .map((layer) => layer.id)
+      .where((id) => id.startsWith('sheet:'))
+      .toList(growable: false);
+
+  for (final layerId in existingSheetLayerIds) {
+    if (!activeLayerIds.contains(layerId)) {
+      OverlayInterleaveManager.unregisterLayer(layerId);
+    }
+  }
+
+  for (final sheet in sheets) {
+    _registerInterleavedSheetLayer(sheet);
+  }
+}
+
+/// Remove every active sheet layer.
 void _unregisterAllInterleavedSheetLayers() {
   if (!OverlayInterleaveManager.enabled) return;
   OverlayInterleaveManager.unregisterWhere((id) => id.startsWith('sheet:'));
@@ -508,6 +604,26 @@ void _unregisterSnackbarController(String id) {
 SnackbarModalController? _getSnackbarController(String id) {
   // Read controller by id.
   return _snackbarControllersRegistry.state[id];
+}
+
+/// Gets the absolute auto-dismiss deadline for a snackbar by its unique id.
+///
+/// Used by duration indicators so visual progress survives rebuild/remount
+/// cycles and stays aligned with the actual auto-dismiss deadline.
+DateTime? _getSnackbarAutoDismissDeadlineById(String snackbarId) {
+  for (final queue in _snackbarQueueNotifier.state.values) {
+    for (final snackbar in queue) {
+      if (snackbar.uniqueId == snackbarId) {
+        return snackbar.snackbarAutoDismissDeadline;
+      }
+    }
+  }
+
+  if (_snackbarController.state?.uniqueId == snackbarId) {
+    return _snackbarController.state?.snackbarAutoDismissDeadline;
+  }
+
+  return null;
 }
 
 //************************************************ */
@@ -1362,6 +1478,7 @@ class _ModalContent {
               if (showDurationTimer && duration != null && isDismissible)
                 SnackbarDurationIndicator(
                   duration: duration,
+                  deadline: _getSnackbarAutoDismissDeadlineById(snackbarId),
                   color: durationTimerColor ?? Colors.amber,
                   backgroundColor: (durationTimerColor ?? Colors.amber)
                       .withValues(alpha: 0.3),
@@ -2064,29 +2181,32 @@ class Modal {
   static bool get isDialogActive => _dialogStackNotifier.state.isNotEmpty;
 
   /// Returns true if a bottom sheet is currently active
-  static bool get isSheetActive => _sheetController.state != null;
+  static bool get isSheetActive => _sheetStackNotifier.state.isNotEmpty;
 
   /// Returns true if a side sheet is currently active
   /// Side sheets use the sheet controller with left/right positions
   static bool get isSideSheetActive {
-    if (_sheetController.state == null) return false;
-    final position = _sheetController.state!.sheetPosition;
+    final sheet = _sheetController.state;
+    if (sheet == null) return false;
+    final position = sheet.sheetPosition;
     return position == SheetPosition.left || position == SheetPosition.right;
   }
 
   /// Returns true if a top sheet is currently active
   /// Top sheets use the sheet controller with top position
   static bool get isTopSheetActive {
-    if (_sheetController.state == null) return false;
-    final position = _sheetController.state!.sheetPosition;
+    final sheet = _sheetController.state;
+    if (sheet == null) return false;
+    final position = sheet.sheetPosition;
     return position == SheetPosition.top;
   }
 
   /// Returns true if a bottom sheet is currently active
   /// Bottom sheets use the sheet controller with bottom position
   static bool get isBottomSheetActive {
-    if (_sheetController.state == null) return false;
-    final position = _sheetController.state!.sheetPosition;
+    final sheet = _sheetController.state;
+    if (sheet == null) return false;
+    final position = sheet.sheetPosition;
     return position == SheetPosition.bottom;
   }
 
@@ -2747,6 +2867,17 @@ class Modal {
       return;
     }
 
+    if (modalContent.modalType == ModalType.sheet) {
+      _registerSheetInStack(modalContent);
+
+      _registerModal(modalContent.uniqueId, modalContent.modalType);
+      _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
+          modalContent, ModalLifecycleEventType.created));
+
+      Modal.controller.state = _sheetController.state;
+      return;
+    }
+
     // Helper to set the appropriate type-specific controller
     void setTypeController(_ModalContent modalContent) {
       switch (modalContent.modalType) {
@@ -2755,9 +2886,8 @@ class Modal {
           _dialogDismissingNotifier.state = false;
           break;
         case ModalType.sheet:
-          _sheetController.state = modalContent;
+          _registerSheetInStack(modalContent);
           _sheetDismissingNotifier.state = false;
-          _registerInterleavedSheetLayer(modalContent);
           break;
         case ModalType.snackbar:
           _snackbarController.state = modalContent;
@@ -2830,7 +2960,9 @@ class Modal {
           previousType != null && previousType == modalContent.modalType
               ? Modal.controller.state
               : null;
-      if (previousType != null && previousType == modalContent.modalType) {
+      if (previousType != null &&
+          previousType == modalContent.modalType &&
+          modalContent.modalType != ModalType.sheet) {
         // SAME TYPE: Replace the existing modal of this type
         // Unregister the previous modal before replacing
         if (Modal.controller.state != null) {
@@ -2850,7 +2982,7 @@ class Modal {
       // Register the new modal
       _registerModal(modalContent.uniqueId, modalContent.modalType);
 
-      if (previousModal != null) {
+      if (previousModal != null && modalContent.modalType != ModalType.sheet) {
         _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
             previousModal, ModalLifecycleEventType.dismissed));
       }
@@ -3044,12 +3176,19 @@ class Modal {
       _showSnackbarContent(content, displayMode);
     } else if (builder != null && text == null) {
       // Custom builder API
+      final snackbarId = _generateModalId(id);
+
       // Wrap the builder with duration indicator if not handling manually
       final effectiveBuilder = (showDurationTimer &&
               !handleDurationTimerManually &&
               effectiveDuration != null)
-          ? () => _wrapWithDurationIndicator(builder(), effectiveDuration,
-              durationTimerColor, durationTimerDirection)
+          ? () => _wrapWithDurationIndicator(
+                builder(),
+                effectiveDuration,
+                durationTimerColor,
+                durationTimerDirection,
+                snackbarId,
+              )
           : builder;
 
       final content = _ModalContent(
@@ -3062,7 +3201,7 @@ class Modal {
         isSwipeable: isDismissible,
         snackbarDisplayMode: displayMode,
         maxStackedSnackbars: maxStackedSnackbars,
-        id: id,
+        id: snackbarId,
         stackLevel: stackLevel,
         snackbarWidth: width,
         barrierColor: barrierColor,
@@ -3153,6 +3292,7 @@ class Modal {
     Duration duration,
     Color? timerColor,
     DurationIndicatorDirection direction,
+    String? snackbarId,
   ) {
     final effectiveColor = timerColor ?? Colors.amber;
     return Stack(
@@ -3170,6 +3310,9 @@ class Modal {
                 bottomRight: Radius.circular(12)),
             child: SnackbarDurationIndicator(
               duration: duration,
+              deadline: snackbarId != null
+                  ? _getSnackbarAutoDismissDeadlineById(snackbarId)
+                  : null,
               height: 4.0,
               color: effectiveColor,
               backgroundColor: effectiveColor.withValues(alpha: 0.3),
@@ -3706,9 +3849,11 @@ class Modal {
     _ModalContent? targetContent;
     bool isInQueue = false;
     bool isInDialogStack = false;
+    bool isInSheetStack = false;
     Alignment? queuePosition;
     int? queueIndex;
     int? dialogStackIndex;
+    int? sheetStackIndex;
 
     // Check active controllers
     final dialogStack = _dialogStackNotifier.state;
@@ -3728,8 +3873,23 @@ class Modal {
     } else if (_customController.state?.uniqueId == id ||
         _customController.state?.id == id) {
       targetContent = _customController.state;
-    } else if (Modal.controller.state?.uniqueId == id ||
-        Modal.controller.state?.id == id) {
+    }
+
+    if (targetContent == null) {
+      final sheetStack = _sheetStackNotifier.state;
+      final matchedSheetIndex = sheetStack.indexWhere(
+        (sheet) => sheet.uniqueId == id || sheet.id == id,
+      );
+      if (matchedSheetIndex != -1) {
+        targetContent = sheetStack[matchedSheetIndex];
+        isInSheetStack = true;
+        sheetStackIndex = matchedSheetIndex;
+      }
+    }
+
+    if (targetContent == null &&
+        (Modal.controller.state?.uniqueId == id ||
+            Modal.controller.state?.id == id)) {
       // Fallback for custom or if active controller is set but specific one isn't
       targetContent = Modal.controller.state;
     }
@@ -3855,6 +4015,13 @@ class Modal {
       _dialogStackNotifier.state = updatedDialogStack;
       _syncDialogControllersFromStack();
       _syncInterleavedDialogLayersWithStack();
+    } else if (isInSheetStack && sheetStackIndex != null) {
+      final updatedSheetStack = List<_ModalContent>.from(_sheetStackNotifier.state);
+      updatedSheetStack[sheetStackIndex] = updatedContent;
+      _sortSheetStack(updatedSheetStack);
+      _sheetStackNotifier.state = updatedSheetStack;
+      _syncSheetControllersFromStack();
+      _syncInterleavedSheetLayersWithStack();
     } else {
       // Update active controller(s)
       // If it's the active global modal, update it
@@ -4460,8 +4627,12 @@ class Modal {
         }
         if (positionWithContent != null) {
           final snackbarToShow = currentQueue[positionWithContent]!.first;
-          _snackbarController.state = snackbarToShow;
-          Modal.controller.state = snackbarToShow;
+          if (_snackbarController.state?.uniqueId != snackbarToShow.uniqueId) {
+            _snackbarController.state = snackbarToShow;
+          }
+          if (Modal.controller.state?.uniqueId != snackbarToShow.uniqueId) {
+            Modal.controller.state = snackbarToShow;
+          }
           // Ensure the newly activated snackbar is not marked as dismissing
           _setSnackbarDismissing(snackbarToShow.uniqueId, false);
           Modal.dismissModalAnimationController.state = false;
@@ -4567,14 +4738,13 @@ class Modal {
       }
       Modal.isDismissing = true;
       _sheetDismissingNotifier.state = true;
+      _sheetDismissingIdNotifier.state = targetSheetId;
 
         // In interleaving mode, dismissing a sheet should not perturb remaining
         // MODAL layers (dialog/custom/snackbar). Pop overlays are independent and
         // must NOT keep s_modal's shared background alive.
       final hasOtherInterleavedLayers = OverlayInterleaveManager.enabled &&
-          OverlayInterleaveManager.layers
-            .any((layer) =>
-              !layer.id.startsWith('sheet:') &&
+          OverlayInterleaveManager.layers.any((layer) =>
               !layer.id.startsWith('pop:'));
 
       // (intentionally not capturing dismissed type here) bottom sheet cleanup
@@ -4629,6 +4799,7 @@ class Modal {
           }
           Modal.isDismissing = false;
           _sheetDismissingNotifier.state = false;
+          _sheetDismissingIdNotifier.state = null;
           return;
         }
 
@@ -4676,9 +4847,12 @@ class Modal {
           }
           if (positionWithContent != null) {
             final snackbarToShow = currentQueue[positionWithContent]!.first;
-            // Only update if the snackbar content has actually changed
-            if (_snackbarController.state?.id != snackbarToShow.id) {
+            // Only update if the snackbar content has actually changed.
+            if (_snackbarController.state?.uniqueId !=
+                snackbarToShow.uniqueId) {
               _snackbarController.state = snackbarToShow;
+            }
+            if (Modal.controller.state?.uniqueId != snackbarToShow.uniqueId) {
               Modal.controller.state = snackbarToShow;
             }
             // Ensure the newly activated snackbar is not marked as dismissing
@@ -4689,18 +4863,15 @@ class Modal {
           }
         }
 
-        // Remove only the dismissed sheet's interleaved layer first, then
-        // clear controller state. Removing all sheet layers here causes
-        // transient ordering jumps when multiple interleaved sheets exist.
-        _unregisterInterleavedSheetLayer(targetSheetId);
-        _sheetController.refresh();
+        // Remove the dismissed sheet from the stack so any previous sheet
+        // becomes active again instead of being replaced or dismissed.
+        _removeSheetFromStack(targetSheetId);
 
         // Finalize shared background/blur state after sheet teardown.
         // Keep barrier visuals only when a dialog remains; otherwise clear.
         final hasOtherInterleavedLayersAfterDismiss =
           OverlayInterleaveManager.enabled &&
             OverlayInterleaveManager.layers.any((layer) =>
-              !layer.id.startsWith('sheet:') &&
               !layer.id.startsWith('pop:'));
         final shouldKeepSharedBackground =
             Modal.isDialogActive || hasOtherInterleavedLayersAfterDismiss;
@@ -4720,6 +4891,7 @@ class Modal {
         }
 
         _sheetDismissingNotifier.state = false;
+        _sheetDismissingIdNotifier.state = null;
 
         // IMPORTANT: Only clear active modal controller if NO other modals are active
         if (currentQueue.isEmpty &&
@@ -4991,6 +5163,39 @@ class Modal {
     }
 
     // Check if this ID matches the active sheet
+    final sheetStack = _sheetStackNotifier.state;
+    final matchedSheetIndex = sheetStack.indexWhere(
+      (sheet) => sheet.id == id || sheet.uniqueId == id,
+    );
+    if (matchedSheetIndex != -1) {
+      final matchedSheet = sheetStack[matchedSheetIndex];
+      if (_sheetController.state?.uniqueId == matchedSheet.uniqueId) {
+        if (_showDebugPrints) {
+          debugPrint(
+              'Modal.dismissById: found top sheet with ID=$id. Dismissing...');
+        }
+        await dismissBottomSheet(id: id, onDismissed: onDismissed);
+      } else {
+        if (_showDebugPrints) {
+          debugPrint(
+              'Modal.dismissById: found stacked sheet with ID=$id. Removing without animation...');
+        }
+
+        final updatedSheetStack = List<_ModalContent>.from(sheetStack)
+          ..removeAt(matchedSheetIndex);
+        _sheetStackNotifier.state = updatedSheetStack;
+        _syncSheetControllersFromStack();
+        _syncInterleavedSheetLayersWithStack();
+
+        _unregisterModal(matchedSheet.uniqueId);
+        _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
+            matchedSheet, ModalLifecycleEventType.dismissed));
+        onDismissed?.call();
+        matchedSheet.onDismissed?.call();
+      }
+      return true;
+    }
+
     if (Modal.isSheetActive && _sheetController.state != null) {
       final sheet = _sheetController.state!;
       if (sheet.id == id || sheet.uniqueId == id) {
@@ -5440,17 +5645,25 @@ class _InterleavedSheetLayer extends StatelessWidget {
     return OnBuilder(
       listenToMany: [
         _backgroundLayerAnimationNotifier,
-        _sheetController,
+        _sheetStackNotifier,
         _sheetDismissingNotifier,
+        _sheetDismissingIdNotifier,
         _hotReloadCounter,
       ],
       builder: () {
         if (_hotReloadCounter.state < 0) return const SizedBox.shrink();
 
-        final content = _sheetController.state;
-        if (content == null || content.uniqueId != sheetId) {
+        final sheets = List<_ModalContent>.from(_sheetStackNotifier.state);
+        if (sheets.isEmpty) return const SizedBox.shrink();
+
+        _sortSheetStack(sheets);
+        final sheetIndex = sheets.indexWhere((sheet) => sheet.uniqueId == sheetId);
+        if (sheetIndex == -1) {
           return const SizedBox.shrink();
         }
+        final content = sheets[sheetIndex];
+        final topSheet = sheets.last;
+        final isTopSheet = content.uniqueId == topSheet.uniqueId;
 
         Widget barrierLayer() {
           final hasVisibleBarrier = content.barrierColor.a > 0;
@@ -5466,7 +5679,8 @@ class _InterleavedSheetLayer extends StatelessWidget {
           // Use an AnimatedOpacity so that the barrier fades out gracefully during
           // dismissal (especially in interleaving mode where the shared background
           // notifier does NOT fade to 0.0).
-          final bool isDismissingLocal = Modal.isSheetDismissing;
+          final bool isDismissingLocal =
+              _sheetDismissingIdNotifier.state == sheetId;
           final barrierChild = AnimatedOpacity(
             opacity: isDismissingLocal ? 0.0 : 1.0,
             duration: const Duration(milliseconds: 200),
@@ -5490,11 +5704,15 @@ class _InterleavedSheetLayer extends StatelessWidget {
               color: content.barrierColor.darken(0.2),
               onTap: (pos) {
                 if (Modal.isDismissing) return;
-                if (content.isDismissable) Modal.dismissBottomSheet();
+                if (isTopSheet && content.isDismissable) {
+                  Modal.dismissBottomSheet(id: content.uniqueId);
+                }
               },
               onLongPressEnd: (details) {
                 if (Modal.isDismissing) return;
-                if (content.isDismissable) Modal.dismissBottomSheet();
+                if (isTopSheet && content.isDismissable) {
+                  Modal.dismissBottomSheet(id: content.uniqueId);
+                }
               },
               child: barrierChild,
             ),
@@ -5521,7 +5739,7 @@ class _InterleavedSheetLayer extends StatelessWidget {
               expandedWidth: (content.isExpandable && isHorizontal)
                   ? content.expandedPercentageSize
                   : null,
-              isDismissing: Modal.isSheetDismissing,
+              isDismissing: _sheetDismissingIdNotifier.state == sheetId,
               isExpandable: content.isExpandable,
               contentPaddingByDragHandle: content.contentPaddingByDragHandle,
               backgroundColor: content.backgroundColor,

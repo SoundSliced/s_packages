@@ -84,6 +84,28 @@ class _BackgroundTapTestPageState extends State<_BackgroundTapTestPage> {
   }
 }
 
+class _SnackbarBuildCounter extends StatefulWidget {
+  const _SnackbarBuildCounter();
+
+  static int initStateCount = 0;
+
+  @override
+  State<_SnackbarBuildCounter> createState() => _SnackbarBuildCounterState();
+}
+
+class _SnackbarBuildCounterState extends State<_SnackbarBuildCounter> {
+  @override
+  void initState() {
+    super.initState();
+    _SnackbarBuildCounter.initStateCount++;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(width: 120, height: 80);
+  }
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -99,6 +121,54 @@ void main() {
     // Give time for any remaining animations to complete
     await Future.delayed(const Duration(milliseconds: 100));
   });
+
+  testWidgets(
+    'dismissing another modal does not remount an active snackbar',
+    (tester) async {
+      _SnackbarBuildCounter.initStateCount = 0;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          builder: Modal.appBuilder,
+          home: const _BackgroundTapTestPage(),
+        ),
+      );
+
+      Modal.showSnackbar(
+        id: 'persistent_snack',
+        builder: () => const _SnackbarBuildCounter(),
+        position: Alignment.topCenter,
+        duration: const Duration(seconds: 5),
+        isDismissible: false,
+        blockBackgroundInteraction: false,
+      );
+      await tester.pumpAndSettle();
+
+      final initialInitCount = _SnackbarBuildCounter.initStateCount;
+      expect(initialInitCount, greaterThan(0));
+
+      Modal.show(
+        id: 'covering_dialog',
+        modalType: ModalType.dialog,
+        modalPosition: Alignment.center,
+        isDismissable: false,
+        blockBackgroundInteraction: false,
+        barrierColor: Colors.black.withValues(alpha: 0.35),
+        builder: () => const SizedBox(width: 120, height: 80),
+      );
+      await tester.pumpAndSettle();
+
+      expect(_SnackbarBuildCounter.initStateCount, initialInitCount,
+          reason: 'Showing another modal should not remount the snackbar');
+
+      await Modal.dismissDialog();
+      await tester.pumpAndSettle();
+
+      expect(_SnackbarBuildCounter.initStateCount, initialInitCount,
+          reason: 'Dismissing the dialog should not remount the snackbar');
+      expect(Modal.isSnackbarActive, isTrue);
+    },
+  );
 
   testWidgets(
     'non-dismissible modal with background interaction enabled lets taps pass through',

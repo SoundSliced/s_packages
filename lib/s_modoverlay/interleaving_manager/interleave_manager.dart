@@ -329,11 +329,14 @@ class _InterleavedOverlayHost extends StatelessWidget {
                 children: layers
                     .map(
                       (layer) => Positioned.fill(
-                        child: KeyedSubtree(
-                          key: ValueKey('interleave_layer_${layer.id}'),
-                          // Delegate actual content to the layer builder.
-                          child: layer.builder(),
-                        ),
+                        // Key on Positioned.fill so Stack matches by key (not
+                        // index). Without this, removing any layer before the
+                        // snackbar shifts the snackbar's index, causing Flutter
+                        // to dispose and recreate its subtree - replaying the
+                        // entrance animation.
+                        key: ValueKey('interleave_layer_${layer.id}'),
+                        // Delegate actual content to the layer builder.
+                        child: layer.builder(),
                       ),
                     )
                     .toList(growable: false),

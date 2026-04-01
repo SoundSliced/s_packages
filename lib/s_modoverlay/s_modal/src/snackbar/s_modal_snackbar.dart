@@ -1027,6 +1027,12 @@ class SnackbarDurationIndicator extends StatefulWidget {
   /// The total duration of the snackbar
   final Duration duration;
 
+  /// Absolute deadline when the snackbar should auto-dismiss.
+  ///
+  /// When provided, the indicator resumes from the correct remaining progress
+  /// on rebuild/remount instead of restarting from full duration.
+  final DateTime? deadline;
+
   /// The height of the progress indicator
   final double height;
 
@@ -1047,6 +1053,7 @@ class SnackbarDurationIndicator extends StatefulWidget {
   const SnackbarDurationIndicator({
     super.key,
     required this.duration,
+    this.deadline,
     this.height = 3.0,
     this.color,
     this.backgroundColor,
@@ -1063,6 +1070,38 @@ class _SnackbarDurationIndicatorState extends State<SnackbarDurationIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
+  void _syncControllerWithDurationAndDeadline() {
+    _controller.duration = widget.duration;
+
+    if (widget.duration.inMilliseconds <= 0) {
+      _controller.value = 1.0;
+      return;
+    }
+
+    final deadline = widget.deadline;
+    if (deadline == null) {
+      _controller.value = 0.0;
+      _controller.forward(from: 0.0);
+      return;
+    }
+
+    final totalMs = widget.duration.inMilliseconds;
+    final remainingMs = deadline.difference(DateTime.now()).inMilliseconds;
+    final clampedRemainingMs = remainingMs.clamp(0, totalMs);
+    final elapsedFraction =
+        ((totalMs - clampedRemainingMs) / totalMs).clamp(0.0, 1.0);
+
+    _controller.value = elapsedFraction;
+
+    if (clampedRemainingMs > 0) {
+      _controller.animateTo(
+        1.0,
+        duration: Duration(milliseconds: clampedRemainingMs),
+        curve: Curves.linear,
+      );
+    }
+  }
+
   @override
   void initState() {
     // Create controller and start progress animation.
@@ -1071,19 +1110,16 @@ class _SnackbarDurationIndicatorState extends State<SnackbarDurationIndicator>
       vsync: this,
       duration: widget.duration,
     );
-    // Start the animation immediately
-    _controller.forward();
+    _syncControllerWithDurationAndDeadline();
   }
 
   @override
   void didUpdateWidget(SnackbarDurationIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Restart animation when duration changes.
-    // If duration changes, update the controller
-    if (oldWidget.duration != widget.duration) {
-      _controller.duration = widget.duration;
-      _controller.reset();
-      _controller.forward();
+    // Re-sync when timing inputs change.
+    if (oldWidget.duration != widget.duration ||
+        oldWidget.deadline != widget.deadline) {
+      _syncControllerWithDurationAndDeadline();
     }
   }
 

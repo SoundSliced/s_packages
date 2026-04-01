@@ -1150,10 +1150,17 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
   // Helper method to get current size - ensures values are always fresh
   // Returns height for vertical sheets, width for horizontal sheets
   double? getCurrentSize() {
-    // Return current size from notifier or fallback to widget height.
-    return _modalSheetHeightNotifier.state > 0
-        ? _modalSheetHeightNotifier.state
-        : widget.height;
+    // Prefer the locally-tracked size (guards against the shared global notifier
+    // being cleared by another sheet's dismissal).
+    if (currentSheetSize != null && currentSheetSize! > 0) {
+      return currentSheetSize;
+    }
+    if (_modalSheetHeightNotifier.state > 0) {
+      return _modalSheetHeightNotifier.state;
+    }
+    // Final fallback: the fixed dimension provided via widget props (handles
+    // both vertical height and horizontal width).
+    return widget.height ?? widget.width;
   }
 
   /// Measure the main dimension of the sheet (height for vertical, width for horizontal)
@@ -1165,6 +1172,12 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
         ? widget.width == null
         : widget.height == null;
     if (needsMeasure && !hasMeasuredAutoHeight) {
+      void persistMeasuredDimension(double dimension) {
+        final sheetId = widget.sheetId;
+        if (sheetId == null) return;
+        Modal.updateParams(id: sheetId, size: dimension);
+      }
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted && contentKey.currentContext != null) {
           final RenderBox? renderBox =
@@ -1180,6 +1193,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
                 // '[_BottomSheet] _measureContentDimension: measuredWidth=$totalWidth');
                 _modalSheetHeightNotifier.state = totalWidth;
                 hasMeasuredAutoHeight = true;
+                persistMeasuredDimension(totalWidth);
               }
             } else {
               final measuredHeight = renderBox.size.height;
@@ -1190,6 +1204,7 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
                 // '[_BottomSheet] _measureContentDimension: measuredHeight=$totalHeight');
                 _modalSheetHeightNotifier.state = totalHeight;
                 hasMeasuredAutoHeight = true;
+                persistMeasuredDimension(totalHeight);
               }
             }
           }
@@ -1238,12 +1253,18 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
     // Skip during size animations to prevent layout jitter
     heightObserver = _modalSheetHeightNotifier.addObserver(listener: (state) {
       // Rebuild on size changes unless animation is active.
-      if (mounted &&
-          !_isAnimatingSize &&
-          currentSheetSize != _modalSheetHeightNotifier.state) {
-        setState(() {
-          currentSheetSize = _modalSheetHeightNotifier.state;
-        });
+      if (mounted && !_isAnimatingSize) {
+        final newSize = _modalSheetHeightNotifier.state;
+        // Guard: when the global notifier is reset to 0.0 during ANOTHER sheet's
+        // dismissal cleanup, do NOT corrupt this sheet's tracked size. Only accept
+        // a 0.0 value if this sheet doesn't already have a valid size.
+        if (newSize == 0.0 && currentSheetSize != null && currentSheetSize! > 0)
+          return;
+        if (currentSheetSize != newSize) {
+          setState(() {
+            currentSheetSize = newSize;
+          });
+        }
       }
     });
 
