@@ -46,7 +46,10 @@ class OverlayInterleaveManager {
   static final ValueNotifier<List<InterleavedOverlayLayer>> _layers =
       ValueNotifier<List<InterleavedOverlayLayer>>(<InterleavedOverlayLayer>[]);
 
+  static const bool _showInterleaveDebugLogs = false;
+
   static void _debugInterleaveLog(String message) {
+    if (!_showInterleaveDebugLogs) return;
     debugPrint('[OverlayInterleave] $message');
   }
 

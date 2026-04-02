@@ -2157,7 +2157,7 @@ class Modal {
     );
 
     _appBuilderInstalled = true;
-    _showDebugPrints = showDebugPrints;
+    _showDebugPrints = false;
     _modalOverlayShouldBounceOnTap = shouldBounceOnTap;
     _appBuilderOnModalCreated = onModalCreated;
     _appBuilderOnModalDismissed = onModalDismissed;

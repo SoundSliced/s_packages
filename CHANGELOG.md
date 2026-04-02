@@ -15,10 +15,28 @@
   - Hardened snackbar-controller lifecycle behavior during interleaved modal transitions.
   - Applied additional cleanup/guard logic around dismiss paths to keep active-state transitions deterministic.
 
+- **Lifecycle observability and event filtering API additions:**
+  - Added public lifecycle event types and payloads: `ModalLifecycleEventType`, `ModalLifecycleEvent`.
+  - Added optional `Modal.appBuilder(...)` lifecycle hooks: `onModalCreated`, `onModalDismissed`.
+  - Added lifecycle filtering in `appBuilder`: `lifecycleModalTypes` and `shouldNotify`.
+  - Added lifecycle listener management APIs: `Modal.addLifecycleListener(...)`, `Modal.removeLifecycleListener(...)`, and `Modal.clearLifecycleListeners()`.
+
+- **Custom modal integration hardening:**
+  - Promoted `ModalType.custom` to a first-class flow in interleaving/show/dismiss paths.
+  - Added/solidified custom modal state checks and cleanup behavior (`Modal.isCustomActive`) to keep mixed-layer dismiss transitions deterministic.
+
+- **Interleaved barrier and host management improvements:**
+  - Added single barrier-owner resolution via `OverlayInterleaveManager.topBarrierOwnerLayerId(...)` to avoid compounded backdrop opacity and barrier flicker when multiple layers coexist.
+  - Added `OverlayInterleaveManager.teardownHost(...)` for reliable hard-reset cleanup in teardown/test scenarios.
+
+- **Dismiss API coverage expansion:**
+  - Added/solidified targeted dismissal helpers for complex mixed-layer flows: `Modal.dismissCurrentModal(...)`, `Modal.dismissSnackbarAtPosition(...)`, `Modal.dismissByIds(...)`, and `Modal.dismissByType(...)`.
+
 - **Testing and reliability:**
   - Fixed the hanging snackbar/modal interaction regression in `test/modal_background_interaction_test.dart` by using deterministic pump timing around async dismissal flows.
   - Improved timing stability in modal background interaction tests where long-running animation controllers can make `pumpAndSettle()` non-terminating.
   - Preserved and validated overlay ordering and interleaving behavior through the existing stack-ordering test coverage.
+  - Added regression coverage for lifecycle callback/listener filtering/removal and barrier-owner policy behavior across interleaved layers.
 
 - **Developer-experience cleanup:**
   - Commented out verbose `s_modoverlay` runtime debug logs (`[Modal]`, `[OverlayInterleave]`, `[PopOverlay]`, `[snackbar_debug]`, and escape-key diagnostics) to keep console/test output clean by default.

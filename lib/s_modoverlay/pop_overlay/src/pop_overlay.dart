@@ -124,7 +124,10 @@ final _invisibleController = RM.inject<List<String>>(
   autoDisposeWhenNotUsed: true,
 );
 
+const bool _showPopOverlayDebugLogs = false;
+
 void _debugPopOverlayLog(String message) {
+  if (!_showPopOverlayDebugLogs) return;
   debugPrint('[PopOverlay] $message');
 }
 
@@ -1173,10 +1176,7 @@ class PopOverlay {
       // Warn when using critical band outside legacy ids.
       if (level >= PopOverlayStackLevelBands.criticalMin &&
           !_legacyPriorityBonuses.containsKey(id)) {
-        debugPrint(
-          'PopOverlay stack level warning: id=$id, level=$level is in CRITICAL band. '
-          'Reserve critical levels for blocking/system overlays.',
-        );
+        // Debug warning intentionally disabled.
       }
       return true;
     }());
