@@ -1,4 +1,28 @@
 
+## 4.0.0
+- **`s_modoverlay` interleaving architecture hardening (modal + pop overlay coexistence):**
+  - Stabilized shared interleaving behavior between `s_modal` and `pop_overlay` so both systems can coexist in a single overlay stack with deterministic ordering.
+  - Consolidated root-overlay resolution paths to avoid duplicated host-resolution logic and reduce divergence risk.
+  - Improved host lifecycle safety to avoid duplicate interleaved host installation and unintended layer remounts during overlay reordering.
+  - Improved layer identity stability in interleaved rendering paths so active overlays (notably snackbars) are not remounted when unrelated layers are added/removed.
+
+- **Stack-level synchronization fixes:**
+  - Fixed `pop_overlay` stack-level mutations (`setStackLevel`, `bringToFront`, `sendToBack`) so interleaved layers are re-registered with updated effective levels immediately.
+  - Preserved ordering consistency between activation order and stack level across interleaved updates.
+
+- **`s_modal` lifecycle and dismissal robustness improvements:**
+  - Improved dialog/sheet/snackbar coordination during dismiss flows to reduce race conditions across mixed overlay scenarios.
+  - Hardened snackbar-controller lifecycle behavior during interleaved modal transitions.
+  - Applied additional cleanup/guard logic around dismiss paths to keep active-state transitions deterministic.
+
+- **Testing and reliability:**
+  - Fixed the hanging snackbar/modal interaction regression in `test/modal_background_interaction_test.dart` by using deterministic pump timing around async dismissal flows.
+  - Improved timing stability in modal background interaction tests where long-running animation controllers can make `pumpAndSettle()` non-terminating.
+  - Preserved and validated overlay ordering and interleaving behavior through the existing stack-ordering test coverage.
+
+- **Developer-experience cleanup:**
+  - Commented out verbose `s_modoverlay` runtime debug logs (`[Modal]`, `[OverlayInterleave]`, `[PopOverlay]`, `[snackbar_debug]`, and escape-key diagnostics) to keep console/test output clean by default.
+
 ## 3.6.0
 - **Popup tap-region coordination upgrade:**
   - Added a shared `PopOverlayTapRegionScope` so popup content can expose a common `TapRegion` group to nested overlays.

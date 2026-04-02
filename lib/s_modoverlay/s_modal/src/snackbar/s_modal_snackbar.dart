@@ -239,8 +239,8 @@ class _SnackbarModalState extends State<SnackbarModal>
     // Register in global registry so dismiss methods can find us
     if (widget.snackbarId != null) {
       // Register for id-based dismissal.
-      debugPrint(
-          '[snackbar_debug] SnackbarModal.initState: registering controller for id=${widget.snackbarId}');
+      // debugPrint(
+      //     '[snackbar_debug] SnackbarModal.initState: registering controller for id=${widget.snackbarId}');
       _registerSnackbarController(widget.snackbarId!, _internalController);
     }
 
@@ -532,8 +532,8 @@ class _SnackbarModalState extends State<SnackbarModal>
     // Unregister from global controller registry
     if (widget.snackbarId != null) {
       // Remove from global controller registry.
-      debugPrint(
-          '[snackbar_debug] SnackbarModal.dispose: unregistering controller for id=${widget.snackbarId}');
+      // debugPrint(
+      //     '[snackbar_debug] SnackbarModal.dispose: unregistering controller for id=${widget.snackbarId}');
       _unregisterSnackbarController(widget.snackbarId!);
     }
 

@@ -129,7 +129,7 @@ bool _modalOverlayShouldBounceOnTap = true;
 void _debugModalLog(String message) {
   // Debug-only logger for modal events.
   assert(() {
-    debugPrint('[Modal] $message');
+    // debugPrint('[Modal] $message');
     return true;
   }());
 }
@@ -717,8 +717,8 @@ void _removeSnackbarAfterDismiss(
   if (matchIndex < 0) {
     // Already removed (e.g. replaced by a new snackbar in replace mode); clean up dismissing state.
     _setSnackbarDismissing(uniqueId, false);
-    debugPrint(
-        '[snackbar_debug] _removeSnackbarAfterDismiss: $uniqueId already removed from queue; cleared dismissing state');
+    // debugPrint(
+    //     '[snackbar_debug] _removeSnackbarAfterDismiss: $uniqueId already removed from queue; cleared dismissing state');
     // If there are snackbars in the queue that were waiting for dismissal to complete, activate them.
     final currentMap = _snackbarQueueNotifier.state;
     if (currentMap.isNotEmpty) {
@@ -3366,8 +3366,8 @@ class Modal {
       // to prevent it from interfering with the new snackbar's lifecycle.
       _backgroundAnimationTimer?.cancel();
       _backgroundAnimationTimer = null;
-      debugPrint(
-          '[snackbar_debug] activateSnackbar: id=${snackbarContent.uniqueId}');
+        // debugPrint(
+        //     '[snackbar_debug] activateSnackbar: id=${snackbarContent.uniqueId}');
       _setSnackbarDismissing(snackbarContent.uniqueId, false);
       _snackbarController.state = snackbarContent;
 
@@ -4118,8 +4118,8 @@ class Modal {
         !Modal.isSheetActive;
 
     if (!needsAnimation) {
-      debugPrint(
-          '[snackbar_debug] _animateBackgroundAndClear: needsAnimation=false, queueEmpty=${_snackbarQueueNotifier.state.isEmpty}, snackbarState=${_snackbarController.state?.uniqueId}');
+      // debugPrint(
+      //     '[snackbar_debug] _animateBackgroundAndClear: needsAnimation=false, queueEmpty=${_snackbarQueueNotifier.state.isEmpty}, snackbarState=${_snackbarController.state?.uniqueId}');
       if (_snackbarQueueNotifier.state.isEmpty) {
         _snackbarController.refresh();
         _activeModalController.refresh();
@@ -5291,8 +5291,8 @@ class Modal {
         // Check if this is the currently active snackbar
         final isActiveSnackbar =
             _snackbarController.state?.uniqueId == snackbar.uniqueId;
-        debugPrint(
-            '[snackbar_debug] dismissById: id=$id, isActive=$isActiveSnackbar, controllerState=${_snackbarController.state?.uniqueId}');
+        // debugPrint(
+        //     '[snackbar_debug] dismissById: id=$id, isActive=$isActiveSnackbar, controllerState=${_snackbarController.state?.uniqueId}');
 
         // If this was the active snackbar, handle transition
         if (isActiveSnackbar) {
@@ -5306,8 +5306,8 @@ class Modal {
 
           // Try to use the snackbar's internal controller for dismiss animation
           final controller = _getSnackbarController(snackbar.uniqueId);
-          debugPrint(
-              '[snackbar_debug] dismissById: controller=$controller, isAttached=${controller?.isAttached}');
+            // debugPrint(
+            //     '[snackbar_debug] dismissById: controller=$controller, isAttached=${controller?.isAttached}');
 
           if (controller != null && controller.isAttached) {
             // Use imperative dismiss via controller

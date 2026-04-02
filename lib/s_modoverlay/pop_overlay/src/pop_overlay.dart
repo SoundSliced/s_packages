@@ -127,7 +127,7 @@ final _invisibleController = RM.inject<List<String>>(
 void _debugPopOverlayLog(String message) {
   // Debug-only logger (stripped in release builds).
   assert(() {
-    debugPrint('[PopOverlay] $message');
+    // debugPrint('[PopOverlay] $message');
     return true;
   }());
 }

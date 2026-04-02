@@ -63,7 +63,7 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
   // Lightweight debug logger for this handler.
   void _log(String msg) {
     // Keep logging centralized for easier toggling.
-    debugPrint('[EscapeKeyHandler] $msg');
+    // debugPrint('[EscapeKeyHandler] $msg');
   }
 
   @override

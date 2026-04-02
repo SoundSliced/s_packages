@@ -50,7 +50,7 @@ class OverlayInterleaveManager {
     assert(() {
       // Debug-only logging to avoid release overhead.
       // ignore: avoid_print
-      print('[OverlayInterleave] $message');
+      // print('[OverlayInterleave] $message');
       return true;
     }());
   }
@@ -325,23 +325,23 @@ class _InterleavedOverlayHost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Listen to the layer registry for updates.
-    return Material(
-      type: MaterialType.transparency,
-      child: ValueListenableBuilder<List<InterleavedOverlayLayer>>(
-        valueListenable: OverlayInterleaveManager._layers,
-        builder: (context, layers, child) {
-          if (layers.isEmpty) {
-            // When empty, keep host inert to avoid intercepting taps.
-            return const IgnorePointer(
-              ignoring: true,
-              child: SizedBox.shrink(),
-            );
-          }
+    return ValueListenableBuilder<List<InterleavedOverlayLayer>>(
+      valueListenable: OverlayInterleaveManager._layers,
+      builder: (context, layers, child) {
+        if (layers.isEmpty) {
+          // When empty, keep host inert to avoid intercepting taps.
+          return const IgnorePointer(
+            ignoring: true,
+            child: SizedBox.shrink(),
+          );
+        }
 
-          // Render each layer in stack order.
-          return IgnorePointer(
-            ignoring: false,
-            child: SizedBox.expand(
+        // Render each layer in stack order.
+        return IgnorePointer(
+          ignoring: false,
+          child: SizedBox.expand(
+            child: Material(
+              type: MaterialType.transparency,
               child: Stack(
                 fit: StackFit.expand,
                 children: layers
@@ -360,9 +360,9 @@ class _InterleavedOverlayHost extends StatelessWidget {
                     .toList(growable: false),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

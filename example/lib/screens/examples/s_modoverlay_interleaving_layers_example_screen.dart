@@ -400,6 +400,54 @@ class _SModalPopOverlayExampleScreenState
     );
   }
 
+  void _showPopThenSnackbar({
+    _DemoPopKind popKind = _DemoPopKind.normal,
+    String title = 'Snackbar above PopOverlay',
+  }) {
+    _clearAll();
+    _showPopOverlayPopup(
+      title: '${_popKindLabel(popKind)} first',
+      kind: popKind,
+    );
+
+    Future<void>.delayed(const Duration(milliseconds: 250)).then((_) {
+      if (!mounted) return;
+      final snackbarId = _nextId('combo_pop_then_snackbar');
+      Modal.showSnackbar(
+        id: snackbarId,
+        text: title,
+        backgroundColor: Colors.deepPurple,
+        blockBackgroundInteraction: false,
+        duration: const Duration(seconds: 5),
+        position: Alignment.topCenter,
+      );
+    });
+  }
+
+  void _showSnackbarThenPop({
+    _DemoPopKind popKind = _DemoPopKind.normal,
+    String title = 'PopOverlay above Snackbar',
+  }) {
+    _clearAll();
+    final snackbarId = _nextId('combo_snackbar_then_pop');
+    Modal.showSnackbar(
+      id: snackbarId,
+      text: 's_modal snackbar first',
+      backgroundColor: Colors.deepPurple,
+      blockBackgroundInteraction: false,
+      duration: const Duration(seconds: 5),
+      position: Alignment.topCenter,
+    );
+
+    Future<void>.delayed(const Duration(milliseconds: 250)).then((_) {
+      if (!mounted) return;
+      _showPopOverlayPopup(
+        title: title,
+        kind: popKind,
+      );
+    });
+  }
+
   Future<void> _showPopThenModal() async {
     await _clearAll();
     final random = math.Random(DateTime.now().microsecondsSinceEpoch);
@@ -854,6 +902,38 @@ class _SModalPopOverlayExampleScreenState
                   },
                   icon: const Icon(Icons.casino_outlined),
                   label: const Text('Random mixed sequence (n=14)'),
+                ),
+                const SizedBox(height: 12),
+                FilledButton.icon(
+                  onPressed: () {
+                    _showPopThenSnackbar(popKind: _DemoPopKind.normal);
+                  },
+                  icon: const Icon(Icons.upload),
+                  label: const Text('PopOverlay → Snackbar (normal pop)'),
+                ),
+                const SizedBox(height: 12),
+                FilledButton.icon(
+                  onPressed: () {
+                    _showSnackbarThenPop(popKind: _DemoPopKind.normal);
+                  },
+                  icon: const Icon(Icons.download),
+                  label: const Text('Snackbar → PopOverlay (normal pop)'),
+                ),
+                const SizedBox(height: 12),
+                FilledButton.icon(
+                  onPressed: () {
+                    _showPopThenSnackbar(popKind: _DemoPopKind.framed);
+                  },
+                  icon: const Icon(Icons.photo_size_select_large_outlined),
+                  label: const Text('PopOverlay → Snackbar (framed pop)'),
+                ),
+                const SizedBox(height: 12),
+                FilledButton.icon(
+                  onPressed: () {
+                    _showSnackbarThenPop(popKind: _DemoPopKind.framed);
+                  },
+                  icon: const Icon(Icons.photo_size_select_small_outlined),
+                  label: const Text('Snackbar → PopOverlay (framed pop)'),
                 ),
                 const SizedBox(height: 12),
                 FilledButton.icon(
