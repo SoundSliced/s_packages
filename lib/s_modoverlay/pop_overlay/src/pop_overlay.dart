@@ -125,11 +125,7 @@ final _invisibleController = RM.inject<List<String>>(
 );
 
 void _debugPopOverlayLog(String message) {
-  // Debug-only logger (stripped in release builds).
-  assert(() {
-    // debugPrint('[PopOverlay] $message');
-    return true;
-  }());
+  debugPrint('[PopOverlay] $message');
 }
 
 //************************************************ */
@@ -951,6 +947,16 @@ class PopOverlay {
               PopOverlay.bringOverlayHostToFront();
             }
             return state;
+          });
+          // Safety net: if nothing is active after this pop was removed,
+          // ensure shared visual state is clean on next frame.
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!Modal.isActive && !PopOverlay.isActive) {
+              // Force-clear any stale interleaved layers.
+              if (OverlayInterleaveManager.layers.isNotEmpty) {
+                OverlayInterleaveManager.clearLayers();
+              }
+            }
           });
         }
       });

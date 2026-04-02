@@ -149,5 +149,63 @@ void main() {
       expect(layers.single.id, equals('dialog:test'));
       expect(layers.single.activationOrder, equals(11));
     });
+
+    test('barrier owner can target top-most mixed layer', () {
+      OverlayInterleaveManager.registerLayer(
+        id: 'pop:first',
+        activationOrder: 1,
+        stackLevel: 100,
+        builder: () => const SizedBox.shrink(),
+      );
+
+      OverlayInterleaveManager.registerLayer(
+        id: 'sheet:second',
+        activationOrder: 2,
+        stackLevel: 100,
+        builder: () => const SizedBox.shrink(),
+      );
+
+      final topMostBarrierOwner =
+          OverlayInterleaveManager.topBarrierOwnerLayerId(
+        preferredPrefixes: const [],
+        preferOldest: false,
+      );
+
+      expect(topMostBarrierOwner, equals('sheet:second'));
+    });
+
+    test('barrier owner updates as top-most layer is removed', () {
+      OverlayInterleaveManager.registerLayer(
+        id: 'pop:base',
+        activationOrder: 10,
+        stackLevel: 100,
+        builder: () => const SizedBox.shrink(),
+      );
+
+      OverlayInterleaveManager.registerLayer(
+        id: 'sheet:top',
+        activationOrder: 11,
+        stackLevel: 100,
+        builder: () => const SizedBox.shrink(),
+      );
+
+      expect(
+        OverlayInterleaveManager.topBarrierOwnerLayerId(
+          preferredPrefixes: const [],
+          preferOldest: false,
+        ),
+        equals('sheet:top'),
+      );
+
+      OverlayInterleaveManager.unregisterLayer('sheet:top');
+
+      expect(
+        OverlayInterleaveManager.topBarrierOwnerLayerId(
+          preferredPrefixes: const [],
+          preferOldest: false,
+        ),
+        equals('pop:base'),
+      );
+    });
   });
 }

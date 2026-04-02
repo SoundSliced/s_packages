@@ -258,12 +258,31 @@ class _AnimatedVisibilityWrapperState
   @override
   // Assemble blur, barrier, and popup content layers.
   Widget build(BuildContext context) {
+    final currentLayerId = 'pop:${widget.popContent.id}';
+    final visualOwnerLayerId = OverlayInterleaveManager.enabled
+        ? OverlayInterleaveManager.topBarrierOwnerLayerId(
+            preferredPrefixes: const [],
+            preferOldest: false,
+          )
+        : currentLayerId;
+    final tapOwnerLayerId = OverlayInterleaveManager.enabled
+        ? OverlayInterleaveManager.topBarrierOwnerLayerId(
+            preferredPrefixes: const [],
+            preferOldest: false,
+          )
+        : currentLayerId;
+    final isVisualBarrierOwner = visualOwnerLayerId == currentLayerId;
+    final isTapBarrierOwner = tapOwnerLayerId == currentLayerId;
+    final shouldBuildBarrier = isVisualBarrierOwner || isTapBarrierOwner;
+
     return Offstage(
       offstage: _shouldBeOffstage,
       child: Stack(
         children: [
           // Background blur effect only if specified and overlay is visible
-          if (widget.popContent.shouldBlurBackground && !widget.isInvisible)
+          if (widget.popContent.shouldBlurBackground &&
+              !widget.isInvisible &&
+              isVisualBarrierOwner)
             OnBuilder(
               listenTo: widget.popContent.animationController,
               builder: () {
@@ -276,7 +295,7 @@ class _AnimatedVisibilityWrapperState
             ),
 
           // Dismissable barrier only if overlay is visible
-          if (!widget.isInvisible)
+          if (!widget.isInvisible && shouldBuildBarrier)
             OnBuilder(
               listenTo: widget.popContent.animationController,
               builder: () {
@@ -284,6 +303,8 @@ class _AnimatedVisibilityWrapperState
                 return _DismissBarrier(
                   popContent: widget.popContent,
                   isExiting: isExiting,
+                  isTapOwner: isTapBarrierOwner,
+                  renderVisualBarrier: isVisualBarrierOwner,
                 );
               },
             ),
@@ -343,21 +364,28 @@ class _BlurBackground extends StatelessWidget {
 class _DismissBarrier extends StatelessWidget {
   final PopOverlayContent popContent;
   final bool isExiting;
+  final bool isTapOwner;
+  final bool renderVisualBarrier;
 
   const _DismissBarrier({
     required this.popContent,
     required this.isExiting,
+    required this.isTapOwner,
+    required this.renderVisualBarrier,
   });
 
   @override
   // Build the tap-to-dismiss barrier with fade animation.
   Widget build(BuildContext context) {
     return SInkButton(
-      color:
-          popContent.dismissBarrierColor?.withValues(alpha: 0.8).darken(0.2) ??
-              Colors.lightBlueAccent,
+      color: renderVisualBarrier
+          ? (popContent.dismissBarrierColor
+                  ?.withValues(alpha: 0.8)
+                  .darken(0.2) ??
+              Colors.lightBlueAccent)
+          : Colors.transparent,
       scaleFactor: 1,
-      onTap: PopOverlay.isActive
+      onTap: PopOverlay.isActive && isTapOwner
           ? (pos) {
               // Barrier tap respects shouldDismissOnBackgroundTap.
               _debugPopOverlayLog(
@@ -374,8 +402,10 @@ class _DismissBarrier extends StatelessWidget {
           : null,
       child: SizedBox.expand(
         child: ColoredBox(
-          color: popContent.dismissBarrierColor ??
-              Colors.black.withValues(alpha: 0.4),
+          color: renderVisualBarrier
+              ? (popContent.dismissBarrierColor ??
+                  Colors.black.withValues(alpha: 0.4))
+              : Colors.transparent,
         ),
       ).animate(
         // key: ValueKey("Barrier-${popContent.id}-$isExiting"),

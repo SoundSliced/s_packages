@@ -80,7 +80,8 @@ final _sheetController = RM.inject<_ModalContent?>(() => null);
 ///
 /// Sheets can coexist in the interleaved host, so we keep the full stack here
 /// and let [_sheetController] mirror the current top-most sheet.
-final _sheetStackNotifier = RM.inject<List<_ModalContent>>(() => <_ModalContent>[]);
+final _sheetStackNotifier =
+    RM.inject<List<_ModalContent>>(() => <_ModalContent>[]);
 
 /// Controller for side sheet modals
 ///
@@ -127,11 +128,49 @@ final _hotReloadCounter = RM.inject<int>(() => 0);
 bool _modalOverlayShouldBounceOnTap = true;
 
 void _debugModalLog(String message) {
-  // Debug-only logger for modal events.
-  assert(() {
-    // debugPrint('[Modal] $message');
-    return true;
-  }());
+  if (!_showDebugPrints) return;
+  debugPrint('[Modal] $message');
+}
+
+void _debugModalSnapshot(String source, {String? note}) {
+  if (!_showDebugPrints) return;
+
+  final interleaveLayerIds =
+      OverlayInterleaveManager.layers.map((layer) => layer.id).toList();
+  final dialogIds = _dialogStackNotifier.state
+      .map((dialog) => dialog.uniqueId)
+      .toList(growable: false);
+  final sheetIds = _sheetStackNotifier.state
+      .map((sheet) => sheet.uniqueId)
+      .toList(growable: false);
+  final snackbarByPosition = _snackbarQueueNotifier.state.map(
+    (position, queue) => MapEntry(
+      '${position.x},${position.y}',
+      queue.map((snackbar) => snackbar.uniqueId).toList(growable: false),
+    ),
+  );
+
+  debugPrint(
+    '[ModalSnapshot][$source] '
+    'active=${_activeModalController.state?.modalType}/${_activeModalController.state?.uniqueId} '
+    'dialogTop=${_dialogController.state?.uniqueId} '
+    'sheetTop=${_sheetController.state?.uniqueId} '
+    'custom=${_customController.state?.uniqueId} '
+    'snackbarTop=${_snackbarController.state?.uniqueId} '
+    'bg=${_backgroundLayerAnimationNotifier.state.toStringAsFixed(3)} '
+    'blurState=${_blurAnimationStateNotifier.state.toStringAsFixed(3)} '
+    'blurAmount=${_blurAmountNotifier.state.toStringAsFixed(3)} '
+    'isDismissing=${Modal.isDismissing} '
+    'isDialogDismissing=${_dialogDismissingNotifier.state} '
+    'isSheetDismissing=${_sheetDismissingNotifier.state} '
+    'snackbarDismissIds=${_snackbarDismissingIdsNotifier.state.toList()} '
+    'dialogs=$dialogIds sheets=$sheetIds snackbars=$snackbarByPosition '
+    'layers=$interleaveLayerIds',
+  );
+
+  if (note != null && note.isNotEmpty) {
+    debugPrint('[ModalSnapshot][$source] note=$note');
+  }
 }
 
 //************************************************ */
@@ -296,6 +335,11 @@ void _syncInterleavedDialogLayersWithStack() {
     // Re-register dialog layers in current order.
     _registerInterleavedDialogLayer(dialog);
   }
+
+  _debugModalSnapshot(
+    '_syncInterleavedDialogLayersWithStack',
+    note: 'dialogCount=${dialogs.length}',
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -346,7 +390,9 @@ void _unregisterAllInterleavedCustomLayers({bool force = false}) {
   // Defensive guard: avoid tearing down custom layers during unrelated modal
   // transitions (for example dialog dismiss). Full teardown paths must pass
   // force=true.
-  if (!force && _customController.state != null && _customDismissingIdNotifier.state == null) {
+  if (!force &&
+      _customController.state != null &&
+      _customDismissingIdNotifier.state == null) {
     return;
   }
   OverlayInterleaveManager.unregisterWhere((id) => id.startsWith('custom:'));
@@ -432,9 +478,8 @@ void _syncInterleavedSheetLayersWithStack() {
   if (!OverlayInterleaveManager.enabled) return;
 
   final sheets = List<_ModalContent>.from(_sheetStackNotifier.state);
-  final activeLayerIds = sheets
-      .map((sheet) => _sheetInterleavedLayerId(sheet.uniqueId))
-      .toSet();
+  final activeLayerIds =
+      sheets.map((sheet) => _sheetInterleavedLayerId(sheet.uniqueId)).toSet();
 
   final existingSheetLayerIds = OverlayInterleaveManager.layers
       .map((layer) => layer.id)
@@ -450,6 +495,11 @@ void _syncInterleavedSheetLayersWithStack() {
   for (final sheet in sheets) {
     _registerInterleavedSheetLayer(sheet);
   }
+
+  _debugModalSnapshot(
+    '_syncInterleavedSheetLayersWithStack',
+    note: 'sheetCount=${sheets.length}',
+  );
 }
 
 /// Remove every active sheet layer.
@@ -498,6 +548,11 @@ void _syncInterleavedSnackbarLayersWithQueue() {
       builder: () => _InterleavedSnackbarLayer(position: position),
     );
   }
+
+  _debugModalSnapshot(
+    '_syncInterleavedSnackbarLayersWithQueue',
+    note: 'positions=${queueMap.keys.map((p) => '${p.x},${p.y}').toList()}',
+  );
 }
 
 /// Tracks the dismissal animation state
@@ -3366,8 +3421,8 @@ class Modal {
       // to prevent it from interfering with the new snackbar's lifecycle.
       _backgroundAnimationTimer?.cancel();
       _backgroundAnimationTimer = null;
-        // debugPrint(
-        //     '[snackbar_debug] activateSnackbar: id=${snackbarContent.uniqueId}');
+      // debugPrint(
+      //     '[snackbar_debug] activateSnackbar: id=${snackbarContent.uniqueId}');
       _setSnackbarDismissing(snackbarContent.uniqueId, false);
       _snackbarController.state = snackbarContent;
 
@@ -4016,7 +4071,8 @@ class Modal {
       _syncDialogControllersFromStack();
       _syncInterleavedDialogLayersWithStack();
     } else if (isInSheetStack && sheetStackIndex != null) {
-      final updatedSheetStack = List<_ModalContent>.from(_sheetStackNotifier.state);
+      final updatedSheetStack =
+          List<_ModalContent>.from(_sheetStackNotifier.state);
       updatedSheetStack[sheetStackIndex] = updatedContent;
       _sortSheetStack(updatedSheetStack);
       _sheetStackNotifier.state = updatedSheetStack;
@@ -4108,6 +4164,38 @@ class Modal {
   /// Timer for background animation during dismissal
   static Timer? _backgroundAnimationTimer;
 
+  /// Safety net: ensure all shared visual state is clean when nothing is active.
+  ///
+  /// Call at the tail of every dismiss path. If both Modal and PopOverlay have
+  /// no active content, all notifiers, timers, and interleaved layers are
+  /// forcibly reset to their pristine values.  This prevents any leaked state
+  /// from accumulating across show/dismiss cycles.
+  static void _ensureCleanStateIfIdle() {
+    // Schedule the check for the next frame so that any pending layer
+    // registrations or controller updates from the current frame settle first.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (Modal.isActive || PopOverlay.isActive) return;
+
+      // Nothing is active — force-reset all shared visual notifiers.
+      _backgroundAnimationTimer?.cancel();
+      _backgroundAnimationTimer = null;
+      if (_backgroundLayerAnimationNotifier.state != 0.0) {
+        _backgroundLayerAnimationNotifier.state = 0.0;
+      }
+      if (_blurAnimationStateNotifier.state != 0.0) {
+        _blurAnimationStateNotifier.state = 0.0;
+      }
+      if (_blurAmountNotifier.state != 0.0) {
+        _blurAmountNotifier.state = 0.0;
+      }
+
+      // Purge any stale interleaved layers that survived their source dismiss.
+      if (OverlayInterleaveManager.layers.isNotEmpty) {
+        OverlayInterleaveManager.clearLayers();
+      }
+    });
+  }
+
   /// Helper to animate the background barrier out and clear modal state
   /// Used when the last snackbar is dismissed to ensure smooth barrier fade-out
   static void _animateBackgroundAndClear() {
@@ -4125,7 +4213,9 @@ class Modal {
         _activeModalController.refresh();
         _backgroundLayerAnimationNotifier.state = 0.0;
         _blurAnimationStateNotifier.state = 0.0;
+        _blurAmountNotifier.state = 0.0;
       }
+      _ensureCleanStateIfIdle();
       return;
     }
 
@@ -4153,8 +4243,10 @@ class Modal {
             _activeModalController.refresh();
             _backgroundLayerAnimationNotifier.state = 0.0;
             _blurAnimationStateNotifier.state = 0.0;
+            _blurAmountNotifier.state = 0.0;
           }
         }
+        _ensureCleanStateIfIdle();
       } else {
         _backgroundLayerAnimationNotifier.state =
             startValue - (step * currentStep);
@@ -4172,10 +4264,14 @@ class Modal {
     } else if (Modal.isSheetActive) {
       _snackbarController.refresh();
       _activeModalController.state = _sheetController.state;
+    } else if (Modal.isCustomActive) {
+      _snackbarController.refresh();
+      _activeModalController.state = _customController.state;
     } else {
       // No other modals active - animate background out
       _animateBackgroundAndClear();
     }
+    _ensureCleanStateIfIdle();
   }
 
   /// Dismisses the currently active modal
@@ -4250,6 +4346,7 @@ class Modal {
       _unregisterModals(dismissedIds);
 
       _snackbarQueueNotifier.state = {};
+      _syncInterleavedSnackbarLayersWithQueue();
       _snackbarStackIndexNotifier.state = 0;
       _snackbarController.refresh();
       _clearAllSnackbarDismissing();
@@ -4266,6 +4363,8 @@ class Modal {
       if (Modal.controller.state?.modalType == ModalType.snackbar) {
         Modal.controller.refresh();
       }
+
+      _onAllSnackbarsDismissed();
 
       if (_showDebugPrints) {
         debugPrint(
@@ -4405,6 +4504,7 @@ class Modal {
     _dismissModalAnimationController.state = false;
     _backgroundLayerAnimationNotifier.state = 0.0;
     _blurAnimationStateNotifier.state = 0.0;
+    _blurAmountNotifier.state = 0.0;
 
     // Clear the entire modal registry
     _modalRegistry.state = {};
@@ -4530,6 +4630,7 @@ class Modal {
         (_sheetController.state?.shouldBlurBackground ?? false);
     if (!sheetNeedsBlur && !remainingDialogNeedsBlur) {
       _blurAnimationStateNotifier.state = 0.0;
+      _blurAmountNotifier.state = 0.0;
     }
 
     // Animate background out only when no dialog remains and no sheet is active.
@@ -4676,7 +4777,7 @@ class Modal {
       // debugPrint('Modal.dismissDialog: finished');
       if (Modal.isCustomActive) {
         _customBarrierTapSuppressedUntil =
-        DateTime.now().add(const Duration(milliseconds: 250));
+            DateTime.now().add(const Duration(milliseconds: 250));
       }
       Modal.isDismissing = false;
       final modalLatest = Modal.latestActivationOrder;
@@ -4687,6 +4788,7 @@ class Modal {
         Modal.bringOverlayHostToFront();
       }
       HapticFeedback.lightImpact();
+      _ensureCleanStateIfIdle();
     });
   }
 
@@ -4741,12 +4843,17 @@ class Modal {
       _sheetDismissingNotifier.state = true;
       _sheetDismissingIdNotifier.state = targetSheetId;
 
-        // In interleaving mode, dismissing a sheet should not perturb remaining
-        // MODAL layers (dialog/custom/snackbar). Pop overlays are independent and
-        // must NOT keep s_modal's shared background alive.
+      // In interleaving mode, dismissing a sheet should not perturb remaining
+      // MODAL layers (dialog/custom). Pop overlays and snackbar layers are
+      // independent and must NOT keep s_modal's shared background alive.
+      // Also exclude the sheet's OWN layer which is still registered at this
+      // point (it gets unregistered later during cleanup).
+      final sheetLayerId = _sheetInterleavedLayerId(targetSheetId);
       final hasOtherInterleavedLayers = OverlayInterleaveManager.enabled &&
           OverlayInterleaveManager.layers.any((layer) =>
-              !layer.id.startsWith('pop:'));
+              !layer.id.startsWith('pop:') &&
+              !layer.id.startsWith('snackbar:') &&
+              layer.id != sheetLayerId);
 
       // (intentionally not capturing dismissed type here) bottom sheet cleanup
       // is handled deterministically below when we refresh the controller.
@@ -4757,6 +4864,7 @@ class Modal {
           (_dialogController.state?.shouldBlurBackground ?? false);
       if (!dialogNeedsBlur && !hasOtherInterleavedLayers) {
         _blurAnimationStateNotifier.state = 0.0;
+        _blurAmountNotifier.state = 0.0;
       }
 
       // Animate background out (if no other modals need it)
@@ -4870,10 +4978,15 @@ class Modal {
 
         // Finalize shared background/blur state after sheet teardown.
         // Keep barrier visuals only when a dialog remains; otherwise clear.
+        // Exclude pop and snackbar layers — they don't drive the shared
+        // background. Also exclude the dismissed sheet's own layer (may still
+        // be present if unregister races with this callback).
         final hasOtherInterleavedLayersAfterDismiss =
-          OverlayInterleaveManager.enabled &&
-            OverlayInterleaveManager.layers.any((layer) =>
-              !layer.id.startsWith('pop:'));
+            OverlayInterleaveManager.enabled &&
+                OverlayInterleaveManager.layers.any((layer) =>
+                    !layer.id.startsWith('pop:') &&
+                    !layer.id.startsWith('snackbar:') &&
+                    layer.id != sheetLayerId);
         final shouldKeepSharedBackground =
             Modal.isDialogActive || hasOtherInterleavedLayersAfterDismiss;
         if (!shouldKeepSharedBackground) {
@@ -4881,6 +4994,7 @@ class Modal {
           _backgroundAnimationTimer = null;
           _backgroundLayerAnimationNotifier.state = 0.0;
           _blurAnimationStateNotifier.state = 0.0;
+          _blurAmountNotifier.state = 0.0;
         }
 
         // Unregister from modal registry only if the ID exists
@@ -4921,6 +5035,7 @@ class Modal {
 
         Modal.isDismissing = false;
         HapticFeedback.lightImpact();
+        _ensureCleanStateIfIdle();
       });
     }
   }
@@ -5049,10 +5164,31 @@ class Modal {
       _modalRegistry.state = updatedRegistry;
 
       // If this was the only position with snackbars, clear the main modal
-      if (updatedQueueMap.isEmpty &&
-          Modal.isActive &&
-          Modal.controller.state?.modalType == ModalType.snackbar) {
-        Modal.controller.refresh();
+      // and run the canonical snackbar cleanup path.
+      if (updatedQueueMap.isEmpty) {
+        if (Modal.isActive &&
+            Modal.controller.state?.modalType == ModalType.snackbar) {
+          Modal.controller.refresh();
+        }
+        _onAllSnackbarsDismissed();
+      } else if (updatedQueueMap.isNotEmpty) {
+        // Keep active snackbar/controller coherent with remaining positions.
+        Alignment? positionWithContent;
+        for (final pos in updatedQueueMap.keys) {
+          if (updatedQueueMap[pos]!.isNotEmpty) {
+            positionWithContent = pos;
+            break;
+          }
+        }
+        if (positionWithContent != null) {
+          final nextSnackbar = updatedQueueMap[positionWithContent]!.first;
+          if (_snackbarController.state?.uniqueId != nextSnackbar.uniqueId) {
+            _snackbarController.state = nextSnackbar;
+          }
+          if (Modal.controller.state?.uniqueId != nextSnackbar.uniqueId) {
+            Modal.controller.state = nextSnackbar;
+          }
+        }
       }
 
       if (_showDebugPrints) {
@@ -5103,7 +5239,8 @@ class Modal {
         final customModalId = _customController.state?.uniqueId;
         if (customModalId != null) {
           await dismissById(customModalId);
-        } else if (Modal.isActive && Modal.controller.state?.modalType == type) {
+        } else if (Modal.isActive &&
+            Modal.controller.state?.modalType == type) {
           final fallbackCustomModalId = Modal.controller.state?.uniqueId;
           if (fallbackCustomModalId != null) {
             await dismissById(fallbackCustomModalId);
@@ -5240,7 +5377,7 @@ class Modal {
               activeCustom, ModalLifecycleEventType.dismissed));
 
           _unregisterModal(activeCustom.uniqueId);
-            _clearCustomModalContent(force: true);
+          _clearCustomModalContent(force: true);
           _customController.refresh();
 
           if (_activeModalController.state?.uniqueId == activeCustom.uniqueId) {
@@ -5254,10 +5391,12 @@ class Modal {
               !Modal.isSnackbarActive) {
             _backgroundLayerAnimationNotifier.state = 0.0;
             _blurAnimationStateNotifier.state = 0.0;
+            _blurAmountNotifier.state = 0.0;
           }
 
           Modal.isDismissing = false;
           _customDismissingIdNotifier.state = null;
+          _ensureCleanStateIfIdle();
 
           onDismissed?.call();
           activeCustom.onDismissed?.call();
@@ -5306,8 +5445,8 @@ class Modal {
 
           // Try to use the snackbar's internal controller for dismiss animation
           final controller = _getSnackbarController(snackbar.uniqueId);
-            // debugPrint(
-            //     '[snackbar_debug] dismissById: controller=$controller, isAttached=${controller?.isAttached}');
+          // debugPrint(
+          //     '[snackbar_debug] dismissById: controller=$controller, isAttached=${controller?.isAttached}');
 
           if (controller != null && controller.isAttached) {
             // Use imperative dismiss via controller
@@ -5461,23 +5600,47 @@ class _InterleavedDialogLayer extends StatelessWidget {
         );
 
         Widget barrierLayer() {
+          bool isVisualOwner = true;
+          bool isTapOwner = true;
+          final currentLayerId = _dialogInterleavedLayerId(content.uniqueId);
+          if (OverlayInterleaveManager.enabled) {
+            final visualOwnerLayerId =
+                OverlayInterleaveManager.topBarrierOwnerLayerId(
+                    preferredPrefixes: const [], preferOldest: false);
+            final tapOwnerLayerId =
+                OverlayInterleaveManager.topBarrierOwnerLayerId(
+                    preferredPrefixes: const [], preferOldest: false);
+            isVisualOwner = visualOwnerLayerId == currentLayerId;
+            isTapOwner = tapOwnerLayerId == currentLayerId;
+            if (!isVisualOwner && !isTapOwner) {
+              return const SizedBox.shrink();
+            }
+          }
+
           if (!shouldCaptureTaps && !hasVisibleBarrier) {
             return const SizedBox.shrink();
           }
 
           final bool isDismissingLocal =
               Modal.isDialogDismissing && topDialogId == content.uniqueId;
-          final barrierChild = AnimatedOpacity(
-            opacity: isDismissingLocal ? 0.0 : 1.0,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.fastEaseInToSlowEaseOut,
-            child: _buildModalBarrierSurface(
-              content.barrierColor,
-              _backgroundLayerAnimationNotifier.state * content.barrierColor.a,
-            ),
-          );
+          final barrierChild = isVisualOwner
+              ? AnimatedOpacity(
+                  opacity: isDismissingLocal ? 0.0 : 1.0,
+                  duration: isDismissingLocal
+                      ? const Duration(milliseconds: 200)
+                      : Duration.zero,
+                  curve: Curves.fastEaseInToSlowEaseOut,
+                  child: _buildModalBarrierSurface(
+                    content.barrierColor,
+                    _backgroundLayerAnimationNotifier.state *
+                        content.barrierColor.a,
+                  ),
+                )
+              : const SizedBox.expand(
+                  child: ColoredBox(color: Colors.transparent),
+                );
 
-          if (!shouldCaptureTaps) {
+          if (!shouldCaptureTaps || !isTapOwner) {
             return Positioned.fill(
               child: IgnorePointer(
                 ignoring: true,
@@ -5560,23 +5723,47 @@ class _InterleavedCustomLayer extends StatelessWidget {
         );
 
         Widget barrierLayer() {
+          bool isVisualOwner = true;
+          bool isTapOwner = true;
+          final currentLayerId = _customInterleavedLayerId(content.uniqueId);
+          if (OverlayInterleaveManager.enabled) {
+            final visualOwnerLayerId =
+                OverlayInterleaveManager.topBarrierOwnerLayerId(
+                    preferredPrefixes: const [], preferOldest: false);
+            final tapOwnerLayerId =
+                OverlayInterleaveManager.topBarrierOwnerLayerId(
+                    preferredPrefixes: const [], preferOldest: false);
+            isVisualOwner = visualOwnerLayerId == currentLayerId;
+            isTapOwner = tapOwnerLayerId == currentLayerId;
+            if (!isVisualOwner && !isTapOwner) {
+              return const SizedBox.shrink();
+            }
+          }
+
           if (!shouldCaptureTaps && !hasVisibleBarrier) {
             return const SizedBox.shrink();
           }
 
-            final bool isDismissingLocal =
+          final bool isDismissingLocal =
               _customDismissingIdNotifier.state == customId;
-          final barrierChild = AnimatedOpacity(
-            opacity: isDismissingLocal ? 0.0 : 1.0,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.fastEaseInToSlowEaseOut,
-            child: _buildModalBarrierSurface(
-              content.barrierColor,
-              _backgroundLayerAnimationNotifier.state * content.barrierColor.a,
-            ),
-          );
+          final barrierChild = isVisualOwner
+              ? AnimatedOpacity(
+                  opacity: isDismissingLocal ? 0.0 : 1.0,
+                  duration: isDismissingLocal
+                      ? const Duration(milliseconds: 200)
+                      : Duration.zero,
+                  curve: Curves.fastEaseInToSlowEaseOut,
+                  child: _buildModalBarrierSurface(
+                    content.barrierColor,
+                    _backgroundLayerAnimationNotifier.state *
+                        content.barrierColor.a,
+                  ),
+                )
+              : const SizedBox.expand(
+                  child: ColoredBox(color: Colors.transparent),
+                );
 
-          if (!shouldCaptureTaps) {
+          if (!shouldCaptureTaps || !isTapOwner) {
             return Positioned.fill(
               child: IgnorePointer(ignoring: true, child: barrierChild),
             );
@@ -5658,7 +5845,8 @@ class _InterleavedSheetLayer extends StatelessWidget {
         if (sheets.isEmpty) return const SizedBox.shrink();
 
         _sortSheetStack(sheets);
-        final sheetIndex = sheets.indexWhere((sheet) => sheet.uniqueId == sheetId);
+        final sheetIndex =
+            sheets.indexWhere((sheet) => sheet.uniqueId == sheetId);
         if (sheetIndex == -1) {
           return const SizedBox.shrink();
         }
@@ -5667,6 +5855,23 @@ class _InterleavedSheetLayer extends StatelessWidget {
         final isTopSheet = content.uniqueId == topSheet.uniqueId;
 
         Widget barrierLayer() {
+          bool isVisualOwner = true;
+          bool isTapOwner = true;
+          final currentLayerId = _sheetInterleavedLayerId(content.uniqueId);
+          if (OverlayInterleaveManager.enabled) {
+            final visualOwnerLayerId =
+                OverlayInterleaveManager.topBarrierOwnerLayerId(
+                    preferredPrefixes: const [], preferOldest: false);
+            final tapOwnerLayerId =
+                OverlayInterleaveManager.topBarrierOwnerLayerId(
+                    preferredPrefixes: const [], preferOldest: false);
+            isVisualOwner = visualOwnerLayerId == currentLayerId;
+            isTapOwner = tapOwnerLayerId == currentLayerId;
+            if (!isVisualOwner && !isTapOwner) {
+              return const SizedBox.shrink();
+            }
+          }
+
           final hasVisibleBarrier = content.barrierColor.a > 0;
           final shouldCaptureTaps = _shouldCaptureModalBarrierTaps(
             isDismissable: content.isDismissable,
@@ -5682,17 +5887,24 @@ class _InterleavedSheetLayer extends StatelessWidget {
           // notifier does NOT fade to 0.0).
           final bool isDismissingLocal =
               _sheetDismissingIdNotifier.state == sheetId;
-          final barrierChild = AnimatedOpacity(
-            opacity: isDismissingLocal ? 0.0 : 1.0,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.fastEaseInToSlowEaseOut,
-            child: _buildModalBarrierSurface(
-              content.barrierColor,
-              _backgroundLayerAnimationNotifier.state * content.barrierColor.a,
-            ),
-          );
+          final barrierChild = isVisualOwner
+              ? AnimatedOpacity(
+                  opacity: isDismissingLocal ? 0.0 : 1.0,
+                  duration: isDismissingLocal
+                      ? const Duration(milliseconds: 200)
+                      : Duration.zero,
+                  curve: Curves.fastEaseInToSlowEaseOut,
+                  child: _buildModalBarrierSurface(
+                    content.barrierColor,
+                    _backgroundLayerAnimationNotifier.state *
+                        content.barrierColor.a,
+                  ),
+                )
+              : const SizedBox.expand(
+                  child: ColoredBox(color: Colors.transparent),
+                );
 
-          if (!shouldCaptureTaps) {
+          if (!shouldCaptureTaps || !isTapOwner) {
             return Positioned.fill(
               child: IgnorePointer(ignoring: true, child: barrierChild),
             );
@@ -6073,9 +6285,9 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                               final bool shouldPreserveExistingBlur;
 
                               if (currentModalType == ModalType.snackbar) {
-                                // Snackbars never change background/blur - they're overlays.
-                                shouldPreserveExistingBlur =
-                                    Modal.isDialogActive || Modal.isSheetActive;
+                                // Snackbars are overlays and should never drive the
+                                // shared modal background/blur state by themselves.
+                                shouldPreserveExistingBlur = true;
                               } else {
                                 // For other modal types, preserve if background animation already running.
                                 shouldPreserveExistingBlur =
@@ -6105,6 +6317,11 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
 
                                   _blurStateTimer =
                                       Timer.periodic(stepDuration, (timer) {
+                                    if (!Modal.isActive || Modal.isDismissing) {
+                                      timer.cancel();
+                                      _blurStateTimer = null;
+                                      return;
+                                    }
                                     currentStep++;
                                     if (currentStep > animSteps) {
                                       timer.cancel();
@@ -6145,6 +6362,11 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
 
                                   _blurAmountTimer =
                                       Timer.periodic(stepDuration, (timer) {
+                                    if (!Modal.isActive || Modal.isDismissing) {
+                                      timer.cancel();
+                                      _blurAmountTimer = null;
+                                      return;
+                                    }
                                     currentStep++;
                                     if (currentStep > animSteps) {
                                       timer.cancel();
@@ -6182,6 +6404,13 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
 
                               if (!shouldPreserveExistingBlur) {
                                 _backgroundTimer?.cancel();
+                                // Cancel any in-progress dismiss animation to
+                                // prevent it from racing with this show
+                                // animation and leaving the notifier at an
+                                // intermediate or zero value.
+                                Modal._backgroundAnimationTimer?.cancel();
+                                Modal._backgroundAnimationTimer = null;
+
                                 const int animSteps = 10;
                                 const int totalDurationMs = 200;
                                 final stepDuration = Duration(
@@ -6196,6 +6425,14 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
 
                                 _backgroundTimer =
                                     Timer.periodic(stepDuration, (timer) {
+                                  // Guard: stop if the modal that triggered
+                                  // this show animation has already been
+                                  // dismissed while we were animating.
+                                  if (!Modal.isActive || Modal.isDismissing) {
+                                    timer.cancel();
+                                    _backgroundTimer = null;
+                                    return;
+                                  }
                                   currentStep++;
                                   if (currentStep > animSteps) {
                                     timer.cancel();
@@ -6211,6 +6448,7 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                         startValue + (step * currentStep);
                                   } else {
                                     timer.cancel();
+                                    _backgroundTimer = null;
                                   }
                                 });
                               }
@@ -6265,7 +6503,7 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                 rightPosition = 0.0;
                               }
 
-                                    final scaleValue = (isBottomSheetContext ||
+                              final scaleValue = (isBottomSheetContext ||
                                       shouldApplySideSheetBackgroundTransform ||
                                       isTopSheetContext)
                                   ? 1 - (animValue * 0.02)
@@ -6285,7 +6523,7 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                     scale: scaleValue,
                                     alignment: isBottomSheetContext
                                         ? Alignment.bottomCenter
-                                      : (isTopSheetContext
+                                        : (isTopSheetContext
                                             ? Alignment.topCenter
                                             : (shouldApplySideSheetBackgroundTransform &&
                                                     sheetPos ==
@@ -6321,12 +6559,13 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                           final animValue =
                                               _backgroundLayerAnimationNotifier
                                                   .state;
-                                            final borderRadius = isBottomSheetContext
-                                              ? BorderRadius.lerp(
-                                                BorderRadius.zero,
-                                                widget.borderRadius,
-                                                animValue)!
-                                              : BorderRadius.zero;
+                                          final borderRadius =
+                                              isBottomSheetContext
+                                                  ? BorderRadius.lerp(
+                                                      BorderRadius.zero,
+                                                      widget.borderRadius,
+                                                      animValue)!
+                                                  : BorderRadius.zero;
 
                                           // The background layer with blur and tap handling
                                           return ImageFiltered(

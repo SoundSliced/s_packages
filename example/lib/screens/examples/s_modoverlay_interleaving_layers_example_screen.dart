@@ -400,11 +400,11 @@ class _SModalPopOverlayExampleScreenState
     );
   }
 
-  void _showPopThenSnackbar({
+  Future<void> _showPopThenSnackbar({
     _DemoPopKind popKind = _DemoPopKind.normal,
     String title = 'Snackbar above PopOverlay',
-  }) {
-    _clearAll();
+  }) async {
+    await _clearAll();
     _showPopOverlayPopup(
       title: '${_popKindLabel(popKind)} first',
       kind: popKind,
@@ -424,11 +424,11 @@ class _SModalPopOverlayExampleScreenState
     });
   }
 
-  void _showSnackbarThenPop({
+  Future<void> _showSnackbarThenPop({
     _DemoPopKind popKind = _DemoPopKind.normal,
     String title = 'PopOverlay above Snackbar',
-  }) {
-    _clearAll();
+  }) async {
+    await _clearAll();
     final snackbarId = _nextId('combo_snackbar_then_pop');
     Modal.showSnackbar(
       id: snackbarId,

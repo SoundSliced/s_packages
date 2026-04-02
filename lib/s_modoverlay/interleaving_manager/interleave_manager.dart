@@ -47,12 +47,7 @@ class OverlayInterleaveManager {
       ValueNotifier<List<InterleavedOverlayLayer>>(<InterleavedOverlayLayer>[]);
 
   static void _debugInterleaveLog(String message) {
-    assert(() {
-      // Debug-only logging to avoid release overhead.
-      // ignore: avoid_print
-      // print('[OverlayInterleave] $message');
-      return true;
-    }());
+    debugPrint('[OverlayInterleave] $message');
   }
 
   /// Formats a human-readable layer order for debug output.
@@ -63,6 +58,67 @@ class OverlayInterleaveManager {
 
   /// Current list of registered layers (sorted by activation/stack).
   static List<InterleavedOverlayLayer> get layers => _layers.value;
+
+  /// Returns the top-most layer id that should own the dismiss barrier.
+  ///
+  /// In interleaved mode, multiple layers can be visible at once. Rendering a
+  /// full-screen barrier for every visible layer compounds opacity and causes a
+  /// progressively darker backdrop. This helper enforces a single barrier
+  /// owner.
+  ///
+  /// Policy:
+  /// - Visual ownership should be stable to avoid backdrop flicker when layers
+  ///   are added/removed above an existing overlay. By default this selects
+  ///   the oldest non-excluded layer.
+  /// - Tap ownership can opt into top-most behavior by setting
+  ///   `preferOldest` to false.
+  static String? topBarrierOwnerLayerId({
+    List<String> excludedPrefixes = const ['snackbar:'],
+    List<String> preferredPrefixes = const [],
+    bool preferOldest = true,
+  }) {
+    if (_layers.value.isEmpty) return null;
+
+    if (preferOldest) {
+      if (preferredPrefixes.isNotEmpty) {
+        for (final layer in _layers.value) {
+          final isExcluded =
+              excludedPrefixes.any((prefix) => layer.id.startsWith(prefix));
+          if (isExcluded) continue;
+
+          final isPreferred =
+              preferredPrefixes.any((prefix) => layer.id.startsWith(prefix));
+          if (isPreferred) return layer.id;
+        }
+      }
+
+      for (final layer in _layers.value) {
+        final isExcluded =
+            excludedPrefixes.any((prefix) => layer.id.startsWith(prefix));
+        if (!isExcluded) return layer.id;
+      }
+    } else {
+      if (preferredPrefixes.isNotEmpty) {
+        for (final layer in _layers.value.reversed) {
+          final isExcluded =
+              excludedPrefixes.any((prefix) => layer.id.startsWith(prefix));
+          if (isExcluded) continue;
+
+          final isPreferred =
+              preferredPrefixes.any((prefix) => layer.id.startsWith(prefix));
+          if (isPreferred) return layer.id;
+        }
+      }
+
+      for (final layer in _layers.value.reversed) {
+        final isExcluded =
+            excludedPrefixes.any((prefix) => layer.id.startsWith(prefix));
+        if (!isExcluded) return layer.id;
+      }
+    }
+
+    return null;
+  }
 
   /// Register or update a layer in the global interleaved host.
   static void registerLayer({
@@ -325,23 +381,23 @@ class _InterleavedOverlayHost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Listen to the layer registry for updates.
-    return ValueListenableBuilder<List<InterleavedOverlayLayer>>(
-      valueListenable: OverlayInterleaveManager._layers,
-      builder: (context, layers, child) {
-        if (layers.isEmpty) {
-          // When empty, keep host inert to avoid intercepting taps.
-          return const IgnorePointer(
-            ignoring: true,
-            child: SizedBox.shrink(),
-          );
-        }
+    return Material(
+      type: MaterialType.transparency,
+      child: ValueListenableBuilder<List<InterleavedOverlayLayer>>(
+        valueListenable: OverlayInterleaveManager._layers,
+        builder: (context, layers, child) {
+          if (layers.isEmpty) {
+            // When empty, keep host inert to avoid intercepting taps.
+            return const IgnorePointer(
+              ignoring: true,
+              child: SizedBox.shrink(),
+            );
+          }
 
-        // Render each layer in stack order.
-        return IgnorePointer(
-          ignoring: false,
-          child: SizedBox.expand(
-            child: Material(
-              type: MaterialType.transparency,
+          // Render each layer in stack order.
+          return IgnorePointer(
+            ignoring: false,
+            child: SizedBox.expand(
               child: Stack(
                 fit: StackFit.expand,
                 children: layers
@@ -360,9 +416,9 @@ class _InterleavedOverlayHost extends StatelessWidget {
                     .toList(growable: false),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
