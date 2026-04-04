@@ -1,4 +1,10 @@
 
+## 4.1.0
+- **`s_context_menu` maintenance and interaction refinements:**
+  - Refined internal `TapRegion` composition in the overlay shell to keep grouped tap handling behavior consistent during outside-tap and right-click interactions.
+  - Applied internal code cleanup/formatting in `lib/s_context_menu/src/s_context_menu.dart` for improved readability and maintainability.
+  - No public API breaking changes.
+
 ## 4.0.0
 - **`s_modoverlay` interleaving architecture hardening (modal + pop overlay coexistence):**
   - Stabilized shared interleaving behavior between `s_modal` and `pop_overlay` so both systems can coexist in a single overlay stack with deterministic ordering.
