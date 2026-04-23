@@ -109,6 +109,15 @@ class SModalExampleScreen extends StatelessWidget {
     );
   }
 
+  void _showResizingDialog(BuildContext context) {
+    Modal.show(
+      builder: () => const _ResizableDialogContent(),
+      modalType: ModalType.dialog,
+      shouldBlurBackground: true,
+      barrierColor: Colors.black.withValues(alpha: 0.4),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,9 +169,81 @@ class SModalExampleScreen extends StatelessWidget {
                 onPressed: () => _showDialog(context),
                 child: const Text('Show Dialog'),
               ),
+              const SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () => _showResizingDialog(context),
+                child: const Text('Show Resizing Dialog'),
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ResizableDialogContent extends StatefulWidget {
+  const _ResizableDialogContent();
+
+  @override
+  State<_ResizableDialogContent> createState() =>
+      _ResizableDialogContentState();
+}
+
+class _ResizableDialogContentState extends State<_ResizableDialogContent> {
+  bool _isCompact = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      width: _isCompact ? 240.0 : 380.0,
+      height: _isCompact ? 150.0 : 240.0,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade400),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Resizable Dialog',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            _isCompact
+                ? 'Compact mode'
+                : 'Expanded mode — AnimatedContainer inside a Modal dialog.',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              OutlinedButton(
+                onPressed: () => setState(() {
+                  _isCompact = !_isCompact;
+                }),
+                child: Text(_isCompact ? 'Expand' : 'Shrink'),
+              ),
+              ElevatedButton(
+                onPressed: () => Modal.dismissDialog(),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -10,8 +10,7 @@ class SContextMenuControllers {
   static final Map<String, double> _labelWidthCache = {};
 
   static double labelWidth(String text, TextStyle style) {
-    final key =
-        '${style.fontSize ?? 14}_${style.fontWeight?.value ?? 400}_$text';
+    final key = '${style.fontSize ?? 14}_${style.fontWeight?.value ?? 400}_$text';
     final cached = _labelWidthCache[key];
     if (cached != null) return cached;
     final painter = TextPainter(
@@ -27,22 +26,18 @@ class SContextMenuControllers {
     return w;
   }
 
-  static double computeTargetWidth(
-      List<SContextMenuItem> buttons, TextStyle style, double screenWidth) {
+  static double computeTargetWidth(List<SContextMenuItem> buttons, TextStyle style, double screenWidth) {
     const double iconAndGap = 24 + 6; // icon + gap
     const double horizontalPadding = 16;
     final longest = buttons.isEmpty
         ? labelWidth(SContextMenu.defaultButtonLabel, style)
-        : buttons
-            .map((b) => labelWidth(b.label, style))
-            .fold<double>(0, math.max);
+        : buttons.map((b) => labelWidth(b.label, style)).fold<double>(0, math.max);
     final adaptiveMax = math.min(screenWidth * 0.45, 280.0);
     final raw = longest + iconAndGap + horizontalPadding;
     return raw.clamp(80.0, adaptiveMax);
   }
 
-  static void disposeFocusNodes(
-      List<FocusNode> nodes, List<VoidCallback> activators) {
+  static void disposeFocusNodes(List<FocusNode> nodes, List<VoidCallback> activators) {
     for (final n in nodes) {
       n.dispose();
     }
@@ -84,9 +79,7 @@ class SContextMenuControllers {
     final Offset cornerStart = getCornerStartPoint(geometry, config);
     final Offset cornerEnd = getCornerEndPoint(geometry, config);
     path.moveTo(cornerStart.dx, cornerStart.dy);
-    path.arcToPoint(cornerEnd,
-        radius: Radius.circular(config.cornerRadius),
-        clockwise: isClockwiseCorner(config));
+    path.arcToPoint(cornerEnd, radius: Radius.circular(config.cornerRadius), clockwise: isClockwiseCorner(config));
     final Offset control1 = Offset.lerp(geometry.baseEdgeA, geometry.tip, 0.4)!;
     final Offset control2 = Offset.lerp(geometry.baseEdgeB, geometry.tip, 0.4)!;
     path.lineTo(geometry.baseEdgeA.dx, geometry.baseEdgeA.dy);
@@ -110,8 +103,7 @@ class SContextMenuControllers {
     return path;
   }
 
-  static ArrowGeometry computeGeometry(
-      Offset pointer, Rect panelRect, Size overlaySize, ArrowConfig config) {
+  static ArrowGeometry computeGeometry(Offset pointer, Rect panelRect, Size overlaySize, ArrowConfig config) {
     late final Offset baseCorner;
     late final Offset baseEdgeA;
     late final Offset baseEdgeB;
@@ -138,41 +130,28 @@ class SContextMenuControllers {
         break;
     }
     final Offset tip = clampTip(pointer, baseCorner, config, overlaySize);
-    return ArrowGeometry(
-        baseCorner: baseCorner,
-        baseEdgeA: baseEdgeA,
-        baseEdgeB: baseEdgeB,
-        tip: tip);
+    return ArrowGeometry(baseCorner: baseCorner, baseEdgeA: baseEdgeA, baseEdgeB: baseEdgeB, tip: tip);
   }
 
-  static Offset clampTip(
-      Offset rawTip, Offset cornerPoint, ArrowConfig config, Size overlaySize) {
+  static Offset clampTip(Offset rawTip, Offset cornerPoint, ArrowConfig config, Size overlaySize) {
     double x = rawTip.dx;
     double y = rawTip.dy;
     switch (config.corner) {
       case ArrowCorner.topLeft:
-        x = math.max(cornerPoint.dx - config.maxLength,
-            math.min(cornerPoint.dx - config.tipGap, x));
-        y = math.max(cornerPoint.dy - config.maxLength,
-            math.min(cornerPoint.dy - config.tipGap, y));
+        x = math.max(cornerPoint.dx - config.maxLength, math.min(cornerPoint.dx - config.tipGap, x));
+        y = math.max(cornerPoint.dy - config.maxLength, math.min(cornerPoint.dy - config.tipGap, y));
         break;
       case ArrowCorner.topRight:
-        x = math.max(cornerPoint.dx + config.tipGap,
-            math.min(cornerPoint.dx + config.maxLength, x));
-        y = math.max(cornerPoint.dy - config.maxLength,
-            math.min(cornerPoint.dy - config.tipGap, y));
+        x = math.max(cornerPoint.dx + config.tipGap, math.min(cornerPoint.dx + config.maxLength, x));
+        y = math.max(cornerPoint.dy - config.maxLength, math.min(cornerPoint.dy - config.tipGap, y));
         break;
       case ArrowCorner.bottomLeft:
-        x = math.max(cornerPoint.dx - config.maxLength,
-            math.min(cornerPoint.dx - config.tipGap, x));
-        y = math.max(cornerPoint.dy + config.tipGap,
-            math.min(cornerPoint.dy + config.maxLength, y));
+        x = math.max(cornerPoint.dx - config.maxLength, math.min(cornerPoint.dx - config.tipGap, x));
+        y = math.max(cornerPoint.dy + config.tipGap, math.min(cornerPoint.dy + config.maxLength, y));
         break;
       case ArrowCorner.bottomRight:
-        x = math.max(cornerPoint.dx + config.tipGap,
-            math.min(cornerPoint.dx + config.maxLength, x));
-        y = math.max(cornerPoint.dy + config.tipGap,
-            math.min(cornerPoint.dy + config.maxLength, y));
+        x = math.max(cornerPoint.dx + config.tipGap, math.min(cornerPoint.dx + config.maxLength, x));
+        y = math.max(cornerPoint.dy + config.tipGap, math.min(cornerPoint.dy + config.maxLength, y));
         break;
     }
     x = math.max(0.0, math.min(overlaySize.width, x));
@@ -180,8 +159,7 @@ class SContextMenuControllers {
     return Offset(x, y);
   }
 
-  static Offset getCornerStartPoint(
-      ArrowGeometry geometry, ArrowConfig config) {
+  static Offset getCornerStartPoint(ArrowGeometry geometry, ArrowConfig config) {
     switch (config.corner) {
       case ArrowCorner.topLeft:
         return geometry.baseCorner + Offset(config.cornerRadius, 0);
@@ -208,15 +186,10 @@ class SContextMenuControllers {
   }
 
   static bool isClockwiseCorner(ArrowConfig config) =>
-      config.corner == ArrowCorner.topLeft ||
-      config.corner == ArrowCorner.bottomRight;
+      config.corner == ArrowCorner.topLeft || config.corner == ArrowCorner.bottomRight;
 
-  static ({
-    Rect panelRect,
-    ArrowConfig arrowConfig,
-    Offset pointerOffset,
-    Offset followerOffset
-  }) computeMenuLayout({
+  static ({Rect panelRect, Rect overlayPanelRect, ArrowConfig arrowConfig, Offset pointerOffset, Offset followerOffset})
+      computeMenuLayout({
     required BuildContext context,
     required Offset globalPosition,
     required double targetWidth,
@@ -230,8 +203,7 @@ class SContextMenuControllers {
     const double panelVerticalGap = 8;
     const double buttonHeight = kButtonHeight;
 
-    final overlayBox =
-        Overlay.of(context).context.findRenderObject() as RenderBox;
+    final overlayBox = Overlay.of(context).context.findRenderObject() as RenderBox;
 
     double panelHeight = (buttonCount * buttonHeight) + 12.0; // padding
     panelHeight = panelHeight.clamp(48.0, overlaySize.height).toDouble();
@@ -249,8 +221,7 @@ class SContextMenuControllers {
         if (childBox != null && childBox.attached) {
           // Get child's position and size
           final childTopLeftGlobal = childBox.localToGlobal(Offset.zero);
-          final childTopLeftLocal =
-              overlayBox.globalToLocal(childTopLeftGlobal);
+          final childTopLeftLocal = overlayBox.globalToLocal(childTopLeftGlobal);
 
           // Get click position relative to child
           final clickInChild = childBox.globalToLocal(globalPosition);
@@ -259,10 +230,7 @@ class SContextMenuControllers {
           final displacedClickInChild = clickInChild + pointerDisplacement;
 
           // Determine if menu can fit to the right of click position
-          final menuRightEdge = childTopLeftLocal.dx +
-              displacedClickInChild.dx +
-              panelHorizontalGap +
-              targetWidth;
+          final menuRightEdge = childTopLeftLocal.dx + displacedClickInChild.dx + panelHorizontalGap + targetWidth;
 
           final bool canPlaceToRight = menuRightEdge <= overlaySize.width;
 
@@ -273,21 +241,16 @@ class SContextMenuControllers {
           if (canPlaceToRight) {
             offsetX = displacedClickInChild.dx + panelHorizontalGap;
           } else {
-            offsetX =
-                displacedClickInChild.dx - targetWidth - panelHorizontalGap;
+            offsetX = displacedClickInChild.dx - targetWidth - panelHorizontalGap;
           }
 
           offsetY = displacedClickInChild.dy - panelVerticalGap;
 
           // Clamp to keep menu on screen
-          offsetX = offsetX
-              .clamp(-childTopLeftLocal.dx,
-                  overlaySize.width - childTopLeftLocal.dx - targetWidth)
-              .toDouble();
-          offsetY = offsetY
-              .clamp(-childTopLeftLocal.dy,
-                  overlaySize.height - childTopLeftLocal.dy - panelHeight)
-              .toDouble();
+          offsetX =
+              offsetX.clamp(-childTopLeftLocal.dx, overlaySize.width - childTopLeftLocal.dx - targetWidth).toDouble();
+          offsetY =
+              offsetY.clamp(-childTopLeftLocal.dy, overlaySize.height - childTopLeftLocal.dy - panelHeight).toDouble();
 
           followerOffset = Offset(offsetX, offsetY);
 
@@ -308,6 +271,46 @@ class SContextMenuControllers {
             pointerOffset.dy - childTopLeftLocal.dy - offsetY,
           );
           anchorLocal = pointerOffset;
+
+          final overlayPanelRect = Rect.fromLTWH(
+            childTopLeftLocal.dx + offsetX,
+            childTopLeftLocal.dy + offsetY,
+            targetWidth,
+            panelHeight,
+          );
+
+          final double panelBottom = panelRect.top + panelRect.height;
+          final double panelCenterY = panelRect.top + (panelRect.height / 2);
+          final bool pointerBelowPanel = pointerOffset.dy >= panelBottom;
+          final bool pointerAbovePanel = pointerOffset.dy <= panelRect.top;
+          final bool useBottomCorner =
+              pointerBelowPanel ? true : (pointerAbovePanel ? false : pointerOffset.dy >= panelCenterY);
+
+          final bool canPlaceArrowToRight = (panelRect.left > anchorLocal.dx - targetWidth);
+          final ArrowCorner arrowCorner;
+          if (canPlaceArrowToRight) {
+            arrowCorner = useBottomCorner ? ArrowCorner.bottomLeft : ArrowCorner.topLeft;
+          } else {
+            arrowCorner = useBottomCorner ? ArrowCorner.bottomRight : ArrowCorner.topRight;
+          }
+
+          final arrowConfig = ArrowConfig(
+            corner: arrowCorner,
+            baseWidth: 10,
+            cornerRadius: 4,
+            tipGap: 2,
+            maxLength: 2,
+            shape: ArrowShape.smallTriangle,
+            tipRoundness: 5,
+          );
+
+          return (
+            panelRect: panelRect,
+            overlayPanelRect: overlayPanelRect,
+            arrowConfig: arrowConfig,
+            pointerOffset: pointerOffset,
+            followerOffset: followerOffset,
+          );
         } else {
           // Fallback if child not available
           final Offset originalLocal = overlayBox.globalToLocal(globalPosition);
@@ -321,21 +324,13 @@ class SContextMenuControllers {
             originalLocal.dy.clamp(0.0, overlaySize.height).toDouble(),
           );
 
-          final bool canPlaceToRight =
-              anchorLocal.dx + panelHorizontalGap + targetWidth <=
-                  overlaySize.width;
-          double panelLeft = canPlaceToRight
-              ? anchorLocal.dx + panelHorizontalGap
-              : anchorLocal.dx - panelHorizontalGap - targetWidth;
-          panelLeft = panelLeft
-              .clamp(0.0, math.max(0.0, overlaySize.width - targetWidth))
-              .toDouble();
+          final bool canPlaceToRight = anchorLocal.dx + panelHorizontalGap + targetWidth <= overlaySize.width;
+          double panelLeft =
+              canPlaceToRight ? anchorLocal.dx + panelHorizontalGap : anchorLocal.dx - panelHorizontalGap - targetWidth;
+          panelLeft = panelLeft.clamp(0.0, math.max(0.0, overlaySize.width - targetWidth)).toDouble();
           double panelTop = anchorLocal.dy - panelVerticalGap;
-          panelTop = panelTop
-              .clamp(0.0, math.max(0.0, overlaySize.height - panelHeight))
-              .toDouble();
-          panelRect =
-              Rect.fromLTWH(panelLeft, panelTop, targetWidth, panelHeight);
+          panelTop = panelTop.clamp(0.0, math.max(0.0, overlaySize.height - panelHeight)).toDouble();
+          panelRect = Rect.fromLTWH(panelLeft, panelTop, targetWidth, panelHeight);
         }
       } else {
         // Fallback if context not available
@@ -350,21 +345,13 @@ class SContextMenuControllers {
           originalLocal.dy.clamp(0.0, overlaySize.height).toDouble(),
         );
 
-        final bool canPlaceToRight =
-            anchorLocal.dx + panelHorizontalGap + targetWidth <=
-                overlaySize.width;
-        double panelLeft = canPlaceToRight
-            ? anchorLocal.dx + panelHorizontalGap
-            : anchorLocal.dx - panelHorizontalGap - targetWidth;
-        panelLeft = panelLeft
-            .clamp(0.0, math.max(0.0, overlaySize.width - targetWidth))
-            .toDouble();
+        final bool canPlaceToRight = anchorLocal.dx + panelHorizontalGap + targetWidth <= overlaySize.width;
+        double panelLeft =
+            canPlaceToRight ? anchorLocal.dx + panelHorizontalGap : anchorLocal.dx - panelHorizontalGap - targetWidth;
+        panelLeft = panelLeft.clamp(0.0, math.max(0.0, overlaySize.width - targetWidth)).toDouble();
         double panelTop = anchorLocal.dy - panelVerticalGap;
-        panelTop = panelTop
-            .clamp(0.0, math.max(0.0, overlaySize.height - panelHeight))
-            .toDouble();
-        panelRect =
-            Rect.fromLTWH(panelLeft, panelTop, targetWidth, panelHeight);
+        panelTop = panelTop.clamp(0.0, math.max(0.0, overlaySize.height - panelHeight)).toDouble();
+        panelRect = Rect.fromLTWH(panelLeft, panelTop, targetWidth, panelHeight);
       }
     } else {
       // Original behavior when followAnchor is false
@@ -381,20 +368,13 @@ class SContextMenuControllers {
         originalLocal.dy.clamp(0.0, overlaySize.height).toDouble(),
       );
 
-      final bool canPlaceToRight =
-          anchorLocal.dx + panelHorizontalGap + targetWidth <=
-              overlaySize.width;
-      double panelLeft = canPlaceToRight
-          ? anchorLocal.dx + panelHorizontalGap
-          : anchorLocal.dx - panelHorizontalGap - targetWidth;
-      panelLeft = panelLeft
-          .clamp(0.0, math.max(0.0, overlaySize.width - targetWidth))
-          .toDouble();
+      final bool canPlaceToRight = anchorLocal.dx + panelHorizontalGap + targetWidth <= overlaySize.width;
+      double panelLeft =
+          canPlaceToRight ? anchorLocal.dx + panelHorizontalGap : anchorLocal.dx - panelHorizontalGap - targetWidth;
+      panelLeft = panelLeft.clamp(0.0, math.max(0.0, overlaySize.width - targetWidth)).toDouble();
 
       double panelTop = anchorLocal.dy - panelVerticalGap;
-      panelTop = panelTop
-          .clamp(0.0, math.max(0.0, overlaySize.height - panelHeight))
-          .toDouble();
+      panelTop = panelTop.clamp(0.0, math.max(0.0, overlaySize.height - panelHeight)).toDouble();
 
       panelRect = Rect.fromLTWH(panelLeft, panelTop, targetWidth, panelHeight);
     }
@@ -403,19 +383,15 @@ class SContextMenuControllers {
     final double panelCenterY = panelRect.top + (panelRect.height / 2);
     final bool pointerBelowPanel = pointerOffset.dy >= panelBottom;
     final bool pointerAbovePanel = pointerOffset.dy <= panelRect.top;
-    final bool useBottomCorner = pointerBelowPanel
-        ? true
-        : (pointerAbovePanel ? false : pointerOffset.dy >= panelCenterY);
+    final bool useBottomCorner =
+        pointerBelowPanel ? true : (pointerAbovePanel ? false : pointerOffset.dy >= panelCenterY);
 
-    final bool canPlaceToRight =
-        (panelRect.left > anchorLocal.dx - targetWidth);
+    final bool canPlaceToRight = (panelRect.left > anchorLocal.dx - targetWidth);
     final ArrowCorner arrowCorner;
     if (canPlaceToRight) {
-      arrowCorner =
-          useBottomCorner ? ArrowCorner.bottomLeft : ArrowCorner.topLeft;
+      arrowCorner = useBottomCorner ? ArrowCorner.bottomLeft : ArrowCorner.topLeft;
     } else {
-      arrowCorner =
-          useBottomCorner ? ArrowCorner.bottomRight : ArrowCorner.topRight;
+      arrowCorner = useBottomCorner ? ArrowCorner.bottomRight : ArrowCorner.topRight;
     }
 
     final arrowConfig = ArrowConfig(
@@ -430,12 +406,12 @@ class SContextMenuControllers {
 
     return (
       panelRect: panelRect,
+      overlayPanelRect: panelRect,
       arrowConfig: arrowConfig,
       pointerOffset: pointerOffset,
       followerOffset: followerOffset
     );
   }
 
-  static double computeContentHeight(int buttonCount) =>
-      (buttonCount * kButtonHeight) + 12.0;
+  static double computeContentHeight(int buttonCount) => (buttonCount * kButtonHeight) + 12.0;
 }

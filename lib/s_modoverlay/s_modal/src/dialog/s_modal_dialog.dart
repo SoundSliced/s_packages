@@ -57,6 +57,19 @@ class DialogModal extends StatefulWidget {
 class _DialogModalState extends State<DialogModal> {
   /// Current drag offset from the initial position
   Offset _dragOffset = Offset.zero;
+  bool _isVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      setState(() {
+        _isVisible = !widget.isDismissing;
+      });
+    });
+  }
 
   @override
   // Keep drag offset in sync with configuration changes.
@@ -72,6 +85,12 @@ class _DialogModalState extends State<DialogModal> {
       // Reset the drag offset when dragging is disabled or alignment changes.
       setState(() {
         _dragOffset = Offset.zero;
+      });
+    }
+
+    if (oldWidget.isDismissing != widget.isDismissing) {
+      setState(() {
+        _isVisible = !widget.isDismissing;
       });
     }
   }
@@ -112,16 +131,11 @@ class _DialogModalState extends State<DialogModal> {
       child: dialogContent,
     );
 
-    // Apply animation to the dialog content BEFORE positioning
-    // This ensures Positioned/Align is a direct child of Stack for proper positioning
-    // Create unique animation key using dialogId to prevent animation conflicts between dialogs
-    final animationKeyId =
-        widget.dialogId ?? widget.key?.toString() ?? 'unknown';
-    final animationKey =
-        ValueKey("dialog_anim_${animationKeyId}_${widget.isDismissing}");
-
-    // Apply fade/scale animation to content
-    final animatedContent = Transform.translate(
+    // Apply fade/scale animation to content BEFORE positioning.
+    // Keep the subtree mounted during dismiss so stateful dialog content
+    // (for example a resized AnimatedContainer) preserves its current size
+    // instead of being rebuilt from its initial state.
+    final translatedContent = Transform.translate(
       offset: _dragOffset,
       child: widget.isDraggable
           ? GestureDetector(
@@ -129,39 +143,18 @@ class _DialogModalState extends State<DialogModal> {
               child: dialogContent,
             )
           : dialogContent,
-    ).animate(
-      key: animationKey,
-      effects: widget.isDismissing
-          ? [
-              // Fade out and scale down when dismissing
-              FadeEffect(
-                duration: 0.2.sec,
-                begin: 1.0,
-                end: 0.0,
-                curve: Curves.easeOut,
-              ),
-              ScaleEffect(
-                duration: 0.2.sec,
-                begin: const Offset(1.0, 1.0),
-                end: const Offset(0.9, 0.9),
-                curve: Curves.easeOut,
-              ),
-            ]
-          : [
-              // Fade in and scale up when appearing
-              FadeEffect(
-                duration: 0.2.sec,
-                begin: 0.0,
-                end: 1.0,
-                curve: Curves.easeOut,
-              ),
-              ScaleEffect(
-                duration: 0.2.sec,
-                begin: const Offset(0.9, 0.9),
-                end: const Offset(1.0, 1.0),
-                curve: Curves.easeOut,
-              ),
-            ],
+    );
+
+    final animatedContent = AnimatedOpacity(
+      opacity: _isVisible ? 1.0 : 0.0,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
+      child: AnimatedScale(
+        scale: _isVisible ? 1.0 : 0.9,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+        child: translatedContent,
+      ),
     );
 
     // Handle positioning with smooth transitions between alignment and offset modes

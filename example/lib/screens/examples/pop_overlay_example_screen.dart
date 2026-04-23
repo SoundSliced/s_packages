@@ -3,6 +3,51 @@ import 'package:s_packages/s_packages.dart';
 class PopOverlayExampleScreen extends StatelessWidget {
   const PopOverlayExampleScreen({super.key});
 
+  void _showResizingPopup(BuildContext context) {
+    PopOverlay.addPop(
+      PopOverlayContent(
+        id: 'resizing_popup',
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
+        shouldDismissOnBackgroundTap: true,
+        widget: const _ResizablePopupContent(
+          popId: 'resizing_popup',
+          title: 'Resizable Popup',
+          subtitle:
+              'Tap shrink/expand to animate this popup size using AnimatedContainer.',
+        ),
+      ),
+    );
+  }
+
+  void _showResizingFramedPopup(BuildContext context) {
+    PopOverlay.addPop(
+      PopOverlayContent(
+        id: 'resizing_framed_popup',
+        shouldDismissOnBackgroundTap: true,
+        frameDesign: const FrameDesign(
+          title: 'Resizable Framed Popup',
+          subtitle: 'FrameDesign + reusable resizing content',
+          titlePrefixIcon: Icons.aspect_ratio,
+          showCloseButton: true,
+          showBottomButtonBar: false,
+          // Keep both null so the frame follows child size changes.
+          width: null,
+          height: null,
+        ),
+        widget: const _ResizablePopupContent(
+          popId: 'resizing_framed_popup',
+          title: 'Reusable Content',
+          subtitle: 'Same stateful content widget as the non-framed example.',
+          useInnerDecoration: false,
+          compactWidth: 280,
+          expandedWidth: 380,
+          compactHeight: 160,
+          expandedHeight: 210,
+        ),
+      ),
+    );
+  }
+
   void _showBasicPopup(BuildContext context) {
     PopOverlay.addPop(
       PopOverlayContent(
@@ -211,6 +256,16 @@ class PopOverlayExampleScreen extends StatelessWidget {
                 child: const Text('Show Framed Popup'),
               ),
               const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => _showResizingPopup(context),
+                child: const Text('Show Resizing Popup'),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => _showResizingFramedPopup(context),
+                child: const Text('Show Resizing Framed Popup'),
+              ),
+              const SizedBox(height: 16),
               SButton(
                 onTap: (position) {
                   _showAnimatedFromOffsetPopup(context, position);
@@ -254,5 +309,92 @@ class PopOverlayExampleScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ResizablePopupContent extends StatefulWidget {
+  final String popId;
+  final String title;
+  final String subtitle;
+  final bool useInnerDecoration;
+  final double compactWidth;
+  final double expandedWidth;
+  final double compactHeight;
+  final double expandedHeight;
+
+  const _ResizablePopupContent({
+    required this.popId,
+    required this.title,
+    required this.subtitle,
+    this.useInnerDecoration = true,
+    this.compactWidth = 280,
+    this.expandedWidth = 360,
+    this.compactHeight = 180,
+    this.expandedHeight = 220,
+  });
+
+  @override
+  State<_ResizablePopupContent> createState() => _ResizablePopupContentState();
+}
+
+class _ResizablePopupContentState extends State<_ResizablePopupContent> {
+  bool _isCompact = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final panel = AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      width: _isCompact ? widget.compactWidth : widget.expandedWidth,
+      height: _isCompact ? widget.compactHeight : widget.expandedHeight,
+      padding: const EdgeInsets.all(16),
+      decoration: widget.useInnerDecoration
+          ? BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+            )
+          : null,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            widget.subtitle,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey.shade700,
+            ),
+          ),
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  setState(() {
+                    _isCompact = !_isCompact;
+                  });
+                },
+                child: Text(_isCompact ? 'Expand' : 'Shrink'),
+              ),
+              ElevatedButton(
+                onPressed: () => PopOverlay.removePop(widget.popId),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    if (!widget.useInnerDecoration) {
+      return panel;
+    }
+
+    return panel;
   }
 }

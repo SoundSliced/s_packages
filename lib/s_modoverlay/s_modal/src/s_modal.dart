@@ -6230,6 +6230,73 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
     return;
   }
 
+  List<Widget> _buildNonInterleavedModalLayers() {
+    final items = <({
+      String id,
+      int activationOrder,
+      int stackLevel,
+      Widget widget,
+    })>[];
+
+    for (final sheet in _sheetStackNotifier.state) {
+      items.add((
+        id: 'sheet:${sheet.uniqueId}',
+        activationOrder: sheet.activationOrder,
+        stackLevel: sheet.stackLevel,
+        widget: _InterleavedSheetLayer(sheetId: sheet.uniqueId),
+      ));
+    }
+
+    for (final dialog in _dialogStackNotifier.state) {
+      items.add((
+        id: 'dialog:${dialog.uniqueId}',
+        activationOrder: dialog.activationOrder,
+        stackLevel: dialog.stackLevel,
+        widget: _InterleavedDialogLayer(dialogId: dialog.uniqueId),
+      ));
+    }
+
+    final custom = _customController.state;
+    if (custom != null && custom.modalType == ModalType.custom) {
+      items.add((
+        id: 'custom:${custom.uniqueId}',
+        activationOrder: custom.activationOrder,
+        stackLevel: custom.stackLevel,
+        widget: _InterleavedCustomLayer(customId: custom.uniqueId),
+      ));
+    }
+
+    for (final entry in _snackbarQueueNotifier.state.entries) {
+      if (entry.value.isEmpty) continue;
+      final firstSnackbar = entry.value.first;
+      items.add((
+        id: _snackbarPositionLayerId(entry.key),
+        activationOrder: firstSnackbar.activationOrder,
+        stackLevel: firstSnackbar.stackLevel,
+        widget: _InterleavedSnackbarLayer(position: entry.key),
+      ));
+    }
+
+    items.sort((a, b) {
+      final byOrder = a.activationOrder.compareTo(b.activationOrder);
+      if (byOrder != 0) return byOrder;
+
+      final byLevel = a.stackLevel.compareTo(b.stackLevel);
+      if (byLevel != 0) return byLevel;
+
+      return a.id.compareTo(b.id);
+    });
+
+    return items
+        .map(
+          (item) => KeyedSubtree(
+            key: ValueKey('non_interleaved_${item.id}'),
+            child: item.widget,
+          ),
+        )
+        .toList(growable: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     // Wrap with Navigator to provide Overlay context for widgets
@@ -6595,7 +6662,36 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                           );
 
                           return SizedBox.expand(
-                            child: Stack(children: [backgroundLayer]),
+                            child: Stack(
+                              children: [
+                                backgroundLayer,
+                                if (!OverlayInterleaveManager.enabled)
+                                  OnBuilder(
+                                    listenToMany: [
+                                      _dialogStackNotifier,
+                                      _sheetStackNotifier,
+                                      _snackbarQueueNotifier,
+                                      _customController,
+                                      _hotReloadCounter,
+                                    ],
+                                    builder: () {
+                                      final modalLayers =
+                                          _buildNonInterleavedModalLayers();
+                                      if (modalLayers.isEmpty) {
+                                        return const SizedBox.shrink();
+                                      }
+
+                                      return IgnorePointer(
+                                        ignoring: false,
+                                        child: Stack(
+                                          fit: StackFit.expand,
+                                          children: modalLayers,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                              ],
+                            ),
                           );
                         },
                       ),

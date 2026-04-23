@@ -38,7 +38,9 @@ class OverlayInterleaveManager {
   /// systems are active by letting a shared sorter decide the final stack.
   static bool enabled = true;
 
-  static OverlayEntry? _entry;
+  static OverlayState? _overlayState;
+  static final Map<String, OverlayEntry> _entries = <String, OverlayEntry>{};
+  static List<String> _mountedOrder = <String>[];
   static bool _installScheduled = false;
   static bool _bringToFrontScheduled = false;
   static BuildContext? _pendingBringContext;
@@ -135,6 +137,7 @@ class OverlayInterleaveManager {
 
     final existingIndex = _layers.value.indexWhere((layer) => layer.id == id);
     final next = List<InterleavedOverlayLayer>.from(_layers.value);
+    final isNewLayer = existingIndex == -1;
 
     final candidate = InterleavedOverlayLayer(
       id: id,
@@ -147,31 +150,23 @@ class OverlayInterleaveManager {
       // First time registration.
       next.add(candidate);
     } else {
-      final current = next[existingIndex];
-      final unchanged = current.activationOrder == activationOrder &&
-          current.stackLevel == stackLevel;
-
-      if (unchanged) {
-        // Keep host installed and visible even if data didn't change.
-        ensureInstalled(context: context);
-        return;
-      }
-
-      // Update the layer in place for the same id.
+      // Always update the layer in place, even when activation/stack are
+      // unchanged. The builder closure may have changed (for example after a
+      // rebuild or hot reload), and dropping that update leaves the overlay
+      // entry rendering stale content.
       next[existingIndex] = candidate;
     }
 
     // Sort and publish the updated layer list.
     _sortLayers(next);
     _layers.value = next;
-    _entry?.markNeedsBuild();
     ensureInstalled(context: context);
-    // Avoid forcing a remove+insert cycle when the host is already mounted;
-    // that remounts layer subtrees and can replay entry animations (for
-    // example active snackbars). Newly-installed hosts are inserted at top.
-    if (_entry == null || !_entry!.mounted) {
-      requestBringToFront(context: context);
-    }
+    // Only promote/restack on first insertion. Ordinary builder or metadata
+    // updates must preserve the mounted subtree state of the layer; otherwise
+    // stateful popup/modal content (for example a resized AnimatedContainer)
+    // can be recreated and jump back to its initial size right before
+    // dismissal.
+    _syncEntries(forceToFront: isNewLayer, context: context);
     // Order is sorted by activationOrder (first) then stackLevel (second).
     // activationOrder preserves "first shown" semantics across systems.
     _debugInterleaveLog(
@@ -207,7 +202,7 @@ class OverlayInterleaveManager {
     if (next.length == _layers.value.length) return;
 
     _layers.value = next;
-    _entry?.markNeedsBuild();
+    _syncEntries(forceToFront: false);
     _debugInterleaveLog(
       'unregisterLayer id=$id order=${_formatLayerOrder(_layers.value)}',
     );
@@ -223,7 +218,7 @@ class OverlayInterleaveManager {
     if (next.length == _layers.value.length) return;
 
     _layers.value = next;
-    _entry?.markNeedsBuild();
+    _syncEntries(forceToFront: false);
     _debugInterleaveLog(
       'unregisterWhere order=${_formatLayerOrder(_layers.value)}',
     );
@@ -239,7 +234,7 @@ class OverlayInterleaveManager {
     if (_layers.value.isEmpty) return;
     // Reset list and mark for rebuild.
     _layers.value = <InterleavedOverlayLayer>[];
-    _entry?.markNeedsBuild();
+    _syncEntries(forceToFront: false);
     _debugInterleaveLog('clearLayers order=[]');
   }
 
@@ -248,14 +243,18 @@ class OverlayInterleaveManager {
   /// Useful for hard resets (for example test teardown) so stale host entries
   /// do not accumulate across widget tree lifecycles.
   static void teardownHost({bool clearLayers = true}) {
-    final entry = _entry;
-    _entry = null;
+    final entries = List<OverlayEntry>.from(_entries.values);
+    _entries.clear();
+    _mountedOrder = <String>[];
+    _overlayState = null;
     _installScheduled = false;
     _bringToFrontScheduled = false;
     _pendingBringContext = null;
 
-    if (entry != null && entry.mounted) {
-      entry.remove();
+    for (final entry in entries) {
+      if (entry.mounted) {
+        entry.remove();
+      }
     }
 
     if (clearLayers) {
@@ -263,12 +262,18 @@ class OverlayInterleaveManager {
     }
   }
 
-  /// Ensure the interleaved overlay host is installed in the root overlay.
+  /// Ensure the interleaved overlay target overlay is resolved.
   static void ensureInstalled({BuildContext? context}) {
     if (!enabled) return;
-    // If we already have an entry reference, don't schedule another install.
-    // This keeps host installation idempotent and avoids duplicate hosts.
-    if (_entry != null) return;
+    if (context != null) {
+      _pendingBringContext = context;
+    }
+
+    final resolvedNow = resolveRootOverlay(context ?? _pendingBringContext);
+    if (resolvedNow != null) {
+      _overlayState = resolvedNow;
+      return;
+    }
 
     if (_installScheduled) return;
     _installScheduled = true;
@@ -277,49 +282,18 @@ class OverlayInterleaveManager {
       // Complete the deferred install on the next frame.
       _installScheduled = false;
 
-      // Another call may have installed the entry while this callback was queued.
-      if (_entry != null) return;
-
-      final overlayState = resolveRootOverlay(context);
+      final overlayState = resolveRootOverlay(context ?? _pendingBringContext);
       if (overlayState == null) return;
 
-      final entry = OverlayEntry(
-        maintainState: true,
-        builder: (context) => const _InterleavedOverlayHost(),
-      );
-
-      overlayState.insert(entry);
-      _entry = entry;
+      _overlayState = overlayState;
+      _syncEntries(forceToFront: true, context: context);
     });
   }
 
-  /// Bring the interleaved host to the front of the root overlay.
+  /// Bring the interleaved layer group to the front of the root overlay.
   static void bringToFront({BuildContext? context}) {
-    final entry = _entry;
-    if (entry == null) {
-      // Ensure install if we have no entry yet.
-      ensureInstalled(context: context);
-      return;
-    }
-
-    final overlayState = resolveRootOverlay(context);
-    if (overlayState == null) return;
-
-    if (entry.mounted) {
-      // Make promotion deterministic by re-inserting the same entry.
-      // This avoids ambiguous behavior from rearrange() when only a subset
-      // of overlay entries is provided.
-      entry.remove();
-      overlayState.insert(entry);
-      return;
-    }
-
-    // Entry not mounted. If an install is queued, wait for that callback.
-    if (_installScheduled) return;
-
-    // Recover stale unmounted entry and reinstall.
-    _entry = null;
     ensureInstalled(context: context);
+    _syncEntries(forceToFront: true, context: context);
   }
 
   /// Resolve the best root overlay from a context or the app root.
@@ -375,53 +349,104 @@ class OverlayInterleaveManager {
       ..clear()
       ..addAll(indexed.map((e) => e.value));
   }
-}
 
-/// Root overlay entry that renders interleaved layers in a single stack.
-class _InterleavedOverlayHost extends StatelessWidget {
-  const _InterleavedOverlayHost();
+  static bool _sameOrder(List<String> a, List<String> b) {
+    if (identical(a, b)) return true;
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    // Listen to the layer registry for updates.
-    return Material(
-      type: MaterialType.transparency,
-      child: ValueListenableBuilder<List<InterleavedOverlayLayer>>(
-        valueListenable: OverlayInterleaveManager._layers,
-        builder: (context, layers, child) {
-          if (layers.isEmpty) {
-            // When empty, keep host inert to avoid intercepting taps.
-            return const IgnorePointer(
-              ignoring: true,
-              child: SizedBox.shrink(),
+  static void _syncEntries({bool forceToFront = false, BuildContext? context}) {
+    if (!enabled) return;
+
+    final overlayState =
+        _overlayState ?? resolveRootOverlay(context ?? _pendingBringContext);
+    if (overlayState == null) {
+      ensureInstalled(context: context ?? _pendingBringContext);
+      return;
+    }
+    _overlayState = overlayState;
+
+    final desiredIds = _layers.value.map((layer) => layer.id).toSet();
+    final currentIds = List<String>.from(_entries.keys);
+
+    for (final id in currentIds) {
+      if (desiredIds.contains(id)) continue;
+      final removed = _entries.remove(id);
+      if (removed != null && removed.mounted) {
+        removed.remove();
+      }
+    }
+
+    _mountedOrder = _mountedOrder
+        .where((id) => desiredIds.contains(id))
+        .toList(growable: false);
+
+    InterleavedOverlayLayer? findLayer(String id) {
+      for (final layer in _layers.value) {
+        if (layer.id == id) return layer;
+      }
+      return null;
+    }
+
+    for (final layer in _layers.value) {
+      _entries.putIfAbsent(
+        layer.id,
+        () => OverlayEntry(
+          maintainState: true,
+          builder: (overlayContext) {
+            final currentLayer = findLayer(layer.id);
+            if (currentLayer == null) {
+              return const SizedBox.shrink();
+            }
+
+            return KeyedSubtree(
+              key: ValueKey('interleave_layer_${currentLayer.id}'),
+              child: currentLayer.builder(),
             );
-          }
+          },
+        ),
+      );
+    }
 
-          // Render each layer in stack order.
-          return IgnorePointer(
-            ignoring: false,
-            child: SizedBox.expand(
-              child: Stack(
-                fit: StackFit.expand,
-                children: layers
-                    .map(
-                      (layer) => Positioned.fill(
-                        // Key on Positioned.fill so Stack matches by key (not
-                        // index). Without this, removing any layer before the
-                        // snackbar shifts the snackbar's index, causing Flutter
-                        // to dispose and recreate its subtree - replaying the
-                        // entrance animation.
-                        key: ValueKey('interleave_layer_${layer.id}'),
-                        // Delegate actual content to the layer builder.
-                        child: layer.builder(),
-                      ),
-                    )
-                    .toList(growable: false),
-              ),
-            ),
-          );
-        },
-      ),
-    );
+    final orderedEntries = _layers.value
+        .map((layer) => _entries[layer.id])
+        .whereType<OverlayEntry>()
+        .toList(growable: false);
+
+    final desiredOrder =
+        _layers.value.map((layer) => layer.id).toList(growable: false);
+
+    if (orderedEntries.isEmpty) {
+      _mountedOrder = <String>[];
+      return;
+    }
+
+    final hasUnmountedEntries = orderedEntries.any((entry) => !entry.mounted);
+    final shouldRestack = forceToFront ||
+        hasUnmountedEntries ||
+        !_sameOrder(_mountedOrder, desiredOrder);
+
+    if (shouldRestack) {
+      for (final id in _mountedOrder.reversed) {
+        final entry = _entries[id];
+        if (entry != null && entry.mounted) {
+          entry.remove();
+        }
+      }
+
+      for (final entry in orderedEntries) {
+        overlayState.insert(entry);
+      }
+
+      _mountedOrder = desiredOrder;
+    }
+
+    for (final entry in orderedEntries) {
+      entry.markNeedsBuild();
+    }
   }
 }

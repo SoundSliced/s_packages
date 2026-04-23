@@ -1672,11 +1672,71 @@ class _SheetState extends State<_Sheet> with SingleTickerProviderStateMixin {
 
     // Apply dismiss effects when dismissing
     if (widget.isDismissing) {
-      // Apply dismiss effects when modal is being closed.
-      return positionedSheet.animate(
-        key: ValueKey("sheet_anim_${animationKeyId}_dismissing"),
-        effects: getDismissEffects(dragOffset),
+      // Keep the sheet subtree mounted while translating it out of view.
+      // Re-keying the whole animation wrapper recreates stateful sheet
+      // content and can snap resized widgets back to their initial size.
+      final viewportSize =
+          MediaQuery.maybeOf(context)?.size ?? const Size(1000.0, 1000.0);
+
+      final Offset dismissOffset;
+      switch (widget.position) {
+        case SheetPosition.bottom:
+          dismissOffset = Offset(0, viewportSize.height + dragOffset);
+          break;
+        case SheetPosition.top:
+          dismissOffset = Offset(0, -(viewportSize.height + dragOffset));
+          break;
+        case SheetPosition.left:
+          dismissOffset = Offset(-(viewportSize.width + dragOffset), 0);
+          break;
+        case SheetPosition.right:
+          dismissOffset = Offset(viewportSize.width + dragOffset, 0);
+          break;
+      }
+
+      final dismissingSheet = TweenAnimationBuilder<Offset>(
+        tween: Tween<Offset>(begin: Offset.zero, end: dismissOffset),
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.fastEaseInToSlowEaseOut,
+        child: finalSheet,
+        builder: (context, offset, child) {
+          return Transform.translate(
+            offset: offset,
+            child: child,
+          );
+        },
       );
+
+      switch (widget.position) {
+        case SheetPosition.bottom:
+          return Positioned(
+            bottom: -dragOffset,
+            left: 0,
+            right: 0,
+            child: dismissingSheet,
+          );
+        case SheetPosition.left:
+          return Positioned(
+            left: -dragOffset,
+            top: 0,
+            bottom: 0,
+            child: dismissingSheet,
+          );
+        case SheetPosition.right:
+          return Positioned(
+            right: -dragOffset,
+            top: 0,
+            bottom: 0,
+            child: dismissingSheet,
+          );
+        case SheetPosition.top:
+          return Positioned(
+            top: -dragOffset,
+            left: 0,
+            right: 0,
+            child: dismissingSheet,
+          );
+      }
     }
 
     // No effects for expand/collapse or normal state

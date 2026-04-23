@@ -7,7 +7,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:new_loading_indicator/new_loading_indicator.dart';
 import 'package:s_packages/s_packages.dart';
-import 'package:sizer/sizer.dart' show SizerExt;
+import 'package:sizer/sizer.dart' show SizerExt, Sizer;
 
 // Static widgets for performance optimization
 class _StaticBuilderWidgets {
@@ -591,34 +591,70 @@ class MeasureChildSizeWidget extends StatelessWidget {
 
 //************************************************ */
 
-class ForcePhoneSizeOnWeb extends StatelessWidget {
+class ForcePhoneSizeOnWeb extends StatefulWidget {
   final Widget child;
   final Size? size;
-  const ForcePhoneSizeOnWeb({super.key, required this.child, this.size});
+  final Function(Size)? onSizeChange;
+  const ForcePhoneSizeOnWeb({
+    super.key,
+    required this.child,
+    this.size,
+    this.onSizeChange,
+  });
+
+  @override
+  State<ForcePhoneSizeOnWeb> createState() => _ForcePhoneSizeOnWebState();
+}
+
+class _ForcePhoneSizeOnWebState extends State<ForcePhoneSizeOnWeb> {
+  Size? _lastReportedSize;
+
+  void _notifySizeChangeIfNeeded(Size newSize) {
+    if (widget.onSizeChange == null || _lastReportedSize == newSize) return;
+
+    _lastReportedSize = newSize;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      widget.onSizeChange?.call(newSize);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FlutterWebFrame(
-      maximumSize: size ?? Size(420.0, 812.0),
-      enabled: kIsWeb, // default is enable, when disable content is full size
-      backgroundColor:
-          const Color.fromARGB(255, 13, 36, 55).withValues(alpha: 1),
-      builder: (context) => Container(
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          border: kIsWeb ? Border.all(width: 8) : null,
-          borderRadius: kIsWeb ? BorderRadius.circular(35) : BorderRadius.zero,
+    return Sizer(builder: (context, orientation, deviceType) {
+      return FlutterWebFrame(
+        maximumSize: widget.size ?? const Size(420.0, 812.0),
+        enabled: kIsWeb, // default is enable, when disable content is full size
+        backgroundColor:
+            const Color.fromARGB(255, 13, 36, 55).withValues(alpha: 1),
+        builder: (context) => LayoutBuilder(
+          builder: (context, constraints) {
+            final frameSize = Size(
+              constraints.maxWidth,
+              constraints.maxHeight,
+            );
+            _notifySizeChangeIfNeeded(frameSize);
+
+            return Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                border: kIsWeb ? Border.all(width: 8) : null,
+                borderRadius:
+                    kIsWeb ? BorderRadius.circular(35) : BorderRadius.zero,
+              ),
+              child: Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius:
+                      kIsWeb ? BorderRadius.circular(30) : BorderRadius.zero,
+                ),
+                child: widget.child,
+              ),
+            );
+          },
         ),
-        child: Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius:
-                kIsWeb ? BorderRadius.circular(30) : BorderRadius.zero,
-          ),
-          child: child,
-        ),
-      ),
-    );
+      );
+    });
   }
 }
 
