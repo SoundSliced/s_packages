@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:s_packages/s_packages.dart';
 
 void main() {
+  // ignore: no_leading_underscores_for_local_identifiers
   Finder _timeInputEditableText() => find.descendant(
         of: find.byType(TimeInput),
         matching: find.byType(EditableText),
@@ -28,7 +29,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      final editableBefore = tester.widget<EditableText>(_timeInputEditableText());
+      final editableBefore =
+          tester.widget<EditableText>(_timeInputEditableText());
       expect(editableBefore.focusNode.hasFocus, isFalse);
 
       // Tap near the far right to stress cursor placement logic.
@@ -37,14 +39,16 @@ void main() {
       await tester.tapAt(Offset(topRight.dx - 8, topRight.dy + 20));
       await tester.pumpAndSettle();
 
-      final editableAfter = tester.widget<EditableText>(_timeInputEditableText());
+      final editableAfter =
+          tester.widget<EditableText>(_timeInputEditableText());
       expect(editableAfter.focusNode.hasFocus, isTrue);
       expect(editableAfter.controller.text, '10:30 z');
       expect(editableAfter.controller.selection.baseOffset, 0);
       expect(editableAfter.controller.selection.extentOffset, 0);
     });
 
-    testWidgets('tab traversal into TimeInput puts caret at start', (tester) async {
+    testWidgets('tab traversal into TimeInput puts caret at start',
+        (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -72,14 +76,16 @@ void main() {
       await tester.sendKeyEvent(LogicalKeyboardKey.tab);
       await tester.pumpAndSettle();
 
-      final editableAfterTab = tester.widget<EditableText>(_timeInputEditableText());
+      final editableAfterTab =
+          tester.widget<EditableText>(_timeInputEditableText());
       expect(editableAfterTab.focusNode.hasFocus, isTrue);
       expect(editableAfterTab.controller.text, '10:30 z');
       expect(editableAfterTab.controller.selection.baseOffset, 0);
       expect(editableAfterTab.controller.selection.extentOffset, 0);
     });
 
-    testWidgets('typing keeps formatted display while editing digits', (tester) async {
+    testWidgets('typing keeps formatted display while editing digits',
+        (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -105,7 +111,8 @@ void main() {
       await tester.enterText(find.byType(TextFormField), '1445');
       await tester.pumpAndSettle();
 
-      final editableAfterTyping = tester.widget<EditableText>(_timeInputEditableText());
+      final editableAfterTyping =
+          tester.widget<EditableText>(_timeInputEditableText());
       expect(editableAfterTyping.focusNode.hasFocus, isTrue);
       expect(editableAfterTyping.controller.text, '14:45 z');
     });
@@ -146,7 +153,9 @@ void main() {
       expect(editable.controller.selection.baseOffset, 5);
     });
 
-    testWidgets('backspace after minute tens clears that digit, not minute ones', (tester) async {
+    testWidgets(
+        'backspace after minute tens clears that digit, not minute ones',
+        (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -177,7 +186,8 @@ void main() {
       await tester.sendKeyEvent(LogicalKeyboardKey.backspace);
       await tester.pumpAndSettle();
 
-      final editableAfter = tester.widget<EditableText>(_timeInputEditableText());
+      final editableAfter =
+          tester.widget<EditableText>(_timeInputEditableText());
       expect(editableAfter.controller.text, '13:05 z');
     });
   });
