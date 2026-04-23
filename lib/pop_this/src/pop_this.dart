@@ -6,8 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 import 'package:s_packages/s_packages.dart';
-import 'package:sizer/sizer.dart';
-import 'package:tabler_icons_plus/tabler_icons_plus.dart';
+import 'package:sizer/sizer.dart'; 
 
 //****************************************** */
 ///            PUBLIC FUNCTIONS            ///
