@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 import 'package:s_packages/s_packages.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
 //****************************************** */
 ///            PUBLIC FUNCTIONS            ///
@@ -780,7 +780,7 @@ class PopThis {
             child: Column(
               children: [
                 Icon(
-                  icon ?? Iconsax.shield_cross_bold,
+                  icon ?? TablerIcons.shieldOff,
                   color: Colors.red,
                   size: 40,
                 ),
@@ -881,7 +881,7 @@ class PopThis {
             child: Column(
               children: [
                 Icon(
-                  icon ?? Iconsax.tick_circle_bold,
+                  icon ?? TablerIcons.squareCheck,
                   color: Colors.green,
                   size: 100,
                 ),

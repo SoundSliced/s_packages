@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:dart_helper_utils/dart_helper_utils.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 import 'package:s_packages/s_packages.dart';
+import 'package:tabler_icons_plus/tabler_icons_plus.dart';
 
 /// Defines visual variations of the horizontal calendar
 enum WeekCalendarType {
@@ -771,7 +771,7 @@ class _WeekCalendarState extends State<WeekCalendar> {
                                   children: [
                                     Expanded(
                                       child: Icon(
-                                        Iconsax.calendar_1_outline,
+                                        TablerIcons.calendarWeek,
                                         color: Colors.blue.shade800,
                                         size: 14,
                                       ),
