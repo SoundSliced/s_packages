@@ -9,7 +9,6 @@ export 'package:sizer/sizer.dart';
 export 'package:assorted_layout_widgets/assorted_layout_widgets.dart'
     hide Delayed;
 export 'package:circular_countdown_timer/circular_countdown_timer.dart';
-export 'package:lucide_icons/lucide_icons.dart';
 export 'package:pausable_timer/pausable_timer.dart';
 export 'package:dio/dio.dart';
 export 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
