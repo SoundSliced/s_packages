@@ -37,14 +37,23 @@ dependencies:
   universal_io: ^2.3.1
   path: ^1.9.1
   collection: ^1.19.1
-  async: ^2.13.0
+  async: ^2.13.1
   fpdart: ^1.2.0
-  universal_html: ^2.3.0
   webview_flutter: ^4.13.1
   webview_flutter_web: ^0.2.3+4
   desktop_webview_window: ^0.2.3
+  typed_data: ^1.4.0
+  source_span: ^1.10.2
+  html: ^0.15.6
+  charcode: ^1.4.0
+  csslib: ^1.0.2
+  meta: ^1.18.0
+  indexed_db: ^1.0.1
+  web: ^1.1.1
+  js_interop: ^0.0.1
 
 dependency_overrides:
+  meta: ^1.18.2
 
 
 dev_dependencies:

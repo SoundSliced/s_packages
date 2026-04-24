@@ -1,5 +1,6 @@
 // ignore: avoid_web_libraries_in_flutter
-import 'package:universal_html/universal_html.dart' as html;
+
+import 'package:s_packages/s_universal_html/src/html.dart' as html;
 
 Future<String> saveScreenshot(List<int> bytes, String fileName) async {
   final blob = html.Blob([bytes]);
