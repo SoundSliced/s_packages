@@ -123,6 +123,7 @@ class PaymentManager {
     return _instruments;
   }
 
+  // ignore: unnecessary_getters_setters
   String? get userHint {
     return _userHint;
   }

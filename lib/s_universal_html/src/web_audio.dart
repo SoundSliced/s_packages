@@ -57,6 +57,7 @@ class AudioTrack {
 
   bool? _enabled;
 
+  // ignore: unnecessary_getters_setters
   bool? get enabled {
     return _enabled;
   }
