@@ -43,6 +43,7 @@ The original files in the Dart SDK had the following license:
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+// ignore: invalid_annotation_target
 @visibleForTesting
 library;
 

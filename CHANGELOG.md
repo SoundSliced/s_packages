@@ -1,4 +1,9 @@
 
+## 4.2.1
+- **Dependency refresh:** Updated `assorted_layout_widgets` to `^12.4.2`, `dio` to `^5.9.2`, and `dart_helper_utils` to `^6.0.1`.
+- **Lint fixes in `s_universal_html`:** Added `// ignore: invalid_annotation_target` directive to `js.dart`, `js_util.dart`, `svg.dart`, and `web_gl.dart` to suppress false-positive annotations on library-level `@visibleForTesting`.
+- **Removed `meta` dependency override:** The pinned `meta` override is no longer needed and has been removed from `pubspec.yaml`.
+
 ## 4.2.0
 - **Cross-subpackage maintenance and behavior updates:**
   - Applied internal updates across `time_input`, `pop_overlay`, `s_modal`, `s_modoverlay`, `s_context_menu`, and `s_widgets` to improve consistency and maintainability.
