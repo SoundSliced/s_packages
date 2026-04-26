@@ -1,19 +1,26 @@
 
 ## 4.2.0
-- **Multi-subpackage update bundle:**
-  - Updated internals and behavior across `time_input`, `pop_overlay`, `s_modal`, `s_modoverlay`, `s_context_menu`, and `s_widgets`.
+- **Cross-subpackage maintenance and behavior updates:**
+  - Applied internal updates across `time_input`, `pop_overlay`, `s_modal`, `s_modoverlay`, `s_context_menu`, and `s_widgets` to improve consistency and maintainability.
 
-- **Dependency and export refresh:**
+- **Dependency and export updates:**
   - Replaced `icons_plus` with `tabler_icons_plus`.
-  - Exported `tabler_icons_plus` from the package surface for downstream use.
-  - Upgraded package dependencies for improved compatibility and maintenance.
+  - Exported `tabler_icons_plus` from the package surface for downstream usage.
+  - Refreshed package dependencies for better compatibility.
 
-- **`universal_html` migration hardening:**
-  - Replaced direct `universal_html` package usage with the `s_universal_html` subpackage.
-  - Improved `s_universal_html` internals and follow-up integration paths.
+- **`universal_html` migration and hardening:**
+  - Migrated direct `universal_html` usage to the `s_universal_html` subpackage.
+  - Applied follow-up improvements to `s_universal_html` integration and internals.
 
-- **General maintenance:**
-  - Additional internal cleanup/maintenance updates in this release cycle.
+- **General internal maintenance:**
+  - Included additional cleanup and maintenance updates in this release cycle.
+
+- **Testing and reliability:**
+  - Fixed an interleaving teardown edge case where `OverlayInterleaveManager` could attempt to insert entries into a disposed `OverlayState` during cleanup flows (notably around `Modal.dismissAll(...)`).
+  - Hardened interleaved host resolution/sync guards so only mounted overlays are reused after widget-tree teardown/rebuild cycles.
+  - Fixed `TimeInput` focus-entry and caret behavior regressions so first-focus taps consistently start at the first editable slot.
+  - Fixed `TimeInput` caret normalization/backspace slot handling so separator skipping and minute-digit clearing remain deterministic.
+  - Verified by passing targeted regression tests (`modal_background_interaction_test.dart`, `time_input_focus_cursor_test.dart`) and the full `flutter test` suite.
 
 ## 4.1.0
 - **`s_context_menu` maintenance and interaction refinements:**

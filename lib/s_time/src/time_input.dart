@@ -220,6 +220,9 @@ class _TimeInputState extends State<TimeInput> {
   /// Desired caret offset to apply when the field enters focus.
   int _focusEntryCaretTargetOffset = 0;
 
+  /// True when the current pointer interaction is the first focus-entry tap.
+  bool _pendingFocusEntryTap = false;
+
   /// Short-lived guard enabled on focus entry to defeat late select-all updates
   /// from keyboard traversal (TAB / SHIFT+TAB).
   bool _forceStartCaretOnFocusEntry = false;
@@ -509,24 +512,6 @@ class _TimeInputState extends State<TimeInput> {
       return targetOffset;
     }
 
-    // Prefer directional skipping when arrow keys move across separators.
-    if (lastOffset != null) {
-      if (targetOffset > lastOffset) {
-        // Moving right: jump to the next allowed slot.
-        for (final offset in allowedOffsets) {
-          if (offset > targetOffset) return offset;
-        }
-        return allowedOffsets.last;
-      } else if (targetOffset < lastOffset) {
-        // Moving left: jump to the previous allowed slot.
-        for (var i = allowedOffsets.length - 1; i >= 0; i--) {
-          final offset = allowedOffsets[i];
-          if (offset < targetOffset) return offset;
-        }
-        return allowedOffsets.first;
-      }
-    }
-
     // Fallback: choose closest allowed offset. On tie, prefer the right side.
     var best = allowedOffsets.first;
     var bestDistance = (best - targetOffset).abs();
@@ -590,6 +575,7 @@ class _TimeInputState extends State<TimeInput> {
       // When losing focus, format the text and trigger callback
       _formatAndNotify();
       _wasUnfocused = true;
+      _pendingFocusEntryTap = false;
       _forceStartCaretOnFocusEntry = false;
       _focusEntryCaretTargetOffset = 0;
       _lastCollapsedSelectionOffset = null;
@@ -752,8 +738,12 @@ class _TimeInputState extends State<TimeInput> {
   void _handleTap() {
     // If the field was unfocused, this tap is a focus-entry gesture.
     // Keep formatted display text and force caret to start as requested.
-    if (_wasUnfocused) {
+    if (_pendingFocusEntryTap || _wasUnfocused) {
+      _pendingFocusEntryTap = false;
       _wasUnfocused = false;
+      if (!_focusNode.hasFocus && _focusNode.canRequestFocus) {
+        _focusNode.requestFocus();
+      }
       _enforceFocusEntryCaretAtStart(0);
       _lastCollapsedSelectionOffset = 0;
       return;
@@ -769,6 +759,30 @@ class _TimeInputState extends State<TimeInput> {
   void _handleTapOutside(PointerDownEvent event) {
     _formatAndNotify();
     _focusNode.unfocus();
+  }
+
+  void _handleContainerTapDown(TapDownDetails details) {
+    if (_focusNode.hasFocus || !_focusNode.canRequestFocus) return;
+
+    // Any first tap inside the TimeInput container should enter focus mode
+    // and start at the first editable slot.
+    _pendingFocusEntryTap = true;
+    _focusEntryCaretTargetOffset = 0;
+    _focusNode.requestFocus();
+    _enforceFocusEntryCaretAtStart(0);
+    _lastCollapsedSelectionOffset = 0;
+  }
+
+  void _handleContainerPointerDown(PointerDownEvent event) {
+    if (_focusNode.hasFocus || !_focusNode.canRequestFocus) return;
+
+    // Raw pointer down is more reliable than tap recognizers for decoration
+    // hit areas (label/padding), especially in widget tests.
+    _pendingFocusEntryTap = true;
+    _focusEntryCaretTargetOffset = 0;
+    _focusNode.requestFocus();
+    _enforceFocusEntryCaretAtStart(0);
+    _lastCollapsedSelectionOffset = 0;
   }
 
   /// Handles text changes during user input
@@ -903,110 +917,115 @@ class _TimeInputState extends State<TimeInput> {
   Widget build(BuildContext context) => Box(
         height: 80,
         // alignment: Alignment.center,
-        child: GestureDetector(
+        child: Listener(
           behavior: HitTestBehavior.translucent,
-          onDoubleTapDown: _handleDoubleTapDown,
-          child: TextFormField(
-            key: _textFieldKey,
-            controller: tfc,
-            focusNode: _focusNode,
-            // autofocus: widget.autoFocus, // Using manual focus to control cursor positioning
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              TimeInputFormatter(
-                isUtc: widget.isUtc,
-                showLocalIndicator: widget.showLocalIndicator,
-                enableDebugLogs: widget.enableDebugLogs,
-              ),
-            ],
-            textAlign: TextAlign.center,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: TimeInputControllers.timeInputValidator,
-
-            onTap: _handleTap,
-            onTapOutside: _handleTapOutside,
-            onChanged: _handleTextChanged,
-            onFieldSubmitted: (_) =>
-                _handleEnterKey(), // Mobile/IME submit path
-            style: TextStyle(
-              fontSize: widget.inputFontSize ?? 16,
-              // color: widget.colorPerTitle?[widget.title] ?? Colors.red.shade800,
-            ),
-            decoration: (widget.inputDecoration?.copyWith(
-                  contentPadding: widget.contentPadding ??
-                      widget.inputDecoration?.contentPadding,
-                  suffixIcon: widget.showClearButton
-                      ? _buildClearButton()
-                      : widget.inputDecoration?.suffixIcon,
-                  suffixIconConstraints: widget.showClearButton
-                      ? const BoxConstraints(
-                          minWidth: 18,
-                          minHeight: 18,
-                        )
-                      : widget.inputDecoration?.suffixIconConstraints,
-                )) ??
-                InputDecoration(
-                  fillColor: Colors.white.withValues(alpha: 0.6),
-                  filled: true,
-                  hintText: '(e.g., 1030)',
-                  hintStyle: TextStyle(
-                    color: Colors.grey[400],
-                    fontSize: 12,
-                  ),
-                  labelText: widget.title,
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: widget.colorPerTitle?[widget.title] ??
-                        Colors.red.shade800,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(widget.borderRadius ?? 12),
-                    borderSide: const BorderSide(
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(widget.borderRadius ?? 12),
-                    borderSide: const BorderSide(
-                      color: Colors.blue,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(widget.borderRadius ?? 12),
-                    borderSide: BorderSide(
-                      color: Colors.grey[300]!,
-                    ),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(widget.borderRadius ?? 12),
-                    borderSide: const BorderSide(
-                      color: Colors.red,
-                    ),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(widget.borderRadius ?? 12),
-                    borderSide: const BorderSide(
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                  contentPadding: widget.contentPadding ??
-                      const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-                  suffixIcon:
-                      widget.showClearButton ? _buildClearButton() : null,
-                  suffixIconConstraints: widget.showClearButton
-                      ? const BoxConstraints(
-                          minWidth: 16,
-                          minHeight: 16,
-                        )
-                      : null,
+          onPointerDown: _handleContainerPointerDown,
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTapDown: _handleContainerTapDown,
+            onDoubleTapDown: _handleDoubleTapDown,
+            child: TextFormField(
+              key: _textFieldKey,
+              controller: tfc,
+              focusNode: _focusNode,
+              // autofocus: widget.autoFocus, // Using manual focus to control cursor positioning
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                TimeInputFormatter(
+                  isUtc: widget.isUtc,
+                  showLocalIndicator: widget.showLocalIndicator,
+                  enableDebugLogs: widget.enableDebugLogs,
                 ),
+              ],
+              textAlign: TextAlign.center,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: TimeInputControllers.timeInputValidator,
+
+              onTap: _handleTap,
+              onTapOutside: _handleTapOutside,
+              onChanged: _handleTextChanged,
+              onFieldSubmitted: (_) =>
+                  _handleEnterKey(), // Mobile/IME submit path
+              style: TextStyle(
+                fontSize: widget.inputFontSize ?? 16,
+                // color: widget.colorPerTitle?[widget.title] ?? Colors.red.shade800,
+              ),
+              decoration: (widget.inputDecoration?.copyWith(
+                    contentPadding: widget.contentPadding ??
+                        widget.inputDecoration?.contentPadding,
+                    suffixIcon: widget.showClearButton
+                        ? _buildClearButton()
+                        : widget.inputDecoration?.suffixIcon,
+                    suffixIconConstraints: widget.showClearButton
+                        ? const BoxConstraints(
+                            minWidth: 18,
+                            minHeight: 18,
+                          )
+                        : widget.inputDecoration?.suffixIconConstraints,
+                  )) ??
+                  InputDecoration(
+                    fillColor: Colors.white.withValues(alpha: 0.6),
+                    filled: true,
+                    hintText: '(e.g., 1030)',
+                    hintStyle: TextStyle(
+                      color: Colors.grey[400],
+                      fontSize: 12,
+                    ),
+                    labelText: widget.title,
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: widget.colorPerTitle?[widget.title] ??
+                          Colors.red.shade800,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(widget.borderRadius ?? 12),
+                      borderSide: const BorderSide(
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(widget.borderRadius ?? 12),
+                      borderSide: const BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(widget.borderRadius ?? 12),
+                      borderSide: BorderSide(
+                        color: Colors.grey[300]!,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(widget.borderRadius ?? 12),
+                      borderSide: const BorderSide(
+                        color: Colors.red,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(widget.borderRadius ?? 12),
+                      borderSide: const BorderSide(
+                        color: Colors.redAccent,
+                      ),
+                    ),
+                    contentPadding: widget.contentPadding ??
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                    suffixIcon:
+                        widget.showClearButton ? _buildClearButton() : null,
+                    suffixIconConstraints: widget.showClearButton
+                        ? const BoxConstraints(
+                            minWidth: 16,
+                            minHeight: 16,
+                          )
+                        : null,
+                  ),
+            ),
           ),
         ),
       );
@@ -1325,7 +1344,13 @@ class TimeInputFormatter extends TextInputFormatter {
           1;
 
       if (removalIndex >= 0 && removalIndex < oldDigits.length) {
-        limitedDigits = _removeDigitAt(oldDigits, removalIndex);
+        // In full HHMM mode, backspace should clear the targeted digit slot
+        // while preserving structure (e.g. 13:45 -> 13:05 at minute-tens).
+        if (oldDigits.length >= 4) {
+          limitedDigits = _replaceDigitAt(oldDigits, removalIndex, '0');
+        } else {
+          limitedDigits = _removeDigitAt(oldDigits, removalIndex);
+        }
         isBackspace = true;
         backspaceSlot = removalIndex; // 0-based slot where deletion occurred
       }
@@ -1394,6 +1419,13 @@ class TimeInputFormatter extends TextInputFormatter {
   String _removeDigitAt(String digits, int index) {
     if (index < 0 || index >= digits.length) return digits;
     return '${digits.substring(0, index)}${digits.substring(index + 1)}';
+  }
+
+  String _replaceDigitAt(String digits, int index, String replacement) {
+    if (index < 0 || index >= digits.length || replacement.isEmpty) {
+      return digits;
+    }
+    return '${digits.substring(0, index)}${replacement[0]}${digits.substring(index + 1)}';
   }
 
   /// Returns the raw string offset of the digit at 0-based [slotIndex].

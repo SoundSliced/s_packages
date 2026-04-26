@@ -265,12 +265,16 @@ class OverlayInterleaveManager {
   /// Ensure the interleaved overlay target overlay is resolved.
   static void ensureInstalled({BuildContext? context}) {
     if (!enabled) return;
+    if (_overlayState != null && !_overlayState!.mounted) {
+      _overlayState = null;
+      _mountedOrder = <String>[];
+    }
     if (context != null) {
       _pendingBringContext = context;
     }
 
     final resolvedNow = resolveRootOverlay(context ?? _pendingBringContext);
-    if (resolvedNow != null) {
+    if (resolvedNow != null && resolvedNow.mounted) {
       _overlayState = resolvedNow;
       return;
     }
@@ -283,7 +287,7 @@ class OverlayInterleaveManager {
       _installScheduled = false;
 
       final overlayState = resolveRootOverlay(context ?? _pendingBringContext);
-      if (overlayState == null) return;
+      if (overlayState == null || !overlayState.mounted) return;
 
       _overlayState = overlayState;
       _syncEntries(forceToFront: true, context: context);
@@ -301,18 +305,20 @@ class OverlayInterleaveManager {
     if (context != null) {
       // Prefer the true root overlay when available.
       final rootOverlay = Overlay.maybeOf(context, rootOverlay: true);
-      if (rootOverlay != null) return rootOverlay;
+      if (rootOverlay != null && rootOverlay.mounted) return rootOverlay;
 
       // Fallback to the nearest overlay in unusual embed cases.
       final nearestOverlay = Overlay.maybeOf(context, rootOverlay: false);
-      if (nearestOverlay != null) return nearestOverlay;
+      if (nearestOverlay != null && nearestOverlay.mounted) {
+        return nearestOverlay;
+      }
     }
 
     final rootElement = WidgetsBinding.instance.rootElement;
     if (rootElement == null) return null;
 
     final rootOverlay = Overlay.maybeOf(rootElement, rootOverlay: true);
-    if (rootOverlay != null) return rootOverlay;
+    if (rootOverlay != null && rootOverlay.mounted) return rootOverlay;
 
     OverlayState? found;
 
@@ -320,7 +326,11 @@ class OverlayInterleaveManager {
       // DFS search for an OverlayState as a last-resort fallback.
       if (found != null) return;
       if (element is StatefulElement && element.state is OverlayState) {
-        found = element.state as OverlayState;
+        final overlayState = element.state as OverlayState;
+        if (overlayState.mounted) {
+          found = overlayState;
+          return;
+        }
         return;
       }
       element.visitChildElements(visit);
@@ -362,9 +372,14 @@ class OverlayInterleaveManager {
   static void _syncEntries({bool forceToFront = false, BuildContext? context}) {
     if (!enabled) return;
 
+    final staleOverlayState = _overlayState;
     final overlayState =
-        _overlayState ?? resolveRootOverlay(context ?? _pendingBringContext);
-    if (overlayState == null) {
+        (staleOverlayState != null && staleOverlayState.mounted)
+            ? staleOverlayState
+            : resolveRootOverlay(context ?? _pendingBringContext);
+    if (overlayState == null || !overlayState.mounted) {
+      _overlayState = null;
+      _mountedOrder = <String>[];
       ensureInstalled(context: context ?? _pendingBringContext);
       return;
     }
