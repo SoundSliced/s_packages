@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:s_packages/s_packages.dart';
 
 /// A highly customizable ListView.builder with built-in index-based scrolling capabilities.
@@ -549,9 +550,7 @@ class _IndexScrollListViewBuilderState
           shrinkWrap: needsShrinkWrap,
 
           // Use enhanced caching for smoother scrolling and better performance.
-          // Keep this on `cacheExtent` (double) for compatibility with lower
-          // Flutter SDK constraints used by pub.dev downgrade analysis.
-          cacheExtent: 500,
+          scrollCacheExtent: ScrollCacheExtent.pixels(500),
 
           // Wrap each item in IndexedScrollTag to enable index-based scrolling
           itemBuilder: (context, index) => IndexedScrollTag(
