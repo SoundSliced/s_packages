@@ -550,7 +550,8 @@ class _IndexScrollListViewBuilderState
           shrinkWrap: needsShrinkWrap,
 
           // Use enhanced caching for smoother scrolling and better performance.
-          scrollCacheExtent: ScrollCacheExtent.pixels(500),
+          // ignore: deprecated_member_use
+          cacheExtent: 500.0,
 
           // Wrap each item in IndexedScrollTag to enable index-based scrolling
           itemBuilder: (context, index) => IndexedScrollTag(
