@@ -138,21 +138,30 @@ class SContextMenuTheme {
 
   /// Resolve a background color if none provided based on brightness.
   Color resolveBackground(Brightness brightness) =>
-      panelBackgroundColor ?? (brightness == Brightness.dark ? const Color(0xF5222936) : const Color(0xFDFEFFff));
+      panelBackgroundColor ??
+      (brightness == Brightness.dark
+          ? const Color(0xF5222936)
+          : const Color(0xFDFEFFff));
 
   Color resolveBorder(Brightness brightness) =>
-      panelBorderColor ?? (brightness == Brightness.dark ? const Color(0x336B7280) : const Color(0xFFDDE5F0));
+      panelBorderColor ??
+      (brightness == Brightness.dark
+          ? const Color(0x336B7280)
+          : const Color(0xFFDDE5F0));
 
   List<BoxShadow> resolveShadows(Brightness brightness) =>
       panelShadows ??
       [
         BoxShadow(
-          color: Colors.black.withValues(alpha: brightness == Brightness.dark ? 0.34 : 0.16),
+          color: Colors.black
+              .withValues(alpha: brightness == Brightness.dark ? 0.34 : 0.16),
           blurRadius: 22,
           offset: const Offset(0, 10),
         ),
         BoxShadow(
-          color: (brightness == Brightness.dark ? const Color(0xFF0F172A) : const Color(0xFF1D4ED8))
+          color: (brightness == Brightness.dark
+                  ? const Color(0xFF0F172A)
+                  : const Color(0xFF1D4ED8))
               .withValues(alpha: brightness == Brightness.dark ? 0.16 : 0.08),
           blurRadius: 8,
           offset: const Offset(0, 2),
@@ -160,15 +169,19 @@ class SContextMenuTheme {
       ];
 
   /// Resolve icon/text color. Falls back to primary color from context.
-  Color resolveIconColor(Color fallbackPrimary) => iconColor ?? fallbackPrimary.withValues(alpha: 0.92);
+  Color resolveIconColor(Color fallbackPrimary) =>
+      iconColor ?? fallbackPrimary.withValues(alpha: 0.92);
 
   /// Resolve destructive color. Falls back to red.
-  Color resolveDestructiveColor() => destructiveColor ?? const Color(0xFFDC2626);
+  Color resolveDestructiveColor() =>
+      destructiveColor ?? const Color(0xFFDC2626);
 
   /// Resolve hover background color based on brightness.
   Color resolveHoverColor(bool isDark) =>
-      hoverColor ?? (isDark ? Colors.white.withValues(alpha: 0.08) : const Color(0x1A2563EB));
+      hoverColor ??
+      (isDark ? Colors.white.withValues(alpha: 0.08) : const Color(0x1A2563EB));
 
   /// Resolve arrow color. Falls back to panel background color.
-  Color resolveArrowColor(Brightness brightness) => arrowColor ?? resolveBackground(brightness);
+  Color resolveArrowColor(Brightness brightness) =>
+      arrowColor ?? resolveBackground(brightness);
 }

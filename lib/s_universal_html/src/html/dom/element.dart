@@ -594,7 +594,8 @@ abstract class Element extends Node
       : _nodeName = '',
         _lowerCaseTagName = '',
         super._(window.document) {
-    throw UnsupportedError('Element.created() is not supported outside a browser context.');
+    throw UnsupportedError(
+        'Element.created() is not supported outside a browser context.');
   }
 
   /// Creates a new `<div>` element.
@@ -1784,8 +1785,8 @@ abstract class Element extends Node
   /// draft specification.
   void attached() {}
 
-  ShadowRoot attachShadow(Map shadowRootInitDict) =>
-      throw UnsupportedError('Shadow DOM is not available outside a browser context.');
+  ShadowRoot attachShadow(Map shadowRootInitDict) => throw UnsupportedError(
+      'Shadow DOM is not available outside a browser context.');
 
   /// Called by the DOM whenever an attribute on this has been changed.
   void attributeChanged(String name, String oldValue, String newValue) {}
@@ -1798,8 +1799,8 @@ abstract class Element extends Node
     dispatchEvent(MouseEvent('click'));
   }
 
-  Element closest(String selectors) =>
-      throw UnsupportedError('Element.closest() is not available outside a browser context.');
+  Element closest(String selectors) => throw UnsupportedError(
+      'Element.closest() is not available outside a browser context.');
 
   /// Create a DocumentFragment from the HTML fragment and ensure that it follows
   /// the sanitization rules specified by the validator or treeSanitizer.
@@ -1841,8 +1842,8 @@ abstract class Element extends Node
   ///   from HTML5Rocks.
   /// * [Shadow DOM specification](http://www.w3.org/TR/shadow-dom/) from W3C.
   @SupportedBrowser(SupportedBrowser.CHROME, '25')
-  ShadowRoot createShadowRoot() =>
-      throw UnsupportedError('Shadow DOM is not available outside a browser context.');
+  ShadowRoot createShadowRoot() => throw UnsupportedError(
+      'Shadow DOM is not available outside a browser context.');
 
   /// Called by the DOM when this element has been removed from the live
   /// document.
@@ -1993,7 +1994,8 @@ abstract class Element extends Node
   ///
   /// * [insertAdjacentHtml]
   Element insertAdjacentElement(String where, Element element) =>
-      throw UnsupportedError('insertAdjacentElement() is not available outside a browser context.');
+      throw UnsupportedError(
+          'insertAdjacentElement() is not available outside a browser context.');
 
   /// Parses text as an HTML fragment and inserts it into the DOM at the
   /// specified location.
@@ -2021,7 +2023,8 @@ abstract class Element extends Node
     NodeValidator? validator,
     NodeTreeSanitizer? treeSanitizer,
   }) {
-    throw UnsupportedError('insertAdjacentHtml() is not available outside a browser context.');
+    throw UnsupportedError(
+        'insertAdjacentHtml() is not available outside a browser context.');
   }
 
   /// Inserts text into the DOM at the specified location.
@@ -2033,7 +2036,8 @@ abstract class Element extends Node
   ///
   /// * [insertAdjacentHtml]
   void insertAdjacentText(String where, String text) {
-    throw UnsupportedError('insertAdjacentText() is not available outside a browser context.');
+    throw UnsupportedError(
+        'insertAdjacentText() is not available outside a browser context.');
   }
 
   @visibleForTesting
@@ -2235,7 +2239,8 @@ abstract class Element extends Node
   void scrollTo([dynamic optionsOrX, num? y]) {}
 
   Future<ScrollState> setApplyScroll(String nativeScrollBehavior) =>
-      Future.error(UnsupportedError('setApplyScroll() is not available outside a browser context.'));
+      Future.error(UnsupportedError(
+          'setApplyScroll() is not available outside a browser context.'));
 
   void setAttribute(String name, String value) {
     //
@@ -2324,7 +2329,8 @@ abstract class Element extends Node
   }
 
   Future<ScrollState> setDistributeScroll(String nativeScrollBehavior) =>
-      Future.error(UnsupportedError('setDistributeScroll() is not available outside a browser context.'));
+      Future.error(UnsupportedError(
+          'setDistributeScroll() is not available outside a browser context.'));
 
   /// Parses the HTML fragment and sets it as the contents of this element.
   /// This ensures that the generated content follows the sanitization rules
