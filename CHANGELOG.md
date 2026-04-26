@@ -1,4 +1,20 @@
 
+## 4.2.0
+- **Multi-subpackage update bundle:**
+  - Updated internals and behavior across `time_input`, `pop_overlay`, `s_modal`, `s_modoverlay`, `s_context_menu`, and `s_widgets`.
+
+- **Dependency and export refresh:**
+  - Replaced `icons_plus` with `tabler_icons_plus`.
+  - Exported `tabler_icons_plus` from the package surface for downstream use.
+  - Upgraded package dependencies for improved compatibility and maintenance.
+
+- **`universal_html` migration hardening:**
+  - Replaced direct `universal_html` package usage with the `s_universal_html` subpackage.
+  - Improved `s_universal_html` internals and follow-up integration paths.
+
+- **General maintenance:**
+  - Additional internal cleanup/maintenance updates in this release cycle.
+
 ## 4.1.0
 - **`s_context_menu` maintenance and interaction refinements:**
   - Refined internal `TapRegion` composition in the overlay shell to keep grouped tap handling behavior consistent during outside-tap and right-click interactions.
