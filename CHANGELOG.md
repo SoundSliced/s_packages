@@ -1,4 +1,7 @@
 
+## 4.2.2
+- **Dependency adjustment:** `meta` downgraded to `^1.17.0` to pass pub.dev analysis
+
 ## 4.2.1
 - **Dependency refresh:** Updated `assorted_layout_widgets` to `^12.4.2`, `dio` to `^5.9.2`, and `dart_helper_utils` to `^6.0.1`.
 - **Lint fixes in `s_universal_html`:** Added `// ignore: invalid_annotation_target` directive to `js.dart`, `js_util.dart`, `svg.dart`, and `web_gl.dart` to suppress false-positive annotations on library-level `@visibleForTesting`.
