@@ -1,3 +1,6 @@
+## 4.2.3
+- **Lower-bound Flutter compatibility:** Replaced `scrollCacheExtent: ScrollCacheExtent.pixels(500)` with `cacheExtent: 500` in `indexscroll_listview_builder` to support pub.dev downgrade analysis environments where `ScrollCacheExtent` is unavailable.
+
 
 ## 4.2.2
 - **Dependency adjustment:** `meta` downgraded to `^1.17.0` to pass pub.dev analysis
