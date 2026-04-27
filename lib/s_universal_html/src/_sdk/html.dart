@@ -31,4 +31,5 @@
 // When dart:html is not available (non-web platforms),
 // export the fallback implementation instead
 //
+// ignore: invalid_export_of_internal_element
 export '../html.dart';

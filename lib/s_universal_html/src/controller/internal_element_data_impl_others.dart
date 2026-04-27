@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore: invalid_export_of_internal_element
 export 'package:s_packages/s_universal_html/src/html.dart' show Element;
 
 import '../html.dart';

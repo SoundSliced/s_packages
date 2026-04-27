@@ -1,3 +1,24 @@
+## 4.3.2
+- **`s_universal_html` — Stack overflow fix in DOM parsing:**
+  - In `src/controller/window_behavior_impl_browser.dart`, replaced `DomParser().parseFromString('<html></html>', contentType)` with direct `HtmlDocument.internal(...)` / `XmlDocument.internal(...)` constructor calls, eliminating the recursive `window.document` access that caused a `StackOverflowError`.
+
+- **`s_universal_html` — Internal `src/html.dart` marked private:**
+  - Added `@Deprecated('Internal library. Import package:s_packages/s_universal_html/html.dart instead.')` annotation.
+  - Added `@internal` annotation (from `package:meta`).
+
+- **`s_universal_html` — Public `html.dart` entry point updated:**
+  - Added `export 's_universal_html.dart';` so `SUniversalHtml` is available to any consumer of the public API.
+
+- **`s_universal_html` — New high-level DOM helper class `SUniversalHtml`:**
+  - `abstract final class SUniversalHtml` with platform-safe static helpers (no-ops on non-web).
+  - Covers: context menu, window location & navigation, URL parameters, hash/history, document title, window size, resize/visibility/keyboard/mouse/fullscreen events, clipboard read/write, fullscreen, text selection, CSS variables, scroll, file download (text & bytes), window focus/blur/print, and cookies.
+  - Implemented via `package:web` + `dart:js_interop` on web (JS and WASM compatible); safe no-op stubs on native.
+  - `preventDefaultContextMenu()` returns a `void Function()?` cancel callback (no `dart:html` types exposed).
+  - All event streams return `Stream<void>` — platform-agnostic, no event-object types in the public API.
+
+- **`s_universal_html` — Example app context-menu test:**
+  - Added a toggle + right-click target box to the `SUniversalHtml` example screen to verify `preventDefaultContextMenu()` live in the browser.
+
 ## 4.3.1
 - **`s_universal_html` web stability fix:**
   - Fixed a browser-only `StackOverflowError` caused by recursive `window` initialization in `window_behavior_impl_browser.dart`.

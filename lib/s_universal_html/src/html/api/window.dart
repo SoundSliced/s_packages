@@ -1009,6 +1009,12 @@ class Window extends EventTarget
   ///   from MDN.
   void print() {}
 
+  /// Brings the browser window to the foreground.
+  void focus() {}
+
+  /// Removes focus from the browser window.
+  void blur() {}
+
   /// Called to draw an animation frame and then request the window to repaint
   /// after [callback] has finished (creating the animation).
   ///

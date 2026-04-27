@@ -16,3 +16,4 @@
 library;
 
 export 'universal_html.dart';
+export 's_universal_html.dart';

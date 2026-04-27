@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:s_packages/s_universal_html/html.dart' as uhtml;
+import 'package:s_packages/s_universal_html/s_universal_html.dart';
 
 class SUniversalHtmlExampleScreen extends StatefulWidget {
   const SUniversalHtmlExampleScreen({super.key});
@@ -20,10 +21,37 @@ class _SUniversalHtmlExampleScreenState
   bool? _cookieEnabled;
   String _log = '';
 
+  // Context-menu prevention
+  bool _contextMenuPrevented = false;
+  void Function()? _contextMenuCancel;
+
   @override
   void initState() {
     super.initState();
     _readNavigatorInfo();
+  }
+
+  @override
+  void dispose() {
+    _contextMenuCancel?.call();
+    super.dispose();
+  }
+
+  void _toggleContextMenuPrevention() {
+    if (_contextMenuPrevented) {
+      _contextMenuCancel?.call();
+      _contextMenuCancel = null;
+      setState(() => _contextMenuPrevented = false);
+      _appendLog('Context menu prevention disabled.');
+    } else {
+      _contextMenuCancel = SUniversalHtml.preventDefaultContextMenu();
+      setState(() => _contextMenuPrevented = true);
+      _appendLog(
+        kIsWeb
+            ? 'Context menu prevention enabled — right-click the box below.'
+            : '⚠️  No-op on non-web platform (expected).',
+      );
+    }
   }
 
   void _readNavigatorInfo() {
@@ -176,6 +204,74 @@ class _SUniversalHtmlExampleScreenState
                     onPressed: () => _replaceLocation('https://dart.dev'),
                     icon: const Icon(Icons.swap_horiz, size: 16),
                     label: const Text('location.replace("https://dart.dev")'),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Context menu card
+            _SectionCard(
+              title: 'SUniversalHtml.preventDefaultContextMenu()',
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Toggle browser context-menu suppression, then right-click '
+                    'inside the box to verify.',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  ElevatedButton.icon(
+                    onPressed: _toggleContextMenuPrevention,
+                    icon: Icon(
+                      _contextMenuPrevented
+                          ? Icons.block
+                          : Icons.check_circle_outline,
+                    ),
+                    label: Text(
+                      _contextMenuPrevented
+                          ? 'Disable prevention'
+                          : 'Enable prevention',
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _contextMenuPrevented
+                          ? Colors.red.shade600
+                          : Colors.green.shade600,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: _contextMenuPrevented
+                          ? Colors.red.shade50
+                          : Colors.grey.shade100,
+                      border: Border.all(
+                        color: _contextMenuPrevented
+                            ? Colors.red.shade300
+                            : Colors.grey.shade400,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(
+                        _contextMenuPrevented
+                            ? '🚫  Right-click is blocked'
+                            : '✅  Right-click me — menu should appear',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: _contextMenuPrevented
+                              ? Colors.red.shade700
+                              : Colors.grey.shade700,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

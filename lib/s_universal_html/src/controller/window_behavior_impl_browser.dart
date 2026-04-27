@@ -17,16 +17,22 @@ import 'package:web/web.dart' as web;
 
 import 'window_controller.dart';
 
-Document newDocument(
-    {required Window window,
-    required String contentType,
-    required bool filled}) {
-  return DomParser().parseFromString('<html></html>', contentType);
+Document newDocument({required Window window, required String contentType, required bool filled}) {
+  final normalizedContentType = contentType.trim().toLowerCase();
+  final isHtml =
+      normalizedContentType.isEmpty ||
+      normalizedContentType.contains('html') ||
+      normalizedContentType == 'application/xhtml+xml';
+
+  if (isHtml) {
+    return HtmlDocument.internal(window: window, contentType: contentType, filled: filled);
+  }
+
+  return XmlDocument.internal(window: window, contentType: contentType);
 }
 
 HtmlDocument newHtmlDocument({required Window window, String? contentType}) {
-  return DomParser().parseFromString(
-      '<html></html>', contentType ?? 'text/html') as HtmlDocument;
+  return HtmlDocument.internal(window: window, contentType: contentType ?? 'text/html', filled: true);
 }
 
 Navigator newNavigator({required Window window}) {
@@ -61,10 +67,7 @@ Navigator newNavigator({required Window window}) {
 
   List<String> readLanguages(dynamic value) {
     if (value is Iterable) {
-      return value
-          .map((e) => e.toString())
-          .where((e) => e.trim().isNotEmpty)
-          .toList();
+      return value.map((e) => e.toString()).where((e) => e.trim().isNotEmpty).toList();
     }
 
     final raw = value?.toString().trim();
@@ -73,11 +76,7 @@ Navigator newNavigator({required Window window}) {
     }
 
     if (raw.contains(',')) {
-      return raw
-          .split(',')
-          .map((e) => e.trim())
-          .where((e) => e.isNotEmpty)
-          .toList();
+      return raw.split(',').map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
     }
 
     return <String>[raw];
@@ -120,8 +119,5 @@ Window newWindow({required WindowController windowController}) {
     currentHref: () => web.window.location.href,
   );
 
-  return Window.internal(
-    internalWindowController: windowController,
-    href: web.window.location.href,
-  );
+  return Window.internal(internalWindowController: windowController, href: web.window.location.href);
 }
