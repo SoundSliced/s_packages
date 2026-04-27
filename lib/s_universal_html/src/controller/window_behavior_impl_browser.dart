@@ -13,21 +13,25 @@
 // limitations under the License.
 
 import 'package:s_packages/s_universal_html/src/html.dart';
-import 'dart:html' as browser;
+import 'package:web/web.dart' as web;
 
 import '../../html.dart';
 import 'window_controller.dart';
 
-Document newDocument({required Window window, required String contentType, required bool filled}) {
+Document newDocument(
+    {required Window window,
+    required String contentType,
+    required bool filled}) {
   return DomParser().parseFromString('<html></html>', contentType);
 }
 
 HtmlDocument newHtmlDocument({required Window window, String? contentType}) {
-  return DomParser().parseFromString('<html></html>', contentType ?? 'text/html') as HtmlDocument;
+  return DomParser().parseFromString(
+      '<html></html>', contentType ?? 'text/html') as HtmlDocument;
 }
 
 Navigator newNavigator({required Window window}) {
-  final dynamic browserNavigator = browser.window.navigator;
+  final dynamic browserNavigator = web.window.navigator;
 
   String readString(dynamic value, String fallback) {
     final s = value?.toString() ?? '';
@@ -57,16 +61,27 @@ Navigator newNavigator({required Window window}) {
   }
 
   List<String> readLanguages(dynamic value) {
-    if (value is List) {
-      return value.map((e) => e.toString()).where((e) => e.trim().isNotEmpty).toList();
+    if (value is Iterable) {
+      return value
+          .map((e) => e.toString())
+          .where((e) => e.trim().isNotEmpty)
+          .toList();
     }
 
-    final single = value?.toString();
-    if (single != null && single.trim().isNotEmpty) {
-      return <String>[single];
+    final raw = value?.toString().trim();
+    if (raw == null || raw.isEmpty || raw == '[object Array]') {
+      return const <String>[];
     }
 
-    return const <String>[];
+    if (raw.contains(',')) {
+      return raw
+          .split(',')
+          .map((e) => e.trim())
+          .where((e) => e.isNotEmpty)
+          .toList();
+    }
+
+    return <String>[raw];
   }
 
   return Navigator.internal(
@@ -92,18 +107,18 @@ Navigator newNavigator({required Window window}) {
 Window newWindow({required WindowController windowController}) {
   Location.configureBrowserBindings(
     reload: () {
-      browser.window.location.reload();
+      web.window.location.reload();
       return true;
     },
     replace: (url) {
-      browser.window.location.replace(url);
+      web.window.location.replace(url);
       return true;
     },
     assign: (url) {
-      browser.window.location.assign(url);
+      web.window.location.assign(url);
       return true;
     },
-    currentHref: () => browser.window.location.href,
+    currentHref: () => web.window.location.href,
   );
 
   return window;
