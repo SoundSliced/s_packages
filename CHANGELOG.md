@@ -1,3 +1,29 @@
+## 4.3.0
+- **s_universal_html** updated:
+  - Added browser binding hooks to Location:
+      - reload
+      - replace
+      - assign
+      - currentHref getter
+    - Wired those hooks in browser impl to native browser APIs:
+      - browser.window.location.reload()
+      - browser.window.location.replace(url)
+      - browser.window.location.assign(url)
+    - `./s_universal_html/src/html/api/navigator.dart`:
+      - Replaced hardcoded fallback getters with constructor-backed fields:
+         - cookieEnabled
+         - languages
+         - onLine
+         - userAgent
+         - vendor
+         - vendorSub
+         - doNotTrack
+         - maxTouchPoints
+    - Keeps fallback defaults when values aren’t provided.
+    - `./s_universal_html/src/controller/window_behavior_impl_browser.dart`:
+      - Replaced newNavigator(...) UnsupportedError with real browser-backed construction.
+      - Reads values from browser.window.navigator and passes them into
+
 ## 4.2.4
 - quick update to documentation
 

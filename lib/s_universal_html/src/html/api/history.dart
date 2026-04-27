@@ -57,7 +57,7 @@ class History extends HistoryBase {
   static bool get supportsState => true;
 
   final List<_HistoryState> _stack = [
-    _HistoryState(null, '', window.location.href),
+    _HistoryState(null, '', window.location.href)
   ];
 
   int _index = 0;
@@ -138,9 +138,41 @@ abstract class HistoryBase {
 }
 
 class Location extends LocationBase with _UrlBase {
-  String href;
+  static bool Function()? _browserReload;
+  static bool Function(String url)? _browserReplace;
+  static bool Function(String url)? _browserAssign;
+  static String? Function()? _browserCurrentHref;
 
-  Location.internal({required this.href});
+  static void configureBrowserBindings({
+    bool Function()? reload,
+    bool Function(String url)? replace,
+    bool Function(String url)? assign,
+    String? Function()? currentHref,
+  }) {
+    _browserReload = reload;
+    _browserReplace = replace;
+    _browserAssign = assign;
+    _browserCurrentHref = currentHref;
+  }
+
+  String _href;
+
+  Location.internal({required String href}) : _href = href {
+    final browserHref = _browserCurrentHref?.call();
+    if (browserHref != null && browserHref.isNotEmpty) {
+      _href = browserHref;
+    }
+  }
+
+  @override
+  // ignore: override_on_non_overriding_member
+  String get href => _href;
+
+  @override
+  set href(String val) {
+    final didNavigate = _browserReplace?.call(val) == true;
+    _href = didNavigate ? (_browserCurrentHref?.call() ?? val) : val;
+  }
 
   List<String> get ancestorOrigins => <String>[];
 
@@ -151,15 +183,26 @@ class Location extends LocationBase with _UrlBase {
     if (url == null) {
       return;
     }
+
+    final didAssign = _browserAssign?.call(url) == true;
+    if (didAssign) {
+      _href = _browserCurrentHref?.call() ?? url;
+      return;
+    }
+
     replace(url);
   }
 
   void reload() {
-    // No-op in the fallback implementation.
+    final didReload = _browserReload?.call() == true;
+    if (didReload) {
+      _href = _browserCurrentHref?.call() ?? _href;
+    }
   }
 
   void replace(String url) {
-    href = url;
+    final didReplace = _browserReplace?.call(url) == true;
+    _href = didReplace ? (_browserCurrentHref?.call() ?? url) : url;
   }
 }
 
@@ -248,13 +291,10 @@ mixin _UrlBase {
   String? get search => _uri?.query;
 
   set search(String? value) {
-    _updateUri(
-      _uri?.replace(
+    _updateUri(_uri?.replace(
         query: value == null
             ? null
-            : (value.startsWith('?') ? value.substring(1) : value),
-      ),
-    );
+            : (value.startsWith('?') ? value.substring(1) : value)));
   }
 
   Uri? get _uri;

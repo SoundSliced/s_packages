@@ -46,12 +46,7 @@ The source code adopted from 'dart:html' had the following license:
 part of '../../html.dart';
 
 class Navigator extends NavigatorConcurrentHardware
-    implements
-        NavigatorCookies,
-        NavigatorLanguage,
-        NavigatorOnLine,
-        NavigatorAutomationInformation,
-        NavigatorID {
+    implements NavigatorCookies, NavigatorLanguage, NavigatorOnLine, NavigatorAutomationInformation, NavigatorID {
   final num? deviceMemory;
 
   @Unstable()
@@ -59,6 +54,14 @@ class Navigator extends NavigatorConcurrentHardware
 
   @Unstable()
   final String? productSub;
+  final bool? _cookieEnabled;
+  final List<String> _languages;
+  final bool? _onLine;
+  final String _userAgent;
+  final String _vendor;
+  final String _vendorSub;
+  final String? _doNotTrack;
+  final int? _maxTouchPoints;
 
   final Window internalWindow;
 
@@ -87,7 +90,23 @@ class Navigator extends NavigatorConcurrentHardware
     this.platform = 'Win32',
     this.product = 'Gecko',
     this.productSub = '20030107',
-  }) : super._();
+    bool? cookieEnabled,
+    List<String> languages = const <String>[],
+    bool? onLine,
+    String userAgent = '-',
+    String vendor = '-',
+    String vendorSub = '',
+    String? doNotTrack,
+    int? maxTouchPoints,
+  }) : _cookieEnabled = cookieEnabled,
+       _languages = languages,
+       _onLine = onLine,
+       _userAgent = userAgent,
+       _vendor = vendor,
+       _vendorSub = vendorSub,
+       _doNotTrack = doNotTrack,
+       _maxTouchPoints = maxTouchPoints,
+       super._();
 
   BudgetService? get budget => null;
 
@@ -97,14 +116,14 @@ class Navigator extends NavigatorConcurrentHardware
 
   @Unstable()
   @override
-  bool? get cookieEnabled => false;
+  bool? get cookieEnabled => _cookieEnabled ?? false;
 
   CredentialsContainer? get credentials => null;
 
   @override
   bool get dartEnabled => false;
 
-  String? get doNotTrack => null;
+  String? get doNotTrack => _doNotTrack;
 
   @override
   String? get language {
@@ -113,9 +132,9 @@ class Navigator extends NavigatorConcurrentHardware
   }
 
   @override
-  List<String> get languages => const <String>[];
+  List<String> get languages => List<String>.unmodifiable(_languages);
 
-  int? get maxTouchPoints => null;
+  int? get maxTouchPoints => _maxTouchPoints;
 
   MediaCapabilities? get mediaCapabilities => null;
 
@@ -128,7 +147,7 @@ class Navigator extends NavigatorConcurrentHardware
   NFC? get nfc => null;
 
   @override
-  bool get onLine => false;
+  bool get onLine => _onLine ?? false;
 
   Permissions? get permissions => null;
 
@@ -139,13 +158,13 @@ class Navigator extends NavigatorConcurrentHardware
   StorageManager? get storage => null;
 
   @override
-  String get userAgent => '-';
+  String get userAgent => _userAgent;
 
   @Unstable()
-  String get vendor => '-';
+  String get vendor => _vendor;
 
   @Unstable()
-  String get vendorSub => '';
+  String get vendorSub => _vendorSub;
 
   VR? get vr => null;
 
@@ -197,10 +216,7 @@ class Navigator extends NavigatorConcurrentHardware
   ///
   /// See also:
   /// * [MediaStream.supported]
-  Future<MediaStream> getUserMedia({
-    dynamic audio = false,
-    dynamic video = false,
-  }) {
+  Future<MediaStream> getUserMedia({dynamic audio = false, dynamic video = false}) {
     return Future.error(UnimplementedError());
   }
 
@@ -216,10 +232,7 @@ class Navigator extends NavigatorConcurrentHardware
     return Future.error(UnimplementedError());
   }
 
-  Future requestMediaKeySystemAccess(
-    String keySystem,
-    List<Map> supportedConfigurations,
-  ) {
+  Future requestMediaKeySystemAccess(String keySystem, List<Map> supportedConfigurations) {
     return Future.error(UnimplementedError());
   }
 
