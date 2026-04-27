@@ -1,3 +1,24 @@
+## 4.3.1
+- **`s_universal_html` web stability fix:**
+  - Fixed a browser-only `StackOverflowError` caused by recursive `window` initialization in `window_behavior_impl_browser.dart`.
+  - Updated browser `newWindow(...)` creation to return `Window.internal(...)` directly with current browser `href`.
+  - Removed the recursive top-level `window` reference path from the browser implementation.
+
+- **`s_universal_html` browser API modernization:**
+  - Replaced deprecated `dart:html` usage in browser behavior with `package:web` bindings.
+  - Kept location actions (`reload`, `replace`, `assign`, `currentHref`) wired to native browser APIs.
+
+- **New convenience API for app developers:**
+  - Added `s_universal_html/web_actions.dart` with `SUniversalHtml` helpers:
+    - `SUniversalHtml.reloadWindow()`
+    - `SUniversalHtml.navigateTo(String url)`
+    - `SUniversalHtml.replaceLocation(String url)`
+    - `SUniversalHtml.currentHref`
+  - On web these delegate to `package:web`; on non-web they are safe no-ops.
+
+- **Example app update:**
+  - Added a new `s_universal_html` example screen and registered it in the example app package list.
+
 ## 4.3.0
 - **s_universal_html** updated:
   - Added browser binding hooks to Location:

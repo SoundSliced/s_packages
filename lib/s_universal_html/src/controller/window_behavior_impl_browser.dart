@@ -15,7 +15,6 @@
 import 'package:s_packages/s_universal_html/src/html.dart';
 import 'package:web/web.dart' as web;
 
-import '../../html.dart';
 import 'window_controller.dart';
 
 Document newDocument(
@@ -121,5 +120,8 @@ Window newWindow({required WindowController windowController}) {
     currentHref: () => web.window.location.href,
   );
 
-  return window;
+  return Window.internal(
+    internalWindowController: windowController,
+    href: web.window.location.href,
+  );
 }

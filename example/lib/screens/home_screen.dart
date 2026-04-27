@@ -176,6 +176,11 @@ class _HomeScreenState extends State<HomeScreen> {
       category: 'UI Components',
     ),
     PackageInfo(
+      name: 's_universal_html',
+      description: 'Universal HTML & window helpers',
+      category: 'Platform',
+    ),
+    PackageInfo(
       name: 's_webview',
       description: 'WebView integration',
       category: 'Platform',

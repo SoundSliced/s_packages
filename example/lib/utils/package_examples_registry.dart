@@ -33,6 +33,7 @@ import 'package:s_packages_example/screens/examples/s_sidebar_example_screen.dar
 import 'package:s_packages_example/screens/examples/s_standby_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_time_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_toggle_example_screen.dart';
+import 'package:s_packages_example/screens/examples/s_universal_html_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_webview_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_widgets_example_screen.dart';
 import 'package:s_packages_example/screens/examples/settings_item_example_screen.dart';
@@ -74,6 +75,7 @@ class PackageExamplesRegistry {
     's_standby': () => const SStandbyExampleScreen(),
     's_time': () => const STimeExampleScreen(),
     's_toggle': () => const SToggleExampleScreen(),
+    's_universal_html': () => const SUniversalHtmlExampleScreen(),
     's_webview': () => const SWebviewExampleScreen(),
     's_widgets': () => const SWidgetsExampleScreen(),
     'settings_item': () => const SettingsItemExampleScreen(),
