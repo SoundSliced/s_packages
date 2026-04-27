@@ -46,7 +46,12 @@ The source code adopted from 'dart:html' had the following license:
 part of '../../html.dart';
 
 class Navigator extends NavigatorConcurrentHardware
-    implements NavigatorCookies, NavigatorLanguage, NavigatorOnLine, NavigatorAutomationInformation, NavigatorID {
+    implements
+        NavigatorCookies,
+        NavigatorLanguage,
+        NavigatorOnLine,
+        NavigatorAutomationInformation,
+        NavigatorID {
   final num? deviceMemory;
 
   @Unstable()
@@ -98,15 +103,15 @@ class Navigator extends NavigatorConcurrentHardware
     String vendorSub = '',
     String? doNotTrack,
     int? maxTouchPoints,
-  }) : _cookieEnabled = cookieEnabled,
-       _languages = languages,
-       _onLine = onLine,
-       _userAgent = userAgent,
-       _vendor = vendor,
-       _vendorSub = vendorSub,
-       _doNotTrack = doNotTrack,
-       _maxTouchPoints = maxTouchPoints,
-       super._();
+  })  : _cookieEnabled = cookieEnabled,
+        _languages = languages,
+        _onLine = onLine,
+        _userAgent = userAgent,
+        _vendor = vendor,
+        _vendorSub = vendorSub,
+        _doNotTrack = doNotTrack,
+        _maxTouchPoints = maxTouchPoints,
+        super._();
 
   BudgetService? get budget => null;
 
@@ -216,7 +221,8 @@ class Navigator extends NavigatorConcurrentHardware
   ///
   /// See also:
   /// * [MediaStream.supported]
-  Future<MediaStream> getUserMedia({dynamic audio = false, dynamic video = false}) {
+  Future<MediaStream> getUserMedia(
+      {dynamic audio = false, dynamic video = false}) {
     return Future.error(UnimplementedError());
   }
 
@@ -232,7 +238,8 @@ class Navigator extends NavigatorConcurrentHardware
     return Future.error(UnimplementedError());
   }
 
-  Future requestMediaKeySystemAccess(String keySystem, List<Map> supportedConfigurations) {
+  Future requestMediaKeySystemAccess(
+      String keySystem, List<Map> supportedConfigurations) {
     return Future.error(UnimplementedError());
   }
 
