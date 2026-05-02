@@ -1,3 +1,11 @@
+## 4.4.0
+- **`s_webview` proxy hardening for challenge pages:**
+  - Added detection for proxy-incompatible HTML payloads (e.g. Cloudflare challenge pages containing `__cf_chl_rt_tk`, `_cf_chl_opt`, `cdn-cgi/challenge-platform`, or `history.replaceState` patterns).
+  - In web proxy mode, `SWebView` now fails fast instead of attempting a `data:` URL load that triggers a browser `SecurityError` due to `null` origin.
+  - Added `onProxyIncompatibleDocument` callback to `SWebView`. When provided it is called (instead of `onIframeBlocked`/`onError`) whenever a proxy-fetched page is detected as challenge/anti-bot incompatible, letting callers trigger a fallback action (e.g. open in new tab) directly.
+  - When `onProxyIncompatibleDocument` is not provided, the widget falls back to the existing `onIframeBlocked` + `onError` path.
+  - Added unit tests for proxy-incompatible detection.
+
 ## 4.3.2
 - **`s_universal_html` — Stack overflow fix in DOM parsing:**
   - In `src/controller/window_behavior_impl_browser.dart`, replaced `DomParser().parseFromString('<html></html>', contentType)` with direct `HtmlDocument.internal(...)` / `XmlDocument.internal(...)` constructor calls, eliminating the recursive `window.document` access that caused a `StackOverflowError`.

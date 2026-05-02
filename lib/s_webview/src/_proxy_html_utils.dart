@@ -10,6 +10,14 @@ class SWebViewProxyHtmlUtils {
   static final RegExp _headTag = RegExp(r'<head\b[^>]*>', caseSensitive: false);
   static final RegExp _baseTag = RegExp(r'<base\b', caseSensitive: false);
 
+  static final List<RegExp> _proxyIncompatiblePageSignals = [
+    RegExp(r'__cf_chl_rt_tk', caseSensitive: false),
+    RegExp(r'_cf_chl_opt', caseSensitive: false),
+    RegExp(r'cdn-cgi/challenge-platform', caseSensitive: false),
+    RegExp(r'just a moment\.\.\.', caseSensitive: false),
+    RegExp(r'history\.replaceState\(', caseSensitive: false),
+  ];
+
   static final Map<String, String> _namedHtmlEntities = {
     'amp': '&',
     'lt': '<',
@@ -87,6 +95,17 @@ class SWebViewProxyHtmlUtils {
     }
 
     return '$baseTag$html';
+  }
+
+  /// Detects HTML payloads that are known to break when rendered from a
+  /// `data:` URL origin (for example Cloudflare challenge pages).
+  ///
+  /// Such pages generally require first-party origin semantics and should be
+  /// opened directly in a browser tab/window instead of proxy-injected mode.
+  static bool isLikelyProxyIncompatibleDocument(String html) {
+    if (html.isEmpty) return false;
+    return _proxyIncompatiblePageSignals
+        .any((pattern) => pattern.hasMatch(html));
   }
 
   static String _extractHtmlFromPossibleJsonEnvelope(

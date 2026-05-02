@@ -106,6 +106,25 @@ class SWebView extends StatefulWidget {
   /// Callback when iframe is blocked (web platform only)
   final VoidCallback? onIframeBlocked;
 
+  /// Callback fired when a proxy-fetched page is detected as incompatible
+  /// with `data:` URL origin (e.g. Cloudflare anti-bot challenge pages).
+  ///
+  /// Use this to trigger a fallback action such as opening the URL in a
+  /// new browser tab. When this callback is provided it is called instead
+  /// of [onIframeBlocked] for this specific case.
+  ///
+  /// Example:
+  /// ```dart
+  /// SWebView(
+  ///   url: 'https://flightradar24.com',
+  ///   onProxyIncompatibleDocument: () {
+  ///     SWebView.openInNewTab('https://flightradar24.com',
+  ///         addToProxyCacheForNextTime: false);
+  ///   },
+  /// )
+  /// ```
+  final VoidCallback? onProxyIncompatibleDocument;
+
   /// Show the toolbar with retry with proxy and open-in-new-tab buttons
   /// Default: true when on Web platform
   final bool showToolbar;
@@ -153,6 +172,7 @@ class SWebView extends StatefulWidget {
     this.onError,
     this.onLoaded,
     this.onIframeBlocked,
+    this.onProxyIncompatibleDocument,
     this.autoDetectFrameRestrictions = /* kIsWeb ? true : false */ true,
     this.corsProxyUrls = const [],
     this.showToolbar = kIsWeb,
@@ -641,6 +661,26 @@ class _SWebViewState extends State<SWebView> {
     return null;
   }
 
+  Uri _buildProxyDataUriOrThrow({
+    required String pageSource,
+    required String originalUrl,
+  }) {
+    var html = SWebViewProxyHtmlUtils.injectBaseTagIfMissing(
+      pageSource,
+      originalUrl,
+    );
+
+    if (SWebViewProxyHtmlUtils.isLikelyProxyIncompatibleDocument(html)) {
+      throw _ProxyIncompatibleDocumentException(
+        'Proxy-injected page requires first-party origin (likely anti-bot/challenge page). '
+        'Use Open in New Tab for this URL.',
+      );
+    }
+
+    final base64Html = base64.encode(utf8.encode(html));
+    return Uri.parse('data:text/html;base64,$base64Html');
+  }
+
   void _ensureController() {
     final injected = widget.controller;
     if (injected != null) {
@@ -722,14 +762,10 @@ class _SWebViewState extends State<SWebView> {
           var pageSource = await _fetchPageSourceViaProxy(widget.url);
 
           if (pageSource != null) {
-            // Inject <base> tag to fix relative links.
-            pageSource = SWebViewProxyHtmlUtils.injectBaseTagIfMissing(
-              pageSource,
-              widget.url,
+            final dataUri = _buildProxyDataUriOrThrow(
+              pageSource: pageSource,
+              originalUrl: widget.url,
             );
-
-            final base64Html = base64.encode(utf8.encode(pageSource));
-            final dataUri = Uri.parse('data:text/html;base64,$base64Html');
             await _initControllerWithUri(dataUri);
           } else {
             throw Exception('Failed to load via proxy');
@@ -757,6 +793,23 @@ class _SWebViewState extends State<SWebView> {
       _log('Error initializing webview: $e');
       final errorMessage =
           'Failed to load: ${e.toString().replaceAll('Exception: ', '')}';
+
+      if (e is _ProxyIncompatibleDocumentException) {
+        _log('SWebView: proxy-incompatible document detected');
+        if (mounted) {
+          setState(() {
+            isLoaded = false;
+          });
+          if (widget.onProxyIncompatibleDocument != null) {
+            widget.onProxyIncompatibleDocument!.call();
+          } else {
+            // Fall back to the generic blocked/error callbacks.
+            if (kIsWeb) widget.onIframeBlocked?.call();
+            widget.onError?.call(errorMessage);
+          }
+        }
+        return;
+      }
 
       // On web, likely an iframe restriction
       if (kIsWeb && mounted) {
@@ -816,14 +869,10 @@ class _SWebViewState extends State<SWebView> {
           _isUsingProxy = true;
           var pageSource = await _fetchPageSourceViaProxy(url);
           if (pageSource != null) {
-            // Inject <base> tag to fix relative links.
-            pageSource = SWebViewProxyHtmlUtils.injectBaseTagIfMissing(
-              pageSource,
-              url,
+            final dataUri = _buildProxyDataUriOrThrow(
+              pageSource: pageSource,
+              originalUrl: url,
             );
-
-            final base64Html = base64.encode(utf8.encode(pageSource));
-            final dataUri = Uri.parse('data:text/html;base64,$base64Html');
             await webViewController!.go(uri: dataUri);
           } else {
             throw Exception('Failed to load via proxy');
@@ -850,6 +899,23 @@ class _SWebViewState extends State<SWebView> {
       _log('Error loading new url: $e');
       final errorMessage =
           'Failed to load: ${e.toString().replaceAll('Exception: ', '')}';
+
+      if (e is _ProxyIncompatibleDocumentException) {
+        _log('SWebView: proxy-incompatible document detected');
+        if (mounted) {
+          setState(() {
+            isLoaded = false;
+          });
+          if (widget.onProxyIncompatibleDocument != null) {
+            widget.onProxyIncompatibleDocument!.call();
+          } else {
+            // Fall back to the generic blocked/error callbacks.
+            if (kIsWeb) widget.onIframeBlocked?.call();
+            widget.onError?.call(errorMessage);
+          }
+        }
+        return;
+      }
 
       // On web, likely an iframe restriction
       if (kIsWeb && mounted) {
@@ -1053,3 +1119,14 @@ class _SWebViewState extends State<SWebView> {
 }
 
 /// ********************************** */
+
+/// Exception thrown when a CORS-proxy-fetched HTML document is detected to be
+/// incompatible with `data:` URL loading (e.g. Cloudflare challenge pages).
+class _ProxyIncompatibleDocumentException implements Exception {
+  final String message;
+
+  const _ProxyIncompatibleDocumentException(this.message);
+
+  @override
+  String toString() => message;
+}

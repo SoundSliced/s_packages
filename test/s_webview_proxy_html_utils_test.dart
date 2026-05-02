@@ -53,5 +53,32 @@ void main() {
           equals(1));
       expect(result, contains('https://example.com/'));
     });
+
+    test('detects Cloudflare challenge pages as proxy-incompatible', () {
+      const html = '''
+        <html><head><title>Just a moment...</title></head>
+        <body>
+          <script>
+            window._cf_chl_opt = {};
+            history.replaceState(null, null, '/some-path?__cf_chl_rt_tk=token');
+          </script>
+        </body></html>
+      ''';
+
+      expect(
+        SWebViewProxyHtmlUtils.isLikelyProxyIncompatibleDocument(html),
+        isTrue,
+      );
+    });
+
+    test('does not mark regular HTML as proxy-incompatible', () {
+      const html =
+          '<html><head><title>Example</title></head><body>Hello</body></html>';
+
+      expect(
+        SWebViewProxyHtmlUtils.isLikelyProxyIncompatibleDocument(html),
+        isFalse,
+      );
+    });
   });
 }
