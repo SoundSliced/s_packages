@@ -8,6 +8,10 @@ import 'package:s_packages/soundsliced_dart_extensions/src/dart_extensions.dart'
 
 ValueNotifier<bool> _connectionNotifier = ValueNotifier<bool>(false);
 
+/// Connectivity facade for listening to internet status changes across the app.
+///
+/// Use [SConnectivity.listenable] in widgets and
+/// [initialiseInternetConnectivityListener] during app startup.
 class SConnectivity {
   // Increment when debugging web hot-restart issues to ensure you are running
   // the latest compiled JS.
@@ -328,7 +332,7 @@ class SConnectivityOverlay extends StatelessWidget {
   }
 }
 
-/// class to enable the user to customize their own No Internet Snackbar
+/// Configuration model for the default no-internet snackbar.
 class NoInternetSnackbar {
   final Color dismissBarrierColor;
   final Color snackBackgroundColor;
@@ -344,11 +348,21 @@ class NoInternetSnackbar {
 
 //********************************************** */
 
+/// Small connectivity indicator widget that appears when internet is unavailable.
 class NoInternetWidget extends StatefulWidget {
+  /// Circular status indicator size.
   final double size;
+
+  /// Background and icon colors for the indicator.
   final Color? backgroundColor, iconColor;
+
+  /// Icon displayed while offline.
   final IconData? icon;
+
+  /// Whether the indicator should be visible when offline.
   final bool shouldShowWhenNoInternet;
+
+  /// Whether show/hide transitions should be animated.
   final bool shouldAnimate;
   const NoInternetWidget({
     super.key,

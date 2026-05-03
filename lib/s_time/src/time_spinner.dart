@@ -26,6 +26,10 @@ class AmPmButtonStyle {
   );
 }
 
+/// Spinner-based time picker with hour/minute columns and optional AM/PM toggle.
+///
+/// Supports both 24-hour and 12-hour formats, custom value sets, and
+/// callback-driven updates via [onChangedSelectedTime].
 class TimeSpinner extends StatefulWidget {
   // Styling for AM/PM buttons
   const TimeSpinner({
@@ -368,6 +372,7 @@ class _TimeSpinnerState extends State<TimeSpinner> {
 }
 
 //******************************** */
+/// Numeric spinner used internally by [TimeSpinner] for hour/minute selection.
 class MySpinnerNumericPicker extends StatefulWidget {
   // Add this parameter
 
@@ -633,6 +638,7 @@ class _MySpinnerNumericPickerState extends State<MySpinnerNumericPicker> {
 
 /// **************** Digit TextFormField Widget ********************* ///
 ///
+/// Two-digit editable text field used as a direct numeric input fallback.
 class DigitTfcWidget extends StatefulWidget {
   const DigitTfcWidget({
     required this.onInputComplete,

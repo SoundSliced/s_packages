@@ -1,3 +1,9 @@
+/// Public entrypoint for the `s_webview` subpackage.
+///
+/// Export this library to use the cross-platform [SWebView] widget and the
+/// platform helpers used by the package.
+library;
+
 export 'src/s_webview.dart';
 export 'src/_platforms.dart';
 

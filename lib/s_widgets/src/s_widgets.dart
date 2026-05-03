@@ -37,6 +37,7 @@ class _StaticBuilderWidgets {
 
 ///**************  Keyboard Extensions  ****************** */
 // The DismissKeybaord widget (it's reusable)
+/// Gesture wrapper that dismisses keyboard focus when tapping outside inputs.
 class DismissKeyboard extends StatelessWidget {
   final Widget child;
   const DismissKeyboard({super.key, required this.child});
@@ -62,6 +63,7 @@ class DismissKeyboard extends StatelessWidget {
 ///my own custom made: inspired by (and modified)
 ///https://medium.com/@seb_remy/how-to-add-done-button-in-flutter-ios-app-b45e52a30039
 
+/// Small iOS-style "Done" accessory view used by [KeyboardOverlay].
 class InputDoneView extends StatelessWidget {
   final void Function()? onTap;
   const InputDoneView({this.onTap, super.key});
@@ -105,6 +107,7 @@ class InputDoneView extends StatelessWidget {
 
 //************************************** */
 
+/// Utility class to show/remove a floating keyboard "Done" button overlay.
 class KeyboardOverlay {
   static OverlayEntry? _overlayEntry;
   static void Function()? onTapProvided;
@@ -145,6 +148,7 @@ class KeyboardOverlay {
 ///**********************    **************************** */
 ///
 
+/// Thin wrapper around `LoadingIndicator` with common transform options.
 class SLoadingIndicator extends StatelessWidget {
   final Indicator indicatorType;
   final List<Color>? colors;
@@ -202,6 +206,7 @@ class SLoadingIndicator extends StatelessWidget {
 }
 
 //-------------------------------------//
+/// Base state class that guards `setState` calls when the widget is unmounted.
 class MountedState<T extends StatefulWidget> extends State<T> {
   @override
   Widget build(BuildContext context) {
@@ -232,6 +237,7 @@ class MountedState<T extends StatefulWidget> extends State<T> {
 //-------------------------------------//
 
 //Extension to add Material Widget when needed
+/// Generic widget extension utilities (material wrapper, tooltip, styling).
 extension GenericExtensions<dynamics extends Widget> on Widget {
 //extension to add Material to any widget
   Material addMaterialWidget() {
@@ -289,6 +295,7 @@ extension GenericExtensions<dynamics extends Widget> on Widget {
 //******************************************************** */
 
 //Snackbar extensions to BuildContext (as per Supabase: https://supabase.com/docs/guides/with-flutter#get-the-api-keys)
+/// Convenience snackbar helpers on [BuildContext].
 extension ShowSnackBar on BuildContext {
   void showSnackBar({
     required String message,
@@ -318,6 +325,7 @@ extension ShowSnackBar on BuildContext {
 
 //******************************************************** */
 
+/// Lightweight configurable divider (horizontal or vertical).
 class SDivider extends StatelessWidget {
   final double? lineThickness, lineLength, lineOpacity;
   final Color? lineColor;
@@ -350,6 +358,7 @@ class SDivider extends StatelessWidget {
 
 //*************** STextButton Widget **************/
 
+/// Pre-styled text button powered by [SButton].
 class STextButton extends StatelessWidget {
   final void Function(Offset offset)? onTap;
   final Color? backgroundColor;
@@ -451,12 +460,14 @@ class STextButton extends StatelessWidget {
 //****************************** */
 
 //https://blog.gskinner.com/archives/2020/09/flutter-tricks-widget-size-position.html
+/// Returns global top-left position for the widget associated with [context].
 Offset? getWidgetPosition(BuildContext context) {
   RenderBox? box = context.findRenderObject() as RenderBox?;
   return box?.localToGlobal(Offset.zero);
 }
 
 //https://blog.gskinner.com/archives/2020/09/flutter-tricks-widget-size-position.html
+/// Returns the rendered size for the widget associated with [context].
 Size? getWidgetSize(BuildContext context) {
   RenderBox? box = context.findRenderObject() as RenderBox?;
   return box?.size;
@@ -464,6 +475,7 @@ Size? getWidgetSize(BuildContext context) {
 
 //******************************* */
 
+/// Compact icon button with optional label and splash behavior.
 class SIconButton extends StatelessWidget {
   final void Function(Offset offset)? onTap;
   final double? size;
@@ -520,6 +532,7 @@ class SIconButton extends StatelessWidget {
 
 //******************************* */
 
+/// Applies static or animated blur to its [child].
 class SBlur extends StatelessWidget {
   final Widget child;
   final bool isEnabled, isAnimated;
@@ -559,6 +572,7 @@ class SBlur extends StatelessWidget {
 }
 
 // Helper widget to measure child size during layout
+/// Reports child size changes after layout via [onChange].
 class MeasureChildSizeWidget extends StatelessWidget {
   final Widget child;
 
@@ -591,6 +605,7 @@ class MeasureChildSizeWidget extends StatelessWidget {
 
 //************************************************ */
 
+/// Wraps app content in a phone-sized frame on web for demo/testing layouts.
 class ForcePhoneSizeOnWeb extends StatefulWidget {
   final Widget child;
   final Size? size;
@@ -660,6 +675,7 @@ class _ForcePhoneSizeOnWebState extends State<ForcePhoneSizeOnWeb> {
 
 //************************************ */
 
+/// Animated blur container with configurable transition duration.
 class SAnimatedBlur extends StatefulWidget {
   final Widget? child;
   final double? opacity;
@@ -730,6 +746,7 @@ class _SAnimatedBlurState extends State<SAnimatedBlur> {
 
 //************************************ */
 
+/// Scroll helper that ensures focused fields remain visible above the keyboard.
 class ScrollTextFormFieldWhenKeyboardIsShown extends StatefulWidget {
   final Widget child;
   const ScrollTextFormFieldWhenKeyboardIsShown(
@@ -791,6 +808,7 @@ class _ScrollTextFormFieldWhenKeyboardIsShownState
 
 //************************************ */
 
+/// Small toggle button used for expand/collapse interactions.
 class ExpandCollapseButton extends StatelessWidget {
   final bool isExpanded;
   final ValueChanged<bool> onTap;
@@ -824,6 +842,7 @@ class ExpandCollapseButton extends StatelessWidget {
 
 //************************************ */
 
+/// Standard clear button for text-field suffix usage.
 class TextFormFieldClearButton extends StatelessWidget {
   final Function? onPressed;
   const TextFormFieldClearButton({super.key, this.onPressed});

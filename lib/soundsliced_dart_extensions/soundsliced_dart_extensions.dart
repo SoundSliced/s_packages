@@ -1,4 +1,6 @@
-// Package exports for soundsliced_dart_extensions.
-// Library directive removed (unnecessary_library_name lint).
+/// Public entrypoint for the `soundsliced_dart_extensions` subpackage.
+///
+/// Exposes utility Dart extensions used across `s_packages`.
+library;
 
 export 'src/dart_extensions.dart';

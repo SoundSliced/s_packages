@@ -1,7 +1,6 @@
 part of 's_future_button.dart';
 
 /// States that your button can assume via the controller
-// ignore: public_member_api_docs
 enum SButtonState { idle, loading, success, error }
 
 /// Helper function to ensure a double value is finite, returning a fallback if not
@@ -9,7 +8,7 @@ double _safeDouble(double value, double fallback) {
   return value.isFinite ? value : fallback;
 }
 
-/// Initialize class
+/// Animated button used by [SFutureButton] to display loading/success/error states.
 class MyRoundedLoadingButton extends StatefulWidget {
   /// Button controller, now required
   final SRoundedLoadingButtonController controller;
@@ -126,7 +125,7 @@ class MyRoundedLoadingButton extends StatefulWidget {
   State<StatefulWidget> createState() => _MyRoundedLoadingButtonState();
 }
 
-/// Class implementation
+/// State for [MyRoundedLoadingButton].
 class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
   final _state = BehaviorSubject<SButtonState>.seeded(SButtonState.idle);
   Color? onFocusColor;
@@ -380,8 +379,7 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
   }
 }
 
-/// Options that can be chosen by the controller
-/// each will perform a unique animation
+/// Controller for triggering [MyRoundedLoadingButton] state transitions.
 class SRoundedLoadingButtonController {
   VoidCallback? _startListener;
   VoidCallback? _stopListener;

@@ -1,6 +1,6 @@
-/// glow1_2 package
+/// s_glow package
 ///
-/// This library exports all public APIs for the glow1_2 package.
+/// This library exports all public APIs for the s_glow package.
 library;
 
 export 'src/glow2.dart';

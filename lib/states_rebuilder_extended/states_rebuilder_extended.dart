@@ -1,21 +1,17 @@
-// states_rebuilder_extended
-//
-// A collection of ergonomic extensions and helpers built on top of
-// the `states_rebuilder` package's `Injected` API.
-//
-// Highlights:
-// * Safer `update<T?>` and `update<T>` methods with explicit generic enforcement.
-// * Boolean `toggle()` helpers for nullable and non-nullable `Injected<bool>`.
-// * Multi-injected builders: listen to many injected instances simultaneously.
-// * Tag-based selective rebuilds (notify only widgets matching a tag).
-// * Hot-reload mixin to rebind stale references on Flutter Web.
-// * Safe refresh to ignore disposed exceptions.
-// * `InjectExtension` & `MyNull` helpers for concise creation of injected controllers.
-//
-// Import this file and enjoy the sugar:
-// ```dart
-// import 'package:states_rebuilder_extended/states_rebuilder_extended.dart';
-// ```
-// Barrel export for package API
+/// Public entrypoint for the `states_rebuilder_extended` subpackage.
+///
+/// A collection of ergonomic extensions and helpers built on top of
+/// `states_rebuilder`'s `Injected` API.
+///
+/// Highlights:
+/// * Safer `update<T?>` and `update<T>` methods with explicit generic usage.
+/// * Boolean `toggle()` helpers for nullable and non-nullable `Injected<bool>`.
+/// * Multi-injected builders to listen to several injected instances.
+/// * Tag-based selective rebuilds (notify only widgets matching a tag).
+/// * Hot-reload mixin to rebind stale references on Flutter Web.
+/// * Safe refresh helpers to ignore disposed exceptions.
+/// * `InjectExtension` and `MyNull` helpers for concise injected controllers.
+library;
+
 export 'package:states_rebuilder/states_rebuilder.dart';
 export 'src/states_rebuilder_extended.dart';

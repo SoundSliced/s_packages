@@ -1,3 +1,6 @@
+## 4.4.2
+- work on the package's documentation to increase the pub.dev's scoring
+
 ## 4.4.1
 - Quick maintenance release: cleaned dependency surface (`js_interop` removed), improved dartdoc scoring setup (`dartdoc_options.yaml` + `@nodoc` legacy barrels), and documented the current upstream pub advisory parse warning (`advisoriesUpdated`).
 

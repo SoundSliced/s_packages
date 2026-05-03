@@ -1,6 +1,10 @@
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:s_packages/s_packages.dart';
 
+/// Debug-only maintenance toggle button with optional confirmation dialog.
+///
+/// This widget is hidden in release mode and is intended for internal/testing
+/// workflows where maintenance state needs to be toggled quickly.
 class SMaintenanceButton extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isOnMaintenance;

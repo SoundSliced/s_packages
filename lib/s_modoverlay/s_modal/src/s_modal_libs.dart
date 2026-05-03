@@ -50,7 +50,10 @@ class ModalLifecycleEvent {
   final int stackLevel;
 }
 
+/// Callback invoked for modal lifecycle events.
 typedef ModalLifecycleCallback = void Function(ModalLifecycleEvent event);
+
+/// Predicate callback used to filter lifecycle notifications.
 typedef ModalLifecycleShouldNotify = bool Function(ModalLifecycleEvent event);
 
 class _ModalLifecycleListener {

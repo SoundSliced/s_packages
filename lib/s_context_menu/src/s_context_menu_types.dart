@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Immutable model representing one action row in [SContextMenu].
 class SContextMenuItem {
   final String label;
   final IconData? icon;
@@ -41,10 +42,13 @@ class SContextMenuItem {
   int get hashCode => id != null ? id.hashCode : Object.hash(label, icon);
 }
 
+/// Corner anchor used to place the menu arrow pointer.
 enum ArrowCorner { topLeft, topRight, bottomLeft, bottomRight }
 
+/// Arrow visual style used by context menu pointer rendering.
 enum ArrowShape { curved, smallTriangle }
 
+/// Arrow styling configuration for [SContextMenuTheme].
 class ArrowConfig {
   final ArrowCorner corner;
   final double baseWidth;
@@ -88,6 +92,7 @@ class ArrowConfig {
       );
 }
 
+/// Resolved geometric points used to paint and clip a context-menu arrow.
 class ArrowGeometry {
   final Offset baseCorner;
   final Offset baseEdgeA;
