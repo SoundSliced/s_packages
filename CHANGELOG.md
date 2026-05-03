@@ -1,9 +1,17 @@
+## 4.5.0
+- **`s_bounceable`**
+  - `SBounceable` now internally handles single-tap vs double-tap arbitration.
+    When both `onTap` and `onDoubleTap` are supplied:
+      - `onTap` is deferred until `kDoubleTapTimeout`.
+      - a second pointer down within Flutter’s double-tap timeout/slop cancels the pending single tap. --> `onDoubleTap` runs instead.
+  - Added `deferTapWhenDoubleTapEnabled`, defaulting to `true`, so existing users get the safer behavior automatically.
+  - Removed reliance on `GestureDetector.onDoubleTap` for this case and detects the double interaction from pointer-down events instead, which is what fixed the desktop double-click issue.
+
 ## 4.4.2
 - work on the package's documentation to increase the pub.dev's scoring
 
 ## 4.4.1
 - Quick maintenance release: cleaned dependency surface (`js_interop` removed), improved dartdoc scoring setup (`dartdoc_options.yaml` + `@nodoc` legacy barrels), and documented the current upstream pub advisory parse warning (`advisoriesUpdated`).
-
 
 ## 4.4.0
 - **`s_webview` proxy hardening for challenge pages:**
