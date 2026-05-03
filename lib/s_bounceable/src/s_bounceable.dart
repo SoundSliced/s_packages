@@ -54,9 +54,13 @@ class _SBounceableState extends State<SBounceable> {
   bool _suppressNextTap = false;
 
   double get _scaleFactor => widget.scaleFactor ?? 0.95;
-  Duration get _duration => widget.duration ?? const Duration(milliseconds: 200);
+  Duration get _duration =>
+      widget.duration ?? const Duration(milliseconds: 200);
 
-  bool get _shouldDeferTap => widget.deferTapWhenDoubleTapEnabled && widget.onTap != null && widget.onDoubleTap != null;
+  bool get _shouldDeferTap =>
+      widget.deferTapWhenDoubleTapEnabled &&
+      widget.onTap != null &&
+      widget.onDoubleTap != null;
 
   void _onPointerDown(PointerDownEvent event) {
     if (widget.isBounceEnabled) {
@@ -75,8 +79,7 @@ class _SBounceableState extends State<SBounceable> {
     final lastAt = _lastPointerDownAt;
     final lastPosition = _lastPointerDownPosition;
     final maxDistanceSquared = kDoubleTapSlop * kDoubleTapSlop;
-    final isDoubleTap =
-        lastAt != null &&
+    final isDoubleTap = lastAt != null &&
         lastPosition != null &&
         now.difference(lastAt) <= kDoubleTapTimeout &&
         (event.position - lastPosition).distanceSquared <= maxDistanceSquared;
@@ -160,10 +163,12 @@ class _SBounceableState extends State<SBounceable> {
   @override
   Widget build(BuildContext context) {
     return Listener(
+      behavior: HitTestBehavior.translucent,
       onPointerDown: _onPointerDown,
       onPointerUp: _onPointerUp,
       onPointerCancel: _onPointerCancel,
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: widget.onTap != null ? _handleTap : null,
         onLongPress: widget.onLongPress,
         child: AnimatedScale(
