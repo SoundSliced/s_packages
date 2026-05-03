@@ -4,7 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:s_packages/s_bounceable/s_bounceable.dart';
 
 void main() {
-  testWidgets('single tap is deferred when double tap is available', (tester) async {
+  testWidgets('single tap is deferred when double tap is available',
+      (tester) async {
     var taps = 0;
     var doubleTaps = 0;
 
