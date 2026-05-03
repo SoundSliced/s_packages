@@ -1,3 +1,9 @@
+/// @nodoc
+///
+/// Legacy convenience barrel kept for backwards compatibility.
+/// Prefer importing `package:s_packages/s_packages.dart` directly.
+library;
+
 // dart and flutter and other foundational packages
 export 'package:xid/xid.dart';
 export 'package:flutter/services.dart';

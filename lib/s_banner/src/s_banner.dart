@@ -408,10 +408,17 @@ class _RenderBanner extends RenderBox with RenderObjectWithChildMixin {
 }
 
 class SBannerPosition {
+  /// Places the banner in the top-left corner.
   static const SBannerPosition topLeft = SBannerPosition._(_Corner.topLeft);
+
+  /// Places the banner in the top-right corner.
   static const SBannerPosition topRight = SBannerPosition._(_Corner.topRight);
+
+  /// Places the banner in the bottom-left corner.
   static const SBannerPosition bottomLeft =
       SBannerPosition._(_Corner.bottomLeft);
+
+  /// Places the banner in the bottom-right corner.
   static const SBannerPosition bottomRight =
       SBannerPosition._(_Corner.bottomRight);
 

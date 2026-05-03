@@ -1,3 +1,4 @@
+/// @nodoc
 /// Compatibility shim for projects migrating from `package:universal_html/...`.
 ///
 /// This entrypoint intentionally re-exports the forked implementation in

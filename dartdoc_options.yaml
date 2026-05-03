@@ -1,0 +1,7 @@
+dartdoc:
+  exclude:
+    - lib/s_universal_html/**
+    - lib/universal_html/**
+    - lib/universal_html.dart
+    - lib/s_packages_extra1.dart
+    - lib/s_packages_extra2.dart

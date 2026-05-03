@@ -84,6 +84,9 @@ class SToggle extends StatefulWidget {
   SToggleState createState() => SToggleState();
 }
 
+/// State object for [SToggle].
+///
+/// Exposes gesture-driven animation internals for the custom toggle painter.
 class SToggleState extends State<SToggle> {
   /// sate of widget that can be switched on or switched off.
   late bool value;

@@ -1,3 +1,7 @@
+## 4.4.1
+- Quick maintenance release: cleaned dependency surface (`js_interop` removed), improved dartdoc scoring setup (`dartdoc_options.yaml` + `@nodoc` legacy barrels), and documented the current upstream pub advisory parse warning (`advisoriesUpdated`).
+
+
 ## 4.4.0
 - **`s_webview` proxy hardening for challenge pages:**
   - Added detection for proxy-incompatible HTML payloads (e.g. Cloudflare challenge pages containing `__cf_chl_rt_tk`, `_cf_chl_opt`, `cdn-cgi/challenge-platform`, or `history.replaceState` patterns).
