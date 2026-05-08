@@ -2131,6 +2131,25 @@ class Modal {
     /// The background color when [ModalType.sheet] sheet is active/showing, when the background layer is scaled
     Color backgroundColor = Colors.black,
 
+    /// Optional vertical translation magnitude for background transform when
+    /// showing bottom/top sheets.
+    ///
+    /// Defaults to `8.5` to preserve existing behavior.
+    double backgroundVerticalOffset = 8.5,
+
+    /// Optional horizontal translation magnitude for background transform when
+    /// showing side sheets.
+    ///
+    /// Defaults to `8.5` to preserve existing behavior.
+    double backgroundSideSheetOffset = 8.5,
+
+    /// Optional scale reduction factor for the background transform when
+    /// sheets are active.
+    ///
+    /// Effective scale is `1 - (animValue * backgroundScaleReductionFactor)`.
+    /// Defaults to `0.02` to preserve existing behavior.
+    double backgroundScaleReductionFactor = 0.02,
+
     /// Whether to show debug prints for modal events
     bool showDebugPrints = false,
 
@@ -2169,6 +2188,9 @@ class Modal {
       borderRadius: borderRadius ?? BorderRadius.zero,
       shouldBounce: shouldBounceOnTap,
       backgroundColor: backgroundColor,
+      backgroundVerticalOffset: backgroundVerticalOffset,
+      backgroundSideSheetOffset: backgroundSideSheetOffset,
+      backgroundScaleReductionFactor: backgroundScaleReductionFactor,
       child: child ?? const SizedBox.shrink(),
     );
   }
@@ -6181,6 +6203,9 @@ class _ActivatorWidget extends StatefulWidget {
   final BorderRadius borderRadius;
   final bool shouldBounce;
   final Color backgroundColor;
+  final double backgroundVerticalOffset;
+  final double backgroundSideSheetOffset;
+  final double backgroundScaleReductionFactor;
 
   // Constructor for activator widget
   const _ActivatorWidget({
@@ -6188,6 +6213,9 @@ class _ActivatorWidget extends StatefulWidget {
     required this.borderRadius,
     this.shouldBounce = false,
     this.backgroundColor = Colors.black,
+    this.backgroundVerticalOffset = 8.5,
+    this.backgroundSideSheetOffset = 8.5,
+    this.backgroundScaleReductionFactor = 0.02,
   });
 
   @override
@@ -6547,9 +6575,11 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
 
                               final double verticalOffset;
                               if (isBottomSheetContext) {
-                                verticalOffset = animValue * -8.5;
+                                verticalOffset = animValue *
+                                    -widget.backgroundVerticalOffset;
                               } else if (isTopSheetContext) {
-                                verticalOffset = animValue * 8.5;
+                                verticalOffset =
+                                    animValue * widget.backgroundVerticalOffset;
                               } else {
                                 verticalOffset = 0.0;
                               }
@@ -6560,9 +6590,11 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                   sheetPos != null) {
                                 if (sheetPos == SheetPosition.right) {
                                   leftPosition = 0.0;
-                                  rightPosition = animValue * 8.5;
+                                  rightPosition = animValue *
+                                      widget.backgroundSideSheetOffset;
                                 } else {
-                                  leftPosition = animValue * 8.5;
+                                  leftPosition = animValue *
+                                      widget.backgroundSideSheetOffset;
                                   rightPosition = 0.0;
                                 }
                               } else {
@@ -6573,7 +6605,9 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                               final scaleValue = (isBottomSheetContext ||
                                       shouldApplySideSheetBackgroundTransform ||
                                       isTopSheetContext)
-                                  ? 1 - (animValue * 0.02)
+                                  ? 1 -
+                                      (animValue *
+                                          widget.backgroundScaleReductionFactor)
                                   : 1.0;
 
                               return Positioned.fill(

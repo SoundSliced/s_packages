@@ -1,3 +1,12 @@
+
+
+## 4.6.0
+- **`s_modal` background transform customization via `Modal.appBuilder(...)`:**
+  - Added optional `backgroundVerticalOffset` (default: `8.5`) to control background vertical translation for bottom/top sheets.
+  - Added optional `backgroundSideSheetOffset` (default: `8.5`) to control background horizontal translation when side sheets are shown.
+  - Added optional `backgroundScaleReductionFactor` (default: `0.02`) to control background scaling intensity while sheet transforms are active.
+  - Existing behavior is fully preserved when these new options are not provided.
+
 ## 4.5.0
 - **`s_bounceable`**
   - `SBounceable` now internally handles single-tap vs double-tap arbitration.
