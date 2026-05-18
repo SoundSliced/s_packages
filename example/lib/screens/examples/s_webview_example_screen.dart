@@ -124,6 +124,10 @@ class _SWebviewExampleScreenState extends State<SWebviewExampleScreen> {
                         child: const Text('Wikipedia'),
                       ),
                       ElevatedButton(
+                        onPressed: () => _setUrl('https://www.windy.com'),
+                        child: const Text('Windy'),
+                      ),
+                      ElevatedButton(
                         onPressed: () => _setUrl('https://www.youtube.com'),
                         child: const Text('YouTube'),
                       ),
@@ -312,7 +316,7 @@ class _SWebviewExampleScreenState extends State<SWebviewExampleScreen> {
               controller: _controller,
               config: _config,
               url: currentUrl,
-              showDebugLogs: false,
+              showDebugLogs: true,
               ignorePointerEvents: ignorePointerEvents,
               onProgress: (value) {
                 if (!mounted) return;
@@ -370,6 +374,15 @@ class _SWebviewExampleScreenState extends State<SWebviewExampleScreen> {
                   setState(() {
                     lastError =
                         'Site blocks iframe embedding. Try "Open in Browser".';
+                  });
+                }
+              },
+              onProxyIncompatibleDocument: () {
+                if (mounted) {
+                  setState(() {
+                    lastError =
+                        'Proxy document is incompatible with embedded data-origin rendering. Use "Open in New Tab".';
+                    isLoading = false;
                   });
                 }
               },

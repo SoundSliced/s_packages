@@ -41,12 +41,13 @@ class SWebViewConfig {
     this.autoDetectFrameRestrictions = true,
     this.corsProxyUrls = const [
       'https://api.codetabs.com/v1/proxy?quest=',
-      'https://cors.bridged.cc/',
+      'https://corsproxy.io/?url=',
       'https://api.allorigins.win/raw?url=',
     ],
     this.knownRestrictedDomains = const {
       'google.com',
       'github.com',
+      'windy.com',
       'facebook.com',
       'twitter.com',
       'instagram.com',
@@ -79,6 +80,75 @@ class _RestrictionCacheEntry {
     return _RestrictionCacheEntry(
       needsProxy: json['needsProxy'] == true,
       updatedAtMillis: (json['updatedAtMillis'] as num?)?.toInt() ?? 0,
+    );
+  }
+}
+
+class _ProxyFetchResult {
+  final String html;
+  final String proxyBase;
+
+  const _ProxyFetchResult({
+    required this.html,
+    required this.proxyBase,
+  });
+}
+
+class _ProxyHealthSnapshot {
+  final int errorCount;
+  final int swallowedCount;
+  final int unhandledRejectionCount;
+  final int pluginFailureCount;
+  final List<String> recentMessages;
+
+  const _ProxyHealthSnapshot({
+    required this.errorCount,
+    required this.swallowedCount,
+    required this.unhandledRejectionCount,
+    required this.pluginFailureCount,
+    required this.recentMessages,
+  });
+
+  bool get hasSevereRuntimeIssues {
+    if (pluginFailureCount > 0) return true;
+    if (errorCount >= 6) return true;
+    if (swallowedCount >= 6) return true;
+    if (unhandledRejectionCount >= 3) return true;
+
+    return recentMessages.any(
+      (m) =>
+          m.contains('unlegal embed') ||
+          m.contains('idbfactory') ||
+          m.contains('plugin'),
+    );
+  }
+
+  static const empty = _ProxyHealthSnapshot(
+    errorCount: 0,
+    swallowedCount: 0,
+    unhandledRejectionCount: 0,
+    pluginFailureCount: 0,
+    recentMessages: <String>[],
+  );
+
+  factory _ProxyHealthSnapshot.fromJson(Map<String, dynamic> json) {
+    final messagesRaw = json['messages'];
+    final messages = messagesRaw is List
+        ? messagesRaw.map((e) => e.toString().toLowerCase()).toList()
+        : const <String>[];
+
+    int readInt(String key) {
+      final value = json[key];
+      if (value is num) return value.toInt();
+      return int.tryParse(value?.toString() ?? '') ?? 0;
+    }
+
+    return _ProxyHealthSnapshot(
+      errorCount: readInt('errors'),
+      swallowedCount: readInt('swallowedErrors'),
+      unhandledRejectionCount: readInt('unhandledRejections'),
+      pluginFailureCount: readInt('pluginFailures'),
+      recentMessages: messages,
     );
   }
 }
@@ -387,6 +457,9 @@ class _SWebViewState extends State<SWebView> {
   bool _ownsController = false;
   bool? isLoaded;
   bool _isUsingProxy = false;
+  int _proxyHealthProbeGeneration = 0;
+  bool _proxyAdaptiveRetriedCurrentLoad = false;
+  bool _proxyHealthTelemetryUnsupported = false;
 
   void _log(String message) {
     if (kDebugMode && widget.showDebugLogs) {
@@ -531,12 +604,16 @@ class _SWebViewState extends State<SWebView> {
 
     final cacheKey = _cacheKeyFor(url);
 
+    _log('━━━ [SWebView] _checkHeadersForRestrictions ━━━');
+    _log('  url      : $url');
+    _log('  cacheKey : $cacheKey');
+
     // Check configured known restricted domains first.
     final host = Uri.tryParse(url)?.host.toLowerCase() ?? '';
     final isKnownRestricted =
         _knownRestrictedDomains.any((domain) => host.endsWith(domain));
     if (isKnownRestricted) {
-      _log('SWebView: Known restricted domain detected for $host');
+      _log('  → Known restricted domain: $host  [needs proxy=true]');
       await _cacheRestriction(cacheKey, true);
       return true;
     }
@@ -545,26 +622,34 @@ class _SWebViewState extends State<SWebView> {
     final cachedEntry = _restrictionCache[cacheKey];
     if (cachedEntry != null && _isEntryFresh(cachedEntry)) {
       _log(
-          'SWebView: Using cached restriction check - needs proxy: ${cachedEntry.needsProxy}');
+          '  → Cache hit: needsProxy=${cachedEntry.needsProxy}  (age ${DateTime.now().millisecondsSinceEpoch - cachedEntry.updatedAtMillis}ms)');
       return cachedEntry.needsProxy;
     }
     if (cachedEntry != null && !_isEntryFresh(cachedEntry)) {
+      _log('  → Cache entry stale – removing');
       _restrictionCache.remove(cacheKey);
     }
 
     try {
-      _log('SWebView: Testing URL restrictions for $url...');
+      _log(
+          '  → No cache hit – probing via proxy (${_corsProxyUrls.isNotEmpty ? _corsProxyUrls[0] : 'none'})');
 
       // Test via proxy and inspect headers for frame restrictions.
       if (_corsProxyUrls.isNotEmpty) {
         try {
-          final proxyUrl = '${_corsProxyUrls[0]}${Uri.encodeComponent(url)}';
+          final proxyUrl = SWebViewProxyHtmlUtils.buildProxiedUrl(
+            _corsProxyUrls[0],
+            url,
+          );
 
-          _log('SWebView: Testing proxy access...');
-
+          _log('  → Probe request: $proxyUrl');
+          final sw = Stopwatch()..start();
           final response = await http.get(Uri.parse(proxyUrl)).timeout(
                 const Duration(seconds: 3),
               );
+          sw.stop();
+          _log(
+              '  → Probe response: HTTP ${response.statusCode}  (${sw.elapsedMilliseconds}ms, ${response.bodyBytes.length} bytes)');
 
           if (response.statusCode == 200) {
             final xFrameOptions =
@@ -585,27 +670,31 @@ class _SWebViewState extends State<SWebView> {
                     body.contains('refused to connect') ||
                     body.contains('frame-ancestors');
 
+            _log(
+                '  → X-Frame-Options : "$xFrameOptions"  restricted=$hasRestrictedXFrame');
+            _log(
+                '  → CSP             : "${csp.length > 120 ? '${csp.substring(0, 120)}…' : csp}"  restricted=$hasRestrictedCsp');
+            _log('  → Body signals    : $bodySignalsFrameRestriction');
+
             final shouldUseProxy = hasRestrictedXFrame ||
                 hasRestrictedCsp ||
                 bodySignalsFrameRestriction;
 
-            _log(
-                'SWebView: Restriction check result -> proxy: $shouldUseProxy');
+            _log('  → Result: needsProxy=$shouldUseProxy');
             await _cacheRestriction(cacheKey, shouldUseProxy);
             return shouldUseProxy;
           }
         } catch (e) {
-          _log('SWebView: Proxy test failed: $e');
+          _log('  → Probe failed: $e');
         }
       }
 
       // Default: assume no restrictions and try direct load
-      _log('SWebView: No restrictions detected, will try direct load');
+      _log('  → Defaulting to direct load (no restriction signal)');
       await _cacheRestriction(cacheKey, false);
       return false;
     } catch (e) {
-      _log('SWebView: Error checking restrictions: $e');
-      // On any error, assume no restrictions (fail gracefully)
+      _log('  → Restriction check threw: $e – defaulting to direct load');
       await _cacheRestriction(cacheKey, false);
       return false;
     }
@@ -614,46 +703,93 @@ class _SWebViewState extends State<SWebView> {
   /// Detects if a page loaded successfully by checking URL and loading state
   /// Returns true if page appears to be blocked/failed, false if it loaded
   /// Fetches page source through CORS proxy with fallback (web platform only)
-  Future<String?> _fetchPageSourceViaProxy(String url) async {
+  Future<_ProxyFetchResult?> _fetchPageSourceViaProxy(String url) async {
     if (!kIsWeb) {
       return null; // Not on web, don't fetch
     }
 
-    if (kDebugMode && widget.showDebugLogs) {
-      _log(
-          'SWebView: ⚠️ Proxy mode enabled. Avoid sensitive/authenticated pages.');
+    _log('━━━ [SWebView] _fetchPageSourceViaProxy ━━━');
+    _log('  url          : $url');
+    _log('  proxy count  : ${_corsProxyUrls.length}');
+    for (int k = 0; k < _corsProxyUrls.length; k++) {
+      _log('  proxy[$k]     : ${_corsProxyUrls[k]}');
     }
 
     for (int i = 0; i < _corsProxyUrls.length; i++) {
       try {
         final proxyBase = _corsProxyUrls[i];
-        final encodedUrl = Uri.encodeComponent(url);
-        final proxiedUrl = '$proxyBase$encodedUrl';
+        final proxiedUrl =
+            SWebViewProxyHtmlUtils.buildProxiedUrl(proxyBase, url);
 
-        _log('SWebView: Fetching via proxy ($i): $url -> $proxiedUrl');
+        _log('  ─── Attempt proxy[$i]: $proxyBase');
+        _log('    fetch URL : $proxiedUrl');
 
+        final sw = Stopwatch()..start();
         final response = await http
             .get(Uri.parse(proxiedUrl))
             .timeout(const Duration(seconds: 15));
+        sw.stop();
+
+        _log(
+            '    HTTP ${response.statusCode}  (${sw.elapsedMilliseconds}ms, ${response.bodyBytes.length} bytes)');
+        _log('    content-type : ${response.headers['content-type'] ?? '–'}');
 
         if (response.statusCode == 200) {
-          _log('SWebView: Successfully fetched via proxy');
-          return SWebViewProxyHtmlUtils.normalizeProxyHtml(
+          final normalized = SWebViewProxyHtmlUtils.normalizeProxyHtml(
             response.body,
             headers: response.headers,
+          );
+
+          final looksHtml = SWebViewProxyHtmlUtils.looksLikeHtml(normalized);
+          final needsPathFriendlyProxy =
+              SWebViewProxyHtmlUtils.requiresPathFriendlyProxy(normalized);
+          final isQueryStyleProxy =
+              SWebViewProxyHtmlUtils.isQueryStyleProxyBase(proxyBase);
+
+          _log('    looksLikeHtml           : $looksHtml');
+          _log('    requiresPathFriendly    : $needsPathFriendlyProxy');
+          _log('    isQueryStyleProxy       : $isQueryStyleProxy');
+          _log('    normalized length       : ${normalized.length} chars');
+          if (normalized.length > 200) {
+            _log(
+                '    normalized preview      : ${normalized.substring(0, 200).replaceAll('\n', ' ')}…');
+          }
+
+          if (needsPathFriendlyProxy && isQueryStyleProxy) {
+            // Only skip if there is a path-style proxy still available in the list.
+            // If all remaining proxies are also query-style, use this one and
+            // rely on the absolute <base> tag to resolve module imports correctly.
+            final hasNextPathStyleProxy = _corsProxyUrls
+                .skip(i + 1)
+                .any((p) => !SWebViewProxyHtmlUtils.isQueryStyleProxyBase(p));
+            if (hasNextPathStyleProxy) {
+              _log(
+                '    → Skipping: query-style proxy; a path-style proxy is available next.',
+              );
+              continue;
+            }
+            _log(
+              '    → No path-style proxy available; using query-style proxy '
+              'with absolute <base> fallback for module resolution.',
+            );
+          }
+
+          _log('    → Selected proxy[$i] for final load');
+          return _ProxyFetchResult(
+            html: normalized,
+            proxyBase: proxyBase,
           );
         } else {
           throw Exception('Proxy returned status ${response.statusCode}');
         }
       } catch (e) {
-        _log('SWebView: Proxy $i failed: $e');
+        _log('    → proxy[$i] failed: $e');
 
         if (i == _corsProxyUrls.length - 1) {
-          // Last proxy failed
-          _log('SWebView: All proxies exhausted');
+          _log(
+              '  → All ${_corsProxyUrls.length} proxies exhausted – returning null');
           return null;
         }
-        // Try next proxy
         continue;
       }
     }
@@ -664,21 +800,227 @@ class _SWebViewState extends State<SWebView> {
   Uri _buildProxyDataUriOrThrow({
     required String pageSource,
     required String originalUrl,
+    required String proxyBase,
+    bool forceRewriteResources = false,
   }) {
+    _log('━━━ [SWebView] _buildProxyDataUriOrThrow ━━━');
+    _log('  originalUrl    : $originalUrl');
+    _log('  proxyBase      : $proxyBase');
+    _log('  pageSource len : ${pageSource.length} chars');
+
     var html = SWebViewProxyHtmlUtils.injectBaseTagIfMissing(
       pageSource,
       originalUrl,
     );
+    _log('  after injectBase len   : ${html.length} chars');
 
-    if (SWebViewProxyHtmlUtils.isLikelyProxyIncompatibleDocument(html)) {
+    final isModulePage = SWebViewProxyHtmlUtils.requiresPathFriendlyProxy(html);
+    final isQueryProxy =
+        SWebViewProxyHtmlUtils.isQueryStyleProxyBase(proxyBase);
+    _log('  isModulePage           : $isModulePage');
+    _log('  isQueryProxy           : $isQueryProxy');
+
+    if (!forceRewriteResources && isModulePage && isQueryProxy) {
+      // Module/importmap pages rely on the browser's own module resolution.
+      // Routing sub-resources through a query-style proxy breaks relative imports
+      // inside JS modules (e.g. `import "./utils.js"` resolves wrongly against
+      // `proxy.com/?url=...index.js`). Instead, the absolute <base href> injected
+      // above lets the browser resolve all relative URLs directly against the
+      // original origin – which typically serves static assets with CORS headers.
+      _log(
+          '  → Skipping resource rewrite: relying on <base> for module resolution');
+    } else {
+      if (forceRewriteResources && isModulePage && isQueryProxy) {
+        _log(
+            '  → Adaptive mode: forcing resource rewrite even on module/query proxy');
+      }
+      html = SWebViewProxyHtmlUtils.rewriteHtmlResourceUrlsForProxy(
+        html,
+        originalUrl: originalUrl,
+        proxyBase: proxyBase,
+      );
+      _log('  after rewriteResources : ${html.length} chars');
+    }
+
+    html = SWebViewProxyHtmlUtils.injectProxyCompatibilityScript(html);
+    _log('  after injectCompat     : ${html.length} chars');
+
+    final isIncompat =
+        SWebViewProxyHtmlUtils.isLikelyProxyIncompatibleDocument(html);
+    _log('  isProxyIncompatible    : $isIncompat');
+
+    if (isIncompat) {
       throw _ProxyIncompatibleDocumentException(
         'Proxy-injected page requires first-party origin (likely anti-bot/challenge page). '
         'Use Open in New Tab for this URL.',
       );
     }
 
-    final base64Html = base64.encode(utf8.encode(html));
-    return Uri.parse('data:text/html;base64,$base64Html');
+    final encoded = base64.encode(utf8.encode(html));
+    _log('  data URI base64 len    : ${encoded.length} chars');
+    _log(
+        '  data URI preview       : data:text/html;base64,${encoded.substring(0, encoded.length.clamp(0, 80))}…');
+    return Uri.parse('data:text/html;base64,$encoded');
+  }
+
+  Future<void> _loadThroughProxy(
+    String url, {
+    required bool useInitController,
+    required bool forceRewriteResources,
+    bool enableAdaptiveMonitoring = true,
+  }) async {
+    _isUsingProxy = true;
+    final fetched = await _fetchPageSourceViaProxy(url);
+
+    if (fetched == null) {
+      throw Exception('Failed to load via proxy');
+    }
+
+    _log('  → Building data URI (proxyBase=${fetched.proxyBase})');
+    final dataUri = _buildProxyDataUriOrThrow(
+      pageSource: fetched.html,
+      originalUrl: url,
+      proxyBase: fetched.proxyBase,
+      forceRewriteResources: forceRewriteResources,
+    );
+
+    _log('  → Loading data URI into controller');
+    if (useInitController) {
+      await _initControllerWithUri(dataUri);
+    } else {
+      await webViewController!.go(uri: dataUri);
+    }
+
+    if (kIsWeb && enableAdaptiveMonitoring) {
+      final generation = ++_proxyHealthProbeGeneration;
+      unawaited(_monitorProxyRuntimeAndAdapt(
+        url: url,
+        generation: generation,
+        forceRewriteResources: forceRewriteResources,
+        useInitController: useInitController,
+      ));
+    }
+  }
+
+  Future<void> _monitorProxyRuntimeAndAdapt({
+    required String url,
+    required int generation,
+    required bool forceRewriteResources,
+    required bool useInitController,
+  }) async {
+    await Future<void>.delayed(const Duration(milliseconds: 1800));
+    if (!mounted ||
+        !_isUsingProxy ||
+        generation != _proxyHealthProbeGeneration) {
+      return;
+    }
+
+    final snapshot = await _readProxyHealthSnapshot();
+    if (snapshot == null) {
+      return;
+    }
+    _log(
+      '  → proxy health: errors=${snapshot.errorCount}, '
+      'swallowed=${snapshot.swallowedCount}, '
+      'rejections=${snapshot.unhandledRejectionCount}, '
+      'pluginFailures=${snapshot.pluginFailureCount}',
+    );
+
+    if (!snapshot.hasSevereRuntimeIssues) {
+      return;
+    }
+
+    if (_proxyAdaptiveRetriedCurrentLoad || forceRewriteResources) {
+      _log('  → proxy health degraded; adaptive retry already consumed');
+      return;
+    }
+
+    _proxyAdaptiveRetriedCurrentLoad = true;
+    _log(
+      '  → proxy health degraded; running one-shot adaptive retry '
+      '(forcing resource rewrite strategy)',
+    );
+
+    try {
+      await _loadThroughProxy(
+        url,
+        useInitController: useInitController,
+        forceRewriteResources: true,
+        enableAdaptiveMonitoring: false,
+      );
+    } catch (e) {
+      _log('  → adaptive proxy retry failed: $e');
+    }
+  }
+
+  Future<_ProxyHealthSnapshot?> _readProxyHealthSnapshot() async {
+    if (webViewController == null || webViewController!.is_init == false) {
+      return _ProxyHealthSnapshot.empty;
+    }
+
+    if (!webViewController!.is_mobile) {
+      return _ProxyHealthSnapshot.empty;
+    }
+
+    if (_proxyHealthTelemetryUnsupported) {
+      return null;
+    }
+
+    try {
+      final dynamic raw = await webViewController!.webview_mobile_controller
+          .runJavaScriptReturningResult('''
+            (function(){
+              try {
+                var stats = window.__swebviewCompatStats || {};
+                return JSON.stringify(stats);
+              } catch (_) {
+                return '{}';
+              }
+            })();
+          ''');
+
+      String payload;
+      if (raw == null) {
+        payload = '{}';
+      } else if (raw is String) {
+        final trimmed = raw.trim();
+        if (trimmed.length >= 2 &&
+            ((trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+                (trimmed.startsWith("'") && trimmed.endsWith("'")))) {
+          payload = trimmed.substring(1, trimmed.length - 1);
+        } else {
+          payload = trimmed;
+        }
+      } else {
+        payload = raw.toString();
+      }
+
+      final decoded = json.decode(payload);
+      if (decoded is Map<String, dynamic>) {
+        return _ProxyHealthSnapshot.fromJson(decoded);
+      }
+      if (decoded is Map) {
+        return _ProxyHealthSnapshot.fromJson(
+            Map<String, dynamic>.from(decoded));
+      }
+    } on UnimplementedError {
+      _proxyHealthTelemetryUnsupported = true;
+      _log(
+          '  → proxy health probe disabled: JS result API not implemented on this platform');
+      return null;
+    } catch (e) {
+      final message = e.toString().toLowerCase();
+      if (message.contains('runjavascriptreturningresult') &&
+          message.contains('not implemented')) {
+        _proxyHealthTelemetryUnsupported = true;
+        _log(
+            '  → proxy health probe disabled: JS result API not implemented on this platform');
+        return null;
+      }
+      _log('  → failed to read proxy health snapshot: $e');
+    }
+
+    return _ProxyHealthSnapshot.empty;
   }
 
   void _ensureController() {
@@ -720,6 +1062,11 @@ class _SWebViewState extends State<SWebView> {
   /// Checks for: X-Frame-Options (DENY, SAMEORIGIN) and CSP frame-ancestors
   /// Returns true if CORS proxy should be used, false for direct load
   Future<void> initialisation() async {
+    _log('━━━ [SWebView] initialisation ━━━');
+    _log('  url                      : ${widget.url}');
+    _log('  kIsWeb                   : $kIsWeb');
+    _log('  autoDetectRestrictions   : $_autoDetectFrameRestrictions');
+    _log('  platform                 : ${defaultTargetPlatform.name}');
     try {
       if (mounted) {
         setState(() {
@@ -730,6 +1077,7 @@ class _SWebViewState extends State<SWebView> {
 
       // In test mode, skip all network calls and just mark as loaded
       if (WebViewController.isTestMode) {
+        _log('  → Test mode active – skipping network');
         await _initControllerWithUri(Uri.parse(widget.url));
         if (mounted) {
           setState(() {
@@ -741,48 +1089,39 @@ class _SWebViewState extends State<SWebView> {
       }
 
       if (kIsWeb && _autoDetectFrameRestrictions) {
+        _proxyAdaptiveRetriedCurrentLoad = false;
         // Check cache first
         bool needsProxy;
         final cacheKey = _cacheKeyFor(widget.url);
         final cached = _restrictionCache[cacheKey];
         if (cached != null && _isEntryFresh(cached)) {
           needsProxy = cached.needsProxy;
-          _log('SWebView: Using cached result - needs proxy: $needsProxy');
+          _log('  → Cache hit: needsProxy=$needsProxy');
         } else {
-          // Check headers to detect restrictions
-          _log(
-              'SWebView: Checking headers for restrictions on ${widget.url}...');
+          _log('  → No cache hit – running restriction check…');
           needsProxy = await _checkHeadersForRestrictions(widget.url);
+          _log('  → Restriction check done: needsProxy=$needsProxy');
         }
 
         if (needsProxy) {
-          // Use proxy
-          _log('SWebView: Loading via proxy...');
-          _isUsingProxy = true;
-          var pageSource = await _fetchPageSourceViaProxy(widget.url);
-
-          if (pageSource != null) {
-            final dataUri = _buildProxyDataUriOrThrow(
-              pageSource: pageSource,
-              originalUrl: widget.url,
-            );
-            await _initControllerWithUri(dataUri);
-          } else {
-            throw Exception('Failed to load via proxy');
-          }
+          _log('  → MODE: proxy');
+          await _loadThroughProxy(
+            widget.url,
+            useInitController: true,
+            forceRewriteResources: false,
+          );
         } else {
-          // Load directly
-          _log('SWebView: Loading directly (no restrictions detected)...');
+          _log('  → MODE: direct (${widget.url})');
           _isUsingProxy = false;
-
           await _initControllerWithUri(Uri.parse(widget.url));
         }
       } else {
-        // Auto-detection disabled or native platform, load directly
+        _log('  → MODE: direct – auto-detect disabled or native platform');
         _isUsingProxy = false;
         await _initControllerWithUri(Uri.parse(widget.url));
       }
 
+      _log('  → initialisation complete: isLoaded=true');
       if (mounted) {
         setState(() {
           isLoaded = true;
@@ -790,12 +1129,14 @@ class _SWebViewState extends State<SWebView> {
         widget.onLoaded?.call();
       }
     } catch (e) {
-      _log('Error initializing webview: $e');
+      _log('━━━ [SWebView] initialisation FAILED ━━━');
+      _log('  error: $e');
       final errorMessage =
           'Failed to load: ${e.toString().replaceAll('Exception: ', '')}';
 
       if (e is _ProxyIncompatibleDocumentException) {
-        _log('SWebView: proxy-incompatible document detected');
+        _log(
+            '  → proxy-incompatible document – firing onProxyIncompatibleDocument');
         if (mounted) {
           setState(() {
             isLoaded = false;
@@ -813,6 +1154,7 @@ class _SWebViewState extends State<SWebView> {
 
       // On web, likely an iframe restriction
       if (kIsWeb && mounted) {
+        _log('  → firing onIframeBlocked');
         widget.onIframeBlocked?.call();
       }
 
@@ -826,13 +1168,18 @@ class _SWebViewState extends State<SWebView> {
   }
 
   Future<void> _loadUrl(String url) async {
+    _log('━━━ [SWebView] _loadUrl ━━━');
+    _log('  url : $url');
+
     if (webViewController == null || webViewController!.is_init == false) {
+      _log('  → Controller not init – delegating to initialisation()');
       await initialisation();
       return;
     }
 
     // In test mode, just update the loaded state without actual navigation
     if (WebViewController.isTestMode) {
+      _log('  → Test mode – skipping network');
       if (mounted) {
         setState(() {
           isLoaded = true;
@@ -850,45 +1197,39 @@ class _SWebViewState extends State<SWebView> {
       }
 
       if (kIsWeb && _autoDetectFrameRestrictions) {
+        _proxyAdaptiveRetriedCurrentLoad = false;
         // Check cache first
         bool needsProxy;
         final cacheKey = _cacheKeyFor(url);
         final cached = _restrictionCache[cacheKey];
         if (cached != null && _isEntryFresh(cached)) {
           needsProxy = cached.needsProxy;
-          _log('SWebView: Using cached result - needs proxy: $needsProxy');
+          _log('  → Cache hit: needsProxy=$needsProxy');
         } else {
-          // Check headers to detect restrictions
-          _log('SWebView: Checking headers for restrictions on $url...');
+          _log('  → No cache hit – running restriction check…');
           needsProxy = await _checkHeadersForRestrictions(url);
+          _log('  → Restriction check done: needsProxy=$needsProxy');
         }
 
         if (needsProxy) {
-          // Use proxy
-          _log('SWebView: Loading via proxy...');
-          _isUsingProxy = true;
-          var pageSource = await _fetchPageSourceViaProxy(url);
-          if (pageSource != null) {
-            final dataUri = _buildProxyDataUriOrThrow(
-              pageSource: pageSource,
-              originalUrl: url,
-            );
-            await webViewController!.go(uri: dataUri);
-          } else {
-            throw Exception('Failed to load via proxy');
-          }
+          _log('  → MODE: proxy');
+          await _loadThroughProxy(
+            url,
+            useInitController: false,
+            forceRewriteResources: false,
+          );
         } else {
-          // Load directly
-          _log('SWebView: Loading directly (no restrictions detected)...');
+          _log('  → MODE: direct ($url)');
           _isUsingProxy = false;
           await webViewController!.go(uri: Uri.parse(url));
         }
       } else {
-        // Auto-detection disabled or native platform, load directly
+        _log('  → MODE: direct – auto-detect disabled or native platform');
         _isUsingProxy = false;
         await webViewController!.go(uri: Uri.parse(url));
       }
 
+      _log('  → _loadUrl complete: isLoaded=true');
       if (mounted) {
         setState(() {
           isLoaded = true;
@@ -896,12 +1237,14 @@ class _SWebViewState extends State<SWebView> {
         widget.onLoaded?.call();
       }
     } catch (e) {
-      _log('Error loading new url: $e');
+      _log('━━━ [SWebView] _loadUrl FAILED ━━━');
+      _log('  error: $e');
       final errorMessage =
           'Failed to load: ${e.toString().replaceAll('Exception: ', '')}';
 
       if (e is _ProxyIncompatibleDocumentException) {
-        _log('SWebView: proxy-incompatible document detected');
+        _log(
+            '  → proxy-incompatible document – firing onProxyIncompatibleDocument');
         if (mounted) {
           setState(() {
             isLoaded = false;
@@ -919,6 +1262,7 @@ class _SWebViewState extends State<SWebView> {
 
       // On web, likely an iframe restriction
       if (kIsWeb && mounted) {
+        _log('  → firing onIframeBlocked');
         widget.onIframeBlocked?.call();
       }
 

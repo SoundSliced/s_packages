@@ -37,10 +37,10 @@ packages:
     dependency: "direct main"
     description:
       name: calendar_date_picker2
-      sha256: "9c9b5586fb512bf1181d7f3a6273bffa9e65a4e16689902e112771e7d71d063b"
+      sha256: d6ea697c7fc0eebc64c62ad2ac6232a8c38795010bd8466b687bfebcbbdd872e
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.0"
   characters:
     dependency: transitive
     description:
@@ -417,10 +417,10 @@ packages:
     dependency: "direct main"
     description:
       name: new_loading_indicator
-      sha256: a341b00004706dc109f60127374eeac250905f16af9fd9b9e0348b78b75c2f16
+      sha256: "7837f0a8a41cef003efb7ddaff05ec52084f8501475450819ad75f24ab0048bf"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.2"
   objective_c:
     dependency: transitive
     description:
@@ -718,10 +718,10 @@ packages:
     dependency: "direct main"
     description:
       name: tabler_icons_plus
-      sha256: adadba02150bf0cafc1f04450215bfe889128dbad416de2efc8e5c93a71893b2
+      sha256: "6c3a1e987d87a063597b20810b080fe8202c5d48f2eb0a5c793fcd4c72566f29"
       url: "https://pub.dev"
     source: hosted
-    version: "3.41.0"
+    version: "3.44.0"
   term_glyph:
     dependency: transitive
     description:
@@ -843,5 +843,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.10.4 <4.0.0"
-  flutter: ">=3.38.5"
+  dart: ">=3.11.5 <4.0.0"
+  flutter: ">=3.41.9"

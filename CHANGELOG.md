@@ -1,4 +1,11 @@
-
+## 4.7.0
+- **`s_webview` adaptive proxy compatibility for JS-heavy sites:**
+  - Hardened proxy rendering for pages that rely on module scripts, import maps, and relative `<base href>` values.
+  - Added automatic rewriting of relative `<base href>` values to absolute URLs so proxy-loaded pages can resolve assets correctly from `data:`/srcdoc-based rendering.
+  - Added a generic compatibility script that disables service-worker registration, provides a lightweight IndexedDB fallback, suppresses known null-origin history/origin failures, and continuously keeps blocking overlays hidden when the site tries to re-show them.
+  - Added runtime compatibility telemetry (`window.__swebviewCompatStats`) so SWebView can detect degraded proxy loads and retry once with an alternate strategy.
+  - Added a one-shot adaptive retry path that can force resource rewriting for similar sites when the initial proxy strategy loads the page but key runtime plugins/features still fail.
+  - Improved proxy-cache behavior for known restricted hosts so Windy-like sites stay on the proxy path instead of flipping back to direct mode mid-flow.
 
 ## 4.6.0
 - **`s_modal` background transform customization via `Modal.appBuilder(...)`:**
