@@ -320,12 +320,6 @@ class SWebView extends StatefulWidget {
     String url, {
     bool showDebugLogs = false,
   }) async {
-    if (kDebugMode && showDebugLogs) {
-      debugPrint('SWebView: User requested retry with proxy for $url');
-      debugPrint(
-          'SWebView: ⚠️ SUGGESTION: Add "${Uri.parse(url).host}" to restrictedDomains list');
-    }
-
     final key = _SWebViewState.cacheKeyFromUrl(url, cacheByHost: true);
     _SWebViewState._restrictionCache[key] = _RestrictionCacheEntry(
       needsProxy: true,
@@ -376,16 +370,6 @@ class SWebView extends StatefulWidget {
     bool addToProxyCacheForNextTime = true,
     bool showDebugLogs = false,
   }) async {
-    if (kDebugMode && showDebugLogs) {
-      debugPrint('SWebView: Opening in new tab: $url');
-      if (addToProxyCacheForNextTime) {
-        debugPrint('SWebView: URL marked to use proxy for next load: $url');
-      } else {
-        debugPrint(
-            'SWebView: ⚠️ SUGGESTION: Add "${Uri.parse(url).host}" to restrictedDomains list');
-      }
-    }
-
     // Mark URL as needing proxy for future loads (default behavior)
     if (addToProxyCacheForNextTime) {
       final key = _SWebViewState.cacheKeyFromUrl(url, cacheByHost: true);
@@ -426,10 +410,6 @@ class SWebView extends StatefulWidget {
     String url, {
     bool showDebugLogs = false,
   }) async {
-    if (kDebugMode && showDebugLogs) {
-      debugPrint('SWebView: Removing $url from proxy cache');
-    }
-
     final key = _SWebViewState.cacheKeyFromUrl(url, cacheByHost: true);
     _SWebViewState._restrictionCache.remove(key);
     await _SWebViewState._saveCache(showDebugLogs: showDebugLogs);
@@ -462,9 +442,7 @@ class _SWebViewState extends State<SWebView> {
   bool _proxyHealthTelemetryUnsupported = false;
 
   void _log(String message) {
-    if (kDebugMode && widget.showDebugLogs) {
-      debugPrint(message);
-    }
+    // Intentionally no-op: verbose internal debug logging has been removed.
   }
 
   @override
@@ -557,20 +535,9 @@ class _SWebViewState extends State<SWebView> {
             );
           }
         });
-
-        if (kDebugMode && showDebugLogs) {
-          debugPrint(
-              'SWebView: Loaded ${_restrictionCache.length} cached restrictions from storage');
-        }
-      } else {
-        if (kDebugMode && showDebugLogs) {
-          debugPrint('SWebView: No cached restrictions found in storage');
-        }
       }
     } catch (e) {
-      if (kDebugMode && showDebugLogs) {
-        debugPrint('SWebView: Error loading cache: $e');
-      }
+      // no-op
     }
   }
 
@@ -584,15 +551,8 @@ class _SWebViewState extends State<SWebView> {
         _restrictionCache.map((key, value) => MapEntry(key, value.toJson())),
       );
       await prefs.setString(_cacheKey, cacheJson);
-
-      if (kDebugMode && showDebugLogs) {
-        debugPrint(
-            'SWebView: Saved ${_restrictionCache.length} restrictions to storage');
-      }
     } catch (e) {
-      if (kDebugMode && showDebugLogs) {
-        debugPrint('SWebView: Error saving cache: $e');
-      }
+      // no-op
     }
   }
 

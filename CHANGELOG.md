@@ -1,3 +1,6 @@
+## 4.7.2
+- `s_webview`'s debug prints removed
+
 ## 4.7.1
 - **`s_webview` automatic API proxy rewriting for data-driven SPAs:**
   - Enhanced proxy compatibility script to automatically intercept and rewrite API calls made by proxied pages.
