@@ -292,7 +292,7 @@ class SWebViewProxyHtmlUtils {
     const marker = 'data-swebview-proxy-compat';
     if (html.contains(marker)) return html;
 
-    // The script patches four things that break when a page is served from a
+    // The script patches six things that break when a page is served from a
     // data: URL (null origin):
     //
     // 1. Service-worker registration — SW scope must match origin; fails silently.
@@ -306,7 +306,11 @@ class SWebViewProxyHtmlUtils {
     //    window.location.origin and show a blocking overlay when it is not their
     //    own domain. We inject CSS and also continuously force-hide the node
     //    because page JS can toggle inline styles after load.
-    // 5. Known benign noisy errors (Unlegal embed / IDBFactory / gl-particles)
+    // 5. API proxy rewriting — when a page makes cross-origin API calls (e.g.,
+    //    Axios to dir.aviapages.com), the null origin blocks them. We extract
+    //    the proxy base from the injected <base> tag and rewrite fetch/XHR/Axios
+    //    requests to *.aviapages.com URLs through that same proxy.
+    // 6. Known benign noisy errors (Unlegal embed / IDBFactory / gl-particles)
     //    are swallowed to reduce console spam while keeping page execution alive.
     const script = '<script $marker="1">(function(){try{'
         'var _stats=(window.__swebviewCompatStats&&typeof window.__swebviewCompatStats==="object")'
@@ -314,6 +318,13 @@ class SWebViewProxyHtmlUtils {
         'window.__swebviewCompatStats=_stats;'
         'var _pushMsg=function(m){try{m=String(m||"");_stats.messages.push(m);'
         'if(_stats.messages.length>25)_stats.messages.splice(0,_stats.messages.length-25);}catch(e){}};'
+        // Extract proxy base from <base> tag for API rewriting
+        'var _proxyBase="";'
+        'try{var b=document.querySelector("base[href]");'
+        'if(b&&b.href){'
+        'var m=b.href.match(/^(https?:\\/\\/[^\\/]+(?:\\/[^\\/]+)*(?:\\?[^=]+=)?)/);'
+        'if(m)_proxyBase=m[1];'
+        '}}catch(e){}'
         // 1. Service workers
         'if(typeof navigator!=="undefined"&&"serviceWorker" in navigator){'
         'navigator.serviceWorker.register=function(){'
@@ -392,6 +403,35 @@ class SWebViewProxyHtmlUtils {
         'if(n){n.style.setProperty("display","none","important");'
         'n.setAttribute("aria-hidden","true");}}catch(e){}};'
         '_hideUE();setInterval(_hideUE,500);'
+        // 3.5 API proxy rewriting for cross-origin API calls (Axios/fetch)
+        'if(_proxyBase){'
+        'var _rewriteApiUrl=function(u){try{u=String(u||"");'
+        'if((u.indexOf("dir.aviapages.com")!==-1||u.indexOf("api.aviapages.com")!==-1)'
+        '&&(u.indexOf("http://")===0||u.indexOf("https://")===0)){'
+        'return _proxyBase+encodeURIComponent(u);'
+        '}}catch(e){}_pushMsg("API rewrite failed: "+e);}return u;};'
+        // Wrap fetch()
+        'if(typeof window.fetch==="function"){'
+        'var _origFetch=window.fetch;'
+        'window.fetch=function(r){if(typeof r==="string")r=_rewriteApiUrl(r);'
+        'return _origFetch.apply(this,arguments);};'
+        '}'
+        // Wrap XMLHttpRequest.open()
+        'if(typeof XMLHttpRequest!=="undefined"){'
+        'var _origOpen=XMLHttpRequest.prototype.open;'
+        'XMLHttpRequest.prototype.open=function(method,url){'
+        'if(typeof url==="string")url=_rewriteApiUrl(url);'
+        'return _origOpen.apply(this,arguments);};'
+        '}'
+        // Wrap Axios if available
+        'if(typeof window.axios!=="undefined"&&window.axios){'
+        'var _origRequest=window.axios.request;'
+        'if(typeof _origRequest==="function"){'
+        'window.axios.request=function(cfg){if(cfg&&cfg.url)cfg.url=_rewriteApiUrl(cfg.url);'
+        'return _origRequest.apply(this,arguments);};'
+        '}'
+        '}'
+        '}'
         // 5. Reduce known noisy errors in proxied data-origin mode
         'var _swallow=function(msg){msg=String(msg||"");'
         'return msg.indexOf("Unlegal embed")!==-1||'

@@ -1,8 +1,17 @@
+## 4.7.1
+- **`s_webview` automatic API proxy rewriting for data-driven SPAs:**
+  - Enhanced proxy compatibility script to automatically intercept and rewrite API calls made by proxied pages.
+  - When a page loaded via CORS proxy makes `fetch()`, `XMLHttpRequest`, or `Axios` requests to cross-origin API endpoints (e.g., `dir.aviapages.com`, `api.aviapages.com`), SWebView now transparently rewrites these requests through the same proxy that loaded the main HTML.
+  - Extracts the CORS proxy base from the injected `<base>` tag and uses it to rewrite URLs matching known API domains.
+  - Enables Vue.js and other data-driven single-page applications to successfully populate dynamic content when loaded through a proxy, fixing the "partial render" issue where headers/footers display but main content areas remain blank.
+  - Solves the class of problem where API calls fail silently with CORS errors from null-origin `data:` URLs, preventing Vue hydration and data binding.
+
 ## 4.7.0
 - **`s_webview` adaptive proxy compatibility for JS-heavy sites:**
   - Hardened proxy rendering for pages that rely on module scripts, import maps, and relative `<base href>` values.
   - Added automatic rewriting of relative `<base href>` values to absolute URLs so proxy-loaded pages can resolve assets correctly from `data:`/srcdoc-based rendering.
   - Added a generic compatibility script that disables service-worker registration, provides a lightweight IndexedDB fallback, suppresses known null-origin history/origin failures, and continuously keeps blocking overlays hidden when the site tries to re-show them.
+  - **NEW:** Added automatic **API proxy rewriting** for cross-origin API calls from pages like aviapages.com. When a proxied page makes `fetch()`, `XMLHttpRequest`, or `Axios` calls to `*.aviapages.com` endpoints, SWebView now transparently rewrites them to use the same CORS proxy that loaded the main page, enabling Vue.js and other data-driven SPAs to successfully populate content.
   - Added runtime compatibility telemetry (`window.__swebviewCompatStats`) so SWebView can detect degraded proxy loads and retry once with an alternate strategy.
   - Added a one-shot adaptive retry path that can force resource rewriting for similar sites when the initial proxy strategy loads the page but key runtime plugins/features still fail.
   - Improved proxy-cache behavior for known restricted hosts so Windy-like sites stay on the proxy path instead of flipping back to direct mode mid-flow.
