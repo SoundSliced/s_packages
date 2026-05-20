@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,7 +46,6 @@ class SBounceable extends StatefulWidget {
 
 class _SBounceableState extends State<SBounceable> {
   double _scale = 1.0;
-  Timer? _singleTapTimer;
   DateTime? _lastPointerDownAt;
   Offset? _lastPointerDownPosition;
   bool _suppressNextTap = false;
@@ -57,19 +54,23 @@ class _SBounceableState extends State<SBounceable> {
   Duration get _duration =>
       widget.duration ?? const Duration(milliseconds: 200);
 
-  bool get _shouldDeferTap =>
-      widget.deferTapWhenDoubleTapEnabled &&
-      widget.onTap != null &&
-      widget.onDoubleTap != null;
+  bool get _useGestureDoubleTapRecognizer =>
+      widget.onDoubleTap != null && widget.deferTapWhenDoubleTapEnabled;
+
+  bool get _useManualPointerDoubleTap =>
+      widget.onDoubleTap != null && !widget.deferTapWhenDoubleTapEnabled;
 
   void _onPointerDown(PointerDownEvent event) {
+    if (!mounted) return;
     if (widget.isBounceEnabled) {
       setState(() {
         _scale = _scaleFactor;
       });
     }
 
-    _detectDoubleTapFromPointerDown(event);
+    if (_useManualPointerDoubleTap) {
+      _detectDoubleTapFromPointerDown(event);
+    }
   }
 
   void _detectDoubleTapFromPointerDown(PointerDownEvent event) {
@@ -96,6 +97,7 @@ class _SBounceableState extends State<SBounceable> {
   }
 
   void _onPointerUp(PointerUpEvent event) {
+    if (!mounted) return;
     if (widget.isBounceEnabled) {
       setState(() {
         _scale = 1.0;
@@ -104,6 +106,7 @@ class _SBounceableState extends State<SBounceable> {
   }
 
   void _onPointerCancel(PointerCancelEvent event) {
+    if (!mounted) return;
     if (widget.isBounceEnabled) {
       setState(() {
         _scale = 1.0;
@@ -117,21 +120,10 @@ class _SBounceableState extends State<SBounceable> {
       return;
     }
 
-    if (_shouldDeferTap) {
-      _singleTapTimer?.cancel();
-      _singleTapTimer = Timer(kDoubleTapTimeout, () {
-        _singleTapTimer = null;
-        _runTapCallback();
-      });
-      return;
-    }
-
     _runTapCallback();
   }
 
   void _handleDoubleTap() {
-    _singleTapTimer?.cancel();
-    _singleTapTimer = null;
     if (widget.enableHapticFeedback) {
       HapticFeedback.lightImpact();
     }
@@ -146,21 +138,6 @@ class _SBounceableState extends State<SBounceable> {
   }
 
   @override
-  void didUpdateWidget(covariant SBounceable oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (!_shouldDeferTap) {
-      _singleTapTimer?.cancel();
-      _singleTapTimer = null;
-    }
-  }
-
-  @override
-  void dispose() {
-    _singleTapTimer?.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Listener(
       behavior: HitTestBehavior.translucent,
@@ -170,6 +147,7 @@ class _SBounceableState extends State<SBounceable> {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: widget.onTap != null ? _handleTap : null,
+        onDoubleTap: _useGestureDoubleTapRecognizer ? _handleDoubleTap : null,
         onLongPress: widget.onLongPress,
         child: AnimatedScale(
           scale: widget.isBounceEnabled ? _scale : 1.0,

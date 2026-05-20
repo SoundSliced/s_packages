@@ -1,9 +1,10 @@
+
 name: s_packages
 description: A unified Flutter package which gathers multiple widgets and tools.
 issue_tracker: https://github.com/SoundSliced/s_packages/issues
 repository: https://github.com/SoundSliced/s_packages
 homepage: https://github.com/SoundSliced/s_packages
-version: 4.7.2
+version: 4.8.0
 
 
 environment:
