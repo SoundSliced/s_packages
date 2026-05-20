@@ -1,3 +1,7 @@
+
+## 4.8.1
+- **`s_bounceable`** no longer using GestureDetector widget internally to handle single, double and long taps --> using the Listener widget instead, for better compatibility with desktop (using mouse) devices on flutter web platform
+
 ## 4.8.0
 - **`s_bounceable`**
   - Improved documentation and ensured all tap/double-tap/long-press logic is robust and consistent.

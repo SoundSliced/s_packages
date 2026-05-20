@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,111 +48,173 @@ class SBounceable extends StatefulWidget {
 
 class _SBounceableState extends State<SBounceable> {
   double _scale = 1.0;
-  DateTime? _lastPointerDownAt;
-  Offset? _lastPointerDownPosition;
-  bool _suppressNextTap = false;
+
+  int? _activePointer;
+  Offset? _pointerDownPosition;
+  bool _tapCanceledByMove = false;
+  bool _longPressFired = false;
+
+  DateTime? _lastTapAt;
+  Offset? _lastTapPosition;
+
   bool _pendingSingleTap = false;
   VoidCallback? _pendingSingleTapCallback;
+  Timer? _pendingSingleTapTimer;
+  Timer? _longPressTimer;
 
   double get _scaleFactor => widget.scaleFactor ?? 0.95;
   Duration get _duration =>
       widget.duration ?? const Duration(milliseconds: 200);
 
-  bool get _shouldArbitrateTapAndDoubleTap =>
-      widget.onTap != null &&
-      widget.onDoubleTap != null &&
-      widget.deferTapWhenDoubleTapEnabled;
-
-  bool get _useGestureDoubleTapRecognizer =>
-      widget.onDoubleTap != null && !_shouldArbitrateTapAndDoubleTap;
-
-  bool get _useManualPointerDoubleTap =>
-      widget.onDoubleTap != null &&
-      (_shouldArbitrateTapAndDoubleTap || !widget.deferTapWhenDoubleTapEnabled);
+  bool get _hasTap => widget.onTap != null;
+  bool get _hasDoubleTap => widget.onDoubleTap != null;
 
   void _onPointerDown(PointerDownEvent event) {
     if (!mounted) return;
+
+    if (event.kind == PointerDeviceKind.mouse &&
+        event.buttons != kPrimaryMouseButton) {
+      return;
+    }
+
+    if (_activePointer != null) return;
+
+    _activePointer = event.pointer;
+    _pointerDownPosition = event.position;
+    _tapCanceledByMove = false;
+    _longPressFired = false;
+
     if (widget.isBounceEnabled) {
       setState(() {
         _scale = _scaleFactor;
       });
     }
 
-    if (_useManualPointerDoubleTap) {
-      _detectDoubleTapFromPointerDown(event);
-    }
+    _startLongPressTimer();
   }
 
-  void _detectDoubleTapFromPointerDown(PointerDownEvent event) {
-    if (widget.onDoubleTap == null) return;
+  void _startLongPressTimer() {
+    _longPressTimer?.cancel();
+    if (widget.onLongPress == null) return;
 
-    final now = DateTime.now();
-    final lastAt = _lastPointerDownAt;
-    final lastPosition = _lastPointerDownPosition;
-    final maxDistanceSquared = kDoubleTapSlop * kDoubleTapSlop;
-    final isDoubleTap = lastAt != null &&
-        lastPosition != null &&
-        now.difference(lastAt) <= kDoubleTapTimeout &&
-        (event.position - lastPosition).distanceSquared <= maxDistanceSquared;
+    _longPressTimer = Timer(kLongPressTimeout, () {
+      if (!mounted || _activePointer == null || _tapCanceledByMove) return;
+      _longPressFired = true;
+      widget.onLongPress?.call();
+    });
+  }
 
-    _lastPointerDownAt = now;
-    _lastPointerDownPosition = event.position;
+  void _onPointerMove(PointerMoveEvent event) {
+    if (event.pointer != _activePointer || _pointerDownPosition == null) return;
 
-    if (!isDoubleTap) return;
+    final maxDistanceSquared = kTouchSlop * kTouchSlop;
+    final movedTooFar =
+        (event.position - _pointerDownPosition!).distanceSquared >
+            maxDistanceSquared;
+    if (!movedTooFar) return;
 
-    _lastPointerDownAt = null;
-    _lastPointerDownPosition = null;
-    _suppressNextTap = true;
-    _handleDoubleTap();
+    _tapCanceledByMove = true;
+    _longPressTimer?.cancel();
   }
 
   void _onPointerUp(PointerUpEvent event) {
     if (!mounted) return;
+    if (event.pointer != _activePointer) return;
+
     if (widget.isBounceEnabled) {
       setState(() {
         _scale = 1.0;
       });
     }
+
+    _longPressTimer?.cancel();
+
+    final shouldProcessTap = !_tapCanceledByMove && !_longPressFired;
+    if (shouldProcessTap) {
+      _handleTapUp(event.position);
+    }
+
+    _activePointer = null;
+    _pointerDownPosition = null;
   }
 
   void _onPointerCancel(PointerCancelEvent event) {
     if (!mounted) return;
+    if (event.pointer != _activePointer) return;
+
     if (widget.isBounceEnabled) {
       setState(() {
         _scale = 1.0;
       });
     }
+
+    _longPressTimer?.cancel();
+    _activePointer = null;
+    _pointerDownPosition = null;
   }
 
-  void _handleTap() {
-    if (_suppressNextTap) {
-      _suppressNextTap = false;
+  void _handleTapUp(Offset position) {
+    if (!_hasTap && !_hasDoubleTap) return;
+
+    if (_hasDoubleTap) {
+      final now = DateTime.now();
+      final maxDistanceSquared = kDoubleTapSlop * kDoubleTapSlop;
+      final isDoubleTap = _lastTapAt != null &&
+          _lastTapPosition != null &&
+          now.difference(_lastTapAt!) <= kDoubleTapTimeout &&
+          (position - _lastTapPosition!).distanceSquared <= maxDistanceSquared;
+
+      if (isDoubleTap) {
+        _lastTapAt = null;
+        _lastTapPosition = null;
+        _cancelPendingSingleTap();
+        _handleDoubleTap();
+        return;
+      }
+
+      _lastTapAt = now;
+      _lastTapPosition = position;
+
+      if (_hasTap) {
+        if (widget.deferTapWhenDoubleTapEnabled) {
+          _schedulePendingSingleTap();
+        } else {
+          _runTapCallback();
+        }
+      }
       return;
     }
 
-    if (_shouldArbitrateTapAndDoubleTap) {
-      // Defer single tap until double-tap timeout expires.
-      _pendingSingleTap = true;
-      _pendingSingleTapCallback = _runTapCallback;
-      Future.delayed(kDoubleTapTimeout + const Duration(milliseconds: 1), () {
-        if (_pendingSingleTap) {
-          _pendingSingleTap = false;
-          final pendingCallback = _pendingSingleTapCallback;
-          _pendingSingleTapCallback = null;
-          pendingCallback?.call();
-        }
-      });
-    } else {
-      _runTapCallback();
-    }
+    _runTapCallback();
+  }
+
+  void _schedulePendingSingleTap() {
+    _cancelPendingSingleTap();
+
+    _pendingSingleTap = true;
+    _pendingSingleTapCallback = _runTapCallback;
+    _pendingSingleTapTimer = Timer(
+      kDoubleTapTimeout + const Duration(milliseconds: 1),
+      () {
+        if (!_pendingSingleTap) return;
+
+        _pendingSingleTap = false;
+        final pendingCallback = _pendingSingleTapCallback;
+        _pendingSingleTapCallback = null;
+        pendingCallback?.call();
+      },
+    );
+  }
+
+  void _cancelPendingSingleTap() {
+    _pendingSingleTapTimer?.cancel();
+    _pendingSingleTapTimer = null;
+    _pendingSingleTap = false;
+    _pendingSingleTapCallback = null;
   }
 
   void _handleDoubleTap() {
-    if (_pendingSingleTap) {
-      // Cancel pending single tap if double tap detected.
-      _pendingSingleTap = false;
-      _pendingSingleTapCallback = null;
-    }
+    _cancelPendingSingleTap();
     if (widget.enableHapticFeedback) {
       HapticFeedback.lightImpact();
     }
@@ -165,23 +229,25 @@ class _SBounceableState extends State<SBounceable> {
   }
 
   @override
+  void dispose() {
+    _longPressTimer?.cancel();
+    _pendingSingleTapTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Listener(
       behavior: HitTestBehavior.translucent,
       onPointerDown: _onPointerDown,
+      onPointerMove: _onPointerMove,
       onPointerUp: _onPointerUp,
       onPointerCancel: _onPointerCancel,
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: widget.onTap != null ? _handleTap : null,
-        onDoubleTap: _useGestureDoubleTapRecognizer ? _handleDoubleTap : null,
-        onLongPress: widget.onLongPress,
-        child: AnimatedScale(
-          scale: widget.isBounceEnabled ? _scale : 1.0,
-          duration: _duration,
-          curve: widget.curve,
-          child: widget.child,
-        ),
+      child: AnimatedScale(
+        scale: widget.isBounceEnabled ? _scale : 1.0,
+        duration: _duration,
+        curve: widget.curve,
+        child: widget.child,
       ),
     );
   }
