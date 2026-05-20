@@ -49,16 +49,24 @@ class _SBounceableState extends State<SBounceable> {
   DateTime? _lastPointerDownAt;
   Offset? _lastPointerDownPosition;
   bool _suppressNextTap = false;
+  bool _pendingSingleTap = false;
+  VoidCallback? _pendingSingleTapCallback;
 
   double get _scaleFactor => widget.scaleFactor ?? 0.95;
   Duration get _duration =>
       widget.duration ?? const Duration(milliseconds: 200);
 
+  bool get _shouldArbitrateTapAndDoubleTap =>
+      widget.onTap != null &&
+      widget.onDoubleTap != null &&
+      widget.deferTapWhenDoubleTapEnabled;
+
   bool get _useGestureDoubleTapRecognizer =>
-      widget.onDoubleTap != null && widget.deferTapWhenDoubleTapEnabled;
+      widget.onDoubleTap != null && !_shouldArbitrateTapAndDoubleTap;
 
   bool get _useManualPointerDoubleTap =>
-      widget.onDoubleTap != null && !widget.deferTapWhenDoubleTapEnabled;
+      widget.onDoubleTap != null &&
+      (_shouldArbitrateTapAndDoubleTap || !widget.deferTapWhenDoubleTapEnabled);
 
   void _onPointerDown(PointerDownEvent event) {
     if (!mounted) return;
@@ -120,10 +128,29 @@ class _SBounceableState extends State<SBounceable> {
       return;
     }
 
-    _runTapCallback();
+    if (_shouldArbitrateTapAndDoubleTap) {
+      // Defer single tap until double-tap timeout expires.
+      _pendingSingleTap = true;
+      _pendingSingleTapCallback = _runTapCallback;
+      Future.delayed(kDoubleTapTimeout + const Duration(milliseconds: 1), () {
+        if (_pendingSingleTap) {
+          _pendingSingleTap = false;
+          final pendingCallback = _pendingSingleTapCallback;
+          _pendingSingleTapCallback = null;
+          pendingCallback?.call();
+        }
+      });
+    } else {
+      _runTapCallback();
+    }
   }
 
   void _handleDoubleTap() {
+    if (_pendingSingleTap) {
+      // Cancel pending single tap if double tap detected.
+      _pendingSingleTap = false;
+      _pendingSingleTapCallback = null;
+    }
     if (widget.enableHapticFeedback) {
       HapticFeedback.lightImpact();
     }
