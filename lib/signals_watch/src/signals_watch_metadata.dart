@@ -1,5 +1,44 @@
 part of '../signals_watch.dart';
 
+typedef _LifecycleInvoker<T> = void Function(T value, T? previous);
+
+_LifecycleInvoker<T>? _toLifecycleInvoker<T>(Function? callback) {
+  if (callback == null) return null;
+
+  if (callback is void Function(T, T?)) {
+    return callback;
+  }
+  if (callback is void Function(T)) {
+    return (value, _) => callback(value);
+  }
+  if (callback is void Function()) {
+    return (_, __) => callback();
+  }
+
+  if (callback is void Function(dynamic, dynamic)) {
+    return (value, previous) => callback(value, previous);
+  }
+  if (callback is void Function(dynamic)) {
+    return (value, _) => callback(value);
+  }
+
+  return (value, previous) {
+    try {
+      Function.apply(callback, [value, previous]);
+    } catch (_) {
+      try {
+        Function.apply(callback, [value]);
+      } catch (_) {
+        try {
+          Function.apply(callback, []);
+        } catch (_) {
+          // Ignore callback errors to preserve update flow.
+        }
+      }
+    }
+  };
+}
+
 /// Metadata storage for signals to enable signal-level lifecycle callbacks
 /// and support utilities like `.reset()`.
 class _SignalMetadata<T> {
@@ -11,11 +50,12 @@ class _SignalMetadata<T> {
     this.onDispose,
     this.debugTrace = false,
     this.metadata,
-  });
+  }) : onValueUpdatedInvoker = _toLifecycleInvoker<T>(onValueUpdated);
 
   final T? initialValue;
   final Function? onInit;
   final Function? onValueUpdated;
+  final _LifecycleInvoker<T>? onValueUpdatedInvoker;
   final Function? onAfterBuild;
   final Function? onDispose;
   final bool debugTrace;
@@ -56,31 +96,7 @@ void _storeSignalMetadata<T>(
         // 1. Value actually changed
         // 2. No widgets are overriding this callback
         if (currentValue != previousValue && metadata._overrideCount == 0) {
-          try {
-            // Try calling with both parameters
-            Function.apply(
-              metadata.onValueUpdated!,
-              [currentValue, previousValue],
-            );
-          } catch (_) {
-            try {
-              // Fallback to single parameter
-              Function.apply(
-                metadata.onValueUpdated!,
-                [currentValue],
-              );
-            } catch (_) {
-              try {
-                // Fallback to zero parameters
-                Function.apply(
-                  metadata.onValueUpdated!,
-                  [],
-                );
-              } catch (_) {
-                // Ignore callback errors
-              }
-            }
-          }
+          metadata.onValueUpdatedInvoker?.call(currentValue, previousValue);
         }
 
         metadata._previousValue = currentValue;

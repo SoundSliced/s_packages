@@ -16,10 +16,7 @@ part 'dialog/s_modal_dialog.dart';
 part 'snackbar/s_modal_snackbar.dart';
 
 /// The kind of lifecycle transition reported for a modal.
-enum ModalLifecycleEventType {
-  created,
-  dismissed,
-}
+enum ModalLifecycleEventType { created, dismissed }
 
 /// Lightweight public information about a modal lifecycle transition.
 ///
@@ -28,6 +25,7 @@ enum ModalLifecycleEventType {
 class ModalLifecycleEvent {
   const ModalLifecycleEvent({
     required this.id,
+    this.semanticId,
     required this.modalType,
     required this.eventType,
     required this.modalPosition,
@@ -36,6 +34,13 @@ class ModalLifecycleEvent {
 
   /// Unique identifier of the modal involved in the event.
   final String id;
+
+  /// Caller-provided modal ID when available.
+  ///
+  /// This is useful when [id] is an internally generated fallback. When the
+  /// caller supplied an explicit `Modal.show(id: ...)`, [id] and [semanticId]
+  /// are usually the same value.
+  final String? semanticId;
 
   /// Type of modal involved in the event.
   final ModalType modalType;
@@ -71,8 +76,7 @@ class _ModalLifecycleListener {
 
   bool _matches(ModalLifecycleEvent event) {
     // Filter by modal type and predicate (if provided).
-    final matchesType =
-        modalTypes == null || modalTypes!.contains(event.modalType);
+    final matchesType = modalTypes == null || modalTypes!.contains(event.modalType);
     final matchesPredicate = shouldNotify?.call(event) ?? true;
     return matchesType && matchesPredicate;
   }
@@ -98,13 +102,11 @@ class _ModalLifecycleListener {
 final Map<int, _ModalLifecycleListener> _modalLifecycleListeners = {};
 int _nextModalLifecycleListenerId = 1;
 
-ModalLifecycleEvent _buildModalLifecycleEvent(
-  _ModalContent content,
-  ModalLifecycleEventType eventType,
-) {
+ModalLifecycleEvent _buildModalLifecycleEvent(_ModalContent content, ModalLifecycleEventType eventType) {
   // Assemble a stable, public lifecycle event payload.
   return ModalLifecycleEvent(
     id: content.uniqueId,
+    semanticId: content.id,
     modalType: content.modalType,
     eventType: eventType,
     modalPosition: content.modalPosition,
@@ -114,12 +116,29 @@ ModalLifecycleEvent _buildModalLifecycleEvent(
 
 void _dispatchModalLifecycleEvent(ModalLifecycleEvent event) {
   // Decide whether appBuilder callbacks should run for this event.
-  final shouldDispatch = (_appBuilderLifecycleModalTypes == null ||
-          _appBuilderLifecycleModalTypes!.contains(event.modalType)) &&
+  final shouldDispatch =
+      (_appBuilderLifecycleModalTypes == null || _appBuilderLifecycleModalTypes!.contains(event.modalType)) &&
       (_appBuilderLifecycleShouldNotify?.call(event) ?? true);
 
-  for (final listener
-      in List<_ModalLifecycleListener>.from(_modalLifecycleListeners.values)) {
+  final modOverlayEvent = ModOverlayLifecycleEvent(
+    id: event.id,
+    semanticId: event.semanticId,
+    source: ModOverlayLifecycleSource.modal,
+    modalType: event.modalType,
+    modalPosition: event.modalPosition,
+    stackLevel: event.stackLevel,
+  );
+
+  switch (event.eventType) {
+    case ModalLifecycleEventType.created:
+      ModOverlay.dispatchInit(modOverlayEvent);
+      break;
+    case ModalLifecycleEventType.dismissed:
+      ModOverlay.dispatchDismiss(modOverlayEvent);
+      break;
+  }
+
+  for (final listener in List<_ModalLifecycleListener>.from(_modalLifecycleListeners.values)) {
     try {
       // Dispatch to registered listeners.
       listener.dispatch(event);
@@ -141,16 +160,12 @@ void _dispatchModalLifecycleEvent(ModalLifecycleEvent event) {
   }
 }
 
-void _dispatchModalLifecycleEvents(
-  Iterable<_ModalContent> contents,
-  ModalLifecycleEventType eventType,
-) {
+void _dispatchModalLifecycleEvents(Iterable<_ModalContent> contents, ModalLifecycleEventType eventType) {
   // Emit unique lifecycle events per modal id.
   final seenIds = <String>{};
   for (final content in contents) {
     if (seenIds.add(content.uniqueId)) {
-      _dispatchModalLifecycleEvent(
-          _buildModalLifecycleEvent(content, eventType));
+      _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(content, eventType));
     }
   }
 }
@@ -166,8 +181,7 @@ int _addModalLifecycleListener({
   _modalLifecycleListeners[listenerId] = _ModalLifecycleListener(
     onCreated: onCreated,
     onDismissed: onDismissed,
-    modalTypes:
-        modalTypes == null ? null : Set<ModalType>.unmodifiable(modalTypes),
+    modalTypes: modalTypes == null ? null : Set<ModalType>.unmodifiable(modalTypes),
     shouldNotify: shouldNotify,
   );
   return listenerId;
@@ -193,10 +207,7 @@ ModalLifecycleShouldNotify? _appBuilderLifecycleShouldNotify;
 ///
 /// The rule is shared across dialog, sheet, and snackbar barriers so the
 /// visual barrier and pointer behavior stay decoupled but consistent.
-bool _shouldCaptureModalBarrierTaps({
-  required bool isDismissable,
-  required bool blockBackgroundInteraction,
-}) {
+bool _shouldCaptureModalBarrierTaps({required bool isDismissable, required bool blockBackgroundInteraction}) {
   // Capture taps when dismissal is allowed or background is blocked.
   return isDismissable || blockBackgroundInteraction;
 }
@@ -205,9 +216,7 @@ bool _shouldCaptureModalBarrierTaps({
 Widget _buildModalBarrierSurface(Color barrierColor, double opacity) {
   // Render a colored fullscreen barrier surface.
   return SizedBox.expand(
-    child: ColoredBox(
-      color: barrierColor.withValues(alpha: opacity),
-    ),
+    child: ColoredBox(color: barrierColor.withValues(alpha: opacity)),
   );
 }
 

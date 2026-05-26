@@ -5,18 +5,18 @@ part of '../signals_watch.dart';
 class _SelectiveSignalsObserver implements SignalsObserver {
   @override
   void onSignalCreated<T>(Signal<T> signal, T value) {
-    if (signal.debugLabel != null) {
+    if (signal.name != null) {
       debugPrint(
-        'SelectiveSignalsObserver.onSignalCreated | ${signal.debugLabel} => $value',
+        'SelectiveSignalsObserver.onSignalCreated | ${signal.name} => $value',
       );
     }
   }
 
   @override
   void onSignalUpdated<T>(Signal<T> signal, T newValue) {
-    if (signal.debugLabel != null) {
+    if (signal.name != null) {
       debugPrint(
-        'SelectiveSignalsObserver.onSignalUpdated | ${signal.debugLabel} => $newValue (previously: ${signal.value})',
+        'SelectiveSignalsObserver.onSignalUpdated | ${signal.name} => $newValue',
       );
     }
   }

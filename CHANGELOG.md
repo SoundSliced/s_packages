@@ -1,4 +1,32 @@
 
+## 4.9.0
+- **`s_modoverlay` centralized lifecycle hooks:**
+  - Added a new public lifecycle coordinator in `mod_overlay_lifecycle.dart` so apps can observe overlay creation and dismissal globally, without wiring every `PopOverlay.addPop(...)` or `Modal.show(...)` call individually.
+  - Added `ModOverlay.onInit`, `ModOverlay.onDismiss`, `ModOverlay.dispatchInit(...)`, `ModOverlay.dispatchDismiss(...)`, and `ModOverlay.clearLifecycleHooks()`.
+  - Added the new event model `ModOverlayLifecycleEvent` plus `ModOverlayLifecycleSource` so callbacks receive consistent metadata such as `id`, `semanticId`, source, modal type/position, stack level, activation order, and visibility.
+
+- **`pop_overlay` lifecycle bridging:**
+  - `PopOverlay.addPop(...)` now dispatches the global init hook.
+  - Re-showing an existing invisible pop and refreshing an already visible pop also dispatch the global init hook.
+  - `removePop(...)`, `dismissPop(...)`, `replacePop(...)`, `removeMultiplePops(...)`, and `clearAll()` now dispatch the global dismiss hook when an overlay is actually dismissed.
+  - Avoided emitting a fake dismiss event during initial creation when `shouldStartInvisible` is used.
+
+- **`s_modal` lifecycle bridging:**
+  - Bridged existing modal lifecycle events into the new `ModOverlay` global lifecycle flow.
+  - Extended `ModalLifecycleEvent` with `semanticId` so modal events carry richer identity metadata.
+  - Modal creation now dispatches `ModOverlay.onInit`, and modal dismissal now dispatches `ModOverlay.onDismiss`.
+
+- **`signals_watch` updated for `signals` / `signals_flutter` `^7.0.0`:**
+  - Kept API compatibility while aligning internals with the v7 stack.
+  - Optimized lifecycle callback dispatch by caching callback invokers instead of repeatedly probing callback signatures at runtime.
+  - Reduced per-build allocations in multi-signal mode by reusing internal value buffers.
+  - Improved widget update lifecycle handling when callback wiring or watched signal sources change at runtime.
+  - Updated selective observer logging to avoid misleading "previous value" output.
+
+- **Testing:**
+  - Added regression coverage for global lifecycle hooks across both popup and modal flows, including `PopOverlay.addPop`, `PopOverlay.dismissPop`, `Modal.show(id: ...)`, and `Modal.dismissById(...)`.
+  - Added `signals_watch` regression tests for v7 migration behavior, including zero-arg `onValueUpdated` callbacks and runtime source-signal switching.
+
 ## 4.8.1
 - **`s_bounceable`** no longer using GestureDetector widget internally to handle single, double and long taps --> using the Listener widget instead, for better compatibility with desktop (using mouse) devices on flutter web platform
 

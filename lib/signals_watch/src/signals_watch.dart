@@ -159,8 +159,10 @@ class SignalsWatch<T> extends StatefulWidget {
   }) {
     final created = s.signal<T>(
       initialValue,
-      debugLabel: debugLabel,
-      autoDispose: autoDispose,
+      options: s.SignalOptions(
+        name: debugLabel,
+        autoDispose: autoDispose,
+      ),
     );
 
     // Always store metadata so .reset() can access initialValue
@@ -197,8 +199,10 @@ class SignalsWatch<T> extends StatefulWidget {
   }) {
     final created = s.computed<T>(
       compute,
-      debugLabel: debugLabel,
-      autoDispose: autoDispose,
+      options: s.ComputedOptions(
+        name: debugLabel,
+        autoDispose: autoDispose,
+      ),
     );
 
     // Store metadata if any lifecycle callbacks or metadata provided
@@ -356,22 +360,61 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
   Object? _error;
   bool _isLoading = false;
   Widget? _cachedBuiltWidget;
+  List<ReadonlySignal<dynamic>>? _signalDependencies;
+  List<dynamic>? _multiSignalScratch;
 
   Timer? _debounceTimer;
   Timer? _throttleTimer;
 
   // Cache merged callbacks
-  Function? _effectiveOnInit;
-  Function? _effectiveOnValueUpdated;
-  Function? _effectiveOnAfterBuild;
-  Function? _effectiveOnDispose;
+  _LifecycleInvoker<T>? _effectiveOnInit;
+  _LifecycleInvoker<T>? _effectiveOnValueUpdated;
+  _LifecycleInvoker<T>? _effectiveOnAfterBuild;
+  _LifecycleInvoker<T>? _effectiveOnDispose;
 
   // Track if this widget is overriding the signal's onValueUpdated
   bool _isOverridingCallback = false;
+  ReadonlySignal<dynamic>? _overrideTrackedSignal;
+
+  void _refreshSignalReadCaches() {
+    if (widget._signals != null) {
+      _signalDependencies = widget._signals;
+      _multiSignalScratch = List<dynamic>.filled(
+        widget._signals!.length,
+        null,
+        growable: false,
+      );
+      return;
+    }
+
+    if (widget._signal != null) {
+      _signalDependencies = <ReadonlySignal<dynamic>>[
+        widget._signal!,
+      ];
+      _multiSignalScratch = null;
+      return;
+    }
+
+    _signalDependencies = null;
+    _multiSignalScratch = null;
+  }
+
+  void _clearOverrideTracking() {
+    if (_isOverridingCallback && _overrideTrackedSignal != null) {
+      final signalMetadata = _getSignalMetadata(_overrideTrackedSignal!);
+      if (signalMetadata != null && signalMetadata._overrideCount > 0) {
+        signalMetadata._overrideCount--;
+      }
+    }
+    _isOverridingCallback = false;
+    _overrideTrackedSignal = null;
+  }
 
   /// Get effective callbacks by merging widget-level and signal-level callbacks.
   /// Widget-level callbacks take precedence over signal-level ones.
   void _initializeCallbacks() {
+    _clearOverrideTracking();
+
     // Try to get signal-level callbacks if we're watching a single signal
     _SignalMetadata<dynamic>? signalMetadata;
     if (widget._signal != null) {
@@ -379,18 +422,23 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
     }
 
     // Widget callbacks override signal callbacks
-    _effectiveOnInit = widget.onInit ?? signalMetadata?.onInit;
-    _effectiveOnValueUpdated =
-        widget.onValueUpdated ?? signalMetadata?.onValueUpdated;
-    _effectiveOnAfterBuild =
-        widget.onAfterBuild ?? signalMetadata?.onAfterBuild;
-    _effectiveOnDispose = widget.onDispose ?? signalMetadata?.onDispose;
+    _effectiveOnInit =
+        _toLifecycleInvoker<T>(widget.onInit ?? signalMetadata?.onInit);
+    _effectiveOnValueUpdated = _toLifecycleInvoker<T>(
+      widget.onValueUpdated ?? signalMetadata?.onValueUpdated,
+    );
+    _effectiveOnAfterBuild = _toLifecycleInvoker<T>(
+      widget.onAfterBuild ?? signalMetadata?.onAfterBuild,
+    );
+    _effectiveOnDispose =
+        _toLifecycleInvoker<T>(widget.onDispose ?? signalMetadata?.onDispose);
 
     // Track if we're overriding the signal's callback
     if (widget.onValueUpdated != null &&
-        signalMetadata?.onValueUpdated != null) {
+        signalMetadata?.onValueUpdatedInvoker != null) {
       _isOverridingCallback = true;
       signalMetadata?._overrideCount++;
+      _overrideTrackedSignal = widget._signal;
     }
   }
 
@@ -404,15 +452,25 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
   T _readValue() {
     try {
       if (widget._signal != null) {
+        final signal = widget._signal!;
+        final rawValue = signal.peek();
         if (widget._selector != null) {
           // Selector mode
-          return widget._selector!(widget._signal!.value);
+          return widget._selector!(rawValue);
         }
         // Single signal mode
-        return widget._signal!.value;
+        return rawValue;
       } else if (widget._signals != null) {
         // Multiple signals mode (batch)
-        final values = widget._signals!.map((s) => s.value).toList();
+        final signals = widget._signals!;
+        final values = _multiSignalScratch ??
+            List<dynamic>.filled(signals.length, null, growable: false);
+        if (!identical(values, _multiSignalScratch)) {
+          _multiSignalScratch = values;
+        }
+        for (var i = 0; i < signals.length; i++) {
+          values[i] = signals[i].peek();
+        }
         return widget._combine!(values);
       } else {
         // Custom read mode
@@ -428,29 +486,16 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
     }
   }
 
-  void _callCallback(Function? callback, T value, T? previous) {
+  void _callCallback(_LifecycleInvoker<T>? callback, T value, T? previous) {
     if (callback == null) return;
-
-    try {
-      // Try calling with both parameters
-      Function.apply(callback, [value, previous]);
-    } catch (_) {
-      try {
-        // Fallback to single parameter
-        Function.apply(callback, [value]);
-      } catch (e) {
-        if (widget.debugPrint) {
-          debugPrint(
-            '[${widget.debugLabel ?? 'SignalsWatch'}] Callback error: $e',
-          );
-        }
-      }
-    }
+    callback(value, previous);
   }
 
   @override
   void initState() {
     super.initState();
+
+    _refreshSignalReadCaches();
 
     // Initialize merged callbacks
     _initializeCallbacks();
@@ -471,6 +516,33 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
   }
 
   @override
+  void didUpdateWidget(covariant SignalsWatch<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    final signalSourceChanged = oldWidget._signal != widget._signal ||
+        oldWidget._signals != widget._signals ||
+        oldWidget._selector != widget._selector ||
+        oldWidget._combine != widget._combine ||
+        oldWidget._read != widget._read;
+
+    final callbacksChanged = oldWidget.onInit != widget.onInit ||
+        oldWidget.onValueUpdated != widget.onValueUpdated ||
+        oldWidget.onAfterBuild != widget.onAfterBuild ||
+        oldWidget.onDispose != widget.onDispose;
+
+    if (signalSourceChanged) {
+      _refreshSignalReadCaches();
+      _cachedBuiltWidget = null;
+      _isFirstBuild = true;
+      _error = null;
+    }
+
+    if (signalSourceChanged || callbacksChanged) {
+      _initializeCallbacks();
+    }
+  }
+
+  @override
   void dispose() {
     // Cancel timers first to prevent any callbacks after disposal
     _debounceTimer?.cancel();
@@ -478,13 +550,8 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
     _throttleTimer?.cancel();
     _throttleTimer = null;
 
-    // Decrement override count if we were overriding
-    if (_isOverridingCallback && widget._signal != null) {
-      final signalMetadata = _getSignalMetadata(widget._signal!);
-      if (signalMetadata != null && signalMetadata._overrideCount > 0) {
-        signalMetadata._overrideCount--;
-      }
-    }
+    // Decrement override count if we were overriding.
+    _clearOverrideTracking();
 
     // Call onDispose regardless of error state (user may want to cleanup)
     try {
@@ -589,40 +656,44 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
       return const Center(child: CircularProgressIndicator());
     }
 
-    return Watch((ctx) {
-      try {
-        final newValue = _readValue();
-        _error = null;
+    return SignalBuilder(
+        dependencies: _signalDependencies ?? const <ReadonlySignal<dynamic>>[],
+        builder: (ctx) {
+          try {
+            final newValue = _readValue();
+            _error = null;
 
-        final shouldRebuildWidget = _handleValueChange(newValue);
+            final shouldRebuildWidget = _handleValueChange(newValue);
 
-        if (_cachedBuiltWidget == null ||
-            _isFirstBuild ||
-            shouldRebuildWidget) {
-          _cachedBuiltWidget = widget.builder(newValue);
-        }
-
-        // Schedule onAfterBuild post-frame
-        if (_effectiveOnAfterBuild != null) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) {
-              _callCallback(_effectiveOnAfterBuild, newValue, _previousValue);
+            if (_cachedBuiltWidget == null ||
+                _isFirstBuild ||
+                shouldRebuildWidget) {
+              _cachedBuiltWidget = widget.builder(newValue);
             }
-          });
-        }
 
-        _isFirstBuild = false;
-        return _cachedBuiltWidget!;
-      } catch (e) {
-        _error = e;
-        if (widget.errorBuilder != null) {
-          return widget.errorBuilder!(e);
-        }
-        return Center(
-          child: Text('Error: $e', style: const TextStyle(color: Colors.red)),
-        );
-      }
-    });
+            // Schedule onAfterBuild post-frame
+            if (_effectiveOnAfterBuild != null) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (mounted) {
+                  _callCallback(
+                      _effectiveOnAfterBuild, newValue, _previousValue);
+                }
+              });
+            }
+
+            _isFirstBuild = false;
+            return _cachedBuiltWidget!;
+          } catch (e) {
+            _error = e;
+            if (widget.errorBuilder != null) {
+              return widget.errorBuilder!(e);
+            }
+            return Center(
+              child:
+                  Text('Error: $e', style: const TextStyle(color: Colors.red)),
+            );
+          }
+        });
   }
 }
 
