@@ -7,7 +7,8 @@ class _CustomShortcutIntent extends Intent {
 
 void main() {
   group('KeystrokeListener', () {
-    testWidgets('invokes caller-provided custom intent shortcuts', (tester) async {
+    testWidgets('invokes caller-provided custom intent shortcuts',
+        (tester) async {
       var invokedCount = 0;
       final focusNode = FocusNode(debugLabel: 'keystroke_listener_test');
 
@@ -17,9 +18,12 @@ void main() {
             body: KeystrokeListener(
               focusNode: focusNode,
               shortcuts: const <ShortcutActivator, Intent>{
-                SingleActivator(LogicalKeyboardKey.keyD): _CustomShortcutIntent(),
+                SingleActivator(LogicalKeyboardKey.keyD):
+                    _CustomShortcutIntent(),
               },
-              actionHandlers: <Type, VoidCallback>{_CustomShortcutIntent: () => invokedCount++},
+              actionHandlers: <Type, VoidCallback>{
+                _CustomShortcutIntent: () => invokedCount++
+              },
               child: const SizedBox(width: 100, height: 100),
             ),
           ),
