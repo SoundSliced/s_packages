@@ -1,4 +1,19 @@
 
+## 5.0.0
+- **`keystroke_listener` keyboard handling overhaul:**
+  - Refactored `KeystrokeListener` to use Flutter's `Actions` + `Shortcuts` pipeline as the primary dispatch path, while still exposing raw key-down events via `onKeyEvent`.
+  - Added `shortcuts` to inject screen-specific `ShortcutActivator -> Intent` mappings.
+  - Added `includeDefaultShortcuts` to optionally disable built-in bindings and run in fully custom shortcut mode.
+  - Expanded `actionHandlers` behavior so caller-provided custom intent types are registered and invokable without extra manual wiring.
+  - Added safer focus lifecycle management for owned vs injected `FocusNode` instances, including listener cleanup and reconfiguration in `didUpdateWidget`.
+
+- **Behavior updates / migration notes:**
+  - Shortcut resolution is now intentionally extensible: caller-provided `shortcuts` are merged after defaults, so app-level overrides take precedence.
+  - Key-down events continue to bubble (`KeyEventResult.ignored`) so ancestor `Shortcuts`/`Actions` can still react.
+
+- **Testing:**
+  - Added regression coverage for caller-defined custom shortcut intents and callback dispatch in `test/keystroke_listener_test.dart`.
+
 ## 4.9.0
 - **`s_modoverlay` centralized lifecycle hooks:**
   - Added a new public lifecycle coordinator in `mod_overlay_lifecycle.dart` so apps can observe overlay creation and dismissal globally, without wiring every `PopOverlay.addPop(...)` or `Modal.show(...)` call individually.

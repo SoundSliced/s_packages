@@ -132,14 +132,30 @@ class SpaceIntent extends Intent {
 class KeystrokeListener extends StatefulWidget {
   final Widget child;
   final bool enableVisualDebug;
-  final void Function(KeyDownEvent keyDownEvent)?
-      onKeyEvent; // Optional callback for key events
+  final void Function(KeyDownEvent keyDownEvent)? onKeyEvent; // Optional callback for key events
   final FocusNode? focusNode;
   final bool requestFocusOnInit;
   final bool autoFocus;
 
+  /// Additional shortcut bindings scoped to this listener.
+  ///
+  /// These are merged after the built-in shortcuts, so callers can override
+  /// defaults such as Cmd/Ctrl + A when a screen needs an app-specific action.
+  final Map<ShortcutActivator, Intent>? shortcuts;
+
+  /// Whether the built-in navigation/editing shortcuts should be registered.
+  ///
+  /// Keep this enabled for the usual KeystrokeListener behavior. Disable it
+  /// when a caller wants this listener to expose only [shortcuts].
+  final bool includeDefaultShortcuts;
+
   /// Custom action handlers for keyboard intents. When provided, these override
   /// the default debugPrint actions. Keys are Intent types, values are callbacks.
+  ///
+  /// Custom intent types that are not part of KeystrokeListener's built-in
+  /// intent set are also registered automatically with Flutter's [Actions]
+  /// system, allowing caller-provided [shortcuts] or ancestor [Shortcuts]
+  /// widgets to invoke them without manual raw-key handling.
   final Map<Type, VoidCallback>? actionHandlers;
 
   const KeystrokeListener({
@@ -150,6 +166,8 @@ class KeystrokeListener extends StatefulWidget {
     this.focusNode,
     this.requestFocusOnInit = true,
     this.autoFocus = true,
+    this.shortcuts,
+    this.includeDefaultShortcuts = true,
     this.actionHandlers,
   });
 
@@ -232,8 +250,7 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
 
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text('Pressed: $modifiers${event.logicalKey.keyLabel}')),
+        SnackBar(content: Text('Pressed: $modifiers${event.logicalKey.keyLabel}')),
       );
     }
 
@@ -301,84 +318,46 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
       );
     }
 
-    return Actions(
-      actions: <Type, Action<Intent>>{
-        EscapeIntent: action<EscapeIntent>('ESC'),
-        NavigateUpIntent: action<NavigateUpIntent>('Navigate Up'),
-        NavigateDownIntent: action<NavigateDownIntent>('Navigate Down'),
-        NavigateLeftIntent: action<NavigateLeftIntent>('Navigate Left'),
-        NavigateRightIntent: action<NavigateRightIntent>('Navigate Right'),
-        SubmitIntent: action<SubmitIntent>('Submit'),
-        DeleteIntent: action<DeleteIntent>('Delete'),
-        SaveIntent: action<SaveIntent>('Save'),
-        UndoIntent: action<UndoIntent>('Undo'),
-        RedoIntent: action<RedoIntent>('Redo'),
-        SelectAllIntent: action<SelectAllIntent>('SelectAll'),
-        CopyIntent: action<CopyIntent>('Copy'),
-        PasteIntent: action<PasteIntent>('Paste'),
-        CutIntent: action<CutIntent>('Cut'),
-        TabIntent: action<TabIntent>('Tab'),
-        ReverseTabIntent: action<ReverseTabIntent>('ReverseTab'),
-        ToggleCommentIntent: action<ToggleCommentIntent>('ToggleComment'),
-        HelpIntent: action<HelpIntent>('Help'),
-        SpaceIntent: action<SpaceIntent>('Space'),
-      },
-      child: Shortcuts(
-        shortcuts: <LogicalKeySet, Intent>{
-          // Navigation intents
-          LogicalKeySet(LogicalKeyboardKey.arrowUp): NavigateUpIntent(),
-          LogicalKeySet(LogicalKeyboardKey.arrowDown): NavigateDownIntent(),
-          LogicalKeySet(LogicalKeyboardKey.arrowLeft): NavigateLeftIntent(),
-          LogicalKeySet(LogicalKeyboardKey.arrowRight): NavigateRightIntent(),
+    final actions = <Type, Action<Intent>>{
+      EscapeIntent: action<EscapeIntent>('ESC'),
+      NavigateUpIntent: action<NavigateUpIntent>('Navigate Up'),
+      NavigateDownIntent: action<NavigateDownIntent>('Navigate Down'),
+      NavigateLeftIntent: action<NavigateLeftIntent>('Navigate Left'),
+      NavigateRightIntent: action<NavigateRightIntent>('Navigate Right'),
+      SubmitIntent: action<SubmitIntent>('Submit'),
+      DeleteIntent: action<DeleteIntent>('Delete'),
+      SaveIntent: action<SaveIntent>('Save'),
+      UndoIntent: action<UndoIntent>('Undo'),
+      RedoIntent: action<RedoIntent>('Redo'),
+      SelectAllIntent: action<SelectAllIntent>('SelectAll'),
+      CopyIntent: action<CopyIntent>('Copy'),
+      PasteIntent: action<PasteIntent>('Paste'),
+      CutIntent: action<CutIntent>('Cut'),
+      TabIntent: action<TabIntent>('Tab'),
+      ReverseTabIntent: action<ReverseTabIntent>('ReverseTab'),
+      ToggleCommentIntent: action<ToggleCommentIntent>('ToggleComment'),
+      HelpIntent: action<HelpIntent>('Help'),
+      SpaceIntent: action<SpaceIntent>('Space'),
+    };
 
-          // System intents
-          LogicalKeySet(LogicalKeyboardKey.escape): EscapeIntent(),
-          LogicalKeySet(LogicalKeyboardKey.enter): SubmitIntent(),
-          LogicalKeySet(LogicalKeyboardKey.backspace): DeleteIntent(),
-          LogicalKeySet(LogicalKeyboardKey.space): SpaceIntent(),
-
-          // Tab intents
-          LogicalKeySet(LogicalKeyboardKey.tab): TabIntent(),
-          LogicalKeySet(LogicalKeyboardKey.shift, LogicalKeyboardKey.tab):
-              ReverseTabIntent(),
-
-          // Edit intents (Ctrl/Cmd + key)
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyS):
-              SaveIntent(),
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
-              UndoIntent(),
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
-              RedoIntent(),
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyA):
-              SelectAllIntent(),
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyC):
-              CopyIntent(),
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyV):
-              PasteIntent(),
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyX):
-              CutIntent(),
-          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.slash):
-              ToggleCommentIntent(),
-
-          // Meta (Cmd on Mac) variants for macOS
-          LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyS):
-              SaveIntent(),
-          LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyZ):
-              UndoIntent(),
-          LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyY):
-              RedoIntent(),
-          LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyA):
-              SelectAllIntent(),
-          LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyC):
-              CopyIntent(),
-          LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyV):
-              PasteIntent(),
-          LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyX):
-              CutIntent(),
-
-          // Function keys
-          LogicalKeySet(LogicalKeyboardKey.f1): HelpIntent(),
+    handlers?.forEach((intentType, callback) {
+      actions[intentType] = CallbackAction<Intent>(
+        onInvoke: (_) {
+          callback();
+          return null;
         },
+      );
+    });
+
+    final shortcuts = <ShortcutActivator, Intent>{
+      if (widget.includeDefaultShortcuts) ..._defaultShortcuts,
+      ...?widget.shortcuts,
+    };
+
+    return Actions(
+      actions: actions,
+      child: Shortcuts(
+        shortcuts: shortcuts,
         child: Focus(
           focusNode: _effectiveFocusNode,
           autofocus: widget.autoFocus,
@@ -415,5 +394,46 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
       ),
     );
   }
+
+  static const Map<ShortcutActivator, Intent> _defaultShortcuts = {
+    // Navigation intents
+    SingleActivator(LogicalKeyboardKey.arrowUp): NavigateUpIntent(),
+    SingleActivator(LogicalKeyboardKey.arrowDown): NavigateDownIntent(),
+    SingleActivator(LogicalKeyboardKey.arrowLeft): NavigateLeftIntent(),
+    SingleActivator(LogicalKeyboardKey.arrowRight): NavigateRightIntent(),
+
+    // System intents
+    SingleActivator(LogicalKeyboardKey.escape): EscapeIntent(),
+    SingleActivator(LogicalKeyboardKey.enter): SubmitIntent(),
+    SingleActivator(LogicalKeyboardKey.backspace): DeleteIntent(),
+    SingleActivator(LogicalKeyboardKey.space): SpaceIntent(),
+
+    // Tab intents
+    SingleActivator(LogicalKeyboardKey.tab): TabIntent(),
+    SingleActivator(LogicalKeyboardKey.tab, shift: true): ReverseTabIntent(),
+
+    // Edit intents (Ctrl/Cmd + key)
+    SingleActivator(LogicalKeyboardKey.keyS, control: true): SaveIntent(),
+    SingleActivator(LogicalKeyboardKey.keyS, meta: true): SaveIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, control: true): UndoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, meta: true): UndoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true): RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, meta: true, shift: true): RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyY, control: true): RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyY, meta: true): RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyA, control: true): SelectAllIntent(),
+    SingleActivator(LogicalKeyboardKey.keyA, meta: true): SelectAllIntent(),
+    SingleActivator(LogicalKeyboardKey.keyC, control: true): CopyIntent(),
+    SingleActivator(LogicalKeyboardKey.keyC, meta: true): CopyIntent(),
+    SingleActivator(LogicalKeyboardKey.keyV, control: true): PasteIntent(),
+    SingleActivator(LogicalKeyboardKey.keyV, meta: true): PasteIntent(),
+    SingleActivator(LogicalKeyboardKey.keyX, control: true): CutIntent(),
+    SingleActivator(LogicalKeyboardKey.keyX, meta: true): CutIntent(),
+    SingleActivator(LogicalKeyboardKey.slash, control: true): ToggleCommentIntent(),
+    SingleActivator(LogicalKeyboardKey.slash, meta: true): ToggleCommentIntent(),
+
+    // Function keys
+    SingleActivator(LogicalKeyboardKey.f1): HelpIntent(),
+  };
 }
 //************************************************* */
