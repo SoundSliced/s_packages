@@ -36,7 +36,8 @@ export 's_widgets/s_widgets.dart';
 export 'settings_item/settings_item.dart';
 export 'shaker/shaker.dart';
 export 'signals_watch/signals_watch.dart';
-export 'soundsliced_dart_extensions/soundsliced_dart_extensions.dart' hide TimeOfDayExtension;
+export 'soundsliced_dart_extensions/soundsliced_dart_extensions.dart'
+    hide TimeOfDayExtension;
 export 'soundsliced_tween_animation_builder/soundsliced_tween_animation_builder.dart';
 export 's_modoverlay/s_modoverlay.dart';
 export 's_modoverlay/interleaving_manager/stack_order.dart';

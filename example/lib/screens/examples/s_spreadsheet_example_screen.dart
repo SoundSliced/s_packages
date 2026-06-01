@@ -221,7 +221,9 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
             rowHeaderBuilder: (context, rowIndex) => Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: rowIndex % 2 == 0 ? Colors.indigo.shade50 : Colors.indigo.shade100,
+                color: rowIndex % 2 == 0
+                    ? Colors.indigo.shade50
+                    : Colors.indigo.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text('Item ${rowIndex + 1}'),
@@ -251,7 +253,8 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
                 color: Colors.deepPurple.shade400,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Icon(Icons.table_chart, color: Colors.white, size: 18),
+              child:
+                  const Icon(Icons.table_chart, color: Colors.white, size: 18),
             ),
             cellBuilder: (context, rowIndex, columnIndex) {
               final colorBand = (rowIndex + columnIndex) % 3;
