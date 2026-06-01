@@ -1,4 +1,33 @@
 
+## 5.1.0
+- **New internal fork: `s_sync_scroll_controller`**
+  - **What it is:** a low-level synchronization utility for coordinating multiple `ScrollController`s so they move together as one logical scroll surface.
+  - **What it is for:** split/linked scrolling layouts (e.g., spreadsheet-style UIs, frozen columns/headers, mirrored panes, and synchronized dashboards).
+  - Added a maintained in-repo subpackage: `lib/s_sync_scroll_controller/`.
+  - Forked and modernized synced-scroll internals for current Flutter usage patterns.
+  - Added explicit `SyncScrollControllerGroup.dispose()` lifecycle handling.
+  - Hardened offset handling with stable last-known offset behavior when no clients are attached.
+  - Improved peer hold/link lifecycle handling for multi-position/controller churn scenarios.
+
+- **`s_spreadsheet` migrated to internal sync engine**
+  - **What it is:** a high-level spreadsheet/table widget built for large datasets with synchronized horizontal behavior across rows.
+  - **What it is for:** rendering data-grid-like experiences with configurable headers/cells, smooth coordinated scrolling, and external control hooks for richer UX.
+  - Replaced external `package:sync_scroll_controller/sync_scroll_controller.dart` usage with `package:s_packages/s_sync_scroll_controller/s_sync_scroll_controller.dart`.
+  - Added proper disposal of the horizontal sync group in `SSpreadsheet` state lifecycle.
+  - Introduced `SSpreadsheetHorizontalMetrics` and `SSpreadsheetHorizontalSyncController` for external horizontal state/control.
+  - Added `SSpreadsheetHorizontalScrollButtons` helper widget for built-in left/right scrolling controls.
+  - Added `horizontalSyncController` parameter on `SSpreadsheet` for external orchestration.
+
+- **Package surface and dependency updates**
+  - Exported `s_sync_scroll_controller` from `s_packages.dart`.
+  - Removed external `sync_scroll_controller` dependency from `pubspec.yaml`.
+
+- **Example app updates**
+  - Added a new `s_spreadsheet` example screen with:
+    - a **Basic** tab (core spreadsheet usage)
+    - an **Advanced** tab (dynamic row/column sizing, metrics reporting, rendering toggles, and behavioral controls)
+  - Wired the new example into the registry and home package list.
+
 ## 5.0.0
 - **`keystroke_listener` keyboard handling overhaul:**
   - Refactored `KeystrokeListener` to use Flutter's `Actions` + `Shortcuts` pipeline as the primary dispatch path, while still exposing raw key-down events via `onKeyEvent`.

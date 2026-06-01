@@ -161,6 +161,11 @@ class _HomeScreenState extends State<HomeScreen> {
       category: 'Navigation',
     ),
     PackageInfo(
+      name: 's_spreadsheet',
+      description: 'Spreadsheet with synchronized horizontal scrolling',
+      category: 'Lists',
+    ),
+    PackageInfo(
       name: 's_standby',
       description: 'Standby state widget',
       category: 'UI Components',

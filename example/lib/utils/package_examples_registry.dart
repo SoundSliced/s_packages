@@ -30,6 +30,7 @@ import 'package:s_packages_example/screens/examples/s_modoverlay_interleaving_la
 import 'package:s_packages_example/screens/examples/s_offstage_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_screenshot_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_sidebar_example_screen.dart';
+import 'package:s_packages_example/screens/examples/s_spreadsheet_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_standby_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_time_example_screen.dart';
 import 'package:s_packages_example/screens/examples/s_toggle_example_screen.dart';
@@ -72,6 +73,7 @@ class PackageExamplesRegistry {
     's_offstage': () => const SOffstageExampleScreen(),
     's_screenshot': () => const SScreenshotExampleScreen(),
     's_sidebar': () => const SSidebarExampleScreen(),
+    's_spreadsheet': () => const SSpreadsheetExampleScreen(),
     's_standby': () => const SStandbyExampleScreen(),
     's_time': () => const STimeExampleScreen(),
     's_toggle': () => const SToggleExampleScreen(),

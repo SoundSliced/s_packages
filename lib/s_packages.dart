@@ -26,6 +26,8 @@ export 's_modoverlay/s_modal/s_modal.dart';
 export 's_offstage/s_offstage.dart';
 export 's_screenshot/s_screenshot.dart';
 export 's_sidebar/s_sidebar.dart';
+export 's_spreadsheet/s_spreadsheet.dart';
+export 's_sync_scroll_controller/s_sync_scroll_controller.dart';
 export 's_standby/s_standby.dart';
 export 's_time/s_time.dart' hide TimeOfDayExtension;
 export 's_toggle/s_toggle.dart';
@@ -34,8 +36,7 @@ export 's_widgets/s_widgets.dart';
 export 'settings_item/settings_item.dart';
 export 'shaker/shaker.dart';
 export 'signals_watch/signals_watch.dart';
-export 'soundsliced_dart_extensions/soundsliced_dart_extensions.dart'
-    hide TimeOfDayExtension;
+export 'soundsliced_dart_extensions/soundsliced_dart_extensions.dart' hide TimeOfDayExtension;
 export 'soundsliced_tween_animation_builder/soundsliced_tween_animation_builder.dart';
 export 's_modoverlay/s_modoverlay.dart';
 export 's_modoverlay/interleaving_manager/stack_order.dart';
