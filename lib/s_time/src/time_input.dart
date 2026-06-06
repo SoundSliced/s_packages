@@ -136,6 +136,7 @@ class TimeInput extends StatefulWidget {
     this.focusRole,
     this.showLocalIndicator = false,
     this.enableDebugLogs = false,
+    this.externalFocusNode,
   });
 
   /// The label text displayed above the input field
@@ -187,6 +188,10 @@ class TimeInput extends StatefulWidget {
   ///
   /// Disabled by default. Logs are still debug-only (assert-wrapped) and do not run in release.
   final bool enableDebugLogs;
+
+  /// Optional external focus node to manage input focus state.
+  /// If provided, this focus node will be used instead of creating a new one.
+  final RoleFocusNode? externalFocusNode;
 
   @override
   State<TimeInput> createState() => _TimeInputState();
@@ -410,8 +415,9 @@ class _TimeInputState extends State<TimeInput> {
     _originalValue = TimeInputControllers.keepDigitsOnly(initialText);
 
     // Set up focus management and keyboard event handling
-    _focusNode =
+    _focusNode = widget.externalFocusNode ??
         RoleFocusNode((widget.focusRole ?? widget.title).toUpperCase());
+
     _focusNode.addListener(_onFocusChange);
     _focusNode.onKeyEvent = _handleKeyEvent;
 

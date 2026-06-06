@@ -1,3 +1,7 @@
+## 5.1.1
+
+- **`s_time`**
+  - `TimeInput` given a `RoleFocusNode` optional param
 
 ## 5.1.0
 - **New internal fork: `s_sync_scroll_controller`**

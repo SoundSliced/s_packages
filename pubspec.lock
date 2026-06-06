@@ -13,10 +13,10 @@ packages:
     dependency: "direct main"
     description:
       name: assorted_layout_widgets
-      sha256: ba0acd6c6b0b5696bdf5afa002bf4ca90f917e3cf232a47cc4c4e1214217d7b8
+      sha256: "7134e5f4d3be0adacf3a18275317837c49a8e521eaab9d152ea257a881105569"
       url: "https://pub.dev"
     source: hosted
-    version: "12.6.1"
+    version: "12.6.2"
   async:
     dependency: "direct main"
     description:
@@ -77,10 +77,10 @@ packages:
     dependency: transitive
     description:
       name: code_assets
-      sha256: "67cf6d84013f9c601e42a6f8a6b74c4c0d9dc1a1619d775f2b28b732d3551b85"
+      sha256: bf394f466ba9205f1812a0433b392d6af280f155f56651eda7c18cc32ed493b8
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   collection:
     dependency: "direct main"
     description:
@@ -93,10 +93,10 @@ packages:
     dependency: transitive
     description:
       name: convert_object
-      sha256: a88cf2501cbe150c4c1e3f58787ba8fdf912c04cc470ba6d2aceeb9836dd36dd
+      sha256: "36d24e8bb88de1e7c1c2cbd757b7bfae21a0e31047a95a9b69672de394108b50"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "1.1.0"
   crypto:
     dependency: transitive
     description:
@@ -249,10 +249,10 @@ packages:
     dependency: transitive
     description:
       name: hooks
-      sha256: a41af4e8fc687cd6d33de9751eb936c8c0204ebe2bcb6c15ecf707504bf47f31
+      sha256: "9a62a50b50b769a737bc0a8ff381f333529df3ab746b2f6b02e83760231455ba"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.2"
   html:
     dependency: "direct main"
     description:
@@ -289,10 +289,10 @@ packages:
     dependency: "direct main"
     description:
       name: internet_connection_checker_plus
-      sha256: "64d938ddd9638ceef31aa3db84191c3fada44d3c7c8a1132662feedb852f951e"
+      sha256: "4bdcb9b447ece1847c52661ca04a3981ec8b73c4f2fbf457396adeffdf48dd7a"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   intl:
     dependency: transitive
     description:
@@ -385,10 +385,10 @@ packages:
     dependency: "direct main"
     description:
       name: meta
-      sha256: df0c643f44ad098eb37988027a8e2b2b5a031fd3977f06bbfd3a76637e8df739
+      sha256: c82594181e3312f3d0695fc95aaaf7758d75b8d4ae2bbecf223b9fd5109a059d
       url: "https://pub.dev"
     source: hosted
-    version: "1.18.2"
+    version: "1.18.3"
   mime:
     dependency: transitive
     description:
@@ -585,10 +585,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: e8d4762b1e2e8578fc4d0fd548cebf24afd24f49719c08974df92834565e2c53
+      sha256: a2c49fc1fed7140cadd892d765bd47edbe4ac0b9c7e7e3c493dcb58126f99cf0
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.23"
+    version: "2.4.25"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -633,10 +633,10 @@ packages:
     dependency: "direct main"
     description:
       name: signals
-      sha256: "202013a4f7811650c4811dba22755753471cf3e13305200fd83895075039190a"
+      sha256: "3b6be91d04808b542612a525eaeb1875e50be153671e618a42f74e0607088ecd"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "7.1.0"
   signals_core:
     dependency: transitive
     description:
@@ -649,18 +649,18 @@ packages:
     dependency: "direct main"
     description:
       name: signals_flutter
-      sha256: f82955b66b96fc7f53150ce7737d2bb6c87f23377583e00bd355aae9cb36a45a
+      sha256: f0285fd2f98d720724df879c258dc41725f260f8e5b1184655ef64ba679197ad
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "7.1.0"
   signals_hooks:
     dependency: transitive
     description:
       name: signals_hooks
-      sha256: a06a9f5123174d572a353565b7e6f9ed03bb2201d98dcb370c593f072040135c
+      sha256: af6c2c4be47f06214292fedab6f6e943433c02086c956eeaffe45c4a23a57413
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "7.1.0"
   sizer:
     dependency: "direct main"
     description:
@@ -758,10 +758,10 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      sha256: "47a1b32ee755c3fcffa33db52a7258c137f97bdb2209a1075be847809fac4ccf"
+      sha256: "1d774bbdf6b72a0b12122fc1560c9c2d2a67db5a4a4cc2bd8a5c990ab20e3188"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.0"
   vm_service:
     dependency: transitive
     description:
@@ -790,10 +790,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_android
-      sha256: ad5182eff9a550925330cb9f0cb038eddfdd5712aba8b77aa0f0400e50f6e688
+      sha256: a97db7a44f8e71af2f3971c45550a08cce1fb60059c1b8e534251e6cfb753490
       url: "https://pub.dev"
     source: hosted
-    version: "4.12.0"
+    version: "4.13.0"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
@@ -814,10 +814,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
-      sha256: "82648217f537573e1ca9ae9952d3eacedca6ab5aee69dc84445fc763766dcea2"
+      sha256: c879dd64b87c452aa84381b244d5469da57ba7e8cca6884c7b1e0d406372c12d
       url: "https://pub.dev"
     source: hosted
-    version: "3.25.1"
+    version: "3.26.0"
   xdg_directories:
     dependency: transitive
     description:
@@ -843,5 +843,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.11.5 <4.0.0"
-  flutter: ">=3.41.9"
+  dart: ">=3.12.0 <4.0.0"
+  flutter: ">=3.44.0"
