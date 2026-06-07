@@ -132,8 +132,7 @@ class SpaceIntent extends Intent {
 class KeystrokeListener extends StatefulWidget {
   final Widget child;
   final bool enableVisualDebug;
-  final void Function(KeyDownEvent keyDownEvent)?
-      onKeyEvent; // Optional callback for key events
+  final void Function(KeyDownEvent keyDownEvent)? onKeyEvent; // Optional callback for key events
   final FocusNode? focusNode;
   final bool requestFocusOnInit;
   final bool autoFocus;
@@ -159,6 +158,17 @@ class KeystrokeListener extends StatefulWidget {
   /// widgets to invoke them without manual raw-key handling.
   final Map<Type, VoidCallback>? actionHandlers;
 
+  /// When provided and returns true, the listener will not steal focus back
+  /// from descendant FocusNodes (e.g. TextFields inside the child subtree).
+  ///
+  /// Use this to suppress the automatic refocus behavior while an input
+  /// inside the listener is being edited. For example, pass a callback that
+  /// checks a scheduler's keystroke-pause flag.
+  ///
+  /// When null (the default), the listener always steals focus back from
+  /// descendants, maintaining the original aggressive refocus behavior.
+  final bool Function()? shouldSuppressAutoRefocus;
+
   const KeystrokeListener({
     super.key,
     required this.child,
@@ -170,6 +180,7 @@ class KeystrokeListener extends StatefulWidget {
     this.shortcuts,
     this.includeDefaultShortcuts = true,
     this.actionHandlers,
+    this.shouldSuppressAutoRefocus,
   });
 
   @override
@@ -250,10 +261,9 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
       if (isShiftPressed) modifiers += 'Shift+';
 
       ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text('Pressed: $modifiers${event.logicalKey.keyLabel}')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Pressed: $modifiers${event.logicalKey.keyLabel}')));
     }
 
     widget.onKeyEvent?.call(event);
@@ -263,11 +273,23 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
   }
 
   void _handleFocusChange() {
-    if (_effectiveFocusNode.hasPrimaryFocus) {
+    if (_effectiveFocusNode.hasPrimaryFocus && widget.enableVisualDebug) {
       debugPrint(">>>>> _focusNode has primary focus!");
+    } else if (_effectiveFocusNode.hasFocus &&
+        widget.shouldSuppressAutoRefocus != null &&
+        widget.shouldSuppressAutoRefocus!()) {
+      // A descendant FocusNode (e.g. a TextField/TimeInput inside this
+      // listener's subtree) now has primary focus AND the caller has
+      // signalled that auto-refocus should be suppressed (e.g. scheduler
+      // keystroke pause is active) — do NOT steal it back.
+      return;
     } else {
-      // Focus was lost, request it back after a brief delay
-      // This allows clicks/taps to complete but maintains keyboard listening
+      // Focus left the entire subtree — optionally refocus this listener
+      // so keyboard shortcuts continue to work after clicks outside.
+      // Refocus only when the caller has opted into focus management via
+      // requestFocusOnInit to avoid fighting child text inputs.
+      if (!widget.requestFocusOnInit && !widget.autoFocus) return;
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted && !_effectiveFocusNode.hasPrimaryFocus) {
           _effectiveFocusNode.requestFocus();
@@ -313,7 +335,9 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
           if (callback != null) {
             callback();
           } else {
-            debugPrint('$label Action invoked!');
+            if (widget.enableVisualDebug) {
+              debugPrint('$label Action invoked!');
+            }
           }
           return null;
         },
@@ -372,9 +396,7 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
                   isOffstage: true,
                   showLoadingIndicator: false,
                   child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red, width: 2),
-                    ),
+                    decoration: BoxDecoration(border: Border.all(color: Colors.red, width: 2)),
                     padding: const EdgeInsets.all(4),
                     child: TextField(
                       autofocus: widget.requestFocusOnInit,
@@ -419,10 +441,8 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
     SingleActivator(LogicalKeyboardKey.keyS, meta: true): SaveIntent(),
     SingleActivator(LogicalKeyboardKey.keyZ, control: true): UndoIntent(),
     SingleActivator(LogicalKeyboardKey.keyZ, meta: true): UndoIntent(),
-    SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true):
-        RedoIntent(),
-    SingleActivator(LogicalKeyboardKey.keyZ, meta: true, shift: true):
-        RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true): RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, meta: true, shift: true): RedoIntent(),
     SingleActivator(LogicalKeyboardKey.keyY, control: true): RedoIntent(),
     SingleActivator(LogicalKeyboardKey.keyY, meta: true): RedoIntent(),
     SingleActivator(LogicalKeyboardKey.keyA, control: true): SelectAllIntent(),
@@ -433,13 +453,12 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
     SingleActivator(LogicalKeyboardKey.keyV, meta: true): PasteIntent(),
     SingleActivator(LogicalKeyboardKey.keyX, control: true): CutIntent(),
     SingleActivator(LogicalKeyboardKey.keyX, meta: true): CutIntent(),
-    SingleActivator(LogicalKeyboardKey.slash, control: true):
-        ToggleCommentIntent(),
-    SingleActivator(LogicalKeyboardKey.slash, meta: true):
-        ToggleCommentIntent(),
+    SingleActivator(LogicalKeyboardKey.slash, control: true): ToggleCommentIntent(),
+    SingleActivator(LogicalKeyboardKey.slash, meta: true): ToggleCommentIntent(),
 
     // Function keys
     SingleActivator(LogicalKeyboardKey.f1): HelpIntent(),
   };
 }
+
 //************************************************* */

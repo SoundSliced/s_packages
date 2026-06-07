@@ -1,3 +1,7 @@
+## 5.1.2
+- **`keystroke_listener` updated**
+  - Modified `_handleFocusChange()` in `KeystrokeListener` to only suppress refocus when shouldSuppressAutoRefocus returns true, to stop aggressively stealing focus back from child TextField/TimeInput widgets bug that occured even when keystroke detection was paused — if a descendant in the focus tree has primary focus (_effectiveFocusNode.hasFocus is still true), it no longer calls requestFocus() to steal it back, which was defeating the scheduler's keystroke-pause mechanism.
+
 ## 5.1.1
 
 - **`s_time`**
