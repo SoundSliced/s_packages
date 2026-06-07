@@ -1322,10 +1322,15 @@ class TimeInputFormatter extends TextInputFormatter {
   /// 3. Calculate appropriate cursor position
   /// 4. Return formatted TextEditingValue
   ///
-  /// **Cursor Logic:**
-  /// - Counts difference in digit count between old and new values
-  /// - Adjusts cursor position based on this difference
-  /// - Clamps position to valid range
+  /// **Overwrite Mode (HH:MM):**
+  /// When all 4 digit slots are filled and the user types a new digit, the
+  /// digit at the current cursor position is **replaced** rather than inserted.
+  /// This gives a fixed-format masked-input feel: each keystroke overwrites the
+  /// digit under (or just before) the cursor and advances to the next slot.
+  ///
+  /// **Backspace:**
+  /// Clears the targeted digit to `0` (when 4 digits present) or removes it.
+  /// The cursor correctly tracks across the `:` separator into hour digits.
   ///
   /// [oldValue] - Previous TextEditingValue
   /// [newValue] - New TextEditingValue from user input
@@ -1335,74 +1340,112 @@ class TimeInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    var limitedDigits = _limitToFourDigits(
-        TimeInputControllers._removeNonDigits(newValue.text));
+    final oldDigits = _limitToFourDigits(
+        TimeInputControllers._removeNonDigits(oldValue.text));
+    final newRawDigits = TimeInputControllers._removeNonDigits(newValue.text);
 
-    // In formatted mode, backspace over separators can otherwise remove the wrong digit.
-    // Enforce deletion semantics based on the caret slot in the old value.
+    // ── BACKSPACE ──────────────────────────────────────────────────────────
     bool isBackspace = false;
     int backspaceSlot = 0;
     if (_isCollapsedBackspace(oldValue, newValue)) {
-      final oldDigits = _limitToFourDigits(
-          TimeInputControllers._removeNonDigits(oldValue.text));
       final removalIndex = _countDigitsBeforeOffset(
               oldValue.text, oldValue.selection.baseOffset) -
           1;
 
       if (removalIndex >= 0 && removalIndex < oldDigits.length) {
-        // In full HHMM mode, backspace should clear the targeted digit slot
-        // while preserving structure (e.g. 13:45 -> 13:05 at minute-tens).
-        if (oldDigits.length >= 4) {
-          limitedDigits = _replaceDigitAt(oldDigits, removalIndex, '0');
-        } else {
-          limitedDigits = _removeDigitAt(oldDigits, removalIndex);
-        }
         isBackspace = true;
-        backspaceSlot = removalIndex; // 0-based slot where deletion occurred
+        backspaceSlot = removalIndex;
       }
     }
 
-    // Always keep the field displayed in formatted mode while typing.
+    String limitedDigits;
+    int cursorSlot;
+
+    if (isBackspace) {
+      // Zero out the digit at the backspace slot (or remove if <4 digits).
+      if (oldDigits.length >= 4) {
+        limitedDigits = _replaceDigitAt(oldDigits, backspaceSlot, '0');
+      } else {
+        limitedDigits = _removeDigitAt(oldDigits, backspaceSlot);
+      }
+      cursorSlot = backspaceSlot;
+    } else if (newRawDigits.length > oldDigits.length &&
+        oldDigits.length >= 4) {
+      // ── OVERWRITE MODE ──────────────────────────────────────────────────
+      // All 4 digit slots are filled and the user typed a digit. Find the
+      // slot where the cursor was and replace that digit with the new one.
+      final cursorDigitBefore = _countDigitsBeforeOffset(
+          newValue.text, newValue.selection.baseOffset);
+
+      // The new value has one extra digit inserted; the cursor sits after it.
+      // Determine which digit slot the cursor was pointing AT before typing.
+      final slotToReplace =
+          (cursorDigitBefore - 1).clamp(0, oldDigits.length - 1);
+
+      // Find the newly inserted digit by locating the first position where
+      // the raw digit strings diverge.
+      int firstDiffPos = 0;
+      while (firstDiffPos < oldDigits.length &&
+          firstDiffPos < newRawDigits.length &&
+          newRawDigits[firstDiffPos] == oldDigits[firstDiffPos]) {
+        firstDiffPos++;
+      }
+      final newDigit =
+          firstDiffPos < newRawDigits.length ? newRawDigits[firstDiffPos] : '0';
+
+      limitedDigits = _replaceDigitAt(oldDigits, slotToReplace, newDigit);
+
+      // Advance cursor to the next digit slot after replacement.
+      cursorSlot = (slotToReplace + 1).clamp(0, oldDigits.length);
+
+      if (enableDebugLogs) {
+        assert(() {
+          debugPrint(
+            '[TI:formatter] OVERWRITE '
+            'old="${oldValue.text}" '
+            'new="${newValue.text}" '
+            '-> oldDigits="$oldDigits" newRaw="$newRawDigits" '
+            'slot=$slotToReplace newDigit=$newDigit '
+            '-> result="$limitedDigits" cursorSlot=$cursorSlot',
+          );
+          return true;
+        }());
+      }
+    } else {
+      // ── NORMAL INSERT ───────────────────────────────────────────────────
+      // Fewer than 4 digits or digit count hasn't grown – treat as insertion.
+      limitedDigits = _limitToFourDigits(newRawDigits);
+      final digitsBeforeCursor = _countDigitsBeforeOffset(
+          newValue.text, newValue.selection.baseOffset);
+
+      if (digitsBeforeCursor > 0 && limitedDigits.isNotEmpty) {
+        cursorSlot = digitsBeforeCursor.clamp(1, limitedDigits.length);
+      } else {
+        cursorSlot = 0;
+      }
+
+      if (enableDebugLogs) {
+        assert(() {
+          debugPrint(
+            '[TI:formatter] INSERT '
+            'new="${newValue.text}" sel=${newValue.selection.baseOffset} '
+            '-> digits="$limitedDigits" digitsBefore=$digitsBeforeCursor '
+            '-> cursorSlot=$cursorSlot',
+          );
+          return true;
+        }());
+      }
+    }
+
+    // Always display in formatted mode.
     final formattedText = TimeInputControllers.formatTimeInput(
       limitedDigits,
       isUtc: isUtc,
       showLocalIndicator: showLocalIndicator,
     );
 
-    // After backspace place caret BEFORE the digit at the freed slot so the
-    // cursor sits exactly where the deleted digit was (naturally an allowed offset).
-    // For all other edits, track by digit count as before.
-    final int newCursorPosition;
-    if (isBackspace) {
-      newCursorPosition = _positionAtDigitSlot(formattedText, backspaceSlot);
-      if (enableDebugLogs) {
-        assert(() {
-          debugPrint(
-            '[TI:formatter] BACKSPACE '
-            'old="${oldValue.text}" sel=${oldValue.selection.baseOffset} '
-            '-> digits="$limitedDigits" slot=$backspaceSlot '
-            '-> fmt="$formattedText" cur=$newCursorPosition',
-          );
-          return true;
-        }());
-      }
-    } else {
-      final digitsBeforeCursor = _countDigitsBeforeOffset(
-          newValue.text, newValue.selection.baseOffset);
-      newCursorPosition =
-          _positionAfterDigitCount(formattedText, digitsBeforeCursor);
-      if (enableDebugLogs) {
-        assert(() {
-          debugPrint(
-            '[TI:formatter] INSERT '
-            'new="${newValue.text}" sel=${newValue.selection.baseOffset} '
-            '-> digits="$limitedDigits" digitsBeforeCursor=$digitsBeforeCursor '
-            '-> fmt="$formattedText" cur=$newCursorPosition',
-          );
-          return true;
-        }());
-      }
-    }
+    // Map the 0-based digit slot index to a formatted-text offset.
+    final newCursorPosition = _positionAtDigitSlot(formattedText, cursorSlot);
 
     return TextEditingValue(
       text: formattedText,
@@ -1470,24 +1513,5 @@ class TimeInputFormatter extends TextInputFormatter {
     }
 
     return count;
-  }
-
-  int _positionAfterDigitCount(String formattedText, int digitCount) {
-    if (formattedText.isEmpty) return 0;
-    if (digitCount <= 0) return 0;
-
-    var seenDigits = 0;
-    for (var i = 0; i < formattedText.length; i++) {
-      final charCode = formattedText.codeUnitAt(i);
-      if (charCode >= 48 && charCode <= 57) {
-        seenDigits++;
-        if (seenDigits >= digitCount) {
-          return i + 1;
-        }
-      }
-    }
-
-    // Cursor should never move into suffix beyond formatted content length.
-    return formattedText.length;
   }
 }

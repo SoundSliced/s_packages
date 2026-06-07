@@ -1,3 +1,8 @@
+## 5.1.4
+- **`s_time` 's `TimeInput` widget updated**
+  - **Cursor Positioning**
+    Both overwrite and backspace now use `_positionAtDigitSlot` consistently, which maps a 0-based digit slot index to its formatted-text offset. The unused `_positionAfterDigitCount` method was removed.
+
 ## 5.1.3
 - **`keystroke_listener` updated**
   - Fixed three issues in the KeystrokeListener: removed unmodified single-key shortcuts (BACKSPACE, ENTER, arrow keys, SPACE, TAB) from _defaultShortcuts so they propagate to child text fields instead of being consumed by Shortcuts; added shouldSuppressAutoRefocus callback to gate the aggressive focus-stealing only when the scheduler's pause is active; and wrapped the visual debug SnackBar in a try-catch to prevent crashes when no Scaffold ancestor exists. 
