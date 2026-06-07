@@ -92,7 +92,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  s_packages: ^5.1.4
+  s_packages: ^5.1.5
 ```
 
 Then run:

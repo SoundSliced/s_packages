@@ -4,14 +4,12 @@ class SSpreadsheetExampleScreen extends StatefulWidget {
   const SSpreadsheetExampleScreen({super.key});
 
   @override
-  State<SSpreadsheetExampleScreen> createState() =>
-      _SSpreadsheetExampleScreenState();
+  State<SSpreadsheetExampleScreen> createState() => _SSpreadsheetExampleScreenState();
 }
 
-class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
-    with SingleTickerProviderStateMixin {
+class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen> with SingleTickerProviderStateMixin {
   late final TabController _tabController;
-  final ScrollController _advancedVerticalController = ScrollController();
+  late final IndexedScrollController _advancedVerticalIndexedController;
 
   bool _showHeader = true;
   bool _rowRepaintBoundary = true;
@@ -25,11 +23,12 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _advancedVerticalIndexedController = IndexedScrollController();
   }
 
   @override
   void dispose() {
-    _advancedVerticalController.dispose();
+    _advancedVerticalIndexedController.dispose();
     _tabController.dispose();
     super.dispose();
   }
@@ -123,10 +122,8 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
   }
 
   Widget _buildAdvancedExample(BuildContext context) {
-    final infoTextStyle = Theme.of(context)
-        .textTheme
-        .bodySmall
-        ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant);
+    final infoTextStyle =
+        Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant);
 
     return Column(
       children: [
@@ -171,7 +168,7 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
               ),
               TextButton.icon(
                 onPressed: () {
-                  _advancedVerticalController.animateTo(
+                  _advancedVerticalIndexedController.controller.animateTo(
                     0,
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeOutCubic,
@@ -192,15 +189,13 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
             showColumnHeader: _showHeader,
             padding: const EdgeInsets.all(8),
             rowPadding: const EdgeInsets.symmetric(vertical: 1),
-            verticalController: _advancedVerticalController,
+            verticalIndexedController: _advancedVerticalIndexedController,
             verticalPhysics: const BouncingScrollPhysics(),
             horizontalPhysics: const ClampingScrollPhysics(),
             backgroundColor: Theme.of(context).colorScheme.surface,
             repaintBoundaryPerRow: _rowRepaintBoundary,
             addAutomaticKeepAlives: _addAutomaticKeepAlives,
-            rowExtentAnimationDuration: _animateRowExtent
-                ? const Duration(milliseconds: 220)
-                : Duration.zero,
+            rowExtentAnimationDuration: _animateRowExtent ? const Duration(milliseconds: 220) : Duration.zero,
             rowHeightBuilder: (rowIndex) => rowIndex % 5 == 0 ? 56 : 44,
             columnWidthBuilder: (columnIndex) {
               if (columnIndex == 0) return 180;
@@ -209,8 +204,7 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
             },
             onHorizontalMetricsChanged: (offset, maxExtent, _) {
               if (!mounted) return;
-              if ((offset - _horizontalOffset).abs() < 0.5 &&
-                  (maxExtent - _horizontalMaxExtent).abs() < 0.5) {
+              if ((offset - _horizontalOffset).abs() < 0.5 && (maxExtent - _horizontalMaxExtent).abs() < 0.5) {
                 return;
               }
               setState(() {
@@ -221,9 +215,7 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
             rowHeaderBuilder: (context, rowIndex) => Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: rowIndex % 2 == 0
-                    ? Colors.indigo.shade50
-                    : Colors.indigo.shade100,
+                color: rowIndex % 2 == 0 ? Colors.indigo.shade50 : Colors.indigo.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text('Item ${rowIndex + 1}'),
@@ -253,8 +245,7 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
                 color: Colors.deepPurple.shade400,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child:
-                  const Icon(Icons.table_chart, color: Colors.white, size: 18),
+              child: const Icon(Icons.table_chart, color: Colors.white, size: 18),
             ),
             cellBuilder: (context, rowIndex, columnIndex) {
               final colorBand = (rowIndex + columnIndex) % 3;

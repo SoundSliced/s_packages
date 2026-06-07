@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:s_packages/indexscroll_listview_builder/indexscroll_listview_builder.dart';
 import 'package:s_packages/s_sync_scroll_controller/s_sync_scroll_controller.dart';
 
 /// Builds a fixed row-header cell for [rowIndex].
-typedef SSpreadsheetRowHeaderBuilder = Widget Function(
-    BuildContext context, int rowIndex);
+typedef SSpreadsheetRowHeaderBuilder = Widget Function(BuildContext context, int rowIndex);
 
 /// Builds a fixed column-header cell for [columnIndex].
-typedef SSpreadsheetColumnHeaderBuilder = Widget Function(
-    BuildContext context, int columnIndex);
+typedef SSpreadsheetColumnHeaderBuilder = Widget Function(BuildContext context, int columnIndex);
 
 /// Builds a body cell for [rowIndex] and [columnIndex].
-typedef SSpreadsheetCellBuilder = Widget Function(
-    BuildContext context, int rowIndex, int columnIndex);
+typedef SSpreadsheetCellBuilder = Widget Function(BuildContext context, int rowIndex, int columnIndex);
 
 /// Resolves a row height for [rowIndex].
 typedef SSpreadsheetRowHeightBuilder = double Function(int rowIndex);
@@ -40,21 +38,18 @@ class SSpreadsheetHorizontalMetrics {
 
   bool canScrollLeft({double threshold = 100}) => offset > threshold;
 
-  bool canScrollRight({double threshold = 100}) =>
-      offset < (maxScrollExtent - threshold);
+  bool canScrollRight({double threshold = 100}) => offset < (maxScrollExtent - threshold);
 }
 
 /// Shared horizontal synchronization state for [SSpreadsheet].
 ///
 /// Pass one instance to [SSpreadsheet.horizontalSyncController] and to
 /// [SSpreadsheetHorizontalScrollButtons] to control scrolling externally.
-class SSpreadsheetHorizontalSyncController
-    extends ValueNotifier<SSpreadsheetHorizontalMetrics> {
+class SSpreadsheetHorizontalSyncController extends ValueNotifier<SSpreadsheetHorizontalMetrics> {
   SSpreadsheetHorizontalSyncController([SSpreadsheetHorizontalMetrics? initial])
       : super(initial ?? const SSpreadsheetHorizontalMetrics());
 
-  void update(
-      double offset, double maxScrollExtent, ScrollController controller) {
+  void update(double offset, double maxScrollExtent, ScrollController controller) {
     value = SSpreadsheetHorizontalMetrics(
       offset: offset,
       maxScrollExtent: maxScrollExtent,
@@ -134,9 +129,7 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue.shade500.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                  color: Colors.blue.shade700.withValues(alpha: 0.5),
-                  width: 0.5),
+              border: Border.all(color: Colors.blue.shade700.withValues(alpha: 0.5), width: 0.5),
             ),
             alignment: Alignment.center,
             child: Icon(
@@ -162,10 +155,8 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
             child: ValueListenableBuilder<SSpreadsheetHorizontalMetrics>(
               valueListenable: controller,
               builder: (context, metrics, _) {
-                final leftEnabled =
-                    metrics.canScrollLeft(threshold: activationThreshold);
-                final rightEnabled =
-                    metrics.canScrollRight(threshold: activationThreshold);
+                final leftEnabled = metrics.canScrollLeft(threshold: activationThreshold);
+                final rightEnabled = metrics.canScrollRight(threshold: activationThreshold);
 
                 void leftOnTap() {
                   controller.animateToStart(
@@ -265,9 +256,6 @@ class SSpreadsheet extends StatefulWidget {
   /// Padding applied inside each body row container.
   final EdgeInsetsGeometry rowPadding;
 
-  /// Vertical list controller.
-  final ScrollController? verticalController;
-
   /// Vertical list physics.
   final ScrollPhysics? verticalPhysics;
 
@@ -296,6 +284,17 @@ class SSpreadsheet extends StatefulWidget {
   /// Whether to keep body rows alive.
   final bool addAutomaticKeepAlives;
 
+  /// Optional [IndexedScrollController] for vertical (row) index-based scrolling.
+  ///
+  /// When provided, the body list uses [IndexScrollListViewBuilder] enabling
+  /// programmatic scrolling to a specific row via
+  /// [IndexedScrollController.scrollToIndex]. The raw [ScrollController] is
+  /// accessible via [IndexedScrollController.controller].
+  ///
+  /// When omitted, an internal [IndexedScrollController] is created
+  /// automatically wrapping a new [ScrollController].
+  final IndexedScrollController? verticalIndexedController;
+
   const SSpreadsheet({
     super.key,
     required this.rowCount,
@@ -310,7 +309,7 @@ class SSpreadsheet extends StatefulWidget {
     this.columnWidthBuilder,
     this.padding = EdgeInsets.zero,
     this.rowPadding = EdgeInsets.zero,
-    this.verticalController,
+    this.verticalIndexedController,
     this.verticalPhysics,
     this.horizontalPhysics,
     this.backgroundColor,
@@ -331,11 +330,14 @@ class SSpreadsheet extends StatefulWidget {
 
 class _SSpreadsheetState extends State<SSpreadsheet> {
   late final SyncScrollControllerGroup _horizontalSyncGroup;
-  ScrollController? _ownedVerticalController;
+  IndexedScrollController? _ownedVerticalIndexedController;
 
-  ScrollController get _verticalController {
-    return widget.verticalController ??
-        (_ownedVerticalController ??= ScrollController());
+  IndexedScrollController get _verticalIndexedController {
+    if (widget.verticalIndexedController != null) {
+      return widget.verticalIndexedController!;
+    }
+    _ownedVerticalIndexedController ??= IndexedScrollController();
+    return _ownedVerticalIndexedController!;
   }
 
   @override
@@ -346,26 +348,22 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
 
   @override
   void dispose() {
-    _ownedVerticalController?.dispose();
+    _ownedVerticalIndexedController?.dispose();
     _horizontalSyncGroup.dispose();
     super.dispose();
   }
 
-  double _rowHeightAt(int rowIndex) =>
-      widget.rowHeightBuilder?.call(rowIndex) ?? 92;
+  double _rowHeightAt(int rowIndex) => widget.rowHeightBuilder?.call(rowIndex) ?? 92;
 
-  double _columnWidthAt(int columnIndex) =>
-      widget.columnWidthBuilder?.call(columnIndex) ?? 180;
+  double _columnWidthAt(int columnIndex) => widget.columnWidthBuilder?.call(columnIndex) ?? 180;
 
   void _notifyHorizontalMetrics(
     double offset,
     double maxScrollExtent,
     ScrollController controller,
   ) {
-    widget.horizontalSyncController
-        ?.update(offset, maxScrollExtent, controller);
-    widget.onHorizontalMetricsChanged
-        ?.call(offset, maxScrollExtent, controller);
+    widget.horizontalSyncController?.update(offset, maxScrollExtent, controller);
+    widget.onHorizontalMetricsChanged?.call(offset, maxScrollExtent, controller);
   }
 
   Widget _buildHeaderRow() {
@@ -376,8 +374,7 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
           if (widget.rowHeaderBuilder != null)
             SizedBox(
               width: widget.rowHeaderWidth,
-              child: widget.cornerBuilder?.call(context) ??
-                  const SizedBox.shrink(),
+              child: widget.cornerBuilder?.call(context) ?? const SizedBox.shrink(),
             ),
           Expanded(
             child: _SyncedHorizontalStrip(
@@ -410,9 +407,7 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
         child: Row(
           children: [
             if (widget.rowHeaderBuilder != null)
-              SizedBox(
-                  width: widget.rowHeaderWidth,
-                  child: widget.rowHeaderBuilder!(context, rowIndex)),
+              SizedBox(width: widget.rowHeaderWidth, child: widget.rowHeaderBuilder!(context, rowIndex)),
             Expanded(
               child: _SyncedHorizontalStrip(
                 syncGroup: _horizontalSyncGroup,
@@ -449,13 +444,13 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
   Widget build(BuildContext context) {
     final body = widget.rowCount == 0
         ? const SizedBox.shrink()
-        : ListView.builder(
-            controller: _verticalController,
+        : IndexScrollListViewBuilder(
+            controller: _verticalIndexedController,
+            itemCount: widget.rowCount,
             physics: widget.verticalPhysics,
             padding: EdgeInsets.zero,
-            itemCount: widget.rowCount,
-            addAutomaticKeepAlives: widget.addAutomaticKeepAlives,
             itemBuilder: _buildBodyRow,
+            onScrolledTo: (_) {},
           );
 
     return Container(
@@ -494,28 +489,31 @@ class _SyncedHorizontalStrip extends StatefulWidget {
 
 class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
   late final ScrollController _controller;
+  late final IndexedScrollController _indexedController;
 
   @override
   void initState() {
     super.initState();
     _controller = widget.syncGroup.addAndGet();
     _controller.addListener(_onScroll);
+    _indexedController = IndexedScrollController(
+      scrollController: _controller,
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted || !_controller.hasClients) return;
-      widget.onMetricsChanged?.call(_controller.position.pixels,
-          _controller.position.maxScrollExtent, _controller);
+      widget.onMetricsChanged?.call(_controller.position.pixels, _controller.position.maxScrollExtent, _controller);
     });
   }
 
   void _onScroll() {
     if (!_controller.hasClients) return;
-    widget.onMetricsChanged?.call(_controller.position.pixels,
-        _controller.position.maxScrollExtent, _controller);
+    widget.onMetricsChanged?.call(_controller.position.pixels, _controller.position.maxScrollExtent, _controller);
   }
 
   @override
   void dispose() {
+    _indexedController.dispose();
     _controller.removeListener(_onScroll);
     _controller.dispose();
     super.dispose();
@@ -523,17 +521,16 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      controller: _controller,
+    return IndexScrollListViewBuilder(
+      controller: _indexedController,
+      itemCount: widget.itemCount,
       scrollDirection: Axis.horizontal,
       physics: widget.physics,
-      itemCount: widget.itemCount,
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
-        return SizedBox(
-            width: widget.itemWidthBuilder(index),
-            child: widget.itemBuilder(context, index));
+        return SizedBox(width: widget.itemWidthBuilder(index), child: widget.itemBuilder(context, index));
       },
+      onScrolledTo: (_) {},
     );
   }
 }
