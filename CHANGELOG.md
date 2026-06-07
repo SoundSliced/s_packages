@@ -1,3 +1,6 @@
+## 5.1.3
+- **`keystroke_listener` updated**
+  - Fixed three issues in the KeystrokeListener: removed unmodified single-key shortcuts (BACKSPACE, ENTER, arrow keys, SPACE, TAB) from _defaultShortcuts so they propagate to child text fields instead of being consumed by Shortcuts; added shouldSuppressAutoRefocus callback to gate the aggressive focus-stealing only when the scheduler's pause is active; and wrapped the visual debug SnackBar in a try-catch to prevent crashes when no Scaffold ancestor exists. 
 ## 5.1.2
 - **`keystroke_listener` updated**
   - Modified `_handleFocusChange()` in `KeystrokeListener` to only suppress refocus when shouldSuppressAutoRefocus returns true, to stop aggressively stealing focus back from child TextField/TimeInput widgets bug that occured even when keystroke detection was paused — if a descendant in the focus tree has primary focus (_effectiveFocusNode.hasFocus is still true), it no longer calls requestFocus() to steal it back, which was defeating the scheduler's keystroke-pause mechanism.
