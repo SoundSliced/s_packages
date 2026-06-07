@@ -3,13 +3,16 @@ import 'package:s_packages/indexscroll_listview_builder/indexscroll_listview_bui
 import 'package:s_packages/s_sync_scroll_controller/s_sync_scroll_controller.dart';
 
 /// Builds a fixed row-header cell for [rowIndex].
-typedef SSpreadsheetRowHeaderBuilder = Widget Function(BuildContext context, int rowIndex);
+typedef SSpreadsheetRowHeaderBuilder = Widget Function(
+    BuildContext context, int rowIndex);
 
 /// Builds a fixed column-header cell for [columnIndex].
-typedef SSpreadsheetColumnHeaderBuilder = Widget Function(BuildContext context, int columnIndex);
+typedef SSpreadsheetColumnHeaderBuilder = Widget Function(
+    BuildContext context, int columnIndex);
 
 /// Builds a body cell for [rowIndex] and [columnIndex].
-typedef SSpreadsheetCellBuilder = Widget Function(BuildContext context, int rowIndex, int columnIndex);
+typedef SSpreadsheetCellBuilder = Widget Function(
+    BuildContext context, int rowIndex, int columnIndex);
 
 /// Resolves a row height for [rowIndex].
 typedef SSpreadsheetRowHeightBuilder = double Function(int rowIndex);
@@ -38,18 +41,21 @@ class SSpreadsheetHorizontalMetrics {
 
   bool canScrollLeft({double threshold = 100}) => offset > threshold;
 
-  bool canScrollRight({double threshold = 100}) => offset < (maxScrollExtent - threshold);
+  bool canScrollRight({double threshold = 100}) =>
+      offset < (maxScrollExtent - threshold);
 }
 
 /// Shared horizontal synchronization state for [SSpreadsheet].
 ///
 /// Pass one instance to [SSpreadsheet.horizontalSyncController] and to
 /// [SSpreadsheetHorizontalScrollButtons] to control scrolling externally.
-class SSpreadsheetHorizontalSyncController extends ValueNotifier<SSpreadsheetHorizontalMetrics> {
+class SSpreadsheetHorizontalSyncController
+    extends ValueNotifier<SSpreadsheetHorizontalMetrics> {
   SSpreadsheetHorizontalSyncController([SSpreadsheetHorizontalMetrics? initial])
       : super(initial ?? const SSpreadsheetHorizontalMetrics());
 
-  void update(double offset, double maxScrollExtent, ScrollController controller) {
+  void update(
+      double offset, double maxScrollExtent, ScrollController controller) {
     value = SSpreadsheetHorizontalMetrics(
       offset: offset,
       maxScrollExtent: maxScrollExtent,
@@ -129,7 +135,9 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue.shade500.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: Colors.blue.shade700.withValues(alpha: 0.5), width: 0.5),
+              border: Border.all(
+                  color: Colors.blue.shade700.withValues(alpha: 0.5),
+                  width: 0.5),
             ),
             alignment: Alignment.center,
             child: Icon(
@@ -155,8 +163,10 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
             child: ValueListenableBuilder<SSpreadsheetHorizontalMetrics>(
               valueListenable: controller,
               builder: (context, metrics, _) {
-                final leftEnabled = metrics.canScrollLeft(threshold: activationThreshold);
-                final rightEnabled = metrics.canScrollRight(threshold: activationThreshold);
+                final leftEnabled =
+                    metrics.canScrollLeft(threshold: activationThreshold);
+                final rightEnabled =
+                    metrics.canScrollRight(threshold: activationThreshold);
 
                 void leftOnTap() {
                   controller.animateToStart(
@@ -353,17 +363,21 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
     super.dispose();
   }
 
-  double _rowHeightAt(int rowIndex) => widget.rowHeightBuilder?.call(rowIndex) ?? 92;
+  double _rowHeightAt(int rowIndex) =>
+      widget.rowHeightBuilder?.call(rowIndex) ?? 92;
 
-  double _columnWidthAt(int columnIndex) => widget.columnWidthBuilder?.call(columnIndex) ?? 180;
+  double _columnWidthAt(int columnIndex) =>
+      widget.columnWidthBuilder?.call(columnIndex) ?? 180;
 
   void _notifyHorizontalMetrics(
     double offset,
     double maxScrollExtent,
     ScrollController controller,
   ) {
-    widget.horizontalSyncController?.update(offset, maxScrollExtent, controller);
-    widget.onHorizontalMetricsChanged?.call(offset, maxScrollExtent, controller);
+    widget.horizontalSyncController
+        ?.update(offset, maxScrollExtent, controller);
+    widget.onHorizontalMetricsChanged
+        ?.call(offset, maxScrollExtent, controller);
   }
 
   Widget _buildHeaderRow() {
@@ -374,7 +388,8 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
           if (widget.rowHeaderBuilder != null)
             SizedBox(
               width: widget.rowHeaderWidth,
-              child: widget.cornerBuilder?.call(context) ?? const SizedBox.shrink(),
+              child: widget.cornerBuilder?.call(context) ??
+                  const SizedBox.shrink(),
             ),
           Expanded(
             child: _SyncedHorizontalStrip(
@@ -407,7 +422,9 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
         child: Row(
           children: [
             if (widget.rowHeaderBuilder != null)
-              SizedBox(width: widget.rowHeaderWidth, child: widget.rowHeaderBuilder!(context, rowIndex)),
+              SizedBox(
+                  width: widget.rowHeaderWidth,
+                  child: widget.rowHeaderBuilder!(context, rowIndex)),
             Expanded(
               child: _SyncedHorizontalStrip(
                 syncGroup: _horizontalSyncGroup,
@@ -502,13 +519,15 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted || !_controller.hasClients) return;
-      widget.onMetricsChanged?.call(_controller.position.pixels, _controller.position.maxScrollExtent, _controller);
+      widget.onMetricsChanged?.call(_controller.position.pixels,
+          _controller.position.maxScrollExtent, _controller);
     });
   }
 
   void _onScroll() {
     if (!_controller.hasClients) return;
-    widget.onMetricsChanged?.call(_controller.position.pixels, _controller.position.maxScrollExtent, _controller);
+    widget.onMetricsChanged?.call(_controller.position.pixels,
+        _controller.position.maxScrollExtent, _controller);
   }
 
   @override
@@ -528,7 +547,9 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
       physics: widget.physics,
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
-        return SizedBox(width: widget.itemWidthBuilder(index), child: widget.itemBuilder(context, index));
+        return SizedBox(
+            width: widget.itemWidthBuilder(index),
+            child: widget.itemBuilder(context, index));
       },
       onScrolledTo: (_) {},
     );
