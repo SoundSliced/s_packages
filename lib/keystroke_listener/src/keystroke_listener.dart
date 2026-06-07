@@ -132,7 +132,8 @@ class SpaceIntent extends Intent {
 class KeystrokeListener extends StatefulWidget {
   final Widget child;
   final bool enableVisualDebug;
-  final void Function(KeyDownEvent keyDownEvent)? onKeyEvent; // Optional callback for key events
+  final void Function(KeyDownEvent keyDownEvent)?
+      onKeyEvent; // Optional callback for key events
   final FocusNode? focusNode;
   final bool requestFocusOnInit;
   final bool autoFocus;
@@ -263,7 +264,8 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Pressed: $modifiers${event.logicalKey.keyLabel}')));
+      ).showSnackBar(SnackBar(
+          content: Text('Pressed: $modifiers${event.logicalKey.keyLabel}')));
     }
 
     widget.onKeyEvent?.call(event);
@@ -396,7 +398,8 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
                   isOffstage: true,
                   showLoadingIndicator: false,
                   child: Container(
-                    decoration: BoxDecoration(border: Border.all(color: Colors.red, width: 2)),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.red, width: 2)),
                     padding: const EdgeInsets.all(4),
                     child: TextField(
                       autofocus: widget.requestFocusOnInit,
@@ -441,8 +444,10 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
     SingleActivator(LogicalKeyboardKey.keyS, meta: true): SaveIntent(),
     SingleActivator(LogicalKeyboardKey.keyZ, control: true): UndoIntent(),
     SingleActivator(LogicalKeyboardKey.keyZ, meta: true): UndoIntent(),
-    SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true): RedoIntent(),
-    SingleActivator(LogicalKeyboardKey.keyZ, meta: true, shift: true): RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true):
+        RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, meta: true, shift: true):
+        RedoIntent(),
     SingleActivator(LogicalKeyboardKey.keyY, control: true): RedoIntent(),
     SingleActivator(LogicalKeyboardKey.keyY, meta: true): RedoIntent(),
     SingleActivator(LogicalKeyboardKey.keyA, control: true): SelectAllIntent(),
@@ -453,8 +458,10 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
     SingleActivator(LogicalKeyboardKey.keyV, meta: true): PasteIntent(),
     SingleActivator(LogicalKeyboardKey.keyX, control: true): CutIntent(),
     SingleActivator(LogicalKeyboardKey.keyX, meta: true): CutIntent(),
-    SingleActivator(LogicalKeyboardKey.slash, control: true): ToggleCommentIntent(),
-    SingleActivator(LogicalKeyboardKey.slash, meta: true): ToggleCommentIntent(),
+    SingleActivator(LogicalKeyboardKey.slash, control: true):
+        ToggleCommentIntent(),
+    SingleActivator(LogicalKeyboardKey.slash, meta: true):
+        ToggleCommentIntent(),
 
     // Function keys
     SingleActivator(LogicalKeyboardKey.f1): HelpIntent(),
