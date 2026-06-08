@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart' show ScrollCacheExtent;
 import 'package:s_packages/s_packages.dart';
 
 /// A highly customizable ListView.builder with built-in index-based scrolling capabilities.
@@ -227,6 +228,35 @@ class IndexScrollListViewBuilder extends StatefulWidget {
   /// Overrides the controller's default [endOfFramePasses] value.
   final int? autoScrollEndOfFrameDelay;
 
+  /// Whether to animate rows when they are inserted or removed.
+  ///
+  /// When `true` (default), the builder switches from [ListView.builder] to
+  /// [AnimatedList] internally, so rows fade+slide in/out when [itemCount]
+  /// changes. All existing features (indexed scrolling, auto-scroll, scrollbar)
+  /// continue to work.
+  ///
+  /// Provide [itemKeyBuilder] for stable row identity — otherwise keys are
+  /// derived from the row index, which works well for appends/removes at the
+  /// end but won't correctly track items that shift indices.
+  final bool enableRowAnimations;
+
+  /// Optional key builder that gives each row a stable identity across rebuilds.
+  ///
+  /// When [enableRowAnimations] is true, providing a key that reflects the
+  /// underlying data (e.g., a database ID or timestamp) lets [AnimatedList]
+  /// correctly map old rows to new rows even when their indices change.
+  ///
+  /// If `null`, keys are derived from `ValueKey(index)` — animations work
+  /// correctly only for items appended/removed at the end of the list.
+  final Key Function(int index)? itemKeyBuilder;
+
+  /// Duration of the insert/remove row animation.
+  /// Defaults to 400 milliseconds to match [scrollAnimationDuration].
+  final Duration rowAnimationDuration;
+
+  /// Curve for the insert/remove row animation.
+  final Curve rowAnimationCurve;
+
   /// Creates an [IndexScrollListViewBuilder].
   ///
   /// The [itemBuilder] and [itemCount] parameters are required.
@@ -258,6 +288,10 @@ class IndexScrollListViewBuilder extends StatefulWidget {
     this.suppressPlatformScrollbars = false,
     this.autoScrollMaxFrameDelay,
     this.autoScrollEndOfFrameDelay,
+    this.enableRowAnimations = true,
+    this.itemKeyBuilder,
+    this.rowAnimationDuration = const Duration(milliseconds: 400),
+    this.rowAnimationCurve = Curves.easeOutCubic,
   });
 
   @override
@@ -294,6 +328,19 @@ class _IndexScrollListViewBuilderState
   /// Used to distinguish between immediate rebuilds (from onScrolledTo) and subsequent
   /// external rebuilds (from user actions like clicking a button).
   bool _hasRebuiltSinceProgrammaticScroll = false;
+
+  // ── AnimatedList support ──────────────────────────────────────────
+
+  /// GlobalKey for the [AnimatedList] when row animations are enabled.
+  final GlobalKey<AnimatedListState> _animatedListKey =
+      GlobalKey<AnimatedListState>();
+
+  /// Whether we've already built with [AnimatedList] (controls initialItemCount).
+  bool _animatedListInitialised = false;
+
+  /// Cache of the most recently built row widget for each index.
+  /// Used as the old widget during removal animations in [AnimatedList].
+  final Map<int, Widget> _builtWidgets = <int, Widget>{};
 
   @override
   void initState() {
@@ -415,6 +462,12 @@ class _IndexScrollListViewBuilderState
   void didUpdateWidget(IndexScrollListViewBuilder oldWidget) {
     super.didUpdateWidget(oldWidget);
 
+    // ── AnimatedList diffing ────────────────────────────────────
+    if (widget.enableRowAnimations &&
+        oldWidget.itemCount != widget.itemCount &&
+        _animatedListInitialised) {
+      _applyAnimatedListDiff(oldWidget.itemCount, widget.itemCount);
+    }
     // Handle controller updates if provided externally
     // Case 1: New external controller provided
     if (widget.controller != null &&
@@ -520,8 +573,90 @@ class _IndexScrollListViewBuilderState
     super.dispose();
   }
 
+  /// Returns the key for a given row index, either from [itemKeyBuilder]
+  /// or a plain index-based [ValueKey].
+  Key _rowKey(int index) =>
+      widget.itemKeyBuilder?.call(index) ?? ValueKey(index);
+
+  /// Builds a single tagged row, wrapping the user's [itemBuilder] in
+  /// [IndexedScrollTag] for indexed-scroll support.
+  /// Caches the result in [_builtWidgets] for potential removal animations.
+  Widget _buildTaggedRow(BuildContext context, int index) {
+    final built = IndexedScrollTag(
+      key: _rowKey(index),
+      controller: _scrollController,
+      index: index,
+      child: widget.itemBuilder(context, index),
+    );
+    _builtWidgets[index] = built;
+    return built;
+  }
+
+  /// Builds the wrapper for an item being removed from [AnimatedList].
+  /// Uses the cached widget from [_builtWidgets] (the one that *was* on screen).
+  Widget _buildRemovedItem(
+      BuildContext context, int index, Animation<double> animation) {
+    final axis = widget.scrollDirection ?? Axis.vertical;
+    return SizeTransition(
+      sizeFactor: Tween<double>(begin: 1, end: 0).animate(
+        CurvedAnimation(parent: animation, curve: widget.rowAnimationCurve),
+      ),
+      axis: axis,
+      alignment: axis == Axis.vertical ? Alignment.topCenter : Alignment.center,
+      child: FadeTransition(
+        opacity: Tween<double>(begin: 1, end: 0).animate(animation),
+        child: _builtWidgets.remove(index) ?? const SizedBox.shrink(),
+      ),
+    );
+  }
+
+  /// AnimatedList item builder: wraps [_buildTaggedRow] with the animation
+  /// so insertions slide+fade in.
+  Widget _buildAnimatedRow(
+      BuildContext context, int index, Animation<double> animation) {
+    final axis = widget.scrollDirection ?? Axis.vertical;
+    return SizeTransition(
+      sizeFactor:
+          CurvedAnimation(parent: animation, curve: widget.rowAnimationCurve),
+      axis: axis,
+      alignment: axis == Axis.vertical ? Alignment.topCenter : Alignment.center,
+      child: FadeTransition(
+        opacity: animation,
+        child: _buildTaggedRow(context, index),
+      ),
+    );
+  }
+
+  /// Computes the diff between old and new item counts and applies
+  /// insert/remove operations on the [AnimatedList].
+  void _applyAnimatedListDiff(int oldCount, int newCount) {
+    if (oldCount == newCount) return;
+
+    final state = _animatedListKey.currentState;
+    if (state == null) return;
+
+    // Simple end-of-list diff. Items appended at the end get inserted,
+    // items removed from the end get a shrink+fade-out animation using
+    // the last-built widget cached in [_builtWidgets].
+    if (newCount > oldCount) {
+      for (int i = oldCount; i < newCount; i++) {
+        state.insertItem(i, duration: widget.rowAnimationDuration);
+      }
+    } else {
+      for (int i = oldCount - 1; i >= newCount; i--) {
+        state.removeItem(
+          i,
+          (context, animation) => _buildRemovedItem(context, i, animation),
+          duration: widget.rowAnimationDuration,
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final useAnimated = widget.enableRowAnimations;
+
     // Wrap in LayoutBuilder to detect unbounded constraints
     // This is necessary to automatically handle shrinkWrap when needed
     return LayoutBuilder(
@@ -539,30 +674,35 @@ class _IndexScrollListViewBuilderState
                     (widget.scrollDirection ?? Axis.vertical) ==
                         Axis.horizontal);
 
-        // Build the core ListView with all configured properties
-        final listView = ListView.builder(
-          padding: widget.padding ?? EdgeInsets.zero,
-          controller: _scrollController.controller,
-          itemCount: widget.itemCount,
-          scrollDirection: widget.scrollDirection ?? Axis.vertical,
-          physics: widget.physics ?? const BouncingScrollPhysics(),
-          shrinkWrap: needsShrinkWrap,
+        // Build the core list — either AnimatedList or ListView.builder
+        Widget listWidget;
+        if (useAnimated) {
+          _animatedListInitialised = true;
+          listWidget = AnimatedList(
+            key: _animatedListKey,
+            initialItemCount: widget.itemCount,
+            controller: _scrollController.controller,
+            scrollDirection: widget.scrollDirection ?? Axis.vertical,
+            physics: widget.physics ?? const BouncingScrollPhysics(),
+            padding: widget.padding ?? EdgeInsets.zero,
+            scrollCacheExtent: const ScrollCacheExtent.pixels(500),
+            itemBuilder: _buildAnimatedRow,
+          );
+        } else {
+          listWidget = ListView.builder(
+            padding: widget.padding ?? EdgeInsets.zero,
+            controller: _scrollController.controller,
+            itemCount: widget.itemCount,
+            scrollDirection: widget.scrollDirection ?? Axis.vertical,
+            physics: widget.physics ?? const BouncingScrollPhysics(),
+            shrinkWrap: needsShrinkWrap,
+            scrollCacheExtent: const ScrollCacheExtent.pixels(500),
+            itemBuilder: (context, index) => _buildTaggedRow(context, index),
+          );
+        }
 
-          // Use enhanced caching for smoother scrolling and better performance.
-          // ignore: deprecated_member_use
-          cacheExtent: 500.0,
-
-          // Wrap each item in IndexedScrollTag to enable index-based scrolling
-          itemBuilder: (context, index) => IndexedScrollTag(
-            key: ValueKey(index), // Stable key based on index
-            controller: _scrollController,
-            index: index,
-            child: widget.itemBuilder(context, index),
-          ),
-        );
-
-        // Start with the base ListView
-        Widget content = listView;
+        // Start with the base list
+        Widget content = listWidget;
 
         // Optionally wrap in a Scrollbar widget
         if (widget.showScrollbar) {

@@ -1,3 +1,6 @@
+## 5.1.6
+- **'indexscroll_listview_builder upgraded**
+  - internally uses `AnimatedList` to allow animations when list changes (adding, removing, or new list)
 
 ## 5.1.5
 - **'s_spreadsheet upgraded**
