@@ -1,3 +1,19 @@
+## 5.1.8
+- **`indexscroll_listview_builder` upgraded**
+  - Added built-in row insert/remove animations by optionally using an internal `AnimatedList` (enabled by default via the new `enableRowAnimations` parameter).
+  - New `itemKeyBuilder` parameter: supply stable keys (e.g. database IDs or timestamps) so `AnimatedList` can correctly track and animate items whose indices change (filtering, reordering, etc.). Falls back to index-based keys when omitted.
+  - New staggered removal behavior (`staggerRowRemovals`, default `true`): when multiple rows are removed at once (common during filtering), removals now animate sequentially from bottom to top, producing a natural "list shortens upward" effect. Total stagger span is capped by the new `maxStaggerDuration` (default 300 ms, individual delays ≤ 100 ms).
+  - Added `rowAnimationDuration` (default 400 ms) and `rowAnimationCurve` (default `Curves.easeOutCubic`) for full control over insert and remove animation timing and feel.
+  - All existing features (indexed scrolling via `IndexedScrollController`, auto-scroll, scrollbars, declarative `indexToScrollTo`, etc.) continue to work when row animations are enabled.
+  - The previous 5.1.7 `shrinkWrap` / unbounded viewport fix for `AnimatedList` is included.
+
+- **`s_spreadsheet` upgraded**
+  - Exposed the new row animation controls from the underlying `IndexScrollListViewBuilder`:
+    - `enableRowAnimations` (default `true`)
+    - `rowKeyBuilder` (maps to `itemKeyBuilder` for stable row identity)
+    - `rowAnimationDuration`
+  - Rows now animate in/out when `rowCount` changes (e.g. live filtering or dynamic data sets) while preserving accurate `IndexedScrollController` scrolling.
+
 ## 5.1.7
 - **'indexscroll_listview_builder fixed**
   - shrinkWrap: needsShrinkWrap added to the AnimatedList, to fix unbounded ViewPort layout issues
