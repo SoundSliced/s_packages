@@ -1,3 +1,14 @@
+## 5.1.9
+- **`indexscroll_listview_builder` upgraded**
+  - **Structural reset detection for filtered data**: Added `_shouldForceAnimatedListReset` heuristic that detects when filtering or bulk data changes produce a substantially different set of rows (>30% key turnover). In such cases the `AnimatedList` is fully recreated via `_resetAnimatedList` for correct data binding instead of attempting key-based diffing against stale widgets.
+  - **Improved declarative vs imperative scroll coexistence**: New `_isHandlingProgrammaticScroll` and `_hasRebuiltSinceProgrammaticScroll` flags prevent the declarative `indexToScrollTo` auto-restore from fighting with programmatic `controller.scrollToIndex()` calls. The auto-restore now only triggers on truly external rebuilds, not the immediate callback-driven rebuild.
+  - **`_isDiffInProgress` guard**: Prevents `_applyKeyBasedAnimatedListDiff` from running while a staggered removal or delayed insertion is in progress, avoiding desync with the `AnimatedList`'s internal state.
+  - **`scrollCacheExtent` optimization**: Both `AnimatedList` and `ListView.builder` now use `ScrollCacheExtent.pixels(500)` for better scroll cache performance.
+
+- **`s_spreadsheet` upgraded**
+  - Updated to leverage the enhanced `IndexScrollListViewBuilder` improvements above (structural reset detection, improved scroll coexistence, and scroll cache optimization) for the vertical body and horizontal per-row strips.
+  - Exposed `addAutomaticKeepAlives` (default `false`) to control whether body rows are kept alive during scrolling.
+
 ## 5.1.8
 - **`indexscroll_listview_builder` upgraded**
   - Added built-in row insert/remove animations by optionally using an internal `AnimatedList` (enabled by default via the new `enableRowAnimations` parameter).
