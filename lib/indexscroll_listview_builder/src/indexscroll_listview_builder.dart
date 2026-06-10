@@ -315,14 +315,16 @@ class IndexScrollListViewBuilder extends StatefulWidget {
   });
 
   @override
-  State<IndexScrollListViewBuilder> createState() => _IndexScrollListViewBuilderState();
+  State<IndexScrollListViewBuilder> createState() =>
+      _IndexScrollListViewBuilderState();
 }
 
 /// State class for [IndexScrollListViewBuilder].
 ///
 /// Manages the scroll controller lifecycle, handles widget updates, and
 /// coordinates automatic scrolling operations.
-class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder> {
+class _IndexScrollListViewBuilderState
+    extends State<IndexScrollListViewBuilder> {
   /// The scroll controller used for this list.
   /// Either provided externally or created internally.
   late IndexedScrollController _scrollController;
@@ -355,7 +357,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
   /// dispose the old AnimatedList state and create a fresh one with the
   /// correct initialItemCount, ensuring all visible rows are built against
   /// the current data rather than stale cached widgets.
-  GlobalKey<AnimatedListState> _animatedListKey = GlobalKey<AnimatedListState>();
+  GlobalKey<AnimatedListState> _animatedListKey =
+      GlobalKey<AnimatedListState>();
 
   /// Whether we've already built with [AnimatedList] (controls initialItemCount).
   bool _animatedListInitialised = false;
@@ -391,7 +394,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
       _scrollController = widget.controller!;
       _ownsController = false;
       // Subscribe to programmatic scroll events and forward to callback
-      _scrollController.programmaticScrollIndex.addListener(_handleProgrammaticScroll);
+      _scrollController.programmaticScrollIndex
+          .addListener(_handleProgrammaticScroll);
     } else {
       // Create and manage our own controller
       _scrollController = IndexedScrollController(
@@ -447,9 +451,10 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
   /// 3. Triggers auto-scroll if an index is specified
   void initializeAll() {
     // Ensure offset doesn't exceed item count to prevent out-of-bounds errors
-    numberOfOffsetedItemsPriorToSelectedItem = widget.numberOfOffsetedItemsPriorToSelectedItem >= widget.itemCount
-        ? widget.itemCount - 1
-        : widget.numberOfOffsetedItemsPriorToSelectedItem;
+    numberOfOffsetedItemsPriorToSelectedItem =
+        widget.numberOfOffsetedItemsPriorToSelectedItem >= widget.itemCount
+            ? widget.itemCount - 1
+            : widget.numberOfOffsetedItemsPriorToSelectedItem;
 
     // Set the target index from widget property
     indexToScrollTo = widget.indexToScrollTo;
@@ -475,11 +480,11 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
     int ind = indexToScrollTo == null
         ? 0
         : (indexToScrollTo! - numberOfOffsetedItemsPriorToSelectedItem) < 0
-        ? 0 // Clamp to start of list
-        : (indexToScrollTo! - numberOfOffsetedItemsPriorToSelectedItem) >= widget.itemCount
-        ? widget.itemCount -
-              1 // Clamp to end of list
-        : indexToScrollTo! - numberOfOffsetedItemsPriorToSelectedItem;
+            ? 0 // Clamp to start of list
+            : (indexToScrollTo! - numberOfOffsetedItemsPriorToSelectedItem) >=
+                    widget.itemCount
+                ? widget.itemCount - 1 // Clamp to end of list
+                : indexToScrollTo! - numberOfOffsetedItemsPriorToSelectedItem;
 
     // Initiate the scroll operation with configured parameters
     _scrollController.scrollToIndex(
@@ -508,11 +513,13 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
 
     // ── AnimatedList key-based diffing ─────────────────────────
     if (widget.enableRowAnimations && _animatedListInitialised) {
-      if (oldWidget.itemCount != widget.itemCount || !identical(oldWidget.itemKeyBuilder, widget.itemKeyBuilder)) {
+      if (oldWidget.itemCount != widget.itemCount ||
+          !identical(oldWidget.itemKeyBuilder, widget.itemKeyBuilder)) {
         // Check if this is a "structural reset" (e.g., filtering) rather than
         // a simple append/remove. If the key sets are completely different,
         // we force a new AnimatedList to ensure fresh data bindings.
-        final bool needsStructuralReset = _shouldForceAnimatedListReset(oldWidget.itemCount, widget.itemCount);
+        final bool needsStructuralReset = _shouldForceAnimatedListReset(
+            oldWidget.itemCount, widget.itemCount);
         if (needsStructuralReset) {
           _resetAnimatedList();
         } else {
@@ -522,7 +529,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
     }
     // Handle controller updates if provided externally
     // Case 1: New external controller provided
-    if (widget.controller != null && !identical(widget.controller, _scrollController)) {
+    if (widget.controller != null &&
+        !identical(widget.controller, _scrollController)) {
       // Dispose old controller if we owned it
       if (_ownsController) {
         _scrollController.controller.dispose();
@@ -530,7 +538,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
       // Switch to the new external controller
       _scrollController = widget.controller!;
       _ownsController = false;
-      _scrollController.programmaticScrollIndex.addListener(_handleProgrammaticScroll);
+      _scrollController.programmaticScrollIndex
+          .addListener(_handleProgrammaticScroll);
       initializeAll();
     }
     // Case 2: External controller removed, need to create our own
@@ -554,7 +563,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
     // UNLESS we're currently handling a programmatic scroll - in that case,
     // the user is updating indexToScrollTo in response to the imperative scroll,
     // so we should NOT trigger another scroll (which would cancel the current one).
-    if (widget.indexToScrollTo != null && widget.indexToScrollTo != indexToScrollTo) {
+    if (widget.indexToScrollTo != null &&
+        widget.indexToScrollTo != indexToScrollTo) {
       // Skip if we're handling a programmatic scroll and the new value matches
       // what we're scrolling to (user is following the imperative scroll)
       final skipBecauseProgrammatic = _isHandlingProgrammaticScroll;
@@ -583,7 +593,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
     else if (widget.indexToScrollTo != null &&
         !_ownsController &&
         _scrollController.programmaticScrollIndex.value != null &&
-        _scrollController.programmaticScrollIndex.value != widget.indexToScrollTo &&
+        _scrollController.programmaticScrollIndex.value !=
+            widget.indexToScrollTo &&
         !_isHandlingProgrammaticScroll &&
         _hasRebuiltSinceProgrammaticScroll) {
       // Mismatch detected: controller scrolled to one index, declarative target
@@ -597,7 +608,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
     }
 
     // Handle offset changes - re-initialize to recalculate with new offset
-    if (oldWidget.numberOfOffsetedItemsPriorToSelectedItem != widget.numberOfOffsetedItemsPriorToSelectedItem) {
+    if (oldWidget.numberOfOffsetedItemsPriorToSelectedItem !=
+        widget.numberOfOffsetedItemsPriorToSelectedItem) {
       setState(() {
         initializeAll();
       });
@@ -616,7 +628,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
     }
     // Detach listener from external controller if present
     if (!_ownsController) {
-      _scrollController.programmaticScrollIndex.removeListener(_handleProgrammaticScroll);
+      _scrollController.programmaticScrollIndex
+          .removeListener(_handleProgrammaticScroll);
     }
 
     super.dispose();
@@ -624,7 +637,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
 
   /// Returns the key for a given row index, either from [itemKeyBuilder]
   /// or a plain index-based [ValueKey].
-  Key _rowKey(int index) => widget.itemKeyBuilder?.call(index) ?? ValueKey(index);
+  Key _rowKey(int index) =>
+      widget.itemKeyBuilder?.call(index) ?? ValueKey(index);
 
   /// Builds a single tagged row, wrapping the user's [itemBuilder] in
   /// [IndexedScrollTag] for indexed-scroll support.
@@ -642,13 +656,15 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
 
   /// Builds the wrapper for an item being removed from [AnimatedList].
   /// Uses the cached widget from [_builtWidgets] (the one that *was* on screen).
-  Widget _buildRemovedItem(BuildContext context, int index, Animation<double> animation) {
+  Widget _buildRemovedItem(
+      BuildContext context, int index, Animation<double> animation) {
     final axis = widget.scrollDirection ?? Axis.vertical;
     return SizeTransition(
       sizeFactor: Tween<double>(
         begin: 1,
         end: 0,
-      ).animate(CurvedAnimation(parent: animation, curve: widget.rowAnimationCurve)),
+      ).animate(
+          CurvedAnimation(parent: animation, curve: widget.rowAnimationCurve)),
       axis: axis,
       alignment: axis == Axis.vertical ? Alignment.topCenter : Alignment.center,
       child: FadeTransition(
@@ -660,13 +676,16 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
 
   /// AnimatedList item builder: wraps [_buildTaggedRow] with the animation
   /// so insertions slide+fade in.
-  Widget _buildAnimatedRow(BuildContext context, int index, Animation<double> animation) {
+  Widget _buildAnimatedRow(
+      BuildContext context, int index, Animation<double> animation) {
     final axis = widget.scrollDirection ?? Axis.vertical;
     return SizeTransition(
-      sizeFactor: CurvedAnimation(parent: animation, curve: widget.rowAnimationCurve),
+      sizeFactor:
+          CurvedAnimation(parent: animation, curve: widget.rowAnimationCurve),
       axis: axis,
       alignment: axis == Axis.vertical ? Alignment.topCenter : Alignment.center,
-      child: FadeTransition(opacity: animation, child: _buildTaggedRow(context, index)),
+      child: FadeTransition(
+          opacity: animation, child: _buildTaggedRow(context, index)),
     );
   }
 
@@ -729,7 +748,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
         // removalOldIndices are in reverse order (bottom to top).
         // Stagger: bottom items (first in list) start first.
         final int maxStaggerMs = widget.maxStaggerDuration.inMilliseconds;
-        final int perItemMs = (maxStaggerMs ~/ removalOldIndices.length).clamp(10, 100);
+        final int perItemMs =
+            (maxStaggerMs ~/ removalOldIndices.length).clamp(10, 100);
         for (int i = 0; i < removalOldIndices.length; i++) {
           final int oldIndex = removalOldIndices[i];
           final int delayMs = (i * perItemMs).clamp(0, maxStaggerMs);
@@ -740,7 +760,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
             if (s == null) return;
             s.removeItem(
               oldIndex,
-              (context, animation) => _buildRemovedItem(context, oldIndex, animation),
+              (context, animation) =>
+                  _buildRemovedItem(context, oldIndex, animation),
               duration: widget.rowAnimationDuration,
             );
             // Clear the diff-in-progress flag after the last staggered
@@ -756,7 +777,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
         for (final int oldIndex in removalOldIndices) {
           state.removeItem(
             oldIndex,
-            (context, animation) => _buildRemovedItem(context, oldIndex, animation),
+            (context, animation) =>
+                _buildRemovedItem(context, oldIndex, animation),
             duration: widget.rowAnimationDuration,
           );
         }
@@ -794,10 +816,13 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
       int totalStaggerMs = 0;
       if (widget.staggerRowRemovals && removalOldIndices.length > 1) {
         final int maxStaggerMs = widget.maxStaggerDuration.inMilliseconds;
-        final int perItemMs = (maxStaggerMs ~/ removalOldIndices.length).clamp(10, 100);
-        totalStaggerMs = ((removalOldIndices.length - 1) * perItemMs).clamp(0, maxStaggerMs);
+        final int perItemMs =
+            (maxStaggerMs ~/ removalOldIndices.length).clamp(10, 100);
+        totalStaggerMs =
+            ((removalOldIndices.length - 1) * perItemMs).clamp(0, maxStaggerMs);
       }
-      final int totalDelayMs = totalStaggerMs + widget.rowAnimationDuration.inMilliseconds;
+      final int totalDelayMs =
+          totalStaggerMs + widget.rowAnimationDuration.inMilliseconds;
 
       _pendingInsertionNewKeys = newKeys;
       _pendingInsertionTimer = Timer(Duration(milliseconds: totalDelayMs), () {
@@ -821,7 +846,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
   }
 
   /// Inserts items into the [AnimatedList] and updates [_currentKeys].
-  void _performInsertions(AnimatedListState state, List<({int index, Key key})> insertions, List<Key> newKeys) {
+  void _performInsertions(AnimatedListState state,
+      List<({int index, Key key})> insertions, List<Key> newKeys) {
     for (final insertion in insertions) {
       state.insertItem(insertion.index, duration: widget.rowAnimationDuration);
       _currentKeys.insert(insertion.index, insertion.key);
@@ -895,11 +921,13 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
         // - The user explicitly requests it, OR
         // - We have unbounded constraints in the scroll direction
         //   (vertical scroll with infinite height, or horizontal scroll with infinite width)
-        final bool needsShrinkWrap =
-            widget.shrinkWrap ??
-            (constraints.maxHeight == double.infinity && (widget.scrollDirection ?? Axis.vertical) == Axis.vertical) ||
+        final bool needsShrinkWrap = widget.shrinkWrap ??
+            (constraints.maxHeight == double.infinity &&
+                    (widget.scrollDirection ?? Axis.vertical) ==
+                        Axis.vertical) ||
                 (constraints.maxWidth == double.infinity &&
-                    (widget.scrollDirection ?? Axis.vertical) == Axis.horizontal);
+                    (widget.scrollDirection ?? Axis.vertical) ==
+                        Axis.horizontal);
 
         // Build the core list — either AnimatedList or ListView.builder
         Widget listWidget;
@@ -950,7 +978,8 @@ class _IndexScrollListViewBuilderState extends State<IndexScrollListViewBuilder>
         // This is useful when you want complete control over scrollbar appearance
         if (widget.suppressPlatformScrollbars) {
           final ScrollBehavior behavior = ScrollConfiguration.of(context);
-          content = ScrollConfiguration(behavior: behavior.copyWith(scrollbars: false), child: content);
+          content = ScrollConfiguration(
+              behavior: behavior.copyWith(scrollbars: false), child: content);
         }
 
         return content;
