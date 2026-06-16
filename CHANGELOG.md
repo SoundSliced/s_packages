@@ -1,3 +1,7 @@
+## 5.2.1
+- `meta` dependency downgraded due to `flutter_test` constraints
+
+
 ## 5.2.0
 - `s_packages` pub dependencies upgraded
 
