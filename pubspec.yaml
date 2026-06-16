@@ -4,7 +4,7 @@ description: A unified Flutter package which gathers multiple widgets and tools.
 issue_tracker: https://github.com/SoundSliced/s_packages/issues
 repository: https://github.com/SoundSliced/s_packages
 homepage: https://github.com/SoundSliced/s_packages
-version: 5.1.9
+version: 5.2.0
 
 
 environment:
@@ -17,30 +17,30 @@ dependencies:
   flutter_animate: ^4.5.2
   xid: ^1.2.1
   states_rebuilder: ^6.4.0
-  signals_flutter: ^7.0.0
+  signals_flutter: ^7.1.0
   sizer: ^3.1.3
-  assorted_layout_widgets: ^12.4.2
+  assorted_layout_widgets: ^12.6.2
   circular_countdown_timer: ^0.2.4
   pausable_timer: ^3.1.0+3 
-  tabler_icons_plus: ^3.41.0
+  tabler_icons_plus: ^3.44.0
   dio: ^5.9.2
   http: ^1.6.0
-  internet_connection_checker_plus: ^3.0.0
+  internet_connection_checker_plus: ^3.1.0
   rxdart: ^0.28.0
-  dart_helper_utils: ^6.0.1
-  path_provider: ^2.1.5
+  dart_helper_utils: ^6.0.2
+  path_provider: ^2.1.6
   shared_preferences: ^2.5.5
   pointer_interceptor: ^0.10.1+2
-  new_loading_indicator: ^1.2.1
+  new_loading_indicator: ^1.2.2
   flutter_web_frame: ^1.0.0
-  signals: ^7.0.0
+  signals: ^7.1.0
   calendar_date_picker2: ^3.0.0
   universal_io: ^2.3.1
   path: ^1.9.1
   collection: ^1.19.1
   async: ^2.13.1
   fpdart: ^1.2.0
-  webview_flutter: ^4.13.1
+  webview_flutter: ^4.14.0
   webview_flutter_web: ^0.2.3+4
   desktop_webview_window: ^0.3.0
   typed_data: ^1.4.0
@@ -48,7 +48,7 @@ dependencies:
   html: ^0.15.6
   charcode: ^1.4.0
   csslib: ^1.0.2
-  meta: ^1.17.0
+  meta: ^1.18.3
   indexed_db: ^1.0.1
   web: ^1.1.1
 

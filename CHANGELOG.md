@@ -1,3 +1,6 @@
+## 5.2.0
+- `s_packages` pub dependencies upgraded
+
 ## 5.1.9
 - **`indexscroll_listview_builder` upgraded**
   - **Structural reset detection for filtered data**: Added `_shouldForceAnimatedListReset` heuristic that detects when filtering or bulk data changes produce a substantially different set of rows (>30% key turnover). In such cases the `AnimatedList` is fully recreated via `_resetAnimatedList` for correct data binding instead of attempting key-based diffing against stale widgets.
