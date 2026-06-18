@@ -492,6 +492,7 @@ class _SContextMenuState extends State<SContextMenu>
         this; // most recently opened (even in multi mode)
     setState(() => _animationForward = true);
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       //****** */
       FocusScope.of(context).requestFocus();
       //****** */

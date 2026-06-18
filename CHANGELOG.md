@@ -1,6 +1,9 @@
+
+## 5.2.2
+- `s_context_menu` updated to ensure some async algorithms were protected with a `mounted` check
+
 ## 5.2.1
 - `meta` dependency downgraded due to `flutter_test` constraints
-
 
 ## 5.2.0
 - `s_packages` pub dependencies upgraded
