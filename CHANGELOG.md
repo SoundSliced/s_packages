@@ -1,4 +1,10 @@
 
+## 5.2.3
+- `s_switcher` new supackage
+  - A widget that displays and sets a value with decrement (-) and increment (+) buttons.
+    It is composed of a prefix widget (title or custom prefix), 
+    a value widget (text or custom value widget), and a suffix widget (suffix text or custom suffix).
+
 ## 5.2.2
 - `s_context_menu` updated to ensure some async algorithms were protected with a `mounted` check
 

@@ -1,5 +1,6 @@
 // Exports for all sub-packages
 export 'bubble_label/bubble_label.dart';
+export 's_switcher/s_switcher.dart';
 export 'indexscroll_listview_builder/indexscroll_listview_builder.dart';
 export 'keystroke_listener/keystroke_listener.dart';
 export 's_modoverlay/pop_overlay/pop_overlay.dart';
