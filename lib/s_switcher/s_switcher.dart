@@ -73,9 +73,11 @@ class SSwitcher extends StatelessWidget {
     this.suffixTextStyle,
     this.customSuffix,
     this.containerDecoration,
-    this.containerPadding = const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    this.containerPadding =
+        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     this.valueContainerDecoration,
-    this.valueContainerPadding = const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+    this.valueContainerPadding =
+        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
     this.valueContainerMargin = const EdgeInsets.symmetric(horizontal: 8),
     this.valueMinWidth = 26,
     this.decrementIcon = Icons.remove_circle_outline_rounded,
@@ -107,7 +109,8 @@ class SSwitcher extends StatelessWidget {
       color: Colors.black87,
     );
 
-    final defaultValueStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: Colors.black87);
+    final defaultValueStyle = TextStyle(
+        fontWeight: FontWeight.w700, fontSize: 11, color: Colors.black87);
 
     final defaultSuffixStyle = TextStyle(
       fontSize: 11,
@@ -120,7 +123,9 @@ class SSwitcher extends StatelessWidget {
       prefixWidget = customPrefix!;
     } else if (title != null) {
       final titleText = Text(title!, style: titleStyle ?? defaultTitleStyle);
-      prefixWidget = titleTooltip != null ? Tooltip(message: titleTooltip!, child: titleText) : titleText;
+      prefixWidget = titleTooltip != null
+          ? Tooltip(message: titleTooltip!, child: titleText)
+          : titleText;
     }
 
     Widget suffixWidget = const SizedBox.shrink();
