@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, TargetPlatform;
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:s_packages/indexscroll_listview_builder/indexscroll_listview_builder.dart';
@@ -9,16 +8,13 @@ import 'package:s_packages/s_modoverlay/s_modal/s_modal.dart';
 import 'package:s_packages/s_sync_scroll_controller/s_sync_scroll_controller.dart';
 
 /// Builds a fixed row-header cell for [rowIndex].
-typedef SSpreadsheetRowHeaderBuilder = Widget Function(
-    BuildContext context, int rowIndex);
+typedef SSpreadsheetRowHeaderBuilder = Widget Function(BuildContext context, int rowIndex);
 
 /// Builds a fixed column-header cell for [columnIndex].
-typedef SSpreadsheetColumnHeaderBuilder = Widget Function(
-    BuildContext context, int columnIndex);
+typedef SSpreadsheetColumnHeaderBuilder = Widget Function(BuildContext context, int columnIndex);
 
 /// Builds a body cell for [rowIndex] and [columnIndex].
-typedef SSpreadsheetCellBuilder = Widget Function(
-    BuildContext context, int rowIndex, int columnIndex);
+typedef SSpreadsheetCellBuilder = Widget Function(BuildContext context, int rowIndex, int columnIndex);
 
 /// Resolves a row height for [rowIndex].
 typedef SSpreadsheetRowHeightBuilder = double Function(int rowIndex);
@@ -36,30 +32,23 @@ class SSpreadsheetHorizontalMetrics {
   final double maxScrollExtent;
   final ScrollController? controller;
 
-  const SSpreadsheetHorizontalMetrics(
-      {this.offset = 0, this.maxScrollExtent = 0, this.controller});
+  const SSpreadsheetHorizontalMetrics({this.offset = 0, this.maxScrollExtent = 0, this.controller});
 
   bool canScrollLeft({double threshold = 100}) => offset > threshold;
 
-  bool canScrollRight({double threshold = 100}) =>
-      offset < (maxScrollExtent - threshold);
+  bool canScrollRight({double threshold = 100}) => offset < (maxScrollExtent - threshold);
 }
 
 /// Shared horizontal synchronization state for [SSpreadsheet].
 ///
 /// Pass one instance to [SSpreadsheet.horizontalSyncController] and to
 /// [SSpreadsheetHorizontalScrollButtons] to control scrolling externally.
-class SSpreadsheetHorizontalSyncController
-    extends ValueNotifier<SSpreadsheetHorizontalMetrics> {
+class SSpreadsheetHorizontalSyncController extends ValueNotifier<SSpreadsheetHorizontalMetrics> {
   SSpreadsheetHorizontalSyncController([SSpreadsheetHorizontalMetrics? initial])
       : super(initial ?? const SSpreadsheetHorizontalMetrics());
 
-  void update(
-      double offset, double maxScrollExtent, ScrollController controller) {
-    value = SSpreadsheetHorizontalMetrics(
-        offset: offset,
-        maxScrollExtent: maxScrollExtent,
-        controller: controller);
+  void update(double offset, double maxScrollExtent, ScrollController controller) {
+    value = SSpreadsheetHorizontalMetrics(offset: offset, maxScrollExtent: maxScrollExtent, controller: controller);
   }
 
   Future<void> animateToStart({
@@ -83,9 +72,7 @@ class SSpreadsheetHorizontalSyncController
 
 /// Builder used by [SSpreadsheetHorizontalScrollButtons] to render each arrow button.
 typedef SSpreadsheetScrollButtonBuilder = Widget Function(BuildContext context,
-    {required bool isLeft,
-    required bool isEnabled,
-    required VoidCallback onTap});
+    {required bool isLeft, required bool isEnabled, required VoidCallback onTap});
 
 /// Builds a custom HUD overlay widget.
 ///
@@ -139,13 +126,10 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue.shade500.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                  color: Colors.blue.shade700.withValues(alpha: 0.5),
-                  width: 0.5),
+              border: Border.all(color: Colors.blue.shade700.withValues(alpha: 0.5), width: 0.5),
             ),
             alignment: Alignment.center,
-            child: Icon(isLeft ? Icons.chevron_left : Icons.chevron_right,
-                color: Colors.blue.shade900, size: 18),
+            child: Icon(isLeft ? Icons.chevron_left : Icons.chevron_right, color: Colors.blue.shade900, size: 18),
           ),
         ),
       ),
@@ -164,41 +148,25 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
             child: ValueListenableBuilder<SSpreadsheetHorizontalMetrics>(
               valueListenable: controller,
               builder: (context, metrics, _) {
-                final leftEnabled =
-                    metrics.canScrollLeft(threshold: activationThreshold);
-                final rightEnabled =
-                    metrics.canScrollRight(threshold: activationThreshold);
+                final leftEnabled = metrics.canScrollLeft(threshold: activationThreshold);
+                final rightEnabled = metrics.canScrollRight(threshold: activationThreshold);
 
                 void leftOnTap() {
-                  controller.animateToStart(
-                      duration: animationDuration, curve: animationCurve);
+                  controller.animateToStart(duration: animationDuration, curve: animationCurve);
                 }
 
                 void rightOnTap() {
-                  controller.animateToEnd(
-                      duration: animationDuration, curve: animationCurve);
+                  controller.animateToEnd(duration: animationDuration, curve: animationCurve);
                 }
 
                 return Row(
                   mainAxisAlignment: mainAxisAlignment,
                   crossAxisAlignment: crossAxisAlignment,
                   children: [
-                    buttonBuilder?.call(context,
-                            isLeft: true,
-                            isEnabled: leftEnabled,
-                            onTap: leftOnTap) ??
-                        _defaultButton(context,
-                            isLeft: true,
-                            isEnabled: leftEnabled,
-                            onTap: leftOnTap),
-                    buttonBuilder?.call(context,
-                            isLeft: false,
-                            isEnabled: rightEnabled,
-                            onTap: rightOnTap) ??
-                        _defaultButton(context,
-                            isLeft: false,
-                            isEnabled: rightEnabled,
-                            onTap: rightOnTap),
+                    buttonBuilder?.call(context, isLeft: true, isEnabled: leftEnabled, onTap: leftOnTap) ??
+                        _defaultButton(context, isLeft: true, isEnabled: leftEnabled, onTap: leftOnTap),
+                    buttonBuilder?.call(context, isLeft: false, isEnabled: rightEnabled, onTap: rightOnTap) ??
+                        _defaultButton(context, isLeft: false, isEnabled: rightEnabled, onTap: rightOnTap),
                   ],
                 );
               },
@@ -445,8 +413,7 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
   bool _ownsKeystrokeFocusNode = false;
 
   FocusNode get _effectiveKeystrokeFocusNode {
-    assert(_keystrokeFocusNode != null,
-        '_keystrokeFocusNode should never be null when build() is called');
+    assert(_keystrokeFocusNode != null, '_keystrokeFocusNode should never be null when build() is called');
     return _keystrokeFocusNode!;
   }
 
@@ -469,19 +436,13 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
   }
 
   void _configureKeystrokeFocusNode(FocusNode? provided) {
-    if (provided == null &&
-        _ownsKeystrokeFocusNode &&
-        _keystrokeFocusNode != null) {
+    if (provided == null && _ownsKeystrokeFocusNode && _keystrokeFocusNode != null) {
       return;
     }
     if (_keystrokeFocusNode == provided && provided != null) return;
 
-    // Remove listener from old node
-    if (_keystrokeFocusNode != null) {
-      _keystrokeFocusNode!.removeListener(_onSpreadsheetFocusChanged);
-      if (_ownsKeystrokeFocusNode) {
-        _keystrokeFocusNode!.dispose();
-      }
+    if (_keystrokeFocusNode != null && _ownsKeystrokeFocusNode) {
+      _keystrokeFocusNode!.dispose();
     }
 
     if (provided != null) {
@@ -491,24 +452,6 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
       _keystrokeFocusNode = FocusNode();
       _ownsKeystrokeFocusNode = true;
     }
-
-    _keystrokeFocusNode!.addListener(_onSpreadsheetFocusChanged);
-    debugPrint(
-      '[SSpreadsheetFocus] _configureKeystrokeFocusNode — '
-      'owns=$_ownsKeystrokeFocusNode debugLabel=${_keystrokeFocusNode!.debugLabel}',
-    );
-  }
-
-  void _onSpreadsheetFocusChanged() {
-    final fn = _keystrokeFocusNode;
-    if (fn == null) return;
-    debugPrint(
-      '[SSpreadsheetFocus] FocusNode changed — '
-      'hasFocus=${fn.hasFocus} '
-      'hasPrimaryFocus=${fn.hasPrimaryFocus} '
-      'canRequestFocus=${fn.canRequestFocus} '
-      'debugLabel=${fn.debugLabel}',
-    );
   }
 
   @override
@@ -521,18 +464,13 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
     super.dispose();
   }
 
-  double _rowHeightAt(int rowIndex) =>
-      widget.rowHeightBuilder?.call(rowIndex) ?? 92;
+  double _rowHeightAt(int rowIndex) => widget.rowHeightBuilder?.call(rowIndex) ?? 92;
 
-  double _columnWidthAt(int columnIndex) =>
-      widget.columnWidthBuilder?.call(columnIndex) ?? 180;
+  double _columnWidthAt(int columnIndex) => widget.columnWidthBuilder?.call(columnIndex) ?? 180;
 
-  void _notifyHorizontalMetrics(
-      double offset, double maxScrollExtent, ScrollController controller) {
-    widget.horizontalSyncController
-        ?.update(offset, maxScrollExtent, controller);
-    widget.onHorizontalMetricsChanged
-        ?.call(offset, maxScrollExtent, controller);
+  void _notifyHorizontalMetrics(double offset, double maxScrollExtent, ScrollController controller) {
+    widget.horizontalSyncController?.update(offset, maxScrollExtent, controller);
+    widget.onHorizontalMetricsChanged?.call(offset, maxScrollExtent, controller);
   }
 
   // ======= Keystroke helpers =======
@@ -628,8 +566,7 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
       final activatorMap = _buildIntentActivatorMap();
       final activator = activatorMap[intentType];
       if (activator != null) {
-        _showKeystrokeHudForIntent(
-            intentType, _shortcutLabelFromActivator(activator));
+        _showKeystrokeHudForIntent(intentType, _shortcutLabelFromActivator(activator));
       }
 
       inner();
@@ -642,8 +579,7 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
     final handlers = widget.keystrokeActionHandlers;
     if (handlers == null) return const {};
 
-    return handlers
-        .map((type, cb) => MapEntry(type, _wrapKeystrokeHandler(type, cb)));
+    return handlers.map((type, cb) => MapEntry(type, _wrapKeystrokeHandler(type, cb)));
   }
 
   /// The default shortcuts from KeystrokeListener, copied here so we can
@@ -654,10 +590,8 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
     SingleActivator(LogicalKeyboardKey.keyS, meta: true): SaveIntent(),
     SingleActivator(LogicalKeyboardKey.keyZ, control: true): UndoIntent(),
     SingleActivator(LogicalKeyboardKey.keyZ, meta: true): UndoIntent(),
-    SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true):
-        RedoIntent(),
-    SingleActivator(LogicalKeyboardKey.keyZ, meta: true, shift: true):
-        RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true): RedoIntent(),
+    SingleActivator(LogicalKeyboardKey.keyZ, meta: true, shift: true): RedoIntent(),
     SingleActivator(LogicalKeyboardKey.keyY, control: true): RedoIntent(),
     SingleActivator(LogicalKeyboardKey.keyY, meta: true): RedoIntent(),
     SingleActivator(LogicalKeyboardKey.keyA, control: true): SelectAllIntent(),
@@ -668,10 +602,8 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
     SingleActivator(LogicalKeyboardKey.keyV, meta: true): PasteIntent(),
     SingleActivator(LogicalKeyboardKey.keyX, control: true): CutIntent(),
     SingleActivator(LogicalKeyboardKey.keyX, meta: true): CutIntent(),
-    SingleActivator(LogicalKeyboardKey.slash, control: true):
-        ToggleCommentIntent(),
-    SingleActivator(LogicalKeyboardKey.slash, meta: true):
-        ToggleCommentIntent(),
+    SingleActivator(LogicalKeyboardKey.slash, control: true): ToggleCommentIntent(),
+    SingleActivator(LogicalKeyboardKey.slash, meta: true): ToggleCommentIntent(),
     SingleActivator(LogicalKeyboardKey.f1): HelpIntent(),
   };
 
@@ -685,8 +617,7 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
           if (widget.rowHeaderBuilder != null)
             SizedBox(
               width: widget.rowHeaderWidth,
-              child: widget.cornerBuilder?.call(context) ??
-                  const SizedBox.shrink(),
+              child: widget.cornerBuilder?.call(context) ?? const SizedBox.shrink(),
             ),
           Expanded(
             child: _SyncedHorizontalStrip(
@@ -719,9 +650,7 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
         child: Row(
           children: [
             if (widget.rowHeaderBuilder != null)
-              SizedBox(
-                  width: widget.rowHeaderWidth,
-                  child: widget.rowHeaderBuilder!(context, rowIndex)),
+              SizedBox(width: widget.rowHeaderWidth, child: widget.rowHeaderBuilder!(context, rowIndex)),
             Expanded(
               child: _SyncedHorizontalStrip(
                 syncGroup: _horizontalSyncGroup,
@@ -868,15 +797,13 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted || !_controller.hasClients) return;
-      widget.onMetricsChanged?.call(_controller.position.pixels,
-          _controller.position.maxScrollExtent, _controller);
+      widget.onMetricsChanged?.call(_controller.position.pixels, _controller.position.maxScrollExtent, _controller);
     });
   }
 
   void _onScroll() {
     if (!_controller.hasClients) return;
-    widget.onMetricsChanged?.call(_controller.position.pixels,
-        _controller.position.maxScrollExtent, _controller);
+    widget.onMetricsChanged?.call(_controller.position.pixels, _controller.position.maxScrollExtent, _controller);
   }
 
   @override
@@ -896,9 +823,7 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
       physics: widget.physics,
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
-        return SizedBox(
-            width: widget.itemWidthBuilder(index),
-            child: widget.itemBuilder(context, index));
+        return SizedBox(width: widget.itemWidthBuilder(index), child: widget.itemBuilder(context, index));
       },
       onScrolledTo: (_) {},
     );
