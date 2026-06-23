@@ -1,4 +1,19 @@
 
+## 5.3.0
+- **`s_spreadsheet` upgraded**
+  - **Keyboard Shortcuts Support**: Added comprehensive keystroke support to the spreadsheet via the new `enableKeystrokes` parameter (disabled by default for backwards compatibility).
+  - **Custom Shortcuts & Actions**:
+    - Introduced `keystrokeShortcuts` for mapping custom `ShortcutActivator`s to `Intent`s.
+    - Added `keystrokeActionHandlers` to bind intent types to `VoidCallback` handlers.
+    - Exposed `includeDefaultKeystrokeShortcuts` (default `true`) to enable/disable built-in defaults (Escape, Ctrl+S, Ctrl+Z, Ctrl+Y, Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+/, F1), with automatic platform modifier adaptation (Meta on macOS, Control elsewhere).
+  - **Visual HUD Overlay**: Added `keystrokeHudBuilder` and `keystrokeHudDuration` (default 1s) to show a temporary overlay of the triggered shortcut, using `keystrokeActionLabels` to map intent types to human-readable action labels.
+  - **Focus & Refocus Management**:
+    - Added `keystrokeFocusNode` for external focus node injection.
+    - Added `keystrokeRequestFocusOnInit` (default `true`) to request autofocus on initialization.
+    - Introduced `shouldPauseKeystrokes` callback to pause shortcut detection and refocus, allowing descendant text input fields/search bars to acquire exclusive keyboard access.
+    - Implemented web-specific focus forcing on pointer down (`onPointerDown` Listener) to reliably prime the DOM `<input>` element connection in web browsers.
+  - **Diagnostics**: Added `keystrokeDebugLogs` (default `false`) to print key events to console for debugging.
+
 ## 5.2.3
 - `s_switcher` new supackage
   - A widget that displays and sets a value with decrement (-) and increment (+) buttons.
