@@ -1,3 +1,5 @@
+## 5.3.1
+- **`s_spreadsheet` updated**: quick fix made to autofocus of KeystrokeListener
 
 ## 5.3.0
 - **`s_spreadsheet` upgraded**
