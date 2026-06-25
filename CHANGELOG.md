@@ -1,3 +1,7 @@
+## 5.3.3
+- **`s_switcher` updated**:
+  - updated the UI Layout
+
 ## 5.3.2
 - **`s_spreadsheet` updated**: debugprints removed
 

@@ -122,7 +122,12 @@ class SSwitcher extends StatelessWidget {
     if (customPrefix != null) {
       prefixWidget = customPrefix!;
     } else if (title != null) {
-      final titleText = Text(title!, style: titleStyle ?? defaultTitleStyle);
+      final titleText = Text(
+        title!,
+        style: titleStyle ?? defaultTitleStyle,
+        overflow: TextOverflow.ellipsis,
+        softWrap: false,
+      );
       prefixWidget = titleTooltip != null
           ? Tooltip(message: titleTooltip!, child: titleText)
           : titleText;
@@ -143,8 +148,13 @@ class SSwitcher extends StatelessWidget {
       decoration: containerDecoration ?? defaultContainerDecoration,
       child: Row(
         children: [
-          prefixWidget,
-          if (customPrefix != null || title != null) const Spacer(),
+          if (customPrefix != null || title != null)
+            Flexible(
+              child: prefixWidget,
+            )
+          else
+            prefixWidget,
+          if (customPrefix != null || title != null) const SizedBox(width: 4),
           SDisabled(
             isDisabled: !enableDecrement,
             opacityWhenDisabled: 0.4,
@@ -154,13 +164,18 @@ class SSwitcher extends StatelessWidget {
               child: Icon(decrementIcon, size: iconSize, color: iconColor),
             ),
           ),
-          Container(
-            constraints: BoxConstraints(minWidth: valueMinWidth),
-            margin: valueContainerMargin,
-            padding: valueContainerPadding,
-            decoration: valueContainerDecoration ?? defaultValueDecoration,
-            alignment: Alignment.center,
-            child: Text(valueText, style: valueTextStyle ?? defaultValueStyle),
+          Flexible(
+            child: Container(
+              margin: valueContainerMargin,
+              padding: valueContainerPadding,
+              decoration: valueContainerDecoration ?? defaultValueDecoration,
+              alignment: Alignment.center,
+              child: Text(
+                valueText,
+                style: valueTextStyle ?? defaultValueStyle,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ),
           SDisabled(
             isDisabled: !enableIncrement,
@@ -171,7 +186,10 @@ class SSwitcher extends StatelessWidget {
               child: Icon(incrementIcon, size: iconSize, color: iconColor),
             ),
           ),
-          suffixWidget,
+          if (suffixText != null || customSuffix != null)
+            Flexible(child: suffixWidget)
+          else
+            suffixWidget,
         ],
       ),
     );
