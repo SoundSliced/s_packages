@@ -133,6 +133,33 @@ class SSideBar extends StatefulWidget {
   /// Optional logo widget displayed at the top of the sidebar.
   final Widget? logo;
 
+  /// Optional custom header widget displayed below the logo.
+  final Widget? header;
+
+  /// Optional custom footer widget displayed at the bottom of the sidebar (above collapse button).
+  final Widget? footer;
+
+  /// Selection indicator style for active item.
+  final SideBarIndicatorStyle indicatorStyle;
+
+  /// Style of the minimize toggle button.
+  final SideBarMinimizeButtonStyle minimizeButtonStyle;
+
+  /// Whether to show a modern shadow around the sidebar.
+  final bool showShadow;
+
+  /// Whether to animate translation and scale on hover.
+  final bool hoverAnimation;
+
+  /// Custom decoration for the active selected item.
+  final Decoration? selectedItemDecoration;
+
+  /// Custom decoration for unselected items.
+  final Decoration? unselectedItemDecoration;
+
+  /// Optional custom padding for each item.
+  final EdgeInsetsGeometry? itemPadding;
+
   /// Optional initial selection index.
   final int? preSelectedItemIndex;
 
@@ -187,6 +214,15 @@ class SSideBar extends StatefulWidget {
     required this.sidebarItems,
     required this.onTapForAllTabButtons,
     this.logo,
+    this.header,
+    this.footer,
+    this.indicatorStyle = SideBarIndicatorStyle.leftLine,
+    this.minimizeButtonStyle = SideBarMinimizeButtonStyle.bottomRow,
+    this.showShadow = true,
+    this.hoverAnimation = true,
+    this.selectedItemDecoration,
+    this.unselectedItemDecoration,
+    this.itemPadding,
     this.preSelectedItemIndex,
     this.ignoreDifferenceOnFlutterWeb = false,
     this.minimizeButtonOnTap,
@@ -270,7 +306,6 @@ class _SSideBarState extends State<SSideBar> {
             .toDouble()
         : widget.sideBarItemHeight;
 
-    ///using animated container for the side bar for smooth responsive
     return LayoutBuilder(
       builder: (context, constraints) {
         // Calculate estimated height needed for all items
@@ -279,8 +314,10 @@ class _SSideBarState extends State<SSideBar> {
         final double dividerHeight =
             widget.settingsDivider && itemCount > 2 ? 12 : 0;
         final double topPadding = 20.0;
-        final double logoHeight = widget.logo != null ? 60.0 : 0.0; // estimate
-        final double buttonMinHeight = 50.0; // minimum height for button
+        final double logoHeight = widget.logo != null ? 60.0 : 0.0;
+        final double headerHeight = widget.header != null ? 50.0 : 0.0;
+        final double footerHeight = widget.footer != null ? 60.0 : 0.0;
+        final double buttonMinHeight = 50.0;
 
         final double estimatedItemsHeight = (itemCount * effectiveItemHeight) +
             ((itemCount - 1) * separatorHeight) +
@@ -289,10 +326,9 @@ class _SSideBarState extends State<SSideBar> {
             (itemCount > 0 ? (widget.compactMode ? 14 : 20) : 0);
 
         final double totalNeededHeight =
-            logoHeight + estimatedItemsHeight + buttonMinHeight;
+            logoHeight + headerHeight + estimatedItemsHeight + footerHeight + buttonMinHeight;
 
         // Use the provided height or the maximum available height
-        // If constraints.maxHeight is infinite, use the total needed height
         double effectiveHeight = sidebarHeight ?? constraints.maxHeight;
         if (effectiveHeight.isInfinite) {
           effectiveHeight = totalNeededHeight;
@@ -300,41 +336,63 @@ class _SSideBarState extends State<SSideBar> {
 
         final bool hasExtraSpace = effectiveHeight > totalNeededHeight;
 
-        return AnimatedContainer(
+        Widget bottomMinimizeButton;
+        if (widget.minimizeButtonStyle == SideBarMinimizeButtonStyle.legacy) {
+          bottomMinimizeButton = _buildLegacyMinimizeButton(hasExtraSpace);
+        } else {
+          bottomMinimizeButton = _buildModernBottomMinimizeButton();
+        }
+
+        Widget sidebarBody = AnimatedContainer(
           duration: widget.sideBarAnimationDuration,
           curve: widget.curve,
           alignment: Alignment.topCenter,
           transformAlignment: Alignment.centerRight,
           height: effectiveHeight,
           constraints: BoxConstraints(
-            maxWidth:
-                !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
-            minWidth:
-                !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
+            maxWidth: !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
+            minWidth: !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
           ),
           decoration: BoxDecoration(
             color: widget.sideBarColor,
             border: widget.sideBarBorder ??
                 Border.all(color: widget.sideBarColor.darken(0.1)),
             borderRadius: BorderRadius.circular(widget.borderRadius),
+            boxShadow: widget.showShadow
+                ? [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.06),
+                      blurRadius: 16,
+                      spreadRadius: 0,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : null,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              //logo
+              // Logo
               if (widget.logo != null)
                 Align(
                   child: Padding(
                     padding: Pad(top: 20),
-                    child: widget.logo ?? SizedBox(),
+                    child: widget.logo,
                   ),
                 ),
 
-              //the sidebar items - wrapped in Expanded for scrolling
+              // Header
+              if (widget.header != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: _buildCollapsibleSection(widget.header!),
+                ),
+
+              // Sidebar Items
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 12.0),
                   child: CustomScrollView(
                     physics: const BouncingScrollPhysics(),
                     slivers: [
@@ -343,14 +401,14 @@ class _SSideBarState extends State<SSideBar> {
                         sliver: SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
+                              final item = widget.sidebarItems[index];
                               return Column(
                                 children: [
                                   Padding(
-                                    padding: index ==
-                                            widget.sidebarItems.length - 1
+                                    padding: index == widget.sidebarItems.length - 1
                                         ? Pad(top: widget.compactMode ? 14 : 20)
                                         : Pad.zero,
-                                    child: _sSideBarItem(
+                                    child: _SideBarItemWidget(
                                       itemIndex: index,
                                       selectedItemIndex: selectedItemIndex,
                                       textStyle: widget.textStyle,
@@ -369,19 +427,12 @@ class _SSideBarState extends State<SSideBar> {
                                       highlightColor: widget.highlightColor,
                                       selectedIconColor:
                                           widget.selectedIconColor,
-                                      icon: widget.sidebarItems[index]
-                                              .iconUnselected ??
-                                          widget
-                                              .sidebarItems[index].iconSelected,
-                                      text: widget.sidebarItems[index].title,
-                                      tooltip:
-                                          widget.sidebarItems[index].tooltip,
-                                      badgeText:
-                                          widget.sidebarItems[index].badgeText,
-                                      badgeColor:
-                                          widget.sidebarItems[index].badgeColor,
-                                      badgeTextStyle: widget
-                                          .sidebarItems[index].badgeTextStyle,
+                                      icon: item.iconUnselected ?? item.iconSelected,
+                                      text: item.title,
+                                      tooltip: item.tooltip,
+                                      badgeText: item.badgeText,
+                                      badgeColor: item.badgeColor,
+                                      badgeTextStyle: item.badgeTextStyle,
                                       showTooltipWhenMinimized:
                                           widget.showTooltipsWhenMinimized,
                                       itemHorizontalPadding:
@@ -389,21 +440,27 @@ class _SSideBarState extends State<SSideBar> {
                                       itemIconTextSpacing:
                                           widget.itemIconTextSpacing,
                                       itemBorderRadius: widget.itemBorderRadius,
+                                      hoverAnimation: widget.hoverAnimation,
+                                      indicatorStyle: widget.indicatorStyle,
+                                      selectedItemDecoration: widget.selectedItemDecoration,
+                                      unselectedItemDecoration: widget.unselectedItemDecoration,
+                                      itemPadding: widget.itemPadding,
+                                      isHeader: item.isHeader,
+                                      isDivider: item.isDivider,
+                                      dividerColor: widget.dividerColor,
                                       onTap: () {
                                         final canTap = shouldTapItems.isEmpty ||
                                             shouldTapItems.length !=
                                                 widget.sidebarItems.length ||
                                             shouldTapItems[index] == true;
 
-                                        if (canTap) {
+                                        if (canTap && !item.isHeader && !item.isDivider) {
                                           moveToNewIndex(index);
                                         }
                                       },
                                       onTappedCallbackOffsetPosition: (offset) {
-                                        if (widget.sidebarItems[index].onTap !=
-                                            null) {
-                                          widget.sidebarItems[index]
-                                              .onTap!(offset);
+                                        if (item.onTap != null && !item.isHeader && !item.isDivider) {
+                                          item.onTap!(offset);
                                         }
                                       },
                                     ),
@@ -438,252 +495,498 @@ class _SSideBarState extends State<SSideBar> {
                 ),
               ),
 
-              //the button to widden or minimize the sideBar width - always visible at bottom
-              if (hasExtraSpace)
+              // Footer
+              if (widget.footer != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: _buildCollapsibleSection(widget.footer!),
+                ),
+
+              // Bottom Minimize Button
+              if (widget.minimizeButtonStyle != SideBarMinimizeButtonStyle.floating)
+                bottomMinimizeButton,
+
+              if (widget.minimizeButtonStyle == SideBarMinimizeButtonStyle.floating)
+                const SizedBox(height: 16),
+            ],
+          ),
+        );
+
+        if (widget.minimizeButtonStyle == SideBarMinimizeButtonStyle.floating) {
+          return Stack(
+            clipBehavior: Clip.none,
+            children: [
+              sidebarBody,
+              Positioned(
+                right: -14,
+                bottom: 30,
+                child: _buildFloatingMinimizeButton(),
+              ),
+            ],
+          );
+        } else {
+          return sidebarBody;
+        }
+      },
+    );
+  }
+
+  Widget _buildCollapsibleSection(Widget child) {
+    return AnimatedCrossFade(
+      firstChild: child,
+      secondChild: const SizedBox.shrink(),
+      crossFadeState: minimize ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      duration: const Duration(milliseconds: 300),
+      firstCurve: Curves.easeOut,
+      secondCurve: Curves.easeIn,
+      sizeCurve: Curves.easeOutExpo,
+    );
+  }
+
+  Widget _buildLegacyMinimizeButton(bool hasExtraSpace) {
+    Widget buttonContent = SButton(
+      splashColor: Colors.black87,
+      onTap: (position) => setState(() {
+        minimize = !minimize;
+        SideBarController.setMinimizedState(minimize);
+        widget.minimizeButtonOnTap?.call(minimize);
+      }),
+      child: Box(
+        width: !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
+        child: AnimatedAlign(
+          duration: 0.5.sec,
+          alignment: Alignment.centerRight,
+          curve: Curves.easeOutExpo,
+          child: Icon(
+            key: ValueKey("SSideBar MinimizeButton + $minimize"),
+            minimize ? Icons.arrow_right_rounded : Icons.arrow_left_rounded,
+            color: widget.minimizeButtonColor ?? Colors.blue.shade800.withValues(alpha: 0.8),
+            size: widget.minimizeButtonIconSize ?? 60,
+          ),
+        ),
+      ),
+    );
+
+    if (hasExtraSpace) {
+      return Expanded(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(widget.borderRadius),
+          child: buttonContent,
+        ),
+      );
+    } else {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(widget.borderRadius),
+        child: buttonContent,
+      );
+    }
+  }
+
+  Widget _buildModernBottomMinimizeButton() {
+    return Padding(
+      padding: minimize
+          ? const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0)
+          : EdgeInsets.symmetric(
+              vertical: 12.0,
+              horizontal: widget.itemHorizontalPadding + 10.0,
+            ),
+      child: SInkButton(
+        color: widget.splashColor,
+        hoverColor: widget.hoverColor,
+        hoverAndSplashBorderRadius: BorderRadius.circular(widget.itemBorderRadius),
+        enableHapticFeedback: false,
+        onTap: (position) => setState(() {
+          minimize = !minimize;
+          SideBarController.setMinimizedState(minimize);
+          widget.minimizeButtonOnTap?.call(minimize);
+        }),
+        child: Container(
+          height: widget.compactMode ? 40 : 44,
+          alignment: minimize ? Alignment.center : Alignment.centerLeft,
+          child: Row(
+            mainAxisAlignment: minimize ? MainAxisAlignment.center : MainAxisAlignment.start,
+            children: [
+              Icon(
+                minimize ? Icons.keyboard_double_arrow_right_rounded : Icons.keyboard_double_arrow_left_rounded,
+                color: widget.minimizeButtonColor ?? widget.unselectedIconColor,
+                size: 20,
+              ),
+              if (!minimize) ...[
+                SizedBox(width: widget.itemIconTextSpacing),
                 Expanded(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(widget.borderRadius),
-                    child: SButton(
-                      splashColor: Colors.black87,
-                      onTap: (position) => setState(() {
-                        minimize = !minimize;
-                        SideBarController.setMinimizedState(minimize);
-                        widget.minimizeButtonOnTap?.call(minimize);
-                      }),
-                      child: Box(
-                        width: !minimize
-                            ? widget.sideBarWidth
-                            : widget.sideBarSmallWidth,
-                        child: AnimatedAlign(
-                          duration: 0.5.sec,
-                          alignment: Alignment.centerRight,
-                          curve: Curves.easeOutExpo,
-                          child: Icon(
-                            key:
-                                ValueKey("SSideBar MinimizeButton + $minimize"),
-                            minimize
-                                ? Icons.arrow_right_rounded
-                                : Icons.arrow_left_rounded,
-                            color: widget.minimizeButtonColor ??
-                                Colors.blue.shade800.withValues(alpha: 0.8),
-                            size: widget.minimizeButtonIconSize ?? 60,
-                          ),
-                        ),
-                      ),
+                  child: Text(
+                     "Collapse",
+                     style: widget.textStyle.copyWith(
+                       color: widget.unSelectedTextColor,
+                       fontSize: 14,
+                       fontWeight: FontWeight.w500,
+                     ),
+                     maxLines: 1,
+                     overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFloatingMinimizeButton() {
+    return SButton(
+      splashColor: widget.splashColor,
+      shouldBounce: true,
+      bounceScale: 0.9,
+      borderRadius: BorderRadius.circular(100),
+      onTap: (position) => setState(() {
+        minimize = !minimize;
+        SideBarController.setMinimizedState(minimize);
+        widget.minimizeButtonOnTap?.call(minimize);
+      }),
+      child: Container(
+        width: 28,
+        height: 28,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: widget.sideBarColor,
+          border: Border.all(
+            color: widget.sideBarColor.darken(0.1),
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.12),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Icon(
+            minimize ? Icons.chevron_right_rounded : Icons.chevron_left_rounded,
+            color: widget.minimizeButtonColor ?? widget.unselectedIconColor,
+            size: 18,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SideBarItemWidget extends StatefulWidget {
+  final IconData icon;
+  final String text;
+  final bool minimize;
+  final double height;
+  final Color hoverColor;
+  final Color unselectedIconColor;
+  final Color unSelectedTextColor;
+  final Color selectedIconColor;
+  final Color selectedTextColor;
+  final Color splashColor;
+  final Color highlightColor;
+  final Function() onTap;
+  final TextStyle textStyle;
+  final int selectedItemIndex;
+  final int itemIndex;
+  final Color selectedIconBackgroundColor;
+  final bool showTooltipWhenMinimized;
+  final double itemHorizontalPadding;
+  final double itemIconTextSpacing;
+  final double itemBorderRadius;
+  final String? tooltip;
+  final String? badgeText;
+  final Color? badgeColor;
+  final TextStyle? badgeTextStyle;
+  final void Function(Offset? offset)? onTappedCallbackOffsetPosition;
+
+  final bool hoverAnimation;
+  final SideBarIndicatorStyle indicatorStyle;
+  final Decoration? selectedItemDecoration;
+  final Decoration? unselectedItemDecoration;
+  final EdgeInsetsGeometry? itemPadding;
+  final bool isHeader;
+  final bool isDivider;
+  final Color dividerColor;
+
+  const _SideBarItemWidget({
+    required this.icon,
+    required this.text,
+    required this.minimize,
+    required this.height,
+    required this.hoverColor,
+    required this.unselectedIconColor,
+    required this.unSelectedTextColor,
+    required this.selectedIconColor,
+    required this.selectedTextColor,
+    required this.splashColor,
+    required this.highlightColor,
+    required this.onTap,
+    required this.textStyle,
+    required this.selectedItemIndex,
+    required this.itemIndex,
+    required this.selectedIconBackgroundColor,
+    required this.showTooltipWhenMinimized,
+    required this.itemHorizontalPadding,
+    required this.itemIconTextSpacing,
+    required this.itemBorderRadius,
+    this.tooltip,
+    this.badgeText,
+    this.badgeColor,
+    this.badgeTextStyle,
+    this.onTappedCallbackOffsetPosition,
+    required this.hoverAnimation,
+    required this.indicatorStyle,
+    this.selectedItemDecoration,
+    this.unselectedItemDecoration,
+    this.itemPadding,
+    required this.isHeader,
+    required this.isDivider,
+    required this.dividerColor,
+  });
+
+  @override
+  State<_SideBarItemWidget> createState() => _SideBarItemWidgetState();
+}
+
+class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.isDivider) {
+      return Padding(
+        padding: widget.minimize
+            ? const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0)
+            : const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+        child: Divider(
+          height: 1,
+          thickness: 0.5,
+          color: widget.dividerColor.withValues(alpha: 0.5),
+        ),
+      );
+    }
+
+    if (widget.isHeader) {
+      if (widget.minimize) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Center(
+            child: Container(
+              width: 4,
+              height: 4,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: widget.unSelectedTextColor.withValues(alpha: 0.4),
+              ),
+            ),
+          ),
+        );
+      }
+      return Padding(
+        padding: EdgeInsets.only(
+          left: widget.itemHorizontalPadding + 4,
+          right: widget.itemHorizontalPadding,
+          top: 14,
+          bottom: 6,
+        ),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            widget.text.toUpperCase(),
+            style: widget.textStyle.copyWith(
+              color: widget.unSelectedTextColor.withValues(alpha: 0.5),
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.2,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      );
+    }
+
+    final bool isSelected = widget.selectedItemIndex == widget.itemIndex;
+    final Color effectiveBadgeColor = widget.badgeColor ?? Colors.redAccent;
+
+    Decoration? itemDecoration = isSelected
+        ? widget.selectedItemDecoration ??
+            BoxDecoration(
+              color: widget.selectedIconBackgroundColor,
+              borderRadius: BorderRadius.circular(widget.itemBorderRadius),
+            )
+        : widget.unselectedItemDecoration;
+
+    if (!isSelected && _isHovered) {
+      itemDecoration = BoxDecoration(
+        color: widget.hoverColor,
+        borderRadius: BorderRadius.circular(widget.itemBorderRadius),
+      );
+    }
+
+    itemDecoration ??= BoxDecoration(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(widget.itemBorderRadius),
+    );
+
+    final double leftShift = (widget.hoverAnimation && _isHovered && !widget.minimize) ? 4.0 : 0.0;
+
+    Widget content = MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: SInkButton(
+        color: widget.splashColor,
+        hoverColor: Colors.transparent,
+        hoverAndSplashBorderRadius: BorderRadius.circular(widget.itemBorderRadius),
+        enableHapticFeedback: false,
+        onTap: (position) {
+          widget.onTap();
+          widget.onTappedCallbackOffsetPosition?.call(position);
+        },
+        child: Stack(
+          children: [
+            Padding(
+              padding: widget.minimize ? const EdgeInsets.symmetric(horizontal: 5) : EdgeInsets.zero,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                height: widget.height,
+                curve: Curves.easeInOut,
+                decoration: itemDecoration,
+              ),
+            ),
+            if (isSelected) ...[
+              if (widget.indicatorStyle == SideBarIndicatorStyle.leftLine)
+                Positioned(
+                  left: 0,
+                  top: 8,
+                  bottom: 8,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    width: 3.5,
+                    decoration: BoxDecoration(
+                      color: widget.selectedIconColor.withValues(alpha: 0.95),
+                      borderRadius: const BorderRadius.horizontal(right: Radius.circular(2)),
                     ),
                   ),
-                )
-              else
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(widget.borderRadius),
-                  child: SButton(
-                    splashColor: Colors.black87,
-                    onTap: (position) => setState(() {
-                      minimize = !minimize;
-                      SideBarController.setMinimizedState(minimize);
-                      widget.minimizeButtonOnTap?.call(minimize);
-                    }),
-                    child: Box(
-                      width: !minimize
-                          ? widget.sideBarWidth
-                          : widget.sideBarSmallWidth,
-                      child: AnimatedAlign(
-                        duration: 0.5.sec,
-                        alignment: Alignment.centerRight,
-                        curve: Curves.easeOutExpo,
-                        child: Icon(
-                          key: ValueKey("SSideBar MinimizeButton + $minimize"),
-                          minimize
-                              ? Icons.arrow_right_rounded
-                              : Icons.arrow_left_rounded,
-                          color: widget.minimizeButtonColor ??
-                              Colors.blue.shade800.withValues(alpha: 0.8),
-                          size: widget.minimizeButtonIconSize ?? 60,
-                        ),
-                      ),
+                ),
+              if (widget.indicatorStyle == SideBarIndicatorStyle.rightLine)
+                Positioned(
+                  right: widget.minimize ? 5 : 0,
+                  top: 8,
+                  bottom: 8,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    width: 3.5,
+                    decoration: BoxDecoration(
+                      color: widget.selectedIconColor.withValues(alpha: 0.95),
+                      borderRadius: const BorderRadius.horizontal(left: Radius.circular(2)),
                     ),
                   ),
                 ),
             ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-/// Sidebar model Widget the we used it inside the ListView with inkwell to make each item clickable
-
-/// Builds a single sidebar item widget with animations and interactions.
-///
-/// This internal function creates the visual representation of a sidebar menu item,
-/// handling selection states, animations, badges, tooltips, and tap interactions.
-Widget _sSideBarItem({
-  required IconData icon,
-  required String text,
-  required bool minimize,
-  required double height,
-  required Color hoverColor,
-  required Color unselectedIconColor,
-  required Color unSelectedTextColor,
-  required Color selectedIconColor,
-  required Color selectedTextColor,
-  required Color splashColor,
-  required Color highlightColor,
-  required Function() onTap,
-  required TextStyle textStyle,
-  required int selectedItemIndex,
-  required int itemIndex,
-  required Color selectedIconBackgroundColor,
-  required bool showTooltipWhenMinimized,
-  required double itemHorizontalPadding,
-  required double itemIconTextSpacing,
-  required double itemBorderRadius,
-  String? tooltip,
-  String? badgeText,
-  Color? badgeColor,
-  TextStyle? badgeTextStyle,
-  void Function(Offset? offset)? onTappedCallbackOffsetPosition,
-}) {
-  final bool isSelected = selectedItemIndex == itemIndex;
-  final Color effectiveBadgeColor = badgeColor ?? Colors.redAccent;
-
-  Widget content = SInkButton(
-    color: splashColor,
-    hoverColor: hoverColor,
-    hoverAndSplashBorderRadius: BorderRadius.circular(itemBorderRadius),
-    enableHapticFeedback: false,
-    onTap: (position) {
-      onTap();
-      onTappedCallbackOffsetPosition?.call(position);
-    },
-    child: Stack(
-      children: [
-        Padding(
-          padding: minimize ? Pad(left: 5, right: 5) : Pad.zero,
-          child: AnimatedContainer(
-            duration: 0.3.sec,
-            height: height,
-            curve: Curves.easeInOut,
-            decoration: BoxDecoration(
-              color:
-                  isSelected ? selectedIconBackgroundColor : Colors.transparent,
-              borderRadius: BorderRadius.circular(itemBorderRadius),
-            ),
-          ),
-        ),
-        if (isSelected)
-          Positioned(
-            left: 0,
-            top: 6,
-            bottom: 6,
-            child: AnimatedContainer(
-              duration: 0.3.sec,
-              width: 3,
-              decoration: BoxDecoration(
-                color: selectedIconColor.withValues(alpha: 0.9),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-        Box(
-          height: height,
-          // color: yellow,
-          alignment: minimize ? Alignment.center : Alignment.centerLeft,
-          child: Padding(
-            padding: Pad(left: minimize ? 0 : itemHorizontalPadding),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Stack(
-                    clipBehavior: Clip.none,
+            Box(
+              height: widget.height,
+              alignment: widget.minimize ? Alignment.center : Alignment.centerLeft,
+              child: AnimatedPadding(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOut,
+                padding: widget.itemPadding ??
+                    EdgeInsets.only(
+                      left: (widget.minimize ? 0 : widget.itemHorizontalPadding) + leftShift,
+                    ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        icon,
-                        color: isSelected
-                            ? selectedIconColor
-                            : unselectedIconColor,
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          AnimatedScale(
+                            scale: _isHovered ? 1.08 : 1.0,
+                            duration: const Duration(milliseconds: 200),
+                            child: Icon(
+                              widget.icon,
+                              color: isSelected
+                                  ? widget.selectedIconColor
+                                  : widget.unselectedIconColor,
+                            ),
+                          ),
+                          if (widget.badgeText != null && widget.minimize)
+                            Positioned(
+                              right: -8,
+                              top: -8,
+                              child: _badgeChip(
+                                badgeText: widget.badgeText!,
+                                badgeColor: effectiveBadgeColor,
+                                badgeTextStyle: widget.badgeTextStyle,
+                              ),
+                            ),
+                        ],
                       ),
-                      if (badgeText != null && minimize)
-                        Positioned(
-                          right: -12,
-                          top: -10,
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 200),
+                        switchInCurve: Curves.easeOut,
+                        switchOutCurve: Curves.easeIn,
+                        child: widget.minimize
+                            ? const SizedBox.shrink(key: ValueKey("min"))
+                            : Padding(
+                                key: const ValueKey("text"),
+                                padding: EdgeInsets.only(
+                                  left: widget.itemIconTextSpacing,
+                                ),
+                                child: Text(
+                                  widget.text,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: widget.textStyle.copyWith(
+                                    color: isSelected
+                                        ? widget.selectedTextColor
+                                        : widget.unSelectedTextColor,
+                                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                                  ),
+                                ),
+                              ),
+                      ),
+                      if (widget.badgeText != null && !widget.minimize)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
                           child: _badgeChip(
-                            badgeText: badgeText,
+                            badgeText: widget.badgeText!,
                             badgeColor: effectiveBadgeColor,
-                            badgeTextStyle: badgeTextStyle,
+                            badgeTextStyle: widget.badgeTextStyle,
                           ),
                         ),
                     ],
                   ),
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 250),
-                    switchInCurve: Curves.easeOut,
-                    switchOutCurve: Curves.easeIn,
-                    child: minimize
-                        ? const SizedBox.shrink(key: ValueKey("min"))
-                        : Padding(
-                            key: const ValueKey("text"),
-                            padding: EdgeInsets.only(
-                              left: itemIconTextSpacing,
-                            ),
-                            child: Text(
-                              text,
-                              overflow: isSelected
-                                  ? TextOverflow.ellipsis
-                                  : TextOverflow.clip,
-                              style: textStyle.copyWith(
-                                color: isSelected
-                                    ? selectedTextColor
-                                    : unSelectedTextColor,
-                              ),
-                              textAlign: isSelected
-                                  ? TextAlign.center
-                                  : TextAlign.left,
-                            ),
-                          ),
-                  ),
-                  if (badgeText != null && !minimize)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: _badgeChip(
-                        badgeText: badgeText,
-                        badgeColor: effectiveBadgeColor,
-                        badgeTextStyle: badgeTextStyle,
-                      ),
-                    ),
-                ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
-      ],
-    ),
-  );
+      ),
+    );
 
-  content = Semantics(
-    button: true,
-    selected: isSelected,
-    label: tooltip ?? text,
-    child: content,
-  );
-
-  if (minimize && showTooltipWhenMinimized) {
-    content = Tooltip(
-      message: tooltip ?? text,
+    content = Semantics(
+      button: true,
+      selected: isSelected,
+      label: widget.tooltip ?? widget.text,
       child: content,
     );
-  }
 
-  return content;
+    if (widget.minimize && widget.showTooltipWhenMinimized) {
+      content = Tooltip(
+        message: widget.tooltip ?? widget.text,
+        child: content,
+      );
+    }
+
+    return content;
+  }
 }
 
-/// Creates a notification badge widget for sidebar items.
-///
-/// Displays a small, rounded badge with text (typically for counts or status).
-/// Used internally by [_sSideBarItem] to show badges on menu items.
 Widget _badgeChip({
   required String badgeText,
   required Color badgeColor,
@@ -761,6 +1064,33 @@ Widget _badgeChip({
 ///   title: 'Favorites',
 /// )
 /// ```
+/// Style of the active item selection indicator in the sidebar.
+enum SideBarIndicatorStyle {
+  /// No vertical line indicator, relies on background highlighting.
+  none,
+
+  /// Vertical indicator line on the left edge.
+  leftLine,
+
+  /// Vertical indicator line on the right edge.
+  rightLine,
+
+  /// No line, but uses a full pill-shaped highlighted background.
+  pill,
+}
+
+/// Style of the expand/collapse toggle button.
+enum SideBarMinimizeButtonStyle {
+  /// The legacy style: a large full-width button with a giant arrow.
+  legacy,
+
+  /// Modern style: a sleek bottom row with a small chevron and a "Collapse" label that hides when minimized.
+  bottomRow,
+
+  /// Floating style: a circular button overlapping the right border of the sidebar.
+  floating,
+}
+
 class SSideBarItem {
   final IconData iconSelected;
   final IconData? iconUnselected;
@@ -769,6 +1099,8 @@ class SSideBarItem {
   final String? badgeText;
   final Color? badgeColor;
   final TextStyle? badgeTextStyle;
+  final bool isHeader;
+  final bool isDivider;
 
   final Function(Offset? offset)? onTap;
 
@@ -781,8 +1113,37 @@ class SSideBarItem {
     this.badgeText,
     this.badgeColor,
     this.badgeTextStyle,
+    this.isHeader = false,
+    this.isDivider = false,
     this.onTap,
   });
+
+  /// Creates a section header item. Section headers display small, uppercase,
+  /// muted text, are not interactive, and do not show icons.
+  SSideBarItem.header({
+    required this.title,
+    this.tooltip,
+  })  : iconSelected = Icons.linear_scale, // Dummy icon
+        iconUnselected = null,
+        badgeText = null,
+        badgeColor = null,
+        badgeTextStyle = null,
+        isHeader = true,
+        isDivider = false,
+        onTap = null;
+
+  /// Creates a horizontal divider item to separate sections.
+  SSideBarItem.divider({
+    this.badgeText,
+    this.badgeColor,
+    this.badgeTextStyle,
+  })  : iconSelected = Icons.linear_scale, // Dummy icon
+        title = '',
+        iconUnselected = null,
+        tooltip = null,
+        isHeader = false,
+        isDivider = true,
+        onTap = null;
 }
 
 //****************************************** */

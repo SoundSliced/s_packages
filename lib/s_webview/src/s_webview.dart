@@ -37,6 +37,9 @@ class SWebViewConfig {
   /// When true, cache proxy decisions by host instead of full URL.
   final bool cacheProxyByHost;
 
+  /// Optional custom HTTP headers to be sent with requests routed through a CORS proxy.
+  final Map<String, String>? proxyHeaders;
+
   const SWebViewConfig({
     this.autoDetectFrameRestrictions = true,
     this.corsProxyUrls = const [
@@ -59,6 +62,7 @@ class SWebViewConfig {
     },
     this.proxyCacheTtl = const Duration(days: 7),
     this.cacheProxyByHost = true,
+    this.proxyHeaders,
   });
 }
 
@@ -216,6 +220,19 @@ class SWebView extends StatefulWidget {
   /// Default: false
   final bool ignorePointerEvents;
 
+  /// When true, renders the WebView in dark mode.
+  /// On Web, this applies a CSS invert/hue-rotate filter to the iframe container.
+  /// On Desktop platforms, this sets native webview brightness to dark.
+  final bool darkMode;
+
+  /// Optional custom builder for displaying a fallback UI when page loading fails
+  /// (e.g. because of iframe embed restriction or proxy incompatibility).
+  final Widget Function(
+    BuildContext context,
+    VoidCallback onRetryWithProxy,
+    VoidCallback onOpenInNewTab,
+  )? fallbackBuilder;
+
   /// Callback with page loading progress (0..100).
   final ValueChanged<int>? onProgress;
 
@@ -248,6 +265,8 @@ class SWebView extends StatefulWidget {
     this.showToolbar = kIsWeb,
     this.showDebugLogs = false,
     this.ignorePointerEvents = false,
+    this.darkMode = false,
+    this.fallbackBuilder,
     this.onProgress,
     this.onPageStarted,
     this.onUrlChanged,
@@ -604,9 +623,12 @@ class _SWebViewState extends State<SWebView> {
 
           _log('  → Probe request: $proxyUrl');
           final sw = Stopwatch()..start();
-          final response = await http.get(Uri.parse(proxyUrl)).timeout(
-                const Duration(seconds: 3),
-              );
+          final response = await http
+              .get(
+                Uri.parse(proxyUrl),
+                headers: widget.config.proxyHeaders,
+              )
+              .timeout(const Duration(seconds: 3));
           sw.stop();
           _log(
               '  → Probe response: HTTP ${response.statusCode}  (${sw.elapsedMilliseconds}ms, ${response.bodyBytes.length} bytes)');
@@ -686,7 +708,10 @@ class _SWebViewState extends State<SWebView> {
 
         final sw = Stopwatch()..start();
         final response = await http
-            .get(Uri.parse(proxiedUrl))
+            .get(
+              Uri.parse(proxiedUrl),
+              headers: widget.config.proxyHeaders,
+            )
             .timeout(const Duration(seconds: 15));
         sw.stop();
 
@@ -804,6 +829,11 @@ class _SWebViewState extends State<SWebView> {
 
     html = SWebViewProxyHtmlUtils.injectProxyCompatibilityScript(html);
     _log('  after injectCompat     : ${html.length} chars');
+
+    if (widget.darkMode) {
+      html = _injectDarkModeStyleBlock(html);
+      _log('  after dark mode style inject : ${html.length} chars');
+    }
 
     final isIncompat =
         SWebViewProxyHtmlUtils.isLikelyProxyIncompatibleDocument(html);
@@ -983,6 +1013,144 @@ class _SWebViewState extends State<SWebView> {
     return _ProxyHealthSnapshot.empty;
   }
 
+  void _updateIframeTheme() {
+    if (!kIsWeb) return;
+    final filter = widget.darkMode ? 'invert(1) hue-rotate(180deg)' : 'none';
+    final currentUri = webViewController?.currentUrlNotifier.value;
+    if (currentUri != null) {
+      web_utils.applyIframeFilter(currentUri.toString(), filter);
+    }
+  }
+
+  String _injectDarkModeStyleBlock(String html) {
+    const styleBlock = '''
+<style id="swebview-dark-mode-override">
+  img, video, canvas, picture, [style*="background-image"] {
+    filter: invert(1) hue-rotate(-180deg) !important;
+  }
+</style>
+''';
+    final headTag = RegExp(r'<head\b[^>]*>', caseSensitive: false);
+    if (headTag.hasMatch(html)) {
+      return html.replaceFirstMapped(headTag, (match) {
+        return '${match.group(0)}$styleBlock';
+      });
+    }
+    return '$styleBlock$html';
+  }
+
+  Widget _buildFallbackUI() {
+    Future<void> onRetryWithProxy() async {
+      await SWebView.retryWithProxy(
+        widget.url,
+        showDebugLogs: widget.showDebugLogs,
+      );
+      if (mounted) {
+        setState(() {
+          isLoaded = null;
+          _isUsingProxy = true;
+        });
+      }
+      await _loadUrl(widget.url);
+    }
+
+    void onOpenInNewTab() {
+      SWebView.openInNewTab(
+        widget.url,
+        showDebugLogs: widget.showDebugLogs,
+      );
+    }
+
+    if (widget.fallbackBuilder != null) {
+      return widget.fallbackBuilder!(context, onRetryWithProxy, onOpenInNewTab);
+    }
+
+    final theme = Theme.of(context);
+    return Center(
+      child: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(32),
+          constraints: const BoxConstraints(maxWidth: 420),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.08),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
+            border: Border.all(
+              color: theme.colorScheme.outlineVariant,
+              width: 1,
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.lock_outline_rounded,
+                size: 64,
+                color: theme.colorScheme.error,
+              ),
+              const SizedBox(height: 24),
+              Text(
+                "Embedding Restricted",
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                "This website prevents other applications from embedding it directly. You can try loading it through our secure CORS proxy or open it in a new browser tab.",
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                  height: 1.5,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (!_isUsingProxy) ...[
+                    FilledButton.icon(
+                      onPressed: onRetryWithProxy,
+                      icon: const Icon(Icons.vpn_lock, size: 18),
+                      label: const Text("Retry with Proxy"),
+                      style: FilledButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                  ],
+                  OutlinedButton.icon(
+                    onPressed: onOpenInNewTab,
+                    icon: const Icon(Icons.open_in_new, size: 18),
+                    label: const Text("Open in New Tab"),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   void _ensureController() {
     final injected = widget.controller;
     if (injected != null) {
@@ -1010,9 +1178,15 @@ class _SWebViewState extends State<SWebView> {
         }
       },
       onProgress: widget.onProgress,
-      onPageStarted: widget.onPageStarted,
+      onPageStarted: (Uri pageUri) {
+        _updateIframeTheme();
+        widget.onPageStarted?.call(pageUri);
+      },
       onUrlChanged: widget.onUrlChanged,
-      onPageFinished: widget.onPageFinished,
+      onPageFinished: (Uri pageUri) {
+        _updateIframeTheme();
+        widget.onPageFinished?.call(pageUri);
+      },
       onNavigationRequest: widget.onNavigationRequest,
       onJavaScriptMessage: widget.onJavaScriptMessage,
     );
@@ -1241,6 +1415,9 @@ class _SWebViewState extends State<SWebView> {
     if (oldWidget.showDebugLogs != widget.showDebugLogs) {
       SWebViewDebug.enabled = widget.showDebugLogs;
     }
+    if (oldWidget.darkMode != widget.darkMode) {
+      _updateIframeTheme();
+    }
     if (!identical(oldWidget.controller, widget.controller)) {
       if (_ownsController) {
         webViewController?.dispose();
@@ -1309,7 +1486,7 @@ class _SWebViewState extends State<SWebView> {
           child: isLoaded == null
               ? loadingWidget
               : !isLoaded!
-                  ? const Center(child: Text("Failed to load URL"))
+                  ? _buildFallbackUI()
                   : webviewWidget,
         ),
       ],

@@ -8,3 +8,9 @@ library;
 void openInNewTab(String url) {
   // No-op on native platforms
 }
+
+/// Applies a CSS filter to the iframe corresponding to [src] (no-op on non-web platforms).
+void applyIframeFilter(String src, String filter) {
+  // No-op on native platforms
+}
+

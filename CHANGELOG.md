@@ -1,3 +1,17 @@
+## 5.3.4
+- **`s_webview` upgraded**:
+  - **Visual Dark Mode on Web (CSS Filter)**: Added a new `darkMode` configuration parameter. On Flutter Web, this dynamically applies a CSS `invert(1) hue-rotate(180deg)` filter to the underlying iframe element by recursively traversing the DOM and Shadow roots. For pages loaded via CORS proxy, it injects a custom stylesheet to re-invert image, video, canvas, and picture elements to preserve their natural colors. On desktop platforms, it sets native webview brightness.
+  - **Custom Proxy Headers**: Updated `SWebViewConfig` with `proxyHeaders` support to send custom HTTP headers (such as authorization bearer tokens) to private/secure CORS proxies.
+  - **Premium Fallback UI & builders**: Added a customizable `fallbackBuilder` callback. If a page fails to load (iframe blocks, proxy issues) and no builder is specified, SWebView renders a built-in premium Card UI informing the user and providing direct "Retry with Proxy" and "Open in New Tab" actions.
+  
+- **`s_sidebar` upgraded**:
+  - **Modernized UI/UX**: Converted items to a stateful widget to support smooth scale and padding shift animations on hover.
+  - **Section Headers & Dividers**: Added `SSideBarItem.header(...)` and `SSideBarItem.divider()` to group items under styled, uppercase, muted headers.
+  - **Custom Indicators & Decorations**: Added `SideBarIndicatorStyle` supporting `pill`, `leftLine`, `rightLine`, or `none`, and allowed custom backgrounds via `selectedItemDecoration` and `unselectedItemDecoration`.
+  - **Redesigned Collapse Toggles**: Added `SideBarMinimizeButtonStyle` supporting a sleek bottom row button (`bottomRow`), an overlapping floating edge toggle (`floating`), and the original legacy arrow.
+  - **Header & Footer Slots**: Added collapsible custom `header` and `footer` parameters to host widgets like user profile cards that transition gracefully when minimized.
+
+
 ## 5.3.3
 - **`s_switcher` updated**:
   - updated the UI Layout
