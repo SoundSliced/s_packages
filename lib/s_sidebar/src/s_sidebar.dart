@@ -325,8 +325,11 @@ class _SSideBarState extends State<SSideBar> {
             topPadding +
             (itemCount > 0 ? (widget.compactMode ? 14 : 20) : 0);
 
-        final double totalNeededHeight =
-            logoHeight + headerHeight + estimatedItemsHeight + footerHeight + buttonMinHeight;
+        final double totalNeededHeight = logoHeight +
+            headerHeight +
+            estimatedItemsHeight +
+            footerHeight +
+            buttonMinHeight;
 
         // Use the provided height or the maximum available height
         double effectiveHeight = sidebarHeight ?? constraints.maxHeight;
@@ -350,8 +353,10 @@ class _SSideBarState extends State<SSideBar> {
           transformAlignment: Alignment.centerRight,
           height: effectiveHeight,
           constraints: BoxConstraints(
-            maxWidth: !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
-            minWidth: !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
+            maxWidth:
+                !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
+            minWidth:
+                !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
           ),
           decoration: BoxDecoration(
             color: widget.sideBarColor,
@@ -405,7 +410,8 @@ class _SSideBarState extends State<SSideBar> {
                               return Column(
                                 children: [
                                   Padding(
-                                    padding: index == widget.sidebarItems.length - 1
+                                    padding: index ==
+                                            widget.sidebarItems.length - 1
                                         ? Pad(top: widget.compactMode ? 14 : 20)
                                         : Pad.zero,
                                     child: _SideBarItemWidget(
@@ -427,7 +433,8 @@ class _SSideBarState extends State<SSideBar> {
                                       highlightColor: widget.highlightColor,
                                       selectedIconColor:
                                           widget.selectedIconColor,
-                                      icon: item.iconUnselected ?? item.iconSelected,
+                                      icon: item.iconUnselected ??
+                                          item.iconSelected,
                                       text: item.title,
                                       tooltip: item.tooltip,
                                       badgeText: item.badgeText,
@@ -442,8 +449,10 @@ class _SSideBarState extends State<SSideBar> {
                                       itemBorderRadius: widget.itemBorderRadius,
                                       hoverAnimation: widget.hoverAnimation,
                                       indicatorStyle: widget.indicatorStyle,
-                                      selectedItemDecoration: widget.selectedItemDecoration,
-                                      unselectedItemDecoration: widget.unselectedItemDecoration,
+                                      selectedItemDecoration:
+                                          widget.selectedItemDecoration,
+                                      unselectedItemDecoration:
+                                          widget.unselectedItemDecoration,
                                       itemPadding: widget.itemPadding,
                                       isHeader: item.isHeader,
                                       isDivider: item.isDivider,
@@ -454,12 +463,16 @@ class _SSideBarState extends State<SSideBar> {
                                                 widget.sidebarItems.length ||
                                             shouldTapItems[index] == true;
 
-                                        if (canTap && !item.isHeader && !item.isDivider) {
+                                        if (canTap &&
+                                            !item.isHeader &&
+                                            !item.isDivider) {
                                           moveToNewIndex(index);
                                         }
                                       },
                                       onTappedCallbackOffsetPosition: (offset) {
-                                        if (item.onTap != null && !item.isHeader && !item.isDivider) {
+                                        if (item.onTap != null &&
+                                            !item.isHeader &&
+                                            !item.isDivider) {
                                           item.onTap!(offset);
                                         }
                                       },
@@ -503,10 +516,12 @@ class _SSideBarState extends State<SSideBar> {
                 ),
 
               // Bottom Minimize Button
-              if (widget.minimizeButtonStyle != SideBarMinimizeButtonStyle.floating)
+              if (widget.minimizeButtonStyle !=
+                  SideBarMinimizeButtonStyle.floating)
                 bottomMinimizeButton,
 
-              if (widget.minimizeButtonStyle == SideBarMinimizeButtonStyle.floating)
+              if (widget.minimizeButtonStyle ==
+                  SideBarMinimizeButtonStyle.floating)
                 const SizedBox(height: 16),
             ],
           ),
@@ -535,7 +550,8 @@ class _SSideBarState extends State<SSideBar> {
     return AnimatedCrossFade(
       firstChild: child,
       secondChild: const SizedBox.shrink(),
-      crossFadeState: minimize ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      crossFadeState:
+          minimize ? CrossFadeState.showSecond : CrossFadeState.showFirst,
       duration: const Duration(milliseconds: 300),
       firstCurve: Curves.easeOut,
       secondCurve: Curves.easeIn,
@@ -560,7 +576,8 @@ class _SSideBarState extends State<SSideBar> {
           child: Icon(
             key: ValueKey("SSideBar MinimizeButton + $minimize"),
             minimize ? Icons.arrow_right_rounded : Icons.arrow_left_rounded,
-            color: widget.minimizeButtonColor ?? Colors.blue.shade800.withValues(alpha: 0.8),
+            color: widget.minimizeButtonColor ??
+                Colors.blue.shade800.withValues(alpha: 0.8),
             size: widget.minimizeButtonIconSize ?? 60,
           ),
         ),
@@ -593,7 +610,8 @@ class _SSideBarState extends State<SSideBar> {
       child: SInkButton(
         color: widget.splashColor,
         hoverColor: widget.hoverColor,
-        hoverAndSplashBorderRadius: BorderRadius.circular(widget.itemBorderRadius),
+        hoverAndSplashBorderRadius:
+            BorderRadius.circular(widget.itemBorderRadius),
         enableHapticFeedback: false,
         onTap: (position) => setState(() {
           minimize = !minimize;
@@ -604,10 +622,13 @@ class _SSideBarState extends State<SSideBar> {
           height: widget.compactMode ? 40 : 44,
           alignment: minimize ? Alignment.center : Alignment.centerLeft,
           child: Row(
-            mainAxisAlignment: minimize ? MainAxisAlignment.center : MainAxisAlignment.start,
+            mainAxisAlignment:
+                minimize ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
               Icon(
-                minimize ? Icons.keyboard_double_arrow_right_rounded : Icons.keyboard_double_arrow_left_rounded,
+                minimize
+                    ? Icons.keyboard_double_arrow_right_rounded
+                    : Icons.keyboard_double_arrow_left_rounded,
                 color: widget.minimizeButtonColor ?? widget.unselectedIconColor,
                 size: 20,
               ),
@@ -615,14 +636,14 @@ class _SSideBarState extends State<SSideBar> {
                 SizedBox(width: widget.itemIconTextSpacing),
                 Expanded(
                   child: Text(
-                     "Collapse",
-                     style: widget.textStyle.copyWith(
-                       color: widget.unSelectedTextColor,
-                       fontSize: 14,
-                       fontWeight: FontWeight.w500,
-                     ),
-                     maxLines: 1,
-                     overflow: TextOverflow.ellipsis,
+                    "Collapse",
+                    style: widget.textStyle.copyWith(
+                      color: widget.unSelectedTextColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
@@ -831,7 +852,8 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
       borderRadius: BorderRadius.circular(widget.itemBorderRadius),
     );
 
-    final double leftShift = (widget.hoverAnimation && _isHovered && !widget.minimize) ? 4.0 : 0.0;
+    final double leftShift =
+        (widget.hoverAnimation && _isHovered && !widget.minimize) ? 4.0 : 0.0;
 
     Widget content = MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
@@ -839,7 +861,8 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
       child: SInkButton(
         color: widget.splashColor,
         hoverColor: Colors.transparent,
-        hoverAndSplashBorderRadius: BorderRadius.circular(widget.itemBorderRadius),
+        hoverAndSplashBorderRadius:
+            BorderRadius.circular(widget.itemBorderRadius),
         enableHapticFeedback: false,
         onTap: (position) {
           widget.onTap();
@@ -848,7 +871,9 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
         child: Stack(
           children: [
             Padding(
-              padding: widget.minimize ? const EdgeInsets.symmetric(horizontal: 5) : EdgeInsets.zero,
+              padding: widget.minimize
+                  ? const EdgeInsets.symmetric(horizontal: 5)
+                  : EdgeInsets.zero,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 250),
                 height: widget.height,
@@ -867,7 +892,8 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
                     width: 3.5,
                     decoration: BoxDecoration(
                       color: widget.selectedIconColor.withValues(alpha: 0.95),
-                      borderRadius: const BorderRadius.horizontal(right: Radius.circular(2)),
+                      borderRadius: const BorderRadius.horizontal(
+                          right: Radius.circular(2)),
                     ),
                   ),
                 ),
@@ -881,20 +907,24 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
                     width: 3.5,
                     decoration: BoxDecoration(
                       color: widget.selectedIconColor.withValues(alpha: 0.95),
-                      borderRadius: const BorderRadius.horizontal(left: Radius.circular(2)),
+                      borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(2)),
                     ),
                   ),
                 ),
             ],
             Box(
               height: widget.height,
-              alignment: widget.minimize ? Alignment.center : Alignment.centerLeft,
+              alignment:
+                  widget.minimize ? Alignment.center : Alignment.centerLeft,
               child: AnimatedPadding(
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeOut,
                 padding: widget.itemPadding ??
                     EdgeInsets.only(
-                      left: (widget.minimize ? 0 : widget.itemHorizontalPadding) + leftShift,
+                      left:
+                          (widget.minimize ? 0 : widget.itemHorizontalPadding) +
+                              leftShift,
                     ),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -945,7 +975,9 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
                                     color: isSelected
                                         ? widget.selectedTextColor
                                         : widget.unSelectedTextColor,
-                                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                                    fontWeight: isSelected
+                                        ? FontWeight.w600
+                                        : FontWeight.normal,
                                   ),
                                 ),
                               ),

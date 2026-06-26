@@ -13,4 +13,3 @@ void openInNewTab(String url) {
 void applyIframeFilter(String src, String filter) {
   // No-op on native platforms
 }
-

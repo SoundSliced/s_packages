@@ -4,7 +4,8 @@ import 'package:s_packages/s_sidebar/s_sidebar.dart';
 
 void main() {
   group('SSideBar Modernization Tests', () {
-    testWidgets('renders headers and dividers correctly and ignores tap on them',
+    testWidgets(
+        'renders headers and dividers correctly and ignores tap on them',
         (tester) async {
       int tapCount = 0;
       int selectedIdx = 3;

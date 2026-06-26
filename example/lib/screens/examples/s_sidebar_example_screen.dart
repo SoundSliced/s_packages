@@ -13,7 +13,8 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
 
   // New configuration options for live demo
   SideBarIndicatorStyle _indicatorStyle = SideBarIndicatorStyle.pill;
-  SideBarMinimizeButtonStyle _minimizeButtonStyle = SideBarMinimizeButtonStyle.bottomRow;
+  SideBarMinimizeButtonStyle _minimizeButtonStyle =
+      SideBarMinimizeButtonStyle.bottomRow;
   bool _showShadow = true;
   bool _hoverAnimation = true;
   bool _useCustomDecorations = false;
@@ -183,7 +184,7 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     // Custom decorations demo
     final Decoration? customSelectedDeco = _useCustomDecorations
         ? BoxDecoration(
@@ -216,7 +217,8 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
         children: [
           // Sidebar Container with layout styling
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
             child: SSideBar(
               sidebarItems: _sidebarItems,
               onTapForAllTabButtons: (index) {
@@ -299,7 +301,8 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
+                      color: theme.colorScheme.primaryContainer
+                          .withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color: theme.colorScheme.primaryContainer,
@@ -322,7 +325,8 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                           'Tapped Sidebar item index: $_selectedIndex',
                           style: TextStyle(
                             fontSize: 14,
-                            color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.8),
+                            color: theme.colorScheme.onPrimaryContainer
+                                .withValues(alpha: 0.8),
                           ),
                         ),
                       ],
@@ -400,23 +404,29 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                         children: [
                           SwitchListTile(
                             title: const Text('Show Shadows (Elevation)'),
-                            subtitle: const Text('Renders a subtle modern drop shadow'),
+                            subtitle: const Text(
+                                'Renders a subtle modern drop shadow'),
                             value: _showShadow,
-                            onChanged: (val) => setState(() => _showShadow = val),
+                            onChanged: (val) =>
+                                setState(() => _showShadow = val),
                           ),
                           const Divider(height: 1),
                           SwitchListTile(
                             title: const Text('Hover Animations'),
-                            subtitle: const Text('Items shift & scale slightly on hover'),
+                            subtitle: const Text(
+                                'Items shift & scale slightly on hover'),
                             value: _hoverAnimation,
-                            onChanged: (val) => setState(() => _hoverAnimation = val),
+                            onChanged: (val) =>
+                                setState(() => _hoverAnimation = val),
                           ),
                           const Divider(height: 1),
                           SwitchListTile(
                             title: const Text('Use Custom Item Decorations'),
-                            subtitle: const Text('Applies custom gradient & shadow to active item'),
+                            subtitle: const Text(
+                                'Applies custom gradient & shadow to active item'),
                             value: _useCustomDecorations,
-                            onChanged: (val) => setState(() => _useCustomDecorations = val),
+                            onChanged: (val) =>
+                                setState(() => _useCustomDecorations = val),
                           ),
                         ],
                       ),
@@ -424,7 +434,7 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                   ),
 
                   const SizedBox(height: 32),
-                  
+
                   // Interactive Popup Test
                   SButton(
                     onTap: (position) {
@@ -462,35 +472,37 @@ class _SSidebarExampleScreenState extends State<SSidebarExampleScreen> {
                       );
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 16),
                       decoration: BoxDecoration(
                         color: theme.colorScheme.primary,
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                            color: theme.colorScheme.primary
+                                .withValues(alpha: 0.3),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: const Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.open_in_new_rounded, color: Colors.white),
-          SizedBox(width: 12),
-          Text(
-            'Show Floating Context Sidebar',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    ),
-  ),
-],
+                          ),
+                        ],
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.open_in_new_rounded, color: Colors.white),
+                          SizedBox(width: 12),
+                          Text(
+                            'Show Floating Context Sidebar',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
