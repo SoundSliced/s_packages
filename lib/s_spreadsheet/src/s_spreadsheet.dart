@@ -810,8 +810,7 @@ class SSpreadsheetState extends State<SSpreadsheet> {
       }
 
       canScrollUp = vOffset > vMinExtent;
-      canScrollDown =
-          lastVisible != null && lastVisible < totalRows - 1;
+      canScrollDown = lastVisible != null && lastVisible < totalRows - 1;
       if (rowIndex != null) {
         isFirstVisibleRow = firstVisible != null && rowIndex == firstVisible;
         isLastVisibleRow = lastVisible != null && rowIndex == lastVisible;
@@ -822,10 +821,9 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     final hMetrics = widget.horizontalSyncController?.value;
     final hOffset = hMetrics?.offset ?? 0.0;
     final hController = hMetrics?.controller;
-    final hMinExtent =
-        (hController != null && hController.hasClients)
-            ? hController.position.minScrollExtent
-            : 0.0;
+    final hMinExtent = (hController != null && hController.hasClients)
+        ? hController.position.minScrollExtent
+        : 0.0;
 
     // Content-space X = viewport X minus row-header, plus horizontal offset.
     final contentX = viewportLocalX - rowHeaderW + hOffset;
