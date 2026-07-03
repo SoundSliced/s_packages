@@ -1,3 +1,7 @@
+## 5.3.6
+- upgraded dependencies
+
+
 ## 5.3.5
 - **`s_spreadsheet` — coordinate-to-grid hit-test API**:
   - Made `_SSpreadsheetState` public as `SSpreadsheetState` so callers can use `GlobalKey<SSpreadsheetState>`.
