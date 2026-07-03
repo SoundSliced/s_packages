@@ -210,6 +210,83 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
   }
 }
 
+/// Result of a spreadsheet hit-test: maps a viewport-local position to a
+/// grid cell and provides visibility context for edge-triggered auto-scroll.
+///
+/// Returned by [SSpreadsheetState.hitTest].
+class SSpreadsheetHitResult {
+  /// The data row index at the hit position, or `null` if the position is
+  /// in the header, column-header, or beyond the last row.
+  final int? rowIndex;
+
+  /// Normalised progress within the hit row: `0.0` = top edge, `1.0` = bottom edge.
+  ///
+  /// Useful for proximity-based scroll speed curves when [isFirstVisibleRow]
+  /// or [isLastVisibleRow] is true.
+  final double rowProgress;
+
+  /// The body column index at the hit position, or `null` if the position is
+  /// in the row-header or beyond the last column.
+  final int? columnIndex;
+
+  /// Normalised progress within the hit column: `0.0` = left edge, `1.0` = right edge.
+  final double columnProgress;
+
+  /// Whether this position maps to an actual data cell (both [rowIndex] and
+  /// [columnIndex] are non-null).
+  final bool isInDataArea;
+
+  /// Total number of data rows in the spreadsheet.
+  final int totalRows;
+
+  /// Total number of body columns in the spreadsheet.
+  final int totalColumns;
+
+  // ---- Visibility context for auto-scroll ----
+
+  /// Whether the hit row is the first data row visible in the viewport.
+  final bool isFirstVisibleRow;
+
+  /// Whether the hit row is the last data row visible in the viewport.
+  final bool isLastVisibleRow;
+
+  /// Whether the user can scroll upward (scrollOffset > minScrollExtent).
+  final bool canScrollUp;
+
+  /// Whether there are more rows below the visible area.
+  final bool canScrollDown;
+
+  /// Whether the hit column is the first body column visible in the viewport.
+  final bool isFirstVisibleColumn;
+
+  /// Whether the hit column is the last body column visible in the viewport.
+  final bool isLastVisibleColumn;
+
+  /// Whether the user can scroll left (hOffset > minScrollExtent).
+  final bool canScrollLeft;
+
+  /// Whether there are more columns to the right of the visible area.
+  final bool canScrollRight;
+
+  const SSpreadsheetHitResult({
+    this.rowIndex,
+    this.rowProgress = 0.0,
+    this.columnIndex,
+    this.columnProgress = 0.0,
+    this.isInDataArea = false,
+    this.totalRows = 0,
+    this.totalColumns = 0,
+    this.isFirstVisibleRow = false,
+    this.isLastVisibleRow = false,
+    this.canScrollUp = false,
+    this.canScrollDown = false,
+    this.isFirstVisibleColumn = false,
+    this.isLastVisibleColumn = false,
+    this.canScrollLeft = false,
+    this.canScrollRight = false,
+  });
+}
+
 /// A reusable, spreadsheet-like 2D table composed of:
 /// - a fixed top header row
 /// - an optional fixed left row-header column
@@ -425,10 +502,14 @@ class SSpreadsheet extends StatefulWidget {
         assert(headerHeight >= 0, 'headerHeight must be >= 0');
 
   @override
-  State<SSpreadsheet> createState() => _SSpreadsheetState();
+  State<SSpreadsheet> createState() => SSpreadsheetState();
 }
 
-class _SSpreadsheetState extends State<SSpreadsheet> {
+/// Public state class for [SSpreadsheet].
+///
+/// Use a [GlobalKey<SSpreadsheetState>] to access:
+/// - [hitTest] — map viewport coordinates to grid cell with auto-scroll context.
+class SSpreadsheetState extends State<SSpreadsheet> {
   late final SyncScrollControllerGroup _horizontalSyncGroup;
   IndexedScrollController? _ownedVerticalIndexedController;
 
@@ -654,6 +735,170 @@ class _SSpreadsheetState extends State<SSpreadsheet> {
   };
 
   // ======= End keystroke helpers =======
+
+  /// Maps a viewport-local position to a spreadsheet grid cell.
+  ///
+  /// [viewportLocalX] and [viewportLocalY] are coordinates relative to the
+  /// top-left corner of this spreadsheet widget's bounding box.
+  /// [viewportWidth] and [viewportHeight] are the widget's visible dimensions.
+  ///
+  /// Returns an [SSpreadsheetHitResult] with grid cell indices, progress
+  /// within the hit cell, and visibility context for edge-triggered auto-scroll.
+  SSpreadsheetHitResult hitTest(
+    double viewportLocalX,
+    double viewportLocalY,
+    double viewportWidth,
+    double viewportHeight,
+  ) {
+    final totalRows = widget.rowCount;
+    final totalColumns = widget.columnCount;
+    final headerH = widget.showColumnHeader ? widget.headerHeight : 0.0;
+    final rowHeaderW = widget.rowHeaderWidth;
+
+    // --- Vertical: find hit row ---
+    final vController = _verticalIndexedController.controller;
+    final vOffset = vController.hasClients ? vController.offset : 0.0;
+    final vMinExtent =
+        vController.hasClients ? vController.position.minScrollExtent : 0.0;
+
+    // Content-space Y = viewport Y minus header, plus scroll offset.
+    final contentY = viewportLocalY - headerH + vOffset;
+    final dataViewportHeight = viewportHeight - headerH;
+
+    int? rowIndex;
+    double rowProgress = 0.0;
+    bool isFirstVisibleRow = false;
+    bool isLastVisibleRow = false;
+    bool canScrollUp = false;
+    bool canScrollDown = false;
+    int? firstVisible;
+    int? lastVisible;
+
+    if (contentY >= 0 && totalRows > 0) {
+      double cumulative = 0.0;
+      for (int i = 0; i < totalRows; i++) {
+        final h = _rowHeightAt(i);
+        if (firstVisible == null && cumulative + h > vOffset) {
+          firstVisible = i;
+        }
+        if (firstVisible != null &&
+            lastVisible == null &&
+            cumulative + h > vOffset + dataViewportHeight) {
+          lastVisible = i > 0 ? i - 1 : i;
+          // Handle the edge case where the last visible row is the very first row
+          // that is partially visible at the bottom
+          if (lastVisible < firstVisible) {
+            lastVisible = firstVisible;
+          }
+        }
+        if (contentY < cumulative + h) {
+          rowIndex = i;
+          rowProgress = ((contentY - cumulative) / h).clamp(0.0, 1.0);
+          break;
+        }
+        cumulative += h;
+      }
+      // If we never found a "last visible" because content fits entirely,
+      // the last visible is the last existing row.
+      if (firstVisible != null && lastVisible == null) {
+        lastVisible = totalRows - 1;
+      }
+      // If contentY is beyond the last row, clamp to last row
+      if (rowIndex == null && totalRows > 0 && contentY >= 0) {
+        rowIndex = totalRows - 1;
+        rowProgress = 1.0;
+      }
+
+      canScrollUp = vOffset > vMinExtent;
+      canScrollDown =
+          lastVisible != null && lastVisible < totalRows - 1;
+      if (rowIndex != null) {
+        isFirstVisibleRow = firstVisible != null && rowIndex == firstVisible;
+        isLastVisibleRow = lastVisible != null && rowIndex == lastVisible;
+      }
+    }
+
+    // --- Horizontal: find hit column ---
+    final hMetrics = widget.horizontalSyncController?.value;
+    final hOffset = hMetrics?.offset ?? 0.0;
+    final hController = hMetrics?.controller;
+    final hMinExtent =
+        (hController != null && hController.hasClients)
+            ? hController.position.minScrollExtent
+            : 0.0;
+
+    // Content-space X = viewport X minus row-header, plus horizontal offset.
+    final contentX = viewportLocalX - rowHeaderW + hOffset;
+    final dataViewportWidth = viewportWidth - rowHeaderW;
+
+    int? columnIndex;
+    double columnProgress = 0.0;
+    bool isFirstVisibleColumn = false;
+    bool isLastVisibleColumn = false;
+    bool canScrollLeft = false;
+    bool canScrollRight = false;
+    int? firstVisibleCol;
+    int? lastVisibleCol;
+
+    if (contentX >= 0 && totalColumns > 0) {
+      double cumulative = 0.0;
+      for (int j = 0; j < totalColumns; j++) {
+        final w = _columnWidthAt(j);
+        if (firstVisibleCol == null && cumulative + w > hOffset) {
+          firstVisibleCol = j;
+        }
+        if (firstVisibleCol != null &&
+            lastVisibleCol == null &&
+            cumulative + w > hOffset + dataViewportWidth) {
+          lastVisibleCol = j > 0 ? j - 1 : j;
+          if (lastVisibleCol < firstVisibleCol) {
+            lastVisibleCol = firstVisibleCol;
+          }
+        }
+        if (contentX < cumulative + w) {
+          columnIndex = j;
+          columnProgress = ((contentX - cumulative) / w).clamp(0.0, 1.0);
+          break;
+        }
+        cumulative += w;
+      }
+      if (firstVisibleCol != null && lastVisibleCol == null) {
+        lastVisibleCol = totalColumns - 1;
+      }
+      if (columnIndex == null && totalColumns > 0 && contentX >= 0) {
+        columnIndex = totalColumns - 1;
+        columnProgress = 1.0;
+      }
+
+      canScrollLeft = hOffset > hMinExtent;
+      canScrollRight =
+          lastVisibleCol != null && lastVisibleCol < totalColumns - 1;
+      if (columnIndex != null) {
+        isFirstVisibleColumn =
+            firstVisibleCol != null && columnIndex == firstVisibleCol;
+        isLastVisibleColumn =
+            lastVisibleCol != null && columnIndex == lastVisibleCol;
+      }
+    }
+
+    return SSpreadsheetHitResult(
+      rowIndex: rowIndex,
+      rowProgress: rowProgress,
+      columnIndex: columnIndex,
+      columnProgress: columnProgress,
+      isInDataArea: rowIndex != null && columnIndex != null,
+      totalRows: totalRows,
+      totalColumns: totalColumns,
+      isFirstVisibleRow: isFirstVisibleRow,
+      isLastVisibleRow: isLastVisibleRow,
+      canScrollUp: canScrollUp,
+      canScrollDown: canScrollDown,
+      isFirstVisibleColumn: isFirstVisibleColumn,
+      isLastVisibleColumn: isLastVisibleColumn,
+      canScrollLeft: canScrollLeft,
+      canScrollRight: canScrollRight,
+    );
+  }
 
   Widget _buildHeaderRow() {
     return SizedBox(

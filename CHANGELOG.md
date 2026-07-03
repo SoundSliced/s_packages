@@ -1,3 +1,10 @@
+## 5.3.5
+- **`s_spreadsheet` — coordinate-to-grid hit-test API**:
+  - Made `_SSpreadsheetState` public as `SSpreadsheetState` so callers can use `GlobalKey<SSpreadsheetState>`.
+  - Added `SSpreadsheetHitResult` class with row/column indices, progress within hit cell (`rowProgress`, `columnProgress`), visibility context booleans (`isFirstVisibleRow`, `isLastVisibleRow`, `canScrollUp`, `canScrollDown`, `isFirstVisibleColumn`, `isLastVisibleColumn`, `canScrollLeft`, `canScrollRight`), and total counts (`totalRows`, `totalColumns`).
+  - Added `hitTest(double viewportLocalX, double viewportLocalY, double viewportWidth, double viewportHeight)` method to `SSpreadsheetState` — maps a viewport-local position to a grid cell with full visibility context for edge-triggered auto-scroll.
+  - Exported `SSpreadsheetState` and `SSpreadsheetHitResult` from `s_spreadsheet` library barrel.
+
 ## 5.3.4
 - **`s_webview` upgraded**:
   - **Visual Dark Mode on Web (CSS Filter)**: Added a new `darkMode` configuration parameter. On Flutter Web, this dynamically applies a CSS `invert(1) hue-rotate(180deg)` filter to the underlying iframe element by recursively traversing the DOM and Shadow roots. For pages loaded via CORS proxy, it injects a custom stylesheet to re-invert image, video, canvas, and picture elements to preserve their natural colors. On desktop platforms, it sets native webview brightness.
