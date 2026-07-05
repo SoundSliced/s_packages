@@ -1,3 +1,9 @@
+## 5.3.7
+- **`states_rebuilder_extended` — zero-rebuild listener extensions for `Injected`**:
+  - Added `addSideEffectListener(VoidCallback)` → returns a disposer `VoidCallback`. Invokes the callback on every `notify()` without triggering widget rebuilds. Built on `addObserver(isSideEffects: true)`.
+  - Added `addListener(VoidCallback)` / `removeListener(VoidCallback)` — `ValueNotifier`-compatible API so `Injected` instances can be used as drop-in replacements for `ValueNotifier` without changing listener registration code. Uses an `Expando`-backed registry to track disposers per instance.
+  - Both extensions are zero-rebuild: the callback runs directly via the side-effects listener path, never through `OnBuilder` / widget rebuilds. Ideal for high-frequency updates like edge-triggered auto-scroll.
+
 ## 5.3.6
 - upgraded dependencies
 

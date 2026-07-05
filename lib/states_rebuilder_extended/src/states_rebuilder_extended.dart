@@ -281,6 +281,57 @@ extension NonNullableBooleanStateRebuilderExtension on Injected<bool> {
   }
 }
 
+/// Zero-rebuild side-effect listener: adds a listener callback that is
+/// invoked on every `notify()` without triggering widget rebuilds.
+/// Returns a disposer (`VoidCallback`) that removes the listener.
+///
+/// Equivalent to `addObserver(isSideEffects: true)` with a simpler
+/// `VoidCallback` signature.
+extension SideEffectListenerExtension on Injected<dynamic> {
+  /// Adds a zero-rebuild listener. Returns a disposer that removes the
+  /// listener.  Use when you need to react to state changes without
+  /// triggering any `OnBuilder` / widget rebuilds (e.g. high-frequency
+  /// updates like edge-triggered auto-scroll or data subscriptions).
+  VoidCallback addSideEffectListener(VoidCallback listener) {
+    return addObserver(
+      listener: (_) => listener(),
+      isSideEffects: true,
+    );
+  }
+}
+
+/// ValueNotifier-compatible `addListener` / `removeListener` API for
+/// `Injected` instances.  Uses `isSideEffects: true` under the hood so
+/// no widget rebuilds are triggered — only the raw callback is invoked.
+///
+/// This allows replacing a `ValueNotifier<T>` with `RM.inject<T>(...)`
+/// without changing the listener registration code.
+extension InjectedListenerExtension on Injected<dynamic> {
+  static final Expando<Map<VoidCallback, VoidCallback>> _disposers =
+      Expando<Map<VoidCallback, VoidCallback>>();
+
+  /// Registers a zero-rebuild listener.  The callback is called on every
+  /// `notify()` but does **not** cause `OnBuilder` widgets to rebuild.
+  void addListener(VoidCallback listener) {
+    _disposers[this] ??= <VoidCallback, VoidCallback>{};
+    final disposer = addObserver(
+      listener: (_) => listener(),
+      isSideEffects: true,
+    );
+    _disposers[this]![listener] = disposer;
+  }
+
+  /// Removes a previously registered listener.
+  void removeListener(VoidCallback listener) {
+    final map = _disposers[this];
+    if (map == null) return;
+    final disposer = map.remove(listener);
+    if (disposer != null) {
+      disposer();
+    }
+  }
+}
+
 /// Safe refresh helper to ignore disposed exceptions.
 extension SafeRefresh on Injected<dynamic> {
   void safeRefresh() {
