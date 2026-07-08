@@ -160,7 +160,8 @@ class _SSwitcherState extends State<SSwitcher> {
     } else if (widget.suffixText != null) {
       suffixWidget = Padding(
         padding: const EdgeInsets.only(left: 10),
-        child: Text(widget.suffixText!, style: widget.suffixTextStyle ?? defaultSuffixStyle),
+        child: Text(widget.suffixText!,
+            style: widget.suffixTextStyle ?? defaultSuffixStyle),
       );
     }
 
@@ -175,21 +176,24 @@ class _SSwitcherState extends State<SSwitcher> {
             )
           else
             prefixWidget,
-          if (widget.customPrefix != null || widget.title != null) const SizedBox(width: 4),
+          if (widget.customPrefix != null || widget.title != null)
+            const SizedBox(width: 4),
           SDisabled(
             isDisabled: !widget.enableDecrement,
             opacityWhenDisabled: 0.4,
             child: SBounceable(
               scaleFactor: 0.99,
               onTap: widget.enableDecrement ? widget.onDecrement : null,
-              child: Icon(widget.decrementIcon, size: widget.iconSize, color: widget.iconColor),
+              child: Icon(widget.decrementIcon,
+                  size: widget.iconSize, color: widget.iconColor),
             ),
           ),
           Flexible(
             child: Container(
               margin: widget.valueContainerMargin,
               padding: widget.valueContainerPadding,
-              decoration: widget.valueContainerDecoration ?? defaultValueDecoration,
+              decoration:
+                  widget.valueContainerDecoration ?? defaultValueDecoration,
               alignment: Alignment.center,
               child: Text(
                 _currentValue,
@@ -204,7 +208,8 @@ class _SSwitcherState extends State<SSwitcher> {
             child: SBounceable(
               scaleFactor: 0.99,
               onTap: widget.enableIncrement ? widget.onIncrement : null,
-              child: Icon(widget.incrementIcon, size: widget.iconSize, color: widget.iconColor),
+              child: Icon(widget.incrementIcon,
+                  size: widget.iconSize, color: widget.iconColor),
             ),
           ),
           if (widget.suffixText != null || widget.customSuffix != null)
