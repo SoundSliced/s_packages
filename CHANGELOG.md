@@ -1,3 +1,9 @@
+
+## 5.3.8
+- **`s_switcher` upgraded**
+  - **breaking change** Renamed `valueText` to `value`. 
+  - **breaking change** converted widget to `StatefulWidget`: To ensure that `SSwitcher` catches changes to the `value` parameter automatically during its lifecycle 
+
 ## 5.3.7
 - **`states_rebuilder_extended` — zero-rebuild listener extensions for `Injected`**:
   - Added `addSideEffectListener(VoidCallback)` → returns a disposer `VoidCallback`. Invokes the callback on every `notify()` without triggering widget rebuilds. Built on `addObserver(isSideEffects: true)`.

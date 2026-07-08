@@ -5,7 +5,7 @@ import '../s_disabled/s_disabled.dart';
 /// A widget that displays a value with decrement (-) and increment (+) buttons.
 /// It is composed of a prefix widget (title or custom prefix),
 /// a value widget (text or custom value widget), and a suffix widget (suffix text or custom suffix).
-class SSwitcher extends StatelessWidget {
+class SSwitcher extends StatefulWidget {
   /// Optional title displayed on the left.
   final String? title;
   final TextStyle? titleStyle;
@@ -28,8 +28,8 @@ class SSwitcher extends StatelessWidget {
   /// Whether the increment button is enabled. Defaults to true.
   final bool enableIncrement;
 
-  /// The text to display in the center (the value).
-  final String valueText;
+  /// The value to display in the center.
+  final String value;
   final TextStyle? valueTextStyle;
 
   /// Optional suffix text displayed on the right.
@@ -60,7 +60,7 @@ class SSwitcher extends StatelessWidget {
 
   const SSwitcher({
     super.key,
-    required this.valueText,
+    required this.value,
     this.title,
     this.titleStyle,
     this.titleTooltip,
@@ -86,6 +86,27 @@ class SSwitcher extends StatelessWidget {
     this.iconColor,
     this.valueTextStyle,
   });
+
+  @override
+  State<SSwitcher> createState() => _SSwitcherState();
+}
+
+class _SSwitcherState extends State<SSwitcher> {
+  late String _currentValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentValue = widget.value;
+  }
+
+  @override
+  void didUpdateWidget(covariant SSwitcher oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.value != widget.value) {
+      _currentValue = widget.value;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,74 +140,74 @@ class SSwitcher extends StatelessWidget {
     );
 
     Widget prefixWidget = const SizedBox.shrink();
-    if (customPrefix != null) {
-      prefixWidget = customPrefix!;
-    } else if (title != null) {
+    if (widget.customPrefix != null) {
+      prefixWidget = widget.customPrefix!;
+    } else if (widget.title != null) {
       final titleText = Text(
-        title!,
-        style: titleStyle ?? defaultTitleStyle,
+        widget.title!,
+        style: widget.titleStyle ?? defaultTitleStyle,
         overflow: TextOverflow.ellipsis,
         softWrap: false,
       );
-      prefixWidget = titleTooltip != null
-          ? Tooltip(message: titleTooltip!, child: titleText)
+      prefixWidget = widget.titleTooltip != null
+          ? Tooltip(message: widget.titleTooltip!, child: titleText)
           : titleText;
     }
 
     Widget suffixWidget = const SizedBox.shrink();
-    if (customSuffix != null) {
-      suffixWidget = customSuffix!;
-    } else if (suffixText != null) {
+    if (widget.customSuffix != null) {
+      suffixWidget = widget.customSuffix!;
+    } else if (widget.suffixText != null) {
       suffixWidget = Padding(
         padding: const EdgeInsets.only(left: 10),
-        child: Text(suffixText!, style: suffixTextStyle ?? defaultSuffixStyle),
+        child: Text(widget.suffixText!, style: widget.suffixTextStyle ?? defaultSuffixStyle),
       );
     }
 
     return Container(
-      padding: containerPadding,
-      decoration: containerDecoration ?? defaultContainerDecoration,
+      padding: widget.containerPadding,
+      decoration: widget.containerDecoration ?? defaultContainerDecoration,
       child: Row(
         children: [
-          if (customPrefix != null || title != null)
+          if (widget.customPrefix != null || widget.title != null)
             Flexible(
               child: prefixWidget,
             )
           else
             prefixWidget,
-          if (customPrefix != null || title != null) const SizedBox(width: 4),
+          if (widget.customPrefix != null || widget.title != null) const SizedBox(width: 4),
           SDisabled(
-            isDisabled: !enableDecrement,
+            isDisabled: !widget.enableDecrement,
             opacityWhenDisabled: 0.4,
             child: SBounceable(
               scaleFactor: 0.99,
-              onTap: enableDecrement ? onDecrement : null,
-              child: Icon(decrementIcon, size: iconSize, color: iconColor),
+              onTap: widget.enableDecrement ? widget.onDecrement : null,
+              child: Icon(widget.decrementIcon, size: widget.iconSize, color: widget.iconColor),
             ),
           ),
           Flexible(
             child: Container(
-              margin: valueContainerMargin,
-              padding: valueContainerPadding,
-              decoration: valueContainerDecoration ?? defaultValueDecoration,
+              margin: widget.valueContainerMargin,
+              padding: widget.valueContainerPadding,
+              decoration: widget.valueContainerDecoration ?? defaultValueDecoration,
               alignment: Alignment.center,
               child: Text(
-                valueText,
-                style: valueTextStyle ?? defaultValueStyle,
+                _currentValue,
+                style: widget.valueTextStyle ?? defaultValueStyle,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
           SDisabled(
-            isDisabled: !enableIncrement,
+            isDisabled: !widget.enableIncrement,
             opacityWhenDisabled: 0.4,
             child: SBounceable(
               scaleFactor: 0.99,
-              onTap: enableIncrement ? onIncrement : null,
-              child: Icon(incrementIcon, size: iconSize, color: iconColor),
+              onTap: widget.enableIncrement ? widget.onIncrement : null,
+              child: Icon(widget.incrementIcon, size: widget.iconSize, color: widget.iconColor),
             ),
           ),
-          if (suffixText != null || customSuffix != null)
+          if (widget.suffixText != null || widget.customSuffix != null)
             Flexible(child: suffixWidget)
           else
             suffixWidget,
