@@ -13,10 +13,10 @@ packages:
     dependency: "direct main"
     description:
       name: assorted_layout_widgets
-      sha256: "7134e5f4d3be0adacf3a18275317837c49a8e521eaab9d152ea257a881105569"
+      sha256: "6417be24b760737e69d4a231929315d317bedff88686e61deadb49e8619ae0f9"
       url: "https://pub.dev"
     source: hosted
-    version: "12.6.2"
+    version: "12.7.0"
   async:
     dependency: "direct main"
     description:
@@ -93,10 +93,10 @@ packages:
     dependency: transitive
     description:
       name: convert_object
-      sha256: "36d24e8bb88de1e7c1c2cbd757b7bfae21a0e31047a95a9b69672de394108b50"
+      sha256: a35faeb03782a26e23521a73e0d7e71e3dd4294edf9f31f2e62cc5dc28f12d93
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   crypto:
     dependency: transitive
     description:
@@ -117,10 +117,10 @@ packages:
     dependency: "direct main"
     description:
       name: dart_helper_utils
-      sha256: a2a51cc358e803e003c81850ccf76672d2a33cd5301d78ba62cc4dee13f4887d
+      sha256: a4c1e943555f2c187bd99df54e86ba0270f63d0948a0ce83fa39a47378c933a5
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.2"
+    version: "6.1.0"
   desktop_webview_window:
     dependency: "direct main"
     description:
@@ -133,26 +133,26 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: ea2bad3c89a27635ce2d85cce4d6b199da49a5a48ec77b03e45b65a3b90922b0
+      sha256: "0df44ebba85e503958eb75d07eedd3c86275a58c1d3eda2f2ce8f0a2c3abbb3c"
       url: "https://pub.dev"
     source: hosted
-    version: "5.10.0"
+    version: "5.11.0"
   dio_web_adapter:
     dependency: transitive
     description:
       name: dio_web_adapter
-      sha256: "2f9e64323a7c3c7ef69567d5c800424a11f8337b8b228bad02524c9fb3c1f340"
+      sha256: "0786d0b7295a373de356fc0af4f6f1d0ab2844ed31b19dfc5e7556b70e24212c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.2"
+    version: "2.2.1"
   equatable:
     dependency: transitive
     description:
       name: equatable
-      sha256: "3e0141505477fd8ad55d6eb4e7776d3fe8430be8e497ccb1521370c3f21a3e2b"
+      sha256: "3bce007a596ff8b3119c45d68aaef631272537c03d30e5d4534dd24bf4c5eaa2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.8"
+    version: "2.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -249,10 +249,10 @@ packages:
     dependency: transitive
     description:
       name: hooks
-      sha256: "9a62a50b50b769a737bc0a8ff381f333529df3ab746b2f6b02e83760231455ba"
+      sha256: "03a564c3704524ee0f7fc56fc621e8796cc2eb8c24d1f1a33b34979815b285c4"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.2"
+    version: "2.1.0"
   html:
     dependency: "direct main"
     description:
@@ -297,10 +297,10 @@ packages:
     dependency: transitive
     description:
       name: intl
-      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
+      sha256: "1ca20c894b1717686a2319b8548763d812bc0aabdac580420a44c5178c57a867"
       url: "https://pub.dev"
     source: hosted
-    version: "0.20.2"
+    version: "0.20.3"
   jni:
     dependency: transitive
     description:
@@ -385,10 +385,10 @@ packages:
     dependency: "direct main"
     description:
       name: meta
-      sha256: c82594181e3312f3d0695fc95aaaf7758d75b8d4ae2bbecf223b9fd5109a059d
+      sha256: "307249ce4ff29d58a18e97f6345f539382eb9c9c29ecda628900f31de0443dd9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.18.3"
+    version: "1.19.0"
   mime:
     dependency: transitive
     description:
@@ -465,10 +465,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_linux
-      sha256: f7a1fe3a634fe7734c8d3f2766ad746ae2a2884abe22e241a8b301bf5cac3279
+      sha256: "58c2005f147315b11e9b4a7bc889cd5203e250cba8e3f012dae259b4972b5c16"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -561,10 +561,10 @@ packages:
     dependency: transitive
     description:
       name: record_use
-      sha256: "2551bd8eecfe95d14ae75f6021ad0248be5c27f138c2ec12fcb52b500b3ba1ed"
+      sha256: af37186ff9ede46fa32f152526c48f46c5b3ad7d3d5a566140cb5df3dc4ed737
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.0"
+    version: "1.0.0"
   rxdart:
     dependency: "direct main"
     description:
@@ -585,10 +585,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "93ae5884a9df5d3bb696825bceb3a17590754548b5d740eba51500afc8d088f5"
+      sha256: "0634e64bd719f89c012f392938e173521f535d3ecaf66558fa94a056d22b5cc7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.26"
+    version: "2.4.27"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -714,6 +714,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  stringo:
+    dependency: transitive
+    description:
+      name: stringo
+      sha256: c81711b419454f32fe0401ab5fd99d35ae119b4f84a7559641c08bd498eb92d4
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   tabler_icons_plus:
     dependency: "direct main"
     description:
@@ -758,10 +766,10 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      sha256: "1d774bbdf6b72a0b12122fc1560c9c2d2a67db5a4a4cc2bd8a5c990ab20e3188"
+      sha256: "99b6fb0d1881dd1302cd42e0f53bcce99ea246e0a85c8aeb79fb38b283852e88"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
   vm_service:
     dependency: transitive
     description:

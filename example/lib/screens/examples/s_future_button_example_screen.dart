@@ -145,7 +145,7 @@ class _SFutureButtonExampleScreenState
               ),
               const SizedBox(height: 8),
               const Text(
-                'Custom dimensions and border radius',
+                'Custom dimensions, border radius, and label typography',
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               const SizedBox(height: 12),
@@ -158,6 +158,10 @@ class _SFutureButtonExampleScreenState
                   borderRadius: 12,
                   bgColor: Colors.green.shade600,
                   isElevatedButton: true,
+                  labelStyle: const TextStyle(
+                    fontSize: 16,
+                    letterSpacing: 0.5,
+                  ),
                   onPostSuccess: () {
                     _updateStatus('Custom styled button pressed!');
                   },
@@ -172,22 +176,25 @@ class _SFutureButtonExampleScreenState
               ),
               const SizedBox(height: 8),
               const Text(
-                'Button with icon instead of text',
+                'Button with an icon, label, and custom completion visuals',
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               const SizedBox(height: 12),
               Center(
                 child: SFutureButton(
                   onTap: _simulateSuccess,
+                  label: 'Upload',
                   icon: Icon(
                     Icons.cloud_upload,
                     color: Theme.of(context).colorScheme.onSecondary,
                     size: 24,
                   ),
                   height: 50,
-                  width: 50,
-                  borderRadius: 25,
+                  width: 160,
+                  borderRadius: 12,
                   bgColor: Colors.purple.shade600,
+                  successColor: Colors.teal.shade600,
+                  successIcon: Icons.cloud_done,
                   onPostSuccess: () {
                     _updateStatus('Upload completed!');
                   },

@@ -1,4 +1,30 @@
 
+## 5.3.9
+- **`s_future_button` upgraded**
+  - Added new customization parameters:
+    - `labelStyle` for custom label text styling (merged with the default bold white style)
+    - `successColor`, `errorColor`, `successIcon`, `errorIcon` for completion-state visuals
+    - `semanticsLabel` for explicit accessibility naming
+  - Improved lifecycle behavior:
+    - Added update handling so changes to `label`, `labelStyle`, and `icon` are reliably reflected while mounted
+    - Added stable animated content identity updates to avoid stale content through transitions
+  - Improved idle content composition:
+    - Supports icon-only, label-only, and icon+label rendering when both are provided
+  - Hardened async and interaction flow:
+    - Prevents concurrent double-tap execution while an async action is active
+    - Starts async work immediately on accepted tap (no dependency on animation completion timing)
+    - Added mounted/disposal/operation guards around delayed success/error/reset/callback paths
+  - Improved semantics and enabled-state behavior:
+    - Loading/disabled states are reflected via semantic state values and enabled flags
+    - Disabled `SFutureButton` now forwards a null internal callback to reflect a true non-interactive state
+  - Example updates:
+    - Updated `SFutureButton` example to demonstrate `labelStyle`, icon+label composition, and custom success visuals
+  - Added focused lifecycle regression coverage:
+    - New `test/s_future_button_lifecycle_test.dart` verifies label/style updates, content composition, completion customization forwarding, single-flight async behavior, disposal safety, and semantics
+
+- **`s_disabled` accessibility fix**
+  - Disabled wrapper gesture handling no longer leaks an unintended semantic tap action (disabled controls remain non-tappable to assistive technologies)
+
 ## 5.3.8
 - **`s_switcher` upgraded**
   - **breaking change** Renamed `valueText` to `value`. 

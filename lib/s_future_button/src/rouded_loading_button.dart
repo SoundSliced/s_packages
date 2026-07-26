@@ -20,6 +20,13 @@ class MyRoundedLoadingButton extends StatefulWidget {
   /// The button's label
   final Widget child;
 
+  /// Identity for [child] when its content changes while the button remains
+  /// mounted.
+  final Key? contentKey;
+
+  /// Accessible name announced for the button.
+  final String? semanticLabel;
+
   /// The primary color of the button
   final Color? color;
 
@@ -94,6 +101,8 @@ class MyRoundedLoadingButton extends StatefulWidget {
     required this.controller,
     required this.onPressed,
     required this.child,
+    this.contentKey,
+    this.semanticLabel,
     this.color = Colors.lightBlue,
     this.height = 50,
     this.width = 300,
@@ -156,7 +165,15 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
       builder: (context, snapshot) {
         return AnimatedSwitcher(
           duration: const Duration(milliseconds: 200),
-          child: snapshot.data == SButtonState.loading ? loader : widget.child,
+          child: snapshot.data == SButtonState.loading
+              ? KeyedSubtree(
+                  key: const ValueKey('s_future_button_loader'),
+                  child: loader,
+                )
+              : KeyedSubtree(
+                  key: widget.contentKey,
+                  child: widget.child,
+                ),
         );
       },
     );
@@ -224,13 +241,6 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
               ),
               duration: widget.duration,
               curve: widget.curve,
-              onEnd: () {
-                if (_isSqueezing &&
-                    widget.animateOnTap &&
-                    widget.onPressed != null) {
-                  widget.onPressed!();
-                }
-              },
               builder: (context, squeezeValue, child) {
                 final borderRadius = _isSqueezing
                     ? widget.borderRadius +
@@ -241,48 +251,58 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
                                         targetHeight)))
                     : widget.borderRadius;
 
-                return ButtonTheme(
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(_safeDouble(borderRadius, 35)),
-                  ),
-                  disabledColor: widget.disabledColor,
-                  padding: const EdgeInsets.all(0),
-                  child: ElevatedButton(
-                    focusNode: widget.focusNode,
-                    onFocusChange: (value) {
-                      if (mounted) {
-                        setState(
-                          () => onFocusColor = value
-                              ? Colors.blue.shade800.withValues(alpha: 0.6)
-                              : null,
-                        );
-
-                        widget.onFocusChange?.call(value);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      surfaceTintColor: widget.disabledColor,
-                      minimumSize:
-                          Size(_safeDouble(squeezeValue, 150), targetHeight),
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: onFocusColor ??
-                              widget.successColor?.darken(0.2) ??
-                              Colors.transparent,
-                          width: onFocusColor == null ? 0.2 : 2,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                            _safeDouble(borderRadius, 35)),
-                      ),
-                      backgroundColor: widget.color,
-                      shadowColor:
-                          widget.elevation == 0 ? Colors.transparent : null,
-                      elevation: widget.elevation,
-                      padding: const EdgeInsets.all(0),
+                return Semantics(
+                  button: true,
+                  enabled: widget.onPressed != null && !_isSqueezing,
+                  label: widget.semanticLabel,
+                  value: currentState == SButtonState.loading
+                      ? 'Loading'
+                      : currentState.name,
+                  child: ButtonTheme(
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(_safeDouble(borderRadius, 35)),
                     ),
-                    onPressed: widget.onPressed == null ? null : _btnPressed,
-                    child: childStream,
+                    disabledColor: widget.disabledColor,
+                    padding: const EdgeInsets.all(0),
+                    child: ElevatedButton(
+                      focusNode: widget.focusNode,
+                      onFocusChange: (value) {
+                        if (mounted) {
+                          setState(
+                            () => onFocusColor = value
+                                ? Colors.blue.shade800.withValues(alpha: 0.6)
+                                : null,
+                          );
+
+                          widget.onFocusChange?.call(value);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        surfaceTintColor: widget.disabledColor,
+                        minimumSize:
+                            Size(_safeDouble(squeezeValue, 150), targetHeight),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: onFocusColor ??
+                                widget.successColor?.darken(0.2) ??
+                                Colors.transparent,
+                            width: onFocusColor == null ? 0.2 : 2,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                              _safeDouble(borderRadius, 35)),
+                        ),
+                        backgroundColor: widget.color,
+                        shadowColor:
+                            widget.elevation == 0 ? Colors.transparent : null,
+                        elevation: widget.elevation,
+                        padding: const EdgeInsets.all(0),
+                      ),
+                      onPressed: widget.onPressed == null || _isSqueezing
+                          ? null
+                          : _btnPressed,
+                      child: childStream,
+                    ),
                   ),
                 );
               },
@@ -322,13 +342,16 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
     super.dispose();
   }
 
-  void _btnPressed() async {
+  void _btnPressed() {
+    if (_isSqueezing) return;
     if (widget.animateOnTap) {
       _start();
+      // Starting work must not depend on the visual animation completing.
+      // STweenAnimationBuilder deliberately uses real timers, while Flutter
+      // tests and paused applications can advance frames without wall time.
+      widget.onPressed?.call();
     } else {
-      if (widget.onPressed != null) {
-        widget.onPressed!();
-      }
+      widget.onPressed?.call();
     }
   }
 

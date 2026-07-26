@@ -66,6 +66,7 @@ class SDisabled extends StatelessWidget {
               : 1,
       child: isDisabled == true
           ? GestureDetector(
+              excludeFromSemantics: true,
               onTapDown: (details) {
                 if (onTappedWhenDisabled != null) {
                   onTappedWhenDisabled!(details.globalPosition);
