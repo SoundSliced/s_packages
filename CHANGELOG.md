@@ -1,3 +1,14 @@
+## 5.3.10
+
+- **`s_banner` measurement fix**
+  - Removed child instance identity comparison in `SBanner.didUpdateWidget` to avoid
+    spurious `_childSize` resets when the parent rebuilds with a new but size-identical
+    child instance. This prevents ribbon flicker (e.g. 'Pending ATC') when the
+    containing widget updates (selection changes, context menu opens, etc.).
+  - Added post-frame re-measure logic when `isActive` becomes true and size isn't known.
+
+- Disabled wrapper gesture handling no longer leaks an unintended semantic tap action (disabled controls remain non-tappable to assistive technologies)
+
 
 ## 5.3.9
 - **`s_future_button` upgraded**
@@ -23,7 +34,6 @@
     - New `test/s_future_button_lifecycle_test.dart` verifies label/style updates, content composition, completion customization forwarding, single-flight async behavior, disposal safety, and semantics
 
 - **`s_disabled` accessibility fix**
-  - Disabled wrapper gesture handling no longer leaks an unintended semantic tap action (disabled controls remain non-tappable to assistive technologies)
 
 ## 5.3.8
 - **`s_switcher` upgraded**
