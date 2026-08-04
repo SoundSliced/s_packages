@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:s_packages/s_banner/s_banner.dart';
 
 void main() {
-  testWidgets('SBanner preserves ribbon when child instance changes but size is identical', (tester) async {
+  testWidgets(
+      'SBanner preserves ribbon when child instance changes but size is identical',
+      (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
