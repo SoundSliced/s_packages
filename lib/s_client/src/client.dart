@@ -1528,7 +1528,8 @@ class SClient {
     final request = ClientRequest(
       url: fullUrl,
       method: 'DELETE',
-      headers: body == null ? _withoutContentType(mergedHeaders) : mergedHeaders,
+      headers:
+          body == null ? _withoutContentType(mergedHeaders) : mergedHeaders,
       body: body,
     );
 
