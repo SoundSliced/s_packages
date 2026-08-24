@@ -113,6 +113,23 @@ class SClient {
     return url;
   }
 
+  /// Strips any Content-Type header from [headers].
+  ///
+  /// Requests without a body (GET, HEAD, and DELETE when no body is given)
+  /// have nothing to describe the type of, so a Content-Type header there is
+  /// meaningless — it only serves to turn an otherwise CORS-simple request
+  /// into one that triggers a preflight (OPTIONS) round-trip on web.
+  Map<String, String> _withoutContentType(Map<String, String> headers) {
+    if (!headers.containsKey('Content-Type') &&
+        !headers.containsKey('content-type')) {
+      return headers;
+    }
+    final result = Map<String, String>.from(headers);
+    result.remove('Content-Type');
+    result.remove('content-type');
+    return result;
+  }
+
   /// Runs interceptors' onRequest handlers.
   Future<ClientRequest?> _runRequestInterceptors(ClientRequest request) async {
     ClientRequest? currentRequest = request;
@@ -424,7 +441,7 @@ class SClient {
     final request = ClientRequest(
       url: fullUrl,
       method: 'GET',
-      headers: {...config.defaultHeaders, ...?headers},
+      headers: _withoutContentType({...config.defaultHeaders, ...?headers}),
       queryParameters: queryParameters,
     );
 
@@ -1507,10 +1524,11 @@ class SClient {
     Set<int>? errorCodes,
   }) async {
     final fullUrl = _buildUrl(url);
+    final mergedHeaders = {...config.defaultHeaders, ...?headers};
     final request = ClientRequest(
       url: fullUrl,
       method: 'DELETE',
-      headers: {...config.defaultHeaders, ...?headers},
+      headers: body == null ? _withoutContentType(mergedHeaders) : mergedHeaders,
       body: body,
     );
 
@@ -1731,7 +1749,7 @@ class SClient {
     final request = ClientRequest(
       url: fullUrl,
       method: 'HEAD',
-      headers: {...config.defaultHeaders, ...?headers},
+      headers: _withoutContentType({...config.defaultHeaders, ...?headers}),
     );
 
     final processedRequest = await _runRequestInterceptors(request);

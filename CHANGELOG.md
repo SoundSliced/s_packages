@@ -1,3 +1,16 @@
+## 5.3.11
+
+- **`s_client` GET/HEAD/bodyless DELETE fix**
+  - `SClient` no longer sends a `Content-Type` header on requests with no body
+    (`get`, `head`, and `delete` when called without a `body`). Previously
+    `defaultHeaders` (`application/json`) was merged in unconditionally, which
+    turns an otherwise CORS-simple request into one that triggers a preflight
+    (OPTIONS) round-trip on web — and some servers (e.g. Google Apps Script
+    web app endpoints) don't handle that preflight, causing the request to fail
+    silently on web.
+  - POST/PUT/PATCH and DELETE-with-body are unaffected: their Content-Type is
+    still resolved from headers/defaults as before.
+
 ## 5.3.10
 
 - **`s_banner` measurement fix**

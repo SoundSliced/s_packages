@@ -1,0 +1,5 @@
+{
+  "//": "DSH Web shortcut — click this file in the Explorer to open http://127.0.0.1:3080/ in a VS Code Insiders webview tab.",
+  "//usage": "Clicking this file opens the deepseek-harness web UI via the 'DSH Web AutoOpen' extension's custom editor. The server is started automatically if it isn't already running.",
+  "url": "http://127.0.0.1:3080/"
+}
