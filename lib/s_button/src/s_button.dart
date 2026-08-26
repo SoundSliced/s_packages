@@ -87,6 +87,15 @@ class SButton extends StatefulWidget {
     this.disableOpacityChange = false,
     this.opacityWhenDisabled = 0.3,
     this.onTappedWhenDisabled,
+    this.tapRegionObjectId,
+    this.tapRegionEnabled = true,
+    this.tapRegionBehavior = HitTestBehavior.deferToChild,
+    this.onTapOutside,
+    this.onTapInside,
+    this.onTapUpOutside,
+    this.onTapUpInside,
+    this.consumeOutsideTaps = false,
+    this.tapRegionDebugLabel,
   });
 
   final Widget child;
@@ -131,6 +140,33 @@ class SButton extends StatefulWidget {
 
   /// Callback when disabled widget is tapped, receives tap position
   final void Function(Offset)? onTappedWhenDisabled;
+
+  /// Passed straight through to the underlying [SInkButton.tapRegionObjectId].
+  final Object? tapRegionObjectId;
+
+  /// Passed straight through to the underlying [SInkButton.tapRegionEnabled].
+  final bool tapRegionEnabled;
+
+  /// Passed straight through to the underlying [SInkButton.tapRegionBehavior].
+  final HitTestBehavior tapRegionBehavior;
+
+  /// Passed straight through to the underlying [SInkButton.onTapOutside].
+  final TapRegionCallback? onTapOutside;
+
+  /// Passed straight through to the underlying [SInkButton.onTapInside].
+  final TapRegionCallback? onTapInside;
+
+  /// Passed straight through to the underlying [SInkButton.onTapUpOutside].
+  final TapRegionUpCallback? onTapUpOutside;
+
+  /// Passed straight through to the underlying [SInkButton.onTapUpInside].
+  final TapRegionUpCallback? onTapUpInside;
+
+  /// Passed straight through to the underlying [SInkButton.consumeOutsideTaps].
+  final bool consumeOutsideTaps;
+
+  /// Passed straight through to the underlying [SInkButton.tapRegionDebugLabel].
+  final String? tapRegionDebugLabel;
 
   @override
   State<SButton> createState() => _SButtonState();
@@ -351,6 +387,15 @@ class _SButtonState extends State<SButton> with BubbleLabelMixin {
           isActive: widget.isActive,
           isCircleButton: widget.isCircleButton,
           tooltipMessage: widget.tooltipMessage,
+          tapRegionObjectId: widget.tapRegionObjectId,
+          tapRegionEnabled: widget.tapRegionEnabled,
+          tapRegionBehavior: widget.tapRegionBehavior,
+          onTapOutside: widget.onTapOutside,
+          onTapInside: widget.onTapInside,
+          onTapUpOutside: widget.onTapUpOutside,
+          onTapUpInside: widget.onTapUpInside,
+          consumeOutsideTaps: widget.consumeOutsideTaps,
+          tapRegionDebugLabel: widget.tapRegionDebugLabel,
           child: buttonChild,
         ),
       ),

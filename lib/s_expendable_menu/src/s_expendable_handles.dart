@@ -65,6 +65,33 @@ class SExpandableHandles extends StatefulWidget {
   /// If true, triggers the animation on the next frame.
   final bool? triggerOnTap;
 
+  /// Passed straight through to the underlying [SInkButton.tapRegionObjectId].
+  final Object? tapRegionObjectId;
+
+  /// Passed straight through to the underlying [SInkButton.tapRegionEnabled].
+  final bool tapRegionEnabled;
+
+  /// Passed straight through to the underlying [SInkButton.tapRegionBehavior].
+  final HitTestBehavior tapRegionBehavior;
+
+  /// Passed straight through to the underlying [SInkButton.onTapOutside].
+  final TapRegionCallback? onTapOutside;
+
+  /// Passed straight through to the underlying [SInkButton.onTapInside].
+  final TapRegionCallback? onTapInside;
+
+  /// Passed straight through to the underlying [SInkButton.onTapUpOutside].
+  final TapRegionUpCallback? onTapUpOutside;
+
+  /// Passed straight through to the underlying [SInkButton.onTapUpInside].
+  final TapRegionUpCallback? onTapUpInside;
+
+  /// Passed straight through to the underlying [SInkButton.consumeOutsideTaps].
+  final bool consumeOutsideTaps;
+
+  /// Passed straight through to the underlying [SInkButton.tapRegionDebugLabel].
+  final String? tapRegionDebugLabel;
+
   const SExpandableHandles({
     super.key,
     required this.onTap,
@@ -77,6 +104,15 @@ class SExpandableHandles extends StatefulWidget {
     this.shoulAutodReverseHamburgerAnimationWhenComplete,
     this.onHamburgerStateAnimationCompleted,
     this.triggerOnTap,
+    this.tapRegionObjectId,
+    this.tapRegionEnabled = true,
+    this.tapRegionBehavior = HitTestBehavior.deferToChild,
+    this.onTapOutside,
+    this.onTapInside,
+    this.onTapUpOutside,
+    this.onTapUpInside,
+    this.consumeOutsideTaps = false,
+    this.tapRegionDebugLabel,
   });
 
   @override
@@ -196,6 +232,15 @@ class _SExpandableHandlesState extends State<SExpandableHandles> {
         hoverAndSplashBorderRadius:
             BorderRadius.all(Radius.circular(widget.width)),
         onTap: (pos) => _handleTap(),
+        tapRegionObjectId: widget.tapRegionObjectId,
+        tapRegionEnabled: widget.tapRegionEnabled,
+        tapRegionBehavior: widget.tapRegionBehavior,
+        onTapOutside: widget.onTapOutside,
+        onTapInside: widget.onTapInside,
+        onTapUpOutside: widget.onTapUpOutside,
+        onTapUpInside: widget.onTapUpInside,
+        consumeOutsideTaps: widget.consumeOutsideTaps,
+        tapRegionDebugLabel: widget.tapRegionDebugLabel,
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
           transitionBuilder: (child, animation) {

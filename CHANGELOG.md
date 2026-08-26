@@ -1,3 +1,17 @@
+## 5.4.0
+
+- **`SInkButton` now has a built-in `TapRegion`**
+  - New optional params: `tapRegionObjectId` (→ `TapRegion.groupId`), `tapRegionEnabled`,
+    `tapRegionBehavior`, `onTapOutside`, `onTapInside`, `onTapUpOutside`, `onTapUpInside`,
+    `consumeOutsideTaps`, `tapRegionDebugLabel` — mirroring `TapRegion`'s own constructor
+    1:1, with `TapRegion`'s own defaults. Callers no longer need to manually nest a
+    `TapRegion` inside an `SInkButton`'s `child` to detect taps outside the button (e.g.
+    to auto-collapse an expanded panel).
+  - Fully backward compatible: all new params default to no-ops, so existing usages are
+    unaffected.
+  - `SButton` and `SExpandableHandles` — the other public widgets that wrap `SInkButton`
+    as their entire tap surface — now expose and forward the same params.
+
 ## 5.3.11
 
 - **`s_client` GET/HEAD/bodyless DELETE fix**

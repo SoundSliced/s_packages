@@ -74,6 +74,15 @@ class SInkButton extends StatefulWidget {
     this.onFocusChange,
     this.hoverColor,
     this.splashDuration,
+    this.tapRegionObjectId,
+    this.tapRegionEnabled = true,
+    this.tapRegionBehavior = HitTestBehavior.deferToChild,
+    this.onTapOutside,
+    this.onTapInside,
+    this.onTapUpOutside,
+    this.onTapUpInside,
+    this.consumeOutsideTaps = false,
+    this.tapRegionDebugLabel,
   });
 
   /// The widget displayed inside the button.
@@ -176,6 +185,53 @@ class SInkButton extends StatefulWidget {
   /// Duration of the splash animation.
   /// If null, defaults to 800ms.
   final Duration? splashDuration;
+
+  /// Optional group ID that lets this button's built-in [TapRegion] act as
+  /// one region together with other [TapRegion]/[SInkButton] widgets sharing
+  /// the same id. Passed straight through to [TapRegion.groupId].
+  ///
+  /// A tap on the button itself is always considered "inside" its own
+  /// region, so [groupId] is only needed when several separate regions
+  /// (e.g. this button plus a related overlay) should count as one area for
+  /// [onTapOutside]/[onTapInside] purposes.
+  final Object? tapRegionObjectId;
+
+  /// Whether the button's built-in [TapRegion] is enabled.
+  /// Passed straight through to [TapRegion.enabled]. Defaults to true.
+  final bool tapRegionEnabled;
+
+  /// Hit-test behavior of the button's built-in [TapRegion].
+  /// Passed straight through to [TapRegion.behavior].
+  final HitTestBehavior tapRegionBehavior;
+
+  /// Called when a tap down is detected outside of this button (and any
+  /// other region sharing [tapRegionObjectId]). Passed straight through to
+  /// [TapRegion.onTapOutside].
+  final TapRegionCallback? onTapOutside;
+
+  /// Called when a tap down is detected inside of this button (or any other
+  /// region sharing [tapRegionObjectId]). Passed straight through to
+  /// [TapRegion.onTapInside].
+  final TapRegionCallback? onTapInside;
+
+  /// Called when a tap up is detected outside of this button (and any other
+  /// region sharing [tapRegionObjectId]). Passed straight through to
+  /// [TapRegion.onTapUpOutside].
+  final TapRegionUpCallback? onTapUpOutside;
+
+  /// Called when a tap up is detected inside of this button (or any other
+  /// region sharing [tapRegionObjectId]). Passed straight through to
+  /// [TapRegion.onTapUpInside].
+  final TapRegionUpCallback? onTapUpInside;
+
+  /// Whether an outside tap consumed by this region's group should stop
+  /// being delivered to other widgets below it. Passed straight through to
+  /// [TapRegion.consumeOutsideTaps]. Defaults to false.
+  final bool consumeOutsideTaps;
+
+  /// Debug label for the button's built-in [TapRegion].
+  /// Passed straight through to [TapRegion.debugLabel].
+  final String? tapRegionDebugLabel;
 
   @override
   State<SInkButton> createState() => _SInkButtonState();
@@ -458,7 +514,18 @@ class _SInkButtonState extends State<SInkButton> {
                 message: widget.isActive
                     ? widget.tooltipMessage ?? ""
                     : "Button is disabled",
-                child: widget.child,
+                child: TapRegion(
+                  groupId: widget.tapRegionObjectId,
+                  enabled: widget.tapRegionEnabled,
+                  behavior: widget.tapRegionBehavior,
+                  onTapOutside: widget.onTapOutside,
+                  onTapInside: widget.onTapInside,
+                  onTapUpOutside: widget.onTapUpOutside,
+                  onTapUpInside: widget.onTapUpInside,
+                  consumeOutsideTaps: widget.consumeOutsideTaps,
+                  debugLabel: widget.tapRegionDebugLabel,
+                  child: widget.child,
+                ),
               ),
 
               Positioned.fill(
