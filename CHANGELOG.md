@@ -1,3 +1,13 @@
+## 5.4.1
+
+- **`TimeInput` no longer shows an "Empty" validation error for an intentionally empty field**
+  - When `isEmptyWhenTimeNull` is `true`, an empty field represents a valid null time
+    (e.g. a cleared filter), not an invalid one. The internal validator now skips the
+    "Empty" error in that case while still validating malformed non-empty input.
+  - Previously, any consumer that kept a `TimeInput` empty after the user tapped out
+    (rather than falling back to a default value) would see a persistent "Empty" error
+    message under the field.
+
 ## 5.4.0
 
 - **`SInkButton` now has a built-in `TapRegion`**
