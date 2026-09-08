@@ -496,10 +496,10 @@ class SSpreadsheet extends StatefulWidget {
   final Duration dimAnimationDuration;
 
   /// When `true`, tapping a row-header cell toggles that row's selection on
-  /// [selectionController]. The tap target sits behind whatever
-  /// [rowHeaderBuilder] renders, so interactive elements inside the header
-  /// (e.g. an icon button) still take priority. Requires
-  /// [selectionController] to be set.
+  /// [selectionController]. The tap target wraps whatever [rowHeaderBuilder]
+  /// renders as its ancestor (translucent, so interactive elements inside
+  /// the header — e.g. an icon button — still take priority for their own
+  /// bounds). Requires [selectionController] to be set.
   final bool enableTapToSelectRowHeader;
 
   /// When `true`, tapping a column-header cell toggles that column's
@@ -783,28 +783,29 @@ class SSpreadsheetState extends State<SSpreadsheet> {
         );
 
         if (widget.enableTapToSelectRowHeader) {
-          dimmed = Stack(
-            fit: StackFit.passthrough,
-            children: [
-              // Sits behind `dimmed` so interactive elements the header
-              // itself renders (e.g. a lock icon button) still win taps.
-              Positioned.fill(
-                child: SInkButton(
-                  color: Colors.transparent,
-                  enableHapticFeedback: false,
-                  onTap: (_) {
-                    controller.selectRow(rowKey);
-                    widget.onRowHeaderSelected
-                        ?.call(rowIndex, controller.selectedRowKey);
-                    if (controller.selectedRowKey == null) {
-                      widget.onSelectionCleared?.call();
-                    }
-                  },
-                  child: const SizedBox.expand(),
-                ),
-              ),
-              dimmed,
-            ],
+          // Wraps `dimmed` as its ancestor (not a sibling behind it in a
+          // Stack) so it's always the outermost hit-testable layer: a
+          // Stack's hit test stops at the first (topmost) child whose
+          // subtree claims the tap, so a same-level sibling catcher placed
+          // behind the header content can be silently blocked by anything
+          // in that content that hit-tests positively — even
+          // non-interactive widgets, depending on what they wrap. Wrapping
+          // as an ancestor makes SInkButton itself the first (and only)
+          // thing tested, and its `translucent` hit-test behavior still lets
+          // interactive descendants (e.g. a lock icon button) win their own
+          // taps.
+          dimmed = SInkButton(
+            color: Colors.transparent,
+            enableHapticFeedback: false,
+            onTap: (_) {
+              controller.selectRow(rowKey);
+              widget.onRowHeaderSelected
+                  ?.call(rowIndex, controller.selectedRowKey);
+              if (controller.selectedRowKey == null) {
+                widget.onSelectionCleared?.call();
+              }
+            },
+            child: dimmed,
           );
         }
 
@@ -841,26 +842,22 @@ class SSpreadsheetState extends State<SSpreadsheet> {
         );
 
         if (widget.enableTapToSelectColumnHeader) {
-          dimmed = Stack(
-            fit: StackFit.passthrough,
-            children: [
-              Positioned.fill(
-                child: SInkButton(
-                  color: Colors.transparent,
-                  enableHapticFeedback: false,
-                  onTap: (_) {
-                    controller.selectColumn(columnKey);
-                    widget.onColumnHeaderSelected
-                        ?.call(columnIndex, controller.selectedColumnKey);
-                    if (controller.selectedColumnKey == null) {
-                      widget.onSelectionCleared?.call();
-                    }
-                  },
-                  child: const SizedBox.expand(),
-                ),
-              ),
-              dimmed,
-            ],
+          // See the matching comment in _wrapRowHeaderCell: wrapping as an
+          // ancestor (rather than a same-level Stack sibling behind the
+          // content) avoids the tap being silently blocked by the header's
+          // own content.
+          dimmed = SInkButton(
+            color: Colors.transparent,
+            enableHapticFeedback: false,
+            onTap: (_) {
+              controller.selectColumn(columnKey);
+              widget.onColumnHeaderSelected
+                  ?.call(columnIndex, controller.selectedColumnKey);
+              if (controller.selectedColumnKey == null) {
+                widget.onSelectionCleared?.call();
+              }
+            },
+            child: dimmed,
           );
         }
 

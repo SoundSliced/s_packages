@@ -1,3 +1,18 @@
+## 5.5.1
+
+- **Fix: `SSpreadsheet.enableTapToSelectRowHeader`/`enableTapToSelectColumnHeader` could be
+  silently blocked by the header's own content**
+  - The tap catcher was placed as a same-level `Stack` sibling *behind* whatever
+    `rowHeaderBuilder`/`columnHeaderBuilder` rendered. A `Stack`'s hit test stops at the
+    first (topmost) child whose subtree claims the tap — so any non-interactive content in
+    front of the catcher that happened to hit-test positively could swallow the tap before
+    it ever reached the catcher underneath, making the header effectively untappable.
+  - Fixed by wrapping the header content in the tap target as its *ancestor* instead of a
+    sibling (the same structure a hand-written `SInkButton`-wrapped header already used
+    safely). The tap target is `translucent`, so interactive descendants (e.g. a lock icon
+    button inside the header) still win their own bounds as before.
+  - No API changes.
+
 ## 5.5.0
 
 - **`SSpreadsheet` gains built-in row/column selection + dimming**
