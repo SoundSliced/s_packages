@@ -1,3 +1,14 @@
+## 5.5.2
+
+- **`SSpreadsheet` gains `rowHeaderTapSplashColor`/`columnHeaderTapSplashColor`**
+  - New optional params (both default to `Colors.transparent`, matching prior behavior)
+    controlling the splash/hover color of `enableTapToSelectRowHeader`/
+    `enableTapToSelectColumnHeader`'s tap target. Pass `null` to fall back to
+    `SInkButton`'s own default visible ripple, or any color to match your header's theme —
+    so a header that wants visible tap feedback no longer needs to hand-roll its own
+    `SInkButton` wrapper just to get one, on top of what `enableTapToSelect*Header` already
+    provides.
+
 ## 5.5.1
 
 - **Fix: `SSpreadsheet.enableTapToSelectRowHeader`/`enableTapToSelectColumnHeader` could be

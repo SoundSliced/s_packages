@@ -507,6 +507,17 @@ class SSpreadsheet extends StatefulWidget {
   /// [enableTapToSelectRowHeader]. Requires [selectionController] to be set.
   final bool enableTapToSelectColumnHeader;
 
+  /// Splash/hover color for [enableTapToSelectRowHeader]'s tap target.
+  /// Defaults to fully transparent (no visible feedback beyond the
+  /// dimming/selection state itself) to preserve prior behavior. Pass `null`
+  /// to fall back to `SInkButton`'s own default (currently `Colors.purple`)
+  /// for a visible ripple, or any other color to match your header's theme.
+  final Color? rowHeaderTapSplashColor;
+
+  /// Splash/hover color for [enableTapToSelectColumnHeader]'s tap target.
+  /// Mirrors [rowHeaderTapSplashColor].
+  final Color? columnHeaderTapSplashColor;
+
   /// Called after a row header tap changes [selectionController]'s row
   /// selection (including when it toggles the selection off, in which case
   /// [key] is `null`). Only fires when [enableTapToSelectRowHeader] is true.
@@ -635,6 +646,8 @@ class SSpreadsheet extends StatefulWidget {
     this.dimAnimationDuration = const Duration(milliseconds: 250),
     this.enableTapToSelectRowHeader = false,
     this.enableTapToSelectColumnHeader = false,
+    this.rowHeaderTapSplashColor = Colors.transparent,
+    this.columnHeaderTapSplashColor = Colors.transparent,
     this.onRowHeaderSelected,
     this.onColumnHeaderSelected,
     this.onSelectionCleared,
@@ -795,7 +808,7 @@ class SSpreadsheetState extends State<SSpreadsheet> {
           // interactive descendants (e.g. a lock icon button) win their own
           // taps.
           dimmed = SInkButton(
-            color: Colors.transparent,
+            color: widget.rowHeaderTapSplashColor,
             enableHapticFeedback: false,
             onTap: (_) {
               controller.selectRow(rowKey);
@@ -847,7 +860,7 @@ class SSpreadsheetState extends State<SSpreadsheet> {
           // content) avoids the tap being silently blocked by the header's
           // own content.
           dimmed = SInkButton(
-            color: Colors.transparent,
+            color: widget.columnHeaderTapSplashColor,
             enableHapticFeedback: false,
             onTap: (_) {
               controller.selectColumn(columnKey);
