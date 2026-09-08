@@ -1,3 +1,27 @@
+## 5.5.0
+
+- **`SSpreadsheet` gains built-in row/column selection + dimming**
+  - New `SSpreadsheetSelectionController`: tracks a selected row and/or column by
+    opaque identity key (via the new `columnKeyBuilder`, mirroring the existing
+    `rowKeyBuilder`) rather than by raw index, so a selection survives row
+    filtering/reordering that shifts indices. Defaults to `exclusive: true`
+    (selecting one axis clears the other); pass `exclusive: false` to allow both
+    at once.
+  - New `SSpreadsheet` params: `selectionController`, `columnKeyBuilder`,
+    `dimUnselectedOpacity` (opt-in — defaults to `1.0`, i.e. off),
+    `dimAnimationDuration`, `enableTapToSelectRowHeader`,
+    `enableTapToSelectColumnHeader`, `onRowHeaderSelected`,
+    `onColumnHeaderSelected`, `onSelectionCleared`, `onCellTap`.
+  - When enabled, `SSpreadsheet` automatically dims every header/cell outside
+    the selected row/column, wires up tap-to-select on headers, and — via a
+    `TapRegion` group per row/column key — clears the selection when the user
+    taps anywhere outside the selected row/column (another cell, another
+    header, or outside the grid entirely). Callers no longer need to hand-roll
+    any of this (opacity computation, `TapRegion` groupIds, outside-tap
+    deselection) themselves.
+  - Fully backward compatible: all new params default to no-ops/disabled, so
+    existing `SSpreadsheet` usages are unaffected.
+
 ## 5.4.1
 
 - **`TimeInput` no longer shows an "Empty" validation error for an intentionally empty field**

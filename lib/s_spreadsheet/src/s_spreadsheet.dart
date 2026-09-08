@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:s_packages/indexscroll_listview_builder/indexscroll_listview_builder.dart';
 import 'package:s_packages/keystroke_listener/keystroke_listener.dart';
+import 'package:s_packages/s_ink_button/s_ink_button.dart';
 import 'package:s_packages/s_modoverlay/s_modal/s_modal.dart';
 
 import 'package:s_packages/s_sync_scroll_controller/s_sync_scroll_controller.dart';
@@ -287,6 +288,100 @@ class SSpreadsheetHitResult {
   });
 }
 
+/// Manages row/column selection + dimming state for [SSpreadsheet].
+///
+/// Selection is tracked by an opaque **identity key** — resolved per row via
+/// [SSpreadsheet.rowKeyBuilder] and per column via
+/// [SSpreadsheet.columnKeyBuilder] (both default to the raw index when
+/// omitted) — rather than by raw index. This means a selection survives row
+/// filtering/reordering that shifts indices: as long as the same key still
+/// exists somewhere in the grid, it stays highlighted at its new position.
+///
+/// Pass an instance to [SSpreadsheet.selectionController] to enable
+/// selection. When [SSpreadsheet.dimUnselectedOpacity] is less than `1.0`,
+/// the spreadsheet automatically dims every header/cell that doesn't belong
+/// to the selected row/column. When
+/// [SSpreadsheet.enableTapToSelectRowHeader] /
+/// [SSpreadsheet.enableTapToSelectColumnHeader] are `true`, tapping a header
+/// toggles that row's/column's selection, and tapping anywhere else in the
+/// grid outside the selected row/column (another header, another cell)
+/// automatically clears the selection.
+class SSpreadsheetSelectionController extends ChangeNotifier {
+  SSpreadsheetSelectionController({this.exclusive = true});
+
+  /// When `true` (default), selecting a row clears any active column
+  /// selection and vice versa, so at most one axis is ever selected at once.
+  /// Set to `false` to allow a row and a column to be selected
+  /// simultaneously (e.g. to highlight their intersection cell yourself).
+  final bool exclusive;
+
+  Object? _selectedRowKey;
+  Object? _selectedColumnKey;
+
+  /// The identity key of the currently selected row, or `null`.
+  Object? get selectedRowKey => _selectedRowKey;
+
+  /// The identity key of the currently selected column, or `null`.
+  Object? get selectedColumnKey => _selectedColumnKey;
+
+  /// Whether either axis currently has a selection.
+  bool get hasSelection => _selectedRowKey != null || _selectedColumnKey != null;
+
+  /// Selects the row identified by [key]. Selecting the already-selected row
+  /// toggles it off (matching how the built-in header tap handling behaves).
+  /// Pass `null` to explicitly clear the row selection.
+  void selectRow(Object? key) {
+    if (key == null) {
+      clearRow();
+      return;
+    }
+    if (_selectedRowKey == key) {
+      clearRow();
+      return;
+    }
+    _selectedRowKey = key;
+    if (exclusive) _selectedColumnKey = null;
+    notifyListeners();
+  }
+
+  /// Selects the column identified by [key]. Mirrors [selectRow].
+  void selectColumn(Object? key) {
+    if (key == null) {
+      clearColumn();
+      return;
+    }
+    if (_selectedColumnKey == key) {
+      clearColumn();
+      return;
+    }
+    _selectedColumnKey = key;
+    if (exclusive) _selectedRowKey = null;
+    notifyListeners();
+  }
+
+  /// Clears the row selection only.
+  void clearRow() {
+    if (_selectedRowKey == null) return;
+    _selectedRowKey = null;
+    notifyListeners();
+  }
+
+  /// Clears the column selection only.
+  void clearColumn() {
+    if (_selectedColumnKey == null) return;
+    _selectedColumnKey = null;
+    notifyListeners();
+  }
+
+  /// Clears both the row and column selection.
+  void clear() {
+    if (_selectedRowKey == null && _selectedColumnKey == null) return;
+    _selectedRowKey = null;
+    _selectedColumnKey = null;
+    notifyListeners();
+  }
+}
+
 /// A reusable, spreadsheet-like 2D table composed of:
 /// - a fixed top header row
 /// - an optional fixed left row-header column
@@ -380,6 +475,56 @@ class SSpreadsheet extends StatefulWidget {
   /// Duration of the insert/remove row animation.
   /// Defaults to 400ms.
   final Duration rowAnimationDuration;
+
+  // ======= Row/Column Selection Params =======
+
+  /// Optional controller enabling row/column selection + dimming.
+  /// See [SSpreadsheetSelectionController].
+  final SSpreadsheetSelectionController? selectionController;
+
+  /// Optional key builder that gives each column a stable identity for
+  /// [selectionController]. Mirrors [rowKeyBuilder]. If `null`, the raw
+  /// column index is used as the identity key.
+  final Object Function(int columnIndex)? columnKeyBuilder;
+
+  /// Opacity applied (via [AnimatedOpacity]) to every header/cell that does
+  /// not belong to the selected row/column. Defaults to `1.0`, which
+  /// disables dimming entirely even when [selectionController] is set.
+  final double dimUnselectedOpacity;
+
+  /// Duration of the dim/undim opacity animation. Defaults to 250ms.
+  final Duration dimAnimationDuration;
+
+  /// When `true`, tapping a row-header cell toggles that row's selection on
+  /// [selectionController]. The tap target sits behind whatever
+  /// [rowHeaderBuilder] renders, so interactive elements inside the header
+  /// (e.g. an icon button) still take priority. Requires
+  /// [selectionController] to be set.
+  final bool enableTapToSelectRowHeader;
+
+  /// When `true`, tapping a column-header cell toggles that column's
+  /// selection on [selectionController]. Mirrors
+  /// [enableTapToSelectRowHeader]. Requires [selectionController] to be set.
+  final bool enableTapToSelectColumnHeader;
+
+  /// Called after a row header tap changes [selectionController]'s row
+  /// selection (including when it toggles the selection off, in which case
+  /// [key] is `null`). Only fires when [enableTapToSelectRowHeader] is true.
+  final void Function(int rowIndex, Object? key)? onRowHeaderSelected;
+
+  /// Called after a column header tap changes [selectionController]'s
+  /// column selection. Mirrors [onRowHeaderSelected]. Only fires when
+  /// [enableTapToSelectColumnHeader] is true.
+  final void Function(int columnIndex, Object? key)? onColumnHeaderSelected;
+
+  /// Called whenever a tap outside the selected row/column clears
+  /// [selectionController]'s selection (either axis).
+  final VoidCallback? onSelectionCleared;
+
+  /// Optional callback fired when a body cell is tapped. Wraps the built
+  /// cell in a translucent [GestureDetector] so it doesn't interfere with
+  /// interactive widgets the cell itself renders (bookings, buttons, etc.).
+  final void Function(int rowIndex, int columnIndex)? onCellTap;
 
   /// Optional [IndexedScrollController] for vertical (row) index-based scrolling.
   ///
@@ -483,6 +628,17 @@ class SSpreadsheet extends StatefulWidget {
     this.enableRowAnimations = true,
     this.rowKeyBuilder,
     this.rowAnimationDuration = const Duration(milliseconds: 400),
+    // Selection params
+    this.selectionController,
+    this.columnKeyBuilder,
+    this.dimUnselectedOpacity = 1.0,
+    this.dimAnimationDuration = const Duration(milliseconds: 250),
+    this.enableTapToSelectRowHeader = false,
+    this.enableTapToSelectColumnHeader = false,
+    this.onRowHeaderSelected,
+    this.onColumnHeaderSelected,
+    this.onSelectionCleared,
+    this.onCellTap,
     // Keystroke params
     this.enableKeystrokes = false,
     this.keystrokeDebugLogs = false,
@@ -585,6 +741,187 @@ class SSpreadsheetState extends State<SSpreadsheet> {
 
   double _columnWidthAt(int columnIndex) =>
       widget.columnWidthBuilder?.call(columnIndex) ?? 180;
+
+  // ======= Selection helpers =======
+
+  Object _rowKeyAt(int rowIndex) =>
+      widget.rowKeyBuilder?.call(rowIndex) ?? rowIndex;
+
+  Object _columnKeyAt(int columnIndex) =>
+      widget.columnKeyBuilder?.call(columnIndex) ?? columnIndex;
+
+  /// TapRegion groupId shared by a row header and every body cell on that
+  /// row. Records compare structurally in Dart, so two calls with an equal
+  /// [rowKey] always produce an equal groupId without any string building.
+  Object _rowTapRegionGroupId(Object rowKey) =>
+      (axis: 'sspreadsheet_row', key: rowKey);
+
+  /// TapRegion groupId shared by a column header and every body cell in
+  /// that column. Mirrors [_rowTapRegionGroupId].
+  Object _columnTapRegionGroupId(Object columnKey) =>
+      (axis: 'sspreadsheet_column', key: columnKey);
+
+  /// Wraps a built row-header cell with dimming, tap-to-select, and the
+  /// TapRegion membership that lets [SSpreadsheetSelectionController]
+  /// deselect on an outside tap. No-ops (returns [content] unchanged) when
+  /// [SSpreadsheet.selectionController] is not set.
+  Widget _wrapRowHeaderCell(int rowIndex, Widget content) {
+    final controller = widget.selectionController;
+    if (controller == null) return content;
+    final rowKey = _rowKeyAt(rowIndex);
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, _) {
+        final isDimmed = controller.selectedRowKey != null &&
+            controller.selectedRowKey != rowKey;
+
+        Widget dimmed = AnimatedOpacity(
+          duration: widget.dimAnimationDuration,
+          opacity: isDimmed ? widget.dimUnselectedOpacity : 1.0,
+          child: content,
+        );
+
+        if (widget.enableTapToSelectRowHeader) {
+          dimmed = Stack(
+            fit: StackFit.passthrough,
+            children: [
+              // Sits behind `dimmed` so interactive elements the header
+              // itself renders (e.g. a lock icon button) still win taps.
+              Positioned.fill(
+                child: SInkButton(
+                  color: Colors.transparent,
+                  enableHapticFeedback: false,
+                  onTap: (_) {
+                    controller.selectRow(rowKey);
+                    widget.onRowHeaderSelected
+                        ?.call(rowIndex, controller.selectedRowKey);
+                    if (controller.selectedRowKey == null) {
+                      widget.onSelectionCleared?.call();
+                    }
+                  },
+                  child: const SizedBox.expand(),
+                ),
+              ),
+              dimmed,
+            ],
+          );
+        }
+
+        return TapRegion(
+          groupId: _rowTapRegionGroupId(rowKey),
+          onTapOutside: (_) {
+            if (controller.selectedRowKey == rowKey) {
+              controller.clearRow();
+              widget.onSelectionCleared?.call();
+            }
+          },
+          child: dimmed,
+        );
+      },
+    );
+  }
+
+  /// Mirrors [_wrapRowHeaderCell] for a built column-header cell.
+  Widget _wrapColumnHeaderCell(int columnIndex, Widget content) {
+    final controller = widget.selectionController;
+    if (controller == null) return content;
+    final columnKey = _columnKeyAt(columnIndex);
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, _) {
+        final isDimmed = controller.selectedColumnKey != null &&
+            controller.selectedColumnKey != columnKey;
+
+        Widget dimmed = AnimatedOpacity(
+          duration: widget.dimAnimationDuration,
+          opacity: isDimmed ? widget.dimUnselectedOpacity : 1.0,
+          child: content,
+        );
+
+        if (widget.enableTapToSelectColumnHeader) {
+          dimmed = Stack(
+            fit: StackFit.passthrough,
+            children: [
+              Positioned.fill(
+                child: SInkButton(
+                  color: Colors.transparent,
+                  enableHapticFeedback: false,
+                  onTap: (_) {
+                    controller.selectColumn(columnKey);
+                    widget.onColumnHeaderSelected
+                        ?.call(columnIndex, controller.selectedColumnKey);
+                    if (controller.selectedColumnKey == null) {
+                      widget.onSelectionCleared?.call();
+                    }
+                  },
+                  child: const SizedBox.expand(),
+                ),
+              ),
+              dimmed,
+            ],
+          );
+        }
+
+        return TapRegion(
+          groupId: _columnTapRegionGroupId(columnKey),
+          onTapOutside: (_) {
+            if (controller.selectedColumnKey == columnKey) {
+              controller.clearColumn();
+              widget.onSelectionCleared?.call();
+            }
+          },
+          child: dimmed,
+        );
+      },
+    );
+  }
+
+  /// Wraps a built body cell with dimming + row/column TapRegion membership
+  /// (so tapping it never counts as "outside" the selected row/column) and,
+  /// when [SSpreadsheet.onCellTap] is set, a translucent tap handler.
+  /// No-ops when [SSpreadsheet.selectionController] is not set.
+  Widget _wrapBodyCell(int rowIndex, int columnIndex, Widget content) {
+    final controller = widget.selectionController;
+    if (controller == null) return content;
+    final rowKey = _rowKeyAt(rowIndex);
+    final columnKey = _columnKeyAt(columnIndex);
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, _) {
+        final rowMismatch = controller.selectedRowKey != null &&
+            controller.selectedRowKey != rowKey;
+        final columnMismatch = controller.selectedColumnKey != null &&
+            controller.selectedColumnKey != columnKey;
+
+        Widget dimmed = AnimatedOpacity(
+          duration: widget.dimAnimationDuration,
+          opacity: (rowMismatch || columnMismatch)
+              ? widget.dimUnselectedOpacity
+              : 1.0,
+          child: widget.onCellTap == null
+              ? content
+              : GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () => widget.onCellTap!(rowIndex, columnIndex),
+                  child: content,
+                ),
+        );
+
+        dimmed = TapRegion(
+          groupId: _rowTapRegionGroupId(rowKey),
+          child: dimmed,
+        );
+        dimmed = TapRegion(
+          groupId: _columnTapRegionGroupId(columnKey),
+          child: dimmed,
+        );
+        return dimmed;
+      },
+    );
+  }
 
   void _notifyHorizontalMetrics(
       double offset, double maxScrollExtent, ScrollController controller) {
@@ -922,7 +1259,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
                 return SizedBox(
                   width: _columnWidthAt(columnIndex),
                   height: widget.headerHeight,
-                  child: builder(context, columnIndex),
+                  child: _wrapColumnHeaderCell(
+                      columnIndex, builder(context, columnIndex)),
                 );
               },
             ),
@@ -942,7 +1280,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
             if (widget.rowHeaderBuilder != null)
               SizedBox(
                   width: widget.rowHeaderWidth,
-                  child: widget.rowHeaderBuilder!(context, rowIndex)),
+                  child: _wrapRowHeaderCell(
+                      rowIndex, widget.rowHeaderBuilder!(context, rowIndex))),
             Expanded(
               child: _SyncedHorizontalStrip(
                 syncGroup: _horizontalSyncGroup,
@@ -953,7 +1292,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
                 itemBuilder: (context, columnIndex) => SizedBox(
                   width: _columnWidthAt(columnIndex),
                   height: _rowHeightAt(rowIndex),
-                  child: widget.cellBuilder(context, rowIndex, columnIndex),
+                  child: _wrapBodyCell(rowIndex, columnIndex,
+                      widget.cellBuilder(context, rowIndex, columnIndex)),
                 ),
               ),
             ),
