@@ -60,9 +60,12 @@ void main() {
             reason: 'the header keeps ownership across resizes');
 
         // The right arrow must land on the *current* end after a resize.
-        await controller.animateToEnd(
-            duration: const Duration(milliseconds: 20));
+        // Start the animation first: awaiting it before pumping would hang
+        // the test because the ticker never receives frames.
+        final toEnd =
+            controller.animateToEnd(duration: const Duration(milliseconds: 20));
         await tester.pumpAndSettle();
+        await toEnd;
         expect(controller.value.offset, closeTo(overflow.toDouble(), 0.01));
         expect(controller.value.canScrollLeft(threshold: 1), overflow > 1);
 
@@ -112,7 +115,8 @@ void main() {
       addTearDown(columnWidth.dispose);
       addTearDown(controller.dispose);
 
-      await tester.pumpWidget(_fixture(width, controller, columnWidth: columnWidth));
+      await tester
+          .pumpWidget(_fixture(width, controller, columnWidth: columnWidth));
       await tester.pumpAndSettle();
       expect(controller.value.maxScrollExtent, 0);
 

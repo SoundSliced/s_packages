@@ -42,8 +42,10 @@ class SSpreadsheetHorizontalMetrics {
 
   bool canScrollLeft({double threshold = 100}) => offset > threshold;
 
-  bool canScrollRight({double threshold = 100}) =>
-      offset < (maxScrollExtent - threshold);
+  bool canScrollRight({double threshold = 100}) {
+    final remaining = maxScrollExtent - offset;
+    return remaining > 0 && remaining >= threshold;
+  }
 }
 
 /// Shared horizontal synchronization state for [SSpreadsheet].
@@ -484,7 +486,8 @@ class SSpreadsheetSelectionController extends ChangeNotifier {
   Object? get selectedColumnKey => _selectedColumnKey;
 
   /// Whether either axis currently has a selection.
-  bool get hasSelection => _selectedRowKey != null || _selectedColumnKey != null;
+  bool get hasSelection =>
+      _selectedRowKey != null || _selectedColumnKey != null;
 
   /// Selects the row identified by [key]. Selecting the already-selected row
   /// toggles it off (matching how the built-in header tap handling behaves).

@@ -39,6 +39,12 @@
 - **New: `SSpreadsheetHorizontalSyncController.refresh()`**
   - Re-reads the owning strip and republishes on demand, for hosts that resize
     the spreadsheet through a route the notification does not cover.
+- **Fix: `canScrollRight` treated remaining == threshold as not scrollable**
+  - `offset < (maxScrollExtent - threshold)` is a strict comparison, so a
+    host that passes `threshold: 1` over 1 px of hidden content (or the
+    default `100` over exactly 100 px) still saw the right arrow disabled.
+    Remaining distance is now compared inclusively (`remaining >= threshold`
+    and `remaining > 0`).
 - No breaking API changes. `update`, the `SSpreadsheetHorizontalMetricsChanged`
   typedef and `SSpreadsheetHorizontalScrollButtons.activationThreshold` (still
   defaulting to `100`) are unchanged; hosts that need a tighter boundary keep
