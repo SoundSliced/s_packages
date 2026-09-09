@@ -50,35 +50,194 @@ class SSpreadsheetHorizontalMetrics {
 ///
 /// Pass one instance to [SSpreadsheet.horizontalSyncController] and to
 /// [SSpreadsheetHorizontalScrollButtons] to control scrolling externally.
+///
+/// Every horizontal strip inside a spreadsheet — the column header and each
+/// mounted (virtualised) body row — owns its own [ScrollController] handed out
+/// by the shared sync group, and every one of them reports here. Reports are
+/// therefore funnelled through a single elected *owner*, so a body row that
+/// scrolls out of view cannot leave a disposed controller behind in [value].
+/// The column header is preferred because it is never virtualised; a
+/// spreadsheet built with `showColumnHeader: false` falls back to the first
+/// live body strip.
+///
+/// [value] is only replaced when the published tuple actually changes
+/// (controller identity included), so a settled layout does not emit an
+/// endless notification loop.
 class SSpreadsheetHorizontalSyncController
     extends ValueNotifier<SSpreadsheetHorizontalMetrics> {
   SSpreadsheetHorizontalSyncController([SSpreadsheetHorizontalMetrics? initial])
       : super(initial ?? const SSpreadsheetHorizontalMetrics());
 
+  /// Registered strips in registration order, mapped to whether the strip is
+  /// the non-virtualised column header (`true`) or a recyclable body row
+  /// (`false`). Entries are added when a strip mounts and removed when it is
+  /// about to dispose its controller, so lifetime never depends on guessing
+  /// whether a controller is still usable.
+  final Map<ScrollController, bool> _strips = <ScrollController, bool>{};
+
+  ScrollController? _owner;
+  bool _publishScheduled = false;
+  bool _disposed = false;
+
+  /// Whether [controller] can currently be read for metrics. Each strip gets
+  /// its own controller from the sync group, so exactly one attached position
+  /// is the healthy case; an unattached, recycled or disposed strip fails this.
+  static bool _isLive(ScrollController? controller) {
+    if (controller == null) return false;
+    try {
+      return controller.hasClients && controller.positions.length == 1;
+    } catch (_) {
+      // A disposed controller throws rather than answering.
+      return false;
+    }
+  }
+
+  /// Called by [SSpreadsheet] when a strip mounts. [isPrimary] marks the
+  /// column-header strip, which outlives every body row.
+  void registerStrip(ScrollController controller, {required bool isPrimary}) {
+    if (_disposed) return;
+    _strips[controller] = isPrimary;
+    _electOwner();
+    // Deferred: this runs from the strip's initState, i.e. during a build.
+    // Notifying listeners synchronously there would mark them dirty mid-build.
+    _schedulePublish();
+  }
+
+  /// Called by [SSpreadsheet] when a strip is about to dispose its controller,
+  /// so ownership moves on while the remaining strips are still usable.
+  void unregisterStrip(ScrollController controller) {
+    if (_disposed) return;
+    _strips.remove(controller);
+    if (identical(_owner, controller)) _owner = null;
+    _electOwner();
+    // Deferred for the same reason as [registerStrip]: dispose runs during a
+    // build/teardown pass, and the published controller is already cleared
+    // above so nothing reads the dying strip in the meantime.
+    _schedulePublish();
+  }
+
+  /// Reports a strip's live metrics.
+  ///
+  /// Kept at its original signature so existing callers and subclasses keep
+  /// working; which strip is authoritative is supplied out of band by
+  /// [registerStrip] instead of being inferred from whoever reported last.
   void update(
       double offset, double maxScrollExtent, ScrollController controller) {
-    value = SSpreadsheetHorizontalMetrics(
-        offset: offset,
-        maxScrollExtent: maxScrollExtent,
-        controller: controller);
+    if (_disposed) return;
+    _strips.putIfAbsent(controller, () => false);
+    _electOwner();
+    _publishFromOwner();
+  }
+
+  /// Re-reads the owning strip and republishes.
+  ///
+  /// This is what makes a *resize* update dependent UI: the extent changed but
+  /// no scroll happened, so a scroll listener alone would never fire.
+  void refresh() {
+    if (_disposed) return;
+    _electOwner();
+    _publishFromOwner();
+  }
+
+  /// At most one deferred publication per frame, for callers that run inside a
+  /// build phase. Coalesces with any other register/unregister in the frame.
+  void _schedulePublish() {
+    if (_publishScheduled) return;
+    _publishScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _publishScheduled = false;
+      if (_disposed) return;
+      _electOwner();
+      _publishFromOwner();
+    });
+  }
+
+  /// Prefers the live header strip, falls back to a live body strip, and only
+  /// replaces a live body owner when a header becomes available or the owner
+  /// dies — so ownership does not churn between interchangeable body rows.
+  void _electOwner() {
+    final ownerIsLive = _isLive(_owner);
+    if (ownerIsLive && (_strips[_owner] ?? false)) return;
+
+    ScrollController? primary;
+    ScrollController? fallback;
+    for (final entry in _strips.entries) {
+      if (!_isLive(entry.key)) continue;
+      if (entry.value) {
+        primary ??= entry.key;
+      } else {
+        fallback ??= entry.key;
+      }
+    }
+
+    if (primary != null) {
+      _owner = primary;
+      return;
+    }
+    if (ownerIsLive) return;
+    _owner = fallback;
+  }
+
+  void _publishFromOwner() {
+    final owner = _isLive(_owner) ? _owner : null;
+    if (owner == null) _owner = null;
+
+    final position = owner?.position;
+    final usable = position != null && position.hasContentDimensions;
+
+    final next = SSpreadsheetHorizontalMetrics(
+      controller: usable ? owner : null,
+      offset: usable ? position.pixels : 0,
+      maxScrollExtent: usable ? position.maxScrollExtent : 0,
+    );
+
+    // Controller identity is part of the comparison so a replacement strip
+    // reporting the same numbers still propagates, while an unchanged tuple
+    // from a settled layout is dropped.
+    if (identical(value.controller, next.controller) &&
+        value.offset == next.offset &&
+        value.maxScrollExtent == next.maxScrollExtent) {
+      return;
+    }
+    value = next;
+  }
+
+  Future<void> _animate(bool toEnd, Duration duration, Curve curve) async {
+    final controller = value.controller;
+    if (!_isLive(controller)) return;
+    final position = controller!.position;
+    if (!position.hasContentDimensions) return;
+    try {
+      // Read the extent from the position rather than the published snapshot
+      // so a scroll issued right after a resize still lands on the real end.
+      await controller.animateTo(
+        toEnd ? position.maxScrollExtent : position.minScrollExtent,
+        duration: duration,
+        curve: curve,
+      );
+    } catch (_) {
+      // The strip can be torn down mid-animation; nothing to recover.
+    }
   }
 
   Future<void> animateToStart({
     Duration duration = const Duration(milliseconds: 800),
     Curve curve = Curves.easeOutCubic,
-  }) async {
-    final c = value.controller;
-    if (c == null) return;
-    await c.animateTo(0, duration: duration, curve: curve);
-  }
+  }) =>
+      _animate(false, duration, curve);
 
   Future<void> animateToEnd({
     Duration duration = const Duration(milliseconds: 800),
     Curve curve = Curves.easeOutCubic,
-  }) async {
-    final c = value.controller;
-    if (c == null) return;
-    await c.animateTo(value.maxScrollExtent, duration: duration, curve: curve);
+  }) =>
+      _animate(true, duration, curve);
+
+  @override
+  void dispose() {
+    _disposed = true;
+    _strips.clear();
+    _owner = null;
+    super.dispose();
   }
 }
 
@@ -941,6 +1100,18 @@ class SSpreadsheetState extends State<SSpreadsheet> {
         ?.call(offset, maxScrollExtent, controller);
   }
 
+  /// A horizontal strip has mounted. The column header is the preferred
+  /// metrics source because it is never virtualised away mid-scroll.
+  void _attachHorizontalStrip(ScrollController controller,
+          {required bool isPrimary}) =>
+      widget.horizontalSyncController
+          ?.registerStrip(controller, isPrimary: isPrimary);
+
+  /// A horizontal strip is about to dispose its controller, so hand ownership
+  /// on before it becomes unreadable.
+  void _detachHorizontalStrip(ScrollController controller) =>
+      widget.horizontalSyncController?.unregisterStrip(controller);
+
   // ======= Keystroke helpers =======
 
   /// Build a reverse-map from Intent type → ShortcutActivator so we can
@@ -1263,6 +1434,9 @@ class SSpreadsheetState extends State<SSpreadsheet> {
               itemWidthBuilder: _columnWidthAt,
               physics: widget.horizontalPhysics,
               onMetricsChanged: _notifyHorizontalMetrics,
+              isPrimary: true,
+              onStripAttached: _attachHorizontalStrip,
+              onStripDetached: _detachHorizontalStrip,
               itemBuilder: (context, columnIndex) {
                 final builder = widget.columnHeaderBuilder;
                 if (builder == null) return const SizedBox.shrink();
@@ -1299,6 +1473,9 @@ class SSpreadsheetState extends State<SSpreadsheet> {
                 itemWidthBuilder: _columnWidthAt,
                 physics: widget.horizontalPhysics,
                 onMetricsChanged: _notifyHorizontalMetrics,
+                isPrimary: false,
+                onStripAttached: _attachHorizontalStrip,
+                onStripDetached: _detachHorizontalStrip,
                 itemBuilder: (context, columnIndex) => SizedBox(
                   width: _columnWidthAt(columnIndex),
                   height: _rowHeightAt(rowIndex),
@@ -1405,6 +1582,12 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   }
 }
 
+/// Reports that a horizontal strip has mounted ([isPrimary] marks the
+/// non-virtualised column header) or is about to dispose its controller.
+typedef _StripAttached = void Function(ScrollController controller,
+    {required bool isPrimary});
+typedef _StripDetached = void Function(ScrollController controller);
+
 class _SyncedHorizontalStrip extends StatefulWidget {
   final SyncScrollControllerGroup syncGroup;
   final int itemCount;
@@ -1413,6 +1596,12 @@ class _SyncedHorizontalStrip extends StatefulWidget {
   final ScrollPhysics? physics;
   final SSpreadsheetHorizontalMetricsChanged? onMetricsChanged;
 
+  /// True for the column-header strip. Body rows are virtualised and can be
+  /// recycled at any time, so they are only a fallback metrics source.
+  final bool isPrimary;
+  final _StripAttached? onStripAttached;
+  final _StripDetached? onStripDetached;
+
   const _SyncedHorizontalStrip({
     required this.syncGroup,
     required this.itemCount,
@@ -1420,6 +1609,9 @@ class _SyncedHorizontalStrip extends StatefulWidget {
     required this.itemWidthBuilder,
     this.physics,
     this.onMetricsChanged,
+    this.isPrimary = false,
+    this.onStripAttached,
+    this.onStripDetached,
   });
 
   @override
@@ -1429,6 +1621,7 @@ class _SyncedHorizontalStrip extends StatefulWidget {
 class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
   late final ScrollController _controller;
   late final IndexedScrollController _indexedController;
+  bool _flushScheduled = false;
 
   @override
   void initState() {
@@ -1437,21 +1630,39 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
     _controller.addListener(_onScroll);
     _indexedController = IndexedScrollController(scrollController: _controller);
 
+    widget.onStripAttached?.call(_controller, isPrimary: widget.isPrimary);
+    _scheduleMetricsFlush();
+  }
+
+  /// Coalesces every trigger in a frame into a single report, taken after
+  /// layout has settled so offset and extent are the values that will actually
+  /// be painted. No timers and no polling: one post-frame callback at most.
+  void _scheduleMetricsFlush() {
+    if (_flushScheduled) return;
+    _flushScheduled = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _flushScheduled = false;
       if (!mounted || !_controller.hasClients) return;
-      widget.onMetricsChanged?.call(_controller.position.pixels,
-          _controller.position.maxScrollExtent, _controller);
+      final position = _controller.position;
+      if (!position.hasContentDimensions) return;
+      widget.onMetricsChanged
+          ?.call(position.pixels, position.maxScrollExtent, _controller);
     });
   }
 
   void _onScroll() {
     if (!_controller.hasClients) return;
-    widget.onMetricsChanged?.call(_controller.position.pixels,
-        _controller.position.maxScrollExtent, _controller);
+    final position = _controller.position;
+    if (!position.hasContentDimensions) return;
+    widget.onMetricsChanged
+        ?.call(position.pixels, position.maxScrollExtent, _controller);
   }
 
   @override
   void dispose() {
+    // Hand ownership on while the other strips are still usable, before this
+    // controller becomes unreadable.
+    widget.onStripDetached?.call(_controller);
     _indexedController.dispose();
     _controller.removeListener(_onScroll);
     _controller.dispose();
@@ -1460,18 +1671,33 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
 
   @override
   Widget build(BuildContext context) {
-    return IndexScrollListViewBuilder(
-      controller: _indexedController,
-      itemCount: widget.itemCount,
-      scrollDirection: Axis.horizontal,
-      physics: widget.physics,
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) {
-        return SizedBox(
-            width: widget.itemWidthBuilder(index),
-            child: widget.itemBuilder(context, index));
+    // A resize changes maxScrollExtent without moving the offset, so the
+    // scroll listener above never fires for it. ScrollMetricsNotification is
+    // dispatched by the Scrollable precisely for that case — viewport or
+    // content dimensions changing — and it is read here from the strip's own
+    // controller rather than resolved from the notification's context.
+    return NotificationListener<ScrollMetricsNotification>(
+      onNotification: (notification) {
+        // Vertical scrollables nested inside cells must not be mistaken for
+        // this strip; their reports are simply ignored.
+        if (notification.metrics.axis == Axis.horizontal) {
+          _scheduleMetricsFlush();
+        }
+        return false;
       },
-      onScrolledTo: (_) {},
+      child: IndexScrollListViewBuilder(
+        controller: _indexedController,
+        itemCount: widget.itemCount,
+        scrollDirection: Axis.horizontal,
+        physics: widget.physics,
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          return SizedBox(
+              width: widget.itemWidthBuilder(index),
+              child: widget.itemBuilder(context, index));
+        },
+        onScrolledTo: (_) {},
+      ),
     );
   }
 }

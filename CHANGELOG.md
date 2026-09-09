@@ -1,3 +1,49 @@
+## 5.5.3
+
+- **Fix: `SSpreadsheet` horizontal scroll metrics went stale after a resize**
+  - `SSpreadsheetHorizontalSyncController` was only ever fed from a strip's
+    `initState` post-frame callback and its scroll listener. A resize changes
+    `maxScrollExtent` *without moving the offset*, so neither fired and the
+    published metrics kept describing the old viewport — leaving
+    `SSpreadsheetHorizontalScrollButtons` (and anything else bound to the
+    controller) disabled over content that had become scrollable, or enabled
+    over content that no longer was, until the user happened to scroll.
+  - Each horizontal strip now also listens for `ScrollMetricsNotification` —
+    the signal a `Scrollable` dispatches exactly when viewport or content
+    dimensions change — and re-reads its own controller. Reports are coalesced
+    to at most one post-frame flush per strip per frame; no timers, no polling.
+    Notifications whose `metrics.axis` is not horizontal (a vertical scrollable
+    nested inside a cell) are ignored.
+- **Fix: the published `ScrollController` could be a disposed body row**
+  - Every strip reports, and the column header *and* each mounted, virtualised
+    body row each own a controller from the shared sync group. Last-writer-wins
+    meant `value.controller` could end up being a row that later scrolled out
+    of view and disposed its controller.
+  - The controller now elects a single owner: the column header when there is
+    one (it is never virtualised), otherwise the first live body strip. A live
+    body owner is not swapped for another interchangeable body row, so
+    ownership does not churn. Strips register on mount and unregister
+    immediately before disposing their controller, so ownership moves on while
+    the remaining strips are still usable.
+- **Fix: `value` was replaced on every report, even an identical one**
+  - `update` always built a fresh metrics object, so an unchanged tuple still
+    notified every listener. Publication is now skipped when offset, extent and
+    controller identity are all unchanged — controller identity is part of the
+    comparison, so a *replacement* strip reporting the same numbers still
+    propagates. A settled layout no longer emits a notification loop.
+- **Fix: `animateToStart`/`animateToEnd` could act on a detached controller**
+  - Both now verify the controller is live and has content dimensions, read the
+    extent from the live `ScrollPosition` rather than the published snapshot (so
+    a scroll issued right after a resize lands on the *current* end), and
+    tolerate the strip being torn down mid-animation.
+- **New: `SSpreadsheetHorizontalSyncController.refresh()`**
+  - Re-reads the owning strip and republishes on demand, for hosts that resize
+    the spreadsheet through a route the notification does not cover.
+- No breaking API changes. `update`, the `SSpreadsheetHorizontalMetricsChanged`
+  typedef and `SSpreadsheetHorizontalScrollButtons.activationThreshold` (still
+  defaulting to `100`) are unchanged; hosts that need a tighter boundary keep
+  passing their own threshold.
+
 ## 5.5.2
 
 - **`SSpreadsheet` gains `rowHeaderTapSplashColor`/`columnHeaderTapSplashColor`**
