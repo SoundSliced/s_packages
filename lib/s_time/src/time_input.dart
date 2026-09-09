@@ -946,7 +946,8 @@ class _TimeInputState extends State<TimeInput> {
               textAlign: TextAlign.center,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (input) {
-                if (widget.isEmptyWhenTimeNull && (input == null || input.trim().isEmpty)) {
+                if (widget.isEmptyWhenTimeNull &&
+                    (input == null || input.trim().isEmpty)) {
                   // Empty is a valid, intentional value when the field is nullable.
                   return null;
                 }
