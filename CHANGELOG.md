@@ -1,3 +1,6 @@
+## 5.5.4
+- `universal_html` legacy package removed, now only keeping the `s_universal_html` better and fuller package
+
 ## 5.5.3
 
 - **Fix: `SSpreadsheet` horizontal scroll metrics went stale after a resize**

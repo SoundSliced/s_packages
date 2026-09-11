@@ -3,7 +3,7 @@ description: A unified Flutter package which gathers multiple widgets and tools.
 issue_tracker: https://github.com/SoundSliced/s_packages/issues
 repository: https://github.com/SoundSliced/s_packages
 homepage: https://github.com/SoundSliced/s_packages
-version: 5.5.3
+version: 5.5.4
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -20,10 +20,10 @@ dependencies:
   assorted_layout_widgets: ^12.12.1
   circular_countdown_timer: ^0.2.4
   pausable_timer: ^3.1.0+3
-  tabler_icons_plus: ^3.44.0
-  dio: ^5.11.0
+  tabler_icons_plus: ^3.46.0
+  dio: ^5.11.1
   http: ^1.6.0
-  internet_connection_checker_plus: ^3.1.1
+  internet_connection_checker_plus: ^3.1.2
   rxdart: ^0.28.0
   dart_helper_utils: ^6.1.0
   path_provider: ^2.1.6
@@ -43,7 +43,7 @@ dependencies:
   desktop_webview_window: ^0.3.0
   typed_data: ^1.4.0
   source_span: ^1.10.2
-  html: ^0.15.6
+  html: ^0.15.7
   charcode: ^1.4.0
   csslib: ^1.0.2
   meta: ^1.18.0

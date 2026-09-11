@@ -133,10 +133,10 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: "0df44ebba85e503958eb75d07eedd3c86275a58c1d3eda2f2ce8f0a2c3abbb3c"
+      sha256: "852ec3b48cc431ac04fff978413c541502b67ffc3e26921e74e3d994694192c1"
       url: "https://pub.dev"
     source: hosted
-    version: "5.11.0"
+    version: "5.11.1"
   dio_web_adapter:
     dependency: transitive
     description:
@@ -257,10 +257,10 @@ packages:
     dependency: "direct main"
     description:
       name: html
-      sha256: "6d1264f2dffa1b1101c25a91dff0dc2daee4c18e87cd8538729773c073dbf602"
+      sha256: "43b67b8f43321ab066817dfac5619596c98bb1b61624e77203bb4351785f9699"
       url: "https://pub.dev"
     source: hosted
-    version: "0.15.6"
+    version: "0.15.7"
   http:
     dependency: "direct main"
     description:
@@ -289,10 +289,10 @@ packages:
     dependency: "direct main"
     description:
       name: internet_connection_checker_plus
-      sha256: "2c39c48ac73c71fcaad25d67a399eaf10bd72e674b754393c1ced09d199979b6"
+      sha256: "43edc904d8b8a9f5a2f871e9317a352ca005641b2f158a8b22732447c9f3994e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.1"
+    version: "3.1.2"
   intl:
     dependency: transitive
     description:
@@ -734,10 +734,10 @@ packages:
     dependency: "direct main"
     description:
       name: tabler_icons_plus
-      sha256: "6c3a1e987d87a063597b20810b080fe8202c5d48f2eb0a5c793fcd4c72566f29"
+      sha256: "81cc5af10223d905c0d43f0d88ed31401083a2b9152d6e8ae75e273f0b1e7de1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.44.0"
+    version: "3.46.0"
   term_glyph:
     dependency: transitive
     description:
