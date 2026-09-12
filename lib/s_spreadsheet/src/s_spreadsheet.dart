@@ -832,6 +832,70 @@ class SSpreadsheet extends StatefulWidget {
         assert(rowHeaderWidth >= 0, 'rowHeaderWidth must be >= 0'),
         assert(headerHeight >= 0, 'headerHeight must be >= 0');
 
+  /// Builds all columns and the requested rows at their natural dimensions.
+  ///
+  /// This eager, non-interactive layout is intended for bounded exports, not
+  /// live scrolling. It reuses cell builders without mounting spreadsheet
+  /// controllers, selection effects or animations. Builders must not reuse
+  /// GlobalKeys attached to another tree. [rowIndices] preserves supplied order.
+  Widget buildExport(BuildContext context, {List<int>? rowIndices}) {
+    final indices = rowIndices ?? List<int>.generate(rowCount, (i) => i);
+    for (final index in indices) {
+      if (index < 0 || index >= rowCount) {
+        throw RangeError.range(index, 0, rowCount - 1, 'rowIndex');
+      }
+    }
+    final outerPadding = padding.resolve(Directionality.of(context));
+    final innerPadding = rowPadding.resolve(Directionality.of(context));
+    final widths = List<double>.generate(columnCount,
+        (i) => columnWidthBuilder?.call(i) ?? 180);
+    final headerWidth = rowHeaderBuilder == null ? 0.0 : rowHeaderWidth;
+    final width = headerWidth + widths.fold(0.0, (a, b) => a + b) +
+        innerPadding.horizontal;
+    Widget strip(int? row) => SizedBox(
+      height: row == null ? headerHeight : rowHeightBuilder?.call(row) ?? 92,
+      child: Padding(
+        padding: row == null ? EdgeInsets.zero : innerPadding,
+        child: Row(children: [
+          if (rowHeaderBuilder != null)
+            SizedBox(width: rowHeaderWidth, child: row == null
+                ? cornerBuilder?.call(context)
+                : rowHeaderBuilder!(context, row)),
+          for (var col = 0; col < columnCount; col++)
+            SizedBox(width: widths[col], height: double.infinity,
+              child: row == null ? columnHeaderBuilder?.call(context, col)
+                  : cellBuilder(context, row, col)),
+        ]),
+      ),
+    );
+    return IgnorePointer(child: Container(
+      color: backgroundColor,
+      padding: outerPadding,
+      width: width + outerPadding.horizontal,
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        if (showColumnHeader) strip(null),
+        for (final row in indices) strip(row),
+      ]),
+    ));
+  }
+
+  /// Natural dimensions of [buildExport], before screenshot/PDF scaling.
+  Size exportSize(BuildContext context, {List<int>? rowIndices}) {
+    final indices = rowIndices ?? List<int>.generate(rowCount, (i) => i);
+    final outer = padding.resolve(Directionality.of(context));
+    final inner = rowPadding.resolve(Directionality.of(context));
+    var width = rowHeaderBuilder == null ? 0.0 : rowHeaderWidth;
+    for (var col = 0; col < columnCount; col++) {
+      width += columnWidthBuilder?.call(col) ?? 180;
+    }
+    var height = showColumnHeader ? headerHeight : 0.0;
+    for (final row in indices) {
+      if (row < 0 || row >= rowCount) throw RangeError.index(row, indices);
+      height += rowHeightBuilder?.call(row) ?? 92;
+    }
+    return Size(width + outer.horizontal + inner.horizontal, height + outer.vertical);
+  }
+
   @override
   State<SSpreadsheet> createState() => SSpreadsheetState();
 }
@@ -1256,6 +1320,26 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   };
 
   // ======= End keystroke helpers =======
+
+  /// Indices of complete rows intersecting the current vertical viewport.
+  /// Includes partially visible rows and is independent of horizontal scrolling.
+  /// Read after row insertion/extent animations have settled.
+  List<int> get visibleRowIndices {
+    final controller = _verticalIndexedController.controller;
+    if (!controller.hasClients) return const [];
+    final start = controller.offset;
+    final end = start + controller.position.viewportDimension;
+    if (end <= start) return const [];
+    var top = 0.0;
+    final indices = <int>[];
+    for (var row = 0; row < widget.rowCount; row++) {
+      final bottom = top + _rowHeightAt(row);
+      if (bottom > start && top < end) indices.add(row);
+      if (top >= end) break;
+      top = bottom;
+    }
+    return indices;
+  }
 
   /// Maps a viewport-local position to a spreadsheet grid cell.
   ///

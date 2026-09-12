@@ -1,3 +1,28 @@
+## 5.5.5
+
+- **New: `SSpreadsheet.buildExport` / `SSpreadsheet.exportSize`** — a
+  non-virtualised, non-interactive rendering of the sheet for bounded exports.
+  `buildExport` lays out every column and the requested `rowIndices` (all rows
+  by default, supplied order preserved) at their natural dimensions, reusing the
+  live `cellBuilder`, `rowHeaderBuilder`, `columnHeaderBuilder` and
+  `cornerBuilder` without mounting scroll controllers, selection wrappers or row
+  animations. `exportSize` returns the matching logical `Size`, so a caller can
+  hand both to a screenshot pass. Out-of-range indices throw `RangeError`.
+  Purely additive: the live widget's build path is unchanged.
+- **New: `SSpreadsheetState.visibleRowIndices`** — the indices of every row
+  intersecting the current vertical viewport, partially visible rows included
+  and independent of horizontal scrolling. Empty until the scroll controller has
+  clients; read it after row insertion/extent animations have settled.
+- **New: `SScreenshot.captureWidget`** — renders a detached widget tree at an
+  explicit logical size and returns PNG bytes, so content larger than the screen
+  can be captured in full. Theme, localisation, text direction and media
+  settings are inherited from the supplied `BuildContext`; ticker animations are
+  disabled. Output is bounded by `maxPixelDimension` and `maxPixels` and the
+  whole image is scaled down proportionally when a limit is hit — never cropped.
+  The image, element tree, focus manager and render pipeline are disposed on
+  both success and failure. Callers must supply complete, non-scrolling content:
+  a lazy list is not made capturable by enlarging it.
+
 ## 5.5.4
 - `universal_html` legacy package removed, now only keeping the `s_universal_html` better and fuller package
 

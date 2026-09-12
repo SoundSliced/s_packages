@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math' as math;
 import 'package:universal_io/io.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,97 @@ import 'save_screenshot.dart';
 part 'tools.dart';
 
 class SScreenshot {
+  /// Renders complete, non-scrolling content independently of the screen.
+  ///
+  /// [logicalSize] must contain the entire widget, including all export rows
+  /// and columns. Lazy scrollables must first be replaced with a static layout
+  /// (for example SSpreadsheet.buildExport). Themes, localization, direction and
+  /// media settings are copied from [context]; custom providers must be supplied
+  /// in [child]. Output is proportionally shrunk to the pixel limits, never cropped.
+  /// Async assets should be preloaded; [settleDelay] is not an asset-loading API.
+  static Future<Uint8List> captureWidget({
+    required BuildContext context,
+    required Widget child,
+    required Size logicalSize,
+    double pixelRatio = 2,
+    int maxPixelDimension = 8192,
+    int maxPixels = 16000000,
+    Duration settleDelay = const Duration(milliseconds: 100),
+  }) async {
+    if (!logicalSize.width.isFinite || !logicalSize.height.isFinite ||
+        logicalSize.width <= 0 || logicalSize.height <= 0 ||
+        !pixelRatio.isFinite || pixelRatio <= 0 ||
+        maxPixelDimension <= 0 || maxPixels <= 0 || settleDelay.isNegative) {
+      throw ArgumentError('Capture dimensions, ratio and limits must be positive.');
+    }
+    final ratio = math.min(pixelRatio, math.min(
+      maxPixelDimension / math.max(logicalSize.width, logicalSize.height),
+      math.sqrt(maxPixels / (logicalSize.width * logicalSize.height)),
+    ));
+    final boundary = RenderRepaintBoundary();
+    final view = RenderView(
+      view: View.of(context),
+      configuration: ViewConfiguration(
+        logicalConstraints: BoxConstraints.tight(logicalSize),
+        physicalConstraints: BoxConstraints.tight(logicalSize),
+        devicePixelRatio: 1,
+      ),
+      child: boundary,
+    );
+    final pipeline = PipelineOwner()..rootNode = view;
+    final focusManager = FocusManager();
+    final owner = BuildOwner(focusManager: focusManager);
+    RenderObjectToWidgetElement<RenderBox>? element;
+    try {
+      view.prepareInitialFrame();
+      final content = InheritedTheme.captureAll(context,
+        MediaQuery(
+          data: MediaQuery.of(context).copyWith(size: logicalSize),
+          child: Localizations.override(
+            context: context,
+            child: Directionality(
+              textDirection: Directionality.of(context),
+              child: TickerMode(enabled: false, child: child),
+            ),
+          ),
+        ),
+      );
+      element = RenderObjectToWidgetAdapter<RenderBox>(
+        container: boundary, child: content,
+      ).attachToRenderTree(owner);
+      void paint() {
+        owner.buildScope(element!);
+        pipeline.flushLayout();
+        pipeline.flushCompositingBits();
+        pipeline.flushPaint();
+      }
+      paint();
+      if (settleDelay > Duration.zero) await Future<void>.delayed(settleDelay);
+      paint();
+      final image = await boundary.toImage(pixelRatio: ratio);
+      try {
+        final data = await image.toByteData(format: ui.ImageByteFormat.png);
+        if (data == null) throw ScreenshotException('PNG encoding failed');
+        return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      } finally {
+        image.dispose();
+      }
+    } finally {
+      if (element != null) {
+        RenderObjectToWidgetAdapter<RenderBox>(container: boundary)
+            .attachToRenderTree(owner, element);
+        owner.buildScope(element);
+        owner.finalizeTree();
+      }
+      pipeline.rootNode = null;
+      view.child = null;
+      boundary.dispose();
+      view.dispose();
+      pipeline.dispose();
+      focusManager.dispose();
+    }
+  }
+
   /// Captures a widget screenshot using the provided [key].
   ///
   /// Returns String (base64), Uint8List (bytes), or File based on [config].
