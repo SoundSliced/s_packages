@@ -27,16 +27,24 @@ class SScreenshot {
     int maxPixels = 16000000,
     Duration settleDelay = const Duration(milliseconds: 100),
   }) async {
-    if (!logicalSize.width.isFinite || !logicalSize.height.isFinite ||
-        logicalSize.width <= 0 || logicalSize.height <= 0 ||
-        !pixelRatio.isFinite || pixelRatio <= 0 ||
-        maxPixelDimension <= 0 || maxPixels <= 0 || settleDelay.isNegative) {
-      throw ArgumentError('Capture dimensions, ratio and limits must be positive.');
+    if (!logicalSize.width.isFinite ||
+        !logicalSize.height.isFinite ||
+        logicalSize.width <= 0 ||
+        logicalSize.height <= 0 ||
+        !pixelRatio.isFinite ||
+        pixelRatio <= 0 ||
+        maxPixelDimension <= 0 ||
+        maxPixels <= 0 ||
+        settleDelay.isNegative) {
+      throw ArgumentError(
+          'Capture dimensions, ratio and limits must be positive.');
     }
-    final ratio = math.min(pixelRatio, math.min(
-      maxPixelDimension / math.max(logicalSize.width, logicalSize.height),
-      math.sqrt(maxPixels / (logicalSize.width * logicalSize.height)),
-    ));
+    final ratio = math.min(
+        pixelRatio,
+        math.min(
+          maxPixelDimension / math.max(logicalSize.width, logicalSize.height),
+          math.sqrt(maxPixels / (logicalSize.width * logicalSize.height)),
+        ));
     final boundary = RenderRepaintBoundary();
     final view = RenderView(
       view: View.of(context),
@@ -53,7 +61,8 @@ class SScreenshot {
     RenderObjectToWidgetElement<RenderBox>? element;
     try {
       view.prepareInitialFrame();
-      final content = InheritedTheme.captureAll(context,
+      final content = InheritedTheme.captureAll(
+        context,
         MediaQuery(
           data: MediaQuery.of(context).copyWith(size: logicalSize),
           child: Localizations.override(
@@ -66,7 +75,8 @@ class SScreenshot {
         ),
       );
       element = RenderObjectToWidgetAdapter<RenderBox>(
-        container: boundary, child: content,
+        container: boundary,
+        child: content,
       ).attachToRenderTree(owner);
       void paint() {
         owner.buildScope(element!);
@@ -74,6 +84,7 @@ class SScreenshot {
         pipeline.flushCompositingBits();
         pipeline.flushPaint();
       }
+
       paint();
       if (settleDelay > Duration.zero) await Future<void>.delayed(settleDelay);
       paint();

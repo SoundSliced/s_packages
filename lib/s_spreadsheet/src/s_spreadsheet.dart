@@ -847,28 +847,36 @@ class SSpreadsheet extends StatefulWidget {
     }
     final outerPadding = padding.resolve(Directionality.of(context));
     final innerPadding = rowPadding.resolve(Directionality.of(context));
-    final widths = List<double>.generate(columnCount,
-        (i) => columnWidthBuilder?.call(i) ?? 180);
+    final widths = List<double>.generate(
+        columnCount, (i) => columnWidthBuilder?.call(i) ?? 180);
     final headerWidth = rowHeaderBuilder == null ? 0.0 : rowHeaderWidth;
-    final width = headerWidth + widths.fold(0.0, (a, b) => a + b) +
+    final width = headerWidth +
+        widths.fold(0.0, (a, b) => a + b) +
         innerPadding.horizontal;
     Widget strip(int? row) => SizedBox(
-      height: row == null ? headerHeight : rowHeightBuilder?.call(row) ?? 92,
-      child: Padding(
-        padding: row == null ? EdgeInsets.zero : innerPadding,
-        child: Row(children: [
-          if (rowHeaderBuilder != null)
-            SizedBox(width: rowHeaderWidth, child: row == null
-                ? cornerBuilder?.call(context)
-                : rowHeaderBuilder!(context, row)),
-          for (var col = 0; col < columnCount; col++)
-            SizedBox(width: widths[col], height: double.infinity,
-              child: row == null ? columnHeaderBuilder?.call(context, col)
-                  : cellBuilder(context, row, col)),
-        ]),
-      ),
-    );
-    return IgnorePointer(child: Container(
+          height:
+              row == null ? headerHeight : rowHeightBuilder?.call(row) ?? 92,
+          child: Padding(
+            padding: row == null ? EdgeInsets.zero : innerPadding,
+            child: Row(children: [
+              if (rowHeaderBuilder != null)
+                SizedBox(
+                    width: rowHeaderWidth,
+                    child: row == null
+                        ? cornerBuilder?.call(context)
+                        : rowHeaderBuilder!(context, row)),
+              for (var col = 0; col < columnCount; col++)
+                SizedBox(
+                    width: widths[col],
+                    height: double.infinity,
+                    child: row == null
+                        ? columnHeaderBuilder?.call(context, col)
+                        : cellBuilder(context, row, col)),
+            ]),
+          ),
+        );
+    return IgnorePointer(
+        child: Container(
       color: backgroundColor,
       padding: outerPadding,
       width: width + outerPadding.horizontal,
@@ -893,7 +901,8 @@ class SSpreadsheet extends StatefulWidget {
       if (row < 0 || row >= rowCount) throw RangeError.index(row, indices);
       height += rowHeightBuilder?.call(row) ?? 92;
     }
-    return Size(width + outer.horizontal + inner.horizontal, height + outer.vertical);
+    return Size(
+        width + outer.horizontal + inner.horizontal, height + outer.vertical);
   }
 
   @override
