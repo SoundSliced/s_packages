@@ -1,3 +1,26 @@
+## 5.5.6
+
+- **Fix: `OverlayInterleaveManager` could re-insert an entry that was already in
+  the target `Overlay`** — the restack in `_syncEntries` decided which of its
+  entries to detach by reading `OverlayEntry.mounted`, which only turns true once
+  the `Overlay` rebuilds and mounts the entry widget. An entry registered earlier
+  in the *same* frame therefore reported `mounted == false` while it was in fact
+  already in the overlay's entry list, so the sweep skipped its removal and the
+  insert that followed added it a second time — `The specified entry is already
+  present in the target Overlay` in debug, a duplicated entry in the list in
+  release. Two layer changes inside one frame is the ordinary case (a snackbar
+  landing while a pop/modal layer is added or removed), so ordinary flows could
+  hit it. Detachment is now driven by `_insertedIds`, the ids this manager has
+  actually inserted, with `entry.mounted` kept as a second condition for an entry
+  left attached to a stale overlay; the same bookkeeping also releases an entry
+  that is unregistered before the Overlay ever built it, which previously stayed
+  in the overlay rendering stale content. Regression tests:
+  `test/s_modoverlay_interleave_test.dart`.
+- `OverlayState.rearrange` was considered instead of remove-and-reinsert, and
+  rejected: it asserts on an entry that still belongs to another (possibly
+  disposed) overlay, and without an explicit `below` it moves every foreign entry
+  above ours, changing the stacking the manager exists to decide.
+
 ## 5.5.5
 
 - **New: `SSpreadsheet.buildExport` / `SSpreadsheet.exportSize`** — a

@@ -41,6 +41,22 @@ class OverlayInterleaveManager {
   static OverlayState? _overlayState;
   static final Map<String, OverlayEntry> _entries = <String, OverlayEntry>{};
   static List<String> _mountedOrder = <String>[];
+
+  /// Ids whose entry this manager has inserted into the target overlay and not
+  /// yet detached.
+  ///
+  /// [OverlayEntry.mounted] cannot answer "is this entry in the overlay's list
+  /// already?": it only turns true when the Overlay rebuilds and mounts the
+  /// entry widget, so an entry inserted earlier in the *same* frame reports
+  /// `false` while it is in fact already listed. A restack that trusted it
+  /// therefore skipped that entry's removal and inserted it again, which is
+  /// what Flutter rejects with "The specified entry is already present in the
+  /// target Overlay" (widgets/overlay.dart, _debugCanInsertEntry) as soon as two
+  /// layers change in one frame - a snackbar landing while a pop/modal layer is
+  /// added or removed, for example. Detachment is driven by this record, with
+  /// `entry.mounted` kept as a second condition so an entry left attached to a
+  /// stale overlay we no longer track is still released.
+  static final Set<String> _insertedIds = <String>{};
   static bool _installScheduled = false;
   static bool _bringToFrontScheduled = false;
   static BuildContext? _pendingBringContext;
@@ -243,7 +259,7 @@ class OverlayInterleaveManager {
   /// Useful for hard resets (for example test teardown) so stale host entries
   /// do not accumulate across widget tree lifecycles.
   static void teardownHost({bool clearLayers = true}) {
-    final entries = List<OverlayEntry>.from(_entries.values);
+    final entries = Map<String, OverlayEntry>.from(_entries);
     _entries.clear();
     _mountedOrder = <String>[];
     _overlayState = null;
@@ -251,11 +267,12 @@ class OverlayInterleaveManager {
     _bringToFrontScheduled = false;
     _pendingBringContext = null;
 
-    for (final entry in entries) {
-      if (entry.mounted) {
-        entry.remove();
-      }
+    for (final entry in entries.entries) {
+      // Detach by id rather than by `entry.mounted`: an entry inserted in this
+      // frame is in the overlay's list but not mounted yet (see [_insertedIds]).
+      _detachEntry(entry.key, entry.value);
     }
+    _insertedIds.clear();
 
     if (clearLayers) {
       _layers.value = <InterleavedOverlayLayer>[];
@@ -369,6 +386,21 @@ class OverlayInterleaveManager {
     return true;
   }
 
+  /// Detaches [entry] from whichever overlay currently holds it, and forgets
+  /// its id.
+  ///
+  /// Safe for an entry that was never inserted or was already detached:
+  /// [OverlayEntry.remove] only acts on the overlay recorded at insert time, and
+  /// it clears that reference *before* checking whether the overlay is still
+  /// mounted - so an entry whose overlay has been disposed is released without
+  /// touching the tree.
+  static void _detachEntry(String id, OverlayEntry entry) {
+    final bool tracked = _insertedIds.remove(id);
+    if (tracked || entry.mounted) {
+      entry.remove();
+    }
+  }
+
   static void _syncEntries({bool forceToFront = false, BuildContext? context}) {
     if (!enabled) return;
 
@@ -391,8 +423,8 @@ class OverlayInterleaveManager {
     for (final id in currentIds) {
       if (desiredIds.contains(id)) continue;
       final removed = _entries.remove(id);
-      if (removed != null && removed.mounted) {
-        removed.remove();
+      if (removed != null) {
+        _detachEntry(id, removed);
       }
     }
 
@@ -446,17 +478,31 @@ class OverlayInterleaveManager {
         !_sameOrder(_mountedOrder, desiredOrder);
 
     if (shouldRestack) {
-      for (final id in _mountedOrder.reversed) {
-        final entry = _entries[id];
-        if (entry != null && entry.mounted) {
-          entry.remove();
-        }
+      // Detach by layer id, driven by [_insertedIds] instead of by
+      // `entry.mounted`. An entry inserted earlier in this same frame is still
+      // in the overlay's entry list while reporting `mounted == false`; a
+      // `mounted`-based sweep skipped it, and the insert below then re-added an
+      // entry that was already listed. `_detachEntry` covers both what we
+      // ourselves attached and an entry left attached to a stale overlay.
+      //
+      // (OverlayState.rearrange would tolerate a re-insert too, but it refuses
+      // an entry that still belongs to another - possibly disposed - overlay,
+      // and with no explicit `below` it would move every foreign entry above
+      // ours, changing the stacking this manager exists to decide.)
+      for (int i = 0; i < orderedEntries.length; i++) {
+        _detachEntry(desiredOrder[i], orderedEntries[i]);
       }
 
       for (final entry in orderedEntries) {
         overlayState.insert(entry);
       }
 
+      // Exactly what is attached now: any id this restack did not re-insert has
+      // been detached above, and keeping a stale id would make a later swap of
+      // the same layer detach an entry that was never inserted.
+      _insertedIds
+        ..clear()
+        ..addAll(desiredOrder);
       _mountedOrder = desiredOrder;
     }
 
