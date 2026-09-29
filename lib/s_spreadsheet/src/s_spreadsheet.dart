@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, TargetPlatform;
+import 'package:flutter/gestures.dart'
+    show PointerScrollEvent, PointerSignalEvent;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:s_packages/indexscroll_listview_builder/indexscroll_listview_builder.dart';
@@ -372,6 +374,169 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
   }
 }
 
+/// Which part of a zoom control a built part represents.
+enum SSpreadsheetZoomAction {
+  /// Step the factor down by [SSpreadsheetZoomController.step].
+  zoomOut,
+
+  /// The current factor — tapping it returns to 100%.
+  reset,
+
+  /// Step the factor up by [SSpreadsheetZoomController.step].
+  zoomIn,
+}
+
+/// Builds one part of an [SSpreadsheetZoomControls].
+///
+/// [label] is the factor rendered as a percentage (e.g. `125%`), ready for the
+/// `reset` part to show; the other actions ignore it. [onTap] is only ever
+/// wired when [isEnabled]; a builder may render the disabled state however it
+/// likes.
+typedef SSpreadsheetZoomControlBuilder = Widget Function(
+  BuildContext context, {
+  required SSpreadsheetZoomAction action,
+  required bool isEnabled,
+  required String label,
+  required VoidCallback onTap,
+});
+
+/// Ready-to-use zoom control bound to an [SSpreadsheetZoomController].
+///
+/// Three parts, in order: step down, the current factor as a percentage, step
+/// up. Tapping the percentage returns to 100% — it stays tappable there so the
+/// readout does not look broken, and resetting when already at 100% is a
+/// no-op. The two buttons are disabled at the end of the range they would
+/// cross, so the control can be dropped into a toolbar with no extra state.
+///
+/// Pass [builder] to render the parts in the host app's own visual language;
+/// the default rendering mirrors the default of
+/// [SSpreadsheetHorizontalScrollButtons].
+class SSpreadsheetZoomControls extends StatelessWidget {
+  /// The zoom state this control drives. Held, not owned: nothing here
+  /// disposes it.
+  final SSpreadsheetZoomController controller;
+
+  final EdgeInsetsGeometry padding;
+  final CrossAxisAlignment crossAxisAlignment;
+  final MainAxisAlignment mainAxisAlignment;
+
+  /// Gap between the three parts.
+  final double spacing;
+
+  /// Optional replacement for the default part rendering.
+  final SSpreadsheetZoomControlBuilder? builder;
+
+  const SSpreadsheetZoomControls({
+    super.key,
+    required this.controller,
+    this.padding = EdgeInsets.zero,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.spacing = 4,
+    this.builder,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: ValueListenableBuilder<double>(
+        valueListenable: controller,
+        builder: (context, zoom, _) {
+          // Rounded, because equal steps accumulate floating-point error and a
+          // readout of "99.99999999999999%" is not what anybody set.
+          final label = '${(zoom * 100).round()}%';
+
+          Widget part(SSpreadsheetZoomAction action) {
+            final isEnabled = switch (action) {
+              SSpreadsheetZoomAction.zoomOut => controller.canZoomOut,
+              SSpreadsheetZoomAction.zoomIn => controller.canZoomIn,
+              SSpreadsheetZoomAction.reset => true,
+            };
+            final onTap = switch (action) {
+              SSpreadsheetZoomAction.zoomOut => controller.zoomOut,
+              SSpreadsheetZoomAction.zoomIn => controller.zoomIn,
+              SSpreadsheetZoomAction.reset => controller.reset,
+            };
+
+            return builder?.call(context,
+                    action: action,
+                    isEnabled: isEnabled,
+                    label: label,
+                    onTap: onTap) ??
+                _defaultPart(context,
+                    action: action,
+                    isEnabled: isEnabled,
+                    onTap: onTap,
+                    label: label);
+          }
+
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: mainAxisAlignment,
+            crossAxisAlignment: crossAxisAlignment,
+            children: [
+              part(SSpreadsheetZoomAction.zoomOut),
+              SizedBox(width: spacing),
+              part(SSpreadsheetZoomAction.reset),
+              SizedBox(width: spacing),
+              part(SSpreadsheetZoomAction.zoomIn),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _defaultPart(
+    BuildContext context, {
+    required SSpreadsheetZoomAction action,
+    required bool isEnabled,
+    required VoidCallback onTap,
+    required String label,
+  }) {
+    final Widget content = switch (action) {
+      SSpreadsheetZoomAction.zoomIn =>
+        Icon(Icons.add, size: 14, color: Colors.blue.shade900),
+      SSpreadsheetZoomAction.zoomOut =>
+        Icon(Icons.remove, size: 14, color: Colors.blue.shade900),
+      SSpreadsheetZoomAction.reset => Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: Colors.blue.shade900,
+          ),
+        ),
+    };
+
+    return Opacity(
+      opacity: isEnabled ? 1 : 0.45,
+      child: IgnorePointer(
+        ignoring: !isEnabled,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6),
+          onTap: onTap,
+          child: Container(
+            height: 20,
+            constraints: const BoxConstraints(minWidth: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade500.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(
+                  color: Colors.blue.shade700.withValues(alpha: 0.5),
+                  width: 0.5),
+            ),
+            alignment: Alignment.center,
+            child: content,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// Result of a spreadsheet hit-test: maps a viewport-local position to a
 /// grid cell and provides visibility context for edge-triggered auto-scroll.
 ///
@@ -541,6 +706,214 @@ class SSpreadsheetSelectionController extends ChangeNotifier {
     _selectedRowKey = null;
     _selectedColumnKey = null;
     notifyListeners();
+  }
+}
+
+/// Shared zoom state for [SSpreadsheet].
+///
+/// Holds the zoom factor together with the policy around it — the range it is
+/// clamped to and the increments a button press or a wheel notch applies — so a
+/// toolbar control, the keyboard shortcuts and the widget's own wheel handling
+/// can never disagree about what "zoom in" means.
+///
+/// The increments are **absolute** additions to the factor, not multipliers:
+/// within a 50%–200% range that makes every press the same size, so pressing
+/// "zoom in" from 50% and from 200% moves the sheet by the same amount.
+///
+/// Pass one instance to [SSpreadsheet.zoomController] to drive zoom from
+/// outside — a toolbar control, a settings row, an app-level bridge.
+/// Ownership follows [SSpreadsheetHorizontalSyncController]: a caller-supplied
+/// controller is only ever listened to, with the listener attached when the
+/// spreadsheet mounts and detached when it unmounts, and is *never* disposed by
+/// the spreadsheet; a controller the spreadsheet had to create for itself is
+/// disposed with it. [SSpreadsheetSelectionController] is borrowed the same
+/// way.
+///
+/// The zoom is deliberately not persisted: it lives and dies with this
+/// controller, so a fresh app start is back at [defaultZoom] (100%).
+class SSpreadsheetZoomController extends ValueNotifier<double> {
+  /// The factor the sheet is shown at with no zoom applied, i.e. 100%.
+  ///
+  /// Everything that means "zoom out goes here": [reset] returns to it, and it
+  /// is the value a spreadsheet uses when no controller is supplied.
+  static const double defaultZoom = 1.0;
+
+  /// The range and increments a default-configured controller uses.
+  ///
+  /// Exposed so [SSpreadsheet.minZoom] / [SSpreadsheet.maxZoom] can default to
+  /// the same numbers rather than restating them.
+  static const double defaultMinZoom = 0.5;
+
+  /// Largest factor a default-configured controller clamps to — 200%.
+  static const double defaultMaxZoom = 2.0;
+
+  /// Increment a default-configured controller applies per button press.
+  static const double defaultStep = 0.10;
+
+  /// Increment a default-configured controller applies per wheel notch.
+  static const double defaultWheelStep = 0.05;
+
+  /// Smallest factor [setZoom] clamps to — 50%.
+  final double minZoom;
+
+  /// Largest factor [setZoom] clamps to — 200%.
+  final double maxZoom;
+
+  /// Increment applied by [zoomIn] / [zoomOut]: one button press or one
+  /// keystroke, i.e. 10% of 100%.
+  final double step;
+
+  /// Increment applied by one wheel notch (or one trackpad pinch tick).
+  ///
+  /// Half of [step]: a wheel emits a stream of events where a button emits one
+  /// discrete press, so the same increment per event would feel twice as fast.
+  final double wheelStep;
+
+  SSpreadsheetZoomController({
+    double zoom = defaultZoom,
+    this.minZoom = defaultMinZoom,
+    this.maxZoom = defaultMaxZoom,
+    this.step = defaultStep,
+    this.wheelStep = defaultWheelStep,
+  })  : assert(minZoom > 0, 'minZoom must be > 0'),
+        assert(maxZoom >= minZoom, 'maxZoom must be >= minZoom'),
+        assert(step > 0, 'step must be > 0'),
+        assert(wheelStep > 0, 'wheelStep must be > 0'),
+        super(zoom.clamp(minZoom, maxZoom).toDouble());
+
+  /// The current factor, where `1.0` is 100%.
+  double get zoom => value;
+
+  /// Whether [zoomIn] would change anything — `false` at [maxZoom].
+  bool get canZoomIn => value < maxZoom;
+
+  /// Whether [zoomOut] would change anything — `false` at [minZoom].
+  bool get canZoomOut => value > minZoom;
+
+  /// Sets the factor to [next], clamped to [minZoom]..[maxZoom].
+  ///
+  /// Returns whether the factor actually changed. A request that clamps back
+  /// onto the current value is a no-op and notifies no listeners, so callers
+  /// can drive this straight from a scroll wheel or a stream of button taps
+  /// without guarding against the ends of the range.
+  ///
+  /// [anchor] is the point — in the *viewport's* coordinates, i.e. the box the
+  /// sheet is painted into — that should stay put while the factor changes. It
+  /// is held for whoever applies the change, which is the only layer that can
+  /// see the scroll positions, and read back through [takeAnchor]. Passing
+  /// `null` means "keep the origin still", which is what a toolbar button
+  /// wants: the offsets the sheet tracks are content-space and do not change,
+  /// so the top-left row and column simply stay where they are.
+  bool setZoom(double next, {Offset? anchor}) {
+    final clamped = next.clamp(minZoom, maxZoom).toDouble();
+    if (clamped == value) return false;
+    _pendingAnchor = anchor;
+    value = clamped;
+    return true;
+  }
+
+  /// One [step] larger, clamped. See [setZoom] for the return value.
+  bool zoomIn({Offset? anchor}) => setZoom(value + step, anchor: anchor);
+
+  /// One [step] smaller, clamped. See [setZoom] for the return value.
+  bool zoomOut({Offset? anchor}) => setZoom(value - step, anchor: anchor);
+
+  /// [notches] wheel notches worth of [wheelStep], positive to zoom in.
+  ///
+  /// See [setZoom] for the return value.
+  bool zoomByWheelNotches(double notches, {Offset? anchor}) =>
+      setZoom(value + wheelStep * notches, anchor: anchor);
+
+  /// Back to [defaultZoom] (100%), clamped like any other [setZoom].
+  bool reset({Offset? anchor}) => setZoom(defaultZoom, anchor: anchor);
+
+  Offset? _pendingAnchor;
+
+  /// The [anchor] of the most recent zoom that changed the factor, or `null`.
+  ///
+  /// Cleared as it is read, so an anchor from one gesture can never be applied
+  /// a second time — to a later, unrelated change, or after the sheet has been
+  /// scrolled since.
+  Offset? takeAnchor() {
+    final anchor = _pendingAnchor;
+    _pendingAnchor = null;
+    return anchor;
+  }
+}
+
+/// Renders [child] inside a logical viewport of `incoming size / zoom` and
+/// paints it at `zoom`.
+///
+/// This is the primitive [SSpreadsheet.zoom] is built from, exposed so that
+/// any layer sharing the sheet's coordinate space — an overlay positioned from
+/// the same row/column dimensions, a HUD pinned to the grid — can be scaled by
+/// exactly the same amount and stay aligned with the sheet.
+///
+/// Scaling **down** enlarges the logical viewport rather than shrinking the
+/// content into a corner, so zooming out reveals more rows and columns instead
+/// of leaving empty space around a smaller copy of the sheet; scaling **up**
+/// shrinks the logical viewport, so fewer of them fit — which is what zooming
+/// in means for a scrollable grid.
+///
+/// Two cases pass [child] through unwrapped, so they cost nothing and cannot
+/// regress an existing layout:
+/// - `zoom == 1.0`, the default everywhere;
+/// - unbounded incoming constraints, where there is no viewport to divide —
+///   the child is then laid out as it would have been, rather than unbounded
+///   or with a meaningless logical size.
+class SSpreadsheetZoomViewport extends StatelessWidget {
+  /// Scale factor applied to [child]. Must be greater than zero; `1.0` leaves
+  /// the child untouched.
+  final double zoom;
+
+  /// Alignment for both the resized logical box and the [Transform.scale] that
+  /// paints it. Top-left keeps the sheet's origin — its row-header corner —
+  /// pinned, so the scroll offsets the sheet already tracks stay meaningful.
+  final AlignmentGeometry alignment;
+
+  /// The content to lay out at `size / zoom` and paint at `zoom`.
+  final Widget child;
+
+  const SSpreadsheetZoomViewport({
+    super.key,
+    required this.zoom,
+    this.alignment = Alignment.topLeft,
+    required this.child,
+  }) : assert(zoom > 0, 'zoom must be > 0');
+
+  @override
+  Widget build(BuildContext context) {
+    if (zoom == 1.0) return child;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (!constraints.hasBoundedWidth || !constraints.hasBoundedHeight) {
+          return child;
+        }
+
+        return ClipRect(
+          child: OverflowBox(
+            alignment: alignment,
+            minWidth: 0,
+            maxWidth: double.infinity,
+            minHeight: 0,
+            maxHeight: double.infinity,
+            child: Transform.scale(
+              scale: zoom,
+              alignment: alignment,
+              // An explicit box, not just "let the child fill": at zoom < 1 the
+              // logical box is larger than the incoming constraints, and only a
+              // tight size makes the OverflowBox hand the child that much room.
+              child: SizedBox(
+                width: constraints.maxWidth / zoom,
+                height: constraints.maxHeight / zoom,
+                child: child,
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -774,6 +1147,61 @@ class SSpreadsheet extends StatefulWidget {
   /// Defaults to 1 second.
   final Duration keystrokeHudDuration;
 
+  // ======= Zoom Params =======
+
+  /// The factor the sheet is painted at, where `1.0` is 100%.
+  ///
+  /// Zooming changes only how much of the sheet is *visible*: content keeps its
+  /// natural dimensions, so a taller logical viewport at 50% reveals more rows
+  /// rather than stretching them, and [rowHeightBuilder] /
+  /// [columnWidthBuilder] are never asked for scaled sizes. A builder that
+  /// wants to react to zoom can read [zoomController] instead.
+  ///
+  /// Ignored when [zoomController] is supplied.
+  final double zoom;
+
+  /// Optional external zoom state — e.g. one controller shared by a toolbar
+  /// control, a menu item and the sheet itself.
+  ///
+  /// When supplied the sheet reads the factor from it and listens to it, and
+  /// never disposes it; [zoom], [minZoom] and [maxZoom] are then ignored,
+  /// because the controller carries its own range and increments. When omitted
+  /// the sheet creates a controller from [zoom] / [minZoom] / [maxZoom] and
+  /// owns it, disposing it with itself.
+  final SSpreadsheetZoomController? zoomController;
+
+  /// Smallest factor the sheet's own controller clamps to.
+  ///
+  /// Ignored when [zoomController] is supplied. Defaults to
+  /// [SSpreadsheetZoomController.defaultMinZoom], i.e. 50%.
+  final double minZoom;
+
+  /// Largest factor the sheet's own controller clamps to.
+  ///
+  /// Ignored when [zoomController] is supplied. Defaults to
+  /// [SSpreadsheetZoomController.defaultMaxZoom], i.e. 200%.
+  final double maxZoom;
+
+  /// Called with the new factor whenever the zoom changes, whoever changed it —
+  /// the sheet's own wheel handling, a keystroke, or an external
+  /// [zoomController].
+  final ValueChanged<double>? onZoomChanged;
+
+  /// Whether Ctrl/Cmd + wheel over the sheet zooms it.
+  ///
+  /// This is also what a trackpad pinch arrives as: the platform reports the
+  /// pinch as a scroll stream carrying the primary modifier, so a single
+  /// handler covers both. A wheel with no modifier keeps scrolling the sheet,
+  /// untouched. Defaults to `false` so a sheet that never asked for zoom
+  /// behaves exactly as it did before this existed — mirroring
+  /// [enableKeystrokes].
+  ///
+  /// Enabling it also registers the zoom keyboard shortcuts (Ctrl/Cmd + '=',
+  /// '+', '-' and '0'), which are delivered by the keystroke listener and so
+  /// additionally need [enableKeystrokes]. Passing a [zoomController] enables
+  /// them too, since the caller clearly intends the sheet to be zoomable.
+  final bool enableZoomGestures;
+
   const SSpreadsheet({
     super.key,
     required this.rowCount,
@@ -827,10 +1255,20 @@ class SSpreadsheet extends StatefulWidget {
     this.shouldPauseKeystrokes,
     this.keystrokeHudBuilder,
     this.keystrokeHudDuration = const Duration(seconds: 1),
+    // Zoom params
+    this.zoom = SSpreadsheetZoomController.defaultZoom,
+    this.zoomController,
+    this.minZoom = SSpreadsheetZoomController.defaultMinZoom,
+    this.maxZoom = SSpreadsheetZoomController.defaultMaxZoom,
+    this.onZoomChanged,
+    this.enableZoomGestures = false,
   })  : assert(rowCount >= 0, 'rowCount must be >= 0'),
         assert(columnCount >= 0, 'columnCount must be >= 0'),
         assert(rowHeaderWidth >= 0, 'rowHeaderWidth must be >= 0'),
-        assert(headerHeight >= 0, 'headerHeight must be >= 0');
+        assert(headerHeight >= 0, 'headerHeight must be >= 0'),
+        assert(zoom > 0, 'zoom must be > 0'),
+        assert(minZoom > 0, 'minZoom must be > 0'),
+        assert(maxZoom >= minZoom, 'maxZoom must be >= minZoom');
 
   /// Builds all columns and the requested rows at their natural dimensions.
   ///
@@ -838,6 +1276,10 @@ class SSpreadsheet extends StatefulWidget {
   /// live scrolling. It reuses cell builders without mounting spreadsheet
   /// controllers, selection effects or animations. Builders must not reuse
   /// GlobalKeys attached to another tree. [rowIndices] preserves supplied order.
+  ///
+  /// Zoom is deliberately **not** applied: an export is the sheet at 100%, at
+  /// [exportSize]'s natural dimensions, so a PDF or a screenshot never inherits
+  /// the factor someone set on screen. Only the live widget scales.
   Widget buildExport(BuildContext context, {List<int>? rowIndices}) {
     final indices = rowIndices ?? List<int>.generate(rowCount, (i) => i);
     for (final index in indices) {
@@ -888,6 +1330,9 @@ class SSpreadsheet extends StatefulWidget {
   }
 
   /// Natural dimensions of [buildExport], before screenshot/PDF scaling.
+  ///
+  /// Like [buildExport], these are the 100% dimensions: zoom applies to the
+  /// live sheet only.
   Size exportSize(BuildContext context, {List<int>? rowIndices}) {
     final indices = rowIndices ?? List<int>.generate(rowCount, (i) => i);
     final outer = padding.resolve(Directionality.of(context));
@@ -925,6 +1370,193 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     return _ownedVerticalIndexedController!;
   }
 
+  // --- Zoom management ---
+
+  /// The controller this sheet creates when the caller supplies none.
+  SSpreadsheetZoomController? _ownedZoomController;
+
+  /// The zoom state in force: the caller's controller when one was given,
+  /// otherwise one owned by this sheet and built from [SSpreadsheet.zoom],
+  /// [SSpreadsheet.minZoom] and [SSpreadsheet.maxZoom].
+  SSpreadsheetZoomController get _zoomController {
+    final provided = widget.zoomController;
+    if (provided != null) return provided;
+
+    var owned = _ownedZoomController;
+    if (owned == null) {
+      owned = SSpreadsheetZoomController(
+        zoom: widget.zoom,
+        minZoom: widget.minZoom,
+        maxZoom: widget.maxZoom,
+      );
+      owned.addListener(_onZoomChanged);
+      _ownedZoomController = owned;
+    }
+    return owned;
+  }
+
+  /// The factor the sheet is currently painted at, where `1.0` is 100%.
+  double get zoom => _zoomController.zoom;
+
+  /// One [SSpreadsheetZoomController.step] larger, clamped to the range.
+  ///
+  /// Returns whether the factor changed, so a caller can tell a press that hit
+  /// the ceiling from one that actually moved the sheet.
+  bool zoomIn({Offset? anchor}) => _zoomController.zoomIn(anchor: anchor);
+
+  /// One [SSpreadsheetZoomController.step] smaller, clamped to the range.
+  bool zoomOut({Offset? anchor}) => _zoomController.zoomOut(anchor: anchor);
+
+  /// Back to 100% (`SSpreadsheetZoomController.defaultZoom`), clamped.
+  bool resetZoom({Offset? anchor}) => _zoomController.reset(anchor: anchor);
+
+  /// Keeps a caller-supplied controller's lifetime decoupled from this sheet,
+  /// and rebuilds the owned one when the requested policy or factor changes —
+  /// a controller's range and increments are immutable once constructed.
+  void _configureZoomController(SSpreadsheet oldWidget) {
+    final provided = widget.zoomController;
+    final hadProvided = oldWidget.zoomController != null;
+
+    if (provided != null) {
+      if (oldWidget.zoomController != provided) {
+        oldWidget.zoomController?.removeListener(_onZoomChanged);
+        _disposeOwnedZoomController();
+        provided.addListener(_onZoomChanged);
+        _appliedZoom = provided.zoom;
+      }
+      return;
+    }
+
+    // Switched from a caller-supplied controller to none: the owned one is
+    // made fresh below, so the old listener comes off with it.
+    final needsFreshController = _ownedZoomController == null ||
+        hadProvided ||
+        oldWidget.minZoom != widget.minZoom ||
+        oldWidget.maxZoom != widget.maxZoom ||
+        oldWidget.zoom != widget.zoom;
+
+    if (!needsFreshController) return;
+
+    _disposeOwnedZoomController();
+    _ownedZoomController = SSpreadsheetZoomController(
+      zoom: widget.zoom,
+      minZoom: widget.minZoom,
+      maxZoom: widget.maxZoom,
+    )..addListener(_onZoomChanged);
+  }
+
+  /// Drops a controller this sheet created. A caller-supplied controller is
+  /// only ever unsubscribed from, never disposed.
+  void _disposeOwnedZoomController() {
+    _ownedZoomController?.removeListener(_onZoomChanged);
+    _ownedZoomController?.dispose();
+    _ownedZoomController = null;
+  }
+
+  /// The factor in force as of the last change we processed, so an anchored
+  /// zoom can map the pointer's content position across the change. Kept here
+  /// rather than read back from the controller, which has already moved on by
+  /// the time the listener runs.
+  double? _appliedZoom;
+
+  /// Ctrl/Cmd + wheel — which is also how a trackpad pinch arrives — zooms the
+  /// sheet, anchored under the pointer. A wheel with no modifier is left alone,
+  /// so it keeps scrolling the sheet exactly as it always has.
+  void _onPointerSignal(PointerSignalEvent event) {
+    if (event is! PointerScrollEvent) return;
+    if (!_isZoomModifierPressed) return;
+
+    final notches = _wheelNotchesFor(event.scrollDelta.dy);
+    if (notches == 0) return;
+
+    _zoomController.zoomByWheelNotches(notches, anchor: event.localPosition);
+  }
+
+  /// Ctrl on Windows/Linux, Cmd on macOS — and a trackpad pinch, which the
+  /// platform reports as a scroll stream carrying the primary modifier.
+  bool get _isZoomModifierPressed {
+    final keys = HardwareKeyboard.instance;
+    return keys.isControlPressed || keys.isMetaPressed;
+  }
+
+  /// How many wheel notches [deltaY] is worth: negative delta (wheel up)
+  /// zooms in, one canonical notch is 120 logical pixels.
+  ///
+  /// A pinch sends a stream of much smaller deltas, so this returns fractions;
+  /// the clamp keeps a single flick from crossing the whole 50%–200% range in
+  /// one event.
+  static double _wheelNotchesFor(double deltaY) =>
+      (-deltaY / 120).clamp(-3.0, 3.0);
+
+  void _onZoomChanged() {
+    final newZoom = _zoomController.zoom;
+    final oldZoom = _appliedZoom ?? newZoom;
+    _appliedZoom = newZoom;
+
+    final anchor = _zoomController.takeAnchor();
+    if (anchor != null && oldZoom != newZoom) {
+      _preserveAnchorUnderPointer(anchor, oldZoom, newZoom);
+    }
+
+    widget.onZoomChanged?.call(newZoom);
+    // The sheet has to lay out again: a different factor means a different
+    // logical viewport, hence a different number of visible rows and columns.
+    if (mounted) setState(() {});
+  }
+
+  /// Keeps whatever sits under [anchor] pinned there while the factor changes.
+  ///
+  /// [anchor] is in the widget's painted box, so the content position under it
+  /// is `anchor / zoom` in logical space, less the fixed header, plus the
+  /// scroll offset already in force; re-seating the offset for the new factor
+  /// keeps that same content position under the pointer.
+  ///
+  /// The offsets are content-space and therefore unchanged by the factor, so
+  /// they are read once, before the frame that applies the new layout — the
+  /// correction itself waits for that frame, because the new viewport
+  /// dimensions only exist after it.
+  void _preserveAnchorUnderPointer(
+      Offset anchor, double oldZoom, double newZoom) {
+    final headerH = widget.showColumnHeader ? widget.headerHeight : 0.0;
+    final rowHeaderW = widget.rowHeaderWidth;
+
+    final vController = _verticalIndexedController.controller;
+    final hController = widget.horizontalSyncController?.value.controller;
+
+    final vOffset = vController.hasClients ? vController.offset : null;
+    final hOffset = (hController != null && hController.hasClients)
+        ? hController.offset
+        : null;
+    if (vOffset == null && hOffset == null) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      if (vOffset != null) {
+        final contentY = (anchor.dy / oldZoom) - headerH + vOffset;
+        _jumpTo(vController, contentY + headerH - (anchor.dy / newZoom));
+      }
+      if (hOffset != null) {
+        final contentX = (anchor.dx / oldZoom) - rowHeaderW + hOffset;
+        _jumpTo(hController!, contentX + rowHeaderW - (anchor.dx / newZoom));
+      }
+    });
+  }
+
+  /// Jumps [controller] to [target], clamped to what it can actually reach.
+  static void _jumpTo(ScrollController controller, double target) {
+    if (!controller.hasClients) return;
+    final position = controller.position;
+    if (!position.hasContentDimensions) return;
+    try {
+      controller.jumpTo(
+        target.clamp(position.minScrollExtent, position.maxScrollExtent),
+      );
+    } catch (_) {
+      // A virtualised strip can be torn down between the two frames.
+    }
+  }
+
   // --- Keystroke / Focus management ---
   FocusNode? _keystrokeFocusNode;
   bool _ownsKeystrokeFocusNode = false;
@@ -939,6 +1571,14 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   void initState() {
     super.initState();
     _horizontalSyncGroup = SyncScrollControllerGroup();
+    // Seed the pre-change factor so the very first anchored zoom has a
+    // starting point to map the pointer's content position from.
+    _appliedZoom = _zoomController.zoom;
+    // A caller-supplied controller is not owned here, so it never reaches the
+    // owned-controller listener path; subscribe to it explicitly, otherwise a
+    // change made through the supplied controller would never relayout the
+    // sheet.
+    widget.zoomController?.addListener(_onZoomChanged);
     if (widget.enableKeystrokes) {
       _configureKeystrokeFocusNode(widget.keystrokeFocusNode);
     }
@@ -947,6 +1587,7 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   @override
   void didUpdateWidget(SSpreadsheet oldWidget) {
     super.didUpdateWidget(oldWidget);
+    _configureZoomController(oldWidget);
     if (!widget.enableKeystrokes) return;
     if (oldWidget.keystrokeFocusNode != widget.keystrokeFocusNode) {
       _configureKeystrokeFocusNode(widget.keystrokeFocusNode);
@@ -977,6 +1618,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   @override
   void dispose() {
     _ownedVerticalIndexedController?.dispose();
+    widget.zoomController?.removeListener(_onZoomChanged);
+    _disposeOwnedZoomController();
     _horizontalSyncGroup.dispose();
     if (_ownsKeystrokeFocusNode) {
       _keystrokeFocusNode?.dispose();
@@ -1218,6 +1861,9 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     if (widget.includeDefaultKeystrokeShortcuts) {
       addAll(_defaultShortcuts);
     }
+    if (_zoomShortcutsEnabled) {
+      addAll(_zoomShortcuts);
+    }
     if (widget.keystrokeShortcuts != null) {
       addAll(widget.keystrokeShortcuts!);
     }
@@ -1252,7 +1898,7 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   /// Show the HUD overlay for the given intent type, then auto-dismiss.
   void _showKeystrokeHudForIntent(Type intentType, String shortcutLabel) {
     final hudBuilder = widget.keystrokeHudBuilder;
-    final actionLabel = widget.keystrokeActionLabels?[intentType];
+    final actionLabel = _effectiveActionLabels?[intentType];
     if (hudBuilder == null || actionLabel == null) return;
 
     final id = 'sspreadsheet_hud_${DateTime.now().microsecondsSinceEpoch}';
@@ -1289,6 +1935,20 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     };
   }
 
+  /// [SSpreadsheet.keystrokeActionLabels] plus built-in labels for the zoom
+  /// shortcuts, so a consumer that enables zoom without naming these actions
+  /// still gets a HUD. A caller's own label always wins.
+  Map<Type, String>? get _effectiveActionLabels {
+    final labels = widget.keystrokeActionLabels;
+    if (!_zoomShortcutsEnabled) return labels;
+    return {
+      ZoomInIntent: 'Zoom In',
+      ZoomOutIntent: 'Zoom Out',
+      ResetZoomIntent: 'Reset Zoom',
+      ...?labels,
+    };
+  }
+
   /// Build the action handler map that wraps each user callback with
   /// pause gating and optional HUD display.
   Map<Type, VoidCallback> _buildActionHandlerMap() {
@@ -1297,6 +1957,25 @@ class SSpreadsheetState extends State<SSpreadsheet> {
 
     return handlers
         .map((type, cb) => MapEntry(type, _wrapKeystrokeHandler(type, cb)));
+  }
+
+  /// [_buildActionHandlerMap] plus built-in handlers for the zoom shortcuts, so
+  /// Ctrl/Cmd + '=' / '-' / '0' work without the caller wiring anything up.
+  ///
+  /// A caller-supplied handler for the same intent wins — that is how an app
+  /// routes the shortcut through its own state instead of directly into the
+  /// sheet's zoom.
+  Map<Type, VoidCallback> _buildZoomAwareActionHandlerMap() {
+    final handlers = Map<Type, VoidCallback>.of(_buildActionHandlerMap());
+    if (!_zoomShortcutsEnabled) return handlers;
+
+    handlers.putIfAbsent(ZoomInIntent,
+        () => _wrapKeystrokeHandler(ZoomInIntent, () => zoomIn()));
+    handlers.putIfAbsent(ZoomOutIntent,
+        () => _wrapKeystrokeHandler(ZoomOutIntent, () => zoomOut()));
+    handlers.putIfAbsent(ResetZoomIntent,
+        () => _wrapKeystrokeHandler(ResetZoomIntent, () => resetZoom()));
+    return handlers;
   }
 
   /// The default shortcuts from KeystrokeListener, copied here so we can
@@ -1328,11 +2007,57 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     SingleActivator(LogicalKeyboardKey.f1): HelpIntent(),
   };
 
+  /// Whether the zoom shortcuts below are registered at all.
+  ///
+  /// Zooming is opt-in, so a sheet that never asks for it keeps exactly the
+  /// shortcut set it had before these existed. Keyboard shortcuts still need
+  /// [SSpreadsheet.enableKeystrokes], since they are delivered by the sheet's
+  /// keystroke listener.
+  bool get _zoomShortcutsEnabled =>
+      widget.enableZoomGestures || widget.zoomController != null;
+
+  /// Ctrl/Cmd + '=' / '+' / '-' / '0', on the main key row and, where the SDK
+  /// names one, on the keypad.
+  ///
+  /// Merged in on top of [SSpreadsheet.keystrokeShortcuts] and the built-in
+  /// shortcuts only when [_zoomShortcutsEnabled], so binding these keys is not
+  /// a behaviour change for every other consumer of the widget. '=' is bound
+  /// with and without Shift because '+' is what Shift produces on most layouts.
+  ///
+  /// The keypad has no logical key for '-' in this SDK (only `add`, `numpad0`
+  /// and their neighbours), so zoom out is the main-row '-' alone.
+  static const Map<ShortcutActivator, Intent> _zoomShortcuts = {
+    SingleActivator(LogicalKeyboardKey.equal, control: true): ZoomInIntent(),
+    SingleActivator(LogicalKeyboardKey.equal, meta: true): ZoomInIntent(),
+    SingleActivator(LogicalKeyboardKey.equal, control: true, shift: true):
+        ZoomInIntent(),
+    SingleActivator(LogicalKeyboardKey.equal, meta: true, shift: true):
+        ZoomInIntent(),
+    SingleActivator(LogicalKeyboardKey.add, control: true): ZoomInIntent(),
+    SingleActivator(LogicalKeyboardKey.add, meta: true): ZoomInIntent(),
+    SingleActivator(LogicalKeyboardKey.numpadAdd, control: true):
+        ZoomInIntent(),
+    SingleActivator(LogicalKeyboardKey.numpadAdd, meta: true): ZoomInIntent(),
+    SingleActivator(LogicalKeyboardKey.minus, control: true): ZoomOutIntent(),
+    SingleActivator(LogicalKeyboardKey.minus, meta: true): ZoomOutIntent(),
+    SingleActivator(LogicalKeyboardKey.digit0, control: true):
+        ResetZoomIntent(),
+    SingleActivator(LogicalKeyboardKey.digit0, meta: true): ResetZoomIntent(),
+    SingleActivator(LogicalKeyboardKey.numpad0, control: true):
+        ResetZoomIntent(),
+    SingleActivator(LogicalKeyboardKey.numpad0, meta: true): ResetZoomIntent(),
+  };
+
   // ======= End keystroke helpers =======
 
   /// Indices of complete rows intersecting the current vertical viewport.
   /// Includes partially visible rows and is independent of horizontal scrolling.
   /// Read after row insertion/extent animations have settled.
+  ///
+  /// Already expressed in logical space, so it needs no zoom adjustment: it
+  /// reads the scroll position's viewport dimension, which zooming shrinks or
+  /// grows, and reports exactly the rows on screen — a zoomed-in sheet simply
+  /// has fewer of them.
   List<int> get visibleRowIndices {
     final controller = _verticalIndexedController.controller;
     if (!controller.hasClients) return const [];
@@ -1356,6 +2081,13 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   /// top-left corner of this spreadsheet widget's bounding box.
   /// [viewportWidth] and [viewportHeight] are the widget's visible dimensions.
   ///
+  /// All four are measured in the widget's own box — the box it *paints* into —
+  /// so a caller can keep converting pointers against the sheet's [RenderBox]
+  /// without knowing the zoom: at a factor `z` the sheet's logical content is
+  /// laid out at `1/z` of that box, so these are mapped back into logical space
+  /// before any row/column arithmetic begins, and the cell returned is the one
+  /// under the pointer.
+  ///
   /// Returns an [SSpreadsheetHitResult] with grid cell indices, progress
   /// within the hit cell, and visibility context for edge-triggered auto-scroll.
   SSpreadsheetHitResult hitTest(
@@ -1369,6 +2101,18 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     final headerH = widget.showColumnHeader ? widget.headerHeight : 0.0;
     final rowHeaderW = widget.rowHeaderWidth;
 
+    // Undo the zoom, so everything below stays in the logical space the row
+    // heights, column widths and scroll offsets are expressed in.
+    final zoomFactor = _zoomController.zoom;
+    final localX =
+        zoomFactor == 1.0 ? viewportLocalX : viewportLocalX / zoomFactor;
+    final localY =
+        zoomFactor == 1.0 ? viewportLocalY : viewportLocalY / zoomFactor;
+    final boxWidth =
+        zoomFactor == 1.0 ? viewportWidth : viewportWidth / zoomFactor;
+    final boxHeight =
+        zoomFactor == 1.0 ? viewportHeight : viewportHeight / zoomFactor;
+
     // --- Vertical: find hit row ---
     final vController = _verticalIndexedController.controller;
     final vOffset = vController.hasClients ? vController.offset : 0.0;
@@ -1376,8 +2120,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
         vController.hasClients ? vController.position.minScrollExtent : 0.0;
 
     // Content-space Y = viewport Y minus header, plus scroll offset.
-    final contentY = viewportLocalY - headerH + vOffset;
-    final dataViewportHeight = viewportHeight - headerH;
+    final contentY = localY - headerH + vOffset;
+    final dataViewportHeight = boxHeight - headerH;
 
     int? rowIndex;
     double rowProgress = 0.0;
@@ -1440,8 +2184,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
         : 0.0;
 
     // Content-space X = viewport X minus row-header, plus horizontal offset.
-    final contentX = viewportLocalX - rowHeaderW + hOffset;
-    final dataViewportWidth = viewportWidth - rowHeaderW;
+    final contentX = localX - rowHeaderW + hOffset;
+    final dataViewportWidth = boxWidth - rowHeaderW;
 
     int? columnIndex;
     double columnProgress = 0.0;
@@ -1629,11 +2373,14 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   /// Wraps the spreadsheet content in [Listener] + [KeystrokeListener] for
   /// keyboard shortcut detection and web focus forcing.
   Widget _buildWithKeystrokes() {
-    final actionHandlers = _buildActionHandlerMap();
+    final actionHandlers = _buildZoomAwareActionHandlerMap();
 
     Map<ShortcutActivator, Intent>? mergedShortcuts;
     if (widget.keystrokeShortcuts != null) {
-      mergedShortcuts = widget.keystrokeShortcuts!;
+      mergedShortcuts = Map.of(widget.keystrokeShortcuts!);
+    }
+    if (_zoomShortcutsEnabled) {
+      mergedShortcuts = {...?mergedShortcuts, ..._zoomShortcuts};
     }
 
     Widget spreadsheetContent = KeystrokeListener(
@@ -1671,10 +2418,31 @@ class SSpreadsheetState extends State<SSpreadsheet> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.enableKeystrokes) {
-      return _buildWithKeystrokes();
-    }
-    return _buildSpreadsheetContent();
+    final content = widget.enableKeystrokes
+        ? _buildWithKeystrokes()
+        : _buildSpreadsheetContent();
+    return _buildWithZoom(content);
+  }
+
+  /// Lays the sheet out at `viewport / zoom` and paints it at `zoom`, so the
+  /// whole grid — headers, rows, cells — magnifies together and zooming out
+  /// genuinely reveals more of it.
+  ///
+  /// At the default 100%, and for every sheet that never touches zoom, the
+  /// viewport hands [content] straight through: an existing layout is
+  /// unchanged.
+  ///
+  /// With [SSpreadsheet.enableZoomGestures] the pointer signal listener sits
+  /// *outside* the viewport, so the positions it reports are in the widget's
+  /// painted box — the same space [SSpreadsheetZoomController] anchors are
+  /// expressed in.
+  Widget _buildWithZoom(Widget content) {
+    final zoomed = SSpreadsheetZoomViewport(
+      zoom: _zoomController.zoom,
+      child: content,
+    );
+    if (!widget.enableZoomGestures) return zoomed;
+    return Listener(onPointerSignal: _onPointerSignal, child: zoomed);
   }
 }
 

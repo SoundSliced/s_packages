@@ -13,6 +13,10 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
   late final TabController _tabController;
   late final IndexedScrollController _advancedVerticalIndexedController;
 
+  /// Drives both the toolbar-style control and the sheet in the Advanced tab.
+  final SSpreadsheetZoomController _zoomController =
+      SSpreadsheetZoomController();
+
   bool _showHeader = true;
   bool _rowRepaintBoundary = true;
   bool _addAutomaticKeepAlives = false;
@@ -31,6 +35,7 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
   @override
   void dispose() {
     _advancedVerticalIndexedController.dispose();
+    _zoomController.dispose();
     _tabController.dispose();
     super.dispose();
   }
@@ -166,10 +171,12 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
             children: [
               Expanded(
                 child: Text(
-                  'horizontal: ${_horizontalOffset.toStringAsFixed(1)} / ${_horizontalMaxExtent.toStringAsFixed(1)}',
+                  'horizontal: ${_horizontalOffset.toStringAsFixed(1)} / ${_horizontalMaxExtent.toStringAsFixed(1)}  ·  ctrl/⌘ + wheel, or the buttons, to zoom',
                   style: infoTextStyle,
                 ),
               ),
+              SSpreadsheetZoomControls(controller: _zoomController),
+              const SizedBox(width: 8),
               TextButton.icon(
                 onPressed: () {
                   _advancedVerticalIndexedController.controller.animateTo(
@@ -193,6 +200,10 @@ class _SSpreadsheetExampleScreenState extends State<SSpreadsheetExampleScreen>
             showColumnHeader: _showHeader,
             padding: const EdgeInsets.all(8),
             rowPadding: const EdgeInsets.symmetric(vertical: 1),
+            // Zoom applies to the painted sheet only: the export path and the
+            // cell builders keep working in natural dimensions.
+            zoomController: _zoomController,
+            enableZoomGestures: true,
             verticalIndexedController: _advancedVerticalIndexedController,
             verticalPhysics: const BouncingScrollPhysics(),
             horizontalPhysics: const ClampingScrollPhysics(),

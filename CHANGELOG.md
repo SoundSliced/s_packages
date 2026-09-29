@@ -1,3 +1,57 @@
+## 5.5.7
+
+- **New: `SSpreadsheet` can zoom.** `SSpreadsheet.zoom` (plus `zoomController`,
+  `minZoom` / `maxZoom`, `onZoomChanged` and `enableZoomGestures`) lays the sheet
+  out at `viewport / zoom` and paints it at `zoom`, so the whole grid — fixed
+  column header, row headers, cells — magnifies together, and zooming out
+  reveals more rows and columns instead of shrinking the sheet into a corner.
+  Content keeps its natural dimensions throughout: `rowHeightBuilder` and
+  `columnWidthBuilder` are never asked for scaled sizes, so only the *amount
+  visible* changes and a cell builder's own layout is untouched.
+  - **Opt-in and non-breaking.** `enableZoomGestures` defaults to `false`, and
+    the viewport hands its child straight through at `zoom == 1.0`, the default
+    — no existing consumer changes layout, scrolling or hit testing. Zoom
+    keyboard shortcuts are merged in only for zoom-enabled sheets, never into
+    the shared default shortcut set.
+  - **`SSpreadsheetZoomController`** — a `ValueNotifier<double>` holding the
+    factor together with the policy around it: 50%–200%, `step` 0.10 per
+    `zoomIn` / `zoomOut` press, `wheelStep` 0.05 per `zoomByWheelNotches`, and
+    `reset()` back to `defaultZoom` (100%). `setZoom` clamps and returns whether
+    anything changed, so a caller can drive it straight from a wheel stream
+    without guarding the ends of the range. Ownership follows
+    `SSpreadsheetHorizontalSyncController`: a caller-supplied controller is only
+    listened to and never disposed, a self-created one is disposed with the
+    sheet. Deliberately not persisted — a fresh start is 100%.
+  - **`SSpreadsheetZoomViewport`** — the primitive the above is built from,
+    exported so any layer that shares the sheet's coordinate space (an overlay
+    positioned from the same row/column dimensions, a HUD pinned to the grid)
+    can be scaled by exactly the same amount and stay aligned. Returns its child
+    unwrapped at `zoom == 1.0` and under unbounded constraints.
+  - **`SSpreadsheetZoomControls`** — a ready-to-use − / % / + control bound to a
+    controller: the two buttons disable at the end of the range they would
+    cross, and tapping the percentage (even at 100%, so the readout never looks
+    broken) returns to 100%. A `builder` renders the three parts in the host
+    app's own visual language.
+  - **Gestures.** Ctrl/Cmd + wheel zooms *anchored under the pointer*: the row
+    and column beneath the cursor stay put, by re-seating the vertical indexed
+    offset and the horizontal sync owner's offset once the new layout has
+    settled. A trackpad pinch arrives as the same modified scroll stream, so one
+    handler covers both; a wheel with no modifier keeps scrolling the sheet.
+  - **Keyboard.** New `ZoomInIntent` / `ZoomOutIntent` / `ResetZoomIntent` in
+    `keystroke_listener`, bound to Ctrl/Cmd + '=' / '+' / '-' / '0' with HUD
+    labels, delivered through the existing keystroke listener — so they
+    additionally need `enableKeystrokes`. This Flutter version has no logical
+    key for the keypad's '-', so zoom out is the main-row '-' alone.
+  - **Coordinates.** `SSpreadsheetState.hitTest` is now zoom-aware while keeping
+    its contract of widget-box coordinates: a factor `z` is mapped back into the
+    sheet's logical space internally, so existing callers need no change.
+    `visibleRowIndices` was already logical-space and needed nothing.
+    **`buildExport` / `exportSize` deliberately ignore zoom** — an export is
+    always the sheet at 100% at its natural dimensions, so a PDF or a screenshot
+    never inherits an on-screen factor.
+  - Tests: `test/s_spreadsheet_zoom_test.dart`; demo: the Advanced tab of
+    `example/lib/screens/examples/s_spreadsheet_example_screen.dart`.
+
 ## 5.5.6
 
 - **Fix: `OverlayInterleaveManager` could re-insert an entry that was already in

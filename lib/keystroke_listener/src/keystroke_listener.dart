@@ -107,6 +107,21 @@ class SpaceIntent extends Intent {
   const SpaceIntent();
 }
 
+/// Intent triggered when Ctrl/Cmd + '+' (or '=') is pressed — zoom in.
+class ZoomInIntent extends Intent {
+  const ZoomInIntent();
+}
+
+/// Intent triggered when Ctrl/Cmd + '-' is pressed — zoom out.
+class ZoomOutIntent extends Intent {
+  const ZoomOutIntent();
+}
+
+/// Intent triggered when Ctrl/Cmd + '0' is pressed — back to 100%.
+class ResetZoomIntent extends Intent {
+  const ResetZoomIntent();
+}
+
 ///********************** END INTENTS DEFINITIONS **********************
 
 ///********************** KeystrokeListener WIDGET **********************

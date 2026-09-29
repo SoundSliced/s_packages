@@ -13,3 +13,16 @@ export 'package:s_packages/indexscroll_listview_builder/indexscroll_listview_bui
 // Re-export public hit-test types so callers can use GlobalKey<SSpreadsheetState>
 // and receive SSpreadsheetHitResult without extra imports.
 export 'src/s_spreadsheet.dart' show SSpreadsheetState, SSpreadsheetHitResult;
+
+// Re-export the zoom API so callers can drive zoom from their own chrome:
+// SSpreadsheetZoomController holds the factor (and its 50%–200% policy), and
+// SSpreadsheetZoomViewport scales any layer that shares the sheet's coordinate
+// space — an overlay positioned from the same row/column dimensions — by the
+// same amount, so the two stay aligned.
+export 'src/s_spreadsheet.dart'
+    show
+        SSpreadsheetZoomAction,
+        SSpreadsheetZoomControlBuilder,
+        SSpreadsheetZoomController,
+        SSpreadsheetZoomControls,
+        SSpreadsheetZoomViewport;
