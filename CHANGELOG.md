@@ -1,3 +1,11 @@
+## 5.6.0
+
+- **Dependency refresh: all direct pub dependencies upgraded to their latest major versions.**
+  - `assorted_layout_widgets`: `^12.12.1` → `^13.1.0`
+  - `new_loading_indicator`: `^1.2.2` → `^2.0.0`
+  - 23 transitive packages re-resolved to their latest compatible versions.
+- Both upgraded packages are re-exported from `s_packages_extra1.dart`, so consumers pick up the new major versions through the package surface automatically.
+
 ## 5.5.7
 
 - **New: `SSpreadsheet` can zoom.** `SSpreadsheet.zoom` (plus `zoomController`,
