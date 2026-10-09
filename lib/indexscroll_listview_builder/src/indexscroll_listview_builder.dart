@@ -360,6 +360,19 @@ class _IndexScrollListViewBuilderState
   GlobalKey<AnimatedListState> _animatedListKey =
       GlobalKey<AnimatedListState>();
 
+  /// The [AnimatedList] replaced by the last structural reset, kept mounted
+  /// (offstage, tickers muted) until the frame after the reset.
+  ///
+  /// Disposing it in the reset frame itself can dispose a row's
+  /// AnimationController twice on Flutter web: web does not flush microtasks
+  /// between `onBeginFrame` and `onDrawFrame`, so a row animation that
+  /// completed on that frame's tick still has its completion callback (which
+  /// disposes the controller) queued when the build disposes the list — whose
+  /// own `dispose()` has already disposed it. Kept alive for that frame, the
+  /// queued callbacks run against a live list; muted from then on, nothing can
+  /// complete in the frame that finally disposes it.
+  GlobalKey<AnimatedListState>? _retiringAnimatedListKey;
+
   /// Whether we've already built with [AnimatedList] (controls initialItemCount).
   bool _animatedListInitialised = false;
 
@@ -902,9 +915,16 @@ class _IndexScrollListViewBuilderState
       ..addAll(List.generate(widget.itemCount, _rowKey));
     _builtWidgets.clear();
 
+    final retiring = _animatedListKey;
     setState(() {
+      _retiringAnimatedListKey = retiring;
       _animatedListKey = GlobalKey<AnimatedListState>();
       _animatedListInitialised = true;
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && identical(_retiringAnimatedListKey, retiring)) {
+        setState(() => _retiringAnimatedListKey = null);
+      }
     });
   }
 
@@ -980,6 +1000,30 @@ class _IndexScrollListViewBuilderState
           final ScrollBehavior behavior = ScrollConfiguration.of(context);
           content = ScrollConfiguration(
               behavior: behavior.copyWith(scrollbars: false), child: content);
+        }
+
+        // Always a Stack when animated, so mounting/dropping the retiring list
+        // never reparents [content]. `passthrough` keeps its constraints as is.
+        if (useAnimated) {
+          final retiringKey = _retiringAnimatedListKey;
+          content = Stack(
+            fit: StackFit.passthrough,
+            children: [
+              content,
+              if (retiringKey != null)
+                Offstage(
+                  child: TickerMode(
+                    enabled: false,
+                    child: AnimatedList(
+                      key: retiringKey,
+                      primary: false,
+                      itemBuilder: (context, index, animation) =>
+                          const SizedBox.shrink(),
+                    ),
+                  ),
+                ),
+            ],
+          );
         }
 
         return content;

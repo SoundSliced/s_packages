@@ -1,3 +1,11 @@
+## 5.6.1
+
+- **Fix: `IndexScrollListViewBuilder` no longer disposes a row's `AnimationController` twice on Flutter web** (`AnimationController.dispose() called more than once`, thrown from `AnimatedList.insertItem`'s completion — once per row that was animating).
+  - Cause: a structural reset (more than 30% of the row keys changed) replaced the internal `AnimatedList` by giving it a new `GlobalKey`, which disposed the old `AnimatedListState` immediately. Flutter web does not flush microtasks between `onBeginFrame` and `onDrawFrame`, so a row animation that completed on that frame's tick still had its completion callback queued when the build disposed the list; `dispose()` disposed the controller, then the queued callback disposed it again.
+  - Fix: the replaced list is kept mounted for one more frame, offstage and with tickers muted, so the queued callbacks run against a live list, and it is dropped on the next frame when nothing can complete. Rows, layout and the reset behaviour are unchanged.
+  - Affects every consumer with row animations on, including `SSpreadsheet` (`enableRowAnimations`, on by default).
+  - New regression test `test/indexscroll_listview_builder_test.dart` replays the web frame ordering.
+
 ## 5.6.0
 
 - **Dependency refresh: all direct pub dependencies upgraded to their latest major versions.**
