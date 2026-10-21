@@ -1,3 +1,11 @@
+## 5.6.2
+
+- **Fix: `IndexScrollListViewBuilder` no longer throws `RangeError` when the row count shrinks while rows are still animating out** — the crash reported through `SSpreadsheet` (whose `rowKeyBuilder` / `rowHeightBuilder` / `cellBuilder` serve the rows) on logout/login and on callsign filtering.
+  - Cause: an `AnimatedList` keeps a removed row's slot until that row's removal has played, and staggered removals fire over several frames. During that window the widget still built those slots, so it called the caller's `itemBuilder` / `itemKeyBuilder` with an index that no longer exists in the caller's (`itemCount`-sized) data.
+  - Fix: the package keeps the row it last built for each slot and replays that widget for an index outside `[0, itemCount)`, instead of calling the caller's builders with a stale index. The exit animation is preserved — the exiting row still shows what it showed before it shrank away — and rows that were never built collapse to nothing.
+  - Affects every consumer with row animations on, including `SSpreadsheet` (`enableRowAnimations`, on by default).
+  - New regression test in `test/indexscroll_listview_builder_test.dart` shrinks 20 rows to 18 mid-animation and asserts no exception is thrown.
+
 ## 5.6.1
 
 - **Fix: `IndexScrollListViewBuilder` no longer disposes a row's `AnimationController` twice on Flutter web** (`AnimationController.dispose() called more than once`, thrown from `AnimatedList.insertItem`'s completion — once per row that was animating).

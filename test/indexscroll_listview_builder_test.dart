@@ -70,6 +70,33 @@ void main() {
     }
   });
 
+  testWidgets(
+      'shrinking the row count mid-animation never asks the row builders for '
+      'a stale index', (tester) async {
+    final host = GlobalKey<_HostState>();
+    // 20 → 18 rows keeps the key-based diff (removals staggered over several
+    // frames) rather than a structural reset, so the AnimatedList still holds
+    // the removed rows' slots while the callers data has already shrunk.
+    final labels = List.generate(20, (i) => 'row$i');
+    await tester.pumpWidget(_Host(key: host, labels: labels));
+
+    host.currentState!.setLabels(labels.sublist(0, 18));
+    await tester.pump();
+
+    // The exiting rows keep rendering what they last showed...
+    expect(tester.takeException(), isNull);
+    expect(find.text('row18'), findsOneWidget);
+    expect(find.text('row19'), findsOneWidget);
+
+    // ...and are gone once their removals have played out.
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    expect(find.byType(Text), findsNWidgets(18));
+    expect(find.text('row17'), findsOneWidget);
+    expect(find.text('row18'), findsNothing);
+    expect(find.text('row19'), findsNothing);
+  });
+
   testWidgets('a structural reset shows exactly the new rows', (tester) async {
     final host = GlobalKey<_HostState>();
     await tester.pumpWidget(_Host(key: host, labels: const ['a', 'b', 'c']));

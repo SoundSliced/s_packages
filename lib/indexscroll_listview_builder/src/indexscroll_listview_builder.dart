@@ -657,6 +657,18 @@ class _IndexScrollListViewBuilderState
   /// [IndexedScrollTag] for indexed-scroll support.
   /// Caches the result in [_builtWidgets] for potential removal animations.
   Widget _buildTaggedRow(BuildContext context, int index) {
+    // Rows animating out keep their slot in the [AnimatedList] until their
+    // removal completes, but the data behind that slot is already gone: the
+    // caller's [itemCount] has shrunk. Replay the row last built there instead
+    // of handing the caller's builders an index that no longer exists.
+    if (index < 0 || index >= widget.itemCount) {
+      final cached = _builtWidgets[index];
+      if (cached == null) return const SizedBox.shrink();
+      // Its own key may now also belong to a live row (e.g. after a removal
+      // shifted rows down), so keep it clear of sibling-key conflicts.
+      return KeyedSubtree(key: ValueKey('exiting_row_$index'), child: cached);
+    }
+
     final built = IndexedScrollTag(
       key: _rowKey(index),
       controller: _scrollController,
