@@ -284,6 +284,11 @@ class WeekCalendar extends StatefulWidget {
     this.eventIndicatorColor,
   }) : calendarType = WeekCalendarType.minimal;
 
+  /// Clock used for the current day; overridable for deterministic widget tests.
+  @visibleForTesting
+  @protected
+  DateTime get currentDateTime => DateTime.now();
+
   @override
   State<WeekCalendar> createState() => _WeekCalendarState();
 }
@@ -294,14 +299,20 @@ class _WeekCalendarState extends State<WeekCalendar> {
   late List<List<DateTime>> _weeks;
   late DateTime _headerDate;
 
+  DateTime _calendarDate(int year, int month, [int day = 1]) => widget.isUtc
+      ? DateTime.utc(year, month, day)
+      : DateTime(year, month, day);
+
+  DateTime _today() {
+    final now =
+        widget.isUtc ? widget.currentDateTime.toUtc() : widget.currentDateTime;
+    return _calendarDate(now.year, now.month, now.day);
+  }
+
   /// Generates week lists based on current month and starting day
   List<List<DateTime>> _generateWeeks(DateTime date) {
-    final firstDayOfMonth = widget.isUtc
-        ? DateTime.utc(date.year, date.month, 1)
-        : DateTime(date.year, date.month, 1);
-    final lastDayOfMonth = widget.isUtc
-        ? DateTime.utc(date.year, date.month + 1, 0)
-        : DateTime(date.year, date.month + 1, 0);
+    final firstDayOfMonth = _calendarDate(date.year, date.month);
+    final lastDayOfMonth = _calendarDate(date.year, date.month + 1, 0);
 
     if (widget.startingDay != null) {
       // Custom week start logic
@@ -333,7 +344,7 @@ class _WeekCalendarState extends State<WeekCalendar> {
         for (int dayOffset = 0; dayOffset < 7; dayOffset++) {
           final dayNumber = (weekIndex * 7) + dayOffset + 1;
           if (dayNumber > totalDays) break;
-          week.add(DateTime(date.year, date.month, dayNumber));
+          week.add(_calendarDate(date.year, date.month, dayNumber));
         }
         weeks.add(week);
       }
@@ -522,12 +533,12 @@ class _WeekCalendarState extends State<WeekCalendar> {
   /// Returns true if the day is outside the min/max date boundaries
   bool _isDayDisabled(DateTime day) {
     if (widget.minDate != null) {
-      final min = DateTime(
+      final min = _calendarDate(
           widget.minDate!.year, widget.minDate!.month, widget.minDate!.day);
       if (day.isBefore(min)) return true;
     }
     if (widget.maxDate != null) {
-      final max = DateTime(
+      final max = _calendarDate(
           widget.maxDate!.year, widget.maxDate!.month, widget.maxDate!.day);
       if (day.isAfter(max)) return true;
     }
@@ -650,7 +661,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
                                     selectedDayHighlightColor:
                                         widget.calendarStyle.activeDayColor,
                                     firstDate: DateTime(2000),
-                                    lastDate: DateTime.now(),
+                                    lastDate: widget.isUtc
+                                        ? _today()
+                                        : DateTime.now(),
                                     currentDate: widget.selectedDate,
                                   ),
                                   dialogSize: const Size(325, 400),
@@ -704,17 +717,16 @@ class _WeekCalendarState extends State<WeekCalendar> {
                           ),
 
                           // Today Button
-                          if (!widget.selectedDate.isToday ||
+                          if (!(widget.isUtc
+                                  ? _isSameDay(widget.selectedDate, _today())
+                                  : widget.selectedDate.isToday) ||
                               (widget.selectedDate.month != _headerDate.month ||
                                   widget.selectedDate.year != _headerDate.year))
                             SInkButton(
                               color: Colors.blueAccent,
                               onTap: (pos) {
                                 // Select today's date and navigate to it
-                                final now = DateTime.now();
-                                final today = widget.isUtc
-                                    ? DateTime.utc(now.year, now.month, now.day)
-                                    : DateTime(now.year, now.month, now.day);
+                                final today = _today();
 
                                 // Select today's date
                                 widget.onDateSelected(today);
@@ -869,10 +881,7 @@ class _WeekCalendarState extends State<WeekCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
-    final today = widget.isUtc
-        ? DateTime.utc(now.year, now.month, now.day)
-        : DateTime(now.year, now.month, now.day);
+    final today = _today();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

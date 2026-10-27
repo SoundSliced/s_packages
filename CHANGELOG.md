@@ -1,3 +1,10 @@
+## 5.6.3
+
+- **Fix: `WeekCalendar` now allows selecting the current UTC day in UTC mode when the local date is still yesterday.**
+  - Derive today's calendar fields from the UTC clock before truncating to midnight, and share that calculation with the Today button and header popup.
+  - Generate UTC day cells in both week layouts and compare date bounds in the same calendar mode. Local mode (`isUtc: false`) retains its existing date semantics.
+  - Widget regression tests cover UTC today versus tomorrow, both week layouts, the Today button, inclusive date bounds and local mode.
+
 ## 5.6.2
 
 - **Fix: `IndexScrollListViewBuilder` no longer throws `RangeError` when the row count shrinks while rows are still animating out** — the crash reported through `SSpreadsheet` (whose `rowKeyBuilder` / `rowHeightBuilder` / `cellBuilder` serve the rows) on logout/login and on callsign filtering.
