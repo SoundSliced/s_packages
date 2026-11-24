@@ -83,10 +83,14 @@ class SGridView extends StatefulWidget {
     this.initialIndicatorJump = 2,
     this.indicatorScrollFraction = 1.0,
     this.emptyStateWidget,
-  })  : assert(crossAxisItemCount > 0,
-            'crossAxisItemCount must be greater than zero'),
-        assert(indicatorScrollFraction > 0,
-            'indicatorScrollFraction must be greater than zero');
+  }) : assert(
+         crossAxisItemCount > 0,
+         'crossAxisItemCount must be greater than zero',
+       ),
+       assert(
+         indicatorScrollFraction > 0,
+         'indicatorScrollFraction must be greater than zero',
+       );
 
   @override
   State<SGridView> createState() => _SGridViewState();
@@ -186,7 +190,8 @@ class _SGridViewState extends State<SGridView> {
     if (!mounted || !_scrollController.controller.hasClients) return;
 
     final bool showTop = _scrollController.controller.offset > 20;
-    final bool showBottom = _scrollController.controller.offset <
+    final bool showBottom =
+        _scrollController.controller.offset <
         (_scrollController.controller.position.maxScrollExtent - 20);
 
     if (showTop != _showTopIndicator || showBottom != _showBottomIndicator) {
@@ -208,15 +213,14 @@ class _SGridViewState extends State<SGridView> {
 
     final int rawIndex = widget.autoScrollToIndex!;
     final int clampedIndex = rawIndex.clamp(0, widget.children.length - 1);
-    final int groupCount =
-        (widget.children.length / widget.crossAxisItemCount).ceil();
-    final int targetGroup =
-        (clampedIndex ~/ widget.crossAxisItemCount).clamp(0, groupCount - 1);
-
-    await _scrollController.scrollToIndex(
-      targetGroup,
-      itemCount: groupCount,
+    final int groupCount = (widget.children.length / widget.crossAxisItemCount)
+        .ceil();
+    final int targetGroup = (clampedIndex ~/ widget.crossAxisItemCount).clamp(
+      0,
+      groupCount - 1,
     );
+
+    await _scrollController.scrollToIndex(targetGroup, itemCount: groupCount);
 
     if (!mounted) return;
   }
@@ -264,13 +268,17 @@ class _SGridViewState extends State<SGridView> {
   int _calculateNextIndex(int groupCount, bool forward) {
     if (forward) {
       return _currentGroupIndex == 0
-          ? (_currentGroupIndex + widget.initialIndicatorJump)
-              .clamp(0, groupCount - 1)
+          ? (_currentGroupIndex + widget.initialIndicatorJump).clamp(
+              0,
+              groupCount - 1,
+            )
           : (_currentGroupIndex + 1).clamp(0, groupCount - 1);
     } else {
       return _currentGroupIndex == groupCount - 1
-          ? (_currentGroupIndex - widget.initialIndicatorJump)
-              .clamp(0, groupCount - 1)
+          ? (_currentGroupIndex - widget.initialIndicatorJump).clamp(
+              0,
+              groupCount - 1,
+            )
           : (_currentGroupIndex - 1).clamp(0, groupCount - 1);
     }
   }
@@ -320,8 +328,8 @@ class _SGridViewState extends State<SGridView> {
       estimated = biasForward == true
           ? ratio.ceil()
           : biasForward == false
-              ? ratio.floor()
-              : ratio.round();
+          ? ratio.floor()
+          : ratio.round();
     }
 
     _currentGroupIndex = estimated.clamp(0, groupCount - 1);
@@ -339,8 +347,10 @@ class _SGridViewState extends State<SGridView> {
 
     int? targetRowIndex;
     if (widget.autoScrollToIndex != null && gridView.isNotEmpty) {
-      final clampedIndex =
-          widget.autoScrollToIndex!.clamp(0, widget.children.length - 1);
+      final clampedIndex = widget.autoScrollToIndex!.clamp(
+        0,
+        widget.children.length - 1,
+      );
       final derivedRow = clampedIndex ~/ widget.crossAxisItemCount;
       targetRowIndex = derivedRow.clamp(0, gridView.length - 1);
       _currentGroupIndex = targetRowIndex;
@@ -358,50 +368,55 @@ class _SGridViewState extends State<SGridView> {
       alignment: Alignment.topLeft,
       children: [
         NotificationListener<ScrollNotification>(
-            onNotification: (notification) {
-              if (notification is ScrollUpdateNotification &&
-                  notification.dragDetails != null) {
-                _updateCurrentGroupFromOffset(groupCount,
-                    biasForward: _lastIndicatorForward);
-              } else if (notification is ScrollEndNotification) {
-                final timeSinceLastScroll = _lastProgrammaticScrollTime == null
-                    ? const Duration(seconds: 1)
-                    : DateTime.now().difference(_lastProgrammaticScrollTime!);
+          onNotification: (notification) {
+            if (notification is ScrollUpdateNotification &&
+                notification.dragDetails != null) {
+              _updateCurrentGroupFromOffset(
+                groupCount,
+                biasForward: _lastIndicatorForward,
+              );
+            } else if (notification is ScrollEndNotification) {
+              final timeSinceLastScroll = _lastProgrammaticScrollTime == null
+                  ? const Duration(seconds: 1)
+                  : DateTime.now().difference(_lastProgrammaticScrollTime!);
 
-                if (timeSinceLastScroll > const Duration(milliseconds: 500)) {
-                  _updateCurrentGroupFromOffset(groupCount,
-                      biasForward: _lastIndicatorForward);
-                }
-              }
-              return false;
-            },
-            child: IndexScrollListViewBuilder(
-              controller: _scrollController,
-              onScrolledTo: (index) {
-                if (!mounted) return;
-                updateScrollIndicators();
-                _currentGroupIndex = index;
-                if (index != targetRowIndex) {
-                  targetRowIndex = index;
-                }
-              },
-              scrollDirection: widget.mainAxisDirection,
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: Pad.zero,
-              itemCount: gridView.length,
-              numberOfOffsetedItemsPriorToSelectedItem: 2,
-              itemBuilder: (context, i) {
-                return FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.centerLeft,
-                  child: _CrossAxisItems(
-                    axisDirection: widget.mainAxisDirection,
-                    padding: widget.itemPadding,
-                    children: gridView[i],
-                  ),
+              if (timeSinceLastScroll > const Duration(milliseconds: 500)) {
+                _updateCurrentGroupFromOffset(
+                  groupCount,
+                  biasForward: _lastIndicatorForward,
                 );
-              },
-            )),
+              }
+            }
+            return false;
+          },
+          child: IndexScrollListViewBuilder(
+            controller: _scrollController,
+            onScrolledTo: (index) {
+              if (!mounted) return;
+              updateScrollIndicators();
+              _currentGroupIndex = index;
+              if (index != targetRowIndex) {
+                targetRowIndex = index;
+              }
+            },
+            scrollDirection: widget.mainAxisDirection,
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: Pad.zero,
+            itemCount: gridView.length,
+            numberOfOffsetedItemsPriorToSelectedItem: 2,
+            itemBuilder: (context, i) {
+              return FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: _CrossAxisItems(
+                  axisDirection: widget.mainAxisDirection,
+                  padding: widget.itemPadding,
+                  children: gridView[i],
+                ),
+              );
+            },
+          ),
+        ),
         if (widget.showScrollIndicators &&
             widget.children.length > widget.crossAxisItemCount * 3)
           ..._buildScrollIndicators(),
@@ -434,12 +449,10 @@ class _SGridViewState extends State<SGridView> {
                     begin: isVertical
                         ? Alignment.bottomCenter
                         : Alignment.centerRight,
-                    end:
-                        isVertical ? Alignment.topCenter : Alignment.centerLeft,
-                    colors: [
-                      Colors.transparent,
-                      indicatorColor.withAlpha(50),
-                    ],
+                    end: isVertical
+                        ? Alignment.topCenter
+                        : Alignment.centerLeft,
+                    colors: [Colors.transparent, indicatorColor.withAlpha(50)],
                   ),
                 ),
                 child: Icon(
@@ -471,15 +484,13 @@ class _SGridViewState extends State<SGridView> {
                 width: isVertical ? null : 24,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    begin:
-                        isVertical ? Alignment.topCenter : Alignment.centerLeft,
+                    begin: isVertical
+                        ? Alignment.topCenter
+                        : Alignment.centerLeft,
                     end: isVertical
                         ? Alignment.bottomCenter
                         : Alignment.centerRight,
-                    colors: [
-                      Colors.transparent,
-                      indicatorColor.withAlpha(50),
-                    ],
+                    colors: [Colors.transparent, indicatorColor.withAlpha(50)],
                   ),
                 ),
                 child: Icon(
@@ -511,16 +522,14 @@ class _CrossAxisItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      direction:
-          axisDirection == Axis.vertical ? Axis.horizontal : Axis.vertical,
+      direction: axisDirection == Axis.vertical
+          ? Axis.horizontal
+          : Axis.vertical,
       alignment: WrapAlignment.spaceEvenly,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         for (int i = 0; i < children.length; i++)
-          Padding(
-            padding: padding,
-            child: children[i],
-          ),
+          Padding(padding: padding, child: children[i]),
       ],
     );
   }

@@ -4,4 +4,5 @@
 library;
 
 export 'src/s_widgets.dart';
+
 export 'package:new_loading_indicator/new_loading_indicator.dart';

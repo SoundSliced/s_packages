@@ -4,15 +4,15 @@ part of '../../reports.dart';
 class Time extends Group {
   late DateTime _time;
 
-  Time(
-      {String? code,
-      String? day,
-      String? hour,
-      String? minute,
-      int? year,
-      int? month,
-      DateTime? time})
-      : super(code) {
+  Time({
+    String? code,
+    String? day,
+    String? hour,
+    String? minute,
+    int? year,
+    int? month,
+    DateTime? time,
+  }) : super(code) {
     if (time != null) {
       _time = time;
     } else {

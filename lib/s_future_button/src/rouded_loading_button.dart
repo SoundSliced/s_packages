@@ -126,9 +126,9 @@ class MyRoundedLoadingButton extends StatefulWidget {
     this.focusNode,
     this.onFocusChange,
     this.customLoaderWidget,
-  })  : assert(height.isFinite, 'Height must be a finite number'),
-        assert(width.isFinite, 'Width must be a finite number'),
-        assert(borderRadius.isFinite, 'Border radius must be a finite number');
+  }) : assert(height.isFinite, 'Height must be a finite number'),
+       assert(width.isFinite, 'Width must be a finite number'),
+       assert(borderRadius.isFinite, 'Border radius must be a finite number');
 
   @override
   State<StatefulWidget> createState() => _MyRoundedLoadingButtonState();
@@ -149,7 +149,8 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
     final theme = Theme.of(context);
     final targetHeight = _safeDouble(widget.height, 50);
 
-    Widget loader = widget.customLoaderWidget ??
+    Widget loader =
+        widget.customLoaderWidget ??
         SizedBox(
           height: widget.loaderSize,
           width: widget.loaderSize,
@@ -170,10 +171,7 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
                   key: const ValueKey('s_future_button_loader'),
                   child: loader,
                 )
-              : KeyedSubtree(
-                  key: widget.contentKey,
-                  child: widget.child,
-                ),
+              : KeyedSubtree(key: widget.contentKey, child: widget.child),
         );
       },
     );
@@ -212,7 +210,8 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
                           : widget.errorColor,
                       // Guard against negative radius (shouldn't happen after clamp)
                       borderRadius: BorderRadius.all(
-                          Radius.circular(size <= 0 ? 0 : size / 2)),
+                        Radius.circular(size <= 0 ? 0 : size / 2),
+                      ),
                     ),
                     child: size > 20
                         ? Icon(
@@ -244,11 +243,11 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
               builder: (context, squeezeValue, child) {
                 final borderRadius = _isSqueezing
                     ? widget.borderRadius +
-                        ((targetHeight - widget.borderRadius) *
-                            (1 -
-                                (squeezeValue - targetHeight) /
-                                    (_safeDouble(widget.width, 300) -
-                                        targetHeight)))
+                          ((targetHeight - widget.borderRadius) *
+                              (1 -
+                                  (squeezeValue - targetHeight) /
+                                      (_safeDouble(widget.width, 300) -
+                                          targetHeight)))
                     : widget.borderRadius;
 
                 return Semantics(
@@ -260,8 +259,9 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
                       : currentState.name,
                   child: ButtonTheme(
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(_safeDouble(borderRadius, 35)),
+                      borderRadius: BorderRadius.circular(
+                        _safeDouble(borderRadius, 35),
+                      ),
                     ),
                     disabledColor: widget.disabledColor,
                     padding: const EdgeInsets.all(0),
@@ -280,21 +280,26 @@ class _MyRoundedLoadingButtonState extends State<MyRoundedLoadingButton> {
                       },
                       style: ElevatedButton.styleFrom(
                         surfaceTintColor: widget.disabledColor,
-                        minimumSize:
-                            Size(_safeDouble(squeezeValue, 150), targetHeight),
+                        minimumSize: Size(
+                          _safeDouble(squeezeValue, 150),
+                          targetHeight,
+                        ),
                         shape: RoundedRectangleBorder(
                           side: BorderSide(
-                            color: onFocusColor ??
+                            color:
+                                onFocusColor ??
                                 widget.successColor?.darken(0.2) ??
                                 Colors.transparent,
                             width: onFocusColor == null ? 0.2 : 2,
                           ),
                           borderRadius: BorderRadius.circular(
-                              _safeDouble(borderRadius, 35)),
+                            _safeDouble(borderRadius, 35),
+                          ),
                         ),
                         backgroundColor: widget.color,
-                        shadowColor:
-                            widget.elevation == 0 ? Colors.transparent : null,
+                        shadowColor: widget.elevation == 0
+                            ? Colors.transparent
+                            : null,
                         elevation: widget.elevation,
                         padding: const EdgeInsets.all(0),
                       ),

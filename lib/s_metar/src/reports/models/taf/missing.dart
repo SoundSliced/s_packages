@@ -15,9 +15,7 @@ class Missing extends Modifier {
 
   @override
   Map<String, Object?> asMap() {
-    final map = <String, Object?>{
-      'is_missing': isMissing,
-    };
+    final map = <String, Object?>{'is_missing': isMissing};
     map.addAll(super.asMap());
     return map;
   }

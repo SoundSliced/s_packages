@@ -8,11 +8,7 @@ class Delayed extends StatefulWidget {
   final Duration? delay;
   final Widget Function(BuildContext context, bool initialized) builder;
 
-  const Delayed({
-    super.key,
-    this.delay,
-    required this.builder,
-  });
+  const Delayed({super.key, this.delay, required this.builder});
 
   @override
   State<Delayed> createState() => _DelayedState();
@@ -227,9 +223,10 @@ class _SButtonState extends State<SButton> with BubbleLabelMixin {
 
     final shouldUpdateIgnorePointer =
         oldWidget.ignoreChildWidgetOnTap != widget.ignoreChildWidgetOnTap ||
-            oldWidget.isActive != widget.isActive;
+        oldWidget.isActive != widget.isActive;
 
-    final shouldUpdateCache = oldWidget.borderRadius != widget.borderRadius ||
+    final shouldUpdateCache =
+        oldWidget.borderRadius != widget.borderRadius ||
         oldWidget.splashColor != widget.splashColor ||
         oldWidget.splashOpacity != widget.splashOpacity ||
         oldWidget.selectedColor != widget.selectedColor;
@@ -258,21 +255,22 @@ class _SButtonState extends State<SButton> with BubbleLabelMixin {
   Widget build(BuildContext context) {
     return _hasLabel
         ? _isWebWithoutLongPress
-            ? _WebBubbleLabel(
-                widgetKey: _widgetKey,
-                widget: widget,
-                child: _buildSimplifiedButton(wrapLongPressForBubble: false),
-              )
-            : _MobileBubbleLabel(
-                widgetKey: _widgetKey,
-                widget: widget,
-                child: _buildSimplifiedButton(wrapLongPressForBubble: true),
-              )
+              ? _WebBubbleLabel(
+                  widgetKey: _widgetKey,
+                  widget: widget,
+                  child: _buildSimplifiedButton(wrapLongPressForBubble: false),
+                )
+              : _MobileBubbleLabel(
+                  widgetKey: _widgetKey,
+                  widget: widget,
+                  child: _buildSimplifiedButton(wrapLongPressForBubble: true),
+                )
         : _buildSimplifiedButton(wrapLongPressForBubble: false);
   }
 
   Widget _buildSimplifiedButton({required bool wrapLongPressForBubble}) {
-    final animationDuration = (widget.delay != null &&
+    final animationDuration =
+        (widget.delay != null &&
             widget.delay! > const Duration(milliseconds: 100))
         ? const Duration(milliseconds: 200)
         : const Duration(milliseconds: 150);
@@ -286,7 +284,8 @@ class _SButtonState extends State<SButton> with BubbleLabelMixin {
         switchOutCurve: Curves.easeInCubic,
         child: initialized
             ? _buildButtonContent(
-                wrapLongPressForBubble: wrapLongPressForBubble)
+                wrapLongPressForBubble: wrapLongPressForBubble,
+              )
             : SizedBox(),
       ),
     );
@@ -326,10 +325,7 @@ class _SButtonState extends State<SButton> with BubbleLabelMixin {
     // Build the child, optionally clipped
     Widget child = widget.child;
     if (!widget.isCircleButton && _effectiveBorderRadius != null) {
-      child = ClipRRect(
-        borderRadius: _effectiveBorderRadius!,
-        child: child,
-      );
+      child = ClipRRect(borderRadius: _effectiveBorderRadius!, child: child);
     } else if (widget.isCircleButton) {
       child = ClipOval(child: child);
     }
@@ -349,8 +345,9 @@ class _SButtonState extends State<SButton> with BubbleLabelMixin {
                   shape: widget.isCircleButton
                       ? BoxShape.circle
                       : BoxShape.rectangle,
-                  borderRadius:
-                      widget.isCircleButton ? null : _effectiveBorderRadius,
+                  borderRadius: widget.isCircleButton
+                      ? null
+                      : _effectiveBorderRadius,
                 ),
               ).animate(effects: [FadeEffect(duration: 0.3.sec)]),
             ),
@@ -379,8 +376,8 @@ class _SButtonState extends State<SButton> with BubbleLabelMixin {
           color: _splashColor,
           scaleFactor:
               widget.shouldBounce && !ignoreChildWidgetOnTap && widget.isActive
-                  ? widget.bounceScale
-                  : 1.0,
+              ? widget.bounceScale
+              : 1.0,
           enableHapticFeedback: widget.enableHapticFeedback,
           hapticFeedbackType: widget.hapticFeedbackType,
           hoverAndSplashBorderRadius: _effectiveBorderRadius,

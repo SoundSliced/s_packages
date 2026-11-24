@@ -65,8 +65,7 @@ abstract class ClientInterceptor {
   Future<ClientResponse> onResponse(
     ClientRequest request,
     ClientResponse response,
-  ) async =>
-      response;
+  ) async => response;
 
   /// Called when an error occurs.
   /// Return true to retry the request, false to propagate the error.
@@ -74,6 +73,5 @@ abstract class ClientInterceptor {
     ClientRequest request,
     Object error,
     int attemptCount,
-  ) async =>
-      false;
+  ) async => false;
 }

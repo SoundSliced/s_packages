@@ -59,7 +59,7 @@ class SErrorWidget extends StatefulWidget {
 
   /// A builder to customize the exception display.
   final Widget Function(BuildContext context, String exceptionText)?
-      exceptionBuilder;
+  exceptionBuilder;
 
   /// An optional error code displayed below the header (e.g., "404", "ERR_NETWORK").
   final String? errorCode;
@@ -134,17 +134,16 @@ class _SErrorWidgetState extends State<SErrorWidget> {
               else
                 Text(
                   "\u26A0",
-                  style: widget.headerTextStyle?.copyWith(fontSize: 40) ??
-                      const TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                      ),
+                  style:
+                      widget.headerTextStyle?.copyWith(fontSize: 40) ??
+                      const TextStyle(color: Colors.white, fontSize: 40),
                 ),
               const SizedBox(height: 8),
               Text(
                 widget.headerText ?? "Error!",
                 textAlign: TextAlign.center,
-                style: widget.headerTextStyle ??
+                style:
+                    widget.headerTextStyle ??
                     const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -172,7 +171,8 @@ class _SErrorWidgetState extends State<SErrorWidget> {
                         textDirection: TextDirection.ltr,
                         cursorColor: Colors.white,
                         textAlign: TextAlign.center,
-                        style: widget.exceptionTextStyle ??
+                        style:
+                            widget.exceptionTextStyle ??
                             const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -184,7 +184,8 @@ class _SErrorWidgetState extends State<SErrorWidget> {
                 const SizedBox(height: 12),
                 GestureDetector(
                   onTap: () => setState(
-                      () => _stackTraceExpanded = !_stackTraceExpanded),
+                    () => _stackTraceExpanded = !_stackTraceExpanded,
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -248,7 +249,8 @@ class _SErrorWidgetState extends State<SErrorWidget> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: widget.onRetry,
-                  style: widget.retryButtonStyle ??
+                  style:
+                      widget.retryButtonStyle ??
                       ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.black,

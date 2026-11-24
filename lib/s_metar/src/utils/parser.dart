@@ -40,10 +40,7 @@ String sanitizeWindshear(String code) {
   for (var i = 1; i <= 3; i++) {
     if (regex.hasMatch(code)) {
       final match = regex.firstMatch(code);
-      code = code.replaceFirst(
-        regex,
-        'WS_R${match!.namedGroup("name")}',
-      );
+      code = code.replaceFirst(regex, 'WS_R${match!.namedGroup("name")}');
     }
   }
 
@@ -63,8 +60,10 @@ String sanitizeChangeIndicator(String code) {
   for (var i = 0; i < 5; i++) {
     if (regex.hasMatch(code)) {
       final match = regex.firstMatch(code);
-      code =
-          code.replaceFirst(regex, 'PROB${match!.namedGroup("percent")}_TEMPO');
+      code = code.replaceFirst(
+        regex,
+        'PROB${match!.namedGroup("percent")}_TEMPO',
+      );
     } else {
       break;
     }

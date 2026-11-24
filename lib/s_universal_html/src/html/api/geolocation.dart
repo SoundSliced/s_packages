@@ -100,8 +100,8 @@ class Geoposition {
 
   /// Internal constructor. __Not part of dart:html__.
   Geoposition.internal({required Coordinates? coords, required int? timestamp})
-      : coords = coords ?? const Coordinates.internal(),
-        timestamp = timestamp ?? DateTime.now().millisecondsSinceEpoch;
+    : coords = coords ?? const Coordinates.internal(),
+      timestamp = timestamp ?? DateTime.now().millisecondsSinceEpoch;
 }
 
 class PositionError {

@@ -44,10 +44,7 @@ class TimeTextEditingController extends TextEditingController {
       extentOffset: currentSelection.extentOffset.clamp(0, newText.length),
     );
 
-    value = TextEditingValue(
-      text: newText,
-      selection: clampedSelection,
-    );
+    value = TextEditingValue(text: newText, selection: clampedSelection);
   }
 }
 
@@ -62,8 +59,10 @@ class TimezoneSuffixHelper {
   /// - ' z' for UTC time
   /// - ' ʟ' (small capital L) for local time when showLocalIndicator is true
   /// - '' (empty) for local time when showLocalIndicator is false
-  static String getSuffix(
-      {required bool isUtc, bool showLocalIndicator = false}) {
+  static String getSuffix({
+    required bool isUtc,
+    bool showLocalIndicator = false,
+  }) {
     if (isUtc) {
       return ' z';
     } else {
@@ -261,9 +260,8 @@ class _TimeInputState extends State<TimeInput> {
 
     if (renderBox == null || text.isEmpty) return 0;
 
-    final textStyle = DefaultTextStyle.of(context).style.merge(
-          TextStyle(fontSize: widget.inputFontSize ?? 16),
-        );
+    final textStyle = DefaultTextStyle.of(context).style
+        .merge(TextStyle(fontSize: widget.inputFontSize ?? 16));
 
     final painter = TextPainter(
       text: TextSpan(text: text, style: textStyle),
@@ -275,7 +273,8 @@ class _TimeInputState extends State<TimeInput> {
     TextBox? unionBoxForSelection(int start, int end) {
       if (start >= end || start < 0 || end > text.length) return null;
       final boxes = painter.getBoxesForSelection(
-          TextSelection(baseOffset: start, extentOffset: end));
+        TextSelection(baseOffset: start, extentOffset: end),
+      );
       if (boxes.isEmpty) return null;
 
       var left = boxes.first.left;
@@ -309,12 +308,15 @@ class _TimeInputState extends State<TimeInput> {
   }
 
   void _handleDoubleTapDown(TapDownDetails details) {
-    final targetOffset =
-        _doubleTapCaretTargetForPosition(details.localPosition);
+    final targetOffset = _doubleTapCaretTargetForPosition(
+      details.localPosition,
+    );
     if (targetOffset == null) return;
 
-    _focusEntryCaretTargetOffset =
-        _clampFocusEntryCaretTarget(tfc.text, targetOffset);
+    _focusEntryCaretTargetOffset = _clampFocusEntryCaretTarget(
+      tfc.text,
+      targetOffset,
+    );
 
     if (!_focusNode.hasFocus && _focusNode.canRequestFocus) {
       _focusNode.requestFocus();
@@ -339,8 +341,10 @@ class _TimeInputState extends State<TimeInput> {
   }
 
   void _enforceFocusEntryCaretAtStart([int targetOffset = 0]) {
-    _focusEntryCaretTargetOffset =
-        _clampFocusEntryCaretTarget(tfc.text, targetOffset);
+    _focusEntryCaretTargetOffset = _clampFocusEntryCaretTarget(
+      tfc.text,
+      targetOffset,
+    );
     _forceStartCaretOnFocusEntry = true;
 
     void enforceNow() {
@@ -351,8 +355,9 @@ class _TimeInputState extends State<TimeInput> {
           !selection.isCollapsed ||
           selection.baseOffset != _focusEntryCaretTargetOffset ||
           selection.extentOffset != _focusEntryCaretTargetOffset) {
-        tfc.selection =
-            TextSelection.collapsed(offset: _focusEntryCaretTargetOffset);
+        tfc.selection = TextSelection.collapsed(
+          offset: _focusEntryCaretTargetOffset,
+        );
       }
 
       _lastCollapsedSelectionOffset = _focusEntryCaretTargetOffset;
@@ -385,7 +390,7 @@ class _TimeInputState extends State<TimeInput> {
       if (c == 58 /* ':' */ ||
           c == 122 /* 'z' */ ||
           c == 76 /* 'L' */ ||
-          c == 671 /* 'ʟ' U+029F */) {
+          c == 671 /* 'ʟ' U+029F */ ) {
         return true;
       }
     }
@@ -401,8 +406,9 @@ class _TimeInputState extends State<TimeInput> {
     final initialText = (widget.isEmptyWhenTimeNull && widget.time == null)
         ? ''
         : TimeInputControllers.formatTimeInput(
-            (widget.time ?? defaultTime)
-                .convertToStringTime(showSeparatorSymbol: false),
+            (widget.time ?? defaultTime).convertToStringTime(
+              showSeparatorSymbol: false,
+            ),
             isUtc: widget.isUtc,
             showLocalIndicator: widget.showLocalIndicator,
           );
@@ -415,7 +421,8 @@ class _TimeInputState extends State<TimeInput> {
     _originalValue = TimeInputControllers.keepDigitsOnly(initialText);
 
     // Set up focus management and keyboard event handling
-    _focusNode = widget.externalFocusNode ??
+    _focusNode =
+        widget.externalFocusNode ??
         RoleFocusNode((widget.focusRole ?? widget.title).toUpperCase());
 
     _focusNode.addListener(_onFocusChange);
@@ -435,8 +442,10 @@ class _TimeInputState extends State<TimeInput> {
             if (widget.replaceAllTextOnAutoFocus) {
               if (tfc.text.isNotEmpty) {
                 _forceStartCaretOnFocusEntry = false;
-                tfc.selection =
-                    TextSelection(baseOffset: 0, extentOffset: tfc.text.length);
+                tfc.selection = TextSelection(
+                  baseOffset: 0,
+                  extentOffset: tfc.text.length,
+                );
               }
             } else {
               _enforceFocusEntryCaretAtStart(0);
@@ -456,10 +465,20 @@ class _TimeInputState extends State<TimeInput> {
     final defaultTime = widget.defaultTime;
     final defaultTimeDateTime = defaultTime != null
         ? widget.isUtc
-            ? DateTime.utc(now.year, now.month, now.day, defaultTime.hour,
-                defaultTime.minute)
-            : DateTime(now.year, now.month, now.day, defaultTime.hour,
-                defaultTime.minute)
+              ? DateTime.utc(
+                  now.year,
+                  now.month,
+                  now.day,
+                  defaultTime.hour,
+                  defaultTime.minute,
+                )
+              : DateTime(
+                  now.year,
+                  now.month,
+                  now.day,
+                  defaultTime.hour,
+                  defaultTime.minute,
+                )
         : now;
 
     return defaultTimeDateTime;
@@ -482,8 +501,9 @@ class _TimeInputState extends State<TimeInput> {
           selection.baseOffset != _focusEntryCaretTargetOffset ||
           selection.extentOffset != _focusEntryCaretTargetOffset) {
         _isNormalizingSelection = true;
-        tfc.selection =
-            TextSelection.collapsed(offset: _focusEntryCaretTargetOffset);
+        tfc.selection = TextSelection.collapsed(
+          offset: _focusEntryCaretTargetOffset,
+        );
         _isNormalizingSelection = false;
       }
       _lastCollapsedSelectionOffset = _focusEntryCaretTargetOffset;
@@ -601,7 +621,8 @@ class _TimeInputState extends State<TimeInput> {
     // Store current selection before formatting
     final currentSelection = tfc.selection;
     final hasSelection = currentSelection.start != currentSelection.end;
-    final isSelectAllSelection = hasSelection &&
+    final isSelectAllSelection =
+        hasSelection &&
         currentSelection.start == 0 &&
         currentSelection.end == tfc.text.length;
 
@@ -830,11 +851,7 @@ class _TimeInputState extends State<TimeInput> {
       splashRadius: 12,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(minWidth: 15, minHeight: 15),
-      icon: const Icon(
-        Icons.close_rounded,
-        size: 12,
-        color: Colors.red,
-      ),
+      icon: const Icon(Icons.close_rounded, size: 12, color: Colors.red),
       onPressed: () {
         _log(
           'CLEAR-PRESSED',
@@ -860,7 +877,8 @@ class _TimeInputState extends State<TimeInput> {
         tfc.value = TextEditingValue(
           text: resetText,
           selection: TextSelection.collapsed(
-              offset: _focusNode.hasFocus ? 0 : resetText.length),
+            offset: _focusNode.hasFocus ? 0 : resetText.length,
+          ),
         );
 
         _originalValue = TimeInputControllers.keepDigitsOnly(resetText);
@@ -894,8 +912,9 @@ class _TimeInputState extends State<TimeInput> {
     final timeText = (widget.isEmptyWhenTimeNull && widget.time == null)
         ? ''
         : TimeInputControllers.formatTimeInput(
-            (widget.time ?? defaultTime)
-                .convertToStringTime(showSeparatorSymbol: false),
+            (widget.time ?? defaultTime).convertToStringTime(
+              showSeparatorSymbol: false,
+            ),
             isUtc: widget.isUtc,
             showLocalIndicator: widget.showLocalIndicator,
           );
@@ -921,127 +940,115 @@ class _TimeInputState extends State<TimeInput> {
 
   @override
   Widget build(BuildContext context) => Box(
-        height: 80,
-        // alignment: Alignment.center,
-        child: Listener(
-          behavior: HitTestBehavior.translucent,
-          onPointerDown: _handleContainerPointerDown,
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTapDown: _handleContainerTapDown,
-            onDoubleTapDown: _handleDoubleTapDown,
-            child: TextFormField(
-              key: _textFieldKey,
-              controller: tfc,
-              focusNode: _focusNode,
-              // autofocus: widget.autoFocus, // Using manual focus to control cursor positioning
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                TimeInputFormatter(
-                  isUtc: widget.isUtc,
-                  showLocalIndicator: widget.showLocalIndicator,
-                  enableDebugLogs: widget.enableDebugLogs,
-                ),
-              ],
-              textAlign: TextAlign.center,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (input) {
-                if (widget.isEmptyWhenTimeNull &&
-                    (input == null || input.trim().isEmpty)) {
-                  // Empty is a valid, intentional value when the field is nullable.
-                  return null;
-                }
-                return TimeInputControllers.timeInputValidator(input);
-              },
-
-              onTap: _handleTap,
-              onTapOutside: _handleTapOutside,
-              onChanged: _handleTextChanged,
-              onFieldSubmitted: (_) =>
-                  _handleEnterKey(), // Mobile/IME submit path
-              style: TextStyle(
-                fontSize: widget.inputFontSize ?? 16,
-                // color: widget.colorPerTitle?[widget.title] ?? Colors.red.shade800,
-              ),
-              decoration: (widget.inputDecoration?.copyWith(
-                    contentPadding: widget.contentPadding ??
-                        widget.inputDecoration?.contentPadding,
-                    suffixIcon: widget.showClearButton
-                        ? _buildClearButton()
-                        : widget.inputDecoration?.suffixIcon,
-                    suffixIconConstraints: widget.showClearButton
-                        ? const BoxConstraints(
-                            minWidth: 18,
-                            minHeight: 18,
-                          )
-                        : widget.inputDecoration?.suffixIconConstraints,
-                  )) ??
-                  InputDecoration(
-                    fillColor: Colors.white.withValues(alpha: 0.6),
-                    filled: true,
-                    hintText: '(e.g., 1030)',
-                    hintStyle: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: 12,
-                    ),
-                    labelText: widget.title,
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: widget.colorPerTitle?[widget.title] ??
-                          Colors.red.shade800,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(widget.borderRadius ?? 12),
-                      borderSide: const BorderSide(
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(widget.borderRadius ?? 12),
-                      borderSide: const BorderSide(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(widget.borderRadius ?? 12),
-                      borderSide: BorderSide(
-                        color: Colors.grey[300]!,
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(widget.borderRadius ?? 12),
-                      borderSide: const BorderSide(
-                        color: Colors.red,
-                      ),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(widget.borderRadius ?? 12),
-                      borderSide: const BorderSide(
-                        color: Colors.redAccent,
-                      ),
-                    ),
-                    contentPadding: widget.contentPadding ??
-                        const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
-                    suffixIcon:
-                        widget.showClearButton ? _buildClearButton() : null,
-                    suffixIconConstraints: widget.showClearButton
-                        ? const BoxConstraints(
-                            minWidth: 16,
-                            minHeight: 16,
-                          )
-                        : null,
-                  ),
+    height: 80,
+    // alignment: Alignment.center,
+    child: Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: _handleContainerPointerDown,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTapDown: _handleContainerTapDown,
+        onDoubleTapDown: _handleDoubleTapDown,
+        child: TextFormField(
+          key: _textFieldKey,
+          controller: tfc,
+          focusNode: _focusNode,
+          // autofocus: widget.autoFocus, // Using manual focus to control cursor positioning
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+            TimeInputFormatter(
+              isUtc: widget.isUtc,
+              showLocalIndicator: widget.showLocalIndicator,
+              enableDebugLogs: widget.enableDebugLogs,
             ),
+          ],
+          textAlign: TextAlign.center,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (input) {
+            if (widget.isEmptyWhenTimeNull &&
+                (input == null || input.trim().isEmpty)) {
+              // Empty is a valid, intentional value when the field is nullable.
+              return null;
+            }
+            return TimeInputControllers.timeInputValidator(input);
+          },
+
+          onTap: _handleTap,
+          onTapOutside: _handleTapOutside,
+          onChanged: _handleTextChanged,
+          onFieldSubmitted: (_) => _handleEnterKey(), // Mobile/IME submit path
+          style: TextStyle(
+            fontSize: widget.inputFontSize ?? 16,
+            // color: widget.colorPerTitle?[widget.title] ?? Colors.red.shade800,
           ),
+          decoration:
+              (widget.inputDecoration?.copyWith(
+                contentPadding:
+                    widget.contentPadding ??
+                    widget.inputDecoration?.contentPadding,
+                suffixIcon: widget.showClearButton
+                    ? _buildClearButton()
+                    : widget.inputDecoration?.suffixIcon,
+                suffixIconConstraints: widget.showClearButton
+                    ? const BoxConstraints(minWidth: 18, minHeight: 18)
+                    : widget.inputDecoration?.suffixIconConstraints,
+              )) ??
+              InputDecoration(
+                fillColor: Colors.white.withValues(alpha: 0.6),
+                filled: true,
+                hintText: '(e.g., 1030)',
+                hintStyle: TextStyle(color: Colors.grey[400], fontSize: 12),
+                labelText: widget.title,
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color:
+                      widget.colorPerTitle?[widget.title] ??
+                      Colors.red.shade800,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                    widget.borderRadius ?? 12,
+                  ),
+                  borderSide: const BorderSide(color: Colors.blueAccent),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                    widget.borderRadius ?? 12,
+                  ),
+                  borderSide: const BorderSide(color: Colors.blue),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                    widget.borderRadius ?? 12,
+                  ),
+                  borderSide: BorderSide(color: Colors.grey[300]!),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                    widget.borderRadius ?? 12,
+                  ),
+                  borderSide: const BorderSide(color: Colors.red),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(
+                    widget.borderRadius ?? 12,
+                  ),
+                  borderSide: const BorderSide(color: Colors.redAccent),
+                ),
+                contentPadding:
+                    widget.contentPadding ??
+                    const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                suffixIcon: widget.showClearButton ? _buildClearButton() : null,
+                suffixIconConstraints: widget.showClearButton
+                    ? const BoxConstraints(minWidth: 16, minHeight: 16)
+                    : null,
+              ),
         ),
-      );
+      ),
+    ),
+  );
 }
 
 //********************************* */
@@ -1253,9 +1260,11 @@ class TimeInputControllers {
   ///
   /// [timeString] - Formatted time string with optional timezone suffix
   /// Returns tuple of (TimeOfDay?, String?) where second element is error message
-  static TimeOfDay convertToTimeOfDay(String timeString,
-      {bool isUtc = true,
-      (DateTime?, TimeOfDay?) defaultTime = const (null, null)}) {
+  static TimeOfDay convertToTimeOfDay(
+    String timeString, {
+    bool isUtc = true,
+    (DateTime?, TimeOfDay?) defaultTime = const (null, null),
+  }) {
     final dfT =
         defaultTime.$1 ?? (isUtc ? DateTime.now().toUtc() : DateTime.now());
     var timeOfDay = TimeOfDay(hour: dfT.hour, minute: dfT.minute);
@@ -1280,8 +1289,9 @@ class TimeInputControllers {
           hours = defaultTime.$2 != null ? defaultTime.$2!.hour : dfT.hour;
         }
         if (minutes == null || minutes < 0 || minutes > 59) {
-          minutes =
-              defaultTime.$2 != null ? defaultTime.$2!.minute : dfT.minute;
+          minutes = defaultTime.$2 != null
+              ? defaultTime.$2!.minute
+              : dfT.minute;
         }
 
         timeOfDay = TimeOfDay(hour: hours, minute: minutes);
@@ -1348,15 +1358,19 @@ class TimeInputFormatter extends TextInputFormatter {
     TextEditingValue newValue,
   ) {
     final oldDigits = _limitToFourDigits(
-        TimeInputControllers._removeNonDigits(oldValue.text));
+      TimeInputControllers._removeNonDigits(oldValue.text),
+    );
     final newRawDigits = TimeInputControllers._removeNonDigits(newValue.text);
 
     // ── BACKSPACE ──────────────────────────────────────────────────────────
     bool isBackspace = false;
     int backspaceSlot = 0;
     if (_isCollapsedBackspace(oldValue, newValue)) {
-      final removalIndex = _countDigitsBeforeOffset(
-              oldValue.text, oldValue.selection.baseOffset) -
+      final removalIndex =
+          _countDigitsBeforeOffset(
+            oldValue.text,
+            oldValue.selection.baseOffset,
+          ) -
           1;
 
       if (removalIndex >= 0 && removalIndex < oldDigits.length) {
@@ -1382,12 +1396,16 @@ class TimeInputFormatter extends TextInputFormatter {
       // All 4 digit slots are filled and the user typed a digit. Find the
       // slot where the cursor was and replace that digit with the new one.
       final cursorDigitBefore = _countDigitsBeforeOffset(
-          newValue.text, newValue.selection.baseOffset);
+        newValue.text,
+        newValue.selection.baseOffset,
+      );
 
       // The new value has one extra digit inserted; the cursor sits after it.
       // Determine which digit slot the cursor was pointing AT before typing.
-      final slotToReplace =
-          (cursorDigitBefore - 1).clamp(0, oldDigits.length - 1);
+      final slotToReplace = (cursorDigitBefore - 1).clamp(
+        0,
+        oldDigits.length - 1,
+      );
 
       // Find the newly inserted digit by locating the first position where
       // the raw digit strings diverge.
@@ -1397,8 +1415,9 @@ class TimeInputFormatter extends TextInputFormatter {
           newRawDigits[firstDiffPos] == oldDigits[firstDiffPos]) {
         firstDiffPos++;
       }
-      final newDigit =
-          firstDiffPos < newRawDigits.length ? newRawDigits[firstDiffPos] : '0';
+      final newDigit = firstDiffPos < newRawDigits.length
+          ? newRawDigits[firstDiffPos]
+          : '0';
 
       limitedDigits = _replaceDigitAt(oldDigits, slotToReplace, newDigit);
 
@@ -1423,7 +1442,9 @@ class TimeInputFormatter extends TextInputFormatter {
       // Fewer than 4 digits or digit count hasn't grown – treat as insertion.
       limitedDigits = _limitToFourDigits(newRawDigits);
       final digitsBeforeCursor = _countDigitsBeforeOffset(
-          newValue.text, newValue.selection.baseOffset);
+        newValue.text,
+        newValue.selection.baseOffset,
+      );
 
       if (digitsBeforeCursor > 0 && limitedDigits.isNotEmpty) {
         cursorSlot = digitsBeforeCursor.clamp(1, limitedDigits.length);
@@ -1461,7 +1482,9 @@ class TimeInputFormatter extends TextInputFormatter {
   }
 
   bool _isCollapsedBackspace(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     return oldValue.selection.isCollapsed &&
         newValue.selection.isCollapsed &&
         newValue.text.length < oldValue.text.length &&

@@ -144,7 +144,7 @@ class PaymentRequest extends EventTarget {
   }
 
   PaymentRequest._internal(this._methodData, this._details, this._options)
-      : super.internal();
+    : super.internal();
 
   String? get id {
     return _options?['id'] as String?;
@@ -167,9 +167,8 @@ class PaymentRequest extends EventTarget {
   Future<bool> canMakePayment() =>
       Future<bool>.value(_methodData.isNotEmpty && _details.isNotEmpty);
 
-  Future<PaymentResponse> show() => Future<PaymentResponse>.value(
-        PaymentResponse._(),
-      );
+  Future<PaymentResponse> show() =>
+      Future<PaymentResponse>.value(PaymentResponse._());
 }
 
 @Native('PaymentResponse')

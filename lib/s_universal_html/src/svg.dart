@@ -133,7 +133,7 @@ abstract class SvgElement extends Element {
 
 class _SvgElementImpl extends UnknownElement implements SvgElement {
   _SvgElementImpl(Document ownerDocument, String tag)
-      : super.internal(ownerDocument, 'http://www.w3.org/2000/svg', tag);
+    : super.internal(ownerDocument, 'http://www.w3.org/2000/svg', tag);
 
   @override
   SvgElement internalCloneWithOwnerDocument(Document ownerDocument, bool deep) {

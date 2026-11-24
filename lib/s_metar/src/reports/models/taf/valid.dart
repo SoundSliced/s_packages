@@ -57,28 +57,30 @@ class Valid extends Group {
       }
 
       _from = Time(
-          time: DateTime(
-        from.year,
-        from.month,
-        from.day,
-        fmhour,
-        from.minute,
-        from.second,
-        from.millisecond,
-        from.microsecond,
-      ));
+        time: DateTime(
+          from.year,
+          from.month,
+          from.day,
+          fmhour,
+          from.minute,
+          from.second,
+          from.millisecond,
+          from.microsecond,
+        ),
+      );
 
       _until = Time(
-          time: DateTime(
-        until.year,
-        until.month,
-        until.day,
-        tlhour,
-        until.minute,
-        until.second,
-        until.millisecond,
-        until.microsecond,
-      ));
+        time: DateTime(
+          until.year,
+          until.month,
+          until.day,
+          tlhour,
+          until.minute,
+          until.second,
+          until.millisecond,
+          until.microsecond,
+        ),
+      );
     }
   }
 
@@ -101,10 +103,7 @@ class Valid extends Group {
   @override
   Map<String, Object?> asMap() {
     final map = super.asMap();
-    map.addAll({
-      'from_': periodFrom.asMap(),
-      'until': periodUntil.asMap(),
-    });
+    map.addAll({'from_': periodFrom.asMap(), 'until': periodUntil.asMap()});
     return map;
   }
 }

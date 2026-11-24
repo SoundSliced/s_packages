@@ -246,8 +246,7 @@ abstract final class SUniversalHtml {
     String filename,
     List<int> bytes, [
     String mimeType = 'application/octet-stream',
-  ]) =>
-      impl.downloadBytesFile(filename, bytes, mimeType);
+  ]) => impl.downloadBytesFile(filename, bytes, mimeType);
 
   // ─── Window Focus / Print ─────────────────────────────────────────────────
 

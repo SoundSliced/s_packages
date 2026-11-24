@@ -30,9 +30,7 @@ class Visibility extends Group {
   @override
   Map<String, Object?> asMap() {
     final map = super.asMap();
-    map.addAll({
-      'visibility': _visibility.asMap(),
-    });
+    map.addAll({'visibility': _visibility.asMap()});
     return map;
   }
 }
@@ -71,9 +69,7 @@ class VisibilityWithDirection extends Visibility {
   @override
   Map<String, Object?> asMap() {
     final map = super.asMap();
-    map.addAll({
-      'direction': _direction.asMap(),
-    });
+    map.addAll({'direction': _direction.asMap()});
     return map;
   }
 }
@@ -102,7 +98,7 @@ class MetarPrevailingVisibility extends VisibilityWithDirection {
   bool cavok = false;
 
   MetarPrevailingVisibility(String? code, RegExpMatch? match)
-      : super(code?.replaceAll('_', ' ')) {
+    : super(code?.replaceAll('_', ' ')) {
     if (match != null) {
       final vis = match.namedGroup('vis');
       final dir = match.namedGroup('dir');

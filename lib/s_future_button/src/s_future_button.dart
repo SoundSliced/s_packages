@@ -246,63 +246,64 @@ class _SFutureButtonState extends State<SFutureButton> {
                     contentKey: ValueKey(_contentRevision),
                     semanticLabel:
                         widget.semanticsLabel ?? widget.label ?? 'Tap',
-                    borderRadius: (widget.borderRadius != null &&
+                    borderRadius:
+                        (widget.borderRadius != null &&
                             widget.borderRadius!.isFinite)
                         ? widget.borderRadius!
                         : 35,
                     child: Center(child: _buildContent()),
                   ),
-                  _controller.overlayController.builderData<bool>(
-                    (isOverlayVisible) {
-                      return isOverlayVisible
-                          ? Container(
-                              decoration: BoxDecoration(
-                                color: (widget.errorColor ?? Colors.red)
-                                    .withValues(alpha: 0.5),
-                                borderRadius: BorderRadius.circular(
-                                    (widget.borderRadius != null &&
-                                            widget.borderRadius!.isFinite)
-                                        ? widget.borderRadius!
-                                        : 35),
+                  _controller.overlayController.builderData<bool>((
+                    isOverlayVisible,
+                  ) {
+                    return isOverlayVisible
+                        ? Container(
+                            decoration: BoxDecoration(
+                              color: (widget.errorColor ?? Colors.red)
+                                  .withValues(alpha: 0.5),
+                              borderRadius: BorderRadius.circular(
+                                (widget.borderRadius != null &&
+                                        widget.borderRadius!.isFinite)
+                                    ? widget.borderRadius!
+                                    : 35,
                               ),
-                              width: (widget.width != null &&
-                                      widget.width!.isFinite)
-                                  ? widget.width!
-                                  : 150,
-                              height: (widget.height != null &&
-                                      widget.height!.isFinite)
-                                  ? widget.height!
-                                  : 40,
-                            )
-                          : const SizedBox();
-                    },
-                  ),
+                            ),
+                            width:
+                                (widget.width != null && widget.width!.isFinite)
+                                ? widget.width!
+                                : 150,
+                            height:
+                                (widget.height != null &&
+                                    widget.height!.isFinite)
+                                ? widget.height!
+                                : 40,
+                          )
+                        : const SizedBox();
+                  }),
                 ],
               ),
             ),
 
             //Login Button Error Message
-            _controller.errorMessageController.builderData<String?>(
-              (err) {
-                // log("Error message: ${err}");
+            _controller.errorMessageController.builderData<String?>((err) {
+              // log("Error message: ${err}");
 
-                return err == null
-                    ? const SizedBox()
-                    : Box(
-                        height: widget.showErrorMessage ? 15 : 0,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 2),
-                          child: Text(
-                            err,
-                            style: const TextStyle(
-                              color: Colors.red,
-                              fontSize: 10,
-                            ),
+              return err == null
+                  ? const SizedBox()
+                  : Box(
+                      height: widget.showErrorMessage ? 15 : 0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Text(
+                          err,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 10,
                           ),
                         ),
-                      );
-              },
-            ),
+                      ),
+                    );
+            }),
           ],
         ),
       ),
@@ -333,12 +334,13 @@ class _SFutureButtonController {
     controller.state.reset();
   }
 
-// error method to indicate an error occurred
-  Future<void> error(
-      {String? message,
-      Duration? duration,
-      VoidCallback? then,
-      bool Function()? isActive}) async {
+  // error method to indicate an error occurred
+  Future<void> error({
+    String? message,
+    Duration? duration,
+    VoidCallback? then,
+    bool Function()? isActive,
+  }) async {
     if (_isDisposed || !(isActive?.call() ?? true)) return;
     final errorDur = duration ?? 1.5.sec;
     //show the red overlay layer
@@ -365,10 +367,11 @@ class _SFutureButtonController {
     overlayController.state = false;
   } // success method to indicate a successful operation
 
-  Future<void> success(
-      {Duration? duration,
-      VoidCallback? then,
-      bool Function()? isActive}) async {
+  Future<void> success({
+    Duration? duration,
+    VoidCallback? then,
+    bool Function()? isActive,
+  }) async {
     if (_isDisposed || !(isActive?.call() ?? true)) return;
     controller.state.success();
 

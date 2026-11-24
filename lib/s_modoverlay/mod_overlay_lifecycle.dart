@@ -65,7 +65,8 @@ class ModOverlayLifecycleEvent {
 
 /// Callback invoked for global overlay/modal lifecycle events.
 typedef ModOverlayLifecycleCallback = void Function(
-    ModOverlayLifecycleEvent event);
+  ModOverlayLifecycleEvent event,
+);
 
 /// Global coordinator for the s_modoverlay package.
 ///
@@ -104,8 +105,11 @@ class ModOverlay {
     onDismiss = null;
   }
 
-  static void _safeDispatch(ModOverlayLifecycleCallback? callback,
-      ModOverlayLifecycleEvent event, String hookName) {
+  static void _safeDispatch(
+    ModOverlayLifecycleCallback? callback,
+    ModOverlayLifecycleEvent event,
+    String hookName,
+  ) {
     if (callback == null) return;
     try {
       callback(event);
@@ -117,7 +121,7 @@ class ModOverlay {
           library: 's_modoverlay',
           context: ErrorDescription('while dispatching ModOverlay.$hookName'),
           informationCollector: () => <DiagnosticsNode>[
-            DiagnosticsProperty<ModOverlayLifecycleEvent>('event', event)
+            DiagnosticsProperty<ModOverlayLifecycleEvent>('event', event),
           ],
         ),
       );

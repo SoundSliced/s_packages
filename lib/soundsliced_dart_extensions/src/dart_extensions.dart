@@ -364,7 +364,7 @@ DateTime theDayBefore(DateTime currentDate) {
 
 //Extension to convert Duration to DateTime
 extension DurationExtensions<dynamics extends Duration> on Duration {
-//extension to convert a Duration to DateTime type
+  //extension to convert a Duration to DateTime type
   DateTime convertToDateTime() {
     int hr = inHours > 0 ? inHours : 0,
         min = inMinutes.remainder(60),
@@ -374,7 +374,7 @@ extension DurationExtensions<dynamics extends Duration> on Duration {
     return DateTime(0, 0, 0, hr, min, sec, milSec, 0);
   }
 
-//converts a Duration to a String '## sec', or '##:##', or '##:##:##' as appropriate
+  //converts a Duration to a String '## sec', or '##:##', or '##:##:##' as appropriate
   String convertToEasyReadString() {
     String hours = inHours.toString().padLeft(0, '2'),
         minutes = inMinutes.remainder(60).toString().padLeft(2, '0'),
@@ -434,7 +434,7 @@ extension DurationExtensions<dynamics extends Duration> on Duration {
 
 //Extension to convert Duration to DateTime
 extension DurationExtensions2<dynamics extends Duration?> on Duration? {
-//extension to convert a Duration to DateTime type
+  //extension to convert a Duration to DateTime type
   DateTime? convertToDateTime() {
     if (this != null) {
       int hr = this!.inHours > 0 ? this!.inHours : 0,
@@ -449,7 +449,7 @@ extension DurationExtensions2<dynamics extends Duration?> on Duration? {
     }
   }
 
-//converts a Duration to a String '## sec', or '##:##', or '##:##:##' as appropriate
+  //converts a Duration to a String '## sec', or '##:##', or '##:##:##' as appropriate
   String convertToString() {
     if (this != null) {
       String hours = this!.inHours.toString().padLeft(0, '2'),
@@ -494,7 +494,7 @@ extension DateTimeExtensions<dynamics extends DateTime> on DateTime {
     return this;
   }
 
-//extension to convert a RangeSlider Duration to a BetterPlayer Duration format
+  //extension to convert a RangeSlider Duration to a BetterPlayer Duration format
   Duration convertToDuration() {
     int hr = hour > 0 ? hour : 0,
         min = minute.remainder(60),
@@ -519,45 +519,57 @@ extension DateTimeExtensions<dynamics extends DateTime> on DateTime {
     return "$hr:$min:$sec.$milSec";
   }
 
-  String convertToStringTime(
-      {bool showSeconds = false,
-      bool showUtcSymbol = false,
-      bool preferUtcSymbolThanZ = false,
-      bool showSeparatorSymbol = true}) {
+  String convertToStringTime({
+    bool showSeconds = false,
+    bool showUtcSymbol = false,
+    bool preferUtcSymbolThanZ = false,
+    bool showSeparatorSymbol = true,
+  }) {
     String separatorSymbol() => showSeparatorSymbol ? ':' : '';
 
     String hourString = hour == 0
             ? "00"
             : hour < 10
-                ? "0$hour"
-                : "$hour",
+            ? "0$hour"
+            : "$hour",
         minString = minute == 0
             ? "00"
             : minute < 10
-                ? "0$minute"
-                : "$minute",
+            ? "0$minute"
+            : "$minute",
         secString = second == 0
             ? "00"
             : second < 10
-                ? "0$second"
-                : "$second";
+            ? "0$second"
+            : "$second";
     return showSeconds
-        ? "$hourString${separatorSymbol()}$minString${separatorSymbol()}$secString${showUtcSymbol ? preferUtcSymbolThanZ ? ' UTC' : ' z' : ''}"
-        : "$hourString${separatorSymbol()}$minString${showUtcSymbol ? preferUtcSymbolThanZ ? ' UTC' : ' z' : ''}";
+        ? "$hourString${separatorSymbol()}$minString${separatorSymbol()}$secString${showUtcSymbol
+              ? preferUtcSymbolThanZ
+                    ? ' UTC'
+                    : ' z'
+              : ''}"
+        : "$hourString${separatorSymbol()}$minString${showUtcSymbol
+              ? preferUtcSymbolThanZ
+                    ? ' UTC'
+                    : ' z'
+              : ''}";
   }
 
   double convertTimeIntoDecimalOfHour([int decimalPoint = 1]) {
     return (hour + minute / 60).roundDoubleToDecimalPlace(decimalPoint);
   }
 
-//https://copyprogramming.com/howto/how-to-round-up-the-date-time-nearest-to-30-min-interval-in-dart-flutter
-  DateTime toNearestMinute(
-      {int nearestMinute = 5, bool isroundDownTo = false, bool isUTC = true}) {
+  //https://copyprogramming.com/howto/how-to-round-up-the-date-time-nearest-to-30-min-interval-in-dart-flutter
+  DateTime toNearestMinute({
+    int nearestMinute = 5,
+    bool isroundDownTo = false,
+    bool isUTC = true,
+  }) {
     final double ticksPer5Minutes = nearestMinute * 60000000;
     final double ticks = microsecondsSinceEpoch.toDouble();
     final int roundedTicks = isroundDownTo == true
         ? (ticks / ticksPer5Minutes).truncateToDouble().toInt() *
-            ticksPer5Minutes.toInt()
+              ticksPer5Minutes.toInt()
         : (ticks / ticksPer5Minutes).round() * ticksPer5Minutes.toInt();
 
     // debugPrint("toNearestMinute | ${DateTime.fromMicrosecondsSinceEpoch(roundedTicks, isUtc: true)}");
@@ -565,14 +577,16 @@ extension DateTimeExtensions<dynamics extends DateTime> on DateTime {
     return DateTime.fromMicrosecondsSinceEpoch(roundedTicks, isUtc: isUTC);
   }
 
-//https://www.appsloveworld.com/flutter/100/16/how-to-round-time-to-the-nearest-quarter-hour-in-dart-and-flutter
-  DateTime roundDown(
-      {Duration durationToRoundDown = const Duration(minutes: 5),
-      bool isUTC = true}) {
+  //https://www.appsloveworld.com/flutter/100/16/how-to-round-time-to-the-nearest-quarter-hour-in-dart-and-flutter
+  DateTime roundDown({
+    Duration durationToRoundDown = const Duration(minutes: 5),
+    bool isUTC = true,
+  }) {
     DateTime roundedDown = DateTime.fromMillisecondsSinceEpoch(
-        millisecondsSinceEpoch -
-            millisecondsSinceEpoch % durationToRoundDown.inMilliseconds,
-        isUtc: isUTC);
+      millisecondsSinceEpoch -
+          millisecondsSinceEpoch % durationToRoundDown.inMilliseconds,
+      isUtc: isUTC,
+    );
 
     // debugPrint("roundDown | $roundedDown");
 
@@ -607,10 +621,11 @@ extension DateTimeExtensions<dynamics extends DateTime> on DateTime {
     return 'DEC';
   }
 
-  String toAtcDateString(
-      {bool atcFormat = true,
-      bool withSeparators = true,
-      String separator = "/"}) {
+  String toAtcDateString({
+    bool atcFormat = true,
+    bool withSeparators = true,
+    String separator = "/",
+  }) {
     if (atcFormat) {
       return DateFormat('yyyy${separator}MM${separator}dd').format(this);
     }
@@ -647,18 +662,16 @@ extension DateTimeExtensions<dynamics extends DateTime> on DateTime {
     return localMidnight;
   }
 
-  DateTime adjustTimeToDateHourAndMinutesOnly(
-      {bool isUtc = true, DateTime? date}) {
+  DateTime adjustTimeToDateHourAndMinutesOnly({
+    bool isUtc = true,
+    DateTime? date,
+  }) {
     DateTime convertedDate = date ?? this;
     if (isUtc) {
       convertedDate = convertedDate.toUtc();
     }
 
-    return convertedDate.copyWith(
-      second: 0,
-      millisecond: 0,
-      microsecond: 0,
-    );
+    return convertedDate.copyWith(second: 0, millisecond: 0, microsecond: 0);
   }
 
   DateTime adjustTimeToDateHourOnly({bool isUtc = true, DateTime? date}) {
@@ -719,12 +732,12 @@ extension StringTimeToDateTime on String {
 
     //else, return the time in DateTime based on now's date
     return DateTime.now().toUtc().copyWith(
-          hour: hour,
-          minute: minute,
-          second: 0,
-          millisecond: 0,
-          microsecond: 0,
-        );
+      hour: hour,
+      minute: minute,
+      second: 0,
+      millisecond: 0,
+      microsecond: 0,
+    );
   }
 }
 
@@ -894,7 +907,8 @@ extension StringExtensions on String {
     //first check if the String is a valid list format
     if (!startsWith('[') || !endsWith(']')) {
       throw FormatException(
-          'StringExtensions.convertToListString() | String is not in a valid list format: $this');
+        'StringExtensions.convertToListString() | String is not in a valid list format: $this',
+      );
     }
 
     //otherwise, remove the first and last characters (the "[" and "]" characters)
@@ -1018,9 +1032,9 @@ extension ListGroupByExtension<T> on List<T> {
 
 extension ListChunk<T> on List<T> {
   List<List<T>> splitInChunks(int chunkSize) => [
-        for (var i = 0; i < length; i += chunkSize)
-          [for (var j = 0; j < chunkSize && i + j < length; j++) this[i + j]]
-      ];
+    for (var i = 0; i < length; i += chunkSize)
+      [for (var j = 0; j < chunkSize && i + j < length; j++) this[i + j]],
+  ];
 }
 
 //********************************** */
@@ -1040,8 +1054,9 @@ extension ColorExtensions on Color {
     assert(amount >= 0 && amount <= 1);
 
     final hsl = HSLColor.fromColor(this);
-    final hslLight =
-        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+    final hslLight = hsl.withLightness(
+      (hsl.lightness + amount).clamp(0.0, 1.0),
+    );
 
     return hslLight.toColor();
   }
@@ -1164,11 +1179,13 @@ List<DateTime?> convertStringIntoDateTimeList(String datesString) {
   datetimeList = datesString.length <= 2
       ? []
       : datesString
-          .substring(1, datesString.length - 1)
-          .split(', ')
-          .map((dateString) =>
-              dateString == "null" ? null : DateTime.parse(dateString))
-          .toList();
+            .substring(1, datesString.length - 1)
+            .split(', ')
+            .map(
+              (dateString) =>
+                  dateString == "null" ? null : DateTime.parse(dateString),
+            )
+            .toList();
 
   return datetimeList;
 }
@@ -1199,7 +1216,7 @@ List<double> convertStringIntoDoubleList(String string) {
   List<String> stringList = [];
   List<double> doubleList = [];
 
-//convert the String into a list of Strings
+  //convert the String into a list of Strings
   stringList = convertStringIntoStringList(string);
 
   //then convert the list of String into a list of double
@@ -1214,10 +1231,7 @@ List<double> convertStringIntoDoubleList(String string) {
 
 extension MyScrollExtension on ScrollController {
   /// Scroll to bottom with given animation duration
-  Future<void> animToBottomWithCurve({
-    Duration? duration,
-    Curve? curve,
-  }) async {
+  Future<void> animToBottomWithCurve({Duration? duration, Curve? curve}) async {
     animateTo(
       position.maxScrollExtent,
       duration: duration ?? Duration(milliseconds: 300),
@@ -1230,9 +1244,10 @@ extension MyScrollExtension on ScrollController {
 
 extension MyStringExtension on String {
   //method to convert a String into a list of Strings
-//https://stackoverflow.com/questions/52288553/flutter-how-to-convert-string-to-liststring
+  //https://stackoverflow.com/questions/52288553/flutter-how-to-convert-string-to-liststring
   @Deprecated(
-      'Use StringExtensions.convertToListString() or top-level convertStringIntoStringList(String) instead.')
+    'Use StringExtensions.convertToListString() or top-level convertStringIntoStringList(String) instead.',
+  )
   List<String> convertStringIntoStringList() {
     // Preserve legacy behavior for backward compatibility.
     return length <= 2 ? [] : substring(1, length - 1).split(', ');
@@ -1268,8 +1283,11 @@ String _generateAlpha({required int alpha, required bool withAlpha}) {
   }
 }
 
-String toHex(Color color,
-        {bool leadingHashSign = true, bool withAlpha = true}) =>
+String toHex(
+  Color color, {
+  bool leadingHashSign = true,
+  bool withAlpha = true,
+}) =>
     '${leadingHashSign ? '#' : ''}'
     '${_generateAlpha(alpha: ((color.a * 255.0).round() & 0xff), withAlpha: withAlpha)}'
     '${((color.r * 255.0).round() & 0xff).toRadixString(16).padLeft(2, '0').toUpperCase()}'
@@ -1280,8 +1298,8 @@ String toHex(Color color,
 
 //https://www.perplexity.ai/?login-source=oneTapHome
 Uint8List convertListMapToUint8List(
-        List<Map<String, dynamic>> supabaseDatabaseValues) =>
-    Uint8List.fromList(utf8.encode(json.encode(supabaseDatabaseValues)));
+  List<Map<String, dynamic>> supabaseDatabaseValues,
+) => Uint8List.fromList(utf8.encode(json.encode(supabaseDatabaseValues)));
 
 //******************************************************* */
 
@@ -1655,8 +1673,7 @@ const Map<String, String> mimeType = {
   "lrm": "application/vnd.ms-lrm",
   "mvb": "application/x-msmediaview",
   "mny": "application/x-msmoney",
-  "pptx":
-      "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  "pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
   "sldx": "application/vnd.openxmlformats-officedocument.presentationml.slide",
   "ppsx":
       "application/vnd.openxmlformats-officedocument.presentationml.slideshow",
@@ -2003,7 +2020,7 @@ const Map<String, String> mimeType = {
   "zir": "application/vnd.zul",
   "zip": "application/zip",
   "zmm": "application/vnd.handheld-entertainment+xml",
-  "zaz": "application/vnd.zzazz.deck+xml"
+  "zaz": "application/vnd.zzazz.deck+xml",
 };
 
 //******************************************************* */
@@ -2087,8 +2104,10 @@ extension IterableQueryExtensions<T> on Iterable<T> {
   }
 
   /// Returns a sorted copy by comparable [keyOf].
-  List<T> sortedBy<K extends Comparable<Object?>>(K Function(T element) keyOf,
-      {bool descending = false}) {
+  List<T> sortedBy<K extends Comparable<Object?>>(
+    K Function(T element) keyOf, {
+    bool descending = false,
+  }) {
     final copy = toList();
     copy.sort((a, b) {
       final order = keyOf(a).compareTo(keyOf(b));
@@ -2112,8 +2131,11 @@ extension IterableQueryExtensions<T> on Iterable<T> {
   }
 
   /// Returns sliding windows of [size].
-  List<List<T>> windowed(int size,
-      {int step = 1, bool partialWindows = false}) {
+  List<List<T>> windowed(
+    int size, {
+    int step = 1,
+    bool partialWindows = false,
+  }) {
     if (size <= 0) {
       throw ArgumentError.value(size, 'size', 'must be greater than 0');
     }
@@ -2210,10 +2232,7 @@ class SafeListAccessor {
 extension OffsetToAlignment on Offset {
   Alignment toAlignment() {
     // Convert offset to alignment
-    return Alignment(
-      (2 * dx / 100.w) - 1,
-      (2 * dy / 100.h) - 1,
-    );
+    return Alignment((2 * dx / 100.w) - 1, (2 * dy / 100.h) - 1);
   }
 }
 
@@ -2250,8 +2269,16 @@ extension TimeOfDayExtension on TimeOfDay {
       String secString = "00"; // TimeOfDay doesn't have seconds
 
       return showSeconds
-          ? "$hourString${separatorSymbol()}$minString${separatorSymbol()}$secString${showUtcSymbol ? preferUtcSymbolThanZ ? ' UTC' : ' z' : ''}"
-          : "$hourString${separatorSymbol()}$minString${showUtcSymbol ? preferUtcSymbolThanZ ? ' UTC' : ' z' : ''}";
+          ? "$hourString${separatorSymbol()}$minString${separatorSymbol()}$secString${showUtcSymbol
+                ? preferUtcSymbolThanZ
+                      ? ' UTC'
+                      : ' z'
+                : ''}"
+          : "$hourString${separatorSymbol()}$minString${showUtcSymbol
+                ? preferUtcSymbolThanZ
+                      ? ' UTC'
+                      : ' z'
+                : ''}";
     } else {
       // 12-hour format
       int displayHour = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour);
@@ -2283,63 +2310,40 @@ extension TimeOfDayExtension on TimeOfDay {
         ? base
         : (remainder == 0 ? base : base + nearestMinute); // ceiling multiple
     final clampedMinutes = roundedMinutes % (24 * 60);
-    return TimeOfDay(
-      hour: clampedMinutes ~/ 60,
-      minute: clampedMinutes % 60,
-    );
+    return TimeOfDay(hour: clampedMinutes ~/ 60, minute: clampedMinutes % 60);
   }
 
   /// Round down time by a duration interval
-  TimeOfDay roundDown(
-      {Duration durationToRoundDown = const Duration(minutes: 5)}) {
+  TimeOfDay roundDown({
+    Duration durationToRoundDown = const Duration(minutes: 5),
+  }) {
     final totalMinutes = hour * 60 + minute;
     final intervalMinutes = durationToRoundDown.inMinutes;
     final roundedMinutes = (totalMinutes ~/ intervalMinutes) * intervalMinutes;
 
-    return TimeOfDay(
-      hour: roundedMinutes ~/ 60,
-      minute: roundedMinutes % 60,
-    );
+    return TimeOfDay(hour: roundedMinutes ~/ 60, minute: roundedMinutes % 60);
   }
 
   /// Convert TimeOfDay to DateTime on a specific date
   DateTime toDateTime(DateTime date, {bool isUtc = true}) {
     if (isUtc) {
-      return DateTime.utc(
-        date.year,
-        date.month,
-        date.day,
-        hour,
-        minute,
-      );
+      return DateTime.utc(date.year, date.month, date.day, hour, minute);
     } else {
-      return DateTime(
-        date.year,
-        date.month,
-        date.day,
-        hour,
-        minute,
-      );
+      return DateTime(date.year, date.month, date.day, hour, minute);
     }
   }
 
   /// Add minutes to TimeOfDay
   TimeOfDay addMinutes(int minutes) {
     final totalMinutes = (hour * 60 + minute + minutes) % (24 * 60);
-    return TimeOfDay(
-      hour: totalMinutes ~/ 60,
-      minute: totalMinutes % 60,
-    );
+    return TimeOfDay(hour: totalMinutes ~/ 60, minute: totalMinutes % 60);
   }
 
   /// Subtract minutes from TimeOfDay with proper wrap-around before midnight.
   TimeOfDay subtractMinutes(int minutes) {
     final totalMinutes = hour * 60 + minute - minutes;
     final adjustedMinutes = (totalMinutes % (24 * 60) + (24 * 60)) % (24 * 60);
-    return TimeOfDay(
-      hour: adjustedMinutes ~/ 60,
-      minute: adjustedMinutes % 60,
-    );
+    return TimeOfDay(hour: adjustedMinutes ~/ 60, minute: adjustedMinutes % 60);
   }
 
   /// Add hours to TimeOfDay
@@ -2437,10 +2441,7 @@ extension TimeOfDayExtension on TimeOfDay {
   /// Create TimeOfDay from total minutes since midnight
   static TimeOfDay fromTotalMinutes(int totalMinutes) {
     final clampedMinutes = totalMinutes % (24 * 60);
-    return TimeOfDay(
-      hour: clampedMinutes ~/ 60,
-      minute: clampedMinutes % 60,
-    );
+    return TimeOfDay(hour: clampedMinutes ~/ 60, minute: clampedMinutes % 60);
   }
 
   /// Convert to ATC time format (HHMM)
@@ -2492,8 +2493,9 @@ extension TimeOfDayExtensions2<dynamics extends TimeOfDay?> on TimeOfDay? {
   /// Convert nullable time into decimal of hour
   double convertTimeIntoDecimalOfHour([int decimalPoint = 1]) {
     if (this != null) {
-      return (this!.hour + this!.minute / 60)
-          .roundDoubleToDecimalPlace(decimalPoint);
+      return (this!.hour + this!.minute / 60).roundDoubleToDecimalPlace(
+        decimalPoint,
+      );
     }
     return 0.0;
   }
@@ -2594,13 +2596,15 @@ extension ListOfTimeOfDayExtensions on List<TimeOfDay> {
   }) {
     List<String> stringList = [];
     for (var element in this) {
-      stringList.add(element.convertToStringTime(
-        showSeconds: showSeconds,
-        showUtcSymbol: showUtcSymbol,
-        preferUtcSymbolThanZ: preferUtcSymbolThanZ,
-        showSeparatorSymbol: showSeparatorSymbol,
-        use24HourFormat: use24HourFormat,
-      ));
+      stringList.add(
+        element.convertToStringTime(
+          showSeconds: showSeconds,
+          showUtcSymbol: showUtcSymbol,
+          preferUtcSymbolThanZ: preferUtcSymbolThanZ,
+          showSeparatorSymbol: showSeparatorSymbol,
+          use24HourFormat: use24HourFormat,
+        ),
+      );
     }
     return stringList;
   }
@@ -2662,7 +2666,8 @@ extension StringTimeToTimeOfDay on String {
       final parts = raw.split(':');
       if (parts.length != 2) {
         throw const FormatException(
-            'Unrecognized time format. Expected HH:MM or HHMM');
+          'Unrecognized time format. Expected HH:MM or HHMM',
+        );
       }
       hourStr = parts[0];
       minuteStr = parts[1];
@@ -2670,7 +2675,8 @@ extension StringTimeToTimeOfDay on String {
       // Expect HHMM or HMM (e.g. 930 for 9:30, 1230 for 12:30)
       if (raw.length < 3 || raw.length > 4) {
         throw const FormatException(
-            'Unrecognized time format. Expected HH:MM or HHMM');
+          'Unrecognized time format. Expected HH:MM or HHMM',
+        );
       }
       hourStr = raw.substring(0, raw.length - 2);
       minuteStr = raw.substring(raw.length - 2);
@@ -2678,11 +2684,13 @@ extension StringTimeToTimeOfDay on String {
 
     if (!isNumeric(hourStr) || !isNumeric(minuteStr)) {
       throw const FormatException(
-          'Unrecognized time format. Expected digits only');
+        'Unrecognized time format. Expected digits only',
+      );
     }
     if (hourStr.length > 2 || minuteStr.length != 2) {
       throw const FormatException(
-          'Unrecognized time format. Expected HH:MM or HHMM');
+        'Unrecognized time format. Expected HH:MM or HHMM',
+      );
     }
 
     final hour = int.parse(hourStr);
@@ -2699,7 +2707,8 @@ extension StringTimeToTimeOfDay on String {
 
     if (!(raw.endsWith('AM') || raw.endsWith('PM'))) {
       throw const FormatException(
-          'Invalid 12-hour time format. Expected format: H:MM AM/PM');
+        'Invalid 12-hour time format. Expected format: H:MM AM/PM',
+      );
     }
 
     final period = raw.substring(raw.length - 2); // AM or PM
@@ -2707,12 +2716,14 @@ extension StringTimeToTimeOfDay on String {
 
     if (!timePart.contains(':')) {
       throw const FormatException(
-          'Invalid 12-hour time format. Missing colon.');
+        'Invalid 12-hour time format. Missing colon.',
+      );
     }
     final parts = timePart.split(':');
     if (parts.length != 2) {
       throw const FormatException(
-          'Invalid 12-hour time format. Expected single colon.');
+        'Invalid 12-hour time format. Expected single colon.',
+      );
     }
 
     final hourStr = parts[0];
@@ -2722,7 +2733,8 @@ extension StringTimeToTimeOfDay on String {
         minuteStr.length != 2 ||
         hourStr.length > 2) {
       throw const FormatException(
-          'Invalid 12-hour time format. Non-numeric components.');
+        'Invalid 12-hour time format. Non-numeric components.',
+      );
     }
     int hour = int.parse(hourStr);
     int minute = int.parse(minuteStr);
@@ -2752,8 +2764,9 @@ extension MapStringTimeOfDayJsonExtension on Map<String, TimeOfDay> {
 
   static Map<String, TimeOfDay> fromJson(String json) {
     Map<String, dynamic> jsonMap = json.decodeBeautifiedJsonMap;
-    return jsonMap
-        .map((key, value) => MapEntry(key, TimeOfDayExtension.fromJson(value)));
+    return jsonMap.map(
+      (key, value) => MapEntry(key, TimeOfDayExtension.fromJson(value)),
+    );
   }
 }
 
@@ -2797,8 +2810,10 @@ class LoginCredentials {
   String email;
   String pwd;
 
-  LoginCredentials(
-      {this.email = '', this.pwd = ''}); // Constructor with default values
+  LoginCredentials({
+    this.email = '',
+    this.pwd = '',
+  }); // Constructor with default values
 }
 
 //********************************** */
@@ -2867,27 +2882,25 @@ class FluentEdgeInsets extends EdgeInsets {
   final double _bottomValue;
 
   const FluentEdgeInsets._fromTuple(this._tupleValues)
-      : _currentIndex = 0,
-        _leftValue = 0,
-        _topValue = 0,
-        _rightValue = 0,
-        _bottomValue = 0,
-        super.all(0);
+    : _currentIndex = 0,
+      _leftValue = 0,
+      _topValue = 0,
+      _rightValue = 0,
+      _bottomValue = 0,
+      super.all(0);
 
   const FluentEdgeInsets._withValues({
     required super.left,
     required super.top,
     required super.right,
     required super.bottom,
-    required List<double> tupleValues,
-    required int currentIndex,
-  })  : _tupleValues = tupleValues,
-        _currentIndex = currentIndex,
-        _leftValue = left,
-        _topValue = top,
-        _rightValue = right,
-        _bottomValue = bottom,
-        super.only();
+    required this._tupleValues,
+    required this._currentIndex,
+  }) : _leftValue = left,
+       _topValue = top,
+       _rightValue = right,
+       _bottomValue = bottom,
+       super.only();
 
   FluentEdgeInsets _withLeft() {
     if (_currentIndex < _tupleValues.length) {
@@ -2978,57 +2991,67 @@ extension EdgeInsetsTuple2 on (num, num) {
 /// Extension on 3-value tuple for EdgeInsets like (12, 15, 20).leftPad.rightPad.bottomPad
 extension EdgeInsetsTuple3 on (num, num, num) {
   /// Apply first value to left, can be chained to apply subsequent values
-  FluentEdgeInsets get leftPad => FluentEdgeInsets._fromTuple(
-      [this.$1.toDouble(), this.$2.toDouble(), this.$3.toDouble()])._withLeft();
+  FluentEdgeInsets get leftPad => FluentEdgeInsets._fromTuple([
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+  ])._withLeft();
 
   /// Apply first value to right, can be chained to apply subsequent values
-  FluentEdgeInsets get rightPad => FluentEdgeInsets._fromTuple(
-          [this.$1.toDouble(), this.$2.toDouble(), this.$3.toDouble()])
-      ._withRight();
+  FluentEdgeInsets get rightPad => FluentEdgeInsets._fromTuple([
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+  ])._withRight();
 
   /// Apply first value to top, can be chained to apply subsequent values
-  FluentEdgeInsets get topPad => FluentEdgeInsets._fromTuple(
-      [this.$1.toDouble(), this.$2.toDouble(), this.$3.toDouble()])._withTop();
+  FluentEdgeInsets get topPad => FluentEdgeInsets._fromTuple([
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+  ])._withTop();
 
   /// Apply first value to bottom, can be chained to apply subsequent values
-  FluentEdgeInsets get bottomPad => FluentEdgeInsets._fromTuple(
-          [this.$1.toDouble(), this.$2.toDouble(), this.$3.toDouble()])
-      ._withBottom();
+  FluentEdgeInsets get bottomPad => FluentEdgeInsets._fromTuple([
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+  ])._withBottom();
 }
 
 /// Extension on 4-value tuple for EdgeInsets like (12, 15, 20, 8).leftPad.rightPad.bottomPad.topPad
 extension EdgeInsetsTuple4 on (num, num, num, num) {
   /// Apply first value to left, can be chained to apply subsequent values
   FluentEdgeInsets get leftPad => FluentEdgeInsets._fromTuple([
-        this.$1.toDouble(),
-        this.$2.toDouble(),
-        this.$3.toDouble(),
-        this.$4.toDouble()
-      ])._withLeft();
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+    this.$4.toDouble(),
+  ])._withLeft();
 
   /// Apply first value to right, can be chained to apply subsequent values
   FluentEdgeInsets get rightPad => FluentEdgeInsets._fromTuple([
-        this.$1.toDouble(),
-        this.$2.toDouble(),
-        this.$3.toDouble(),
-        this.$4.toDouble()
-      ])._withRight();
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+    this.$4.toDouble(),
+  ])._withRight();
 
   /// Apply first value to top, can be chained to apply subsequent values
   FluentEdgeInsets get topPad => FluentEdgeInsets._fromTuple([
-        this.$1.toDouble(),
-        this.$2.toDouble(),
-        this.$3.toDouble(),
-        this.$4.toDouble()
-      ])._withTop();
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+    this.$4.toDouble(),
+  ])._withTop();
 
   /// Apply first value to bottom, can be chained to apply subsequent values
   FluentEdgeInsets get bottomPad => FluentEdgeInsets._fromTuple([
-        this.$1.toDouble(),
-        this.$2.toDouble(),
-        this.$3.toDouble(),
-        this.$4.toDouble()
-      ])._withBottom();
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+    this.$4.toDouble(),
+  ])._withBottom();
 }
 
 /// Internal builder class to support chaining syntax like 12.left.bottom
@@ -3071,12 +3094,8 @@ class EdgeInsetsBuilder {
   EdgeInsetsBuilder get bottomPad => withBottom(_bottom > 0 ? _bottom : 0);
 
   /// Implicit conversion to EdgeInsets
-  EdgeInsets toEdgeInsets() => EdgeInsets.only(
-        left: _left,
-        top: _top,
-        right: _right,
-        bottom: _bottom,
-      );
+  EdgeInsets toEdgeInsets() =>
+      EdgeInsets.only(left: _left, top: _top, right: _right, bottom: _bottom);
 
   /// Call operator to make builder callable and return EdgeInsets
   EdgeInsets call() => toEdgeInsets();
@@ -3286,27 +3305,27 @@ extension BorderRadiusInt on int {
 
   /// Creates BorderRadius with top corners (topLeft and topRight) equal to this value
   BorderRadius get topRad => BorderRadius.only(
-        topLeft: Radius.circular(toDouble()),
-        topRight: Radius.circular(toDouble()),
-      );
+    topLeft: Radius.circular(toDouble()),
+    topRight: Radius.circular(toDouble()),
+  );
 
   /// Creates BorderRadius with bottom corners (bottomLeft and bottomRight) equal to this value
   BorderRadius get bottomRad => BorderRadius.only(
-        bottomLeft: Radius.circular(toDouble()),
-        bottomRight: Radius.circular(toDouble()),
-      );
+    bottomLeft: Radius.circular(toDouble()),
+    bottomRight: Radius.circular(toDouble()),
+  );
 
   /// Creates BorderRadius with left corners (topLeft and bottomLeft) equal to this value
   BorderRadius get leftRad => BorderRadius.only(
-        topLeft: Radius.circular(toDouble()),
-        bottomLeft: Radius.circular(toDouble()),
-      );
+    topLeft: Radius.circular(toDouble()),
+    bottomLeft: Radius.circular(toDouble()),
+  );
 
   /// Creates BorderRadius with right corners (topRight and bottomRight) equal to this value
   BorderRadius get rightRad => BorderRadius.only(
-        topRight: Radius.circular(toDouble()),
-        bottomRight: Radius.circular(toDouble()),
-      );
+    topRight: Radius.circular(toDouble()),
+    bottomRight: Radius.circular(toDouble()),
+  );
 }
 
 /// Extension on double to create BorderRadius with fluent syntax
@@ -3332,27 +3351,27 @@ extension BorderRadiusDouble on double {
 
   /// Creates BorderRadius with top corners (topLeft and topRight) equal to this value
   BorderRadius get topRad => BorderRadius.only(
-        topLeft: Radius.circular(this),
-        topRight: Radius.circular(this),
-      );
+    topLeft: Radius.circular(this),
+    topRight: Radius.circular(this),
+  );
 
   /// Creates BorderRadius with bottom corners (bottomLeft and bottomRight) equal to this value
   BorderRadius get bottomRad => BorderRadius.only(
-        bottomLeft: Radius.circular(this),
-        bottomRight: Radius.circular(this),
-      );
+    bottomLeft: Radius.circular(this),
+    bottomRight: Radius.circular(this),
+  );
 
   /// Creates BorderRadius with left corners (topLeft and bottomLeft) equal to this value
   BorderRadius get leftRad => BorderRadius.only(
-        topLeft: Radius.circular(this),
-        bottomLeft: Radius.circular(this),
-      );
+    topLeft: Radius.circular(this),
+    bottomLeft: Radius.circular(this),
+  );
 
   /// Creates BorderRadius with right corners (topRight and bottomRight) equal to this value
   BorderRadius get rightRad => BorderRadius.only(
-        topRight: Radius.circular(this),
-        bottomRight: Radius.circular(this),
-      );
+    topRight: Radius.circular(this),
+    bottomRight: Radius.circular(this),
+  );
 }
 
 /// Fluent BorderRadius class that extends BorderRadius and supports chaining
@@ -3365,32 +3384,30 @@ class FluentBorderRadius extends BorderRadius {
   final double _bottomRightValue;
 
   const FluentBorderRadius._fromTuple(this._tupleValues)
-      : _currentIndex = 0,
-        _topLeftValue = 0,
-        _topRightValue = 0,
-        _bottomLeftValue = 0,
-        _bottomRightValue = 0,
-        super.all(Radius.zero);
+    : _currentIndex = 0,
+      _topLeftValue = 0,
+      _topRightValue = 0,
+      _bottomLeftValue = 0,
+      _bottomRightValue = 0,
+      super.all(Radius.zero);
 
   FluentBorderRadius._withValues({
     required double topLeft,
     required double topRight,
     required double bottomLeft,
     required double bottomRight,
-    required List<double> tupleValues,
-    required int currentIndex,
-  })  : _tupleValues = tupleValues,
-        _currentIndex = currentIndex,
-        _topLeftValue = topLeft,
-        _topRightValue = topRight,
-        _bottomLeftValue = bottomLeft,
-        _bottomRightValue = bottomRight,
-        super.only(
-          topLeft: Radius.circular(topLeft),
-          topRight: Radius.circular(topRight),
-          bottomLeft: Radius.circular(bottomLeft),
-          bottomRight: Radius.circular(bottomRight),
-        );
+    required this._tupleValues,
+    required this._currentIndex,
+  }) : _topLeftValue = topLeft,
+       _topRightValue = topRight,
+       _bottomLeftValue = bottomLeft,
+       _bottomRightValue = bottomRight,
+       super.only(
+         topLeft: Radius.circular(topLeft),
+         topRight: Radius.circular(topRight),
+         bottomLeft: Radius.circular(bottomLeft),
+         bottomRight: Radius.circular(bottomRight),
+       );
 
   FluentBorderRadius _withTopLeft() {
     if (_currentIndex < _tupleValues.length) {
@@ -3481,59 +3498,67 @@ extension BorderRadiusTuple2 on (num, num) {
 /// Extension on 3-value tuple for BorderRadius like (8, 12, 16).tLeftRad.tRightRad.bLeftRad
 extension BorderRadiusTuple3 on (num, num, num) {
   /// Apply first value to top-left, can be chained to apply subsequent values
-  FluentBorderRadius get tLeftRad => FluentBorderRadius._fromTuple(
-          [this.$1.toDouble(), this.$2.toDouble(), this.$3.toDouble()])
-      ._withTopLeft();
+  FluentBorderRadius get tLeftRad => FluentBorderRadius._fromTuple([
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+  ])._withTopLeft();
 
   /// Apply first value to top-right, can be chained to apply subsequent values
-  FluentBorderRadius get tRightRad => FluentBorderRadius._fromTuple(
-          [this.$1.toDouble(), this.$2.toDouble(), this.$3.toDouble()])
-      ._withTopRight();
+  FluentBorderRadius get tRightRad => FluentBorderRadius._fromTuple([
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+  ])._withTopRight();
 
   /// Apply first value to bottom-left, can be chained to apply subsequent values
-  FluentBorderRadius get bLeftRad => FluentBorderRadius._fromTuple(
-          [this.$1.toDouble(), this.$2.toDouble(), this.$3.toDouble()])
-      ._withBottomLeft();
+  FluentBorderRadius get bLeftRad => FluentBorderRadius._fromTuple([
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+  ])._withBottomLeft();
 
   /// Apply first value to bottom-right, can be chained to apply subsequent values
-  FluentBorderRadius get bRightRad => FluentBorderRadius._fromTuple(
-          [this.$1.toDouble(), this.$2.toDouble(), this.$3.toDouble()])
-      ._withBottomRight();
+  FluentBorderRadius get bRightRad => FluentBorderRadius._fromTuple([
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+  ])._withBottomRight();
 }
 
 /// Extension on 4-value tuple for BorderRadius like (8, 12, 16, 20).tLeftRad.tRightRad.bLeftRad.bRightRad
 extension BorderRadiusTuple4 on (num, num, num, num) {
   /// Apply first value to top-left, can be chained to apply subsequent values
   FluentBorderRadius get tLeftRad => FluentBorderRadius._fromTuple([
-        this.$1.toDouble(),
-        this.$2.toDouble(),
-        this.$3.toDouble(),
-        this.$4.toDouble()
-      ])._withTopLeft();
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+    this.$4.toDouble(),
+  ])._withTopLeft();
 
   /// Apply first value to top-right, can be chained to apply subsequent values
   FluentBorderRadius get tRightRad => FluentBorderRadius._fromTuple([
-        this.$1.toDouble(),
-        this.$2.toDouble(),
-        this.$3.toDouble(),
-        this.$4.toDouble()
-      ])._withTopRight();
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+    this.$4.toDouble(),
+  ])._withTopRight();
 
   /// Apply first value to bottom-left, can be chained to apply subsequent values
   FluentBorderRadius get bLeftRad => FluentBorderRadius._fromTuple([
-        this.$1.toDouble(),
-        this.$2.toDouble(),
-        this.$3.toDouble(),
-        this.$4.toDouble()
-      ])._withBottomLeft();
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+    this.$4.toDouble(),
+  ])._withBottomLeft();
 
   /// Apply first value to bottom-right, can be chained to apply subsequent values
   FluentBorderRadius get bRightRad => FluentBorderRadius._fromTuple([
-        this.$1.toDouble(),
-        this.$2.toDouble(),
-        this.$3.toDouble(),
-        this.$4.toDouble()
-      ])._withBottomRight();
+    this.$1.toDouble(),
+    this.$2.toDouble(),
+    this.$3.toDouble(),
+    this.$4.toDouble(),
+  ])._withBottomRight();
 }
 
 /// Internal builder class to support chaining syntax like 12.tLeftRad.bRightRad
@@ -3605,11 +3630,11 @@ class BorderRadiusBuilder {
 
   /// Implicit conversion to BorderRadius
   BorderRadius toBorderRadius() => BorderRadius.only(
-        topLeft: Radius.circular(_topLeft),
-        topRight: Radius.circular(_topRight),
-        bottomLeft: Radius.circular(_bottomLeft),
-        bottomRight: Radius.circular(_bottomRight),
-      );
+    topLeft: Radius.circular(_topLeft),
+    topRight: Radius.circular(_topRight),
+    bottomLeft: Radius.circular(_bottomLeft),
+    bottomRight: Radius.circular(_bottomRight),
+  );
 }
 
 /// Extension to allow implicit conversion from builder to BorderRadius
@@ -3640,24 +3665,20 @@ extension BorderRadiusChaining on BorderRadius {
       copyWith(bottomRight: Radius.circular(value));
 
   /// Adds the specified value to the existing topLeft radius
-  BorderRadius addToTopLeft(double value) => copyWith(
-        topLeft: Radius.circular(topLeft.x + value),
-      );
+  BorderRadius addToTopLeft(double value) =>
+      copyWith(topLeft: Radius.circular(topLeft.x + value));
 
   /// Adds the specified value to the existing topRight radius
-  BorderRadius addToTopRight(double value) => copyWith(
-        topRight: Radius.circular(topRight.x + value),
-      );
+  BorderRadius addToTopRight(double value) =>
+      copyWith(topRight: Radius.circular(topRight.x + value));
 
   /// Adds the specified value to the existing bottomLeft radius
-  BorderRadius addToBottomLeft(double value) => copyWith(
-        bottomLeft: Radius.circular(bottomLeft.x + value),
-      );
+  BorderRadius addToBottomLeft(double value) =>
+      copyWith(bottomLeft: Radius.circular(bottomLeft.x + value));
 
   /// Adds the specified value to the existing bottomRight radius
-  BorderRadius addToBottomRight(double value) => copyWith(
-        bottomRight: Radius.circular(bottomRight.x + value),
-      );
+  BorderRadius addToBottomRight(double value) =>
+      copyWith(bottomRight: Radius.circular(bottomRight.x + value));
 
   /// Allows implicit conversion to BorderRadiusGeometry
   BorderRadiusGeometry get geometry => this;
@@ -3667,8 +3688,8 @@ extension BorderRadiusChaining on BorderRadius {
     double baseValue = topLeft.x > 0
         ? topLeft.x
         : (topRight.x > 0
-            ? topRight.x
-            : (bottomLeft.x > 0 ? bottomLeft.x : bottomRight.x));
+              ? topRight.x
+              : (bottomLeft.x > 0 ? bottomLeft.x : bottomRight.x));
     return copyWith(topLeft: Radius.circular(baseValue));
   }
 
@@ -3676,8 +3697,8 @@ extension BorderRadiusChaining on BorderRadius {
     double baseValue = topLeft.x > 0
         ? topLeft.x
         : (topRight.x > 0
-            ? topRight.x
-            : (bottomLeft.x > 0 ? bottomLeft.x : bottomRight.x));
+              ? topRight.x
+              : (bottomLeft.x > 0 ? bottomLeft.x : bottomRight.x));
     return copyWith(topRight: Radius.circular(baseValue));
   }
 
@@ -3685,8 +3706,8 @@ extension BorderRadiusChaining on BorderRadius {
     double baseValue = topLeft.x > 0
         ? topLeft.x
         : (topRight.x > 0
-            ? topRight.x
-            : (bottomLeft.x > 0 ? bottomLeft.x : bottomRight.x));
+              ? topRight.x
+              : (bottomLeft.x > 0 ? bottomLeft.x : bottomRight.x));
     return copyWith(bottomLeft: Radius.circular(baseValue));
   }
 
@@ -3694,8 +3715,8 @@ extension BorderRadiusChaining on BorderRadius {
     double baseValue = topLeft.x > 0
         ? topLeft.x
         : (topRight.x > 0
-            ? topRight.x
-            : (bottomLeft.x > 0 ? bottomLeft.x : bottomRight.x));
+              ? topRight.x
+              : (bottomLeft.x > 0 ? bottomLeft.x : bottomRight.x));
     return copyWith(bottomRight: Radius.circular(baseValue));
   }
 }
@@ -3714,66 +3735,56 @@ class Radius2 extends BorderRadius {
     double? left,
     double? right,
   }) : super.only(
-          topLeft: Radius.circular(topLeft ?? top ?? left ?? all),
-          topRight: Radius.circular(topRight ?? top ?? right ?? all),
-          bottomLeft: Radius.circular(bottomLeft ?? bottom ?? left ?? all),
-          bottomRight: Radius.circular(bottomRight ?? bottom ?? right ?? all),
-        );
+         topLeft: Radius.circular(topLeft ?? top ?? left ?? all),
+         topRight: Radius.circular(topRight ?? top ?? right ?? all),
+         bottomLeft: Radius.circular(bottomLeft ?? bottom ?? left ?? all),
+         bottomRight: Radius.circular(bottomRight ?? bottom ?? right ?? all),
+       );
 
   /// Creates BorderRadius with all corners equal to [value]
   Radius2.all(super.value) : super.circular();
 
   /// Creates BorderRadius with top corners equal to [value]
   Radius2.top(double value)
-      : super.only(
-          topLeft: Radius.circular(value),
-          topRight: Radius.circular(value),
-        );
+    : super.only(
+        topLeft: Radius.circular(value),
+        topRight: Radius.circular(value),
+      );
 
   /// Creates BorderRadius with bottom corners equal to [value]
   Radius2.bottom(double value)
-      : super.only(
-          bottomLeft: Radius.circular(value),
-          bottomRight: Radius.circular(value),
-        );
+    : super.only(
+        bottomLeft: Radius.circular(value),
+        bottomRight: Radius.circular(value),
+      );
 
   /// Creates BorderRadius with left corners equal to [value]
   Radius2.left(double value)
-      : super.only(
-          topLeft: Radius.circular(value),
-          bottomLeft: Radius.circular(value),
-        );
+    : super.only(
+        topLeft: Radius.circular(value),
+        bottomLeft: Radius.circular(value),
+      );
 
   /// Creates BorderRadius with right corners equal to [value]
   Radius2.right(double value)
-      : super.only(
-          topRight: Radius.circular(value),
-          bottomRight: Radius.circular(value),
-        );
+    : super.only(
+        topRight: Radius.circular(value),
+        bottomRight: Radius.circular(value),
+      );
 
   /// Creates BorderRadius with only topLeft corner
-  Radius2.topLeft(double value)
-      : super.only(
-          topLeft: Radius.circular(value),
-        );
+  Radius2.topLeft(double value) : super.only(topLeft: Radius.circular(value));
 
   /// Creates BorderRadius with only topRight corner
-  Radius2.topRight(double value)
-      : super.only(
-          topRight: Radius.circular(value),
-        );
+  Radius2.topRight(double value) : super.only(topRight: Radius.circular(value));
 
   /// Creates BorderRadius with only bottomLeft corner
   Radius2.bottomLeft(double value)
-      : super.only(
-          bottomLeft: Radius.circular(value),
-        );
+    : super.only(bottomLeft: Radius.circular(value));
 
   /// Creates BorderRadius with only bottomRight corner
   Radius2.bottomRight(double value)
-      : super.only(
-          bottomRight: Radius.circular(value),
-        );
+    : super.only(bottomRight: Radius.circular(value));
 }
 
 //********************************** */
@@ -3908,10 +3919,7 @@ extension AlignmentCopyWith on Alignment {
   /// Alignment.topLeft.copyWith(y: 0.5) // Creates Alignment(-1.0, 0.5)
   /// ```
   Alignment copyWith({double? x, double? y}) {
-    return Alignment(
-      x ?? this.x,
-      y ?? this.y,
-    );
+    return Alignment(x ?? this.x, y ?? this.y);
   }
 }
 
@@ -3925,10 +3933,7 @@ extension AlignmentAdd on Alignment {
   /// Alignment.topLeft.addOffset(x: 0.5, y: 0.2) // Creates Alignment(-1.0 + 0.5, -1.0 + 0.2) = Alignment(-0.5, -0.8)
   /// ```
   Alignment addOffset({double x = 0.0, double y = 0.0}) {
-    return Alignment(
-      this.x + x,
-      this.y + y,
-    );
+    return Alignment(this.x + x, this.y + y);
   }
 }
 

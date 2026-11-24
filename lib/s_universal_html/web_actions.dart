@@ -1,5 +1,6 @@
 import 'src/web_actions_impl_browser.dart'
-    if (dart.library.io) 'src/web_actions_impl_others.dart' as impl;
+    if (dart.library.io) 'src/web_actions_impl_others.dart'
+    as impl;
 
 /// Cross-platform helpers for common web window/location actions.
 ///

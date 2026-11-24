@@ -50,7 +50,7 @@ class SToggle extends StatefulWidget {
   /// Border around the little circle. Width 0 disables.
   final double littleBorderWidth;
   final Color?
-      littleBorderColor; // if null, derived from little fill color (darker)
+  littleBorderColor; // if null, derived from little fill color (darker)
 
   /// Shadow for the little circle.
   /// Set blurSigma to 0 to disable shadow.
@@ -78,8 +78,8 @@ class SToggle extends StatefulWidget {
     this.littleShadowBlurSigma = 6.0,
     this.littleShadowOffset = const Offset(0, 2),
     this.littleShadowColor = const Color(0x40000000),
-  })  : _width = size,
-        _height = size / 2;
+  }) : _width = size,
+       _height = size / 2;
   @override
   SToggleState createState() => SToggleState();
 }
@@ -208,8 +208,10 @@ class SToggleState extends State<SToggle> {
     } else {
       _smoothedSmallX = desiredSmallX;
     }
-    final double tSmoothed =
-        ((_smoothedSmallX! - leftX) / centerSpan).clamp(0.0, 1.0);
+    final double tSmoothed = ((_smoothedSmallX! - leftX) / centerSpan).clamp(
+      0.0,
+      1.0,
+    );
     if (value) {
       _smoothedDragProgress = (tSmoothed - 1.0).clamp(-1.0, 0.0);
     } else {
@@ -229,7 +231,8 @@ class SToggleState extends State<SToggle> {
       final t = value ? (1.0 - progressLeft) : progressRight;
       final visualX = leftX + (rightX - leftX) * t;
       debugPrint(
-          '[SToggle] debug dragUpdate pointerX=${_lastPointerX?.toStringAsFixed(1)} dx=${details.localPosition.dx.toStringAsFixed(1)} delta=${_dragDelta.toStringAsFixed(1)} raw=${_rawDragProgress.toStringAsFixed(3)} smoothed=${_smoothedDragProgress.toStringAsFixed(3)} t=${t.toStringAsFixed(3)} desiredSmall=${desiredSmallX.toStringAsFixed(1)} smoothedSmall=${_smoothedSmallX?.toStringAsFixed(1)} visualX=${visualX.toStringAsFixed(1)}');
+        '[SToggle] debug dragUpdate pointerX=${_lastPointerX?.toStringAsFixed(1)} dx=${details.localPosition.dx.toStringAsFixed(1)} delta=${_dragDelta.toStringAsFixed(1)} raw=${_rawDragProgress.toStringAsFixed(3)} smoothed=${_smoothedDragProgress.toStringAsFixed(3)} t=${t.toStringAsFixed(3)} desiredSmall=${desiredSmallX.toStringAsFixed(1)} smoothedSmall=${_smoothedSmallX?.toStringAsFixed(1)} visualX=${visualX.toStringAsFixed(1)}',
+      );
     }
   }
 
@@ -253,14 +256,17 @@ class SToggleState extends State<SToggle> {
     final baseThreshold = widget._width * 0.15; // 15% of width threshold
     // Reduce threshold when fast swipe (makes commit easier on quick flicks)
     final velocityFactor = (vx.abs() / 800.0).clamp(0.0, 1.0); // tuned constant
-    final threshold = (baseThreshold * (1.0 - 0.5 * velocityFactor))
-        .clamp(8.0, baseThreshold);
+    final threshold = (baseThreshold * (1.0 - 0.5 * velocityFactor)).clamp(
+      8.0,
+      baseThreshold,
+    );
 
     // Respect text direction: in RTL, positive dx should map to OFF
     final isRTL = Directionality.of(context) == TextDirection.rtl;
     final delta = _dragDelta;
-    final desired =
-        isRTL ? (delta > 0 ? false : true) : (delta > 0 ? true : false);
+    final desired = isRTL
+        ? (delta > 0 ? false : true)
+        : (delta > 0 ? true : false);
 
     // If we've progressed past the animation phase split, commit immediately
     if (endProgress >= progressCommitThreshold || delta.abs() >= threshold) {
@@ -346,7 +352,8 @@ class SToggleState extends State<SToggle> {
         height: widget._height,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10000.0))),
+          borderRadius: BorderRadius.all(Radius.circular(10000.0)),
+        ),
         child: STweenAnimationBuilder<double>(
           key: ValueKey(_animationKey),
           // When not animating, freeze at final progress to avoid unintended replays
@@ -386,7 +393,8 @@ class SToggleState extends State<SToggle> {
                 if (_dragProgress < 0) {
                   if (d < 0.43) {
                     final phase1Progress = d / 0.43;
-                    rightRadius = widget._height * .18 +
+                    rightRadius =
+                        widget._height * .18 +
                         (widget._width - widget._height * .18) * phase1Progress;
                     leftRadius = widget._width * 2;
                     littleLeftRadius = 0.0;
@@ -413,7 +421,8 @@ class SToggleState extends State<SToggle> {
                 if (_dragProgress > 0) {
                   if (d < 0.43) {
                     final phase1Progress = d / 0.43;
-                    leftRadius = widget._height * .18 +
+                    leftRadius =
+                        widget._height * .18 +
                         (widget._width - widget._height * .18) * phase1Progress;
                     rightRadius = widget._width * 2;
                     littleRightRadius = 0.0;
@@ -437,10 +446,12 @@ class SToggleState extends State<SToggle> {
                 }
               }
               // During drag, derive background mix from smoothed visual progress
-              final progressRight =
-                  _smoothedDragProgress > 0 ? _smoothedDragProgress : 0.0;
-              final progressLeft =
-                  _smoothedDragProgress < 0 ? -_smoothedDragProgress : 0.0;
+              final progressRight = _smoothedDragProgress > 0
+                  ? _smoothedDragProgress
+                  : 0.0;
+              final progressLeft = _smoothedDragProgress < 0
+                  ? -_smoothedDragProgress
+                  : 0.0;
               backgroundMix = (value ? (1.0 - progressLeft) : progressRight)
                   .clamp(0.0, 1.0);
             } else {
@@ -449,7 +460,8 @@ class SToggleState extends State<SToggle> {
                 if (progress < 0.43) {
                   // Phase 1: Left circle expands (0.0 -> 0.43)
                   final phase1Progress = progress / 0.43;
-                  leftRadius = widget._height * .18 +
+                  leftRadius =
+                      widget._height * .18 +
                       (widget._width - widget._height * .18) * phase1Progress;
                   rightRadius = widget._width * 2;
                   // Little circle on RIGHT not visible yet
@@ -472,7 +484,8 @@ class SToggleState extends State<SToggle> {
                 if (progress < 0.43) {
                   // Phase 1: Right circle expands (0.0 -> 0.43)
                   final phase1Progress = progress / 0.43;
-                  rightRadius = widget._height * .18 +
+                  rightRadius =
+                      widget._height * .18 +
                       (widget._width - widget._height * .18) * phase1Progress;
                   leftRadius = widget._width * 2;
                   // Little circle on LEFT not visible yet
@@ -492,8 +505,8 @@ class SToggleState extends State<SToggle> {
                 }
               }
               // When animating/idle, use tween progress for background mix
-              backgroundMix =
-                  (_targetValue ? progress : (1.0 - progress)).clamp(0.0, 1.0);
+              backgroundMix = (_targetValue ? progress : (1.0 - progress))
+                  .clamp(0.0, 1.0);
             }
 
             // Debug prints removed for production
@@ -508,8 +521,9 @@ class SToggleState extends State<SToggle> {
                 isDragging: _isDragging,
                 dragProgress: _smoothedDragProgress,
                 debugPointerX: widget.debugShowPointers ? _lastPointerX : null,
-                debugSmoothedSmallX:
-                    widget.debugShowPointers ? _smoothedSmallX : null,
+                debugSmoothedSmallX: widget.debugShowPointers
+                    ? _smoothedSmallX
+                    : null,
                 drawBackground: widget.animateBackground,
                 backgroundMix: backgroundMix,
                 backgroundOpacity: widget.backgroundOpacity,
@@ -631,10 +645,8 @@ class _ProfileCardPainter extends CustomPainter {
     final Offset rightCenter = Offset(quarterW + halfW, midY);
 
     // Interpolated center for live drag of little circle
-    Offset lerp(Offset a, Offset b, double t) => Offset(
-          a.dx + (b.dx - a.dx) * t,
-          a.dy + (b.dy - a.dy) * t,
-        );
+    Offset lerp(Offset a, Offset b, double t) =>
+        Offset(a.dx + (b.dx - a.dx) * t, a.dy + (b.dy - a.dy) * t);
 
     // Background tint behind circles
     if (drawBackground) {
@@ -679,19 +691,18 @@ class _ProfileCardPainter extends CustomPainter {
         final progressLeft = dragProgress < 0 ? -dragProgress : 0.0;
         final t = stateValue ? (1.0 - progressLeft) : progressRight;
         final dragCenter = lerp(leftCenter, rightCenter, t.clamp(0.0, 1.0));
-        final double r =
-            littleRightRadius > 0.0 ? littleRightRadius : size.height * 0.14;
+        final double r = littleRightRadius > 0.0
+            ? littleRightRadius
+            : size.height * 0.14;
         // Shadow for little circle
         if (littleShadowBlurSigma > 0) {
           final Paint shadowPaint = Paint()
             ..color = littleShadowColor
-            ..maskFilter =
-                MaskFilter.blur(BlurStyle.normal, littleShadowBlurSigma);
-          canvas.drawCircle(
-            dragCenter + littleShadowOffset,
-            r,
-            shadowPaint,
-          );
+            ..maskFilter = MaskFilter.blur(
+              BlurStyle.normal,
+              littleShadowBlurSigma,
+            );
+          canvas.drawCircle(dragCenter + littleShadowOffset, r, shadowPaint);
         }
         // Determine current fill color via hue lerp between ON and OFF by backgroundMix,
         // ensuring endpoints align with discrete state colors
@@ -712,8 +723,10 @@ class _ProfileCardPainter extends CustomPainter {
         if (littleShadowBlurSigma > 0) {
           final Paint shadowPaint = Paint()
             ..color = littleShadowColor
-            ..maskFilter =
-                MaskFilter.blur(BlurStyle.normal, littleShadowBlurSigma);
+            ..maskFilter = MaskFilter.blur(
+              BlurStyle.normal,
+              littleShadowBlurSigma,
+            );
           canvas.drawCircle(rightCenter + littleShadowOffset, r, shadowPaint);
         }
         final Color currentFill = _hueLerp(offColor, onColor, backgroundMix);
@@ -742,13 +755,16 @@ class _ProfileCardPainter extends CustomPainter {
         // For ON (right) initial position t=1.0: move left using progressLeft
         final t = stateValue ? (1.0 - progressLeft) : progressRight;
         final dragCenter = lerp(leftCenter, rightCenter, t.clamp(0.0, 1.0));
-        final double r =
-            littleLeftRadius > 0.0 ? littleLeftRadius : size.height * 0.14;
+        final double r = littleLeftRadius > 0.0
+            ? littleLeftRadius
+            : size.height * 0.14;
         if (littleShadowBlurSigma > 0) {
           final Paint shadowPaint = Paint()
             ..color = littleShadowColor
-            ..maskFilter =
-                MaskFilter.blur(BlurStyle.normal, littleShadowBlurSigma);
+            ..maskFilter = MaskFilter.blur(
+              BlurStyle.normal,
+              littleShadowBlurSigma,
+            );
           canvas.drawCircle(dragCenter + littleShadowOffset, r, shadowPaint);
         }
         final Color currentFill = _hueLerp(offColor, onColor, backgroundMix);
@@ -766,8 +782,10 @@ class _ProfileCardPainter extends CustomPainter {
         if (littleShadowBlurSigma > 0) {
           final Paint shadowPaint = Paint()
             ..color = littleShadowColor
-            ..maskFilter =
-                MaskFilter.blur(BlurStyle.normal, littleShadowBlurSigma);
+            ..maskFilter = MaskFilter.blur(
+              BlurStyle.normal,
+              littleShadowBlurSigma,
+            );
           canvas.drawCircle(leftCenter + littleShadowOffset, r, shadowPaint);
         }
         final Color currentFill = _hueLerp(offColor, onColor, backgroundMix);

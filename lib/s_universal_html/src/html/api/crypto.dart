@@ -65,10 +65,10 @@ abstract class Crypto {
     for (var i = 0; i < bytes.length; i++) {
       bytes[i] = random.nextInt(256);
     }
-    bytes.buffer
-        .asUint8List(0, array.lengthInBytes)
-        .asMap()
-        .forEach((index, value) {
+    bytes.buffer.asUint8List(0, array.lengthInBytes).asMap().forEach((
+      index,
+      value,
+    ) {
       array.buffer.asUint8List()[index] = value;
     });
     return array;

@@ -95,23 +95,15 @@ class Navigator extends NavigatorConcurrentHardware
     this.platform = 'Win32',
     this.product = 'Gecko',
     this.productSub = '20030107',
-    bool? cookieEnabled,
-    List<String> languages = const <String>[],
-    bool? onLine,
-    String userAgent = '-',
-    String vendor = '-',
-    String vendorSub = '',
-    String? doNotTrack,
-    int? maxTouchPoints,
-  })  : _cookieEnabled = cookieEnabled,
-        _languages = languages,
-        _onLine = onLine,
-        _userAgent = userAgent,
-        _vendor = vendor,
-        _vendorSub = vendorSub,
-        _doNotTrack = doNotTrack,
-        _maxTouchPoints = maxTouchPoints,
-        super._();
+    this._cookieEnabled,
+    this._languages = const <String>[],
+    this._onLine,
+    this._userAgent = '-',
+    this._vendor = '-',
+    this._vendorSub = '',
+    this._doNotTrack,
+    this._maxTouchPoints,
+  }) : super._();
 
   BudgetService? get budget => null;
 
@@ -221,8 +213,10 @@ class Navigator extends NavigatorConcurrentHardware
   ///
   /// See also:
   /// * [MediaStream.supported]
-  Future<MediaStream> getUserMedia(
-      {dynamic audio = false, dynamic video = false}) {
+  Future<MediaStream> getUserMedia({
+    dynamic audio = false,
+    dynamic video = false,
+  }) {
     return Future.error(UnimplementedError());
   }
 
@@ -239,7 +233,9 @@ class Navigator extends NavigatorConcurrentHardware
   }
 
   Future requestMediaKeySystemAccess(
-      String keySystem, List<Map> supportedConfigurations) {
+    String keySystem,
+    List<Map> supportedConfigurations,
+  ) {
     return Future.error(UnimplementedError());
   }
 

@@ -37,10 +37,12 @@ class SMaintenanceButton extends StatelessWidget {
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Confirm'),
-          content: Text(confirmationMessage ??
-              (isOnMaintenance
-                  ? 'Disable maintenance mode?'
-                  : 'Enable maintenance mode?')),
+          content: Text(
+            confirmationMessage ??
+                (isOnMaintenance
+                    ? 'Disable maintenance mode?'
+                    : 'Enable maintenance mode?'),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(false),
@@ -79,7 +81,8 @@ class SMaintenanceButton extends StatelessWidget {
           width: 23,
           child: Glow2(
             key: ValueKey(
-                '${isOnMaintenance}_${this.activeColor}_$nonActiveColor'),
+              '${isOnMaintenance}_${this.activeColor}_$nonActiveColor',
+            ),
             glowColor: !isOnMaintenance ? Colors.transparent : activeColor,
             glowRadiusFactor: !isOnMaintenance ? 0 : 0.5,
             duration: 2.sec,
@@ -90,18 +93,21 @@ class SMaintenanceButton extends StatelessWidget {
             curve: Curves.easeInOut,
             child: CircleButton(
               clickAreaMargin: 0.allPad,
-              backgroundColor:
-                  !isOnMaintenance ? Colors.white : activeColor.lighten(0.25),
+              backgroundColor: !isOnMaintenance
+                  ? Colors.white
+                  : activeColor.lighten(0.25),
               tapColor: Colors.white70,
               iconPadding: 0.allPad,
               size: 20,
-              icon: icon ??
+              icon:
+                  icon ??
                   Icon(
                     Icons.build_circle_rounded,
-                    color: (isOnMaintenance
-                            ? activeColor.darken(0.15)
-                            : (nonActiveColor ?? Colors.blue.shade900))
-                        .withValues(alpha: 1),
+                    color:
+                        (isOnMaintenance
+                                ? activeColor.darken(0.15)
+                                : (nonActiveColor ?? Colors.blue.shade900))
+                            .withValues(alpha: 1),
                     size: 20,
                   ),
             ),

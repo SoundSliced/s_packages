@@ -28,8 +28,12 @@ String _addSpaceBoth(String word) {
 ///
 /// Returns:
 ///     `List<String>`: the list of sentence splitted from the original.
-List<String> splitSentence(String sentence, List<String> keywords,
-    {bool all = false, String space = ''}) {
+List<String> splitSentence(
+  String sentence,
+  List<String> keywords, {
+  bool all = false,
+  String space = '',
+}) {
   for (var word in keywords) {
     switch (space) {
       case 'left':

@@ -13,15 +13,22 @@ import 'package:s_packages/s_sync_scroll_controller/s_sync_scroll_controller.dar
 
 /// Builds a fixed row-header cell for [rowIndex].
 typedef SSpreadsheetRowHeaderBuilder = Widget Function(
-    BuildContext context, int rowIndex);
+  BuildContext context,
+  int rowIndex,
+);
 
 /// Builds a fixed column-header cell for [columnIndex].
 typedef SSpreadsheetColumnHeaderBuilder = Widget Function(
-    BuildContext context, int columnIndex);
+  BuildContext context,
+  int columnIndex,
+);
 
 /// Builds a body cell for [rowIndex] and [columnIndex].
 typedef SSpreadsheetCellBuilder = Widget Function(
-    BuildContext context, int rowIndex, int columnIndex);
+  BuildContext context,
+  int rowIndex,
+  int columnIndex,
+);
 
 /// Resolves a row height for [rowIndex].
 typedef SSpreadsheetRowHeightBuilder = double Function(int rowIndex);
@@ -31,7 +38,10 @@ typedef SSpreadsheetColumnWidthBuilder = double Function(int columnIndex);
 
 /// Reports synchronized horizontal scroll metrics.
 typedef SSpreadsheetHorizontalMetricsChanged = void Function(
-    double offset, double maxScrollExtent, ScrollController controller);
+  double offset,
+  double maxScrollExtent,
+  ScrollController controller,
+);
 
 /// Immutable snapshot of horizontal scroll state for a spreadsheet.
 class SSpreadsheetHorizontalMetrics {
@@ -39,8 +49,11 @@ class SSpreadsheetHorizontalMetrics {
   final double maxScrollExtent;
   final ScrollController? controller;
 
-  const SSpreadsheetHorizontalMetrics(
-      {this.offset = 0, this.maxScrollExtent = 0, this.controller});
+  const SSpreadsheetHorizontalMetrics({
+    this.offset = 0,
+    this.maxScrollExtent = 0,
+    this.controller,
+  });
 
   bool canScrollLeft({double threshold = 100}) => offset > threshold;
 
@@ -70,7 +83,7 @@ class SSpreadsheetHorizontalMetrics {
 class SSpreadsheetHorizontalSyncController
     extends ValueNotifier<SSpreadsheetHorizontalMetrics> {
   SSpreadsheetHorizontalSyncController([SSpreadsheetHorizontalMetrics? initial])
-      : super(initial ?? const SSpreadsheetHorizontalMetrics());
+    : super(initial ?? const SSpreadsheetHorizontalMetrics());
 
   /// Registered strips in registration order, mapped to whether the strip is
   /// the non-virtualised column header (`true`) or a recyclable body row
@@ -126,7 +139,10 @@ class SSpreadsheetHorizontalSyncController
   /// working; which strip is authoritative is supplied out of band by
   /// [registerStrip] instead of being inferred from whoever reported last.
   void update(
-      double offset, double maxScrollExtent, ScrollController controller) {
+    double offset,
+    double maxScrollExtent,
+    ScrollController controller,
+  ) {
     if (_disposed) return;
     _strips.putIfAbsent(controller, () => false);
     _electOwner();
@@ -227,14 +243,12 @@ class SSpreadsheetHorizontalSyncController
   Future<void> animateToStart({
     Duration duration = const Duration(milliseconds: 800),
     Curve curve = Curves.easeOutCubic,
-  }) =>
-      _animate(false, duration, curve);
+  }) => _animate(false, duration, curve);
 
   Future<void> animateToEnd({
     Duration duration = const Duration(milliseconds: 800),
     Curve curve = Curves.easeOutCubic,
-  }) =>
-      _animate(true, duration, curve);
+  }) => _animate(true, duration, curve);
 
   @override
   void dispose() {
@@ -246,17 +260,22 @@ class SSpreadsheetHorizontalSyncController
 }
 
 /// Builder used by [SSpreadsheetHorizontalScrollButtons] to render each arrow button.
-typedef SSpreadsheetScrollButtonBuilder = Widget Function(BuildContext context,
-    {required bool isLeft,
-    required bool isEnabled,
-    required VoidCallback onTap});
+typedef SSpreadsheetScrollButtonBuilder = Widget Function(
+  BuildContext context, {
+  required bool isLeft,
+  required bool isEnabled,
+  required VoidCallback onTap,
+});
 
 /// Builds a custom HUD overlay widget.
 ///
 /// Receives a human-readable [shortcutLabel] (e.g. "⌘D" or "Ctrl+D")
 /// and [actionLabel] (e.g. "New Dept Booking") for the triggered keystroke.
 typedef SSpreadsheetKeystrokeHudBuilder = Widget Function(
-    BuildContext context, String shortcutLabel, String actionLabel);
+  BuildContext context,
+  String shortcutLabel,
+  String actionLabel,
+);
 
 /// Ready-to-use horizontal left/right scroll buttons bound to an
 /// [SSpreadsheetHorizontalSyncController].
@@ -304,12 +323,16 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
               color: Colors.blue.shade500.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                  color: Colors.blue.shade700.withValues(alpha: 0.5),
-                  width: 0.5),
+                color: Colors.blue.shade700.withValues(alpha: 0.5),
+                width: 0.5,
+              ),
             ),
             alignment: Alignment.center,
-            child: Icon(isLeft ? Icons.chevron_left : Icons.chevron_right,
-                color: Colors.blue.shade900, size: 18),
+            child: Icon(
+              isLeft ? Icons.chevron_left : Icons.chevron_right,
+              color: Colors.blue.shade900,
+              size: 18,
+            ),
           ),
         ),
       ),
@@ -328,41 +351,55 @@ class SSpreadsheetHorizontalScrollButtons extends StatelessWidget {
             child: ValueListenableBuilder<SSpreadsheetHorizontalMetrics>(
               valueListenable: controller,
               builder: (context, metrics, _) {
-                final leftEnabled =
-                    metrics.canScrollLeft(threshold: activationThreshold);
-                final rightEnabled =
-                    metrics.canScrollRight(threshold: activationThreshold);
+                final leftEnabled = metrics.canScrollLeft(
+                  threshold: activationThreshold,
+                );
+                final rightEnabled = metrics.canScrollRight(
+                  threshold: activationThreshold,
+                );
 
                 void leftOnTap() {
                   controller.animateToStart(
-                      duration: animationDuration, curve: animationCurve);
+                    duration: animationDuration,
+                    curve: animationCurve,
+                  );
                 }
 
                 void rightOnTap() {
                   controller.animateToEnd(
-                      duration: animationDuration, curve: animationCurve);
+                    duration: animationDuration,
+                    curve: animationCurve,
+                  );
                 }
 
                 return Row(
                   mainAxisAlignment: mainAxisAlignment,
                   crossAxisAlignment: crossAxisAlignment,
                   children: [
-                    buttonBuilder?.call(context,
-                            isLeft: true,
-                            isEnabled: leftEnabled,
-                            onTap: leftOnTap) ??
-                        _defaultButton(context,
-                            isLeft: true,
-                            isEnabled: leftEnabled,
-                            onTap: leftOnTap),
-                    buttonBuilder?.call(context,
-                            isLeft: false,
-                            isEnabled: rightEnabled,
-                            onTap: rightOnTap) ??
-                        _defaultButton(context,
-                            isLeft: false,
-                            isEnabled: rightEnabled,
-                            onTap: rightOnTap),
+                    buttonBuilder?.call(
+                          context,
+                          isLeft: true,
+                          isEnabled: leftEnabled,
+                          onTap: leftOnTap,
+                        ) ??
+                        _defaultButton(
+                          context,
+                          isLeft: true,
+                          isEnabled: leftEnabled,
+                          onTap: leftOnTap,
+                        ),
+                    buttonBuilder?.call(
+                          context,
+                          isLeft: false,
+                          isEnabled: rightEnabled,
+                          onTap: rightOnTap,
+                        ) ??
+                        _defaultButton(
+                          context,
+                          isLeft: false,
+                          isEnabled: rightEnabled,
+                          onTap: rightOnTap,
+                        ),
                   ],
                 );
               },
@@ -459,16 +496,20 @@ class SSpreadsheetZoomControls extends StatelessWidget {
               SSpreadsheetZoomAction.reset => controller.reset,
             };
 
-            return builder?.call(context,
-                    action: action,
-                    isEnabled: isEnabled,
-                    label: label,
-                    onTap: onTap) ??
-                _defaultPart(context,
-                    action: action,
-                    isEnabled: isEnabled,
-                    onTap: onTap,
-                    label: label);
+            return builder?.call(
+                  context,
+                  action: action,
+                  isEnabled: isEnabled,
+                  label: label,
+                  onTap: onTap,
+                ) ??
+                _defaultPart(
+                  context,
+                  action: action,
+                  isEnabled: isEnabled,
+                  onTap: onTap,
+                  label: label,
+                );
           }
 
           return Row(
@@ -496,18 +537,24 @@ class SSpreadsheetZoomControls extends StatelessWidget {
     required String label,
   }) {
     final Widget content = switch (action) {
-      SSpreadsheetZoomAction.zoomIn =>
-        Icon(Icons.add, size: 14, color: Colors.blue.shade900),
-      SSpreadsheetZoomAction.zoomOut =>
-        Icon(Icons.remove, size: 14, color: Colors.blue.shade900),
+      SSpreadsheetZoomAction.zoomIn => Icon(
+        Icons.add,
+        size: 14,
+        color: Colors.blue.shade900,
+      ),
+      SSpreadsheetZoomAction.zoomOut => Icon(
+        Icons.remove,
+        size: 14,
+        color: Colors.blue.shade900,
+      ),
       SSpreadsheetZoomAction.reset => Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: Colors.blue.shade900,
-          ),
+        label,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: Colors.blue.shade900,
         ),
+      ),
     };
 
     return Opacity(
@@ -525,8 +572,9 @@ class SSpreadsheetZoomControls extends StatelessWidget {
               color: Colors.blue.shade500.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                  color: Colors.blue.shade700.withValues(alpha: 0.5),
-                  width: 0.5),
+                color: Colors.blue.shade700.withValues(alpha: 0.5),
+                width: 0.5,
+              ),
             ),
             alignment: Alignment.center,
             child: content,
@@ -775,11 +823,11 @@ class SSpreadsheetZoomController extends ValueNotifier<double> {
     this.maxZoom = defaultMaxZoom,
     this.step = defaultStep,
     this.wheelStep = defaultWheelStep,
-  })  : assert(minZoom > 0, 'minZoom must be > 0'),
-        assert(maxZoom >= minZoom, 'maxZoom must be >= minZoom'),
-        assert(step > 0, 'step must be > 0'),
-        assert(wheelStep > 0, 'wheelStep must be > 0'),
-        super(zoom.clamp(minZoom, maxZoom).toDouble());
+  }) : assert(minZoom > 0, 'minZoom must be > 0'),
+       assert(maxZoom >= minZoom, 'maxZoom must be >= minZoom'),
+       assert(step > 0, 'step must be > 0'),
+       assert(wheelStep > 0, 'wheelStep must be > 0'),
+       super(zoom.clamp(minZoom, maxZoom).toDouble());
 
   /// The current factor, where `1.0` is 100%.
   double get zoom => value;
@@ -1262,13 +1310,13 @@ class SSpreadsheet extends StatefulWidget {
     this.maxZoom = SSpreadsheetZoomController.defaultMaxZoom,
     this.onZoomChanged,
     this.enableZoomGestures = false,
-  })  : assert(rowCount >= 0, 'rowCount must be >= 0'),
-        assert(columnCount >= 0, 'columnCount must be >= 0'),
-        assert(rowHeaderWidth >= 0, 'rowHeaderWidth must be >= 0'),
-        assert(headerHeight >= 0, 'headerHeight must be >= 0'),
-        assert(zoom > 0, 'zoom must be > 0'),
-        assert(minZoom > 0, 'minZoom must be > 0'),
-        assert(maxZoom >= minZoom, 'maxZoom must be >= minZoom');
+  }) : assert(rowCount >= 0, 'rowCount must be >= 0'),
+       assert(columnCount >= 0, 'columnCount must be >= 0'),
+       assert(rowHeaderWidth >= 0, 'rowHeaderWidth must be >= 0'),
+       assert(headerHeight >= 0, 'headerHeight must be >= 0'),
+       assert(zoom > 0, 'zoom must be > 0'),
+       assert(minZoom > 0, 'minZoom must be > 0'),
+       assert(maxZoom >= minZoom, 'maxZoom must be >= minZoom');
 
   /// Builds all columns and the requested rows at their natural dimensions.
   ///
@@ -1290,43 +1338,53 @@ class SSpreadsheet extends StatefulWidget {
     final outerPadding = padding.resolve(Directionality.of(context));
     final innerPadding = rowPadding.resolve(Directionality.of(context));
     final widths = List<double>.generate(
-        columnCount, (i) => columnWidthBuilder?.call(i) ?? 180);
+      columnCount,
+      (i) => columnWidthBuilder?.call(i) ?? 180,
+    );
     final headerWidth = rowHeaderBuilder == null ? 0.0 : rowHeaderWidth;
-    final width = headerWidth +
+    final width =
+        headerWidth +
         widths.fold(0.0, (a, b) => a + b) +
         innerPadding.horizontal;
     Widget strip(int? row) => SizedBox(
-          height:
-              row == null ? headerHeight : rowHeightBuilder?.call(row) ?? 92,
-          child: Padding(
-            padding: row == null ? EdgeInsets.zero : innerPadding,
-            child: Row(children: [
-              if (rowHeaderBuilder != null)
-                SizedBox(
-                    width: rowHeaderWidth,
-                    child: row == null
-                        ? cornerBuilder?.call(context)
-                        : rowHeaderBuilder!(context, row)),
-              for (var col = 0; col < columnCount; col++)
-                SizedBox(
-                    width: widths[col],
-                    height: double.infinity,
-                    child: row == null
-                        ? columnHeaderBuilder?.call(context, col)
-                        : cellBuilder(context, row, col)),
-            ]),
-          ),
-        );
+      height: row == null ? headerHeight : rowHeightBuilder?.call(row) ?? 92,
+      child: Padding(
+        padding: row == null ? EdgeInsets.zero : innerPadding,
+        child: Row(
+          children: [
+            if (rowHeaderBuilder != null)
+              SizedBox(
+                width: rowHeaderWidth,
+                child: row == null
+                    ? cornerBuilder?.call(context)
+                    : rowHeaderBuilder!(context, row),
+              ),
+            for (var col = 0; col < columnCount; col++)
+              SizedBox(
+                width: widths[col],
+                height: double.infinity,
+                child: row == null
+                    ? columnHeaderBuilder?.call(context, col)
+                    : cellBuilder(context, row, col),
+              ),
+          ],
+        ),
+      ),
+    );
     return IgnorePointer(
-        child: Container(
-      color: backgroundColor,
-      padding: outerPadding,
-      width: width + outerPadding.horizontal,
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        if (showColumnHeader) strip(null),
-        for (final row in indices) strip(row),
-      ]),
-    ));
+      child: Container(
+        color: backgroundColor,
+        padding: outerPadding,
+        width: width + outerPadding.horizontal,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (showColumnHeader) strip(null),
+            for (final row in indices) strip(row),
+          ],
+        ),
+      ),
+    );
   }
 
   /// Natural dimensions of [buildExport], before screenshot/PDF scaling.
@@ -1347,7 +1405,9 @@ class SSpreadsheet extends StatefulWidget {
       height += rowHeightBuilder?.call(row) ?? 92;
     }
     return Size(
-        width + outer.horizontal + inner.horizontal, height + outer.vertical);
+      width + outer.horizontal + inner.horizontal,
+      height + outer.vertical,
+    );
   }
 
   @override
@@ -1429,7 +1489,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
 
     // Switched from a caller-supplied controller to none: the owned one is
     // made fresh below, so the old listener comes off with it.
-    final needsFreshController = _ownedZoomController == null ||
+    final needsFreshController =
+        _ownedZoomController == null ||
         hadProvided ||
         oldWidget.minZoom != widget.minZoom ||
         oldWidget.maxZoom != widget.maxZoom ||
@@ -1516,7 +1577,10 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   /// correction itself waits for that frame, because the new viewport
   /// dimensions only exist after it.
   void _preserveAnchorUnderPointer(
-      Offset anchor, double oldZoom, double newZoom) {
+    Offset anchor,
+    double oldZoom,
+    double newZoom,
+  ) {
     final headerH = widget.showColumnHeader ? widget.headerHeight : 0.0;
     final rowHeaderW = widget.rowHeaderWidth;
 
@@ -1562,8 +1626,10 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   bool _ownsKeystrokeFocusNode = false;
 
   FocusNode get _effectiveKeystrokeFocusNode {
-    assert(_keystrokeFocusNode != null,
-        '_keystrokeFocusNode should never be null when build() is called');
+    assert(
+      _keystrokeFocusNode != null,
+      '_keystrokeFocusNode should never be null when build() is called',
+    );
     return _keystrokeFocusNode!;
   }
 
@@ -1664,7 +1730,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
-        final isDimmed = controller.selectedRowKey != null &&
+        final isDimmed =
+            controller.selectedRowKey != null &&
             controller.selectedRowKey != rowKey;
 
         Widget dimmed = AnimatedOpacity(
@@ -1690,8 +1757,10 @@ class SSpreadsheetState extends State<SSpreadsheet> {
             enableHapticFeedback: false,
             onTap: (_) {
               controller.selectRow(rowKey);
-              widget.onRowHeaderSelected
-                  ?.call(rowIndex, controller.selectedRowKey);
+              widget.onRowHeaderSelected?.call(
+                rowIndex,
+                controller.selectedRowKey,
+              );
               if (controller.selectedRowKey == null) {
                 widget.onSelectionCleared?.call();
               }
@@ -1723,7 +1792,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
-        final isDimmed = controller.selectedColumnKey != null &&
+        final isDimmed =
+            controller.selectedColumnKey != null &&
             controller.selectedColumnKey != columnKey;
 
         Widget dimmed = AnimatedOpacity(
@@ -1742,8 +1812,10 @@ class SSpreadsheetState extends State<SSpreadsheet> {
             enableHapticFeedback: false,
             onTap: (_) {
               controller.selectColumn(columnKey);
-              widget.onColumnHeaderSelected
-                  ?.call(columnIndex, controller.selectedColumnKey);
+              widget.onColumnHeaderSelected?.call(
+                columnIndex,
+                controller.selectedColumnKey,
+              );
               if (controller.selectedColumnKey == null) {
                 widget.onSelectionCleared?.call();
               }
@@ -1779,9 +1851,11 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
-        final rowMismatch = controller.selectedRowKey != null &&
+        final rowMismatch =
+            controller.selectedRowKey != null &&
             controller.selectedRowKey != rowKey;
-        final columnMismatch = controller.selectedColumnKey != null &&
+        final columnMismatch =
+            controller.selectedColumnKey != null &&
             controller.selectedColumnKey != columnKey;
 
         Widget dimmed = AnimatedOpacity(
@@ -1812,19 +1886,31 @@ class SSpreadsheetState extends State<SSpreadsheet> {
   }
 
   void _notifyHorizontalMetrics(
-      double offset, double maxScrollExtent, ScrollController controller) {
-    widget.horizontalSyncController
-        ?.update(offset, maxScrollExtent, controller);
-    widget.onHorizontalMetricsChanged
-        ?.call(offset, maxScrollExtent, controller);
+    double offset,
+    double maxScrollExtent,
+    ScrollController controller,
+  ) {
+    widget.horizontalSyncController?.update(
+      offset,
+      maxScrollExtent,
+      controller,
+    );
+    widget.onHorizontalMetricsChanged?.call(
+      offset,
+      maxScrollExtent,
+      controller,
+    );
   }
 
   /// A horizontal strip has mounted. The column header is the preferred
   /// metrics source because it is never virtualised away mid-scroll.
-  void _attachHorizontalStrip(ScrollController controller,
-          {required bool isPrimary}) =>
-      widget.horizontalSyncController
-          ?.registerStrip(controller, isPrimary: isPrimary);
+  void _attachHorizontalStrip(
+    ScrollController controller, {
+    required bool isPrimary,
+  }) => widget.horizontalSyncController?.registerStrip(
+    controller,
+    isPrimary: isPrimary,
+  );
 
   /// A horizontal strip is about to dispose its controller, so hand ownership
   /// on before it becomes unreadable.
@@ -1928,7 +2014,9 @@ class SSpreadsheetState extends State<SSpreadsheet> {
       final activator = activatorMap[intentType];
       if (activator != null) {
         _showKeystrokeHudForIntent(
-            intentType, _shortcutLabelFromActivator(activator));
+          intentType,
+          _shortcutLabelFromActivator(activator),
+        );
       }
 
       inner();
@@ -1955,8 +2043,9 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     final handlers = widget.keystrokeActionHandlers;
     if (handlers == null) return const {};
 
-    return handlers
-        .map((type, cb) => MapEntry(type, _wrapKeystrokeHandler(type, cb)));
+    return handlers.map(
+      (type, cb) => MapEntry(type, _wrapKeystrokeHandler(type, cb)),
+    );
   }
 
   /// [_buildActionHandlerMap] plus built-in handlers for the zoom shortcuts, so
@@ -1969,12 +2058,18 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     final handlers = Map<Type, VoidCallback>.of(_buildActionHandlerMap());
     if (!_zoomShortcutsEnabled) return handlers;
 
-    handlers.putIfAbsent(ZoomInIntent,
-        () => _wrapKeystrokeHandler(ZoomInIntent, () => zoomIn()));
-    handlers.putIfAbsent(ZoomOutIntent,
-        () => _wrapKeystrokeHandler(ZoomOutIntent, () => zoomOut()));
-    handlers.putIfAbsent(ResetZoomIntent,
-        () => _wrapKeystrokeHandler(ResetZoomIntent, () => resetZoom()));
+    handlers.putIfAbsent(
+      ZoomInIntent,
+      () => _wrapKeystrokeHandler(ZoomInIntent, () => zoomIn()),
+    );
+    handlers.putIfAbsent(
+      ZoomOutIntent,
+      () => _wrapKeystrokeHandler(ZoomOutIntent, () => zoomOut()),
+    );
+    handlers.putIfAbsent(
+      ResetZoomIntent,
+      () => _wrapKeystrokeHandler(ResetZoomIntent, () => resetZoom()),
+    );
     return handlers;
   }
 
@@ -2104,20 +2199,25 @@ class SSpreadsheetState extends State<SSpreadsheet> {
     // Undo the zoom, so everything below stays in the logical space the row
     // heights, column widths and scroll offsets are expressed in.
     final zoomFactor = _zoomController.zoom;
-    final localX =
-        zoomFactor == 1.0 ? viewportLocalX : viewportLocalX / zoomFactor;
-    final localY =
-        zoomFactor == 1.0 ? viewportLocalY : viewportLocalY / zoomFactor;
-    final boxWidth =
-        zoomFactor == 1.0 ? viewportWidth : viewportWidth / zoomFactor;
-    final boxHeight =
-        zoomFactor == 1.0 ? viewportHeight : viewportHeight / zoomFactor;
+    final localX = zoomFactor == 1.0
+        ? viewportLocalX
+        : viewportLocalX / zoomFactor;
+    final localY = zoomFactor == 1.0
+        ? viewportLocalY
+        : viewportLocalY / zoomFactor;
+    final boxWidth = zoomFactor == 1.0
+        ? viewportWidth
+        : viewportWidth / zoomFactor;
+    final boxHeight = zoomFactor == 1.0
+        ? viewportHeight
+        : viewportHeight / zoomFactor;
 
     // --- Vertical: find hit row ---
     final vController = _verticalIndexedController.controller;
     final vOffset = vController.hasClients ? vController.offset : 0.0;
-    final vMinExtent =
-        vController.hasClients ? vController.position.minScrollExtent : 0.0;
+    final vMinExtent = vController.hasClients
+        ? vController.position.minScrollExtent
+        : 0.0;
 
     // Content-space Y = viewport Y minus header, plus scroll offset.
     final contentY = localY - headerH + vOffset;
@@ -2264,7 +2364,8 @@ class SSpreadsheetState extends State<SSpreadsheet> {
           if (widget.rowHeaderBuilder != null)
             SizedBox(
               width: widget.rowHeaderWidth,
-              child: widget.cornerBuilder?.call(context) ??
+              child:
+                  widget.cornerBuilder?.call(context) ??
                   const SizedBox.shrink(),
             ),
           Expanded(
@@ -2284,7 +2385,9 @@ class SSpreadsheetState extends State<SSpreadsheet> {
                   width: _columnWidthAt(columnIndex),
                   height: widget.headerHeight,
                   child: _wrapColumnHeaderCell(
-                      columnIndex, builder(context, columnIndex)),
+                    columnIndex,
+                    builder(context, columnIndex),
+                  ),
                 );
               },
             ),
@@ -2303,9 +2406,12 @@ class SSpreadsheetState extends State<SSpreadsheet> {
           children: [
             if (widget.rowHeaderBuilder != null)
               SizedBox(
-                  width: widget.rowHeaderWidth,
-                  child: _wrapRowHeaderCell(
-                      rowIndex, widget.rowHeaderBuilder!(context, rowIndex))),
+                width: widget.rowHeaderWidth,
+                child: _wrapRowHeaderCell(
+                  rowIndex,
+                  widget.rowHeaderBuilder!(context, rowIndex),
+                ),
+              ),
             Expanded(
               child: _SyncedHorizontalStrip(
                 syncGroup: _horizontalSyncGroup,
@@ -2319,8 +2425,11 @@ class SSpreadsheetState extends State<SSpreadsheet> {
                 itemBuilder: (context, columnIndex) => SizedBox(
                   width: _columnWidthAt(columnIndex),
                   height: _rowHeightAt(rowIndex),
-                  child: _wrapBodyCell(rowIndex, columnIndex,
-                      widget.cellBuilder(context, rowIndex, columnIndex)),
+                  child: _wrapBodyCell(
+                    rowIndex,
+                    columnIndex,
+                    widget.cellBuilder(context, rowIndex, columnIndex),
+                  ),
                 ),
               ),
             ),
@@ -2448,8 +2557,10 @@ class SSpreadsheetState extends State<SSpreadsheet> {
 
 /// Reports that a horizontal strip has mounted ([isPrimary] marks the
 /// non-virtualised column header) or is about to dispose its controller.
-typedef _StripAttached = void Function(ScrollController controller,
-    {required bool isPrimary});
+typedef _StripAttached = void Function(
+  ScrollController controller, {
+  required bool isPrimary,
+});
 typedef _StripDetached = void Function(ScrollController controller);
 
 class _SyncedHorizontalStrip extends StatefulWidget {
@@ -2509,8 +2620,11 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
       if (!mounted || !_controller.hasClients) return;
       final position = _controller.position;
       if (!position.hasContentDimensions) return;
-      widget.onMetricsChanged
-          ?.call(position.pixels, position.maxScrollExtent, _controller);
+      widget.onMetricsChanged?.call(
+        position.pixels,
+        position.maxScrollExtent,
+        _controller,
+      );
     });
   }
 
@@ -2518,8 +2632,11 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
     if (!_controller.hasClients) return;
     final position = _controller.position;
     if (!position.hasContentDimensions) return;
-    widget.onMetricsChanged
-        ?.call(position.pixels, position.maxScrollExtent, _controller);
+    widget.onMetricsChanged?.call(
+      position.pixels,
+      position.maxScrollExtent,
+      _controller,
+    );
   }
 
   @override
@@ -2557,8 +2674,9 @@ class _SyncedHorizontalStripState extends State<_SyncedHorizontalStrip> {
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
           return SizedBox(
-              width: widget.itemWidthBuilder(index),
-              child: widget.itemBuilder(context, index));
+            width: widget.itemWidthBuilder(index),
+            child: widget.itemBuilder(context, index),
+          );
         },
         onScrolledTo: (_) {},
       ),

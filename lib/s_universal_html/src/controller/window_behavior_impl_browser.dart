@@ -17,18 +17,23 @@ import 'package:web/web.dart' as web;
 
 import 'window_controller.dart';
 
-Document newDocument(
-    {required Window window,
-    required String contentType,
-    required bool filled}) {
+Document newDocument({
+  required Window window,
+  required String contentType,
+  required bool filled,
+}) {
   final normalizedContentType = contentType.trim().toLowerCase();
-  final isHtml = normalizedContentType.isEmpty ||
+  final isHtml =
+      normalizedContentType.isEmpty ||
       normalizedContentType.contains('html') ||
       normalizedContentType == 'application/xhtml+xml';
 
   if (isHtml) {
     return HtmlDocument.internal(
-        window: window, contentType: contentType, filled: filled);
+      window: window,
+      contentType: contentType,
+      filled: filled,
+    );
   }
 
   return XmlDocument.internal(window: window, contentType: contentType);
@@ -36,7 +41,10 @@ Document newDocument(
 
 HtmlDocument newHtmlDocument({required Window window, String? contentType}) {
   return HtmlDocument.internal(
-      window: window, contentType: contentType ?? 'text/html', filled: true);
+    window: window,
+    contentType: contentType ?? 'text/html',
+    filled: true,
+  );
 }
 
 Navigator newNavigator({required Window window}) {
@@ -131,6 +139,7 @@ Window newWindow({required WindowController windowController}) {
   );
 
   return Window.internal(
-      internalWindowController: windowController,
-      href: web.window.location.href);
+    internalWindowController: windowController,
+    href: web.window.location.href,
+  );
 }

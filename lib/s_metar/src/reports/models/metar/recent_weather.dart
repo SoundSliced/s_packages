@@ -23,7 +23,11 @@ class MetarRecentWeather extends Group {
 
   @override
   String toString() {
-    var s = '$_description' ' $_precipitation' ' $_obscuration' ' $_other';
+    var s =
+        '$_description'
+        ' $_precipitation'
+        ' $_obscuration'
+        ' $_other';
     s = s.replaceAll('null', '');
     s = s.replaceAll(RegExp(r'\s{2,}'), ' ');
 

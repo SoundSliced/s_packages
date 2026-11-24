@@ -26,18 +26,18 @@ class SStandby {
     required Future<T> future,
     required String id,
     FutureOr<void> Function()? onCancel,
-    void Function({
-      bool? wasSuccessful,
-      Object? error,
-      StackTrace? stackTrace,
-    })? onDismissed,
+    void Function({bool? wasSuccessful, Object? error, StackTrace? stackTrace})?
+    onDismissed,
     String? title,
     bool isDismissible = true,
     double dismissibleBarrierOpacity = 0.5,
     WidgetBuilder? waitingBuilder,
     Widget Function(
-            BuildContext context, Object? error, StackTrace? stackTrace)?
-        errorBuilder,
+      BuildContext context,
+      Object? error,
+      StackTrace? stackTrace,
+    )?
+    errorBuilder,
     WidgetBuilder? successBuilder,
     bool successDismissible = true,
 
@@ -50,8 +50,11 @@ class SStandby {
 
     /// Optional builder specifically for timeout errors.
     Widget Function(
-            BuildContext context, Object? error, StackTrace? stackTrace)?
-        timeoutBuilder,
+      BuildContext context,
+      Object? error,
+      StackTrace? stackTrace,
+    )?
+    timeoutBuilder,
 
     /// Customize default waiting wrapper.
     Decoration? waitingDecoration,
@@ -112,17 +115,19 @@ class SStandby {
     _fireOnDismissedById[id] = fireUserOnDismissed;
 
     // Capture completion for later dismissal reporting.
-    cancelable.value.then((_) {
-      completionResult = true;
-      // Ensure callback arrives even if the overlay isn't actually removed.
-      fireUserOnDismissed();
-    }).catchError((error, stackTrace) {
-      completionResult = false;
-      completionError = error;
-      completionStackTrace = stackTrace;
-      // Ensure callback arrives even if the overlay isn't actually removed.
-      fireUserOnDismissed();
-    });
+    cancelable.value
+        .then((_) {
+          completionResult = true;
+          // Ensure callback arrives even if the overlay isn't actually removed.
+          fireUserOnDismissed();
+        })
+        .catchError((error, stackTrace) {
+          completionResult = false;
+          completionError = error;
+          completionStackTrace = stackTrace;
+          // Ensure callback arrives even if the overlay isn't actually removed.
+          fireUserOnDismissed();
+        });
 
     final bool shouldDismissOnBarrier =
         isDismissible || errorBuilder != null || successDismissible;
@@ -147,8 +152,9 @@ class SStandby {
         frameWidth: 0,
         hasBoxShadow: false,
         borderRadius: const BorderRadius.all(Radius.circular(12)),
-        dismissBarrierColor:
-            Colors.black.withValues(alpha: dismissibleBarrierOpacity),
+        dismissBarrierColor: Colors.black.withValues(
+          alpha: dismissibleBarrierOpacity,
+        ),
         shouldDismissOnBackgroundTap: shouldDismissOnBarrier,
         widget: FutureBuilder<T>(
           future: cancelable.value,
@@ -156,17 +162,20 @@ class SStandby {
             final scheme = Theme.of(context).colorScheme;
             final Color surface = scheme.surface;
             final Color onSurface = scheme.onSurface;
-            final Decoration resolvedWaitingDecoration = waitingDecoration ??
+            final Decoration resolvedWaitingDecoration =
+                waitingDecoration ??
                 BoxDecoration(
                   color: surface,
                   borderRadius: BorderRadius.circular(8),
                 );
-            final Decoration resolvedErrorDecoration = errorDecoration ??
+            final Decoration resolvedErrorDecoration =
+                errorDecoration ??
                 BoxDecoration(
                   color: surface,
                   borderRadius: BorderRadius.circular(8),
                 );
-            final Widget resolvedIndicator = indicator ??
+            final Widget resolvedIndicator =
+                indicator ??
                 SizedBox(
                   height: indicatorSize,
                   width: indicatorSize,

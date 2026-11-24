@@ -6,7 +6,7 @@ class MetarWindshearRunway extends Group {
   late final String? _name;
 
   MetarWindshearRunway(String? code, RegExpMatch? match)
-      : super(code?.replaceAll('_', ' ')) {
+    : super(code?.replaceAll('_', ' ')) {
     if (match == null) {
       _all = null;
       _name = null;
@@ -50,10 +50,7 @@ class MetarWindshearRunway extends Group {
 
   @override
   Map<String, Object?> asMap() {
-    final map = {
-      'all': all,
-      'name': name,
-    };
+    final map = {'all': all, 'name': name};
     map.addAll(super.asMap());
     return map;
   }

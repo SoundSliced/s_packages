@@ -21,9 +21,9 @@ class Glow2 extends StatefulWidget {
     this.startInsetFactor = 0.1,
     this.onAnimationComplete,
   }) : assert(
-          glowShape != BoxShape.circle || glowBorderRadius == null,
-          'Cannot specify a border radius if the shape is a circle.',
-        );
+         glowShape != BoxShape.circle || glowBorderRadius == null,
+         'Cannot specify a border radius if the shape is a circle.',
+       );
 
   /// The child widget to display inside the glowing effect.
   final Widget child;
@@ -224,7 +224,8 @@ class _TheGlow2 extends StatelessWidget {
                 borderRadius: glowBorderRadius,
               ),
               glowRadiusFactor: glowRadiusFactor,
-              startInsetFactor: (context
+              startInsetFactor:
+                  (context
                       .findAncestorWidgetOfExactType<Glow2>()
                       ?.startInsetFactor) ??
                   0.1,
@@ -290,7 +291,8 @@ class _Glow2Painter extends CustomPainter {
       if (glowDecoration.shape == BoxShape.circle) {
         // For circles: expansion distance is a percentage of the radius.
         final double maxRadiusExpansion = glowRadius * glowRadiusFactor;
-        final double currentRadius = baseRadius +
+        final double currentRadius =
+            baseRadius +
             (maxRadiusExpansion * (i / glowCount)) * currentProgress;
         // Keep the center aligned to the child, but start from an inset radius.
         currentRect = Rect.fromCircle(
@@ -328,10 +330,7 @@ class _Glow2Painter extends CustomPainter {
 
   void _addGlowPath(Rect glowRect) {
     _glowPath.addPath(
-      glowDecoration.getClipPath(
-        glowRect,
-        TextDirection.ltr,
-      ),
+      glowDecoration.getClipPath(glowRect, TextDirection.ltr),
       Offset.zero,
     );
   }

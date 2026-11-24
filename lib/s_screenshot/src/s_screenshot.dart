@@ -1,10 +1,14 @@
 import 'dart:convert';
 import 'dart:math' as math;
-import 'package:universal_io/io.dart';
+
+import 'file_stub.dart' if (dart.library.io) 'dart:io' show File;
+
 import 'dart:ui' as ui;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
+
 import 'save_screenshot.dart';
 
 part 'tools.dart';
@@ -37,14 +41,16 @@ class SScreenshot {
         maxPixels <= 0 ||
         settleDelay.isNegative) {
       throw ArgumentError(
-          'Capture dimensions, ratio and limits must be positive.');
+        'Capture dimensions, ratio and limits must be positive.',
+      );
     }
     final ratio = math.min(
-        pixelRatio,
-        math.min(
-          maxPixelDimension / math.max(logicalSize.width, logicalSize.height),
-          math.sqrt(maxPixels / (logicalSize.width * logicalSize.height)),
-        ));
+      pixelRatio,
+      math.min(
+        maxPixelDimension / math.max(logicalSize.width, logicalSize.height),
+        math.sqrt(maxPixels / (logicalSize.width * logicalSize.height)),
+      ),
+    );
     final boundary = RenderRepaintBoundary();
     final view = RenderView(
       view: View.of(context),

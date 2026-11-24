@@ -31,9 +31,7 @@ class Modifier extends Group {
   @override
   Map<String, Object?> asMap() {
     final map = super.asMap();
-    map.addAll({
-      'modifier': description,
-    });
+    map.addAll({'modifier': description});
     return map.cast<String, String?>();
   }
 }

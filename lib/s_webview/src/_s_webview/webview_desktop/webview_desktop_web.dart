@@ -29,7 +29,5 @@ class WebviewWindow {
 
 class CreateConfiguration {
   final double titleBarTopPadding;
-  CreateConfiguration({
-    required this.titleBarTopPadding,
-  });
+  CreateConfiguration({required this.titleBarTopPadding});
 }

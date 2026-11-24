@@ -13,10 +13,7 @@ class ScreenshotException implements Exception {
 }
 
 /// Image format for the screenshot.
-enum ScreenshotFormat {
-  png,
-  rawRgba,
-}
+enum ScreenshotFormat { png, rawRgba }
 
 /// Output type for captured screenshot.
 enum ScreenshotResultType {

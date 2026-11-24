@@ -1,10 +1,6 @@
 part of '../../reports.dart';
 
-final codeTypes = <String, int>{
-  'ICAO': 1,
-  'IATA': 2,
-  'SYNOP': 3,
-};
+final codeTypes = <String, int>{'ICAO': 1, 'IATA': 2, 'SYNOP': 3};
 
 /// Basic structure for station code groups in reports from land stations.
 ///

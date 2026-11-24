@@ -210,7 +210,7 @@ class _AccessibleNodeListImpl implements AccessibleNodeList {
   final List<AccessibleNode> _nodes;
 
   _AccessibleNodeListImpl([List<AccessibleNode>? nodes])
-      : _nodes = List<AccessibleNode>.from(nodes ?? const <AccessibleNode>[]);
+    : _nodes = List<AccessibleNode>.from(nodes ?? const <AccessibleNode>[]);
 
   @override
   int get length => _nodes.length;

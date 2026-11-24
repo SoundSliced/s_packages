@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
+
 import '../../_debug_log.dart';
 
 import 'src/create_configuration.dart';
@@ -59,15 +60,11 @@ class WebviewWindow {
     return true;
   }
 
-  static Future<Webview> create({
-    CreateConfiguration? configuration,
-  }) async {
+  static Future<Webview> create({CreateConfiguration? configuration}) async {
     configuration ??= CreateConfiguration.platform();
     _init();
-    final viewId = await _channel.invokeMethod(
-      "create",
-      configuration.toMap(),
-    ) as int;
+    final viewId =
+        await _channel.invokeMethod("create", configuration.toMap()) as int;
     final webview = WebviewImpl(viewId, _channel);
     _webviews.add(webview);
     return webview;
@@ -75,9 +72,10 @@ class WebviewWindow {
 
   static Future<dynamic> _handleOtherIsolateMethodCall(MethodCall call) async {
     final webViewId = call.arguments['webViewId'] as int;
-    final webView = _webviews
-        .cast<WebviewImpl?>()
-        .firstWhere((w) => w?.viewId == webViewId, orElse: () => null);
+    final webView = _webviews.cast<WebviewImpl?>().firstWhere(
+      (w) => w?.viewId == webViewId,
+      orElse: () => null,
+    );
     if (webView == null) {
       return;
     }
@@ -103,9 +101,10 @@ class WebviewWindow {
   static Future<dynamic> _handleMethodCall(MethodCall call) async {
     final args = call.arguments as Map;
     final viewId = args['id'] as int;
-    final webview = _webviews
-        .cast<WebviewImpl?>()
-        .firstWhere((e) => e?.viewId == viewId, orElse: () => null);
+    final webview = _webviews.cast<WebviewImpl?>().firstWhere(
+      (e) => e?.viewId == viewId,
+      orElse: () => null,
+    );
     assert(webview != null);
     if (webview == null) {
       return;
@@ -155,10 +154,10 @@ class WebviewWindow {
         break;
       case "onNavigationCompleted":
         webview.onNavigationCompleted();
-        await _otherIsolateMessageHandler
-            .invokeMethod('onNavigationCompleted', {
-          'webViewId': viewId,
-        });
+        await _otherIsolateMessageHandler.invokeMethod(
+          'onNavigationCompleted',
+          {'webViewId': viewId},
+        );
         break;
       default:
         return;
@@ -178,8 +177,9 @@ class WebviewWindow {
       if (p.isAbsolute(userDataFolderWindows)) {
         webview2Dir = Directory(userDataFolderWindows);
       } else {
-        webview2Dir = Directory(p.join(
-            p.dirname(Platform.resolvedExecutable), userDataFolderWindows));
+        webview2Dir = Directory(
+          p.join(p.dirname(Platform.resolvedExecutable), userDataFolderWindows),
+        );
       }
 
       if (await (webview2Dir.exists())) {

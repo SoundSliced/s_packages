@@ -203,8 +203,11 @@ class SSideBar extends StatefulWidget {
     this.sideBarAnimationDuration = const Duration(milliseconds: 700),
     this.floatingAnimationDuration = const Duration(milliseconds: 300),
     this.dividerColor = const Color(0xff929292),
-    this.textStyle =
-        const TextStyle(fontFamily: "SFPro", fontSize: 16, color: Colors.white),
+    this.textStyle = const TextStyle(
+      fontFamily: "SFPro",
+      fontSize: 16,
+      color: Colors.white,
+    ),
     this.sideBarItemHeight = 48,
     this.itemHorizontalPadding = 10,
     this.itemIconTextSpacing = 12,
@@ -302,8 +305,8 @@ class _SSideBarState extends State<SSideBar> {
     final double? sidebarHeight = widget.sideBarHeight;
     final double effectiveItemHeight = widget.compactMode
         ? (widget.sideBarItemHeight - 4)
-            .clamp(24.0, widget.sideBarItemHeight)
-            .toDouble()
+              .clamp(24.0, widget.sideBarItemHeight)
+              .toDouble()
         : widget.sideBarItemHeight;
 
     return LayoutBuilder(
@@ -311,21 +314,24 @@ class _SSideBarState extends State<SSideBar> {
         // Calculate estimated height needed for all items
         final int itemCount = widget.sidebarItems.length;
         final double separatorHeight = widget.compactMode ? 4 : 8;
-        final double dividerHeight =
-            widget.settingsDivider && itemCount > 2 ? 12 : 0;
+        final double dividerHeight = widget.settingsDivider && itemCount > 2
+            ? 12
+            : 0;
         final double topPadding = 20.0;
         final double logoHeight = widget.logo != null ? 60.0 : 0.0;
         final double headerHeight = widget.header != null ? 50.0 : 0.0;
         final double footerHeight = widget.footer != null ? 60.0 : 0.0;
         final double buttonMinHeight = 50.0;
 
-        final double estimatedItemsHeight = (itemCount * effectiveItemHeight) +
+        final double estimatedItemsHeight =
+            (itemCount * effectiveItemHeight) +
             ((itemCount - 1) * separatorHeight) +
             dividerHeight +
             topPadding +
             (itemCount > 0 ? (widget.compactMode ? 14 : 20) : 0);
 
-        final double totalNeededHeight = logoHeight +
+        final double totalNeededHeight =
+            logoHeight +
             headerHeight +
             estimatedItemsHeight +
             footerHeight +
@@ -353,14 +359,17 @@ class _SSideBarState extends State<SSideBar> {
           transformAlignment: Alignment.centerRight,
           height: effectiveHeight,
           constraints: BoxConstraints(
-            maxWidth:
-                !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
-            minWidth:
-                !minimize ? widget.sideBarWidth : widget.sideBarSmallWidth,
+            maxWidth: !minimize
+                ? widget.sideBarWidth
+                : widget.sideBarSmallWidth,
+            minWidth: !minimize
+                ? widget.sideBarWidth
+                : widget.sideBarSmallWidth,
           ),
           decoration: BoxDecoration(
             color: widget.sideBarColor,
-            border: widget.sideBarBorder ??
+            border:
+                widget.sideBarBorder ??
                 Border.all(color: widget.sideBarColor.darken(0.1)),
             borderRadius: BorderRadius.circular(widget.borderRadius),
             boxShadow: widget.showShadow
@@ -381,10 +390,7 @@ class _SSideBarState extends State<SSideBar> {
               // Logo
               if (widget.logo != null)
                 Align(
-                  child: Padding(
-                    padding: Pad(top: 20),
-                    child: widget.logo,
-                  ),
+                  child: Padding(padding: Pad(top: 20), child: widget.logo),
                 ),
 
               // Header
@@ -404,98 +410,98 @@ class _SSideBarState extends State<SSideBar> {
                       SliverPadding(
                         padding: minimize ? Pad.zero : Pad(left: 20, right: 20),
                         sliver: SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              final item = widget.sidebarItems[index];
-                              return Column(
-                                children: [
-                                  Padding(
-                                    padding: index ==
-                                            widget.sidebarItems.length - 1
-                                        ? Pad(top: widget.compactMode ? 14 : 20)
-                                        : Pad.zero,
-                                    child: _SideBarItemWidget(
-                                      itemIndex: index,
-                                      selectedItemIndex: selectedItemIndex,
-                                      textStyle: widget.textStyle,
-                                      selectedIconBackgroundColor:
-                                          widget.selectedIconBackgroundColor,
-                                      unselectedIconColor:
-                                          widget.unselectedIconColor,
-                                      unSelectedTextColor:
-                                          widget.unSelectedTextColor,
-                                      selectedTextColor:
-                                          widget.selectedTextColor,
-                                      minimize: minimize,
-                                      height: effectiveItemHeight,
-                                      hoverColor: widget.hoverColor,
-                                      splashColor: widget.splashColor,
-                                      highlightColor: widget.highlightColor,
-                                      selectedIconColor:
-                                          widget.selectedIconColor,
-                                      icon: item.iconUnselected ??
-                                          item.iconSelected,
-                                      text: item.title,
-                                      tooltip: item.tooltip,
-                                      badgeText: item.badgeText,
-                                      badgeColor: item.badgeColor,
-                                      badgeTextStyle: item.badgeTextStyle,
-                                      showTooltipWhenMinimized:
-                                          widget.showTooltipsWhenMinimized,
-                                      itemHorizontalPadding:
-                                          widget.itemHorizontalPadding,
-                                      itemIconTextSpacing:
-                                          widget.itemIconTextSpacing,
-                                      itemBorderRadius: widget.itemBorderRadius,
-                                      hoverAnimation: widget.hoverAnimation,
-                                      indicatorStyle: widget.indicatorStyle,
-                                      selectedItemDecoration:
-                                          widget.selectedItemDecoration,
-                                      unselectedItemDecoration:
-                                          widget.unselectedItemDecoration,
-                                      itemPadding: widget.itemPadding,
-                                      isHeader: item.isHeader,
-                                      isDivider: item.isDivider,
-                                      dividerColor: widget.dividerColor,
-                                      onTap: () {
-                                        final canTap = shouldTapItems.isEmpty ||
-                                            shouldTapItems.length !=
-                                                widget.sidebarItems.length ||
-                                            shouldTapItems[index] == true;
+                          delegate: SliverChildBuilderDelegate((
+                            context,
+                            index,
+                          ) {
+                            final item = widget.sidebarItems[index];
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      index == widget.sidebarItems.length - 1
+                                      ? Pad(top: widget.compactMode ? 14 : 20)
+                                      : Pad.zero,
+                                  child: _SideBarItemWidget(
+                                    itemIndex: index,
+                                    selectedItemIndex: selectedItemIndex,
+                                    textStyle: widget.textStyle,
+                                    selectedIconBackgroundColor:
+                                        widget.selectedIconBackgroundColor,
+                                    unselectedIconColor:
+                                        widget.unselectedIconColor,
+                                    unSelectedTextColor:
+                                        widget.unSelectedTextColor,
+                                    selectedTextColor: widget.selectedTextColor,
+                                    minimize: minimize,
+                                    height: effectiveItemHeight,
+                                    hoverColor: widget.hoverColor,
+                                    splashColor: widget.splashColor,
+                                    highlightColor: widget.highlightColor,
+                                    selectedIconColor: widget.selectedIconColor,
+                                    icon:
+                                        item.iconUnselected ??
+                                        item.iconSelected,
+                                    text: item.title,
+                                    tooltip: item.tooltip,
+                                    badgeText: item.badgeText,
+                                    badgeColor: item.badgeColor,
+                                    badgeTextStyle: item.badgeTextStyle,
+                                    showTooltipWhenMinimized:
+                                        widget.showTooltipsWhenMinimized,
+                                    itemHorizontalPadding:
+                                        widget.itemHorizontalPadding,
+                                    itemIconTextSpacing:
+                                        widget.itemIconTextSpacing,
+                                    itemBorderRadius: widget.itemBorderRadius,
+                                    hoverAnimation: widget.hoverAnimation,
+                                    indicatorStyle: widget.indicatorStyle,
+                                    selectedItemDecoration:
+                                        widget.selectedItemDecoration,
+                                    unselectedItemDecoration:
+                                        widget.unselectedItemDecoration,
+                                    itemPadding: widget.itemPadding,
+                                    isHeader: item.isHeader,
+                                    isDivider: item.isDivider,
+                                    dividerColor: widget.dividerColor,
+                                    onTap: () {
+                                      final canTap =
+                                          shouldTapItems.isEmpty ||
+                                          shouldTapItems.length !=
+                                              widget.sidebarItems.length ||
+                                          shouldTapItems[index] == true;
 
-                                        if (canTap &&
-                                            !item.isHeader &&
-                                            !item.isDivider) {
-                                          moveToNewIndex(index);
-                                        }
-                                      },
-                                      onTappedCallbackOffsetPosition: (offset) {
-                                        if (item.onTap != null &&
-                                            !item.isHeader &&
-                                            !item.isDivider) {
-                                          item.onTap!(offset);
-                                        }
-                                      },
-                                    ),
+                                      if (canTap &&
+                                          !item.isHeader &&
+                                          !item.isDivider) {
+                                        moveToNewIndex(index);
+                                      }
+                                    },
+                                    onTappedCallbackOffsetPosition: (offset) {
+                                      if (item.onTap != null &&
+                                          !item.isHeader &&
+                                          !item.isDivider) {
+                                        item.onTap!(offset);
+                                      }
+                                    },
                                   ),
-                                  if (index < widget.sidebarItems.length - 1)
-                                    widget.sidebarItems.length > 2 &&
-                                            index ==
-                                                widget.sidebarItems.length -
-                                                    2 &&
-                                            widget.settingsDivider
-                                        ? Divider(
-                                            height: 12,
-                                            thickness: 0.5,
-                                            color: widget.dividerColor,
-                                          )
-                                        : SizedBox(
-                                            height: widget.compactMode ? 4 : 8),
-                                ],
-                              );
-                            },
-                            childCount: widget.sidebarItems.length,
-                          ),
+                                ),
+                                if (index < widget.sidebarItems.length - 1)
+                                  widget.sidebarItems.length > 2 &&
+                                          index ==
+                                              widget.sidebarItems.length - 2 &&
+                                          widget.settingsDivider
+                                      ? Divider(
+                                          height: 12,
+                                          thickness: 0.5,
+                                          color: widget.dividerColor,
+                                        )
+                                      : SizedBox(
+                                          height: widget.compactMode ? 4 : 8,
+                                        ),
+                              ],
+                            );
+                          }, childCount: widget.sidebarItems.length),
                         ),
                       ),
                       if (hasExtraSpace)
@@ -550,8 +556,9 @@ class _SSideBarState extends State<SSideBar> {
     return AnimatedCrossFade(
       firstChild: child,
       secondChild: const SizedBox.shrink(),
-      crossFadeState:
-          minimize ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      crossFadeState: minimize
+          ? CrossFadeState.showSecond
+          : CrossFadeState.showFirst,
       duration: const Duration(milliseconds: 300),
       firstCurve: Curves.easeOut,
       secondCurve: Curves.easeIn,
@@ -576,7 +583,8 @@ class _SSideBarState extends State<SSideBar> {
           child: Icon(
             key: ValueKey("SSideBar MinimizeButton + $minimize"),
             minimize ? Icons.arrow_right_rounded : Icons.arrow_left_rounded,
-            color: widget.minimizeButtonColor ??
+            color:
+                widget.minimizeButtonColor ??
                 Colors.blue.shade800.withValues(alpha: 0.8),
             size: widget.minimizeButtonIconSize ?? 60,
           ),
@@ -610,8 +618,9 @@ class _SSideBarState extends State<SSideBar> {
       child: SInkButton(
         color: widget.splashColor,
         hoverColor: widget.hoverColor,
-        hoverAndSplashBorderRadius:
-            BorderRadius.circular(widget.itemBorderRadius),
+        hoverAndSplashBorderRadius: BorderRadius.circular(
+          widget.itemBorderRadius,
+        ),
         enableHapticFeedback: false,
         onTap: (position) => setState(() {
           minimize = !minimize;
@@ -622,8 +631,9 @@ class _SSideBarState extends State<SSideBar> {
           height: widget.compactMode ? 40 : 44,
           alignment: minimize ? Alignment.center : Alignment.centerLeft,
           child: Row(
-            mainAxisAlignment:
-                minimize ? MainAxisAlignment.center : MainAxisAlignment.start,
+            mainAxisAlignment: minimize
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.start,
             children: [
               Icon(
                 minimize
@@ -834,10 +844,10 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
 
     Decoration? itemDecoration = isSelected
         ? widget.selectedItemDecoration ??
-            BoxDecoration(
-              color: widget.selectedIconBackgroundColor,
-              borderRadius: BorderRadius.circular(widget.itemBorderRadius),
-            )
+              BoxDecoration(
+                color: widget.selectedIconBackgroundColor,
+                borderRadius: BorderRadius.circular(widget.itemBorderRadius),
+              )
         : widget.unselectedItemDecoration;
 
     if (!isSelected && _isHovered) {
@@ -861,8 +871,9 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
       child: SInkButton(
         color: widget.splashColor,
         hoverColor: Colors.transparent,
-        hoverAndSplashBorderRadius:
-            BorderRadius.circular(widget.itemBorderRadius),
+        hoverAndSplashBorderRadius: BorderRadius.circular(
+          widget.itemBorderRadius,
+        ),
         enableHapticFeedback: false,
         onTap: (position) {
           widget.onTap();
@@ -893,7 +904,8 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
                     decoration: BoxDecoration(
                       color: widget.selectedIconColor.withValues(alpha: 0.95),
                       borderRadius: const BorderRadius.horizontal(
-                          right: Radius.circular(2)),
+                        right: Radius.circular(2),
+                      ),
                     ),
                   ),
                 ),
@@ -908,23 +920,26 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
                     decoration: BoxDecoration(
                       color: widget.selectedIconColor.withValues(alpha: 0.95),
                       borderRadius: const BorderRadius.horizontal(
-                          left: Radius.circular(2)),
+                        left: Radius.circular(2),
+                      ),
                     ),
                   ),
                 ),
             ],
             Box(
               height: widget.height,
-              alignment:
-                  widget.minimize ? Alignment.center : Alignment.centerLeft,
+              alignment: widget.minimize
+                  ? Alignment.center
+                  : Alignment.centerLeft,
               child: AnimatedPadding(
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeOut,
-                padding: widget.itemPadding ??
+                padding:
+                    widget.itemPadding ??
                     EdgeInsets.only(
                       left:
                           (widget.minimize ? 0 : widget.itemHorizontalPadding) +
-                              leftShift,
+                          leftShift,
                     ),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -1009,10 +1024,7 @@ class _SideBarItemWidgetState extends State<_SideBarItemWidget> {
     );
 
     if (widget.minimize && widget.showTooltipWhenMinimized) {
-      content = Tooltip(
-        message: widget.tooltip ?? widget.text,
-        child: content,
-      );
+      content = Tooltip(message: widget.tooltip ?? widget.text, child: content);
     }
 
     return content;
@@ -1032,7 +1044,8 @@ Widget _badgeChip({
     ),
     child: Text(
       badgeText,
-      style: badgeTextStyle ??
+      style:
+          badgeTextStyle ??
           const TextStyle(
             color: Colors.white,
             fontSize: 9,
@@ -1152,30 +1165,25 @@ class SSideBarItem {
 
   /// Creates a section header item. Section headers display small, uppercase,
   /// muted text, are not interactive, and do not show icons.
-  SSideBarItem.header({
-    required this.title,
-    this.tooltip,
-  })  : iconSelected = Icons.linear_scale, // Dummy icon
-        iconUnselected = null,
-        badgeText = null,
-        badgeColor = null,
-        badgeTextStyle = null,
-        isHeader = true,
-        isDivider = false,
-        onTap = null;
+  SSideBarItem.header({required this.title, this.tooltip})
+    : iconSelected = Icons.linear_scale, // Dummy icon
+      iconUnselected = null,
+      badgeText = null,
+      badgeColor = null,
+      badgeTextStyle = null,
+      isHeader = true,
+      isDivider = false,
+      onTap = null;
 
   /// Creates a horizontal divider item to separate sections.
-  SSideBarItem.divider({
-    this.badgeText,
-    this.badgeColor,
-    this.badgeTextStyle,
-  })  : iconSelected = Icons.linear_scale, // Dummy icon
-        title = '',
-        iconUnselected = null,
-        tooltip = null,
-        isHeader = false,
-        isDivider = true,
-        onTap = null;
+  SSideBarItem.divider({this.badgeText, this.badgeColor, this.badgeTextStyle})
+    : iconSelected = Icons.linear_scale, // Dummy icon
+      title = '',
+      iconUnselected = null,
+      tooltip = null,
+      isHeader = false,
+      isDivider = true,
+      onTap = null;
 }
 
 //****************************************** */
@@ -1278,19 +1286,21 @@ class SideBarController {
     Function? initState,
     Function? onDismissed,
   }) {
-    _sideBarController
-        .update<SideBarController>((newState) => newState.isActive = true);
+    _sideBarController.update<SideBarController>(
+      (newState) => newState.isActive = true,
+    );
 
     PopOverlay.addPop(
       PopOverlayContent(
-        widget: sSideBar ??
+        widget:
+            sSideBar ??
             SSideBar(
               sidebarItems: [
                 SSideBarItem(
                   iconSelected: Icons.home_filled,
                   iconUnselected: Icons.home_outlined,
                   title: "home",
-                )
+                ),
               ],
               onTapForAllTabButtons: (index) {},
             ),
@@ -1342,7 +1352,8 @@ class SideBarController {
   /// ```
   static void setMinimizedState(bool minimize) {
     _sideBarController.update<SideBarController>(
-        (newState) => newState.isMinimized = minimize);
+      (newState) => newState.isMinimized = minimize,
+    );
   }
 
   /// Get the SideBarController instance

@@ -35,11 +35,8 @@ void main() {
     return hostContext;
   }
 
-  Widget layerMarker(String id) => SizedBox(
-        key: ValueKey<String>('marker-$id'),
-        width: 1,
-        height: 1,
-      );
+  Widget layerMarker(String id) =>
+      SizedBox(key: ValueKey<String>('marker-$id'), width: 1, height: 1);
 
   testWidgets(
     'two layers registered in the same frame are each inserted once',

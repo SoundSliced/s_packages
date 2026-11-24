@@ -329,10 +329,7 @@ class _HorizontalExpandableMenu extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(height),
-        border: Border.all(
-          color: backgroundColor.darken(),
-          width: 1.0,
-        ),
+        border: Border.all(color: backgroundColor.darken(), width: 1.0),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -438,16 +435,14 @@ class _VerticalExpandableMenu extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(width),
-        border: Border.all(
-          color: backgroundColor.darken(),
-          width: 1.0,
-        ),
+        border: Border.all(color: backgroundColor.darken(), width: 1.0),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
-        verticalDirection:
-            expandsDown ? VerticalDirection.down : VerticalDirection.up,
+        verticalDirection: expandsDown
+            ? VerticalDirection.down
+            : VerticalDirection.up,
         children: [
           // Close button (fades in at the end of the animation)
           if (animationProgress > 0.85)
@@ -565,8 +560,9 @@ class _ExpandableItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     // For vertical layouts, reverse items when RTL is active
     final bool isRTL = Directionality.of(context) == TextDirection.rtl;
-    final List<SExpandableItem> displayItems =
-        (!isHorizontal && isRTL) ? items.reversed.toList() : items;
+    final List<SExpandableItem> displayItems = (!isHorizontal && isRTL)
+        ? items.reversed.toList()
+        : items;
 
     if (isHorizontal) {
       return SizedBox(
@@ -648,8 +644,10 @@ class _ExpandableMenuItem extends StatelessWidget {
     // Stagger each item's appearance.
     final double start = 0.15 + index * 0.06;
     final double end = (start + 0.35).clamp(0.0, 1.0);
-    final double rawT =
-        ((animationProgress - start) / (end - start)).clamp(0.0, 1.0);
+    final double rawT = ((animationProgress - start) / (end - start)).clamp(
+      0.0,
+      1.0,
+    );
     final double itemT = Curves.easeOutCubic.transform(rawT);
 
     final Color containerColor =
@@ -742,11 +740,7 @@ class _ExpandableCloseButton extends StatelessWidget {
           splashColor: Colors.amber,
           isCircleButton: true,
           onTap: (_) => onTap(),
-          child: Icon(
-            icon,
-            color: iconColor,
-            size: innerHeight * 0.7,
-          ),
+          child: Icon(icon, color: iconColor, size: innerHeight * 0.7),
         ),
       ),
     );

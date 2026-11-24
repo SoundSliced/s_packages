@@ -9,7 +9,7 @@ class SignalsWatch<T> extends StatefulWidget {
   /// Create a SignalsWatch with a custom read function.
   const SignalsWatch({
     super.key,
-    required T Function() read,
+    required T Function() this._read,
     required this.builder,
     this.onInit,
     this.onValueUpdated,
@@ -25,15 +25,14 @@ class SignalsWatch<T> extends StatefulWidget {
     this.loadingBuilder,
     this.debugLabel,
     this.debugPrint = false,
-  })  : assert(
-          debounce == null || throttle == null,
-          'Cannot use both debounce and throttle simultaneously',
-        ),
-        _read = read,
-        _signal = null,
-        _signals = null,
-        _combine = null,
-        _selector = null;
+  }) : assert(
+         debounce == null || throttle == null,
+         'Cannot use both debounce and throttle simultaneously',
+       ),
+       _signal = null,
+       _signals = null,
+       _combine = null,
+       _selector = null;
 
   /// Create a SignalsWatch from a single signal.
   const SignalsWatch.fromSignal(
@@ -54,21 +53,21 @@ class SignalsWatch<T> extends StatefulWidget {
     this.loadingBuilder,
     this.debugLabel,
     this.debugPrint = false,
-  })  : assert(
-          debounce == null || throttle == null,
-          'Cannot use both debounce and throttle simultaneously',
-        ),
-        _signal = signal,
-        _signals = null,
-        _combine = null,
-        _read = null,
-        _selector = null;
+  }) : assert(
+         debounce == null || throttle == null,
+         'Cannot use both debounce and throttle simultaneously',
+       ),
+       _signal = signal,
+       _signals = null,
+       _combine = null,
+       _read = null,
+       _selector = null;
 
   /// Create a SignalsWatch from multiple signals with batch updates.
   SignalsWatch.fromSignals(
     List<ReadonlySignal<dynamic>> signals, {
     super.key,
-    required T Function(List<dynamic> values) combine,
+    required T Function(List<dynamic> values) this._combine,
     required this.builder,
     this.onInit,
     this.onValueUpdated,
@@ -84,23 +83,22 @@ class SignalsWatch<T> extends StatefulWidget {
     this.loadingBuilder,
     this.debugLabel,
     this.debugPrint = false,
-  })  : assert(signals.isNotEmpty, 'signals list cannot be empty'),
-        assert(
-          debounce == null || throttle == null,
-          'Cannot use both debounce and throttle simultaneously',
-        ),
-        _signals = signals,
-        _combine = combine,
-        _signal = null,
-        _read = null,
-        _selector = null;
+  }) : assert(signals.isNotEmpty, 'signals list cannot be empty'),
+       assert(
+         debounce == null || throttle == null,
+         'Cannot use both debounce and throttle simultaneously',
+       ),
+       _signals = signals,
+       _signal = null,
+       _read = null,
+       _selector = null;
 
   /// Create a SignalsWatch with a selector for efficient updates.
   /// Only rebuilds when the selected value changes (compared via equals).
   const SignalsWatch.select(
     ReadonlySignal<dynamic> signal, {
     super.key,
-    required T Function(dynamic value) selector,
+    required T Function(dynamic value) this._selector,
     required this.builder,
     this.onInit,
     this.onValueUpdated,
@@ -116,15 +114,14 @@ class SignalsWatch<T> extends StatefulWidget {
     this.loadingBuilder,
     this.debugLabel,
     this.debugPrint = false,
-  })  : assert(
-          debounce == null || throttle == null,
-          'Cannot use both debounce and throttle simultaneously',
-        ),
-        _signal = signal,
-        _selector = selector,
-        _signals = null,
-        _combine = null,
-        _read = null;
+  }) : assert(
+         debounce == null || throttle == null,
+         'Cannot use both debounce and throttle simultaneously',
+       ),
+       _signal = signal,
+       _signals = null,
+       _combine = null,
+       _read = null;
 
   // ==== Registry (formerly SignalsRegistry) ====
   /// Registers a signal/computed and sets up automatic removal on dispose.
@@ -159,10 +156,7 @@ class SignalsWatch<T> extends StatefulWidget {
   }) {
     final created = s.signal<T>(
       initialValue,
-      options: s.SignalOptions(
-        name: debugLabel,
-        autoDispose: autoDispose,
-      ),
+      options: s.SignalOptions(name: debugLabel, autoDispose: autoDispose),
     );
 
     // Always store metadata so .reset() can access initialValue
@@ -199,10 +193,7 @@ class SignalsWatch<T> extends StatefulWidget {
   }) {
     final created = s.computed<T>(
       compute,
-      options: s.ComputedOptions(
-        name: debugLabel,
-        autoDispose: autoDispose,
-      ),
+      options: s.ComputedOptions(name: debugLabel, autoDispose: autoDispose),
     );
 
     // Store metadata if any lifecycle callbacks or metadata provided
@@ -244,20 +235,19 @@ class SignalsWatch<T> extends StatefulWidget {
     Function? onDispose,
     bool debugTrace = false,
     Map<String, dynamic>? metadata,
-  }) =>
-      _signalFromFuture<T>(
-        future,
-        initialValue: initialValue,
-        debugLabel: debugLabel,
-        autoDispose: autoDispose,
-        onError: onError,
-        onInit: onInit,
-        onValueUpdated: onValueUpdated,
-        onAfterBuild: onAfterBuild,
-        onDispose: onDispose,
-        debugTrace: debugTrace,
-        metadata: metadata,
-      );
+  }) => _signalFromFuture<T>(
+    future,
+    initialValue: initialValue,
+    debugLabel: debugLabel,
+    autoDispose: autoDispose,
+    onError: onError,
+    onInit: onInit,
+    onValueUpdated: onValueUpdated,
+    onAfterBuild: onAfterBuild,
+    onDispose: onDispose,
+    debugTrace: debugTrace,
+    metadata: metadata,
+  );
 
   /// Create a signal from a Stream.
   ///
@@ -276,21 +266,20 @@ class SignalsWatch<T> extends StatefulWidget {
     Function? onDispose,
     bool debugTrace = false,
     Map<String, dynamic>? metadata,
-  }) =>
-      _signalFromStream<T>(
-        stream,
-        initialValue: initialValue,
-        debugLabel: debugLabel,
-        autoDispose: autoDispose,
-        cancelOnError: cancelOnError,
-        onError: onError,
-        onInit: onInit,
-        onValueUpdated: onValueUpdated,
-        onAfterBuild: onAfterBuild,
-        onDispose: onDispose,
-        debugTrace: debugTrace,
-        metadata: metadata,
-      );
+  }) => _signalFromStream<T>(
+    stream,
+    initialValue: initialValue,
+    debugLabel: debugLabel,
+    autoDispose: autoDispose,
+    cancelOnError: cancelOnError,
+    onError: onError,
+    onInit: onInit,
+    onValueUpdated: onValueUpdated,
+    onAfterBuild: onAfterBuild,
+    onDispose: onDispose,
+    debugTrace: debugTrace,
+    metadata: metadata,
+  );
 
   /// Initialize the global SignalsObserver with a selective logger
   /// that only logs labeled signals.
@@ -388,9 +377,7 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
     }
 
     if (widget._signal != null) {
-      _signalDependencies = <ReadonlySignal<dynamic>>[
-        widget._signal!,
-      ];
+      _signalDependencies = <ReadonlySignal<dynamic>>[widget._signal!];
       _multiSignalScratch = null;
       return;
     }
@@ -422,16 +409,18 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
     }
 
     // Widget callbacks override signal callbacks
-    _effectiveOnInit =
-        _toLifecycleInvoker<T>(widget.onInit ?? signalMetadata?.onInit);
+    _effectiveOnInit = _toLifecycleInvoker<T>(
+      widget.onInit ?? signalMetadata?.onInit,
+    );
     _effectiveOnValueUpdated = _toLifecycleInvoker<T>(
       widget.onValueUpdated ?? signalMetadata?.onValueUpdated,
     );
     _effectiveOnAfterBuild = _toLifecycleInvoker<T>(
       widget.onAfterBuild ?? signalMetadata?.onAfterBuild,
     );
-    _effectiveOnDispose =
-        _toLifecycleInvoker<T>(widget.onDispose ?? signalMetadata?.onDispose);
+    _effectiveOnDispose = _toLifecycleInvoker<T>(
+      widget.onDispose ?? signalMetadata?.onDispose,
+    );
 
     // Track if we're overriding the signal's callback
     if (widget.onValueUpdated != null &&
@@ -463,7 +452,8 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
       } else if (widget._signals != null) {
         // Multiple signals mode (batch)
         final signals = widget._signals!;
-        final values = _multiSignalScratch ??
+        final values =
+            _multiSignalScratch ??
             List<dynamic>.filled(signals.length, null, growable: false);
         if (!identical(values, _multiSignalScratch)) {
           _multiSignalScratch = values;
@@ -519,13 +509,15 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
   void didUpdateWidget(covariant SignalsWatch<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    final signalSourceChanged = oldWidget._signal != widget._signal ||
+    final signalSourceChanged =
+        oldWidget._signal != widget._signal ||
         oldWidget._signals != widget._signals ||
         oldWidget._selector != widget._selector ||
         oldWidget._combine != widget._combine ||
         oldWidget._read != widget._read;
 
-    final callbacksChanged = oldWidget.onInit != widget.onInit ||
+    final callbacksChanged =
+        oldWidget.onInit != widget.onInit ||
         oldWidget.onValueUpdated != widget.onValueUpdated ||
         oldWidget.onAfterBuild != widget.onAfterBuild ||
         oldWidget.onDispose != widget.onDispose;
@@ -657,43 +649,42 @@ class _SignalsWatchState<T> extends State<SignalsWatch<T>> {
     }
 
     return SignalBuilder(
-        dependencies: _signalDependencies ?? const <ReadonlySignal<dynamic>>[],
-        builder: (ctx) {
-          try {
-            final newValue = _readValue();
-            _error = null;
+      dependencies: _signalDependencies ?? const <ReadonlySignal<dynamic>>[],
+      builder: (ctx) {
+        try {
+          final newValue = _readValue();
+          _error = null;
 
-            final shouldRebuildWidget = _handleValueChange(newValue);
+          final shouldRebuildWidget = _handleValueChange(newValue);
 
-            if (_cachedBuiltWidget == null ||
-                _isFirstBuild ||
-                shouldRebuildWidget) {
-              _cachedBuiltWidget = widget.builder(newValue);
-            }
-
-            // Schedule onAfterBuild post-frame
-            if (_effectiveOnAfterBuild != null) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (mounted) {
-                  _callCallback(
-                      _effectiveOnAfterBuild, newValue, _previousValue);
-                }
-              });
-            }
-
-            _isFirstBuild = false;
-            return _cachedBuiltWidget!;
-          } catch (e) {
-            _error = e;
-            if (widget.errorBuilder != null) {
-              return widget.errorBuilder!(e);
-            }
-            return Center(
-              child:
-                  Text('Error: $e', style: const TextStyle(color: Colors.red)),
-            );
+          if (_cachedBuiltWidget == null ||
+              _isFirstBuild ||
+              shouldRebuildWidget) {
+            _cachedBuiltWidget = widget.builder(newValue);
           }
-        });
+
+          // Schedule onAfterBuild post-frame
+          if (_effectiveOnAfterBuild != null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted) {
+                _callCallback(_effectiveOnAfterBuild, newValue, _previousValue);
+              }
+            });
+          }
+
+          _isFirstBuild = false;
+          return _cachedBuiltWidget!;
+        } catch (e) {
+          _error = e;
+          if (widget.errorBuilder != null) {
+            return widget.errorBuilder!(e);
+          }
+          return Center(
+            child: Text('Error: $e', style: const TextStyle(color: Colors.red)),
+          );
+        }
+      },
+    );
   }
 }
 

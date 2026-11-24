@@ -49,9 +49,7 @@ extension WebViewControllerExtension on WebViewController {
   /// This method will do nothing if the controller is not initialized.
   /// On mobile platforms, it delegates to the underlying mobile controller.
   /// On desktop platforms, it delegates to the desktop webview controller.
-  void goSync({
-    required Uri uri,
-  }) {
+  void goSync({required Uri uri}) {
     if (is_init == false) {
       return;
     }
@@ -100,9 +98,7 @@ extension WebViewControllerExtension on WebViewController {
   /// This method will do nothing if the controller is not initialized.
   /// On mobile platforms, it delegates to the underlying mobile controller.
   /// On desktop platforms, it delegates to the desktop webview controller.
-  Future<void> go({
-    required Uri uri,
-  }) async {
+  Future<void> go({required Uri uri}) async {
     if (is_init == false) {
       return;
     }

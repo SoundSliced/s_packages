@@ -68,14 +68,16 @@ abstract class JsArray<E> implements JsObject, List<E> {
   /// Creates a new JavaScript array.
   factory JsArray() {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Creates a new JavaScript array and initializes it to the contents of
   /// [other].
   factory JsArray.from(Iterable<E> other) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   // Methods required by ListMixin
@@ -83,72 +85,84 @@ abstract class JsArray<E> implements JsObject, List<E> {
   @override
   int get length {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   set length(int length) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   E operator [](dynamic index) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   void operator []=(dynamic index, dynamic value) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   void add(E value) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   void addAll(Iterable<E> iterable) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   void insert(int index, E element) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   E removeAt(int index) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   E removeLast() {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   void removeRange(int start, int end) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   void setRange(int start, int end, Iterable<E> iterable, [int skipCount = 0]) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   @override
   void sort([int Function(E a, E b)? compare]) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 }
 
@@ -158,14 +172,16 @@ abstract class JsFunction extends JsObject {
   /// with the value of this passed as the first argument.
   factory JsFunction.withThis(Function f) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Invokes the JavaScript function with arguments [args]. If [thisArg] is
   /// supplied it is the value of `this` for the invocation.
   dynamic apply(List args, {thisArg}) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 }
 
@@ -178,7 +194,8 @@ abstract class JsObject {
   /// to it.
   factory JsObject(JsFunction? constructor, [List? arguments]) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Constructs a [JsObject] that proxies a native Dart object; _for expert use
@@ -195,7 +212,8 @@ abstract class JsObject {
       throw ArgumentError('object cannot be a num, string, bool, or null');
     }
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Recursively converts a JSON-like collection of Dart objects to a
@@ -210,7 +228,8 @@ abstract class JsObject {
       throw ArgumentError('object must be a Map or Iterable');
     }
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Returns the value associated with [property] from the proxied JavaScript
@@ -222,7 +241,8 @@ abstract class JsObject {
       throw ArgumentError('property is not a String or num');
     }
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Sets the value associated with [property] on the proxied JavaScript
@@ -234,7 +254,8 @@ abstract class JsObject {
       throw ArgumentError('property is not a String or num');
     }
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Calls [method] on the JavaScript object with the arguments [args] and
@@ -246,7 +267,8 @@ abstract class JsObject {
       throw ArgumentError('method is not a String or num');
     }
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Removes [property] from the JavaScript object.
@@ -257,7 +279,8 @@ abstract class JsObject {
       throw ArgumentError('property is not a String or num');
     }
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Returns `true` if the JavaScript object contains the specified property
@@ -269,7 +292,8 @@ abstract class JsObject {
       throw ArgumentError('property is not a String or num');
     }
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Returns `true` if the JavaScript object has [type] in its prototype chain.
@@ -277,13 +301,15 @@ abstract class JsObject {
   /// This is the equivalent of the `instanceof` operator in JavaScript.
   bool instanceof(JsFunction type) {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 
   /// Returns the result of the JavaScript objects `toString` method.
   @override
   String toString() {
     throw UnsupportedError(
-        'JavaScript interop is not supported in this runtime.');
+      'JavaScript interop is not supported in this runtime.',
+    );
   }
 }

@@ -86,8 +86,9 @@ class TafChangesForecasted extends GroupList<ChangeForecasted> {
               break;
             }
           } else if (lastChange.changeIndicator.code!.startsWith('FM')) {
-            lastChange.changeIndicator
-                .resetUntilPeriod(newChange.changeIndicator.valid.periodFrom);
+            lastChange.changeIndicator.resetUntilPeriod(
+              newChange.changeIndicator.valid.periodFrom,
+            );
             tempChanges.add(lastChange);
             break;
           } else {

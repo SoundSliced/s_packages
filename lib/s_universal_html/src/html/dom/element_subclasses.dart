@@ -102,7 +102,7 @@ class AreaElement extends HtmlElement
   factory AreaElement() => AreaElement._(window.document);
 
   AreaElement._(Document ownerDocument, {String nodeName = 'AREA'})
-      : super._(ownerDocument, nodeName);
+    : super._(ownerDocument, nodeName);
 
   String? get download => _getAttribute('download');
 
@@ -385,10 +385,11 @@ class CanvasElement extends HtmlElement implements CanvasImageSource {
 
   /// An API for drawing on this canvas.
   late final CanvasRenderingContext2D context2D = throw UnsupportedError(
-      'Canvas 2D context is not available outside a browser context.');
+    'Canvas 2D context is not available outside a browser context.',
+  );
 
   CanvasElement({int? width, int? height})
-      : super._(window.document, 'CANVAS') {
+    : super._(window.document, 'CANVAS') {
     if (width != null) {
       _setAttributeInt('width', width);
     }
@@ -422,7 +423,8 @@ class CanvasElement extends HtmlElement implements CanvasImageSource {
   }
 
   MediaStream captureStream([num? frameRate]) => throw UnsupportedError(
-      'Canvas captureStream() is not available outside a browser context.');
+    'Canvas captureStream() is not available outside a browser context.',
+  );
 
   Object? getContext(String contextId, [Map? attributes]) => null;
 
@@ -456,9 +458,11 @@ class CanvasElement extends HtmlElement implements CanvasImageSource {
     return context as gl.RenderingContext;
   }
 
-  Future<Blob> toBlob(String type, [Object? arguments]) =>
-      Future.error(UnsupportedError(
-          'Canvas toBlob() is not available outside a browser context.'));
+  Future<Blob> toBlob(String type, [Object? arguments]) => Future.error(
+    UnsupportedError(
+      'Canvas toBlob() is not available outside a browser context.',
+    ),
+  );
 
   /// Returns a data URI containing a representation of the image in the
   /// format specified by type (defaults to 'image/png').
@@ -501,10 +505,12 @@ class CanvasElement extends HtmlElement implements CanvasImageSource {
   /// * [toDataUrl](http://dev.w3.org/html5/spec/the-canvas-element.html#dom-canvas-todataurl) from W3C.
   String toDataUrl([String type = 'image/png', num? quality]) =>
       throw UnsupportedError(
-          'Canvas toDataUrl() is not available outside a browser context.');
+        'Canvas toDataUrl() is not available outside a browser context.',
+      );
 
   OffscreenCanvas transferControlToOffscreen() => throw UnsupportedError(
-      'Canvas transferControlToOffscreen() is not available outside a browser context.');
+    'Canvas transferControlToOffscreen() is not available outside a browser context.',
+  );
 
   @override
   Element _newInstance(Document ownerDocument) =>
@@ -540,7 +546,7 @@ class DataListElement extends HtmlElement {
   factory DataListElement() => DataListElement._(window.document);
 
   DataListElement._(Document ownerDocument)
-      : super._(ownerDocument, 'DATALIST');
+    : super._(ownerDocument, 'DATALIST');
 
   @override
   Element _newInstance(Document ownerDocument) =>
@@ -617,8 +623,10 @@ class DomTokenList {
 
   void add(String tokens) {
     final list = _getList();
-    final splitTokens =
-        tokens.split(' ').map((e) => e.trim()).where((e) => e.isNotEmpty);
+    final splitTokens = tokens
+        .split(' ')
+        .map((e) => e.trim())
+        .where((e) => e.isNotEmpty);
     list.addAll(splitTokens);
     _setList(list);
   }
@@ -633,8 +641,10 @@ class DomTokenList {
 
   void remove(String tokens) {
     final list = _getList();
-    final splitTokens =
-        tokens.split(' ').map((e) => e.trim()).where((e) => e.isNotEmpty);
+    final splitTokens = tokens
+        .split(' ')
+        .map((e) => e.trim())
+        .where((e) => e.isNotEmpty);
     for (var token in splitTokens) {
       list.remove(token);
     }
@@ -697,7 +707,7 @@ class FieldSetElement extends HtmlElement with _FormFieldElement {
   factory FieldSetElement() => FieldSetElement._(window.document);
 
   FieldSetElement._(Document ownerDocument)
-      : super._(ownerDocument, 'FIELDSET');
+    : super._(ownerDocument, 'FIELDSET');
 
   bool get disabled => _getAttributeBool('disabled');
 
@@ -780,9 +790,9 @@ class FormElement extends HtmlElement {
 
   /// Returns all items of this form.
   Iterable<Element> get _items {
-    return _treeAsIterable(this).whereType<InputElement>().where(
-          (element) => identical(element.form, this),
-        );
+    return _treeAsIterable(this)
+        .whereType<InputElement>()
+        .where((element) => identical(element.form, this));
   }
 
   bool checkValidity() {
@@ -893,7 +903,8 @@ class FormElement extends HtmlElement {
 
     // Load response page
     throw UnsupportedError(
-        'Form multipart submission is not available outside a browser context.');
+      'Form multipart submission is not available outside a browser context.',
+    );
   }
 
   /// Sends an element in 'multipart/form-data' format.
@@ -1085,7 +1096,8 @@ class HRElement extends HtmlElement {
 abstract class HtmlElement extends Element implements NoncedElement {
   factory HtmlElement() {
     throw UnsupportedError(
-        'HtmlElement() factory constructor requires a browser context.');
+      'HtmlElement() factory constructor requires a browser context.',
+    );
   }
 
   HtmlElement.created() : super.created();
@@ -1711,7 +1723,8 @@ class InputElement extends HtmlElement
     switch (type) {
       case 'file':
         throw UnsupportedError(
-            'File input not available outside a browser context.');
+          'File input not available outside a browser context.',
+        );
 
       case 'reset':
         form?.reset();
@@ -2023,25 +2036,34 @@ abstract class MediaElement extends HtmlElement {
 
   TextTrack addTextTrack(String kind, [String? label, String? language]) =>
       throw UnsupportedError(
-          'addTextTrack() is not available outside a browser context.');
+        'addTextTrack() is not available outside a browser context.',
+      );
 
   String canPlayType(String type, [String? keySystem]) => '';
 
   MediaStream captureStream() => throw UnsupportedError(
-      'captureStream() is not available outside a browser context.');
+    'captureStream() is not available outside a browser context.',
+  );
 
   void load() {}
 
   void pause() {}
 
-  Future play() => Future.error(UnsupportedError(
-      'Media playback is not available outside a browser context.'));
+  Future play() => Future.error(
+    UnsupportedError(
+      'Media playback is not available outside a browser context.',
+    ),
+  );
 
-  Future setMediaKeys(MediaKeys mediaKeys) => Future.error(UnsupportedError(
-      'setMediaKeys() is not available outside a browser context.'));
+  Future setMediaKeys(MediaKeys mediaKeys) => Future.error(
+    UnsupportedError(
+      'setMediaKeys() is not available outside a browser context.',
+    ),
+  );
 
-  Future setSinkId(String sinkId) => Future.error(UnsupportedError(
-      'setSinkId() is not available outside a browser context.'));
+  Future setSinkId(String sinkId) => Future.error(
+    UnsupportedError('setSinkId() is not available outside a browser context.'),
+  );
 }
 
 class MenuElement extends HtmlElement {
@@ -2141,7 +2163,8 @@ class NoncedElement {
 
   factory NoncedElement._() {
     throw UnsupportedError(
-        'NoncedElement._() is not available outside a browser context.');
+      'NoncedElement._() is not available outside a browser context.',
+    );
   }
 }
 
@@ -2196,7 +2219,7 @@ class OptGroupElement extends HtmlElement {
   factory OptGroupElement() => OptGroupElement._(window.document);
 
   OptGroupElement._(Document ownerDocument)
-      : super._(ownerDocument, 'OPTGROUP');
+    : super._(ownerDocument, 'OPTGROUP');
 
   bool get disabled => _getAttributeBool('disabled');
 
@@ -2215,7 +2238,7 @@ class OptionElement extends HtmlElement
   bool? _selected;
 
   OptionElement({String data = '', String value = '', bool selected = false})
-      : super._(window.document, 'option') {
+    : super._(window.document, 'option') {
     if (data.isNotEmpty) {
       appendText(data);
     }
@@ -2233,7 +2256,7 @@ class OptionElement extends HtmlElement
   OptionElement.created() : super.created();
 
   OptionElement._(Document ownerDocument, {String nodeName = 'OPTION'})
-      : super._(ownerDocument, nodeName);
+    : super._(ownerDocument, nodeName);
 
   bool get defaultSelected => _getAttributeBool('selected');
 
@@ -2335,7 +2358,7 @@ class ParagraphElement extends HtmlElement {
   factory ParagraphElement() => ParagraphElement._(window.document);
 
   ParagraphElement._(Document ownerDocument, {String nodeName = 'P'})
-      : super._(ownerDocument, nodeName);
+    : super._(ownerDocument, nodeName);
 
   @override
   Element _newInstance(Document ownerDocument) =>
@@ -2367,7 +2390,7 @@ class PictureElement extends HtmlElement {
   factory PictureElement.created() => PictureElement._(window.document);
 
   PictureElement._(Document ownerDocument, {String nodeName = 'PICTURE'})
-      : super._(ownerDocument, nodeName);
+    : super._(ownerDocument, nodeName);
 
   @override
   Element _newInstance(Document ownerDocument) =>
@@ -2378,7 +2401,7 @@ class PreElement extends HtmlElement {
   factory PreElement() => PreElement._(window.document);
 
   PreElement._(Document ownerDocument, {String nodeName = 'PRE'})
-      : super._(ownerDocument, nodeName);
+    : super._(ownerDocument, nodeName);
 
   @override
   Element _newInstance(Document ownerDocument) => PreElement._(ownerDocument);
@@ -2390,7 +2413,7 @@ class ProgressElement extends HtmlElement {
   factory ProgressElement() => ProgressElement._(window.document);
 
   ProgressElement._(Document ownerDocument, {String nodeName = 'PROGRESS'})
-      : super._(ownerDocument, nodeName);
+    : super._(ownerDocument, nodeName);
 
   num? get max => _getAttributeNum('max', defaultValue: null);
 
@@ -2422,7 +2445,7 @@ class ScriptElement extends HtmlElement {
   factory ScriptElement() => ScriptElement._(window.document);
 
   ScriptElement._(Document ownerDocument, {String nodeName = 'SCRIPT'})
-      : super._(ownerDocument, nodeName);
+    : super._(ownerDocument, nodeName);
 
   bool get async => _getAttributeBool('async');
 
@@ -2751,7 +2774,7 @@ class TableCaptionElement extends HtmlElement {
   factory TableCaptionElement() => TableCaptionElement._(window.document);
 
   TableCaptionElement._(Document ownerDocument)
-      : super._(ownerDocument, 'CAPTION');
+    : super._(ownerDocument, 'CAPTION');
 
   @override
   Element _newInstance(Document ownerDocument) =>
@@ -2895,9 +2918,9 @@ class TableElement extends HtmlElement {
     required T Function() constructor,
   }) {
     final existing = children.whereType<T?>().firstWhere(
-          (e) => e != null && e._lowerCaseTagName == lowerCaseTagName,
-          orElse: () => null,
-        );
+      (e) => e != null && e._lowerCaseTagName == lowerCaseTagName,
+      orElse: () => null,
+    );
     if (existing != null) {
       return existing;
     }
@@ -3021,7 +3044,7 @@ class TemplateElement extends HtmlElement {
   factory TemplateElement() => TemplateElement._(window.document);
 
   TemplateElement._(Document ownerDocument)
-      : super._(ownerDocument, 'TEMPLATE');
+    : super._(ownerDocument, 'TEMPLATE');
 
   DocumentFragment get content {
     _content ??= DocumentFragment();
@@ -3070,7 +3093,7 @@ class TextAreaElement extends HtmlElement
   TextAreaElement.created() : super.created();
 
   TextAreaElement._(Document ownerDocument)
-      : super._(ownerDocument, 'TEXTAREA');
+    : super._(ownerDocument, 'TEXTAREA');
 
   String? get autocapitalize => _getAttribute('autocapitalize');
 
@@ -3358,7 +3381,8 @@ class VideoElement extends MediaElement implements CanvasImageSource {
   void exitFullscreen() {}
 
   VideoPlaybackQuality getVideoPlaybackQuality() => throw UnsupportedError(
-      'getVideoPlaybackQuality() is not available outside a browser context.');
+    'getVideoPlaybackQuality() is not available outside a browser context.',
+  );
 
   @override
   Element _newInstance(Document ownerDocument) => VideoElement._(ownerDocument);
@@ -3405,11 +3429,13 @@ mixin _HtmlHyperlinkElementUtils
     implements HtmlHyperlinkElementUtils, _UrlBase {
   @override
   set host(String? value) => throw UnsupportedError(
-      'URL host mutation is not available outside a browser context.');
+    'URL host mutation is not available outside a browser context.',
+  );
 
   @override
   set hostname(String? value) => throw UnsupportedError(
-      'URL hostname mutation is not available outside a browser context.');
+    'URL hostname mutation is not available outside a browser context.',
+  );
 
   @override
   String? get href;
@@ -3432,11 +3458,13 @@ mixin _HtmlHyperlinkElementUtils
 
   @override
   set password(String? value) => throw UnsupportedError(
-      'URL password mutation is not available outside a browser context.');
+    'URL password mutation is not available outside a browser context.',
+  );
 
   @override
   set protocol(String? value) => throw UnsupportedError(
-      'URL protocol mutation is not available outside a browser context.');
+    'URL protocol mutation is not available outside a browser context.',
+  );
 
   @override
   String? get username {
@@ -3453,7 +3481,8 @@ mixin _HtmlHyperlinkElementUtils
 
   @override
   set username(String? value) => throw UnsupportedError(
-      'URL username mutation is not available outside a browser context.');
+    'URL username mutation is not available outside a browser context.',
+  );
 
   @override
   Uri? get _uri => Uri.parse(href!);

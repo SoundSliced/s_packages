@@ -1,15 +1,8 @@
 part of '../../reports.dart';
 
-final names = <String, String>{
-  'R': 'right',
-  'L': 'left',
-  'C': 'center',
-};
+final names = <String, String>{'R': 'right', 'L': 'left', 'C': 'center'};
 
-final rvrLimits = <String, String>{
-  'M': 'below of',
-  'P': 'above of',
-};
+final rvrLimits = <String, String>{'M': 'below of', 'P': 'above of'};
 
 final trends = <String, String>{
   'N': 'no change',

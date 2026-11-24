@@ -1,12 +1,13 @@
 /// Web implementation of web utilities.
 ///
 /// This file is only loaded on web platforms and provides
-/// access to browser-specific functionality.
-///
-/// Uses `package:s_packages/s_universal_html` for WASM compatibility instead of `dart:html`.
+/// access to browser-specific functionality, through `package:web` so it
+/// works with both dart2js and dart2wasm.
 library;
 
-import 'package:s_packages/s_universal_html/src/html.dart' as web;
+import 'dart:js_interop';
+
+import 'package:web/web.dart' as web;
 
 /// Opens a URL in a new browser tab (web platform only).
 void openInNewTab(String url) {
@@ -23,21 +24,25 @@ void applyIframeFilter(String src, String filter) {
   }
 }
 
-web.IFrameElement? _findIframeBySrc(web.Node parent, String src) {
-  if (parent is web.IFrameElement) {
-    final parentSrc = parent.src;
-    if (parentSrc != null && (parentSrc == src || parentSrc.startsWith(src))) {
-      return parent;
-    }
+web.HTMLIFrameElement? _findIframeBySrc(web.Node parent, String src) {
+  if (parent.isA<web.HTMLIFrameElement>()) {
+    final frame = parent as web.HTMLIFrameElement;
+    final frameSrc = frame.src;
+    if (frameSrc == src || frameSrc.startsWith(src)) return frame;
   }
-  for (var i = 0; i < parent.childNodes.length; i++) {
-    final child = parent.childNodes[i];
+  final children = parent.childNodes;
+  for (var i = 0; i < children.length; i++) {
+    final child = children.item(i);
+    if (child == null) continue;
     final found = _findIframeBySrc(child, src);
     if (found != null) return found;
   }
-  if (parent is web.Element && parent.shadowRoot != null) {
-    final found = _findIframeBySrc(parent.shadowRoot!, src);
-    if (found != null) return found;
+  if (parent.isA<web.Element>()) {
+    final shadowRoot = (parent as web.Element).shadowRoot;
+    if (shadowRoot != null) {
+      final found = _findIframeBySrc(shadowRoot, src);
+      if (found != null) return found;
+    }
   }
   return null;
 }

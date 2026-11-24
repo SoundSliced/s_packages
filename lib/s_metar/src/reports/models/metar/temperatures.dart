@@ -99,7 +99,8 @@ class MetarTemperatures extends Group {
     if (tC < 27.0 || rh < 40.0) return null;
     final tF = tC * 9 / 5 + 32;
     // Rothfusz regression in °F
-    final hi = -42.379 +
+    final hi =
+        -42.379 +
         2.04901523 * tF +
         10.14333127 * rh -
         0.22475541 * tF * rh -

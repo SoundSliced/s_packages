@@ -4,10 +4,7 @@ class MetarWind extends Wind with GroupMixin {
   Speed _gust = Speed(null);
 
   MetarWind(String? code, RegExpMatch? match)
-      : super(
-          direction: null,
-          speed: null,
-        ) {
+    : super(direction: null, speed: null) {
     if (match == null) {
       _code = null;
     } else {
@@ -53,10 +50,7 @@ class MetarWind extends Wind with GroupMixin {
   @override
   Map<String, Object?> asMap() {
     final map = super.asMap().cast<String, Object?>();
-    map.addAll({
-      'code': _code,
-      'gust': _gust.asMap(),
-    });
+    map.addAll({'code': _code, 'gust': _gust.asMap()});
     return map;
   }
 }

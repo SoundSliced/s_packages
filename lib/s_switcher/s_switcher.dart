@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../s_bounceable/s_bounceable.dart';
 import '../s_disabled/s_disabled.dart';
 
@@ -73,11 +74,15 @@ class SSwitcher extends StatefulWidget {
     this.suffixTextStyle,
     this.customSuffix,
     this.containerDecoration,
-    this.containerPadding =
-        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+    this.containerPadding = const EdgeInsets.symmetric(
+      horizontal: 10,
+      vertical: 8,
+    ),
     this.valueContainerDecoration,
-    this.valueContainerPadding =
-        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+    this.valueContainerPadding = const EdgeInsets.symmetric(
+      horizontal: 10,
+      vertical: 4,
+    ),
     this.valueContainerMargin = const EdgeInsets.symmetric(horizontal: 8),
     this.valueMinWidth = 26,
     this.decrementIcon = Icons.remove_circle_outline_rounded,
@@ -131,7 +136,10 @@ class _SSwitcherState extends State<SSwitcher> {
     );
 
     final defaultValueStyle = TextStyle(
-        fontWeight: FontWeight.w700, fontSize: 11, color: Colors.black87);
+      fontWeight: FontWeight.w700,
+      fontSize: 11,
+      color: Colors.black87,
+    );
 
     final defaultSuffixStyle = TextStyle(
       fontSize: 11,
@@ -160,8 +168,10 @@ class _SSwitcherState extends State<SSwitcher> {
     } else if (widget.suffixText != null) {
       suffixWidget = Padding(
         padding: const EdgeInsets.only(left: 10),
-        child: Text(widget.suffixText!,
-            style: widget.suffixTextStyle ?? defaultSuffixStyle),
+        child: Text(
+          widget.suffixText!,
+          style: widget.suffixTextStyle ?? defaultSuffixStyle,
+        ),
       );
     }
 
@@ -171,9 +181,7 @@ class _SSwitcherState extends State<SSwitcher> {
       child: Row(
         children: [
           if (widget.customPrefix != null || widget.title != null)
-            Flexible(
-              child: prefixWidget,
-            )
+            Flexible(child: prefixWidget)
           else
             prefixWidget,
           if (widget.customPrefix != null || widget.title != null)
@@ -184,8 +192,11 @@ class _SSwitcherState extends State<SSwitcher> {
             child: SBounceable(
               scaleFactor: 0.99,
               onTap: widget.enableDecrement ? widget.onDecrement : null,
-              child: Icon(widget.decrementIcon,
-                  size: widget.iconSize, color: widget.iconColor),
+              child: Icon(
+                widget.decrementIcon,
+                size: widget.iconSize,
+                color: widget.iconColor,
+              ),
             ),
           ),
           Flexible(
@@ -208,8 +219,11 @@ class _SSwitcherState extends State<SSwitcher> {
             child: SBounceable(
               scaleFactor: 0.99,
               onTap: widget.enableIncrement ? widget.onIncrement : null,
-              child: Icon(widget.incrementIcon,
-                  size: widget.iconSize, color: widget.iconColor),
+              child: Icon(
+                widget.incrementIcon,
+                size: widget.iconSize,
+                color: widget.iconColor,
+              ),
             ),
           ),
           if (widget.suffixText != null || widget.customSuffix != null)

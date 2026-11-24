@@ -23,7 +23,6 @@
 library;
 
 import 'package:s_packages/s_packages.dart';
-import 'package:s_packages/s_universal_html/src/html.dart' as html;
 
 /// Simple, reliable escape key handler that works globally without focus dependencies
 ///
@@ -57,7 +56,6 @@ class EscapeKeyHandler extends StatefulWidget {
 
 class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
   late final LogicalKeyboardKey _effectiveKey;
-  dynamic _htmlListener;
 
   // Lightweight debug logger for this handler.
   void _log(String msg) {
@@ -133,7 +131,7 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
 
       return true;
 
-// Mark as handled
+      // Mark as handled
     }
     return false;
   }
@@ -148,12 +146,6 @@ class _EscapeKeyHandlerState extends State<EscapeKeyHandler> {
   // Detach global handlers to avoid leaks.
   void _detachGlobalHandlers() {
     HardwareKeyboard.instance.removeHandler(_hardwareHandler);
-
-    if (kIsWeb && _htmlListener != null) {
-      // Clean up web listener if one was used.
-      html.window.removeEventListener('keydown', _htmlListener, true);
-      _htmlListener = null;
-    }
 
     _log('Global handlers detached');
   }

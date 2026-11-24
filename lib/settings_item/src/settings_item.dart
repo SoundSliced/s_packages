@@ -140,8 +140,9 @@ class _SettingsItemState extends State<SettingsItem> {
                     ),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainerHighest
-                            .withValues(alpha: 0.3),
+                        color: colorScheme.surfaceContainerHighest.withValues(
+                          alpha: 0.3,
+                        ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(16),
@@ -225,8 +226,9 @@ class _SettingsItemState extends State<SettingsItem> {
                     child: Text(
                       widget.parameters.description!,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color:
-                            colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                        color: colorScheme.onSurfaceVariant.withValues(
+                          alpha: 0.7,
+                        ),
                         fontSize: 11,
                       ),
                     ),

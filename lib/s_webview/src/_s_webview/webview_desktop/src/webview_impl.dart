@@ -46,7 +46,9 @@ class WebviewImpl extends Webview {
   }
 
   String onRunJavaScriptTextInputPanelWithPrompt(
-      String prompt, String defaultText) {
+    String prompt,
+    String defaultText,
+  ) {
     assert(!_closed);
     return _promptHandler?.call(prompt, defaultText) ?? defaultText;
   }
@@ -81,7 +83,9 @@ class WebviewImpl extends Webview {
 
   @override
   void registerJavaScriptMessageHandler(
-      String name, JavaScriptMessageHandler handler) {
+    String name,
+    JavaScriptMessageHandler handler,
+  ) {
     if (!Platform.isMacOS) {
       return;
     }
@@ -122,10 +126,7 @@ class WebviewImpl extends Webview {
 
   @override
   void launch(String url) async {
-    await channel.invokeMethod("launch", {
-      "url": url,
-      "viewId": viewId,
-    });
+    await channel.invokeMethod("launch", {"url": url, "viewId": viewId});
   }
 
   @override
@@ -212,7 +213,8 @@ class WebviewImpl extends Webview {
 
   @override
   void removeOnWebMessageReceivedCallback(
-      OnWebMessageReceivedCallback callback) {
+    OnWebMessageReceivedCallback callback,
+  ) {
     _onWebMessageReceivedCallbacks.remove(callback);
   }
 

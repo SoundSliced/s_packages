@@ -25,7 +25,7 @@ class Taf extends Report
   final _changesForecasted = TafChangesForecasted();
 
   Taf(String code, {int? year, int? month, bool truncate = false})
-      : super(code, truncate, type: 'TAF') {
+    : super(code, truncate, type: 'TAF') {
     _year = year;
     _month = month;
 
@@ -49,8 +49,12 @@ class Taf extends Report
   @override
   void _handleTime(String group) {
     final match = MetarRegExp.time.firstMatch(group)!;
-    _time =
-        Time.fromMetar(code: group, match: match, year: _year, month: _month);
+    _time = Time.fromMetar(
+      code: group,
+      match: match,
+      year: _year,
+      month: _month,
+    );
 
     _concatenateString(_time);
   }
@@ -96,8 +100,9 @@ class Taf extends Report
     final cf = ChangeForecasted(code, _valid);
     if (_changesForecasted.length > 0) {
       if (cf.code!.startsWith('FM') || cf.code!.startsWith('BECMG')) {
-        _changesForecasted.last.changeIndicator
-            .resetUntilPeriod(cf.changeIndicator.valid.periodUntil);
+        _changesForecasted.last.changeIndicator.resetUntilPeriod(
+          cf.changeIndicator.valid.periodUntil,
+        );
       }
     }
     _changesForecasted.add(cf);
@@ -176,10 +181,12 @@ class Taf extends Report
     }
 
     _sections.add(_body);
-    _sections.add(_changesCodes
-        .map((change) => change.replaceFirst('_', ' '))
-        .toList()
-        .join(' '));
+    _sections.add(
+      _changesCodes
+          .map((change) => change.replaceFirst('_', ' '))
+          .toList()
+          .join(' '),
+    );
   }
 
   @override

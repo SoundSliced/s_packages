@@ -79,17 +79,16 @@ class ArrowConfig {
     double? maxLength,
     ArrowShape? shape,
     double? tipRoundness,
-  }) =>
-      ArrowConfig(
-        corner: corner ?? this.corner,
-        baseWidth: baseWidth ?? this.baseWidth,
-        tipLength: tipLength ?? this.tipLength,
-        cornerRadius: cornerRadius ?? this.cornerRadius,
-        tipGap: tipGap ?? this.tipGap,
-        maxLength: maxLength ?? this.maxLength,
-        shape: shape ?? this.shape,
-        tipRoundness: tipRoundness ?? this.tipRoundness,
-      );
+  }) => ArrowConfig(
+    corner: corner ?? this.corner,
+    baseWidth: baseWidth ?? this.baseWidth,
+    tipLength: tipLength ?? this.tipLength,
+    cornerRadius: cornerRadius ?? this.cornerRadius,
+    tipGap: tipGap ?? this.tipGap,
+    maxLength: maxLength ?? this.maxLength,
+    shape: shape ?? this.shape,
+    tipRoundness: tipRoundness ?? this.tipRoundness,
+  );
 }
 
 /// Resolved geometric points used to paint and clip a context-menu arrow.

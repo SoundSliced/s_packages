@@ -656,8 +656,8 @@ class _MediaRecorderImpl extends MediaRecorder {
   String _state = 'inactive';
 
   _MediaRecorderImpl(MediaStream stream, Map? options)
-      : _stream = stream,
-        super.internal();
+    : _stream = stream,
+      super.internal();
 
   @override
   String? get state => _state;
@@ -790,9 +790,10 @@ class _MediaStreamImpl extends EventTarget implements MediaStream {
       _tracks.where((track) => track.kind == 'audio').toList(growable: false);
 
   @override
-  MediaStreamTrack getTrackById(String trackId) =>
-      _tracks.firstWhere((track) => track.id == trackId,
-          orElse: () => _MediaStreamTrackImpl(trackId, 'unknown'));
+  MediaStreamTrack getTrackById(String trackId) => _tracks.firstWhere(
+    (track) => track.id == trackId,
+    orElse: () => _MediaStreamTrackImpl(trackId, 'unknown'),
+  );
 
   @override
   List<MediaStreamTrack> getTracks() =>
@@ -832,9 +833,10 @@ class _MediaStreamTrackEventImpl extends Event
   final MediaStreamTrack _track;
 
   _MediaStreamTrackEventImpl(super.type, Map eventInitDict)
-      : _track = eventInitDict['track'] as MediaStreamTrack? ??
-            _MediaStreamTrackImpl('track', 'unknown'),
-        super.internal();
+    : _track =
+          eventInitDict['track'] as MediaStreamTrack? ??
+          _MediaStreamTrackImpl('track', 'unknown'),
+      super.internal();
 
   @override
   MediaStreamTrack get track => _track;
@@ -881,7 +883,8 @@ class _RemotePlaybackImpl extends EventTarget implements RemotePlayback {
 
   @override
   Future<int> watchAvailability(
-      RemotePlaybackAvailabilityCallback callback) async {
+    RemotePlaybackAvailabilityCallback callback,
+  ) async {
     callback(false);
     return 0;
   }

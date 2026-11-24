@@ -294,7 +294,8 @@ abstract class Path2D {
 abstract class TextMetrics {
   factory TextMetrics._() {
     throw UnsupportedError(
-        'TextMetrics._() is not available outside a browser context.');
+      'TextMetrics._() is not available outside a browser context.',
+    );
   }
 
   num? get actualBoundingBoxAscent;

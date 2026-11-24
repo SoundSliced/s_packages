@@ -52,8 +52,10 @@ class Glow1 extends StatefulWidget {
     this.endScaleRadius = 1.1,
     this.onAnimationComplete,
     this.gradient,
-  }) : assert(opacity >= 0.0 && opacity <= 1.0,
-            'glowOpacity must be between 0.0 and 1.0');
+  }) : assert(
+         opacity >= 0.0 && opacity <= 1.0,
+         'glowOpacity must be between 0.0 and 1.0',
+       );
 
   @override
   State<Glow1> createState() => _Glow1State();
@@ -191,7 +193,8 @@ class _Glow1State extends State<Glow1> {
                                 ? (widget.color ?? Colors.blue.shade400)
                                 : null,
                             gradient: widget.gradient,
-                            borderRadius: widget.borderRadius ??
+                            borderRadius:
+                                widget.borderRadius ??
                                 BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(

@@ -46,18 +46,16 @@ class CreateConfiguration {
   /// for the current platform, such as adding top padding for the
   /// macOS title bar to account for the traffic light buttons.
   factory CreateConfiguration.platform() {
-    return CreateConfiguration(
-      titleBarTopPadding: Platform.isMacOS ? 24 : 0,
-    );
+    return CreateConfiguration(titleBarTopPadding: Platform.isMacOS ? 24 : 0);
   }
 
   /// Converts this configuration to a Map for platform channel communication.
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'windowWidth': windowWidth,
-        'windowHeight': windowHeight,
-        'title': title,
-        'titleBarHeight': titleBarHeight,
-        'titleBarTopPadding': titleBarTopPadding,
-        'userDataFolderWindows': userDataFolderWindows,
-      };
+    'windowWidth': windowWidth,
+    'windowHeight': windowHeight,
+    'title': title,
+    'titleBarHeight': titleBarHeight,
+    'titleBarTopPadding': titleBarTopPadding,
+    'userDataFolderWindows': userDataFolderWindows,
+  };
 }

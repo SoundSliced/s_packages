@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 /// A custom circular progress indicator that doesn't use any TickerProviderStateMixin.
@@ -324,7 +325,8 @@ class _TickerFreeCircularProgressPainter extends CustomPainter {
       arcSweep = value!.clamp(0.0, 1.0) * _sweep;
     } else {
       // Indeterminate
-      arcStart = _startAngle +
+      arcStart =
+          _startAngle +
           tailValue * 3 / 2 * math.pi +
           rotationValue * math.pi * 2.0 +
           offsetValue * 0.5 * math.pi;

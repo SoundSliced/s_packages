@@ -6,14 +6,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:webview_flutter/webview_flutter.dart' as webview_flutter;
+
 import '../../_debug_log.dart';
 import '../webview_desktop/webview_desktop.dart' as webview_desktop;
 
 /// A navigation decision for URL requests.
-enum SWebViewNavigationDecision {
-  navigate,
-  prevent,
-}
+enum SWebViewNavigationDecision { navigate, prevent }
 
 /// Signature for intercepting URL requests before navigation.
 typedef SWebViewNavigationRequestCallback = SWebViewNavigationDecision Function(
@@ -58,14 +56,14 @@ class WebViewCookie {
   });
 
   Map<String, dynamic> toMap() => {
-        'name': name,
-        'value': value,
-        'domain': domain,
-        'path': path,
-        'expires': expires?.millisecondsSinceEpoch,
-        'httpOnly': httpOnly,
-        'secure': secure,
-      };
+    'name': name,
+    'value': value,
+    'domain': domain,
+    'path': path,
+    'expires': expires?.millisecondsSinceEpoch,
+    'httpOnly': httpOnly,
+    'secure': secure,
+  };
 }
 
 /// SSL Certificate pinning configuration
@@ -106,13 +104,15 @@ class WebViewController {
   bool is_init = false;
 
   /// Whether the current platform is desktop (Windows, macOS, Linux).
-  final bool is_desktop = !kIsWeb &&
+  final bool is_desktop =
+      !kIsWeb &&
       (defaultTargetPlatform == TargetPlatform.linux ||
           defaultTargetPlatform == TargetPlatform.macOS ||
           defaultTargetPlatform == TargetPlatform.windows);
 
   /// Whether the current platform is mobile (iOS, Android, Web).
-  final bool is_mobile = kIsWeb ||
+  final bool is_mobile =
+      kIsWeb ||
       defaultTargetPlatform == TargetPlatform.android ||
       defaultTargetPlatform == TargetPlatform.iOS;
 
@@ -165,12 +165,12 @@ class WebViewController {
 
   /// Current platform capabilities.
   SWebViewPlatformCapabilities get capabilities => SWebViewPlatformCapabilities(
-        canUseNativeWebView: true,
-        supportsJavaScript: true,
-        supportsDesktopWebview: is_desktop,
-        supportsNavigationDelegate: is_mobile,
-        supportsCookieJavaScript: is_mobile,
-      );
+    canUseNativeWebView: true,
+    supportsJavaScript: true,
+    supportsDesktopWebview: is_desktop,
+    supportsNavigationDelegate: is_mobile,
+    supportsCookieJavaScript: is_mobile,
+  );
 
   /// Cookie jar for storing and managing cookies
   final Map<String, Map<String, String>> _cookieJar = {};
@@ -255,13 +255,13 @@ class WebViewController {
         final webview_flutter.PlatformWebViewControllerCreationParams params =
             const webview_flutter.PlatformWebViewControllerCreationParams();
 
-        webview_mobile_controller =
-            webview_flutter.WebViewController.fromPlatformCreationParams(
-                params);
+        webview_mobile_controller = webview_flutter
+            .WebViewController.fromPlatformCreationParams(params);
         setState(() {});
         if (!kIsWeb) {
-          webview_mobile_controller
-              .setJavaScriptMode(webview_flutter.JavaScriptMode.unrestricted);
+          webview_mobile_controller.setJavaScriptMode(
+            webview_flutter.JavaScriptMode.unrestricted,
+          );
 
           // Set custom User-Agent if provided
           if (customUserAgent != null) {
@@ -317,7 +317,8 @@ Page resource error:
                   if (originalHost.isNotEmpty &&
                       requestUri.host != originalHost) {
                     SWebViewDebug.log(
-                        'Navigation prevented by followRedirects=false: ${request.url}');
+                      'Navigation prevented by followRedirects=false: ${request.url}',
+                    );
                     return webview_flutter.NavigationDecision.prevent;
                   }
                 }
@@ -325,7 +326,8 @@ Page resource error:
                 final decision = onNavigationRequest?.call(requestUri);
                 if (decision == SWebViewNavigationDecision.prevent) {
                   SWebViewDebug.log(
-                      'Navigation prevented by callback: ${request.url}');
+                    'Navigation prevented by callback: ${request.url}',
+                  );
                   return webview_flutter.NavigationDecision.prevent;
                 }
 
@@ -354,7 +356,8 @@ Page resource error:
                 .setMediaPlaybackRequiresUserGesture(false);
           } catch (e) {
             SWebViewDebug.log(
-                'Error setting media playback requires user gesture: $e');
+              'Error setting media playback requires user gesture: $e',
+            );
           }
         }
         setState(() {});
@@ -365,11 +368,11 @@ Page resource error:
         if (isWebviewAvailable) {
           final webview_desktop.Webview localWebviewController =
               await webview_desktop.WebviewWindow.create(
-            configuration: webview_desktop.CreateConfiguration(
-              titleBarTopPadding:
-                  defaultTargetPlatform == TargetPlatform.macOS ? 20 : 0,
-            ),
-          );
+                configuration: webview_desktop.CreateConfiguration(
+                  titleBarTopPadding:
+                      defaultTargetPlatform == TargetPlatform.macOS ? 20 : 0,
+                ),
+              );
           webview_desktop_controller = localWebviewController;
           webview_desktop_controller.setBrightness(Brightness.dark);
           webview_desktop_controller.launch(resolveUriForLoad(uri).toString());

@@ -155,7 +155,7 @@ class Comment extends CharacterData {
   }
 
   Comment.internal(Document ownerDocument, String? value)
-      : super._(ownerDocument, value ?? '');
+    : super._(ownerDocument, value ?? '');
 
   @override
   int get nodeType => Node.COMMENT_NODE;
@@ -173,7 +173,7 @@ class InternalDocumentType extends Node {
 
   /// Internal constructor. __Not part of dart:html__.
   InternalDocumentType.internal(Document super.ownerDocument, this._value)
-      : super._();
+    : super._();
 
   @override
   String get nodeName {
@@ -230,9 +230,7 @@ abstract class Node extends EventTarget {
   Node._(this.ownerDocument) : super.internal();
 
   /// Constructor used by [Document].
-  Node._document()
-      : ownerDocument = null,
-        super.internal();
+  Node._document() : ownerDocument = null, super.internal();
 
   String? get baseUri {
     return ownerDocument?.baseUri;

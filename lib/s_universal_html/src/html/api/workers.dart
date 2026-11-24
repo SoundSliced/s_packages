@@ -52,7 +52,8 @@ abstract class AbstractWorker implements EventTarget {
 
   factory AbstractWorker._() {
     throw UnsupportedError(
-        'AbstractWorker is not available outside a browser context.');
+      'AbstractWorker is not available outside a browser context.',
+    );
   }
 
   /// Stream of `error` events handled by this [AbstractWorker].
@@ -63,7 +64,8 @@ abstract class AbstractWorker implements EventTarget {
 class BackgroundFetchFetch {
   factory BackgroundFetchFetch._() {
     throw UnsupportedError(
-        'BackgroundFetchFetch is not available outside a browser context.');
+      'BackgroundFetchFetch is not available outside a browser context.',
+    );
   }
 
   Request? get request => null;
@@ -72,20 +74,25 @@ class BackgroundFetchFetch {
 class BackgroundFetchManager {
   factory BackgroundFetchManager._() {
     throw UnsupportedError(
-        'BackgroundFetchManager is not available outside a browser context.');
+      'BackgroundFetchManager is not available outside a browser context.',
+    );
   }
 
   Future<BackgroundFetchRegistration> fetch(
     String id,
     Object requests, [
     Map? options,
-  ]) =>
-      Future.error(UnsupportedError(
-          'Background fetch is not available outside a browser context.'));
+  ]) => Future.error(
+    UnsupportedError(
+      'Background fetch is not available outside a browser context.',
+    ),
+  );
 
-  Future<BackgroundFetchRegistration> get(String id) =>
-      Future.error(UnsupportedError(
-          'Background fetch is not available outside a browser context.'));
+  Future<BackgroundFetchRegistration> get(String id) => Future.error(
+    UnsupportedError(
+      'Background fetch is not available outside a browser context.',
+    ),
+  );
 
   Future<List<String>> getIds() => Future.value([]);
 }
@@ -94,7 +101,8 @@ class BackgroundFetchManager {
 class BackgroundFetchRegistration extends EventTarget {
   factory BackgroundFetchRegistration._() {
     throw UnsupportedError(
-        'BackgroundFetchRegistration is not available outside a browser context.');
+      'BackgroundFetchRegistration is not available outside a browser context.',
+    );
   }
 
   int? get downloaded => null;
@@ -117,7 +125,8 @@ class BackgroundFetchRegistration extends EventTarget {
 class BackgroundFetchSettledFetch extends BackgroundFetchFetch {
   factory BackgroundFetchSettledFetch(Request request, Response response) {
     throw UnsupportedError(
-        'BackgroundFetchSettledFetch is not available outside a browser context.');
+      'BackgroundFetchSettledFetch is not available outside a browser context.',
+    );
   }
 
   Response? get response => null;
@@ -130,26 +139,36 @@ abstract class Body {
 
   bool? get bodyUsed => null;
 
-  Future arrayBuffer() => Future.error(UnsupportedError(
-      'Body.arrayBuffer() is not available outside a browser context.'));
+  Future arrayBuffer() => Future.error(
+    UnsupportedError(
+      'Body.arrayBuffer() is not available outside a browser context.',
+    ),
+  );
 
-  Future<Blob> blob() => Future.error(UnsupportedError(
-      'Body.blob() is not available outside a browser context.'));
+  Future<Blob> blob() => Future.error(
+    UnsupportedError('Body.blob() is not available outside a browser context.'),
+  );
 
-  Future<FormData> formData() => Future.error(UnsupportedError(
-      'Body.formData() is not available outside a browser context.'));
+  Future<FormData> formData() => Future.error(
+    UnsupportedError(
+      'Body.formData() is not available outside a browser context.',
+    ),
+  );
 
-  Future json() => Future.error(UnsupportedError(
-      'Body.json() is not available outside a browser context.'));
+  Future json() => Future.error(
+    UnsupportedError('Body.json() is not available outside a browser context.'),
+  );
 
-  Future<String> text() => Future.error(UnsupportedError(
-      'Body.text() is not available outside a browser context.'));
+  Future<String> text() => Future.error(
+    UnsupportedError('Body.text() is not available outside a browser context.'),
+  );
 }
 
 abstract class Client {
   factory Client._() {
     throw UnsupportedError(
-        'Client is not available outside a browser context.');
+      'Client is not available outside a browser context.',
+    );
   }
 
   String? get frameType;
@@ -166,25 +185,30 @@ abstract class Client {
 class Clients {
   factory Clients._() {
     throw UnsupportedError(
-        'Clients is not available outside a browser context.');
+      'Clients is not available outside a browser context.',
+    );
   }
 
   Future claim() => Future.error(
-      UnsupportedError('Clients is not available outside a browser context.'));
+    UnsupportedError('Clients is not available outside a browser context.'),
+  );
 
   Future get(String id) => Future.error(
-      UnsupportedError('Clients is not available outside a browser context.'));
+    UnsupportedError('Clients is not available outside a browser context.'),
+  );
 
   Future<List<Client>> matchAll([Map? options]) => Future.value([]);
 
   Future<WindowClient> openWindow(String url) => Future.error(
-      UnsupportedError('Cannot open window outside a browser context.'));
+    UnsupportedError('Cannot open window outside a browser context.'),
+  );
 }
 
 abstract class ForeignFetchEvent extends ExtendableEvent {
   factory ForeignFetchEvent(String type, Map eventInitDict) {
     throw UnsupportedError(
-        'ForeignFetchEvent is not available outside a browser context.');
+      'ForeignFetchEvent is not available outside a browser context.',
+    );
   }
 
   String? get origin;
@@ -229,17 +253,27 @@ class Headers {
 class NavigationPreloadManager {
   factory NavigationPreloadManager._() {
     throw UnsupportedError(
-        'NavigationPreloadManager is not available outside a browser context.');
+      'NavigationPreloadManager is not available outside a browser context.',
+    );
   }
 
-  Future disable() => Future.error(UnsupportedError(
-      'NavigationPreloadManager is not available outside a browser context.'));
+  Future disable() => Future.error(
+    UnsupportedError(
+      'NavigationPreloadManager is not available outside a browser context.',
+    ),
+  );
 
-  Future enable() => Future.error(UnsupportedError(
-      'NavigationPreloadManager is not available outside a browser context.'));
+  Future enable() => Future.error(
+    UnsupportedError(
+      'NavigationPreloadManager is not available outside a browser context.',
+    ),
+  );
 
-  Future<Map<String, dynamic>> getState() => Future.error(UnsupportedError(
-      'NavigationPreloadManager is not available outside a browser context.'));
+  Future<Map<String, dynamic>> getState() => Future.error(
+    UnsupportedError(
+      'NavigationPreloadManager is not available outside a browser context.',
+    ),
+  );
 }
 
 abstract class PushManager {
@@ -247,42 +281,52 @@ abstract class PushManager {
 
   factory PushManager._() {
     throw UnsupportedError(
-        'PushManager is not available outside a browser context.');
+      'PushManager is not available outside a browser context.',
+    );
   }
 
   Future<PushSubscription> getSubscription() => Future.error(
-      UnsupportedError('Push is not available outside a browser context.'));
+    UnsupportedError('Push is not available outside a browser context.'),
+  );
 
   Future permissionState([Map? options]) => Future.error(
-      UnsupportedError('Push is not available outside a browser context.'));
+    UnsupportedError('Push is not available outside a browser context.'),
+  );
 
   Future<PushSubscription> subscribe([Map? options]) => Future.error(
-      UnsupportedError('Push is not available outside a browser context.'));
+    UnsupportedError('Push is not available outside a browser context.'),
+  );
 }
 
 class PushMessageData {
   factory PushMessageData._() {
     throw UnsupportedError(
-        'PushMessageData is not available outside a browser context.');
+      'PushMessageData is not available outside a browser context.',
+    );
   }
 
   ByteBuffer arrayBuffer() => throw UnsupportedError(
-      'Push is not available outside a browser context.');
+    'Push is not available outside a browser context.',
+  );
 
   Blob blob() => throw UnsupportedError(
-      'Push is not available outside a browser context.');
+    'Push is not available outside a browser context.',
+  );
 
   Object json() => throw UnsupportedError(
-      'Push is not available outside a browser context.');
+    'Push is not available outside a browser context.',
+  );
 
   String text() => throw UnsupportedError(
-      'Push is not available outside a browser context.');
+    'Push is not available outside a browser context.',
+  );
 }
 
 abstract class PushSubscription {
   factory PushSubscription._() {
     throw UnsupportedError(
-        'PushSubscription is not available outside a browser context.');
+      'PushSubscription is not available outside a browser context.',
+    );
   }
 
   String get endpoint;
@@ -292,7 +336,8 @@ abstract class PushSubscription {
   PushSubscriptionOptions get options;
 
   ByteBuffer getKey(String name) => throw UnsupportedError(
-      'Push is not available outside a browser context.');
+    'Push is not available outside a browser context.',
+  );
 
   Future<bool> unsubscribe() => Future.value(false);
 }
@@ -300,7 +345,8 @@ abstract class PushSubscription {
 abstract class PushSubscriptionOptions {
   factory PushSubscriptionOptions._() {
     throw UnsupportedError(
-        'PushSubscriptionOptions is not available outside a browser context.');
+      'PushSubscriptionOptions is not available outside a browser context.',
+    );
   }
 
   ByteBuffer get applicationServerKey;
@@ -312,7 +358,8 @@ abstract class PushSubscriptionOptions {
 class Request extends Body {
   factory Request() {
     throw UnsupportedError(
-        'Request is not available outside a browser context.');
+      'Request is not available outside a browser context.',
+    );
   }
 
   String? get cache => null;
@@ -334,14 +381,16 @@ class Request extends Body {
   String? get url => null;
 
   Request clone() => throw UnsupportedError(
-      'Request.clone() is not available outside a browser context.');
+    'Request.clone() is not available outside a browser context.',
+  );
 }
 
 @Native('Response')
 abstract class Response extends Body {
   factory Response() {
     throw UnsupportedError(
-        'Response is not available outside a browser context.');
+      'Response is not available outside a browser context.',
+    );
   }
 }
 
@@ -353,7 +402,8 @@ class ServiceWorker extends EventTarget implements AbstractWorker {
 
   factory ServiceWorker._() {
     throw UnsupportedError(
-        'ServiceWorker is not available outside a browser context.');
+      'ServiceWorker is not available outside a browser context.',
+    );
   }
 
   @override
@@ -375,26 +425,39 @@ class ServiceWorkerContainer extends EventTarget {
 
   factory ServiceWorkerContainer._() {
     throw UnsupportedError(
-        'ServiceWorkerContainer is not available outside a browser context.');
+      'ServiceWorkerContainer is not available outside a browser context.',
+    );
   }
 
   ServiceWorker? get controller => null;
 
   Stream<MessageEvent> get onMessage => messageEvent.forTarget(this);
 
-  Future<ServiceWorkerRegistration> get ready => Future.error(UnsupportedError(
-      'Service workers are not available outside a browser context.'));
+  Future<ServiceWorkerRegistration> get ready => Future.error(
+    UnsupportedError(
+      'Service workers are not available outside a browser context.',
+    ),
+  );
 
   Future<ServiceWorkerRegistration> getRegistration([String? documentURL]) =>
-      Future.error(UnsupportedError(
-          'Service workers are not available outside a browser context.'));
+      Future.error(
+        UnsupportedError(
+          'Service workers are not available outside a browser context.',
+        ),
+      );
 
-  Future<List<dynamic>> getRegistrations() => Future.error(UnsupportedError(
-      'Service workers are not available outside a browser context.'));
+  Future<List<dynamic>> getRegistrations() => Future.error(
+    UnsupportedError(
+      'Service workers are not available outside a browser context.',
+    ),
+  );
 
   Future<ServiceWorkerRegistration> register(String url, [Map? options]) =>
-      Future.error(UnsupportedError(
-          'Service workers are not available outside a browser context.'));
+      Future.error(
+        UnsupportedError(
+          'Service workers are not available outside a browser context.',
+        ),
+      );
 }
 
 @Native('ServiceWorkerGlobalScope')
@@ -416,11 +479,13 @@ class ServiceWorkerGlobalScope extends WorkerGlobalScope {
       EventStreamProvider<MessageEvent>('message');
 
   static ServiceWorkerGlobalScope get instance => throw UnsupportedError(
-      'ServiceWorkerGlobalScope is not available outside a browser context.');
+    'ServiceWorkerGlobalScope is not available outside a browser context.',
+  );
 
   factory ServiceWorkerGlobalScope._() {
     throw UnsupportedError(
-        'ServiceWorkerGlobalScope is not available outside a browser context.');
+      'ServiceWorkerGlobalScope is not available outside a browser context.',
+    );
   }
 
   Clients? get clients => null;
@@ -446,7 +511,8 @@ class ServiceWorkerRegistration extends EventTarget {
   // To suppress missing implicit constructor warnings.
   factory ServiceWorkerRegistration._() {
     throw UnsupportedError(
-        'ServiceWorkerRegistration is not available outside a browser context.');
+      'ServiceWorkerRegistration is not available outside a browser context.',
+    );
   }
 
   ServiceWorker? get active => null;
@@ -479,30 +545,41 @@ class ServiceWorkerRegistration extends EventTarget {
 abstract class SyncManager {
   factory SyncManager._() {
     throw UnsupportedError(
-        'SyncManager is not available outside a browser context.');
+      'SyncManager is not available outside a browser context.',
+    );
   }
 
   Future<List<String>> getTags() => Future.value([]);
 
-  Future register(String tag) => Future.error(UnsupportedError(
-      'Background sync is not available outside a browser context.'));
+  Future register(String tag) => Future.error(
+    UnsupportedError(
+      'Background sync is not available outside a browser context.',
+    ),
+  );
 }
 
 abstract class WindowClient extends Client {
   factory WindowClient._() {
     throw UnsupportedError(
-        'WindowClient is not available outside a browser context.');
+      'WindowClient is not available outside a browser context.',
+    );
   }
 
   bool get focused;
 
   String get visibilityState;
 
-  Future<WindowClient> focus() => Future.error(UnsupportedError(
-      'WindowClient is not available outside a browser context.'));
+  Future<WindowClient> focus() => Future.error(
+    UnsupportedError(
+      'WindowClient is not available outside a browser context.',
+    ),
+  );
 
-  Future<WindowClient> navigate(String url) => Future.error(UnsupportedError(
-      'WindowClient is not available outside a browser context.'));
+  Future<WindowClient> navigate(String url) => Future.error(
+    UnsupportedError(
+      'WindowClient is not available outside a browser context.',
+    ),
+  );
 }
 
 @SupportedBrowser(SupportedBrowser.CHROME)
@@ -531,7 +608,8 @@ class Worker extends EventTarget implements AbstractWorker {
 
   factory Worker(String scriptUrl) {
     throw UnsupportedError(
-        'Worker is not available outside a browser context.');
+      'Worker is not available outside a browser context.',
+    );
   }
 
   /// Stream of `error` events handled by this [Worker].
@@ -543,7 +621,8 @@ class Worker extends EventTarget implements AbstractWorker {
 
   void postMessage(dynamic message, [List<Object>? transfer]) =>
       throw UnsupportedError(
-          'Worker is not available outside a browser context.');
+        'Worker is not available outside a browser context.',
+      );
 
   void terminate() {}
 }
@@ -559,7 +638,8 @@ class WorkerGlobalScope extends EventTarget {
       EventStreamProvider<Event>('error');
 
   static WorkerGlobalScope get instance => throw UnsupportedError(
-      'WorkerGlobalScope is not available outside a browser context.');
+    'WorkerGlobalScope is not available outside a browser context.',
+  );
 
   WorkerGlobalScope._() : super.internal();
 
@@ -574,10 +654,12 @@ class WorkerGlobalScope extends EventTarget {
   bool? get isSecureContext => false;
 
   Location get location => throw UnsupportedError(
-      'WorkerGlobalScope.location is not available outside a browser context.');
+    'WorkerGlobalScope.location is not available outside a browser context.',
+  );
 
   WorkerNavigator get navigator => throw UnsupportedError(
-      'WorkerGlobalScope.navigator is not available outside a browser context.');
+    'WorkerGlobalScope.navigator is not available outside a browser context.',
+  );
 
   /// Stream of `error` events handled by this [WorkerGlobalScope].
   Stream<Event> get onError => errorEvent.forTarget(this);
@@ -591,13 +673,16 @@ class WorkerGlobalScope extends EventTarget {
   // From WindowBase64
 
   String atob(String atob) => throw UnsupportedError(
-      'atob() is not available outside a browser context.');
+    'atob() is not available outside a browser context.',
+  );
 
   String btoa(String btoa) => throw UnsupportedError(
-      'btoa() is not available outside a browser context.');
+    'btoa() is not available outside a browser context.',
+  );
 
   Future fetch(dynamic input, [Map? init]) => Future.error(
-      UnsupportedError('fetch() is not available outside a browser context.'));
+    UnsupportedError('fetch() is not available outside a browser context.'),
+  );
 
   void importScripts(String urls) {}
 }
@@ -608,7 +693,8 @@ abstract class WorkerNavigator extends NavigatorConcurrentHardware
   // To suppress missing implicit constructor warnings.
   factory WorkerNavigator._() {
     throw UnsupportedError(
-        'WorkerNavigator is not available outside a browser context.');
+      'WorkerNavigator is not available outside a browser context.',
+    );
   }
 }
 
@@ -617,7 +703,8 @@ class WorkerPerformance extends EventTarget {
   // To suppress missing implicit constructor warnings.
   factory WorkerPerformance._() {
     throw UnsupportedError(
-        'WorkerPerformance is not available outside a browser context.');
+      'WorkerPerformance is not available outside a browser context.',
+    );
   }
 
   MemoryInfo? get memory => null;
@@ -654,7 +741,8 @@ class WorkletAnimation {
     /*SerializedScriptValue*/ options,
   ) {
     throw UnsupportedError(
-        'WorkletAnimation is not available outside a browser context.');
+      'WorkletAnimation is not available outside a browser context.',
+    );
   }
 
   String? get playState => null;
@@ -669,6 +757,7 @@ class WorkletGlobalScope {
   // To suppress missing implicit constructor warnings.
   factory WorkletGlobalScope._() {
     throw UnsupportedError(
-        'WorkletGlobalScope is not available outside a browser context.');
+      'WorkletGlobalScope is not available outside a browser context.',
+    );
   }
 }

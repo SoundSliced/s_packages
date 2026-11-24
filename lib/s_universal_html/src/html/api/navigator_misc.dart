@@ -52,7 +52,9 @@ typedef StorageErrorCallback = void Function(DomError error);
 typedef StorageQuotaCallback = void Function(int grantedQuotaInBytes);
 
 typedef StorageUsageCallback = void Function(
-    int currentUsageInBytes, int currentQuotaInBytes);
+  int currentUsageInBytes,
+  int currentQuotaInBytes,
+);
 
 class BudgetService {
   factory BudgetService._() {
@@ -81,7 +83,8 @@ abstract class Clipboard implements EventTarget {
   Clipboard._();
 
   Future<DataTransfer> read() => Future<DataTransfer>.error(
-      UnsupportedError('Clipboard.read is unavailable on this platform.'));
+    UnsupportedError('Clipboard.read is unavailable on this platform.'),
+  );
 
   Future<String> readText() => Future<String>.value('');
 
@@ -489,10 +492,10 @@ class _PresentationConnectionAvailableEventImpl extends Event
   final PresentationConnection _connection;
 
   _PresentationConnectionAvailableEventImpl(super.type, Map eventInitDict)
-      : _connection =
-            (eventInitDict['connection'] as PresentationConnection?) ??
-                PresentationConnection._(),
-        super.internal();
+    : _connection =
+          (eventInitDict['connection'] as PresentationConnection?) ??
+          PresentationConnection._(),
+      super.internal();
 
   @override
   PresentationConnection get connection => _connection;
@@ -504,9 +507,9 @@ class _PresentationConnectionCloseEventImpl extends Event
   final String? _reason;
 
   _PresentationConnectionCloseEventImpl(super.type, Map eventInitDict)
-      : _message = eventInitDict['message'] as String?,
-        _reason = eventInitDict['reason'] as String?,
-        super.internal();
+    : _message = eventInitDict['message'] as String?,
+      _reason = eventInitDict['reason'] as String?,
+      super.internal();
 
   @override
   String? get message => _message;
@@ -520,8 +523,8 @@ class _PresentationConnectionListImpl extends EventTarget
   final List<PresentationConnection> _connections;
 
   _PresentationConnectionListImpl([List<PresentationConnection>? connections])
-      : _connections = connections ?? <PresentationConnection>[],
-        super.internal();
+    : _connections = connections ?? <PresentationConnection>[],
+      super.internal();
 
   @override
   List<PresentationConnection> get connections =>
@@ -532,7 +535,8 @@ class _PresentationReceiverImpl implements PresentationReceiver {
   @override
   Future<PresentationConnectionList> get connectionList =>
       Future<PresentationConnectionList>.value(
-          _PresentationConnectionListImpl());
+        _PresentationConnectionListImpl(),
+      );
 }
 
 class _PresentationAvailabilityImpl extends EventTarget

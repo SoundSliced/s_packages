@@ -17,7 +17,8 @@ import 'package:s_packages/s_universal_html/html.dart';
 
 import 'parsing_impl_browser.dart'
     if (dart.library.js_interop) 'parsing_impl_browser.dart' // Browser/Web
-    if (dart.library.io) 'parsing_impl_vm.dart' as impl; // VM
+    if (dart.library.io) 'parsing_impl_vm.dart'
+    as impl; // VM
 
 /// Parses a [HtmlDocument].
 ///

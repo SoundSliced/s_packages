@@ -6,6 +6,7 @@ library;
 
 // ignore: depend_on_referenced_packages
 import 'package:flutter/foundation.dart';
+
 import '../_debug_log.dart';
 
 /// Initializes WebView for Web platform

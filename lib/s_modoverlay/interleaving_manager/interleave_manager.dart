@@ -103,37 +103,43 @@ class OverlayInterleaveManager {
     if (preferOldest) {
       if (preferredPrefixes.isNotEmpty) {
         for (final layer in _layers.value) {
-          final isExcluded =
-              excludedPrefixes.any((prefix) => layer.id.startsWith(prefix));
+          final isExcluded = excludedPrefixes.any(
+            (prefix) => layer.id.startsWith(prefix),
+          );
           if (isExcluded) continue;
 
-          final isPreferred =
-              preferredPrefixes.any((prefix) => layer.id.startsWith(prefix));
+          final isPreferred = preferredPrefixes.any(
+            (prefix) => layer.id.startsWith(prefix),
+          );
           if (isPreferred) return layer.id;
         }
       }
 
       for (final layer in _layers.value) {
-        final isExcluded =
-            excludedPrefixes.any((prefix) => layer.id.startsWith(prefix));
+        final isExcluded = excludedPrefixes.any(
+          (prefix) => layer.id.startsWith(prefix),
+        );
         if (!isExcluded) return layer.id;
       }
     } else {
       if (preferredPrefixes.isNotEmpty) {
         for (final layer in _layers.value.reversed) {
-          final isExcluded =
-              excludedPrefixes.any((prefix) => layer.id.startsWith(prefix));
+          final isExcluded = excludedPrefixes.any(
+            (prefix) => layer.id.startsWith(prefix),
+          );
           if (isExcluded) continue;
 
-          final isPreferred =
-              preferredPrefixes.any((prefix) => layer.id.startsWith(prefix));
+          final isPreferred = preferredPrefixes.any(
+            (prefix) => layer.id.startsWith(prefix),
+          );
           if (isPreferred) return layer.id;
         }
       }
 
       for (final layer in _layers.value.reversed) {
-        final isExcluded =
-            excludedPrefixes.any((prefix) => layer.id.startsWith(prefix));
+        final isExcluded = excludedPrefixes.any(
+          (prefix) => layer.id.startsWith(prefix),
+        );
         if (!isExcluded) return layer.id;
       }
     }
@@ -362,8 +368,9 @@ class OverlayInterleaveManager {
     // Stable sort with explicit activation order and stack level.
     final indexed = list.asMap().entries.toList();
     indexed.sort((a, b) {
-      final byOrder =
-          a.value.activationOrder.compareTo(b.value.activationOrder);
+      final byOrder = a.value.activationOrder.compareTo(
+        b.value.activationOrder,
+      );
       if (byOrder != 0) return byOrder;
 
       final byLevel = a.value.stackLevel.compareTo(b.value.stackLevel);
@@ -407,8 +414,8 @@ class OverlayInterleaveManager {
     final staleOverlayState = _overlayState;
     final overlayState =
         (staleOverlayState != null && staleOverlayState.mounted)
-            ? staleOverlayState
-            : resolveRootOverlay(context ?? _pendingBringContext);
+        ? staleOverlayState
+        : resolveRootOverlay(context ?? _pendingBringContext);
     if (overlayState == null || !overlayState.mounted) {
       _overlayState = null;
       _mountedOrder = <String>[];
@@ -464,8 +471,9 @@ class OverlayInterleaveManager {
         .whereType<OverlayEntry>()
         .toList(growable: false);
 
-    final desiredOrder =
-        _layers.value.map((layer) => layer.id).toList(growable: false);
+    final desiredOrder = _layers.value
+        .map((layer) => layer.id)
+        .toList(growable: false);
 
     if (orderedEntries.isEmpty) {
       _mountedOrder = <String>[];
@@ -473,7 +481,8 @@ class OverlayInterleaveManager {
     }
 
     final hasUnmountedEntries = orderedEntries.any((entry) => !entry.mounted);
-    final shouldRestack = forceToFront ||
+    final shouldRestack =
+        forceToFront ||
         hasUnmountedEntries ||
         !_sameOrder(_mountedOrder, desiredOrder);
 

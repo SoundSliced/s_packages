@@ -153,7 +153,8 @@ abstract class ShadowRoot extends DocumentFragment {
 
   factory ShadowRoot._() {
     throw UnsupportedError(
-        'ShadowRoot is not available outside a browser context.');
+      'ShadowRoot is not available outside a browser context.',
+    );
   }
 
   Element? get activeElement;
@@ -175,10 +176,12 @@ abstract class ShadowRoot extends DocumentFragment {
   List<StyleSheet>? get styleSheets;
 
   Element elementFromPoint(int x, int y) => throw UnsupportedError(
-      'elementFromPoint() is not available outside a browser context.');
+    'elementFromPoint() is not available outside a browser context.',
+  );
 
   List<Element> elementsFromPoint(int x, int y) => [];
 
   Selection getSelection() => throw UnsupportedError(
-      'getSelection() is not available outside a browser context.');
+    'getSelection() is not available outside a browser context.',
+  );
 }

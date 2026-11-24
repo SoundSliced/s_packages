@@ -104,7 +104,9 @@ final Map<int, _ModalLifecycleListener> _modalLifecycleListeners = {};
 int _nextModalLifecycleListenerId = 1;
 
 ModalLifecycleEvent _buildModalLifecycleEvent(
-    _ModalContent content, ModalLifecycleEventType eventType) {
+  _ModalContent content,
+  ModalLifecycleEventType eventType,
+) {
   // Assemble a stable, public lifecycle event payload.
   return ModalLifecycleEvent(
     id: content.uniqueId,
@@ -118,7 +120,8 @@ ModalLifecycleEvent _buildModalLifecycleEvent(
 
 void _dispatchModalLifecycleEvent(ModalLifecycleEvent event) {
   // Decide whether appBuilder callbacks should run for this event.
-  final shouldDispatch = (_appBuilderLifecycleModalTypes == null ||
+  final shouldDispatch =
+      (_appBuilderLifecycleModalTypes == null ||
           _appBuilderLifecycleModalTypes!.contains(event.modalType)) &&
       (_appBuilderLifecycleShouldNotify?.call(event) ?? true);
 
@@ -140,8 +143,9 @@ void _dispatchModalLifecycleEvent(ModalLifecycleEvent event) {
       break;
   }
 
-  for (final listener
-      in List<_ModalLifecycleListener>.from(_modalLifecycleListeners.values)) {
+  for (final listener in List<_ModalLifecycleListener>.from(
+    _modalLifecycleListeners.values,
+  )) {
     try {
       // Dispatch to registered listeners.
       listener.dispatch(event);
@@ -164,13 +168,16 @@ void _dispatchModalLifecycleEvent(ModalLifecycleEvent event) {
 }
 
 void _dispatchModalLifecycleEvents(
-    Iterable<_ModalContent> contents, ModalLifecycleEventType eventType) {
+  Iterable<_ModalContent> contents,
+  ModalLifecycleEventType eventType,
+) {
   // Emit unique lifecycle events per modal id.
   final seenIds = <String>{};
   for (final content in contents) {
     if (seenIds.add(content.uniqueId)) {
       _dispatchModalLifecycleEvent(
-          _buildModalLifecycleEvent(content, eventType));
+        _buildModalLifecycleEvent(content, eventType),
+      );
     }
   }
 }
@@ -186,8 +193,9 @@ int _addModalLifecycleListener({
   _modalLifecycleListeners[listenerId] = _ModalLifecycleListener(
     onCreated: onCreated,
     onDismissed: onDismissed,
-    modalTypes:
-        modalTypes == null ? null : Set<ModalType>.unmodifiable(modalTypes),
+    modalTypes: modalTypes == null
+        ? null
+        : Set<ModalType>.unmodifiable(modalTypes),
     shouldNotify: shouldNotify,
   );
   return listenerId;
@@ -213,8 +221,10 @@ ModalLifecycleShouldNotify? _appBuilderLifecycleShouldNotify;
 ///
 /// The rule is shared across dialog, sheet, and snackbar barriers so the
 /// visual barrier and pointer behavior stay decoupled but consistent.
-bool _shouldCaptureModalBarrierTaps(
-    {required bool isDismissable, required bool blockBackgroundInteraction}) {
+bool _shouldCaptureModalBarrierTaps({
+  required bool isDismissable,
+  required bool blockBackgroundInteraction,
+}) {
   // Capture taps when dismissal is allowed or background is blocked.
   return isDismissable || blockBackgroundInteraction;
 }

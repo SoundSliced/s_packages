@@ -216,8 +216,7 @@ abstract class _CssClassSetImpl extends SetBase<String> implements CssClassSet {
   String firstWhere(
     bool Function(String value) test, {
     String Function()? orElse,
-  }) =>
-      readClasses().firstWhere(test, orElse: orElse);
+  }) => readClasses().firstWhere(test, orElse: orElse);
 
   @override
   T fold<T>(
@@ -243,8 +242,7 @@ abstract class _CssClassSetImpl extends SetBase<String> implements CssClassSet {
   String lastWhere(
     bool Function(String value) test, {
     String Function()? orElse,
-  }) =>
-      readClasses().lastWhere(test, orElse: orElse);
+  }) => readClasses().lastWhere(test, orElse: orElse);
 
   /// Lookup from the Set interface. Not interesting for a String set.
   @override
@@ -323,8 +321,7 @@ abstract class _CssClassSetImpl extends SetBase<String> implements CssClassSet {
   String singleWhere(
     bool Function(String value) test, {
     String Function()? orElse,
-  }) =>
-      readClasses().singleWhere(test, orElse: orElse);
+  }) => readClasses().singleWhere(test, orElse: orElse);
 
   @override
   Iterable<String> skip(int n) => readClasses().skip(n);
@@ -492,9 +489,9 @@ class _MultiElementCssClassSet extends _CssClassSetImpl {
   /// [removeClass](http://api.jquery.com/removeClass/).
   @override
   bool remove(Object? value) => _sets.fold(
-        false,
-        (bool changed, _CssClassSetImpl e) => e.remove(value) || changed,
-      );
+    false,
+    (bool changed, _CssClassSetImpl e) => e.remove(value) || changed,
+  );
 
   /// Adds the class [value] to the element if it is not on it, removes it if it
   /// is.
@@ -502,10 +499,9 @@ class _MultiElementCssClassSet extends _CssClassSetImpl {
   /// NOTE: This method returns whether any element changed state.
   @override
   bool toggle(String value, [bool? shouldAdd]) => _sets.fold(
-        false,
-        (bool changed, _CssClassSetImpl e) =>
-            e.toggle(value, shouldAdd) || changed,
-      );
+    false,
+    (bool changed, _CssClassSetImpl e) => e.toggle(value, shouldAdd) || changed,
+  );
 
   @override
   void writeClasses(Set<String> s) {

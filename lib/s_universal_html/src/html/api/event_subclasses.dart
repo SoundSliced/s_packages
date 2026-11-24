@@ -115,7 +115,7 @@ class BlobEvent extends Event {
   final num? timecode;
 
   BlobEvent(String type, [Map? dict])
-      : this._(type, data: dict?['data'], timecode: dict?['timecode']);
+    : this._(type, data: dict?['data'], timecode: dict?['timecode']);
 
   BlobEvent._(super.type, {this.data, this.timecode}) : super.internal();
 }
@@ -150,8 +150,8 @@ class _ClipboardEventImpl extends Event implements ClipboardEvent {
   final DataTransfer? _clipboardData;
 
   _ClipboardEventImpl(super.type, [Map? eventInitDict])
-      : _clipboardData = eventInitDict?['clipboardData'] as DataTransfer?,
-        super.internal();
+    : _clipboardData = eventInitDict?['clipboardData'] as DataTransfer?,
+      super.internal();
 
   @override
   DataTransfer? get clipboardData => _clipboardData;
@@ -165,7 +165,7 @@ class CloseEvent extends Event {
   final bool? wasClean;
 
   CloseEvent.constructor(super.type, {this.code, this.reason, this.wasClean})
-      : super.internal();
+    : super.internal();
 }
 
 class CompositionEvent extends Event {
@@ -255,13 +255,13 @@ class ErrorEvent extends Event {
   final String? message;
 
   ErrorEvent(String type, [Map? eventInitDict])
-      : this.internal(
-          colno: eventInitDict?['colno'],
-          error: eventInitDict?['error'],
-          filename: eventInitDict?['filename'],
-          lineno: eventInitDict?['lineno'],
-          message: eventInitDict?['message'],
-        );
+    : this.internal(
+        colno: eventInitDict?['colno'],
+        error: eventInitDict?['error'],
+        filename: eventInitDict?['filename'],
+        lineno: eventInitDict?['lineno'],
+        message: eventInitDict?['message'],
+      );
 
   /// Internal constructor. __Not part of dart:html__.
   ErrorEvent.internal({
@@ -367,8 +367,8 @@ class KeyboardEvent extends UIEvent {
     this.shiftKey = false,
     super.canBubble,
     super.cancelable,
-  })  : charCode = charCode ?? -1,
-        keyCode = keyCode ?? -1;
+  }) : charCode = charCode ?? -1,
+       keyCode = keyCode ?? -1;
 
   String? get key => code;
 
@@ -423,10 +423,10 @@ class MessageEvent extends Event {
     String? lastEventId,
     this.source,
     List<MessagePort>? messagePorts,
-  })  : lastEventId = lastEventId ?? '',
-        origin = origin ?? '',
-        ports = messagePorts ?? const [],
-        super.internal();
+  }) : lastEventId = lastEventId ?? '',
+       origin = origin ?? '',
+       ports = messagePorts ?? const [],
+       super.internal();
 
   String? get suborigin => null;
 }
@@ -519,32 +519,22 @@ class MouseEvent extends UIEvent {
     this.metaKey = false,
     this.relatedTarget,
     this.region,
-    int? screenX,
-    int? screenY,
-    int? clientX,
-    int? clientY,
-    int? layerX,
-    int? layerY,
-    int? movementX,
-    int? movementY,
-    int? pageX,
-    int? pageY,
+    int? this._screenX,
+    int? this._screenY,
+    int? this._clientX,
+    int? this._clientY,
+    this._layerX,
+    this._layerY,
+    this._movementX,
+    this._movementY,
+    int? this._pageX,
+    int? this._pageY,
     this.shiftKey = false,
     super.canBubble,
     super.cancelable,
     int super.detail = 0,
     super.view,
-  })  : buttons = 0,
-        _screenX = screenX,
-        _screenY = screenY,
-        _clientX = clientX,
-        _clientY = clientY,
-        _layerX = layerX,
-        _layerY = layerY,
-        _movementX = movementX,
-        _movementY = movementY,
-        _pageX = pageX,
-        _pageY = pageY;
+  }) : buttons = 0;
 
   Point get client => Point(_clientX!, _clientY!);
 
@@ -583,7 +573,7 @@ class NotificationEvent extends ExtendableEvent {
   }
 
   NotificationEvent.internal({this.action, this.notification, this.reply})
-      : super._('Notification');
+    : super._('Notification');
 }
 
 class PageTransitionEvent extends Event {
@@ -636,18 +626,18 @@ class PointerEvent extends MouseEvent {
     EventTarget? relatedTarget,
     Object? view,
   }) : super._(
-          type,
-          view: view,
-          detail: detail,
-          button: button,
-          canBubble: canBubble,
-          cancelable: cancelable,
-          ctrlKey: ctrlKey,
-          altKey: altKey,
-          shiftKey: shiftKey,
-          metaKey: metaKey,
-          relatedTarget: relatedTarget,
-        );
+         type,
+         view: view,
+         detail: detail,
+         button: button,
+         canBubble: canBubble,
+         cancelable: cancelable,
+         ctrlKey: ctrlKey,
+         altKey: altKey,
+         shiftKey: shiftKey,
+         metaKey: metaKey,
+         relatedTarget: relatedTarget,
+       );
 }
 
 class PopStateEvent extends Event {
@@ -656,7 +646,7 @@ class PopStateEvent extends Event {
   PopStateEvent(String type) : this._(type: type);
 
   PopStateEvent._({String type = 'popstate', this.state})
-      : super.internal(type);
+    : super.internal(type);
 }
 
 class ProgressEvent extends Event {
@@ -794,9 +784,9 @@ class _AnimationEventImpl extends Event implements AnimationEvent {
   final num? elapsedTime;
 
   _AnimationEventImpl(super.type, [Map? eventInitDict])
-      : animationName = eventInitDict?['animationName'] as String?,
-        elapsedTime = eventInitDict?['elapsedTime'] as num?,
-        super.internal();
+    : animationName = eventInitDict?['animationName'] as String?,
+      elapsedTime = eventInitDict?['elapsedTime'] as num?,
+      super.internal();
 }
 
 class _CanMakePaymentEventImpl extends ExtendableEvent
@@ -837,13 +827,12 @@ class _DeviceMotionEventImpl extends Event implements DeviceMotionEvent {
   final DeviceRotationRate? rotationRate;
 
   _DeviceMotionEventImpl(super.type, [Map? eventInitDict])
-      : acceleration = eventInitDict?['acceleration'] as DeviceAcceleration?,
-        accelerationIncludingGravity =
-            eventInitDict?['accelerationIncludingGravity']
-                as DeviceAcceleration?,
-        interval = eventInitDict?['interval'] as num?,
-        rotationRate = eventInitDict?['rotationRate'] as DeviceRotationRate?,
-        super.internal();
+    : acceleration = eventInitDict?['acceleration'] as DeviceAcceleration?,
+      accelerationIncludingGravity =
+          eventInitDict?['accelerationIncludingGravity'] as DeviceAcceleration?,
+      interval = eventInitDict?['interval'] as num?,
+      rotationRate = eventInitDict?['rotationRate'] as DeviceRotationRate?,
+      super.internal();
 }
 
 class _FetchEventImpl extends ExtendableEvent implements FetchEvent {

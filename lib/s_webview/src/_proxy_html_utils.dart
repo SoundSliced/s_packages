@@ -10,8 +10,10 @@ class SWebViewProxyHtmlUtils {
   static final RegExp _headTag = RegExp(r'<head\b[^>]*>', caseSensitive: false);
   static final RegExp _baseTag = RegExp(r'<base\b', caseSensitive: false);
   // Matches a full <base ...> tag (including self-closing).
-  static final RegExp _baseTagFull =
-      RegExp(r'<base\b[^>]*>', caseSensitive: false);
+  static final RegExp _baseTagFull = RegExp(
+    r'<base\b[^>]*>',
+    caseSensitive: false,
+  );
   // Matches the href attribute value inside a tag fragment.
   static final RegExp _hrefAttrValue = RegExp(
     r"""\bhref\s*=\s*("[^"]*"|'[^']*')""",
@@ -124,8 +126,9 @@ class SWebViewProxyHtmlUtils {
 
         // Resolve relative href to absolute.
         final absolute = parsed.resolve(href).toString();
-        final safeAbsolute =
-            absolute.contains('#') ? absolute.split('#').first : absolute;
+        final safeAbsolute = absolute.contains('#')
+            ? absolute.split('#').first
+            : absolute;
         // Replace only the quoted value inside the existing tag.
         return wholeTag.replaceFirst(hrefToken, '$quote$safeAbsolute$quote');
       });
@@ -164,7 +167,9 @@ class SWebViewProxyHtmlUtils {
   static String buildProxiedUrl(String proxyBase, String targetAbsoluteUrl) {
     if (proxyBase.contains('{url}')) {
       return proxyBase.replaceAll(
-          '{url}', Uri.encodeComponent(targetAbsoluteUrl));
+        '{url}',
+        Uri.encodeComponent(targetAbsoluteUrl),
+      );
     }
     if (isQueryStyleProxyBase(proxyBase)) {
       return '$proxyBase${Uri.encodeComponent(targetAbsoluteUrl)}';
@@ -218,8 +223,9 @@ class SWebViewProxyHtmlUtils {
         }
 
         final rewritten = proxify(rawValue);
-        final valueWithQuotes =
-            quote.isEmpty ? rewritten : '$quote$rewritten$quote';
+        final valueWithQuotes = quote.isEmpty
+            ? rewritten
+            : '$quote$rewritten$quote';
         return '$attr=$valueWithQuotes';
       },
     );
@@ -240,19 +246,24 @@ class SWebViewProxyHtmlUtils {
           rawValue = token.substring(1, token.length - 1);
         }
 
-        final rewrittenEntries = rawValue.split(',').map((entry) {
-          final trimmed = entry.trim();
-          if (trimmed.isEmpty) return trimmed;
+        final rewrittenEntries = rawValue
+            .split(',')
+            .map((entry) {
+              final trimmed = entry.trim();
+              if (trimmed.isEmpty) return trimmed;
 
-          final parts = trimmed.split(RegExp(r'\s+'));
-          final urlPart = parts.first;
-          final descriptor =
-              parts.length > 1 ? ' ${parts.sublist(1).join(' ')}' : '';
-          return '${proxify(urlPart)}$descriptor';
-        }).join(', ');
+              final parts = trimmed.split(RegExp(r'\s+'));
+              final urlPart = parts.first;
+              final descriptor = parts.length > 1
+                  ? ' ${parts.sublist(1).join(' ')}'
+                  : '';
+              return '${proxify(urlPart)}$descriptor';
+            })
+            .join(', ');
 
-        final valueWithQuotes =
-            quote.isEmpty ? rewrittenEntries : '$quote$rewrittenEntries$quote';
+        final valueWithQuotes = quote.isEmpty
+            ? rewrittenEntries
+            : '$quote$rewrittenEntries$quote';
         return 'srcset=$valueWithQuotes';
       },
     );
@@ -312,7 +323,8 @@ class SWebViewProxyHtmlUtils {
     //    requests to *.aviapages.com URLs through that same proxy.
     // 6. Known benign noisy errors (Unlegal embed / IDBFactory / gl-particles)
     //    are swallowed to reduce console spam while keeping page execution alive.
-    const script = '<script $marker="1">(function(){try{'
+    const script =
+        '<script $marker="1">(function(){try{'
         'var _stats=(window.__swebviewCompatStats&&typeof window.__swebviewCompatStats==="object")'
         '?window.__swebviewCompatStats:{errors:0,swallowedErrors:0,unhandledRejections:0,pluginFailures:0,messages:[]};'
         'window.__swebviewCompatStats=_stats;'
@@ -474,8 +486,9 @@ class SWebViewProxyHtmlUtils {
   /// opened directly in a browser tab/window instead of proxy-injected mode.
   static bool isLikelyProxyIncompatibleDocument(String html) {
     if (html.isEmpty) return false;
-    return _proxyIncompatiblePageSignals
-        .any((pattern) => pattern.hasMatch(html));
+    return _proxyIncompatiblePageSignals.any(
+      (pattern) => pattern.hasMatch(html),
+    );
   }
 
   static String _extractHtmlFromPossibleJsonEnvelope(
@@ -483,10 +496,12 @@ class SWebViewProxyHtmlUtils {
     Map<String, String>? headers,
   }) {
     final trimmed = rawBody.trim();
-    final contentType = headers?['content-type']?.toLowerCase() ??
+    final contentType =
+        headers?['content-type']?.toLowerCase() ??
         headers?['Content-Type']?.toLowerCase() ??
         '';
-    final isLikelyJson = contentType.contains('application/json') ||
+    final isLikelyJson =
+        contentType.contains('application/json') ||
         contentType.contains('text/json') ||
         trimmed.startsWith('{') ||
         trimmed.startsWith('[');
@@ -599,13 +614,12 @@ class SWebViewProxyHtmlUtils {
       },
     );
 
-    return numericDecoded.replaceAllMapped(
-      RegExp(r'&([A-Za-z0-9#]+);'),
-      (match) {
-        final key = match.group(1);
-        if (key == null) return match.group(0)!;
-        return _namedHtmlEntities[key] ?? match.group(0)!;
-      },
-    );
+    return numericDecoded.replaceAllMapped(RegExp(r'&([A-Za-z0-9#]+);'), (
+      match,
+    ) {
+      final key = match.group(1);
+      if (key == null) return match.group(0)!;
+      return _namedHtmlEntities[key] ?? match.group(0)!;
+    });
   }
 }

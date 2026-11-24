@@ -268,7 +268,8 @@ class IndexedScrollController {
 
           // We found a closer or exact match, use it
           final lastRegisteredIndex = _lastRegisteredIndex();
-          final isLastItem = lastRegisteredIndex != null &&
+          final isLastItem =
+              lastRegisteredIndex != null &&
               newSafeIndex == lastRegisteredIndex;
 
           // Compute the offset within the inner viewport and animate only this controller
@@ -311,8 +312,10 @@ class IndexedScrollController {
     final viewport = ro != null ? RenderAbstractViewport.of(ro) : null;
     if (ro != null && viewport != null && _scrollController.hasClients) {
       final position = _scrollController.position;
-      final align =
-          (alignmentOverride ?? (isLastItem ? 1.0 : alignment)).clamp(0.0, 1.0);
+      final align = (alignmentOverride ?? (isLastItem ? 1.0 : alignment)).clamp(
+        0.0,
+        1.0,
+      );
       final target = viewport.getOffsetToReveal(ro, align).offset;
       final clamped = target.clamp(0.0, position.maxScrollExtent);
       await _scrollController.animateTo(

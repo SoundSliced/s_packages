@@ -269,8 +269,11 @@ class _SInkButtonState extends State<SInkButton> {
     _startSplashAnimation(details.globalPosition, details.localPosition);
   }
 
-  void _startSplashAnimation(Offset globalPosition, Offset localPosition,
-      {double startValue = 0.0}) {
+  void _startSplashAnimation(
+    Offset globalPosition,
+    Offset localPosition, {
+    double startValue = 0.0,
+  }) {
     // Only start animation if not already started to prevent conflicts
     if (_tapPosition == null || !_isPressed) {
       setState(() {
@@ -430,7 +433,8 @@ class _SInkButtonState extends State<SInkButton> {
     super.didUpdateWidget(oldWidget);
 
     // Only update cached values when relevant properties change
-    final shouldUpdateCache = oldWidget.child != widget.child ||
+    final shouldUpdateCache =
+        oldWidget.child != widget.child ||
         oldWidget.hoverAndSplashBorderRadius !=
             widget.hoverAndSplashBorderRadius ||
         oldWidget.color != widget.color ||
@@ -441,7 +445,8 @@ class _SInkButtonState extends State<SInkButton> {
     }
 
     // Only rebuild if properties that affect the widget tree have changed
-    final needsRebuild = shouldUpdateCache ||
+    final needsRebuild =
+        shouldUpdateCache ||
         oldWidget.isActive != widget.isActive ||
         oldWidget.scaleFactor != widget.scaleFactor ||
         oldWidget.child != widget.child;
@@ -461,8 +466,9 @@ class _SInkButtonState extends State<SInkButton> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor:
-          widget.isActive ? SystemMouseCursors.click : SystemMouseCursors.basic,
+      cursor: widget.isActive
+          ? SystemMouseCursors.click
+          : SystemMouseCursors.basic,
       onEnter: widget.isActive
           ? (_) {
               setState(() => _isHovered = true);
@@ -485,8 +491,10 @@ class _SInkButtonState extends State<SInkButton> {
                 // Use same animation behavior as regular tap for consistency
                 if (_tapPosition == null || !_isPressed) {
                   _startSplashAnimation(
-                      details.globalPosition, details.localPosition,
-                      startValue: 0.0);
+                    details.globalPosition,
+                    details.localPosition,
+                    startValue: 0.0,
+                  );
                 }
               }
             : null,
@@ -531,7 +539,8 @@ class _SInkButtonState extends State<SInkButton> {
               Positioned.fill(
                 child: IgnorePointer(
                   child: ClipRRect(
-                    borderRadius: widget.hoverAndSplashBorderRadius ??
+                    borderRadius:
+                        widget.hoverAndSplashBorderRadius ??
                         BorderRadius.circular(widget.isCircleButton ? 40 : 8),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
@@ -539,7 +548,7 @@ class _SInkButtonState extends State<SInkButton> {
                         borderRadius: widget.isCircleButton
                             ? null
                             : widget.hoverAndSplashBorderRadius ??
-                                BorderRadius.circular(8),
+                                  BorderRadius.circular(8),
                         shape: widget.isCircleButton
                             ? BoxShape.circle
                             : BoxShape.rectangle,
@@ -553,10 +562,11 @@ class _SInkButtonState extends State<SInkButton> {
                             IgnorePointer(
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                  color: widget.hoverColor ??
-                                      _splashColor
-                                          .darken()
-                                          .withValues(alpha: 0.04),
+                                  color:
+                                      widget.hoverColor ??
+                                      _splashColor.darken().withValues(
+                                        alpha: 0.04,
+                                      ),
                                 ),
                               ),
                             ),
@@ -568,7 +578,8 @@ class _SInkButtonState extends State<SInkButton> {
                               child: LayoutBuilder(
                                 builder: (context, constraints) {
                                   return _buildSplashOverlay(
-                                      constraints.biggest);
+                                    constraints.biggest,
+                                  );
                                 },
                               ),
                             ),
@@ -595,8 +606,10 @@ class _SInkButtonState extends State<SInkButton> {
     return IgnorePointer(
       child: STweenAnimationBuilder<double>(
         key: ValueKey('splash_$_splashKey$_isAnimationReversing'),
-        tween:
-            Tween<double>(begin: 0.0, end: _isAnimationReversing ? 0.0 : 1.0),
+        tween: Tween<double>(
+          begin: 0.0,
+          end: _isAnimationReversing ? 0.0 : 1.0,
+        ),
         duration: widget.splashDuration ?? const Duration(milliseconds: 800),
         curve: _isAnimationReversing ? Curves.easeInCubic : Curves.easeOutCubic,
         onEnd: () {
@@ -644,8 +657,11 @@ class _SplashPainter extends CustomPainter {
   final double radius;
   final Color color;
 
-  const _SplashPainter(
-      {required this.center, required this.radius, required this.color});
+  const _SplashPainter({
+    required this.center,
+    required this.radius,
+    required this.color,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -664,9 +680,7 @@ class _SplashPainter extends CustomPainter {
           color.withValues(alpha: 0.0),
         ],
         stops: const [0.0, 0.35, 0.78, 1.0],
-      ).createShader(
-        Rect.fromCircle(center: center, radius: effectiveRadius),
-      )
+      ).createShader(Rect.fromCircle(center: center, radius: effectiveRadius))
       ..style = PaintingStyle.fill
       ..isAntiAlias = true;
 

@@ -78,11 +78,11 @@ abstract class CssRect implements Rectangle<num> {
 
   @override
   int get hashCode => _JenkinsSmiHash.hash4(
-        left.hashCode,
-        top.hashCode,
-        right.hashCode,
-        bottom.hashCode,
-      );
+    left.hashCode,
+    top.hashCode,
+    right.hashCode,
+    bottom.hashCode,
+  );
 
   /// The height of this rectangle.
   ///
@@ -290,8 +290,8 @@ class _ContentCssListRect extends _ContentCssRect {
   final List<Element> _elementList;
 
   _ContentCssListRect(List<Element> elementList)
-      : _elementList = elementList,
-        super(elementList.first);
+    : _elementList = elementList,
+      super(elementList.first);
 
   /// Set the height to `newHeight`.
   ///

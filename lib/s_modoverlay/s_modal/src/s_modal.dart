@@ -80,8 +80,9 @@ final _sheetController = RM.inject<_ModalContent?>(() => null);
 ///
 /// Sheets can coexist in the interleaved host, so we keep the full stack here
 /// and let [_sheetController] mirror the current top-most sheet.
-final _sheetStackNotifier =
-    RM.inject<List<_ModalContent>>(() => <_ModalContent>[]);
+final _sheetStackNotifier = RM.inject<List<_ModalContent>>(
+  () => <_ModalContent>[],
+);
 
 /// Controller for side sheet modals
 ///
@@ -135,8 +136,9 @@ void _debugModalLog(String message) {
 void _debugModalSnapshot(String source, {String? note}) {
   if (!_showDebugPrints) return;
 
-  final interleaveLayerIds =
-      OverlayInterleaveManager.layers.map((layer) => layer.id).toList();
+  final interleaveLayerIds = OverlayInterleaveManager.layers
+      .map((layer) => layer.id)
+      .toList();
   final dialogIds = _dialogStackNotifier.state
       .map((dialog) => dialog.uniqueId)
       .toList(growable: false);
@@ -478,8 +480,9 @@ void _syncInterleavedSheetLayersWithStack() {
   if (!OverlayInterleaveManager.enabled) return;
 
   final sheets = List<_ModalContent>.from(_sheetStackNotifier.state);
-  final activeLayerIds =
-      sheets.map((sheet) => _sheetInterleavedLayerId(sheet.uniqueId)).toSet();
+  final activeLayerIds = sheets
+      .map((sheet) => _sheetInterleavedLayerId(sheet.uniqueId))
+      .toSet();
 
   final existingSheetLayerIds = OverlayInterleaveManager.layers
       .map((layer) => layer.id)
@@ -529,8 +532,9 @@ void _syncInterleavedSnackbarLayersWithQueue() {
       .toList(growable: false);
 
   for (final layerId in existingIds) {
-    final stillActive =
-        queueMap.keys.any((pos) => _snackbarPositionLayerId(pos) == layerId);
+    final stillActive = queueMap.keys.any(
+      (pos) => _snackbarPositionLayerId(pos) == layerId,
+    );
     if (!stillActive) OverlayInterleaveManager.unregisterLayer(layerId);
   }
 
@@ -610,8 +614,9 @@ final _blurAmountNotifier = RM.inject<double>(() => 3.0);
 /// When snackbar display mode is "staggered", multiple snackbars
 /// can be visible simultaneously at different stack indices within the same position.
 /// Snackbars at different positions are treated as separate stacks.
-final _snackbarQueueNotifier =
-    RM.inject<Map<Alignment, List<_ModalContent>>>(() => {});
+final _snackbarQueueNotifier = RM.inject<Map<Alignment, List<_ModalContent>>>(
+  () => {},
+);
 
 //************************************************ */
 // Snackbar Animation Controllers Registry
@@ -626,15 +631,18 @@ final _snackbarQueueNotifier =
 /// When a snackbar is created, its controller is registered here.
 /// When dismissing a snackbar by ID, we can look up its controller
 /// and call playDismissAnimation directly.
-final _snackbarControllersRegistry =
-    RM.inject<Map<String, SnackbarModalController>>(() => {});
+final _snackbarControllersRegistry = RM
+    .inject<Map<String, SnackbarModalController>>(() => {});
 
 /// Registers a snackbar's controller in the registry
 void _registerSnackbarController(
-    String id, SnackbarModalController controller) {
+  String id,
+  SnackbarModalController controller,
+) {
   // Register snackbar controller by id.
   final registry = Map<String, SnackbarModalController>.from(
-      _snackbarControllersRegistry.state);
+    _snackbarControllersRegistry.state,
+  );
   registry[id] = controller;
   _snackbarControllersRegistry.state = registry;
   if (_showDebugPrints) {
@@ -646,12 +654,14 @@ void _registerSnackbarController(
 void _unregisterSnackbarController(String id) {
   // Remove snackbar controller by id.
   final registry = Map<String, SnackbarModalController>.from(
-      _snackbarControllersRegistry.state);
+    _snackbarControllersRegistry.state,
+  );
   registry.remove(id);
   _snackbarControllersRegistry.state = registry;
   if (_showDebugPrints) {
     debugPrint(
-        'SnackbarController Registry: unregistered controller for id=$id');
+      'SnackbarController Registry: unregistered controller for id=$id',
+    );
   }
 }
 
@@ -706,7 +716,8 @@ void _registerModal(String id, ModalType type) {
   _modalRegistry.state = registry;
   if (_showDebugPrints) {
     debugPrint(
-        'Modal Registry: registered $type with id=$id. Active: ${registry.keys.toList()}');
+      'Modal Registry: registered $type with id=$id. Active: ${registry.keys.toList()}',
+    );
   }
 }
 
@@ -718,7 +729,8 @@ void _unregisterModal(String id) {
   _modalRegistry.state = registry;
   if (type != null && _showDebugPrints) {
     debugPrint(
-        'Modal Registry: unregistered $type with id=$id. Active: ${registry.keys.toList()}');
+      'Modal Registry: unregistered $type with id=$id. Active: ${registry.keys.toList()}',
+    );
   }
 }
 
@@ -732,7 +744,8 @@ void _unregisterModals(List<String> ids) {
   _modalRegistry.state = registry;
   if (_showDebugPrints) {
     debugPrint(
-        'Modal Registry: unregistered ${ids.length} modals. Active: ${registry.keys.toList()}');
+      'Modal Registry: unregistered ${ids.length} modals. Active: ${registry.keys.toList()}',
+    );
   }
 }
 
@@ -761,13 +774,17 @@ List<String> _getModalIdsByType(ModalType type) {
 /// - Activating next snackbar if available
 /// - Calling dismiss callbacks
 void _removeSnackbarAfterDismiss(
-    Alignment position, String uniqueId, VoidCallback? onDismissed) {
+  Alignment position,
+  String uniqueId,
+  VoidCallback? onDismissed,
+) {
   // Remove dismissed snackbar from queue and clean up registry.
   // Re-fetch queue map as it might have changed during animation
   final currentQueueMap = _snackbarQueueNotifier.state;
   final queueAtPosition = currentQueueMap[position] ?? [];
-  final matchIndex =
-      queueAtPosition.indexWhere((content) => content.uniqueId == uniqueId);
+  final matchIndex = queueAtPosition.indexWhere(
+    (content) => content.uniqueId == uniqueId,
+  );
 
   if (matchIndex < 0) {
     // Already removed (e.g. replaced by a new snackbar in replace mode); clean up dismissing state.
@@ -799,8 +816,9 @@ void _removeSnackbarAfterDismiss(
   final updatedQueue = List<_ModalContent>.from(queueAtPosition);
   updatedQueue.removeAt(matchIndex);
 
-  final updatedQueueMap =
-      Map<Alignment, List<_ModalContent>>.from(currentQueueMap);
+  final updatedQueueMap = Map<Alignment, List<_ModalContent>>.from(
+    currentQueueMap,
+  );
   if (updatedQueue.isEmpty) {
     // Remove empty position buckets.
     updatedQueueMap.remove(position);
@@ -820,7 +838,8 @@ void _removeSnackbarAfterDismiss(
   _setSnackbarDismissing(uniqueId, false);
 
   _dispatchModalLifecycleEvent(
-      _buildModalLifecycleEvent(snackbar, ModalLifecycleEventType.dismissed));
+    _buildModalLifecycleEvent(snackbar, ModalLifecycleEventType.dismissed),
+  );
 
   // Activate next snackbar in queue if available
   if (updatedQueueMap.isNotEmpty) {
@@ -948,8 +967,11 @@ class ModalStackLevelBands {
   static const int criticalMin = 1000;
 }
 
-void _debugWarnForModalStackLevel(
-    {required int level, String? id, required ModalType type}) {
+void _debugWarnForModalStackLevel({
+  required int level,
+  String? id,
+  required ModalType type,
+}) {
   if (!_showDebugPrints) return;
 
   final isKnownCriticalId = id == 'underMaintenancePopup';
@@ -1385,23 +1407,25 @@ class _ModalContent {
     this.barrierColor = Colors.transparent,
     this.offset,
     SheetPosition? sheetPosition,
-  })  : // For snackbars: isSwipeable should match isDismissable
-        // This ensures consistent behavior across all dismissal methods
-        isSwipeable =
-            (modalType == ModalType.snackbar ? isDismissable : isSwipeable),
-        autoDismissDuration = (
-            // For snackbars: nullify autoDismissDuration if isDismissable is false
-            // because a non-dismissible snackbar should not auto-dismiss
-            (modalType == ModalType.snackbar && !isDismissable)
-                ? null
-                : (snackbarDisplayMode == SnackbarDisplayMode.staggered
-                    ? null
-                    : autoDismissDuration)),
-        _internalId = _generateModalId(id),
-        stackLevel = stackLevel ?? _defaultStackLevelForType(modalType),
-        activationOrder = activationOrder ?? OverlayActivationOrder.next(),
-        // Default sheetPosition to bottom if not provided
-        sheetPosition = sheetPosition ?? SheetPosition.bottom {
+  }) : // For snackbars: isSwipeable should match isDismissable
+       // This ensures consistent behavior across all dismissal methods
+       isSwipeable = (modalType == ModalType.snackbar
+           ? isDismissable
+           : isSwipeable),
+       autoDismissDuration =
+           (
+           // For snackbars: nullify autoDismissDuration if isDismissable is false
+           // because a non-dismissible snackbar should not auto-dismiss
+           (modalType == ModalType.snackbar && !isDismissable)
+           ? null
+           : (snackbarDisplayMode == SnackbarDisplayMode.staggered
+                 ? null
+                 : autoDismissDuration)),
+       _internalId = _generateModalId(id),
+       stackLevel = stackLevel ?? _defaultStackLevelForType(modalType),
+       activationOrder = activationOrder ?? OverlayActivationOrder.next(),
+       // Default sheetPosition to bottom if not provided
+       sheetPosition = sheetPosition ?? SheetPosition.bottom {
     // debugPrint('ModalContent created: type=$modalType, id=$uniqueId');
   }
 
@@ -1485,9 +1509,10 @@ class _ModalContent {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.3),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2)),
+                color: Colors.black.withValues(alpha: 0.3),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
             ],
           ),
           child: Column(
@@ -1495,8 +1520,10 @@ class _ModalContent {
             children: [
               // Main content row
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 14,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -1509,9 +1536,10 @@ class _ModalContent {
                       child: Text(
                         text,
                         style: TextStyle(
-                            color: textColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
+                          color: textColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -1827,15 +1855,15 @@ class ModalBuilder extends StatefulWidget {
     this.blockBackgroundInteraction = false,
     this.id,
     this.stackLevel,
-  })  : modalType = ModalType.sheet,
-        modalPosition = Alignment.bottomCenter,
-        modalAnimationType = ModalAnimationType.fade,
-        isDraggable = false,
-        isSwipeable = true,
-        autoDismissDuration = null,
-        snackbarDisplayMode = SnackbarDisplayMode.staggered,
-        maxStackedSnackbars = 3,
-        snackbarWidth = null;
+  }) : modalType = ModalType.sheet,
+       modalPosition = Alignment.bottomCenter,
+       modalAnimationType = ModalAnimationType.fade,
+       isDraggable = false,
+       isSwipeable = true,
+       autoDismissDuration = null,
+       snackbarDisplayMode = SnackbarDisplayMode.staggered,
+       maxStackedSnackbars = 3,
+       snackbarWidth = null;
 
   /// Creates a ModalBuilder for dialog modals
   ///
@@ -1864,17 +1892,17 @@ class ModalBuilder extends StatefulWidget {
     this.blockBackgroundInteraction = false,
     this.id,
     this.stackLevel,
-  })  : modalType = ModalType.dialog,
-        onExpanded = null,
-        isExpandable = false,
-        expandedPercentageSize = 85,
-        contentPaddingByDragHandle = 35.0,
-        isSwipeable = true,
-        autoDismissDuration = null,
-        snackbarDisplayMode = SnackbarDisplayMode.staggered,
-        maxStackedSnackbars = 3,
-        modalColor = null,
-        snackbarWidth = null;
+  }) : modalType = ModalType.dialog,
+       onExpanded = null,
+       isExpandable = false,
+       expandedPercentageSize = 85,
+       contentPaddingByDragHandle = 35.0,
+       isSwipeable = true,
+       autoDismissDuration = null,
+       snackbarDisplayMode = SnackbarDisplayMode.staggered,
+       maxStackedSnackbars = 3,
+       modalColor = null,
+       snackbarWidth = null;
 
   /// Creates a ModalBuilder for snackbar modals
   ///
@@ -1920,13 +1948,13 @@ class ModalBuilder extends StatefulWidget {
     this.snackbarWidth,
     this.id,
     this.stackLevel,
-  })  : modalType = ModalType.snackbar,
-        onExpanded = null,
-        isExpandable = false,
-        expandedPercentageSize = 85,
-        contentPaddingByDragHandle = 0.0,
-        isDraggable = false,
-        modalColor = null;
+  }) : modalType = ModalType.snackbar,
+       onExpanded = null,
+       isExpandable = false,
+       expandedPercentageSize = 85,
+       contentPaddingByDragHandle = 0.0,
+       isDraggable = false,
+       modalColor = null;
 
   @override
   State<ModalBuilder> createState() => _ModalBuilderState();
@@ -2122,6 +2150,7 @@ class Modal {
 
     /// The child widget: the app background behind the modal
     Widget? child, {
+
     /// The border radius to apply to the modal's corners when [ModalType] is [ModalType.sheet] and when a sheet is active/showing
     BorderRadius? borderRadius,
 
@@ -2345,10 +2374,11 @@ class Modal {
   ///
   /// Useful as a starting point for creating custom modals
   static Widget get bottomSheetTemplate => Center(
-        child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: const Text('Default Sheet')),
-      );
+    child: Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: const Text('Default Sheet'),
+    ),
+  );
 
   /// Indicates whether any modal is currently being shown
   ///
@@ -2538,7 +2568,7 @@ class Modal {
     if (_sheetController.state != null) {
       items.add((
         id: _sheetController.state!.uniqueId,
-        level: _sheetController.state!.stackLevel
+        level: _sheetController.state!.stackLevel,
       ));
     }
     for (final dialog in _dialogStackNotifier.state) {
@@ -2553,8 +2583,10 @@ class Modal {
       final activeId = _activeModalController.state!.uniqueId;
       final exists = items.any((item) => item.id == activeId);
       if (!exists) {
-        items.add(
-            (id: activeId, level: _activeModalController.state!.stackLevel));
+        items.add((
+          id: activeId,
+          level: _activeModalController.state!.stackLevel,
+        ));
       }
     }
 
@@ -2805,7 +2837,8 @@ class Modal {
     );
     if (_showDebugPrints) {
       debugPrint(
-          'Modal.show called: type=${modalContent.modalType}, id=${modalContent.uniqueId}');
+        'Modal.show called: type=${modalContent.modalType}, id=${modalContent.uniqueId}',
+      );
     }
     _debugModalLog(
       'show type=${modalContent.modalType} id=${modalContent.uniqueId} isActive=${Modal.isActive} popOverlayActive=${PopOverlay.isActive}',
@@ -2826,8 +2859,9 @@ class Modal {
       // Check the appropriate type-specific controller for an existing modal with same ID
 
       if (modalContent.modalType == ModalType.dialog) {
-        final dialogStack =
-            List<_ModalContent>.from(_dialogStackNotifier.state);
+        final dialogStack = List<_ModalContent>.from(
+          _dialogStackNotifier.state,
+        );
         final existingIndex = dialogStack.indexWhere((dialog) {
           return dialog.id == modalContent.id ||
               dialog.uniqueId == modalContent.id;
@@ -2845,8 +2879,12 @@ class Modal {
         _syncInterleavedDialogLayersWithStack();
 
         _registerModal(modalContent.uniqueId, modalContent.modalType);
-        _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-            modalContent, ModalLifecycleEventType.created));
+        _dispatchModalLifecycleEvent(
+          _buildModalLifecycleEvent(
+            modalContent,
+            ModalLifecycleEventType.created,
+          ),
+        );
 
         Modal.controller.state = _dialogController.state;
         return;
@@ -2885,7 +2923,8 @@ class Modal {
       if (existingModal != null) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.show: Found existing modal with same ID (${modalContent.id}), using updateParams instead');
+            'Modal.show: Found existing modal with same ID (${modalContent.id}), using updateParams instead',
+          );
         }
         Modal.updateParams(
           id: existingModal.uniqueId,
@@ -2937,8 +2976,12 @@ class Modal {
       _syncInterleavedDialogLayersWithStack();
 
       _registerModal(modalContent.uniqueId, modalContent.modalType);
-      _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-          modalContent, ModalLifecycleEventType.created));
+      _dispatchModalLifecycleEvent(
+        _buildModalLifecycleEvent(
+          modalContent,
+          ModalLifecycleEventType.created,
+        ),
+      );
 
       Modal.controller.state = _dialogController.state;
       return;
@@ -2948,8 +2991,12 @@ class Modal {
       _registerSheetInStack(modalContent);
 
       _registerModal(modalContent.uniqueId, modalContent.modalType);
-      _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-          modalContent, ModalLifecycleEventType.created));
+      _dispatchModalLifecycleEvent(
+        _buildModalLifecycleEvent(
+          modalContent,
+          ModalLifecycleEventType.created,
+        ),
+      );
 
       Modal.controller.state = _sheetController.state;
       return;
@@ -3008,8 +3055,12 @@ class Modal {
       _registerModal(modalContent.uniqueId, modalContent.modalType);
 
       // 8. Notify lifecycle listeners after the modal is officially registered.
-      _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-          modalContent, ModalLifecycleEventType.created));
+      _dispatchModalLifecycleEvent(
+        _buildModalLifecycleEvent(
+          modalContent,
+          ModalLifecycleEventType.created,
+        ),
+      );
 
       // 9. Set the active modal controller
       Modal.controller.state = modalContent;
@@ -3035,8 +3086,8 @@ class Modal {
       final previousType = Modal.controller.state?.modalType;
       final previousModal =
           previousType != null && previousType == modalContent.modalType
-              ? Modal.controller.state
-              : null;
+          ? Modal.controller.state
+          : null;
       if (previousType != null &&
           previousType == modalContent.modalType &&
           modalContent.modalType != ModalType.sheet) {
@@ -3060,12 +3111,20 @@ class Modal {
       _registerModal(modalContent.uniqueId, modalContent.modalType);
 
       if (previousModal != null && modalContent.modalType != ModalType.sheet) {
-        _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-            previousModal, ModalLifecycleEventType.dismissed));
+        _dispatchModalLifecycleEvent(
+          _buildModalLifecycleEvent(
+            previousModal,
+            ModalLifecycleEventType.dismissed,
+          ),
+        );
       }
 
-      _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-          modalContent, ModalLifecycleEventType.created));
+      _dispatchModalLifecycleEvent(
+        _buildModalLifecycleEvent(
+          modalContent,
+          ModalLifecycleEventType.created,
+        ),
+      );
 
       // Update active modal controller
       Modal.controller.state = modalContent;
@@ -3165,12 +3224,14 @@ class Modal {
   }) {
     if (_showDebugPrints) {
       debugPrint(
-          'Modal.showSnackbar called: text=$text, id=$id, position=$position');
+        'Modal.showSnackbar called: text=$text, id=$id, position=$position',
+      );
     }
 
     // For staggered and notificationBubble modes, snackbars have infinite duration
     // Only queued and replace modes have auto-dismiss duration
-    final effectiveDuration = (displayMode == SnackbarDisplayMode.staggered ||
+    final effectiveDuration =
+        (displayMode == SnackbarDisplayMode.staggered ||
             displayMode == SnackbarDisplayMode.notificationBubble)
         ? null
         : duration;
@@ -3182,30 +3243,31 @@ class Modal {
       Modal.updateParams(
         id: id,
         // Update content if provided
-        builder: builder ??
+        builder:
+            builder ??
             (text != null
                 ? ([_]) => _ModalContent.defaultSnackbar(
-                      text: text,
-                      prefixIcon: prefixIcon,
-                      showSuffixIcon: showCloseIcon,
-                      backgroundColor: backgroundColor,
-                      textColor: textColor,
-                      iconColor: iconColor,
-                      position: position,
-                      duration: effectiveDuration,
-                      isDismissible: isDismissible,
-                      barrierColor: barrierColor,
-                      blockBackgroundInteraction: blockBackgroundInteraction,
-                      id: id,
-                      stackLevel: stackLevel,
-                      width: width,
-                      offset: offset,
-                      displayMode: displayMode,
-                      maxStackedSnackbars: maxStackedSnackbars,
-                      showDurationTimer: showDurationTimer,
-                      durationTimerColor: durationTimerColor,
-                      durationTimerDirection: durationTimerDirection,
-                    ).buildContent()
+                    text: text,
+                    prefixIcon: prefixIcon,
+                    showSuffixIcon: showCloseIcon,
+                    backgroundColor: backgroundColor,
+                    textColor: textColor,
+                    iconColor: iconColor,
+                    position: position,
+                    duration: effectiveDuration,
+                    isDismissible: isDismissible,
+                    barrierColor: barrierColor,
+                    blockBackgroundInteraction: blockBackgroundInteraction,
+                    id: id,
+                    stackLevel: stackLevel,
+                    width: width,
+                    offset: offset,
+                    displayMode: displayMode,
+                    maxStackedSnackbars: maxStackedSnackbars,
+                    showDurationTimer: showDurationTimer,
+                    durationTimerColor: durationTimerColor,
+                    durationTimerDirection: durationTimerDirection,
+                  ).buildContent()
                 : null),
         // Update other params
         modalPosition: position,
@@ -3256,16 +3318,17 @@ class Modal {
       final snackbarId = _generateModalId(id);
 
       // Wrap the builder with duration indicator if not handling manually
-      final effectiveBuilder = (showDurationTimer &&
+      final effectiveBuilder =
+          (showDurationTimer &&
               !handleDurationTimerManually &&
               effectiveDuration != null)
           ? () => _wrapWithDurationIndicator(
-                builder(),
-                effectiveDuration,
-                durationTimerColor,
-                durationTimerDirection,
-                snackbarId,
-              )
+              builder(),
+              effectiveDuration,
+              durationTimerColor,
+              durationTimerDirection,
+              snackbarId,
+            )
           : builder;
 
       final content = _ModalContent(
@@ -3383,8 +3446,9 @@ class Modal {
           child: ClipRRect(
             // Use bottom corners radius to match typical snackbar border radius
             borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12)),
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(12),
+            ),
             child: SnackbarDurationIndicator(
               duration: duration,
               deadline: snackbarId != null
@@ -3395,8 +3459,9 @@ class Modal {
               backgroundColor: effectiveColor.withValues(alpha: 0.3),
               direction: direction,
               borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12)),
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
+              ),
             ),
           ),
         ),
@@ -3409,7 +3474,9 @@ class Modal {
   /// Uses the snackbar-specific controller and dismissing state to ensure
   /// independence from dialog/bottomsheet lifecycle.
   static void _showSnackbarContent(
-      _ModalContent content, SnackbarDisplayMode displayMode) {
+    _ModalContent content,
+    SnackbarDisplayMode displayMode,
+  ) {
     // debugPrint(
     //     'Modal._showSnackbarContent: id=${content.uniqueId}, mode=$displayMode');
     final currentQueueMap = Modal.snackbarQueue.state;
@@ -3478,8 +3545,9 @@ class Modal {
         _snackbarStackIndexNotifier.state = newIndex;
 
         // Update queue map
-        final updatedQueueMap =
-            Map<Alignment, List<_ModalContent>>.from(currentQueueMap);
+        final updatedQueueMap = Map<Alignment, List<_ModalContent>>.from(
+          currentQueueMap,
+        );
         updatedQueueMap[position] = newQueue;
         _snackbarQueueNotifier.state = updatedQueueMap;
         _syncInterleavedSnackbarLayersWithQueue();
@@ -3487,8 +3555,9 @@ class Modal {
         // Register the snackbar in the registry when added to queue
         _registerModal(content.uniqueId, ModalType.snackbar);
 
-        _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-            content, ModalLifecycleEventType.created));
+        _dispatchModalLifecycleEvent(
+          _buildModalLifecycleEvent(content, ModalLifecycleEventType.created),
+        );
 
         // If this is the first snackbar overall AND snackbar system is not dismissing,
         // show it immediately. Otherwise it stays in queue and will be shown
@@ -3501,8 +3570,9 @@ class Modal {
 
       case SnackbarDisplayMode.queued:
         // Add to queue regardless of limit; wait for others to finish
-        final updatedQueueMap =
-            Map<Alignment, List<_ModalContent>>.from(currentQueueMap);
+        final updatedQueueMap = Map<Alignment, List<_ModalContent>>.from(
+          currentQueueMap,
+        );
         updatedQueueMap[position] = [...positionQueue, content];
         _snackbarQueueNotifier.state = updatedQueueMap;
         _syncInterleavedSnackbarLayersWithQueue();
@@ -3510,8 +3580,9 @@ class Modal {
         // Register the snackbar in the registry when added to queue
         _registerModal(content.uniqueId, ModalType.snackbar);
 
-        _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-            content, ModalLifecycleEventType.created));
+        _dispatchModalLifecycleEvent(
+          _buildModalLifecycleEvent(content, ModalLifecycleEventType.created),
+        );
 
         if (!hasAnySnackbars() && shouldActivateSnackbar()) {
           // Show immediately if queue was empty AND snackbar system not dismissing
@@ -3524,8 +3595,9 @@ class Modal {
         // No limit on queue size - all snackbars accumulate and the badge shows the count
         final newIndex = positionQueue.length;
         _snackbarStackIndexNotifier.state = newIndex;
-        final updatedQueueMap =
-            Map<Alignment, List<_ModalContent>>.from(currentQueueMap);
+        final updatedQueueMap = Map<Alignment, List<_ModalContent>>.from(
+          currentQueueMap,
+        );
         updatedQueueMap[position] = [...positionQueue, content];
         _snackbarQueueNotifier.state = updatedQueueMap;
         _syncInterleavedSnackbarLayersWithQueue();
@@ -3533,8 +3605,9 @@ class Modal {
         // Register the snackbar in the registry when added to queue
         _registerModal(content.uniqueId, ModalType.snackbar);
 
-        _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-            content, ModalLifecycleEventType.created));
+        _dispatchModalLifecycleEvent(
+          _buildModalLifecycleEvent(content, ModalLifecycleEventType.created),
+        );
 
         if (!hasAnySnackbars() && shouldActivateSnackbar()) {
           activateSnackbar(content);
@@ -3553,8 +3626,12 @@ class Modal {
         }
 
         for (final snackbar in replacedSnackbars) {
-          _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-              snackbar, ModalLifecycleEventType.dismissed));
+          _dispatchModalLifecycleEvent(
+            _buildModalLifecycleEvent(
+              snackbar,
+              ModalLifecycleEventType.dismissed,
+            ),
+          );
           snackbar.onDismissed?.call();
         }
 
@@ -3567,8 +3644,9 @@ class Modal {
         // Register the new snackbar
         _registerModal(content.uniqueId, ModalType.snackbar);
 
-        _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-            content, ModalLifecycleEventType.created));
+        _dispatchModalLifecycleEvent(
+          _buildModalLifecycleEvent(content, ModalLifecycleEventType.created),
+        );
 
         // Only activate if snackbar system is NOT currently dismissing.
         // If we are dismissing, the snackbar stays in queue and will be
@@ -3592,8 +3670,10 @@ class Modal {
   ///
   /// The [immediate] parameter, when true, skips the dismiss animation delay.
   /// This is used when `Dismissible` has already animated the snackbar out.
-  static void _removeSnackbarFromQueue(
-      [Alignment? position, bool immediate = false]) {
+  static void _removeSnackbarFromQueue([
+    Alignment? position,
+    bool immediate = false,
+  ]) {
     if (_showDebugPrints) {
       debugPrint(
         'Modal._removeSnackbarFromQueue: position=$position, immediate=$immediate, isDismissing=${Modal.isSnackbarDismissing}, isBottomSheetDismissing=${Modal.isSheetDismissing}, isDialogDismissing=${Modal.isDialogDismissing}',
@@ -3605,7 +3685,8 @@ class Modal {
     if (Modal.isSheetDismissing || Modal.isDialogDismissing) {
       if (_showDebugPrints) {
         debugPrint(
-            'Modal._removeSnackbarFromQueue: deferred - another modal is dismissing');
+          'Modal._removeSnackbarFromQueue: deferred - another modal is dismissing',
+        );
       }
       // Schedule removal after dismissal completes
       _snackbarRetryTimer?.cancel();
@@ -3629,11 +3710,13 @@ class Modal {
       // For staggered and notificationBubble modes, the LAST item in queue is the frontmost (newest) snackbar
       // that the user is interacting with. For other modes (queued, replace), it's the first item.
       final displayMode = positionQueue.first.snackbarDisplayMode;
-      final showsNewest = displayMode == SnackbarDisplayMode.staggered ||
+      final showsNewest =
+          displayMode == SnackbarDisplayMode.staggered ||
           displayMode == SnackbarDisplayMode.notificationBubble;
 
-      final snackbarToRemove =
-          showsNewest ? positionQueue.last : positionQueue.first;
+      final snackbarToRemove = showsNewest
+          ? positionQueue.last
+          : positionQueue.first;
       final snackbarToRemoveId = snackbarToRemove.uniqueId;
       final isActiveSnackbar =
           _snackbarController.state?.uniqueId == snackbarToRemoveId;
@@ -3648,8 +3731,9 @@ class Modal {
         final positionQueue = currentQueueMap[targetPosition] ?? [];
         if (positionQueue.isEmpty) return;
 
-        final snackbarToRemove =
-            showsNewest ? positionQueue.last : positionQueue.first;
+        final snackbarToRemove = showsNewest
+            ? positionQueue.last
+            : positionQueue.first;
 
         // Remove the appropriate snackbar based on display mode
         // Staggered/notificationBubble: remove last (newest/frontmost)
@@ -3657,15 +3741,18 @@ class Modal {
         final List<_ModalContent> updatedPositionQueue;
         if (showsNewest) {
           // Remove the last item (newest snackbar at the front)
-          updatedPositionQueue =
-              positionQueue.sublist(0, positionQueue.length - 1);
+          updatedPositionQueue = positionQueue.sublist(
+            0,
+            positionQueue.length - 1,
+          );
         } else {
           // Remove the first item
           updatedPositionQueue = positionQueue.sublist(1);
         }
 
-        final updatedQueueMap =
-            Map<Alignment, List<_ModalContent>>.from(currentQueueMap);
+        final updatedQueueMap = Map<Alignment, List<_ModalContent>>.from(
+          currentQueueMap,
+        );
 
         if (updatedPositionQueue.isEmpty) {
           updatedQueueMap.remove(targetPosition);
@@ -3681,8 +3768,12 @@ class Modal {
 
         // Notify lifecycle listeners and modal callbacks that this snackbar was dismissed.
         // This keeps auto-dismiss and swipe-dismiss aligned with dismissById()/dismissAllSnackbars().
-        _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-            snackbarToRemove, ModalLifecycleEventType.dismissed));
+        _dispatchModalLifecycleEvent(
+          _buildModalLifecycleEvent(
+            snackbarToRemove,
+            ModalLifecycleEventType.dismissed,
+          ),
+        );
         onDismissedCallback?.call();
         snackbarToRemove.onDismissed?.call();
 
@@ -3702,8 +3793,8 @@ class Modal {
           final removedPosition = targetPosition;
           final nextSnackbarInSamePosition =
               updatedQueueMap[removedPosition]?.isNotEmpty == true
-                  ? updatedQueueMap[removedPosition]!.first
-                  : null;
+              ? updatedQueueMap[removedPosition]!.first
+              : null;
 
           _ModalContent? nextSnackbar = nextSnackbarInSamePosition;
 
@@ -3778,10 +3869,13 @@ class Modal {
   /// This is used when dismissing a specific snackbar from the expanded
   /// staggered view, where any snackbar in the list can be dismissed.
   static void _removeSnackbarByIdFromQueue(
-      String snackbarId, Alignment position) {
+    String snackbarId,
+    Alignment position,
+  ) {
     if (_showDebugPrints) {
       debugPrint(
-          'Modal._removeSnackbarByIdFromQueue: id=$snackbarId, position=$position');
+        'Modal._removeSnackbarByIdFromQueue: id=$snackbarId, position=$position',
+      );
     }
 
     final currentQueueMap = Modal.snackbarQueue.state;
@@ -3790,8 +3884,9 @@ class Modal {
     if (positionQueue.isEmpty) return;
 
     // Find the snackbar with this ID
-    final snackbarIndex =
-        positionQueue.indexWhere((s) => s.uniqueId == snackbarId);
+    final snackbarIndex = positionQueue.indexWhere(
+      (s) => s.uniqueId == snackbarId,
+    );
     if (snackbarIndex == -1) {
       // debugPrint(
       //     'Modal._removeSnackbarByIdFromQueue: snackbar not found in queue');
@@ -3806,8 +3901,9 @@ class Modal {
     final updatedPositionQueue = List<_ModalContent>.from(positionQueue)
       ..removeAt(snackbarIndex);
 
-    final updatedQueueMap =
-        Map<Alignment, List<_ModalContent>>.from(currentQueueMap);
+    final updatedQueueMap = Map<Alignment, List<_ModalContent>>.from(
+      currentQueueMap,
+    );
 
     if (updatedPositionQueue.isEmpty) {
       updatedQueueMap.remove(position);
@@ -3821,8 +3917,12 @@ class Modal {
     // Unregister the removed snackbar from the modal registry
     _unregisterModal(snackbarId);
 
-    _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-        snackbarToRemove, ModalLifecycleEventType.dismissed));
+    _dispatchModalLifecycleEvent(
+      _buildModalLifecycleEvent(
+        snackbarToRemove,
+        ModalLifecycleEventType.dismissed,
+      ),
+    );
 
     // Check if any snackbars remain across all positions
     bool hasAnySnackbars = false;
@@ -3975,8 +4075,9 @@ class Modal {
     if (targetContent == null) {
       final queueMap = _snackbarQueueNotifier.state;
       for (final entry in queueMap.entries) {
-        final index =
-            entry.value.indexWhere((c) => c.uniqueId == id || c.id == id);
+        final index = entry.value.indexWhere(
+          (c) => c.uniqueId == id || c.id == id,
+        );
         if (index != -1) {
           targetContent = entry.value[index];
           isInQueue = true;
@@ -4021,12 +4122,14 @@ class Modal {
       size: resetSize ? null : (size ?? targetContent.size),
       expandedPercentageSize:
           expandedPercentageSize ?? targetContent.expandedPercentageSize,
-      contentPaddingByDragHandle: contentPaddingByDragHandle ??
+      contentPaddingByDragHandle:
+          contentPaddingByDragHandle ??
           targetContent.contentPaddingByDragHandle,
       sheetPosition: sheetPosition ?? targetContent.sheetPosition,
       // Behavior parameters
       isDismissable: isDismissable ?? targetContent.isDismissable,
-      blockBackgroundInteraction: blockBackgroundInteraction ??
+      blockBackgroundInteraction:
+          blockBackgroundInteraction ??
           targetContent.blockBackgroundInteraction,
       isDraggable: isDraggable ?? targetContent.isDraggable,
       onDismissed: onDismissed ?? targetContent.onDismissed,
@@ -4059,8 +4162,9 @@ class Modal {
       final didExplicitlyChangeDuration = autoDismissDuration != null;
       if (didExplicitlyChangeDuration) {
         if (updatedContent.autoDismissDuration != null) {
-          updatedContent._snackbarAutoDismissDeadline =
-              DateTime.now().add(updatedContent.autoDismissDuration!);
+          updatedContent._snackbarAutoDismissDeadline = DateTime.now().add(
+            updatedContent.autoDismissDuration!,
+          );
         } else {
           updatedContent._snackbarAutoDismissDeadline = null;
         }
@@ -4075,26 +4179,30 @@ class Modal {
     if (isInQueue && queuePosition != null && queueIndex != null) {
       // Update in queue
       final currentQueueMap = _snackbarQueueNotifier.state;
-      final updatedQueue =
-          List<_ModalContent>.from(currentQueueMap[queuePosition]!);
+      final updatedQueue = List<_ModalContent>.from(
+        currentQueueMap[queuePosition]!,
+      );
       updatedQueue[queueIndex] = updatedContent;
 
-      final updatedQueueMap =
-          Map<Alignment, List<_ModalContent>>.from(currentQueueMap);
+      final updatedQueueMap = Map<Alignment, List<_ModalContent>>.from(
+        currentQueueMap,
+      );
       updatedQueueMap[queuePosition] = updatedQueue;
       _snackbarQueueNotifier.state = updatedQueueMap;
       _syncInterleavedSnackbarLayersWithQueue();
     } else if (isInDialogStack && dialogStackIndex != null) {
-      final updatedDialogStack =
-          List<_ModalContent>.from(_dialogStackNotifier.state);
+      final updatedDialogStack = List<_ModalContent>.from(
+        _dialogStackNotifier.state,
+      );
       updatedDialogStack[dialogStackIndex] = updatedContent;
       _sortDialogStack(updatedDialogStack);
       _dialogStackNotifier.state = updatedDialogStack;
       _syncDialogControllersFromStack();
       _syncInterleavedDialogLayersWithStack();
     } else if (isInSheetStack && sheetStackIndex != null) {
-      final updatedSheetStack =
-          List<_ModalContent>.from(_sheetStackNotifier.state);
+      final updatedSheetStack = List<_ModalContent>.from(
+        _sheetStackNotifier.state,
+      );
       updatedSheetStack[sheetStackIndex] = updatedContent;
       _sortSheetStack(updatedSheetStack);
       _sheetStackNotifier.state = updatedSheetStack;
@@ -4223,7 +4331,8 @@ class Modal {
   static void _animateBackgroundAndClear() {
     // Only animate if background has opacity (barrier is visible)
     // and no other modals are active (which would need the barrier)
-    final needsAnimation = _backgroundLayerAnimationNotifier.state > 0 &&
+    final needsAnimation =
+        _backgroundLayerAnimationNotifier.state > 0 &&
         !Modal.isDialogActive &&
         !Modal.isSheetActive;
 
@@ -4361,7 +4470,8 @@ class Modal {
       }
       if (_showDebugPrints) {
         debugPrint(
-            'Modal.dismissAllSnackbars: dismissing ${dismissedIds.length} snackbars: $dismissedIds');
+          'Modal.dismissAllSnackbars: dismissing ${dismissedIds.length} snackbars: $dismissedIds',
+        );
       }
 
       // Unregister all snackbars from registry
@@ -4375,7 +4485,9 @@ class Modal {
       _staggeredExpandedNotifier.state = null;
 
       _dispatchModalLifecycleEvents(
-          dismissedSnackbars, ModalLifecycleEventType.dismissed);
+        dismissedSnackbars,
+        ModalLifecycleEventType.dismissed,
+      );
 
       for (final snackbar in dismissedSnackbars) {
         snackbar.onDismissed?.call();
@@ -4390,7 +4502,8 @@ class Modal {
 
       if (_showDebugPrints) {
         debugPrint(
-            'Modal.dismissAllSnackbars: completed dismissing IDs: $dismissedIds');
+          'Modal.dismissAllSnackbars: completed dismissing IDs: $dismissedIds',
+        );
       }
     }
   }
@@ -4450,7 +4563,8 @@ class Modal {
     // a frame/scheduler callback. This prevents rare "Trying to render a disposed
     // EngineFlutterView" assertions when dismissAll is triggered during a draw.
     final phase = SchedulerBinding.instance.schedulerPhase;
-    final shouldDefer = phase == SchedulerPhase.transientCallbacks ||
+    final shouldDefer =
+        phase == SchedulerPhase.transientCallbacks ||
         phase == SchedulerPhase.midFrameMicrotasks ||
         phase == SchedulerPhase.persistentCallbacks;
 
@@ -4532,7 +4646,9 @@ class Modal {
     _modalRegistry.state = {};
 
     _dispatchModalLifecycleEvents(
-        dismissedContents, ModalLifecycleEventType.dismissed);
+      dismissedContents,
+      ModalLifecycleEventType.dismissed,
+    );
 
     Modal.isDismissing = false;
 
@@ -4556,8 +4672,10 @@ class Modal {
   /// final dismissed = await Modal.dismissByIds(['modal1', 'modal2', 'modal3']);
   /// print('Dismissed: $dismissed');
   /// ```
-  Future<List<String>> dismissByIds(List<String> ids,
-      {VoidCallback? onDismissed}) async {
+  Future<List<String>> dismissByIds(
+    List<String> ids, {
+    VoidCallback? onDismissed,
+  }) async {
     if (_showDebugPrints) {
       debugPrint('Modal.dismissByIds: dismissing IDs: $ids');
     }
@@ -4591,8 +4709,10 @@ class Modal {
   /// // Dismiss specific dialog by ID (recommended)
   /// Modal.dismissDialog(id: 'settings_dialog');
   /// ```
-  static Future<void> dismissDialog(
-      {String? id, VoidCallback? onDismissed}) async {
+  static Future<void> dismissDialog({
+    String? id,
+    VoidCallback? onDismissed,
+  }) async {
     _debugModalLog(
       'dismissDialog id=$id isDialogActive=${Modal.isDialogActive} isDismissing=${Modal.isDialogDismissing}',
     );
@@ -4617,8 +4737,12 @@ class Modal {
       _syncInterleavedDialogLayersWithStack();
 
       _unregisterModal(targetDialog.uniqueId);
-      _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-          targetDialog, ModalLifecycleEventType.dismissed));
+      _dispatchModalLifecycleEvent(
+        _buildModalLifecycleEvent(
+          targetDialog,
+          ModalLifecycleEventType.dismissed,
+        ),
+      );
       onDismissed?.call();
       targetDialog.onDismissed?.call();
       return;
@@ -4631,8 +4755,9 @@ class Modal {
         .where((dialog) => dialog.uniqueId != targetDialogId)
         .toList(growable: false);
     final hasRemainingDialogs = remainingDialogsAfterDismiss.isNotEmpty;
-    final remainingDialogNeedsBlur = remainingDialogsAfterDismiss
-        .any((dialog) => dialog.shouldBlurBackground);
+    final remainingDialogNeedsBlur = remainingDialogsAfterDismiss.any(
+      (dialog) => dialog.shouldBlurBackground,
+    );
 
     Modal.isDismissing = true;
     _dialogDismissingNotifier.state = true;
@@ -4648,7 +4773,8 @@ class Modal {
 
     // Reset blur animation state - BUT ONLY if no other blur-enabled modal remains active
     // If a bottom sheet OR remaining dialog with blur is still showing, preserve blur.
-    final sheetNeedsBlur = Modal.isSheetActive &&
+    final sheetNeedsBlur =
+        Modal.isSheetActive &&
         (_sheetController.state?.shouldBlurBackground ?? false);
     if (!sheetNeedsBlur && !remainingDialogNeedsBlur) {
       _blurAnimationStateNotifier.state = 0.0;
@@ -4681,8 +4807,10 @@ class Modal {
       // Keep barrier visuals fully visible for the remaining dialog stack.
       _backgroundAnimationTimer?.cancel();
       _backgroundAnimationTimer = null;
-      _backgroundLayerAnimationNotifier.state =
-          max(_backgroundLayerAnimationNotifier.state, 1.0);
+      _backgroundLayerAnimationNotifier.state = max(
+        _backgroundLayerAnimationNotifier.state,
+        1.0,
+      );
     }
 
     // Animate out
@@ -4723,8 +4851,12 @@ class Modal {
 
       // Run callbacks now that the dialog has been cleaned up
       // debugPrint('Modal.dismissDialog: running callbacks (post-refresh)');
-      _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-          dismissedDialog, ModalLifecycleEventType.dismissed));
+      _dispatchModalLifecycleEvent(
+        _buildModalLifecycleEvent(
+          dismissedDialog,
+          ModalLifecycleEventType.dismissed,
+        ),
+      );
       onDismissed?.call();
       dialogOnDismiss?.call();
 
@@ -4798,8 +4930,9 @@ class Modal {
 
       // debugPrint('Modal.dismissDialog: finished');
       if (Modal.isCustomActive) {
-        _customBarrierTapSuppressedUntil =
-            DateTime.now().add(const Duration(milliseconds: 250));
+        _customBarrierTapSuppressedUntil = DateTime.now().add(
+          const Duration(milliseconds: 250),
+        );
       }
       Modal.isDismissing = false;
       final modalLatest = Modal.latestActivationOrder;
@@ -4831,8 +4964,10 @@ class Modal {
   /// // Dismiss specific bottom sheet by ID (recommended)
   /// Modal.dismissBottomSheet(id: 'settings_sheet');
   /// ```
-  static Future<void> dismissBottomSheet(
-      {String? id, VoidCallback? onDismissed}) async {
+  static Future<void> dismissBottomSheet({
+    String? id,
+    VoidCallback? onDismissed,
+  }) async {
     _debugModalLog(
       'dismissBottomSheet id=$id isSheetActive=${Modal.isSheetActive} isDismissing=${Modal.isSheetDismissing}',
     );
@@ -4843,7 +4978,8 @@ class Modal {
       if (targetSheetId == null) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissBottomSheet: WARNING - No bottom sheet ID found, aborting');
+            'Modal.dismissBottomSheet: WARNING - No bottom sheet ID found, aborting',
+          );
         }
         return;
       }
@@ -4852,14 +4988,16 @@ class Modal {
       if (id != null && id != sheetId && id != targetSheetId) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissBottomSheet: ID mismatch. Requested=$id, Active=$sheetId. Aborting.');
+            'Modal.dismissBottomSheet: ID mismatch. Requested=$id, Active=$sheetId. Aborting.',
+          );
         }
         return;
       }
 
       if (_showDebugPrints) {
         debugPrint(
-            'Modal.dismissBottomSheet: targeting sheet ID=$targetSheetId');
+          'Modal.dismissBottomSheet: targeting sheet ID=$targetSheetId',
+        );
       }
       Modal.isDismissing = true;
       _sheetDismissingNotifier.state = true;
@@ -4871,18 +5009,22 @@ class Modal {
       // Also exclude the sheet's OWN layer which is still registered at this
       // point (it gets unregistered later during cleanup).
       final sheetLayerId = _sheetInterleavedLayerId(targetSheetId);
-      final hasOtherInterleavedLayers = OverlayInterleaveManager.enabled &&
-          OverlayInterleaveManager.layers.any((layer) =>
-              !layer.id.startsWith('pop:') &&
-              !layer.id.startsWith('snackbar:') &&
-              layer.id != sheetLayerId);
+      final hasOtherInterleavedLayers =
+          OverlayInterleaveManager.enabled &&
+          OverlayInterleaveManager.layers.any(
+            (layer) =>
+                !layer.id.startsWith('pop:') &&
+                !layer.id.startsWith('snackbar:') &&
+                layer.id != sheetLayerId,
+          );
 
       // (intentionally not capturing dismissed type here) bottom sheet cleanup
       // is handled deterministically below when we refresh the controller.
 
       // Reset blur animation state - BUT ONLY if no other blur-enabled modal remains active
       // If a dialog with blur is still showing, we must preserve its blur
-      final dialogNeedsBlur = Modal.isDialogActive &&
+      final dialogNeedsBlur =
+          Modal.isDialogActive &&
           (_dialogController.state?.shouldBlurBackground ?? false);
       if (!dialogNeedsBlur && !hasOtherInterleavedLayers) {
         _blurAnimationStateNotifier.state = 0.0;
@@ -4948,8 +5090,12 @@ class Modal {
           debugPrint('Modal.dismissBottomSheet: running callbacks');
         }
         if (dismissedSheet != null) {
-          _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-              dismissedSheet, ModalLifecycleEventType.dismissed));
+          _dispatchModalLifecycleEvent(
+            _buildModalLifecycleEvent(
+              dismissedSheet,
+              ModalLifecycleEventType.dismissed,
+            ),
+          );
         }
         onDismissed?.call();
         sheetOnDismiss?.call();
@@ -4957,7 +5103,8 @@ class Modal {
         final currentQueue = _snackbarQueueNotifier.state;
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissBottomSheet: snackbar queue has ${currentQueue.keys.length} positions');
+            'Modal.dismissBottomSheet: snackbar queue has ${currentQueue.keys.length} positions',
+          );
         }
 
         // IMPORTANT: Do NOT clear the snackbar queue when dismissing a bottom sheet.
@@ -4966,7 +5113,8 @@ class Modal {
         if (currentQueue.isNotEmpty) {
           if (_showDebugPrints) {
             debugPrint(
-                'Modal.dismissBottomSheet: snackbar queue not empty, preserving snackbars');
+              'Modal.dismissBottomSheet: snackbar queue not empty, preserving snackbars',
+            );
           }
           // Find the first position with snackbars and make it the active modal
           Alignment? positionWithContent;
@@ -5005,10 +5153,12 @@ class Modal {
         // be present if unregister races with this callback).
         final hasOtherInterleavedLayersAfterDismiss =
             OverlayInterleaveManager.enabled &&
-                OverlayInterleaveManager.layers.any((layer) =>
-                    !layer.id.startsWith('pop:') &&
-                    !layer.id.startsWith('snackbar:') &&
-                    layer.id != sheetLayerId);
+            OverlayInterleaveManager.layers.any(
+              (layer) =>
+                  !layer.id.startsWith('pop:') &&
+                  !layer.id.startsWith('snackbar:') &&
+                  layer.id != sheetLayerId,
+            );
         final shouldKeepSharedBackground =
             Modal.isDialogActive || hasOtherInterleavedLayersAfterDismiss;
         if (!shouldKeepSharedBackground) {
@@ -5021,8 +5171,9 @@ class Modal {
 
         // Unregister from modal registry only if the ID exists
         if (_modalRegistry.state.containsKey(targetSheetId)) {
-          final updatedRegistry =
-              Map<String, ModalType>.from(_modalRegistry.state);
+          final updatedRegistry = Map<String, ModalType>.from(
+            _modalRegistry.state,
+          );
           updatedRegistry.remove(targetSheetId);
           _modalRegistry.state = updatedRegistry;
         }
@@ -5081,19 +5232,23 @@ class Modal {
   /// // Dismiss specific side sheet by ID (recommended)
   /// Modal.dismissSideSheet(id: 'menu_sheet');
   /// ```
-  static Future<void> dismissSideSheet(
-      {String? id, VoidCallback? onDismissed}) async {
+  static Future<void> dismissSideSheet({
+    String? id,
+    VoidCallback? onDismissed,
+  }) async {
     // Side sheets now use the sheet controller
     // Check if the active sheet is actually a side sheet (has sheetPosition left/right)
     if (Modal.isSheetActive && !Modal.isSheetDismissing) {
       final content = _sheetController.state;
-      final isSideSheet = content?.sheetPosition == SheetPosition.left ||
+      final isSideSheet =
+          content?.sheetPosition == SheetPosition.left ||
           content?.sheetPosition == SheetPosition.right;
 
       if (!isSideSheet) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissSideSheet: Active bottom sheet is not a side sheet. Aborting.');
+            'Modal.dismissSideSheet: Active bottom sheet is not a side sheet. Aborting.',
+          );
         }
         return;
       }
@@ -5103,7 +5258,8 @@ class Modal {
     } else {
       if (_showDebugPrints) {
         debugPrint(
-            'Modal.dismissSideSheet: No side sheet active or already dismissing');
+          'Modal.dismissSideSheet: No side sheet active or already dismissing',
+        );
       }
     }
   }
@@ -5124,8 +5280,10 @@ class Modal {
   /// // Dismiss specific top sheet by ID (recommended)
   /// Modal.dismissTopSheet(id: 'notification_sheet');
   /// ```
-  static Future<void> dismissTopSheet(
-      {String? id, VoidCallback? onDismissed}) async {
+  static Future<void> dismissTopSheet({
+    String? id,
+    VoidCallback? onDismissed,
+  }) async {
     // Top sheets use the sheet controller
     // Check if the active sheet is actually a top sheet (has sheetPosition top)
     if (Modal.isSheetActive && !Modal.isSheetDismissing) {
@@ -5135,7 +5293,8 @@ class Modal {
       if (!isTopSheet) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissTopSheet: Active bottom sheet is not a top sheet. Aborting.');
+            'Modal.dismissTopSheet: Active bottom sheet is not a top sheet. Aborting.',
+          );
         }
         return;
       }
@@ -5145,7 +5304,8 @@ class Modal {
     } else {
       if (_showDebugPrints) {
         debugPrint(
-            'Modal.dismissTopSheet: No top sheet active or already dismissing');
+          'Modal.dismissTopSheet: No top sheet active or already dismissing',
+        );
       }
     }
   }
@@ -5163,17 +5323,21 @@ class Modal {
     final currentQueueMap = _snackbarQueueNotifier.state;
     if (currentQueueMap.containsKey(position)) {
       // CAPTURE IDs of all snackbars being dismissed at this position
-      final dismissedIds =
-          currentQueueMap[position]!.map((s) => s.uniqueId).toList();
-      final dismissedSnackbars =
-          List<_ModalContent>.from(currentQueueMap[position]!);
+      final dismissedIds = currentQueueMap[position]!
+          .map((s) => s.uniqueId)
+          .toList();
+      final dismissedSnackbars = List<_ModalContent>.from(
+        currentQueueMap[position]!,
+      );
       if (_showDebugPrints) {
         debugPrint(
-            'Modal.dismissSnackbarAtPosition: position=$position, dismissing IDs: $dismissedIds');
+          'Modal.dismissSnackbarAtPosition: position=$position, dismissing IDs: $dismissedIds',
+        );
       }
 
-      final updatedQueueMap =
-          Map<Alignment, List<_ModalContent>>.from(currentQueueMap);
+      final updatedQueueMap = Map<Alignment, List<_ModalContent>>.from(
+        currentQueueMap,
+      );
       updatedQueueMap.remove(position);
       _snackbarQueueNotifier.state = updatedQueueMap;
       _syncInterleavedSnackbarLayersWithQueue();
@@ -5215,11 +5379,14 @@ class Modal {
 
       if (_showDebugPrints) {
         debugPrint(
-            'Modal.dismissSnackbarAtPosition: completed dismissing IDs: $dismissedIds');
+          'Modal.dismissSnackbarAtPosition: completed dismissing IDs: $dismissedIds',
+        );
       }
 
       _dispatchModalLifecycleEvents(
-          dismissedSnackbars, ModalLifecycleEventType.dismissed);
+        dismissedSnackbars,
+        ModalLifecycleEventType.dismissed,
+      );
 
       for (final snackbar in dismissedSnackbars) {
         snackbar.onDismissed?.call();
@@ -5304,8 +5471,10 @@ class Modal {
   /// Modal.showSnackbar(text: 'Message', id: 'my_snack');
   /// await Modal.dismissById('my_snack');
   /// ```
-  static Future<bool> dismissById(String id,
-      {VoidCallback? onDismissed}) async {
+  static Future<bool> dismissById(
+    String id, {
+    VoidCallback? onDismissed,
+  }) async {
     if (_showDebugPrints) {
       debugPrint('Modal.dismissById called: id=$id');
     }
@@ -5315,7 +5484,8 @@ class Modal {
       if (dialog.id == id || dialog.uniqueId == id) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissById: found dialog with ID=$id. Dismissing...');
+            'Modal.dismissById: found dialog with ID=$id. Dismissing...',
+          );
         }
         await dismissDialog(id: id, onDismissed: onDismissed);
         return true;
@@ -5332,13 +5502,15 @@ class Modal {
       if (_sheetController.state?.uniqueId == matchedSheet.uniqueId) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissById: found top sheet with ID=$id. Dismissing...');
+            'Modal.dismissById: found top sheet with ID=$id. Dismissing...',
+          );
         }
         await dismissBottomSheet(id: id, onDismissed: onDismissed);
       } else {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissById: found stacked sheet with ID=$id. Removing without animation...');
+            'Modal.dismissById: found stacked sheet with ID=$id. Removing without animation...',
+          );
         }
 
         final updatedSheetStack = List<_ModalContent>.from(sheetStack)
@@ -5348,8 +5520,12 @@ class Modal {
         _syncInterleavedSheetLayersWithStack();
 
         _unregisterModal(matchedSheet.uniqueId);
-        _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-            matchedSheet, ModalLifecycleEventType.dismissed));
+        _dispatchModalLifecycleEvent(
+          _buildModalLifecycleEvent(
+            matchedSheet,
+            ModalLifecycleEventType.dismissed,
+          ),
+        );
         onDismissed?.call();
         matchedSheet.onDismissed?.call();
       }
@@ -5361,7 +5537,8 @@ class Modal {
       if (sheet.id == id || sheet.uniqueId == id) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissById: found bottom sheet with ID=$id. Dismissing...');
+            'Modal.dismissById: found bottom sheet with ID=$id. Dismissing...',
+          );
         }
         await dismissBottomSheet(onDismissed: onDismissed);
         return true;
@@ -5374,7 +5551,8 @@ class Modal {
       if (sheet.id == id || sheet.uniqueId == id) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissById: found side sheet with ID=$id. Dismissing...');
+            'Modal.dismissById: found side sheet with ID=$id. Dismissing...',
+          );
         }
         await dismissSideSheet(onDismissed: onDismissed);
         return true;
@@ -5387,7 +5565,8 @@ class Modal {
       if (activeCustom.id == id || activeCustom.uniqueId == id) {
         if (_showDebugPrints) {
           debugPrint(
-              'Modal.dismissById: found custom modal with ID=$id. Dismissing...');
+            'Modal.dismissById: found custom modal with ID=$id. Dismissing...',
+          );
         }
 
         Modal.isDismissing = true;
@@ -5395,8 +5574,12 @@ class Modal {
         _dismissModalAnimationController.state = true;
 
         await Future.delayed(0.2.sec, () {
-          _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-              activeCustom, ModalLifecycleEventType.dismissed));
+          _dispatchModalLifecycleEvent(
+            _buildModalLifecycleEvent(
+              activeCustom,
+              ModalLifecycleEventType.dismissed,
+            ),
+          );
 
           _unregisterModal(activeCustom.uniqueId);
           _clearCustomModalContent(force: true);
@@ -5437,8 +5620,9 @@ class Modal {
 
       final queueAtPosition = currentQueueMap[position]!;
       // Search using both id and uniqueId for flexibility
-      final matchIndex = queueAtPosition
-          .indexWhere((content) => content.id == id || content.uniqueId == id);
+      final matchIndex = queueAtPosition.indexWhere(
+        (content) => content.id == id || content.uniqueId == id,
+      );
 
       if (matchIndex >= 0) {
         found = true;
@@ -5474,7 +5658,8 @@ class Modal {
             // Use imperative dismiss via controller
             if (_showDebugPrints) {
               debugPrint(
-                  'Modal.dismissById: Using controller to dismiss snackbar ${snackbar.uniqueId}');
+                'Modal.dismissById: Using controller to dismiss snackbar ${snackbar.uniqueId}',
+              );
             }
 
             final completer = Completer<void>();
@@ -5483,7 +5668,10 @@ class Modal {
               onComplete: () {
                 // Remove from queue after animation completes
                 _removeSnackbarAfterDismiss(
-                    position, snackbar.uniqueId, onDismissed);
+                  position,
+                  snackbar.uniqueId,
+                  onDismissed,
+                );
                 if (!completer.isCompleted) {
                   completer.complete();
                 }
@@ -5496,12 +5684,16 @@ class Modal {
             // Fallback: Use the old reactive approach
             if (_showDebugPrints) {
               debugPrint(
-                  'Modal.dismissById: Controller not found, using fallback for snackbar ${snackbar.uniqueId}');
+                'Modal.dismissById: Controller not found, using fallback for snackbar ${snackbar.uniqueId}',
+              );
             }
 
             await Future.delayed(0.3.sec, () {
               _removeSnackbarAfterDismiss(
-                  position, snackbar.uniqueId, onDismissed);
+                position,
+                snackbar.uniqueId,
+                onDismissed,
+              );
             });
           }
         } else {
@@ -5509,8 +5701,9 @@ class Modal {
           final updatedQueue = List<_ModalContent>.from(queueAtPosition);
           updatedQueue.removeAt(matchIndex);
 
-          final updatedQueueMap =
-              Map<Alignment, List<_ModalContent>>.from(currentQueueMap);
+          final updatedQueueMap = Map<Alignment, List<_ModalContent>>.from(
+            currentQueueMap,
+          );
           if (updatedQueue.isEmpty) {
             updatedQueueMap.remove(position);
           } else {
@@ -5521,13 +5714,18 @@ class Modal {
           _syncInterleavedSnackbarLayersWithQueue();
 
           // Unregister from modal registry
-          final updatedRegistry =
-              Map<String, ModalType>.from(_modalRegistry.state);
+          final updatedRegistry = Map<String, ModalType>.from(
+            _modalRegistry.state,
+          );
           updatedRegistry.remove(snackbar.uniqueId);
           _modalRegistry.state = updatedRegistry;
 
-          _dispatchModalLifecycleEvent(_buildModalLifecycleEvent(
-              snackbar, ModalLifecycleEventType.dismissed));
+          _dispatchModalLifecycleEvent(
+            _buildModalLifecycleEvent(
+              snackbar,
+              ModalLifecycleEventType.dismissed,
+            ),
+          );
 
           onDismissed?.call();
           snackbar.onDismissed?.call();
@@ -5542,7 +5740,8 @@ class Modal {
 
     if (_showDebugPrints) {
       debugPrint(
-          'Modal.dismissById: ID=$id not found in any active modal or snackbar queue');
+        'Modal.dismissById: ID=$id not found in any active modal or snackbar queue',
+      );
     }
     return false;
   }
@@ -5576,7 +5775,8 @@ class Modal {
     _unregisterAllInterleavedSheetLayers();
     _unregisterAllInterleavedCustomLayers(force: true);
     OverlayInterleaveManager.unregisterWhere(
-        (id) => id.startsWith('snackbar:'));
+      (id) => id.startsWith('snackbar:'),
+    );
   }
 
   //-------------------------------------------------//
@@ -5628,10 +5828,14 @@ class _InterleavedDialogLayer extends StatelessWidget {
           if (OverlayInterleaveManager.enabled) {
             final visualOwnerLayerId =
                 OverlayInterleaveManager.topBarrierOwnerLayerId(
-                    preferredPrefixes: const [], preferOldest: false);
+                  preferredPrefixes: const [],
+                  preferOldest: false,
+                );
             final tapOwnerLayerId =
                 OverlayInterleaveManager.topBarrierOwnerLayerId(
-                    preferredPrefixes: const [], preferOldest: false);
+                  preferredPrefixes: const [],
+                  preferOldest: false,
+                );
             isVisualOwner = visualOwnerLayerId == currentLayerId;
             isTapOwner = tapOwnerLayerId == currentLayerId;
             if (!isVisualOwner && !isTapOwner) {
@@ -5664,10 +5868,7 @@ class _InterleavedDialogLayer extends StatelessWidget {
 
           if (!shouldCaptureTaps || !isTapOwner) {
             return Positioned.fill(
-              child: IgnorePointer(
-                ignoring: true,
-                child: barrierChild,
-              ),
+              child: IgnorePointer(ignoring: true, child: barrierChild),
             );
           }
 
@@ -5751,10 +5952,14 @@ class _InterleavedCustomLayer extends StatelessWidget {
           if (OverlayInterleaveManager.enabled) {
             final visualOwnerLayerId =
                 OverlayInterleaveManager.topBarrierOwnerLayerId(
-                    preferredPrefixes: const [], preferOldest: false);
+                  preferredPrefixes: const [],
+                  preferOldest: false,
+                );
             final tapOwnerLayerId =
                 OverlayInterleaveManager.topBarrierOwnerLayerId(
-                    preferredPrefixes: const [], preferOldest: false);
+                  preferredPrefixes: const [],
+                  preferOldest: false,
+                );
             isVisualOwner = visualOwnerLayerId == currentLayerId;
             isTapOwner = tapOwnerLayerId == currentLayerId;
             if (!isVisualOwner && !isTapOwner) {
@@ -5867,8 +6072,9 @@ class _InterleavedSheetLayer extends StatelessWidget {
         if (sheets.isEmpty) return const SizedBox.shrink();
 
         _sortSheetStack(sheets);
-        final sheetIndex =
-            sheets.indexWhere((sheet) => sheet.uniqueId == sheetId);
+        final sheetIndex = sheets.indexWhere(
+          (sheet) => sheet.uniqueId == sheetId,
+        );
         if (sheetIndex == -1) {
           return const SizedBox.shrink();
         }
@@ -5883,10 +6089,14 @@ class _InterleavedSheetLayer extends StatelessWidget {
           if (OverlayInterleaveManager.enabled) {
             final visualOwnerLayerId =
                 OverlayInterleaveManager.topBarrierOwnerLayerId(
-                    preferredPrefixes: const [], preferOldest: false);
+                  preferredPrefixes: const [],
+                  preferOldest: false,
+                );
             final tapOwnerLayerId =
                 OverlayInterleaveManager.topBarrierOwnerLayerId(
-                    preferredPrefixes: const [], preferOldest: false);
+                  preferredPrefixes: const [],
+                  preferOldest: false,
+                );
             isVisualOwner = visualOwnerLayerId == currentLayerId;
             isTapOwner = tapOwnerLayerId == currentLayerId;
             if (!isVisualOwner && !isTapOwner) {
@@ -6043,15 +6253,17 @@ class _InterleavedSnackbarLayer extends StatelessWidget {
                     snackbarContent.blockBackgroundInteraction,
                 onSwipeDismiss: (direction) {
                   Modal._removeSnackbarFromQueue(
-                      position, direction == 'dismiss_immediate');
+                    position,
+                    direction == 'dismiss_immediate',
+                  );
                 },
                 stackIndex: 0,
                 maxStacked: 1,
                 width: snackbarContent.snackbarWidth != null
                     ? (snackbarContent.snackbarWidth! > 1.0
-                        ? snackbarContent.snackbarWidth!
-                        : _modalViewportSizeOf(context).width *
-                            snackbarContent.snackbarWidth!)
+                          ? snackbarContent.snackbarWidth!
+                          : _modalViewportSizeOf(context).width *
+                                snackbarContent.snackbarWidth!)
                     : null,
                 child: snackbarContent.buildContent(),
               ),
@@ -6079,15 +6291,17 @@ class _InterleavedSnackbarLayer extends StatelessWidget {
                       snackbarContent.blockBackgroundInteraction,
                   onSwipeDismiss: (direction) {
                     Modal._removeSnackbarFromQueue(
-                        position, direction == 'dismiss_immediate');
+                      position,
+                      direction == 'dismiss_immediate',
+                    );
                   },
                   stackIndex: 0,
                   maxStacked: 1,
                   width: snackbarContent.snackbarWidth != null
                       ? (snackbarContent.snackbarWidth! > 1.0
-                          ? snackbarContent.snackbarWidth!
-                          : _modalViewportSizeOf(context).width *
-                              snackbarContent.snackbarWidth!)
+                            ? snackbarContent.snackbarWidth!
+                            : _modalViewportSizeOf(context).width *
+                                  snackbarContent.snackbarWidth!)
                       : null,
                   child: snackbarContent.buildContent(),
                 ),
@@ -6097,7 +6311,8 @@ class _InterleavedSnackbarLayer extends StatelessWidget {
 
           case SnackbarDisplayMode.notificationBubble:
             final isExpanded = _staggeredExpandedNotifier.state == position;
-            final isFromTop = position == Alignment.topCenter ||
+            final isFromTop =
+                position == Alignment.topCenter ||
                 position == Alignment.topLeft ||
                 position == Alignment.topRight;
             final expandedView = Positioned.fill(
@@ -6108,11 +6323,16 @@ class _InterleavedSnackbarLayer extends StatelessWidget {
                 transitionBuilder: (child, animation) => FadeTransition(
                   opacity: animation,
                   child: SlideTransition(
-                    position: Tween<Offset>(
-                      begin: Offset(0, isFromTop ? -0.1 : 0.1),
-                      end: Offset.zero,
-                    ).animate(CurvedAnimation(
-                        parent: animation, curve: Curves.easeOutCubic)),
+                    position:
+                        Tween<Offset>(
+                          begin: Offset(0, isFromTop ? -0.1 : 0.1),
+                          end: Offset.zero,
+                        ).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeOutCubic,
+                          ),
+                        ),
                     child: child,
                   ),
                 ),
@@ -6126,7 +6346,8 @@ class _InterleavedSnackbarLayer extends StatelessWidget {
                       )
                     : _buildCollapsedNotificationBubbleView(
                         key: ValueKey(
-                            'notification_bubble_${queue.last.uniqueId}'),
+                          'notification_bubble_${queue.last.uniqueId}',
+                        ),
                         context: context,
                         queue: queue,
                         position: position,
@@ -6143,7 +6364,8 @@ class _InterleavedSnackbarLayer extends StatelessWidget {
           case SnackbarDisplayMode.staggered:
             final isExpanded = _staggeredExpandedNotifier.state == position;
             final maxStacked = queue.first.maxStackedSnackbars;
-            final isFromTop = position == Alignment.topCenter ||
+            final isFromTop =
+                position == Alignment.topCenter ||
                 position == Alignment.topLeft ||
                 position == Alignment.topRight;
             final staggeredView = Positioned.fill(
@@ -6154,11 +6376,16 @@ class _InterleavedSnackbarLayer extends StatelessWidget {
                 transitionBuilder: (child, animation) => FadeTransition(
                   opacity: animation,
                   child: SlideTransition(
-                    position: Tween<Offset>(
-                      begin: Offset(0, isFromTop ? -0.1 : 0.1),
-                      end: Offset.zero,
-                    ).animate(CurvedAnimation(
-                        parent: animation, curve: Curves.easeOutCubic)),
+                    position:
+                        Tween<Offset>(
+                          begin: Offset(0, isFromTop ? -0.1 : 0.1),
+                          end: Offset.zero,
+                        ).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeOutCubic,
+                          ),
+                        ),
                     child: child,
                   ),
                 ),
@@ -6259,12 +6486,8 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
   }
 
   List<Widget> _buildNonInterleavedModalLayers() {
-    final items = <({
-      String id,
-      int activationOrder,
-      int stackLevel,
-      Widget widget,
-    })>[];
+    final items =
+        <({String id, int activationOrder, int stackLevel, Widget widget})>[];
 
     for (final sheet in _sheetStackNotifier.state) {
       items.add((
@@ -6360,7 +6583,7 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                       child: OnBuilder(
                         listenToMany: [
                           Modal.controller,
-                          Modal.dismissModalAnimationController
+                          Modal.dismissModalAnimationController,
                         ],
                         sideEffects: SideEffects(
                           initState: () {
@@ -6390,7 +6613,10 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                               }
 
                               if (!shouldPreserveExistingBlur) {
-                                final shouldBlur = Modal.controller.state
+                                final shouldBlur =
+                                    Modal
+                                        .controller
+                                        .state
                                         ?.shouldBlurBackground ??
                                     false;
                                 final targetBlurState = shouldBlur ? 1.0 : 0.0;
@@ -6400,40 +6626,43 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                   const int animSteps = 10;
                                   const int totalDurationMs = 200;
                                   final stepDuration = Duration(
-                                      milliseconds:
-                                          totalDurationMs ~/ animSteps);
+                                    milliseconds: totalDurationMs ~/ animSteps,
+                                  );
 
                                   final double startValue =
                                       _blurAnimationStateNotifier.state;
                                   final double step =
                                       (targetBlurState - startValue) /
-                                          animSteps;
+                                      animSteps;
                                   int currentStep = 0;
 
-                                  _blurStateTimer =
-                                      Timer.periodic(stepDuration, (timer) {
-                                    if (!Modal.isActive || Modal.isDismissing) {
-                                      timer.cancel();
-                                      _blurStateTimer = null;
-                                      return;
-                                    }
-                                    currentStep++;
-                                    if (currentStep > animSteps) {
-                                      timer.cancel();
-                                      _blurStateTimer = null;
+                                  _blurStateTimer = Timer.periodic(
+                                    stepDuration,
+                                    (timer) {
+                                      if (!Modal.isActive ||
+                                          Modal.isDismissing) {
+                                        timer.cancel();
+                                        _blurStateTimer = null;
+                                        return;
+                                      }
+                                      currentStep++;
+                                      if (currentStep > animSteps) {
+                                        timer.cancel();
+                                        _blurStateTimer = null;
+                                        if (mounted) {
+                                          _blurAnimationStateNotifier.state =
+                                              targetBlurState;
+                                        }
+                                        return;
+                                      }
                                       if (mounted) {
                                         _blurAnimationStateNotifier.state =
-                                            targetBlurState;
+                                            startValue + (step * currentStep);
+                                      } else {
+                                        timer.cancel();
                                       }
-                                      return;
-                                    }
-                                    if (mounted) {
-                                      _blurAnimationStateNotifier.state =
-                                          startValue + (step * currentStep);
-                                    } else {
-                                      timer.cancel();
-                                    }
-                                  });
+                                    },
+                                  );
                                 }
                               }
 
@@ -6446,8 +6675,8 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                   const int animSteps = 10;
                                   const int totalDurationMs = 200;
                                   final stepDuration = Duration(
-                                      milliseconds:
-                                          totalDurationMs ~/ animSteps);
+                                    milliseconds: totalDurationMs ~/ animSteps,
+                                  );
 
                                   final double startValue =
                                       _blurAmountNotifier.state;
@@ -6455,37 +6684,41 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                       (newBlurAmount - startValue) / animSteps;
                                   int currentStep = 0;
 
-                                  _blurAmountTimer =
-                                      Timer.periodic(stepDuration, (timer) {
-                                    if (!Modal.isActive || Modal.isDismissing) {
-                                      timer.cancel();
-                                      _blurAmountTimer = null;
-                                      return;
-                                    }
-                                    currentStep++;
-                                    if (currentStep > animSteps) {
-                                      timer.cancel();
-                                      _blurAmountTimer = null;
+                                  _blurAmountTimer = Timer.periodic(
+                                    stepDuration,
+                                    (timer) {
+                                      if (!Modal.isActive ||
+                                          Modal.isDismissing) {
+                                        timer.cancel();
+                                        _blurAmountTimer = null;
+                                        return;
+                                      }
+                                      currentStep++;
+                                      if (currentStep > animSteps) {
+                                        timer.cancel();
+                                        _blurAmountTimer = null;
+                                        if (mounted) {
+                                          _blurAmountNotifier.state =
+                                              newBlurAmount;
+                                        }
+                                        return;
+                                      }
                                       if (mounted) {
                                         _blurAmountNotifier.state =
-                                            newBlurAmount;
+                                            startValue + (step * currentStep);
+                                      } else {
+                                        timer.cancel();
                                       }
-                                      return;
-                                    }
-                                    if (mounted) {
-                                      _blurAmountNotifier.state =
-                                          startValue + (step * currentStep);
-                                    } else {
-                                      timer.cancel();
-                                    }
-                                  });
+                                    },
+                                  );
                                 }
                               }
 
                               if (!shouldPreserveExistingBlur &&
                                   currentModalType == ModalType.sheet) {
                                 final currentContent = Modal.controller.state;
-                                final newSize = (currentContent?.modalType ==
+                                final newSize =
+                                    (currentContent?.modalType ==
                                         ModalType.sheet)
                                     ? currentContent?.size
                                     : null;
@@ -6509,7 +6742,8 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                 const int animSteps = 10;
                                 const int totalDurationMs = 200;
                                 final stepDuration = Duration(
-                                    milliseconds: totalDurationMs ~/ animSteps);
+                                  milliseconds: totalDurationMs ~/ animSteps,
+                                );
 
                                 final double startValue =
                                     _backgroundLayerAnimationNotifier.state;
@@ -6518,34 +6752,37 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                     (endValue - startValue) / animSteps;
                                 int currentStep = 0;
 
-                                _backgroundTimer =
-                                    Timer.periodic(stepDuration, (timer) {
-                                  // Guard: stop if the modal that triggered
-                                  // this show animation has already been
-                                  // dismissed while we were animating.
-                                  if (!Modal.isActive || Modal.isDismissing) {
-                                    timer.cancel();
-                                    _backgroundTimer = null;
-                                    return;
-                                  }
-                                  currentStep++;
-                                  if (currentStep > animSteps) {
-                                    timer.cancel();
-                                    _backgroundTimer = null;
+                                _backgroundTimer = Timer.periodic(
+                                  stepDuration,
+                                  (timer) {
+                                    // Guard: stop if the modal that triggered
+                                    // this show animation has already been
+                                    // dismissed while we were animating.
+                                    if (!Modal.isActive || Modal.isDismissing) {
+                                      timer.cancel();
+                                      _backgroundTimer = null;
+                                      return;
+                                    }
+                                    currentStep++;
+                                    if (currentStep > animSteps) {
+                                      timer.cancel();
+                                      _backgroundTimer = null;
+                                      if (mounted) {
+                                        _backgroundLayerAnimationNotifier
+                                                .state =
+                                            endValue;
+                                      }
+                                      return;
+                                    }
                                     if (mounted) {
                                       _backgroundLayerAnimationNotifier.state =
-                                          endValue;
+                                          startValue + (step * currentStep);
+                                    } else {
+                                      timer.cancel();
+                                      _backgroundTimer = null;
                                     }
-                                    return;
-                                  }
-                                  if (mounted) {
-                                    _backgroundLayerAnimationNotifier.state =
-                                        startValue + (step * currentStep);
-                                  } else {
-                                    timer.cancel();
-                                    _backgroundTimer = null;
-                                  }
-                                });
+                                  },
+                                );
                               }
                             }
                           },
@@ -6554,7 +6791,7 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                           final Widget backgroundLayer = OnBuilder(
                             listenToMany: [
                               _backgroundLayerAnimationNotifier,
-                              _sheetController
+                              _sheetController,
                             ],
                             builder: () {
                               final animValue =
@@ -6565,17 +6802,19 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
 
                               final isBottomSheetContext =
                                   Modal.isSheetActive &&
-                                      sheetPos == SheetPosition.bottom;
-                              final isTopSheetContext = Modal.isSheetActive &&
+                                  sheetPos == SheetPosition.bottom;
+                              final isTopSheetContext =
+                                  Modal.isSheetActive &&
                                   sheetPos == SheetPosition.top;
 
                               final shouldApplySideSheetBackgroundTransform =
                                   Modal.isSideSheetActive &&
-                                      !OverlayInterleaveManager.enabled;
+                                  !OverlayInterleaveManager.enabled;
 
                               final double verticalOffset;
                               if (isBottomSheetContext) {
-                                verticalOffset = animValue *
+                                verticalOffset =
+                                    animValue *
                                     -widget.backgroundVerticalOffset;
                               } else if (isTopSheetContext) {
                                 verticalOffset =
@@ -6590,10 +6829,12 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                   sheetPos != null) {
                                 if (sheetPos == SheetPosition.right) {
                                   leftPosition = 0.0;
-                                  rightPosition = animValue *
+                                  rightPosition =
+                                      animValue *
                                       widget.backgroundSideSheetOffset;
                                 } else {
-                                  leftPosition = animValue *
+                                  leftPosition =
+                                      animValue *
                                       widget.backgroundSideSheetOffset;
                                   rightPosition = 0.0;
                                 }
@@ -6602,12 +6843,14 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                 rightPosition = 0.0;
                               }
 
-                              final scaleValue = (isBottomSheetContext ||
+                              final scaleValue =
+                                  (isBottomSheetContext ||
                                       shouldApplySideSheetBackgroundTransform ||
                                       isTopSheetContext)
                                   ? 1 -
-                                      (animValue *
-                                          widget.backgroundScaleReductionFactor)
+                                        (animValue *
+                                            widget
+                                                .backgroundScaleReductionFactor)
                                   : 1.0;
 
                               return Positioned.fill(
@@ -6615,8 +6858,8 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                   offset: Offset(
                                     shouldApplySideSheetBackgroundTransform
                                         ? (sheetPos == SheetPosition.right
-                                            ? -leftPosition
-                                            : rightPosition)
+                                              ? -leftPosition
+                                              : rightPosition)
                                         : 0.0,
                                     verticalOffset,
                                   ),
@@ -6625,15 +6868,16 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                     alignment: isBottomSheetContext
                                         ? Alignment.bottomCenter
                                         : (isTopSheetContext
-                                            ? Alignment.topCenter
-                                            : (shouldApplySideSheetBackgroundTransform &&
-                                                    sheetPos ==
-                                                        SheetPosition.right
-                                                ? Alignment.centerRight
-                                                : Alignment.centerLeft)),
+                                              ? Alignment.topCenter
+                                              : (shouldApplySideSheetBackgroundTransform &&
+                                                        sheetPos ==
+                                                            SheetPosition.right
+                                                    ? Alignment.centerRight
+                                                    : Alignment.centerLeft)),
                                     child: AnimatedContainer(
-                                      duration:
-                                          const Duration(milliseconds: 300),
+                                      duration: const Duration(
+                                        milliseconds: 300,
+                                      ),
                                       curve: Curves.easeInOut,
                                       decoration: BoxDecoration(
                                         borderRadius: isBottomSheetContext
@@ -6649,10 +6893,10 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                           // Calculate blur directly from notifiers
                                           final blurAmount =
                                               _blurAnimationStateNotifier
-                                                      .state *
-                                                  _backgroundLayerAnimationNotifier
-                                                      .state *
-                                                  _blurAmountNotifier.state;
+                                                  .state *
+                                              _backgroundLayerAnimationNotifier
+                                                  .state *
+                                              _blurAmountNotifier.state;
 
                                           // Animate borderRadius using the background animation value
                                           // When sheet is active: lerp from zero to target radius
@@ -6662,17 +6906,19 @@ class _ActivatorWidgetState extends State<_ActivatorWidget> {
                                                   .state;
                                           final borderRadius =
                                               isBottomSheetContext
-                                                  ? BorderRadius.lerp(
-                                                      BorderRadius.zero,
-                                                      widget.borderRadius,
-                                                      animValue)!
-                                                  : BorderRadius.zero;
+                                              ? BorderRadius.lerp(
+                                                  BorderRadius.zero,
+                                                  widget.borderRadius,
+                                                  animValue,
+                                                )!
+                                              : BorderRadius.zero;
 
                                           // The background layer with blur and tap handling
                                           return ImageFiltered(
                                             imageFilter: ImageFilter.blur(
-                                                sigmaX: blurAmount,
-                                                sigmaY: blurAmount),
+                                              sigmaX: blurAmount,
+                                              sigmaY: blurAmount,
+                                            ),
                                             child: ClipRRect(
                                               borderRadius: borderRadius,
                                               child: SizedBox.expand(
@@ -6782,10 +7028,11 @@ Widget _buildExpandedStaggeredView({
 
           return Padding(
             padding: EdgeInsets.only(
-                top: isFromTop ? 24.0 : 0,
-                bottom: !isFromTop ? 24.0 : 0,
-                left: 16.0,
-                right: 16.0),
+              top: isFromTop ? 24.0 : 0,
+              bottom: !isFromTop ? 24.0 : 0,
+              left: 16.0,
+              right: 16.0,
+            ),
             child: TapRegion(
               groupId: tapRegionGroupId,
               behavior: HitTestBehavior.deferToChild,
@@ -6811,25 +7058,32 @@ Widget _buildExpandedStaggeredView({
                         children: [
                           // Collapse button (icon only) - consumes tap to prevent dismissal.
                           Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 8.0, right: 8.0),
+                            padding: const EdgeInsets.only(
+                              bottom: 8.0,
+                              right: 8.0,
+                            ),
                             child: Material(
                               color: Colors.grey.shade600,
                               borderRadius: BorderRadius.circular(8),
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(8),
                                 splashFactory: InkRipple.splashFactory,
-                                highlightColor:
-                                    Colors.white.withValues(alpha: 0.1),
-                                splashColor:
-                                    Colors.white.withValues(alpha: 0.2),
+                                highlightColor: Colors.white.withValues(
+                                  alpha: 0.1,
+                                ),
+                                splashColor: Colors.white.withValues(
+                                  alpha: 0.2,
+                                ),
                                 onTap: () {
                                   _staggeredExpandedNotifier.state = null;
                                 },
                                 child: const Padding(
                                   padding: EdgeInsets.all(5.0),
-                                  child: Icon(Icons.unfold_less,
-                                      color: Colors.white, size: 20),
+                                  child: Icon(
+                                    Icons.unfold_less,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
                                 ),
                               ),
                             ),
@@ -6856,43 +7110,54 @@ Widget _buildExpandedStaggeredView({
                                     },
                                     child: ConstrainedBox(
                                       constraints: const BoxConstraints(
-                                          minHeight: 0,
-                                          minWidth: double.infinity),
+                                        minHeight: 0,
+                                        minWidth: double.infinity,
+                                      ),
                                       child: Dismissible(
                                         key: ValueKey(snackbarKey),
                                         direction: DismissDirection.horizontal,
                                         onDismissed: (_) {
                                           WidgetsBinding.instance
                                               .addPostFrameCallback((_) {
-                                            Modal._removeSnackbarByIdFromQueue(
-                                                snackbarContent.uniqueId,
-                                                position);
-                                            final remainingQueue = Modal
-                                                .snackbarQueue.state[position];
-                                            if (remainingQueue == null ||
-                                                remainingQueue.length <= 1) {
-                                              _staggeredExpandedNotifier.state =
-                                                  null;
-                                            }
-                                          });
+                                                Modal._removeSnackbarByIdFromQueue(
+                                                  snackbarContent.uniqueId,
+                                                  position,
+                                                );
+                                                final remainingQueue = Modal
+                                                    .snackbarQueue
+                                                    .state[position];
+                                                if (remainingQueue == null ||
+                                                    remainingQueue.length <=
+                                                        1) {
+                                                  _staggeredExpandedNotifier
+                                                          .state =
+                                                      null;
+                                                }
+                                              });
                                         },
                                         background: Container(
                                           alignment: Alignment.centerLeft,
-                                          padding:
-                                              const EdgeInsets.only(left: 20.0),
-                                          child: const Icon(Icons.delete,
-                                              color: Colors.red),
+                                          padding: const EdgeInsets.only(
+                                            left: 20.0,
+                                          ),
+                                          child: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
                                         ),
                                         secondaryBackground: Container(
                                           alignment: Alignment.centerRight,
                                           padding: const EdgeInsets.only(
-                                              right: 20.0),
-                                          child: const Icon(Icons.delete,
-                                              color: Colors.red),
+                                            right: 20.0,
+                                          ),
+                                          child: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
                                         ),
                                         child: RepaintBoundary(
-                                            child:
-                                                snackbarContent.buildContent()),
+                                          child: snackbarContent.buildContent(),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -6963,9 +7228,9 @@ Widget _buildCollapsedStaggeredView({
         maxStacked: snackbarContent.maxStackedSnackbars,
         width: snackbarContent.snackbarWidth != null
             ? (snackbarContent.snackbarWidth! > 1.0
-                ? snackbarContent.snackbarWidth!
-                : _modalViewportSizeOf(context).width *
-                    snackbarContent.snackbarWidth!)
+                  ? snackbarContent.snackbarWidth!
+                  : _modalViewportSizeOf(context).width *
+                        snackbarContent.snackbarWidth!)
             : null,
         onTap: snackbarContent.onTap,
         child: snackbarContent.buildContent(),
@@ -6983,8 +7248,8 @@ Widget _buildCollapsedStaggeredView({
     // Calculate actual snackbar width.
     final actualSnackbarWidth = snackbarContent.snackbarWidth != null
         ? (snackbarContent.snackbarWidth! > 1.0
-            ? snackbarContent.snackbarWidth!
-            : screenWidth * snackbarContent.snackbarWidth!)
+              ? snackbarContent.snackbarWidth!
+              : screenWidth * snackbarContent.snackbarWidth!)
         : null;
 
     // Default snackbar width (matches SnackbarModal default).
@@ -7099,8 +7364,8 @@ Widget _buildCollapsedNotificationBubbleView({
   // Calculate actual snackbar width.
   final actualSnackbarWidth = snackbarContent.snackbarWidth != null
       ? (snackbarContent.snackbarWidth! > 1.0
-          ? snackbarContent.snackbarWidth!
-          : screenWidth * snackbarContent.snackbarWidth!)
+            ? snackbarContent.snackbarWidth!
+            : screenWidth * snackbarContent.snackbarWidth!)
       : null;
 
   // Default snackbar width (matches SnackbarModal default).
@@ -7167,7 +7432,8 @@ Widget _buildCollapsedNotificationBubbleView({
     children: [
       SnackbarModal(
         key: ValueKey(
-            "snackbar_bubble_${position.x}_${position.y}_${snackbarContent.uniqueId}"),
+          "snackbar_bubble_${position.x}_${position.y}_${snackbarContent.uniqueId}",
+        ),
         snackbarId: snackbarContent.uniqueId,
         position: snackbarContent.modalPosition,
         blockBackgroundInteraction: snackbarContent.blockBackgroundInteraction,
@@ -7185,9 +7451,9 @@ Widget _buildCollapsedNotificationBubbleView({
         maxStacked: 1,
         width: snackbarContent.snackbarWidth != null
             ? (snackbarContent.snackbarWidth! > 1.0
-                ? snackbarContent.snackbarWidth!
-                : _modalViewportSizeOf(context).width *
-                    snackbarContent.snackbarWidth!)
+                  ? snackbarContent.snackbarWidth!
+                  : _modalViewportSizeOf(context).width *
+                        snackbarContent.snackbarWidth!)
             : null,
         child: snackbarContent.buildContent(),
       ),
@@ -7211,17 +7477,19 @@ Widget _buildCollapsedNotificationBubbleView({
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.3),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2)),
+                    color: Colors.black.withValues(alpha: 0.3),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
                 ],
               ),
               child: Text(
                 '$queueCount',
                 style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),

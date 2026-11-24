@@ -101,8 +101,8 @@ class WindowController {
   /// Chooses HTTP client that will be used for the URL.
   ///
   /// The default callback returns [defaultHttpClient].
-  late HttpClient Function(Uri uri) onChooseHttpClient =
-      (url) => defaultHttpClient;
+  late HttpClient Function(Uri uri) onChooseHttpClient = (url) =>
+      defaultHttpClient;
 
   /// Returns true if this controller for the top-level window inside a browser.
   ///

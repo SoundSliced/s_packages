@@ -25,7 +25,7 @@ List<List<String>> _stations = [
     '68.08N',
     '151.44W',
     '642',
-    'US'
+    'US',
   ],
   [
     'AK ANCHORAGE INTL',
@@ -35,7 +35,7 @@ List<List<String>> _stations = [
     '61.10N',
     '150.01W',
     '38',
-    'US'
+    'US',
   ],
   ['AK ANCHORAGE/WFO', 'PAFC', 'AFC', 'null', '61.10N', '150.02W', '48', 'US'],
   [
@@ -46,7 +46,7 @@ List<List<String>> _stations = [
     '60.44N',
     '151.21W',
     '74',
-    'US'
+    'US',
   ],
   [
     'AK ANCHORAGE/LAKE H',
@@ -56,7 +56,7 @@ List<List<String>> _stations = [
     '61.11N',
     '149.58W',
     '22',
-    'US'
+    'US',
   ],
   [
     'AK ANCHORAGE/ARTCC',
@@ -66,7 +66,7 @@ List<List<String>> _stations = [
     '61.10N',
     '149.59W',
     '22',
-    'US'
+    'US',
   ],
   [
     'AK ANCHORAGE/MERRIL',
@@ -76,7 +76,7 @@ List<List<String>> _stations = [
     '61.13N',
     '149.51W',
     '41',
-    'US'
+    'US',
   ],
   [
     'AK ANGOON SEAPLANE',
@@ -86,7 +86,7 @@ List<List<String>> _stations = [
     '57.30N',
     '134.35W',
     '2',
-    'US'
+    'US',
   ],
   ['AK ANIAK', 'PANI', 'ANI', '70232', '61.35N', '159.32W', '26', 'US'],
   [
@@ -97,7 +97,7 @@ List<List<String>> _stations = [
     '55.02N',
     '131.34W',
     '36',
-    'US'
+    'US',
   ],
   ['AK ANVIK', 'PANV', 'ANV', 'null', '62.39N', '160.11W', '99', 'US'],
   [
@@ -108,7 +108,7 @@ List<List<String>> _stations = [
     '68.07N',
     '145.35W',
     '636',
-    'US'
+    'US',
   ],
   [
     'AK ATQASUK BURNELL',
@@ -118,7 +118,7 @@ List<List<String>> _stations = [
     '70.28N',
     '157.26W',
     '29',
-    'US'
+    'US',
   ],
   ['AK ATKA', 'PAAK', 'AKA', 'null', '52.13N', '174.12W', '17', 'US'],
   ['AK BARROW', 'PABR', 'BRW', '70026', '71.17N', '156.48W', '7', 'US'],
@@ -130,7 +130,7 @@ List<List<String>> _stations = [
     '71.19N',
     '156.37W',
     '7',
-    'US'
+    'US',
   ],
   ['AK BARTER ISLAND', 'PABA', 'BTI', '70086', '70.08N', '143.35W', '2', 'US'],
   ['AK BETHEL', 'PABE', 'BET', '70219', '60.47N', '161.51W', '41', 'US'],
@@ -144,7 +144,7 @@ List<List<String>> _stations = [
     '60.49N',
     '152.18W',
     '12',
-    'US'
+    'US',
   ],
   ['AK BIRCHWOOD', 'PABV', 'BCV', 'null', '61.25N', '149.31W', '29', 'US'],
   ['AK BREVIG_MISSION', 'PFKT', 'null', 'null', '65.20N', '166.28W', '9', 'US'],
@@ -159,7 +159,7 @@ List<List<String>> _stations = [
     '58.39N',
     '162.04W',
     '161',
-    'US'
+    'US',
   ],
   [
     'AK CAPE ROMANZOF',
@@ -169,7 +169,7 @@ List<List<String>> _stations = [
     '61.47N',
     '166.02W',
     '146',
-    'US'
+    'US',
   ],
   ['AK CENTRAL', 'PARL', 'null', 'null', '65.34N', '144.47W', '284', 'US'],
   ['AK CENTRAL', 'PACE', 'null', 'null', '65.34N', '144.47W', '286', 'US'],
@@ -181,7 +181,7 @@ List<List<String>> _stations = [
     '65.30N',
     '144.41W',
     '259',
-    'US'
+    'US',
   ],
   [
     'AK CHANDALAR LAKE',
@@ -191,7 +191,7 @@ List<List<String>> _stations = [
     '67.30N',
     '148.29W',
     '585',
-    'US'
+    'US',
   ],
   ['AK CHEVAK', 'PAVA', 'null', 'null', '61.32N', '165.36W', '23', 'US'],
   ['AK CHIGNIK BAY', 'PAJC', 'AJC', 'null', '56.19N', '158.22W', '15', 'US'],
@@ -203,7 +203,7 @@ List<List<String>> _stations = [
     '65.50N',
     '144.04W',
     '182',
-    'US'
+    'US',
   ],
   ['AK CLARKS POINT', 'PFCL', 'CLP', 'null', '58.50N', '158.32W', '24', 'US'],
   ['AK COLD BAY', 'PACD', 'CDB', '70316', '55.12N', '162.43W', '30', 'US'],
@@ -218,7 +218,7 @@ List<List<String>> _stations = [
     '64.00N',
     '145.44W',
     '386',
-    'US'
+    'US',
   ],
   ['AK DILLINGHAM', 'PADL', 'DLG', '70321', '59.03N', '158.31W', '26', 'US'],
   ['AK EAGLE', 'PAEG', 'EAA', 'null', '64.47N', '141.09W', '268', 'US'],
@@ -230,7 +230,7 @@ List<List<String>> _stations = [
     '52.43N',
     '174.07E',
     '31',
-    'US'
+    'US',
   ],
   ['AK EGEGIK', 'PAII', 'EII', 'null', '58.11N', '157.23W', '30', 'US'],
   ['AK EIELSON AFB', 'PAEI', 'EIL', '70265', '64.40N', '147.06W', '167', 'US'],
@@ -250,7 +250,7 @@ List<List<String>> _stations = [
     '65.02N',
     '147.30W',
     '790',
-    'US'
+    'US',
   ],
   [
     'AK FAREWELL LAKE',
@@ -260,7 +260,7 @@ List<List<String>> _stations = [
     '62.32N',
     '153.36W',
     '321',
-    'US'
+    'US',
   ],
   [
     'AK FORT RICHARDSON',
@@ -270,7 +270,7 @@ List<List<String>> _stations = [
     '61.16N',
     '149.39W',
     '115',
-    'US'
+    'US',
   ],
   [
     'AK FORT WAINWRIGHT',
@@ -280,7 +280,7 @@ List<List<String>> _stations = [
     '64.50N',
     '147.37W',
     '137',
-    'US'
+    'US',
   ],
   ['AK FORT YUKON', 'PAFY', 'null', '70194', '66.34N', '145.16W', '131', 'US'],
   ['AK FORT YUKON', 'PFYU', 'FYU', 'null', '66.34N', '145.16W', '131', 'US'],
@@ -293,7 +293,7 @@ List<List<String>> _stations = [
     '68.29N',
     '149.29W',
     '811',
-    'US'
+    'US',
   ],
   ['AK GALENA', 'PAGA', 'GAL', '70222', '64.44N', '156.56W', '46', 'US'],
   ['AK GAMBELL', 'PAGM', 'GAM', '70204', '63.46N', '171.44W', '8', 'US'],
@@ -305,7 +305,7 @@ List<List<String>> _stations = [
     '62.07N',
     '145.58W',
     '564',
-    'US'
+    'US',
   ],
   ['AK GOLOVIN', 'PAGL', 'N93', 'null', '64.33N', '163.02W', '8', 'US'],
   ['AK GULKANA', 'PAGK', 'GKN', '70271', '62.09N', '145.27W', '481', 'US'],
@@ -330,7 +330,7 @@ List<List<String>> _stations = [
     '66.00N',
     '153.42W',
     '389',
-    'US'
+    'US',
   ],
   ['AK JUNEAU', 'PAJN', 'JNU', '70381', '58.22N', '134.35W', '5', 'US'],
   ['AK JUNEAU/WFO', 'PAJK', 'AJK', 'null', '58.22N', '134.34W', '7', 'US'],
@@ -350,7 +350,7 @@ List<List<String>> _stations = [
     '58.41N',
     '156.38W',
     '19',
-    'US'
+    'US',
   ],
   [
     'AK KING SALMON AFS',
@@ -360,7 +360,7 @@ List<List<String>> _stations = [
     '58.41N',
     '156.38W',
     '15',
-    'US'
+    'US',
   ],
   ['AK KIPNUK', 'PAKI', 'IIK', 'null', '59.56N', '164.02W', '4', 'US'],
   ['AK KIVALINA', 'PAVL', 'KVL', 'null', '67.44N', '164.33W', '3', 'US'],
@@ -380,7 +380,7 @@ List<List<String>> _stations = [
     '65.00N',
     '150.39W',
     '81',
-    'US'
+    'US',
   ],
   ['AK MANOKOTAK', 'PAMB', 'MBA', 'null', '58.59N', '159.03W', '16', 'US'],
   ['AK MARSHALL', 'PADM', 'null', 'null', '61.52N', '162.02W', '31', 'US'],
@@ -397,7 +397,7 @@ List<List<String>> _stations = [
     '59.26N',
     '146.18W',
     '14',
-    'US'
+    'US',
   ],
   [
     'AK MIDDLETON IS 88D',
@@ -407,7 +407,7 @@ List<List<String>> _stations = [
     '59.28N',
     '146.18W',
     '20',
-    'US'
+    'US',
   ],
   ['AK MINCHUMINA', 'PAMH', 'MHM', '70246', '63.54N', '152.19W', '214', 'US'],
   [
@@ -418,7 +418,7 @@ List<List<String>> _stations = [
     '62.06N',
     '163.41W',
     '103',
-    'US'
+    'US',
   ],
   ['AK NABESNA', 'PABN', 'IBN', 'null', '62.24N', '143.00W', '880', 'US'],
   ['AK NELSON LAGOON', 'PAOU', 'null', 'null', '56.00N', '161.10W', '4', 'US'],
@@ -441,7 +441,7 @@ List<List<String>> _stations = [
     '70.20N',
     '150.56W',
     '5',
-    'US'
+    'US',
   ],
   ['AK NUNAPITCHUK', 'PPIT', '16A', 'null', '60.54N', '162.26W', '7', 'US'],
   ['AK OLIKTOK POINT', 'POLI', 'OLI', '70063', '70.30N', '149.53W', '5', 'US'],
@@ -464,7 +464,7 @@ List<List<String>> _stations = [
     '60.47N',
     '148.51W',
     '31',
-    'US'
+    'US',
   ],
   [
     'AK PROSPECT CREEK',
@@ -474,7 +474,7 @@ List<List<String>> _stations = [
     '66.49N',
     '150.39W',
     '335',
-    'US'
+    'US',
   ],
   ['AK PRUDHOE BAY', 'PAUD', 'PUO', 'null', '70.15N', '148.20W', '12', 'US'],
   [
@@ -485,7 +485,7 @@ List<List<String>> _stations = [
     '62.06N',
     '152.43W',
     '558',
-    'US'
+    'US',
   ],
   ['AK QUINHAGAK', 'PAQH', 'null', 'null', '59.45N', '161.51W', '13', 'US'],
   ['AK REG DOG', 'PARD', 'null', 'null', '68.02N', '162.54W', '297', 'US'],
@@ -499,7 +499,7 @@ List<List<String>> _stations = [
     '61.46N',
     '161.19W',
     '16',
-    'US'
+    'US',
   ],
   ['AK SAINT MARYS', 'PASM', 'KSM', 'null', '62.04N', '163.18W', '92', 'US'],
   ['AK SAND POINT', 'PASD', 'SDP', 'null', '55.20N', '160.30W', '7', 'US'],
@@ -521,7 +521,7 @@ List<List<String>> _stations = [
     '56.51N',
     '135.32W',
     '63',
-    'US'
+    'US',
   ],
   ['AK SKAGWAY', 'PAGY', 'SGY', '70362', '59.28N', '135.18W', '5', 'US'],
   ['AK SKWENTNA', 'PASW', 'SKW', '70255', '61.58N', '151.12W', '48', 'US'],
@@ -541,7 +541,7 @@ List<List<String>> _stations = [
     '57.09N',
     '170.13W',
     '29',
-    'US'
+    'US',
   ],
   [
     'AK STONY RIVER LAND',
@@ -551,7 +551,7 @@ List<List<String>> _stations = [
     '61.16N',
     '153.48W',
     '345',
-    'US'
+    'US',
   ],
   ['AK SUTTON', 'PAJV', 'JVM', 'null', '61.43N', '148.53W', '263', 'US'],
   [
@@ -562,7 +562,7 @@ List<List<String>> _stations = [
     '61.49N',
     '147.33W',
     '799',
-    'US'
+    'US',
   ],
   ['AK TALKEETNA', 'PATK', 'TKA', '70251', '62.18N', '150.06W', '109', 'US'],
   [
@@ -573,7 +573,7 @@ List<List<String>> _stations = [
     '62.19N',
     '150.25W',
     '137',
-    'US'
+    'US',
   ],
   ['AK TANANA', 'PATA', 'TAL', '70178', '65.10N', '152.06W', '67', 'US'],
   ['AK TATALINA AFS', 'PATL', 'TLJ', 'null', '62.54N', '155.58W', '294', 'US'],
@@ -601,7 +601,7 @@ List<List<String>> _stations = [
     '61.38N',
     '149.02W',
     '236',
-    'US'
+    'US',
   ],
   ['AK WRANGELL', 'PAWG', 'WRG', '70387', '56.29N', '132.22W', '11', 'US'],
   ['AK YAKUTAT', 'PAYA', 'YAK', '70361', '59.31N', '139.40W', '11', 'US'],
@@ -616,7 +616,7 @@ List<List<String>> _stations = [
     '34.14N',
     '086.15W',
     '315',
-    'US'
+    'US',
   ],
   [
     'AL ALEXANDER/RUSSEL',
@@ -626,7 +626,7 @@ List<List<String>> _stations = [
     '32.55N',
     '085.58W',
     '209',
-    'US'
+    'US',
   ],
   [
     'AL ANDALUSIA/OPP AR',
@@ -636,7 +636,7 @@ List<List<String>> _stations = [
     '31.19N',
     '086.24W',
     '94',
-    'US'
+    'US',
   ],
   ['AL ANNISTON', 'KANB', 'ANB', 'null', '33.35N', '085.51W', '183', 'US'],
   [
@@ -647,7 +647,7 @@ List<List<String>> _stations = [
     '32.36N',
     '085.30W',
     '198',
-    'US'
+    'US',
   ],
   [
     'AL AUBURN OPELIKA A',
@@ -657,7 +657,7 @@ List<List<String>> _stations = [
     '32.37N',
     '085.25W',
     '236',
-    'US'
+    'US',
   ],
   ['AL BESSEMER', 'KEKY', 'EKY', 'null', '33.19N', '086.56W', '214', 'US'],
   ['AL BIRMINGHAM', 'KBHM', 'BHM', '72228', '33.34N', '086.45W', '197', 'US'],
@@ -669,7 +669,7 @@ List<List<String>> _stations = [
     '33.10N',
     '086.46W',
     '197',
-    'US'
+    'US',
   ],
   [
     'AL OZARK/CAIRNS AAF',
@@ -679,7 +679,7 @@ List<List<String>> _stations = [
     '31.17N',
     '085.43W',
     '93',
-    'US'
+    'US',
   ],
   [
     'AL CENTREVILLE WSM',
@@ -689,7 +689,7 @@ List<List<String>> _stations = [
     '32.56N',
     '087.05W',
     '77',
-    'US'
+    'US',
   ],
   ['AL COURTLAND', 'K9A4', '9A4', 'null', '34.40N', '087.21W', '179', 'US'],
   [
@@ -700,7 +700,7 @@ List<List<String>> _stations = [
     '34.16N',
     '086.51W',
     '294',
-    'US'
+    'US',
   ],
   [
     'AL CULLMAN/FOLSOM F',
@@ -710,7 +710,7 @@ List<List<String>> _stations = [
     '34.16N',
     '086.51W',
     '294',
-    'US'
+    'US',
   ],
   ['AL DECATUR', 'KDCU', 'DCU', 'null', '34.39N', '086.57W', '176', 'US'],
   ['AL DEMOPOLIS', 'KDYA', 'DYA', 'null', '32.28N', '087.57W', '34', 'US'],
@@ -728,7 +728,7 @@ List<List<String>> _stations = [
     '34.28N',
     '085.43W',
     '267',
-    'US'
+    'US',
   ],
   ['AL FT RUCKER 88D', 'KEOX', 'EOX', 'null', '31.28N', '085.28W', '132', 'US'],
   [
@@ -739,7 +739,7 @@ List<List<String>> _stations = [
     '31.22N',
     '085.51W',
     '122',
-    'US'
+    'US',
   ],
   [
     'AL FT RUCKER/HANCHE',
@@ -749,7 +749,7 @@ List<List<String>> _stations = [
     '31.21N',
     '085.39W',
     '97',
-    'US'
+    'US',
   ],
   ['AL GADSDEN MUNI', 'KGAD', 'GAD', 'null', '33.58N', '086.04W', '173', 'US'],
   ['AL GREENVILLE', 'KPRN', 'PRN', 'null', '31.51N', '086.37W', '138', 'US'],
@@ -764,7 +764,7 @@ List<List<String>> _stations = [
     '34.43N',
     '086.39W',
     '191',
-    'US'
+    'US',
   ],
   [
     'AL HUNTSVILLE/MADIS',
@@ -774,7 +774,7 @@ List<List<String>> _stations = [
     '34.52N',
     '086.33W',
     '230',
-    'US'
+    'US',
   ],
   ['AL HYTOP/88D', 'KHTX', 'HTX', 'null', '34.56N', '086.05W', '536', 'US'],
   ['AL JASPER/WALKER', 'KJFX', 'JFX', 'null', '33.54N', '087.19W', '148', 'US'],
@@ -786,7 +786,7 @@ List<List<String>> _stations = [
     '31.21N',
     '085.45W',
     '74',
-    'US'
+    'US',
   ],
   [
     'AL MAXWELL AFB 88D',
@@ -796,7 +796,7 @@ List<List<String>> _stations = [
     '32.32N',
     '085.47W',
     '122',
-    'US'
+    'US',
   ],
   [
     'AL MAXWELL AFB/MGM',
@@ -806,7 +806,7 @@ List<List<String>> _stations = [
     '32.22N',
     '086.22W',
     '51',
-    'US'
+    'US',
   ],
   ['AL MARION', 'KA08', 'A08', 'null', '32.31N', '087.23W', '68', 'US'],
   [
@@ -817,7 +817,7 @@ List<List<String>> _stations = [
     '30.37N',
     '088.04W',
     '20',
-    'US'
+    'US',
   ],
   ['AL MOBILE/BATES', 'KMOB', 'MOB', '72223', '30.41N', '088.15W', '63', 'US'],
   ['AL MONTGOMERY', 'KMGM', 'MGM', '72226', '32.18N', '086.24W', '63', 'US'],
@@ -834,7 +834,7 @@ List<List<String>> _stations = [
     '34.41N',
     '086.41W',
     '209',
-    'US'
+    'US',
   ],
   ['AL SCOTTSBORO', 'K4A6', '4A6', 'null', '34.41N', '086.00W', '198', 'US'],
   ['AL SELMA', 'KSEM', 'SEM', 'null', '32.21N', '086.59W', '51', 'US'],
@@ -852,7 +852,7 @@ List<List<String>> _stations = [
     '32.53N',
     '087.15W',
     '140',
-    'US'
+    'US',
   ],
   ['AL DAUPHIN ISLAND', 'K4R9', '4R9', '99442', '30.16N', '088.08W', '2', 'US'],
   ['AL FAIRHOPE', 'K4R4', '4R4', 'null', '30.28N', '087.53W', '28', 'US'],
@@ -864,7 +864,7 @@ List<List<String>> _stations = [
     '34.51N',
     '086.33W',
     '231',
-    'US'
+    'US',
   ],
   [
     'AL VIOSCA KNOLL768',
@@ -874,7 +874,7 @@ List<List<String>> _stations = [
     '29.14N',
     '087.47W',
     '53',
-    'US'
+    'US',
   ],
   ['AR ARKADELPHIA', 'KADF', 'ADF', 'null', '34.06N', '093.04W', '56', 'US'],
   ['AR BATESVILLE', 'KBVX', 'BVX', 'null', '35.44N', '091.39W', '141', 'US'],
@@ -888,7 +888,7 @@ List<List<String>> _stations = [
     '36.17N',
     '094.18W',
     '392',
-    'US'
+    'US',
   ],
   ['AR BLYTHEVILLE', 'KHKA', 'HKA', 'null', '35.56N', '089.50W', '78', 'US'],
   ['AR BLYTHEVILLE', 'KBYH', 'BYH', 'null', '35.58N', '089.57W', '78', 'US'],
@@ -905,7 +905,7 @@ List<List<String>> _stations = [
     '34.06N',
     '094.17W',
     '195',
-    'US'
+    'US',
   ],
   ['AR EL DORADO', 'KELD', 'ELD', 'null', '33.13N', '092.49W', '81', 'US'],
   ['AR FAYETTEVILLE', 'KFYV', 'FYV', 'null', '36.01N', '094.10W', '379', 'US'],
@@ -917,7 +917,7 @@ List<List<String>> _stations = [
     '36.17N',
     '092.35W',
     '219',
-    'US'
+    'US',
   ],
   ['AR FORT SMITH', 'KFSM', 'FSM', '72344', '35.20N', '094.22W', '140', 'US'],
   [
@@ -928,7 +928,7 @@ List<List<String>> _stations = [
     '35.17N',
     '094.22W',
     '195',
-    'US'
+    'US',
   ],
   ['AR HARRISON', 'KHRO', 'HRO', 'null', '36.16N', '093.09W', '417', 'US'],
   ['AR HOT SPRINGS', 'KHOT', 'HOT', 'null', '34.29N', '093.06W', '162', 'US'],
@@ -942,7 +942,7 @@ List<List<String>> _stations = [
     '34.55N',
     '092.09W',
     '95',
-    'US'
+    'US',
   ],
   ['AR MENA INTERMTN', 'KMEZ', 'MEZ', 'null', '34.33N', '094.12W', '329', 'US'],
   ['AR W MEMPHIS MUNI', 'KAWM', 'AWM', 'null', '35.08N', '090.14W', '65', 'US'],
@@ -957,7 +957,7 @@ List<List<String>> _stations = [
     '34.50N',
     '092.16W',
     '173',
-    'US'
+    'US',
   ],
   ['AR NEWPORT', 'KM19', 'M19', 'null', '35.39N', '091.10W', '73', 'US'],
   [
@@ -968,7 +968,7 @@ List<List<String>> _stations = [
     '34.11N',
     '091.56W',
     '62',
-    'US'
+    'US',
   ],
   ['AR RAZORBACK VOR', 'KRZC', 'RZC', 'null', '36.15N', '094.07W', '443', 'US'],
   ['AR ROGERS', 'KROG', 'ROG', 'null', '36.22N', '094.05W', '415', 'US'],
@@ -983,7 +983,7 @@ List<List<String>> _stations = [
     '36.10N',
     '094.07W',
     '412',
-    'US'
+    'US',
   ],
   ['AR STUTTGART', 'KSGT', 'SGT', 'null', '34.36N', '091.34W', '68', 'US'],
   ['AR TEXARKANA', 'KTXK', 'TXK', 'null', '33.27N', '093.59W', '111', 'US'],
@@ -997,7 +997,7 @@ List<List<String>> _stations = [
     '35.10N',
     '094.48W',
     '143',
-    'US'
+    'US',
   ],
   ['AR MENA INTERMTN', 'KM39', 'M39', 'null', '34.33N', '094.12W', '329', 'US'],
   [
@@ -1008,7 +1008,7 @@ List<List<String>> _stations = [
     '33.26N',
     '112.01W',
     '336',
-    'US'
+    'US',
   ],
   ['AZ TUCSON', 'KTUS', 'TUS', 'null', '32.08N', '110.57W', '776', 'US'],
   ['AZ BUCKEYE', 'KBXK', 'BXK', 'null', '33.25N', '112.41W', '315', 'US'],
@@ -1024,7 +1024,7 @@ List<List<String>> _stations = [
     '34.34N',
     '111.12W',
     '2261',
-    'US'
+    'US',
   ],
   [
     'AZ COLORADO CITY',
@@ -1034,7 +1034,7 @@ List<List<String>> _stations = [
     '36.58N',
     '113.01W',
     '1486',
-    'US'
+    'US',
   ],
   ['AZ COOLIDGE MUNI', 'KP08', 'P08', 'null', '32.56N', '111.26W', '481', 'US'],
   ['AZ DAVIS/TUCSON', 'KDMA', 'DMA', 'null', '32.10N', '110.52W', '824', 'US'],
@@ -1046,7 +1046,7 @@ List<List<String>> _stations = [
     '31.28N',
     '109.35W',
     '1265',
-    'US'
+    'US',
   ],
   ['AZ FLAGSTAFF', 'KFLG', 'FLG', '72375', '35.08N', '111.40W', '2134', 'US'],
   [
@@ -1057,7 +1057,7 @@ List<List<String>> _stations = [
     '35.14N',
     '111.49W',
     '2192',
-    'US'
+    'US',
   ],
   [
     'AZ FORT HUACHUCA',
@@ -1067,7 +1067,7 @@ List<List<String>> _stations = [
     '31.35N',
     '110.21W',
     '1438',
-    'US'
+    'US',
   ],
   [
     'AZ GILA BEND (AAF)',
@@ -1077,7 +1077,7 @@ List<List<String>> _stations = [
     '32.52N',
     '112.43W',
     '262',
-    'US'
+    'US',
   ],
   ['AZ GLENDALE', 'KGEU', 'GEU', 'null', '33.32N', '112.18W', '325', 'US'],
   [
@@ -1088,7 +1088,7 @@ List<List<String>> _stations = [
     '33.31N',
     '112.22W',
     '332',
-    'US'
+    'US',
   ],
   [
     'AZ GOODYEAR MUNICIP',
@@ -1098,7 +1098,7 @@ List<List<String>> _stations = [
     '33.25N',
     '112.22W',
     '295',
-    'US'
+    'US',
   ],
   [
     'AZ GRAND CANYON',
@@ -1108,7 +1108,7 @@ List<List<String>> _stations = [
     '35.57N',
     '112.09W',
     '2016',
-    'US'
+    'US',
   ],
   [
     'AZ GRAND CANYON/VAL',
@@ -1118,7 +1118,7 @@ List<List<String>> _stations = [
     '35.38N',
     '112.09W',
     '1830',
-    'US'
+    'US',
   ],
   ['AZ KINGMAN', 'KIGM', 'IGM', '72370', '35.15N', '113.56W', '1032', 'US'],
   [
@@ -1129,7 +1129,7 @@ List<List<String>> _stations = [
     '34.34N',
     '114.22W',
     '238',
-    'US'
+    'US',
   ],
   ['AZ MARANA', 'KAVQ', 'AVQ', 'null', '32.24N', '111.13W', '620', 'US'],
   [
@@ -1140,7 +1140,7 @@ List<List<String>> _stations = [
     '32.59N',
     '111.55W',
     '398',
-    'US'
+    'US',
   ],
   [
     'AZ MESA/FALCON FLD',
@@ -1150,7 +1150,7 @@ List<List<String>> _stations = [
     '33.28N',
     '111.43W',
     '424',
-    'US'
+    'US',
   ],
   ['AZ NOGALES', 'KOLS', 'OLS', 'null', '31.25N', '110.51W', '1184', 'US'],
   ['AZ PAGE', 'KPGA', 'PGA', '72371', '36.55N', '111.27W', '1307', 'US'],
@@ -1164,7 +1164,7 @@ List<List<String>> _stations = [
     '33.41N',
     '112.04W',
     '443',
-    'US'
+    'US',
   ],
   ['AZ PHOENIX/WFO', 'KPSR', 'PSR', '74626', '33.26N', '112.01W', '342', 'US'],
   [
@@ -1175,7 +1175,7 @@ List<List<String>> _stations = [
     '31.54N',
     '110.38W',
     '1586',
-    'US'
+    'US',
   ],
   [
     'AZ PIONEER AIRFIELD',
@@ -1185,7 +1185,7 @@ List<List<String>> _stations = [
     '31.36N',
     '110.26W',
     '1453',
-    'US'
+    'US',
   ],
   ['AZ PRESCOTT', 'KPRC', 'PRC', 'null', '34.39N', '112.25W', '1524', 'US'],
   [
@@ -1196,7 +1196,7 @@ List<List<String>> _stations = [
     '34.42N',
     '112.29W',
     '1524',
-    'US'
+    'US',
   ],
   ['AZ SAFFORD', 'KSAD', 'SAD', 'null', '32.51N', '109.38W', '962', 'US'],
   ['AZ SAN SIMON', 'KSSO', 'SSO', 'null', '32.16N', '109.15W', '1097', 'US'],
@@ -1210,7 +1210,7 @@ List<List<String>> _stations = [
     '34.16N',
     '110.00W',
     '1954',
-    'US'
+    'US',
   ],
   [
     'AZ SPRINGERVILLE',
@@ -1220,7 +1220,7 @@ List<List<String>> _stations = [
     '34.08N',
     '109.19W',
     '2151',
-    'US'
+    'US',
   ],
   ['AZ ST. JOHNS', 'KSJN', 'SJN', 'null', '34.31N', '109.23W', '1745', 'US'],
   ['AZ TUBA CITY', 'KTBC', 'TBC', 'null', '36.07N', '111.16W', '1538', 'US'],
@@ -1233,7 +1233,7 @@ List<List<String>> _stations = [
     '32.09N',
     '111.10W',
     '737',
-    'US'
+    'US',
   ],
   ['AZ WELLTON', 'KNOZ', 'NOZ', 'null', '32.31N', '114.28W', '103', 'US'],
   [
@@ -1244,7 +1244,7 @@ List<List<String>> _stations = [
     '35.18N',
     '112.12W',
     '2036',
-    'US'
+    'US',
   ],
   ['AZ WINDOW ROCK', 'KRQE', 'RQE', 'null', '35.39N', '109.04W', '2055', 'US'],
   ['AZ WINSLOW', 'KINW', 'INW', '72374', '35.02N', '110.43W', '1490', 'US'],
@@ -1259,7 +1259,7 @@ List<List<String>> _stations = [
     '32.30N',
     '114.24W',
     '231',
-    'US'
+    'US',
   ],
   [
     'AZ YUMA PRVG GROUN',
@@ -1269,7 +1269,7 @@ List<List<String>> _stations = [
     '32.30N',
     '114.24W',
     '231',
-    'US'
+    'US',
   ],
   ['AZ YUMA (VOR)', 'KBZA', 'BZA', 'null', '32.46N', '114.36W', '63', 'US'],
   [
@@ -1280,7 +1280,7 @@ List<List<String>> _stations = [
     '32.52N',
     '112.43W',
     '262',
-    'US'
+    'US',
   ],
   ['AZ NOGALES', 'K13A', '13A', 'null', '31.25N', '110.51W', '1198', 'US'],
   ['AZ PAYSON', 'K0E4', '0E4', 'null', '34.13N', '111.19W', '1498', 'US'],
@@ -1303,7 +1303,7 @@ List<List<String>> _stations = [
     '35.29N',
     '119.06W',
     '151',
-    'US'
+    'US',
   ],
   [
     'CA BEALE AFB/MARYSV',
@@ -1313,7 +1313,7 @@ List<List<String>> _stations = [
     '39.07N',
     '121.25W',
     '34',
-    'US'
+    'US',
   ],
   ['CA BEALE/ORO DAM', 'KBBX', 'BBX', 'null', '39.30N', '121.38W', '53', 'US'],
   ['CA BEAUMONT', 'KBUO', 'BUO', 'null', '33.55N', '116.58W', '692', 'US'],
@@ -1325,7 +1325,7 @@ List<List<String>> _stations = [
     '34.16N',
     '116.51W',
     '2059',
-    'US'
+    'US',
   ],
   ['CA BICYCLE LAKE', 'KBYS', 'BYS', '74611', '35.17N', '116.37W', '716', 'US'],
   ['CA BISHOP', 'KBIH', 'BIH', '72480', '37.22N', '118.21W', '1253', 'US'],
@@ -1339,7 +1339,7 @@ List<List<String>> _stations = [
     '38.21N',
     '119.31W',
     '2057',
-    'US'
+    'US',
   ],
   ['CA BURBANK', 'KBUR', 'BUR', '72288', '34.12N', '118.22W', '217', 'US'],
   ['CA BURNEY', 'KBNY', 'BNY', 'null', '40.52N', '121.40W', '957', 'US'],
@@ -1357,7 +1357,7 @@ List<List<String>> _stations = [
     '39.47N',
     '121.50W',
     '73',
-    'US'
+    'US',
   ],
   [
     'CA CHINA LAKE (NAF)',
@@ -1367,7 +1367,7 @@ List<List<String>> _stations = [
     '35.40N',
     '117.40W',
     '696',
-    'US'
+    'US',
   ],
   ['CA CHINO', 'KCNO', 'CNO', 'null', '33.59N', '117.37W', '207', 'US'],
   ['CA COLUMBIA', 'KO22', 'O22', 'null', '38.02N', '120.25W', '646', 'US'],
@@ -1385,7 +1385,7 @@ List<List<String>> _stations = [
     '35.06N',
     '117.34W',
     '840',
-    'US'
+    'US',
   ],
   ['CA EDWARDS N-AUX', 'K9L2', '9L2', 'null', '34.58N', '117.52W', '701', 'US'],
   [
@@ -1396,7 +1396,7 @@ List<List<String>> _stations = [
     '32.49N',
     '115.40W',
     '-13',
-    'US'
+    'US',
   ],
   ['CA EL MONTE', 'KEMT', 'EMT', '74704', '34.04N', '118.01W', '90', 'US'],
   ['CA EMIGRANT GAP', 'KBLU', 'BLU', 'null', '39.17N', '120.42W', '1609', 'US'],
@@ -1410,7 +1410,7 @@ List<List<String>> _stations = [
     '40.40N',
     '124.14W',
     '122',
-    'US'
+    'US',
   ],
   ['CA FORTUNA', 'KFOT', 'FOT', 'null', '40.33N', '124.08W', '120', 'US'],
   ['CA FRESNO', 'KFAT', 'FAT', '72389', '36.47N', '119.43W', '104', 'US'],
@@ -1423,7 +1423,7 @@ List<List<String>> _stations = [
     '36.43N',
     '119.49W',
     '85',
-    'US'
+    'US',
   ],
   ['CA FULLERTON', 'KFUL', 'FUL', 'null', '33.52N', '117.59W', '35', 'US'],
   ['CA GRASS VALLEY', 'KGOO', 'GOO', 'null', '39.13N', '121.00W', '962', 'US'],
@@ -1437,7 +1437,7 @@ List<List<String>> _stations = [
     '36.19N',
     '119.38W',
     '74',
-    'US'
+    'US',
   ],
   ['CA HANFORD', 'KO18', 'O18', 'null', '36.19N', '119.38W', '74', 'US'],
   ['CA HAWTHORNE', 'KHHR', 'HHR', 'null', '33.55N', '118.20W', '18', 'US'],
@@ -1453,7 +1453,7 @@ List<List<String>> _stations = [
     '40.30N',
     '124.18W',
     '732',
-    'US'
+    'US',
   ],
   [
     'CA HUNTER LIGGET',
@@ -1463,7 +1463,7 @@ List<List<String>> _stations = [
     '36.00N',
     '121.13W',
     '310',
-    'US'
+    'US',
   ],
   ['CA IMPERIAL', 'KIPL', 'IPL', 'null', '32.50N', '115.35W', '-17', 'US'],
   ['CA IMPERIAL BEACH', 'KNRS', 'NRS', 'null', '32.34N', '117.07W', '7', 'US'],
@@ -1476,7 +1476,7 @@ List<List<String>> _stations = [
     '34.06N',
     '117.46W',
     '308',
-    'US'
+    'US',
   ],
   ['CA LANCASTER/FOX', 'KWJF', 'WJF', 'null', '34.43N', '118.13W', '715', 'US'],
   [
@@ -1487,7 +1487,7 @@ List<List<String>> _stations = [
     '36.19N',
     '119.57W',
     '72',
-    'US'
+    'US',
   ],
   ['CA LINCOLN', 'KLHM', 'LHM', 'null', '38.55N', '121.21W', '37', 'US'],
   ['CA LITTLE RIVER', 'KLLR', 'LLR', 'null', '39.16N', '123.45W', '175', 'US'],
@@ -1502,7 +1502,7 @@ List<List<String>> _stations = [
     '33.46N',
     '118.02W',
     '11',
-    'US'
+    'US',
   ],
   ['CA LOS ANGELES', 'KLAX', 'LAX', '72295', '33.56N', '118.23W', '46', 'US'],
   [
@@ -1513,7 +1513,7 @@ List<List<String>> _stations = [
     '34.12N',
     '119.12W',
     '20',
-    'US'
+    'US',
   ],
   [
     'CA LOS ANGELS/ARTCC',
@@ -1523,7 +1523,7 @@ List<List<String>> _stations = [
     '34.38N',
     '118.05W',
     '819',
-    'US'
+    'US',
   ],
   ['CA LOS ANGELES', 'KCQT', 'CQT', 'null', '34.01N', '118.17W', '56', 'US'],
   [
@@ -1534,7 +1534,7 @@ List<List<String>> _stations = [
     '34.15N',
     '118.25W',
     '306',
-    'US'
+    'US',
   ],
   ['CA MADERA', 'KMAE', 'MAE', 'null', '36.59N', '120.07W', '77', 'US'],
   [
@@ -1545,7 +1545,7 @@ List<List<String>> _stations = [
     '37.37N',
     '118.49W',
     '2173',
-    'US'
+    'US',
   ],
   ['CA MARYSVILLE', 'KMYV', 'MYV', 'null', '39.06N', '121.34W', '21', 'US'],
   ['CA MATHER FIELD', 'KMHR', 'MHR', 'null', '38.32N', '121.17W', '29', 'US'],
@@ -1559,7 +1559,7 @@ List<List<String>> _stations = [
     '37.23N',
     '120.34W',
     '57',
-    'US'
+    'US',
   ],
   [
     'CA MIRAMAR NAS/SAN',
@@ -1569,7 +1569,7 @@ List<List<String>> _stations = [
     '32.52N',
     '117.08W',
     '146',
-    'US'
+    'US',
   ],
   [
     'CA MISSION BAY VOR',
@@ -1579,7 +1579,7 @@ List<List<String>> _stations = [
     '32.47N',
     '117.14W',
     '12',
-    'US'
+    'US',
   ],
   ['CA MODESTO', 'KMOD', 'MOD', 'null', '37.37N', '120.57W', '29', 'US'],
   [
@@ -1590,7 +1590,7 @@ List<List<String>> _stations = [
     '37.24N',
     '122.03W',
     '12',
-    'US'
+    'US',
   ],
   ['CA MOJAVE', 'KMHV', 'MHV', 'null', '35.04N', '118.09W', '849', 'US'],
   [
@@ -1601,7 +1601,7 @@ List<List<String>> _stations = [
     '41.46N',
     '122.28W',
     '807',
-    'US'
+    'US',
   ],
   ['CA MONTEREY', 'KMRY', 'MRY', 'null', '36.35N', '121.51W', '66', 'US'],
   [
@@ -1612,7 +1612,7 @@ List<List<String>> _stations = [
     '36.35N',
     '121.51W',
     '66',
-    'US'
+    'US',
   ],
   [
     'CA MOUNT SHASTA',
@@ -1622,7 +1622,7 @@ List<List<String>> _stations = [
     '41.19N',
     '122.19W',
     '1078',
-    'US'
+    'US',
   ],
   [
     'CA MOUNT WILSON',
@@ -1632,7 +1632,7 @@ List<List<String>> _stations = [
     '34.14N',
     '118.03W',
     '1739',
-    'US'
+    'US',
   ],
   [
     'CA MURRIETA/TEMECUL',
@@ -1642,7 +1642,7 @@ List<List<String>> _stations = [
     '33.34N',
     '117.08W',
     '412',
-    'US'
+    'US',
   ],
   ['CA NAPA', 'KAPC', 'APC', 'null', '38.12N', '122.17W', '13', 'US'],
   ['CA NEEDLES', 'KEED', 'EED', '72380', '34.46N', '114.37W', '302', 'US'],
@@ -1655,7 +1655,7 @@ List<List<String>> _stations = [
     '32.42N',
     '117.13W',
     '8',
-    'US'
+    'US',
   ],
   [
     'CA NOVATO/GNOSS FLD',
@@ -1665,7 +1665,7 @@ List<List<String>> _stations = [
     '38.09N',
     '122.33W',
     '1',
-    'US'
+    'US',
   ],
   ['CA OAKLAND', 'KOAK', 'OAK', '72493', '37.43N', '122.14W', '26', 'US'],
   ['CA OAKLAND/ARTCC', 'KZOA', 'ZOA', 'null', '37.33N', '122.01W', '11', 'US'],
@@ -1678,7 +1678,7 @@ List<List<String>> _stations = [
     '33.17N',
     '117.27W',
     '27',
-    'US'
+    'US',
   ],
   ['CA ONTARIO', 'KONT', 'ONT', 'null', '34.03N', '117.35W', '274', 'US'],
   [
@@ -1689,7 +1689,7 @@ List<List<String>> _stations = [
     '33.49N',
     '117.38W',
     '923',
-    'US'
+    'US',
   ],
   [
     'CA ORCUTT OIL/VBG',
@@ -1699,7 +1699,7 @@ List<List<String>> _stations = [
     '34.50N',
     '120.24W',
     '373',
-    'US'
+    'US',
   ],
   ['CA OROVILLE', 'KOVE', 'OVE', 'null', '39.30N', '121.37W', '58', 'US'],
   ['CA OXNARD', 'KOXR', 'OXR', 'null', '34.12N', '119.12W', '20', 'US'],
@@ -1719,7 +1719,7 @@ List<List<String>> _stations = [
     '38.05N',
     '122.52W',
     '447',
-    'US'
+    'US',
   ],
   ['CA PORTERVILLE', 'KPTV', 'PTV', 'null', '36.01N', '119.04W', '135', 'US'],
   [
@@ -1730,7 +1730,7 @@ List<List<String>> _stations = [
     '35.40N',
     '121.17W',
     '27',
-    'US'
+    'US',
   ],
   ['CA RED BLUFF', 'KRBL', 'RBL', '72591', '40.09N', '122.15W', '104', 'US'],
   ['CA REDDING', 'KRDD', 'RDD', '72592', '40.31N', '122.18W', '155', 'US'],
@@ -1745,7 +1745,7 @@ List<List<String>> _stations = [
     '33.52N',
     '117.16W',
     '469',
-    'US'
+    'US',
   ],
   ['CA RAMONA', 'KRNM', 'RNM', 'null', '33.02N', '116.55W', '427', 'US'],
   ['CA SACRAMENTO', 'KSAC', 'SAC', 'null', '38.30N', '121.30W', '11', 'US'],
@@ -1757,7 +1757,7 @@ List<List<String>> _stations = [
     '38.30N',
     '121.30W',
     '11',
-    'US'
+    'US',
   ],
   ['CA SACRAMENTO/RFC', 'KRSA', 'RSA', 'null', '38.30N', '121.30W', '11', 'US'],
   ['CA SACRAMENTO/88D', 'KDAX', 'DAX', 'null', '38.30N', '121.41W', '9', 'US'],
@@ -1769,7 +1769,7 @@ List<List<String>> _stations = [
     '38.42N',
     '121.36W',
     '6',
-    'US'
+    'US',
   ],
   ['CA SALINAS', 'KSNS', 'SNS', 'null', '36.40N', '121.36W', '30', 'US'],
   [
@@ -1780,7 +1780,7 @@ List<List<String>> _stations = [
     '34.05N',
     '117.15W',
     '353',
-    'US'
+    'US',
   ],
   [
     'CA SAN CARLOS AIRPO',
@@ -1790,7 +1790,7 @@ List<List<String>> _stations = [
     '37.31N',
     '122.15W',
     '1',
-    'US'
+    'US',
   ],
   [
     'CA SAN CLEMENTE IS.',
@@ -1800,7 +1800,7 @@ List<List<String>> _stations = [
     '33.01N',
     '118.34W',
     '55',
-    'US'
+    'US',
   ],
   ['CA SAN DIEGO', 'KSAN', 'SAN', '72290', '32.44N', '117.11W', '12', 'US'],
   [
@@ -1811,7 +1811,7 @@ List<List<String>> _stations = [
     '32.49N',
     '117.08W',
     '136',
-    'US'
+    'US',
   ],
   [
     'CA SAN DIEGO/BROWN',
@@ -1821,7 +1821,7 @@ List<List<String>> _stations = [
     '32.35N',
     '117.00W',
     '159',
-    'US'
+    'US',
   ],
   [
     'CA SAN DIEGO/SANTEE',
@@ -1831,7 +1831,7 @@ List<List<String>> _stations = [
     '32.49N',
     '116.58W',
     '117',
-    'US'
+    'US',
   ],
   ['CA SAN DIEGO/WFO', 'KSGX', 'SGX', 'null', '32.44N', '117.10W', '9', 'US'],
   ['CA SAN FRANCISCO', 'KSFO', 'SFO', '72494', '37.37N', '122.22W', '3', 'US'],
@@ -1845,7 +1845,7 @@ List<List<String>> _stations = [
     '35.14N',
     '120.38W',
     '59',
-    'US'
+    'US',
   ],
   ['CA SAN MARTIN', 'KE16', 'E16', 'null', '37.05N', '121.36W', '86', 'US'],
   [
@@ -1856,7 +1856,7 @@ List<List<String>> _stations = [
     '33.13N',
     '119.27W',
     '154',
-    'US'
+    'US',
   ],
   ['CA SANDBERG', 'KSDB', 'SDB', '72383', '34.45N', '118.43W', '1377', 'US'],
   ['CA COSTA MESA', 'KSNA', 'SNA', 'null', '33.40N', '117.52W', '16', 'US'],
@@ -1869,7 +1869,7 @@ List<List<String>> _stations = [
     '34.31N',
     '119.46W',
     '1104',
-    'US'
+    'US',
   ],
   [
     'CA SANTA CLAR/88D',
@@ -1879,7 +1879,7 @@ List<List<String>> _stations = [
     '37.09N',
     '121.54W',
     '1057',
-    'US'
+    'US',
   ],
   ['CA SANTA MARIA', 'KSMX', 'SMX', '72394', '34.54N', '120.27W', '74', 'US'],
   ['CA SANTA MONICA', 'KSMO', 'SMO', 'null', '34.01N', '118.27W', '57', 'US'],
@@ -1894,7 +1894,7 @@ List<List<String>> _stations = [
     '38.54N',
     '120.00W',
     '1924',
-    'US'
+    'US',
   ],
   ['CA STOCKTON', 'KSCK', 'SCK', '72492', '37.53N', '121.13W', '10', 'US'],
   [
@@ -1905,7 +1905,7 @@ List<List<String>> _stations = [
     '40.22N',
     '120.34W',
     '1263',
-    'US'
+    'US',
   ],
   [
     'CA THERMAL/PALM SPG',
@@ -1915,7 +1915,7 @@ List<List<String>> _stations = [
     '33.38N',
     '116.10W',
     '-35',
-    'US'
+    'US',
   ],
   [
     'CA TORRANCE MUNICIP',
@@ -1925,7 +1925,7 @@ List<List<String>> _stations = [
     '33.47N',
     '118.19W',
     '31',
-    'US'
+    'US',
   ],
   [
     'CA TRAVIS AFB/FAIRF',
@@ -1935,7 +1935,7 @@ List<List<String>> _stations = [
     '38.16N',
     '121.55W',
     '19',
-    'US'
+    'US',
   ],
   [
     'CA TRUCKEE TAHOE',
@@ -1945,7 +1945,7 @@ List<List<String>> _stations = [
     '39.19N',
     '120.07W',
     '1798',
-    'US'
+    'US',
   ],
   ['CA TEHACHAPI', 'KTSP', 'TSP', 'null', '35.08N', '118.26W', '1220', 'US'],
   [
@@ -1956,7 +1956,7 @@ List<List<String>> _stations = [
     '40.59N',
     '122.42W',
     '729',
-    'US'
+    'US',
   ],
   [
     'CA TWENTYNINE PALMS',
@@ -1966,7 +1966,7 @@ List<List<String>> _stations = [
     '34.17N',
     '116.10W',
     '626',
-    'US'
+    'US',
   ],
   ['CA UKIAH', 'KUKI', 'UKI', 'null', '39.07N', '123.12W', '187', 'US'],
   ['CA UKIAH(VOR)', 'KENI', 'ENI', 'null', '39.03N', '123.16W', '187', 'US'],
@@ -1980,7 +1980,7 @@ List<List<String>> _stations = [
     '34.44N',
     '120.35W',
     '112',
-    'US'
+    'US',
   ],
   [
     'CA VANDENBERG RANGE',
@@ -1990,7 +1990,7 @@ List<List<String>> _stations = [
     '34.43N',
     '120.34W',
     '100',
-    'US'
+    'US',
   ],
   [
     'CA VENTURA CTY/88D',
@@ -2000,7 +2000,7 @@ List<List<String>> _stations = [
     '34.25N',
     '119.11W',
     '831',
-    'US'
+    'US',
   ],
   ['CA VICTORVILLE', 'KVCV', 'VCV', 'null', '34.35N', '117.23W', '876', 'US'],
   ['CA VISALIA MUNI', 'KVIS', 'VIS', 'null', '36.19N', '119.24W', '89', 'US'],
@@ -2018,7 +2018,7 @@ List<List<String>> _stations = [
     '35.16N',
     '117.26W',
     '864',
-    'US'
+    'US',
   ],
   ['CA EL TORO MCAS', 'KNZJ', 'NZJ', '69014', '33.40N', '117.43W', '117', 'US'],
   [
@@ -2029,7 +2029,7 @@ List<List<String>> _stations = [
     '36.40N',
     '121.46W',
     '41',
-    'US'
+    'US',
   ],
   [
     'CA MONTAGUE/YREKA',
@@ -2039,7 +2039,7 @@ List<List<String>> _stations = [
     '41.44N',
     '122.32W',
     '771',
-    'US'
+    'US',
   ],
   ['CA OCEANSIDE', 'KL32', 'L32', 'null', '33.13N', '117.21W', '8', 'US'],
   [
@@ -2050,7 +2050,7 @@ List<List<String>> _stations = [
     '37.30N',
     '122.30W',
     '49',
-    'US'
+    'US',
   ],
   [
     'CA POINT ARGUELLO',
@@ -2060,7 +2060,7 @@ List<List<String>> _stations = [
     '34.57N',
     '121.52W',
     '23',
-    'US'
+    'US',
   ],
   [
     'CA POINT ARGUELLO',
@@ -2070,7 +2070,7 @@ List<List<String>> _stations = [
     '34.34N',
     '120.21W',
     '12',
-    'US'
+    'US',
   ],
   ['CA POINT ARENA', 'KPAA', 'PAA', '72499', '38.57N', '123.16W', '18', 'US'],
   ['CA POINT ARENA', 'null', 'null', '99412', '38.57N', '123.16W', '17', 'US'],
@@ -2085,7 +2085,7 @@ List<List<String>> _stations = [
     '35.20N',
     '117.06W',
     '962',
-    'US'
+    'US',
   ],
   ['CA TUSTIN MCAS', 'KNTK', 'NTK', '69016', '33.42N', '117.49W', '17', 'US'],
   ['CA VACAVILLE', 'KO45', 'O45', 'null', '38.23N', '121.57W', '33', 'US'],
@@ -2098,7 +2098,7 @@ List<List<String>> _stations = [
     '39.51N',
     '104.39W',
     '1640',
-    'US'
+    'US',
   ],
   ['CO AKRON', 'KAKO', 'AKO', 'null', '40.10N', '103.13W', '1421', 'US'],
   ['CO ALAMOSA', 'KALS', 'ALS', '72462', '37.26N', '105.52W', '2299', 'US'],
@@ -2111,7 +2111,7 @@ List<List<String>> _stations = [
     '39.48N',
     '105.46W',
     '3807',
-    'US'
+    'US',
   ],
   [
     'CO BOULDER DEN/WFO',
@@ -2121,7 +2121,7 @@ List<List<String>> _stations = [
     '40.00N',
     '105.20W',
     '1625',
-    'US'
+    'US',
   ],
   [
     'CO BROOMFIELD/JEFFC',
@@ -2131,7 +2131,7 @@ List<List<String>> _stations = [
     '39.54N',
     '105.06W',
     '1724',
-    'US'
+    'US',
   ],
   [
     'CO BUCKLEY ANGB/DEN',
@@ -2141,7 +2141,7 @@ List<List<String>> _stations = [
     '39.43N',
     '104.45W',
     '1726',
-    'US'
+    'US',
   ],
   ['CO BURLINGTON', 'KITR', 'ITR', 'null', '39.14N', '102.17W', '1279', 'US'],
   ['CO CANON CITY', 'K1V6', '1V6', 'null', '38.26N', '105.06W', '1658', 'US'],
@@ -2154,7 +2154,7 @@ List<List<String>> _stations = [
     '38.49N',
     '104.41W',
     '1856',
-    'US'
+    'US',
   ],
   [
     'CO CO SPNGS MEADOW',
@@ -2164,7 +2164,7 @@ List<List<String>> _stations = [
     '38.57N',
     '104.34W',
     '2096',
-    'US'
+    'US',
   ],
   ['CO CORTEZ', 'KCEZ', 'CEZ', 'null', '37.18N', '108.38W', '1797', 'US'],
   ['CO CRAIG', 'KCAG', 'CAG', '72570', '40.30N', '107.31W', '1887', 'US'],
@@ -2177,7 +2177,7 @@ List<List<String>> _stations = [
     '39.34N',
     '104.51W',
     '1775',
-    'US'
+    'US',
   ],
   [
     'CO DENVER F. RANGE',
@@ -2187,7 +2187,7 @@ List<List<String>> _stations = [
     '39.47N',
     '104.33W',
     '1675',
-    'US'
+    'US',
   ],
   ['CO DENVER/ARTCC', 'KZDV', 'ZDV', 'null', '40.11N', '105.08W', '1498', 'US'],
   [
@@ -2198,7 +2198,7 @@ List<List<String>> _stations = [
     '39.45N',
     '104.52W',
     '1608',
-    'US'
+    'US',
   ],
   ['CO DOVE CREEK', 'KDVC', 'DVC', 'null', '37.48N', '108.55W', '2131', 'US'],
   ['CO DURANGO', 'KDRO', 'DRO', 'null', '37.09N', '107.46W', '2035', 'US'],
@@ -2210,7 +2210,7 @@ List<List<String>> _stations = [
     '39.38N',
     '106.55W',
     '1993',
-    'US'
+    'US',
   ],
   [
     'CO RED TABLE VOR',
@@ -2220,7 +2220,7 @@ List<List<String>> _stations = [
     '39.26N',
     '106.54W',
     '3584',
-    'US'
+    'US',
   ],
   ['CO FORT CARSON', 'KFCS', 'FCS', '72468', '38.40N', '104.46W', '1789', 'US'],
   [
@@ -2231,7 +2231,7 @@ List<List<String>> _stations = [
     '40.27N',
     '105.01W',
     '1529',
-    'US'
+    'US',
   ],
   [
     'CO GRANADA PROFILER',
@@ -2241,7 +2241,7 @@ List<List<String>> _stations = [
     '37.46N',
     '102.10W',
     '1155',
-    'US'
+    'US',
   ],
   [
     'CO GRAND JUNCTION',
@@ -2251,7 +2251,7 @@ List<List<String>> _stations = [
     '39.07N',
     '108.31W',
     '1475',
-    'US'
+    'US',
   ],
   [
     'CO GRAND JUNCTION',
@@ -2261,7 +2261,7 @@ List<List<String>> _stations = [
     '39.04N',
     '108.48W',
     '2367',
-    'US'
+    'US',
   ],
   [
     'CO GRAND JUNC/MESA',
@@ -2271,7 +2271,7 @@ List<List<String>> _stations = [
     '39.04N',
     '108.13W',
     '3045',
-    'US'
+    'US',
   ],
   ['CO GREELEY/WELD', 'KGXY', 'GXY', 'null', '40.25N', '104.37W', '1420', 'US'],
   ['CO GUNNISON', 'KGUC', 'GUC', 'null', '38.31N', '106.55W', '2339', 'US'],
@@ -2283,7 +2283,7 @@ List<List<String>> _stations = [
     '38.27N',
     '107.02W',
     '2339',
-    'US'
+    'US',
   ],
   ['CO HAYDEN VOR', 'KCHE', 'CHE', 'null', '40.29N', '107.13W', '2339', 'US'],
   [
@@ -2294,7 +2294,7 @@ List<List<String>> _stations = [
     '40.28N',
     '107.13W',
     '2012',
-    'US'
+    'US',
   ],
   ['CO LA JUNTA', 'KLHX', 'LHX', 'null', '38.03N', '103.31W', '1277', 'US'],
   ['CO LAMAR', 'KLAA', 'LAA', '72463', '38.04N', '102.41W', '1119', 'US'],
@@ -2310,7 +2310,7 @@ List<List<String>> _stations = [
     '38.14N',
     '108.34W',
     '1811',
-    'US'
+    'US',
   ],
   ['CO PETERSON AFB', 'KPEF', 'PEF', 'null', '38.47N', '104.43W', '1881', 'US'],
   [
@@ -2321,7 +2321,7 @@ List<List<String>> _stations = [
     '40.10N',
     '104.42W',
     '1524',
-    'US'
+    'US',
   ],
   [
     'CO PUEBLO CTY 88D',
@@ -2331,7 +2331,7 @@ List<List<String>> _stations = [
     '38.28N',
     '104.11W',
     '1600',
-    'US'
+    'US',
   ],
   ['CO PUEBLO', 'KPUB', 'PUB', '72464', '38.17N', '104.30W', '1420', 'US'],
   ['CO RIFLE', 'KRIL', 'RIL', 'null', '39.32N', '107.44W', '1678', 'US'],
@@ -2343,7 +2343,7 @@ List<List<String>> _stations = [
     '38.06N',
     '106.10W',
     '2385',
-    'US'
+    'US',
   ],
   [
     'CO SCHRIEVER AFB',
@@ -2353,7 +2353,7 @@ List<List<String>> _stations = [
     '38.48N',
     '104.31W',
     '1900',
-    'US'
+    'US',
   ],
   ['CO SPRINGFIELD', 'KSPD', 'SPD', 'null', '37.17N', '102.37W', '1335', 'US'],
   [
@@ -2364,7 +2364,7 @@ List<List<String>> _stations = [
     '40.31N',
     '106.52W',
     '2096',
-    'US'
+    'US',
   ],
   [
     'CO MT WERNER SBS',
@@ -2374,7 +2374,7 @@ List<List<String>> _stations = [
     '40.27N',
     '106.45W',
     '3241',
-    'US'
+    'US',
   ],
   [
     'CO TELLURIDE REGION',
@@ -2384,7 +2384,7 @@ List<List<String>> _stations = [
     '37.57N',
     '107.54W',
     '2769',
-    'US'
+    'US',
   ],
   ['CO TOBE/VOR', 'KTBE', 'TBE', 'null', '37.16N', '103.36W', '1747', 'US'],
   [
@@ -2395,7 +2395,7 @@ List<List<String>> _stations = [
     '37.16N',
     '104.20W',
     '1756',
-    'US'
+    'US',
   ],
   [
     'CO USAF ACADEMY/COS',
@@ -2405,7 +2405,7 @@ List<List<String>> _stations = [
     '38.58N',
     '104.49W',
     '2003',
-    'US'
+    'US',
   ],
   ['CO WALTON PEAK', 'KC07', 'C07', 'null', '40.21N', '106.42W', '3225', 'US'],
   [
@@ -2416,7 +2416,7 @@ List<List<String>> _stations = [
     '37.17N',
     '107.52W',
     '2012',
-    'US'
+    'US',
   ],
   ['CO FORT COLLINS', 'KFCL', 'FCL', 'null', '40.35N', '105.05W', '1525', 'US'],
   ['CO FRASER', 'K4FC', '4FC', 'null', '39.57N', '105.50W', '2609', 'US'],
@@ -2428,7 +2428,7 @@ List<List<String>> _stations = [
     '38.36N',
     '106.55W',
     '2349',
-    'US'
+    'US',
   ],
   ['CO LAMAR', 'K4LJ', '4LJ', 'null', '38.05N', '102.37W', '1103', 'US'],
   ['CO SALIDA', 'KS29', 'S29', 'null', '38.31N', '106.01W', '2282', 'US'],
@@ -2447,7 +2447,7 @@ List<List<String>> _stations = [
     '39.29N',
     '106.09W',
     '3680',
-    'US'
+    'US',
   ],
   ['CO RANGELY', 'K4V0', 'null', 'null', '40.06N', '108.46W', '1608', 'US'],
   ['CO BUENA VISTA', 'KAEJ', 'null', 'null', '38.49N', '106.07W', '2422', 'US'],
@@ -2459,7 +2459,7 @@ List<List<String>> _stations = [
     '38.47N',
     '108.04W',
     '1583',
-    'US'
+    'US',
   ],
   ['CO SALIDA', 'KANK', 'null', 'null', '38.32N', '106.03W', '2293', 'US'],
   [
@@ -2470,7 +2470,7 @@ List<List<String>> _stations = [
     '40.02N',
     '105.14W',
     '1612',
-    'US'
+    'US',
   ],
   [
     'CO ELLICOTT-B AFA',
@@ -2480,7 +2480,7 @@ List<List<String>> _stations = [
     '38.46N',
     '104.18W',
     '1840',
-    'US'
+    'US',
   ],
   ['CO ERIE MUNI', 'KEIK', 'null', 'null', '40.01N', '105.03W', '1564', 'US'],
   ['CO FORT MORGAN', 'KFMM', 'null', 'null', '40.20N', '103.48W', '1393', 'US'],
@@ -2492,7 +2492,7 @@ List<List<String>> _stations = [
     '40.05N',
     '105.55W',
     '2500',
-    'US'
+    'US',
   ],
   ['CO HOLYOKE', 'KHEQ', 'null', 'null', '40.34N', '102.17W', '1137', 'US'],
   [
@@ -2503,7 +2503,7 @@ List<List<String>> _stations = [
     '40.10N',
     '105.10W',
     '1541',
-    'US'
+    'US',
   ],
   [
     'CO PAGOSA SPRINGS',
@@ -2513,7 +2513,7 @@ List<List<String>> _stations = [
     '37.17N',
     '107.03W',
     '2334',
-    'US'
+    'US',
   ],
   [
     'CO WOLF CREEK PASS',
@@ -2523,7 +2523,7 @@ List<List<String>> _stations = [
     '37.27N',
     '106.48W',
     '3584',
-    'US'
+    'US',
   ],
   ['CO CORONA PASS', 'KCRV', 'null', 'null', '40.03N', '105.35W', '3538', 'US'],
   [
@@ -2534,7 +2534,7 @@ List<List<String>> _stations = [
     '39.13N',
     '104.39W',
     '2152',
-    'US'
+    'US',
   ],
   [
     'CO MONARCH PASS',
@@ -2544,7 +2544,7 @@ List<List<String>> _stations = [
     '38.29N',
     '106.19W',
     '3667',
-    'US'
+    'US',
   ],
   [
     'CO LA VETA PASS',
@@ -2554,7 +2554,7 @@ List<List<String>> _stations = [
     '37.30N',
     '105.10W',
     '3114',
-    'US'
+    'US',
   ],
   ['CO WALDEN', 'K33V', 'null', 'null', '40.45N', '106.17W', '2484', 'US'],
   [
@@ -2565,7 +2565,7 @@ List<List<String>> _stations = [
     '40.03N',
     '106.22W',
     '2259',
-    'US'
+    'US',
   ],
   [
     'CO WILKERSON PASS',
@@ -2575,7 +2575,7 @@ List<List<String>> _stations = [
     '39.03N',
     '105.31W',
     '3438',
-    'US'
+    'US',
   ],
   ['CO SUNLIGHT', 'K5SM', 'null', 'null', '39.26N', '107.23W', '3232', 'US'],
   [
@@ -2586,7 +2586,7 @@ List<List<String>> _stations = [
     '38.47N',
     '106.13W',
     '2995',
-    'US'
+    'US',
   ],
   ['CO WRAY', 'K2V5', 'null', 'null', '40.06N', '102.15W', '1118', 'US'],
   ['CT BRIDGEPORT', 'KBDR', 'BDR', '72504', '41.10N', '073.08W', '7', 'US'],
@@ -2600,7 +2600,7 @@ List<List<String>> _stations = [
     '41.20N',
     '072.03W',
     '3',
-    'US'
+    'US',
   ],
   [
     'CT HARTFORD/BRAINAR',
@@ -2610,7 +2610,7 @@ List<List<String>> _stations = [
     '41.44N',
     '072.39W',
     '4',
-    'US'
+    'US',
   ],
   ['CT MERIDEN', 'KMMK', 'MMK', 'null', '41.31N', '072.50W', '31', 'US'],
   ['CT NEW HAVEN/TWEED', 'KHVN', 'HVN', 'null', '41.16N', '072.52W', '4', 'US'],
@@ -2622,7 +2622,7 @@ List<List<String>> _stations = [
     '41.28N',
     '073.08W',
     '222',
-    'US'
+    'US',
   ],
   ['CT WILLIMANTIC', 'KIJD', 'IJD', 'null', '41.45N', '072.11W', '75', 'US'],
   ['CT WINDSOR LOCKS', 'KBDL', 'BDL', '72508', '41.56N', '072.41W', '60', 'US'],
@@ -2637,7 +2637,7 @@ List<List<String>> _stations = [
     '38.50N',
     '075.26W',
     '15',
-    'US'
+    'US',
   ],
   ['DE GEORGETOWN', 'KGED', 'GED', 'null', '38.41N', '075.22W', '19', 'US'],
   ['DE WILMINGTON', 'KILG', 'ILG', 'null', '39.40N', '075.36W', '28', 'US'],
@@ -2650,7 +2650,7 @@ List<List<String>> _stations = [
     '27.56N',
     '081.46W',
     '39',
-    'US'
+    'US',
   ],
   ['FL BOCA RATON', 'KBCT', 'BCT', 'null', '26.23N', '080.06W', '4', 'US'],
   [
@@ -2661,7 +2661,7 @@ List<List<String>> _stations = [
     '30.51N',
     '085.36W',
     '26',
-    'US'
+    'US',
   ],
   ['FL BROOKSVILLE', 'KBKV', 'BKV', 'null', '28.28N', '082.27W', '20', 'US'],
   ['FL CAPE CANAVERAL', 'KXMR', 'XMR', '74794', '28.28N', '080.34W', '3', 'US'],
@@ -2673,7 +2673,7 @@ List<List<String>> _stations = [
     '30.13N',
     '081.52W',
     '25',
-    'US'
+    'US',
   ],
   ['FL CLEARWATER', 'KCLW', 'CLW', 'null', '27.59N', '082.46W', '22', 'US'],
   ['FL CRESTVIEW', 'KCEW', 'CEW', 'null', '30.47N', '086.31W', '55', 'US'],
@@ -2688,7 +2688,7 @@ List<List<String>> _stations = [
     '30.44N',
     '086.09W',
     '88',
-    'US'
+    'US',
   ],
   ['FL DELAND', 'KDED', 'DED', 'null', '29.04N', '081.17W', '24', 'US'],
   ['FL DESTIN', 'KDTS', 'DTS', 'null', '30.24N', '086.28W', '5', 'US'],
@@ -2700,7 +2700,7 @@ List<List<String>> _stations = [
     '30.38N',
     '086.31W',
     '59',
-    'US'
+    'US',
   ],
   ['FL EGLIN AFB/88D', 'KEVX', 'EVX', 'null', '30.34N', '085.55W', '43', 'US'],
   [
@@ -2711,7 +2711,7 @@ List<List<String>> _stations = [
     '30.28N',
     '086.31W',
     '26',
-    'US'
+    'US',
   ],
   ['FL EVERGLADES CITY', 'KEGC', 'EGC', 'null', '25.51N', '081.23W', '2', 'US'],
   [
@@ -2722,7 +2722,7 @@ List<List<String>> _stations = [
     '30.37N',
     '081.28W',
     '5',
-    'US'
+    'US',
   ],
   ['FL FLAMINGO/MONROE', 'KFLM', 'FLM', 'null', '25.08N', '080.55W', '2', 'US'],
   [
@@ -2733,7 +2733,7 @@ List<List<String>> _stations = [
     '26.04N',
     '080.09W',
     '3',
-    'US'
+    'US',
   ],
   ['FL FT LAUDERD/EXEC', 'KFXE', 'FXE', 'null', '26.12N', '080.11W', '6', 'US'],
   ['FL FORT MYERS', 'KRSW', 'RSW', 'null', '26.32N', '081.45W', '10', 'US'],
@@ -2750,7 +2750,7 @@ List<List<String>> _stations = [
     '30.25N',
     '086.40W',
     '12',
-    'US'
+    'US',
   ],
   ['FL IMMOKALEE', 'KIMM', 'IMM', 'null', '26.26N', '081.24W', '12', 'US'],
   ['FL INVERNESS', 'KINF', 'INF', 'null', '28.48N', '082.19W', '15', 'US'],
@@ -2762,7 +2762,7 @@ List<List<String>> _stations = [
     '30.20N',
     '081.31W',
     '13',
-    'US'
+    'US',
   ],
   [
     'FL JACKSONVILLE NAS',
@@ -2772,7 +2772,7 @@ List<List<String>> _stations = [
     '30.13N',
     '081.40W',
     '7',
-    'US'
+    'US',
   ],
   ['FL JACKSONVILLE', 'KJAX', 'JAX', '72206', '30.30N', '081.41W', '10', 'US'],
   [
@@ -2783,7 +2783,7 @@ List<List<String>> _stations = [
     '30.41N',
     '081.54W',
     '2',
-    'US'
+    'US',
   ],
   [
     'FL JACKSONVIL/CECIL',
@@ -2793,7 +2793,7 @@ List<List<String>> _stations = [
     '30.13N',
     '081.53W',
     '25',
-    'US'
+    'US',
   ],
   [
     'FL JACKSONVIL/NAVAL',
@@ -2803,7 +2803,7 @@ List<List<String>> _stations = [
     '30.21N',
     '081.53W',
     '30',
-    'US'
+    'US',
   ],
   [
     'FL KEYSTONE HEIGHTS',
@@ -2813,7 +2813,7 @@ List<List<String>> _stations = [
     '29.51N',
     '082.03W',
     '60',
-    'US'
+    'US',
   ],
   ['FL KEY WEST NAS', 'KNQX', 'NQX', 'null', '24.34N', '081.40W', '2', 'US'],
   ['FL KEY WEST', 'KEYW', 'EYW', '72201', '24.33N', '081.45W', '5', 'US'],
@@ -2826,7 +2826,7 @@ List<List<String>> _stations = [
     '24.36N',
     '081.42W',
     '2',
-    'US'
+    'US',
   ],
   [
     'FL KISSIMMEE/ORLAND',
@@ -2836,7 +2836,7 @@ List<List<String>> _stations = [
     '28.17N',
     '081.26W',
     '25',
-    'US'
+    'US',
   ],
   ['FL LA BELLE', 'KX14', 'X14', 'null', '26.44N', '081.26W', '6', 'US'],
   ['FL LAKE CITY', 'KLCQ', 'LCQ', 'null', '30.10N', '082.35W', '62', 'US'],
@@ -2848,7 +2848,7 @@ List<List<String>> _stations = [
     '27.58N',
     '082.01W',
     '43',
-    'US'
+    'US',
   ],
   ['FL LEESBURG', 'KLEE', 'LEE', 'null', '28.49N', '081.49W', '23', 'US'],
   ['FL LIVE OAK', 'K24J', '24J', 'null', '30.18N', '083.01W', '32', 'US'],
@@ -2860,7 +2860,7 @@ List<List<String>> _stations = [
     '27.51N',
     '082.31W',
     '4',
-    'US'
+    'US',
   ],
   ['FL MARATHON', 'KMTH', 'MTH', 'null', '24.44N', '081.03W', '2', 'US'],
   ['FL MARCO ISLAND', 'KMKY', 'MKY', 'null', '26.00N', '081.40W', '2', 'US'],
@@ -2881,7 +2881,7 @@ List<List<String>> _stations = [
     '25.55N',
     '080.17W',
     '16',
-    'US'
+    'US',
   ],
   ['FL MIAMI BEACH', 'KMBF', 'MBF', 'null', '25.46N', '080.08W', '1', 'US'],
   [
@@ -2892,7 +2892,7 @@ List<List<String>> _stations = [
     '30.42N',
     '087.01W',
     '54',
-    'US'
+    'US',
   ],
   [
     'FL NAPLES MUNICIPAL',
@@ -2902,7 +2902,7 @@ List<List<String>> _stations = [
     '26.09N',
     '081.46W',
     '3',
-    'US'
+    'US',
   ],
   [
     'FL NASA SHUTTLE FCL',
@@ -2912,7 +2912,7 @@ List<List<String>> _stations = [
     '28.37N',
     '080.43W',
     '3',
-    'US'
+    'US',
   ],
   [
     'FL NATL HURR CENTER',
@@ -2922,7 +2922,7 @@ List<List<String>> _stations = [
     '25.44N',
     '080.16W',
     '3',
-    'US'
+    'US',
   ],
   [
     'FL NEW PORT RICHEY',
@@ -2932,7 +2932,7 @@ List<List<String>> _stations = [
     '28.11N',
     '082.38W',
     '12',
-    'US'
+    'US',
   ],
   [
     'FL NEW SMYRNA BEACH',
@@ -2942,7 +2942,7 @@ List<List<String>> _stations = [
     '29.03N',
     '080.57W',
     '3',
-    'US'
+    'US',
   ],
   ['FL OCALA MUNI', 'KOCF', 'OCF', 'null', '29.10N', '082.13W', '27', 'US'],
   ['FL OCEAN REEF', 'KOCR', 'OCR', 'null', '25.18N', '080.16W', '2', 'US'],
@@ -2957,7 +2957,7 @@ List<List<String>> _stations = [
     '29.18N',
     '081.07W',
     '9',
-    'US'
+    'US',
   ],
   ['FL PALATKA', 'K28J', '28J', 'null', '29.40N', '081.41W', '15', 'US'],
   ['FL PALM COAST', 'KFIN', 'FIN', 'null', '29.28N', '081.13W', '10', 'US'],
@@ -2970,7 +2970,7 @@ List<List<String>> _stations = [
     '28.14N',
     '080.36W',
     '3',
-    'US'
+    'US',
   ],
   ['FL PENSACOLA', 'KPNS', 'PNS', '72222', '30.29N', '087.11W', '38', 'US'],
   ['FL PENSACOLA NAS', 'KNPA', 'NPA', 'null', '30.21N', '087.19W', '9', 'US'],
@@ -2983,7 +2983,7 @@ List<List<String>> _stations = [
     '28.00N',
     '082.10W',
     '47',
-    'US'
+    'US',
   ],
   ['FL POMPANO BEACH', 'KPMP', 'PMP', 'null', '26.15N', '080.07W', '6', 'US'],
   ['FL PORT RICHEY', 'KX41', 'X41', 'null', '28.21N', '082.37W', '12', 'US'],
@@ -2997,7 +2997,7 @@ List<List<String>> _stations = [
     '28.46N',
     '081.13W',
     '17',
-    'US'
+    'US',
   ],
   [
     'FL SARASOTA/BRADENT',
@@ -3007,7 +3007,7 @@ List<List<String>> _stations = [
     '27.24N',
     '082.34W',
     '18',
-    'US'
+    'US',
   ],
   ['FL SEBASTIAN', 'KX26', 'X26', 'null', '27.49N', '080.30W', '6', 'US'],
   ['FL SEBRING', 'KSEF', 'SEF', 'null', '27.27N', '081.21W', '19', 'US'],
@@ -3021,7 +3021,7 @@ List<List<String>> _stations = [
     '27.46N',
     '082.38W',
     '2',
-    'US'
+    'US',
   ],
   ['FL STUART/WITHAM', 'KSUA', 'SUA', 'null', '27.11N', '080.13W', '6', 'US'],
   ['FL TALLAHASSEE', 'KTLH', 'TLH', '72214', '30.24N', '084.21W', '19', 'US'],
@@ -3033,7 +3033,7 @@ List<List<String>> _stations = [
     '30.24N',
     '084.20W',
     '16',
-    'US'
+    'US',
   ],
   ['FL TAMPA', 'KTPA', 'TPA', '72211', '27.58N', '082.32W', '11', 'US'],
   ['FL TAMPA/O KNIGHT', 'KTPF', 'TPF', 'null', '27.55N', '082.27W', '3', 'US'],
@@ -3045,7 +3045,7 @@ List<List<String>> _stations = [
     '27.42N',
     '082.24W',
     '12',
-    'US'
+    'US',
   ],
   [
     'FL TAMPA/VANDENBURG',
@@ -3055,7 +3055,7 @@ List<List<String>> _stations = [
     '28.01N',
     '082.20W',
     '7',
-    'US'
+    'US',
   ],
   ['FL TITUSVILLE', 'KTIX', 'TIX', 'null', '28.30N', '080.48W', '11', 'US'],
   ['FL TYNDALL AFB', 'KPAM', 'PAM', '74775', '30.04N', '085.34W', '5', 'US'],
@@ -3072,7 +3072,7 @@ List<List<String>> _stations = [
     '26.41N',
     '080.06W',
     '6',
-    'US'
+    'US',
   ],
   [
     'FL WHITING FLD NAS',
@@ -3082,7 +3082,7 @@ List<List<String>> _stations = [
     '30.44N',
     '087.01W',
     '61',
-    'US'
+    'US',
   ],
   ['FL WILLISTON', 'KX60', 'X60', 'null', '29.21N', '082.28W', '23', 'US'],
   ['FL WINTER HAVEN', 'KGIF', 'GIF', 'null', '28.04N', '081.45W', '43', 'US'],
@@ -3095,7 +3095,7 @@ List<List<String>> _stations = [
     '24.51N',
     '080.22W',
     '1',
-    'US'
+    'US',
   ],
   ['FL APALACHICOLA', 'KAQQ', 'AQQ', 'null', '29.44N', '085.02W', '5', 'US'],
   ['FL ASTOR', 'K90J', '90J', 'null', '29.07N', '081.34W', '33', 'US'],
@@ -3110,7 +3110,7 @@ List<List<String>> _stations = [
     '26.19N',
     '080.55W',
     '2',
-    'US'
+    'US',
   ],
   ['FL EGLIN AFB', 'null', '2EG', 'null', '30.34N', '086.19W', '48', 'US'],
   ['FL INVERNESS', 'KX40', 'X40', 'null', '28.48N', '082.19W', '15', 'US'],
@@ -3126,7 +3126,7 @@ List<List<String>> _stations = [
     '26.40N',
     '079.00W',
     '2',
-    'US'
+    'US',
   ],
   ['FL SOMBRERO KEY', 'null', 'null', '99445', '24.37N', '081.52W', '1', 'US'],
   [
@@ -3137,7 +3137,7 @@ List<List<String>> _stations = [
     '30.22N',
     '081.36W',
     '5',
-    'US'
+    'US',
   ],
   ['FL VENICE PIER', 'null', 'null', '99422', '27.04N', '082.33W', '4', 'US'],
   ['FL HURLBERT', 'KQHY', 'null', 'null', '30.24N', '086.39W', '8', 'US'],
@@ -3156,7 +3156,7 @@ List<List<String>> _stations = [
     '33.47N',
     '084.31W',
     '263',
-    'US'
+    'US',
   ],
   [
     'GA ATLANTA/PAULDING',
@@ -3166,7 +3166,7 @@ List<List<String>> _stations = [
     '33.55N',
     '084.56W',
     '393',
-    'US'
+    'US',
   ],
   ['GA ATLANTA/RFC', 'KATR', 'ATR', 'null', '33.22N', '084.34W', '312', 'US'],
   ['GA ATLANTA/ARTCC', 'KZTL', 'ZTL', 'null', '33.23N', '084.20W', '312', 'US'],
@@ -3178,7 +3178,7 @@ List<List<String>> _stations = [
     '33.14N',
     '084.16W',
     '292',
-    'US'
+    'US',
   ],
   [
     'GA AUGUSTA/DANIEL',
@@ -3188,7 +3188,7 @@ List<List<String>> _stations = [
     '33.28N',
     '082.02W',
     '130',
-    'US'
+    'US',
   ],
   ['GA AUGUSTA/BUSH', 'KAGS', 'AGS', '72218', '33.22N', '081.58W', '44', 'US'],
   ['GA BAINBRIDGE', 'KBGE', 'BGE', 'null', '30.58N', '084.38W', '43', 'US'],
@@ -3202,7 +3202,7 @@ List<List<String>> _stations = [
     '31.24N',
     '084.54W',
     '65',
-    'US'
+    'US',
   ],
   ['GA BRUNSWICK', 'KSSI', 'SSI', 'null', '31.09N', '081.23W', '6', 'US'],
   [
@@ -3213,7 +3213,7 @@ List<List<String>> _stations = [
     '31.15N',
     '081.28W',
     '8',
-    'US'
+    'US',
   ],
   ['GA BUTLER', 'K6A1', '6A1', 'null', '32.34N', '084.15W', '203', 'US'],
   ['GA CALHOUN', 'KCZL', 'CZL', 'null', '34.27N', '084.56W', '200', 'US'],
@@ -3226,7 +3226,7 @@ List<List<String>> _stations = [
     '34.21N',
     '083.08W',
     '271',
-    'US'
+    'US',
   ],
   [
     'GA CANTON/CHEROKEE',
@@ -3236,7 +3236,7 @@ List<List<String>> _stations = [
     '34.19N',
     '084.25W',
     '372',
-    'US'
+    'US',
   ],
   [
     'GA CARROLLTON/GRAY',
@@ -3246,7 +3246,7 @@ List<List<String>> _stations = [
     '33.38N',
     '085.09W',
     '354',
-    'US'
+    'US',
   ],
   ['GA CARTERSVILLE', 'KVPC', 'VPC', 'null', '34.08N', '084.51W', '222', 'US'],
   [
@@ -3257,7 +3257,7 @@ List<List<String>> _stations = [
     '32.12N',
     '081.52W',
     '33',
-    'US'
+    'US',
   ],
   ['GA COLUMBUS', 'KCSG', 'CSG', 'null', '32.31N', '084.57W', '135', 'US'],
   ['GA CORDELE', 'KCKF', 'CKF', 'null', '31.59N', '083.46W', '91', 'US'],
@@ -3272,7 +3272,7 @@ List<List<String>> _stations = [
     '33.55N',
     '084.31W',
     '326',
-    'US'
+    'US',
   ],
   ['GA DOUGLAS MUNI', 'KDQH', 'DQH', 'null', '31.29N', '082.52W', '78', 'US'],
   ['GA DUBLIN', 'KDBN', 'DBN', 'null', '32.34N', '082.59W', '94', 'US'],
@@ -3285,7 +3285,7 @@ List<List<String>> _stations = [
     '34.06N',
     '082.49W',
     '184',
-    'US'
+    'US',
   ],
   ['GA ELLIJAY', 'K49A', '49A', 'null', '34.38N', '084.32W', '453', 'US'],
   ['GA FITZGERALD', 'KFZG', 'FZG', 'null', '31.41N', '083.16W', '111', 'US'],
@@ -3297,7 +3297,7 @@ List<List<String>> _stations = [
     '32.19N',
     '084.58W',
     '71',
-    'US'
+    'US',
   ],
   [
     'GA FT STEWART/WRIGH',
@@ -3307,7 +3307,7 @@ List<List<String>> _stations = [
     '31.52N',
     '081.34W',
     '14',
-    'US'
+    'US',
   ],
   ['GA GAINESVILLE', 'KGVL', 'GVL', 'null', '34.16N', '083.50W', '386', 'US'],
   ['GA GREENSBORO', 'K3J7', '3J7', 'null', '33.36N', '083.08W', '206', 'US'],
@@ -3324,7 +3324,7 @@ List<List<String>> _stations = [
     '31.33N',
     '081.53W',
     '33',
-    'US'
+    'US',
   ],
   ['GA LAFAYETTE', 'K9A5', '9A5', 'null', '34.41N', '085.17W', '323', 'US'],
   ['GA LA GRANGE', 'KLGC', 'LGC', 'null', '33.00N', '085.04W', '211', 'US'],
@@ -3338,7 +3338,7 @@ List<List<String>> _stations = [
     '34.01N',
     '084.36W',
     '317',
-    'US'
+    'US',
   ],
   [
     'GA MCDUFFIE/THOMSON',
@@ -3348,7 +3348,7 @@ List<List<String>> _stations = [
     '33.32N',
     '082.31W',
     '152',
-    'US'
+    'US',
   ],
   ['GA MILLEDGEVILLE', 'KMLJ', 'MLJ', 'null', '33.09N', '083.14W', '117', 'US'],
   [
@@ -3359,7 +3359,7 @@ List<List<String>> _stations = [
     '30.58N',
     '083.12W',
     '71',
-    'US'
+    'US',
   ],
   ['GA MOODY AFB/88D', 'KVAX', 'VAX', 'null', '30.53N', '083.00W', '54', 'US'],
   ['GA MOULTRIE MUNI', 'KMGR', 'MGR', 'null', '31.05N', '083.48W', '90', 'US'],
@@ -3371,7 +3371,7 @@ List<List<String>> _stations = [
     '31.08N',
     '083.42W',
     '89',
-    'US'
+    'US',
   ],
   ['GA NEWNAN', 'KCCO', 'CCO', 'null', '33.19N', '084.46W', '296', 'US'],
   [
@@ -3382,7 +3382,7 @@ List<List<String>> _stations = [
     '33.53N',
     '084.18W',
     '302',
-    'US'
+    'US',
   ],
   [
     'GA PEACHTREE CITY',
@@ -3392,7 +3392,7 @@ List<List<String>> _stations = [
     '33.21N',
     '084.34W',
     '262',
-    'US'
+    'US',
   ],
   ['GA PERRY', 'KPXE', 'PXE', 'null', '32.31N', '083.46W', '128', 'US'],
   ['GA PINE MOUNTAIN', 'KPIM', 'PIM', 'null', '32.50N', '084.53W', '275', 'US'],
@@ -3405,7 +3405,7 @@ List<List<String>> _stations = [
     '32.41N',
     '083.21W',
     '159',
-    'US'
+    'US',
   ],
   ['GA ROME', 'KRMG', 'RMG', '72320', '34.21N', '085.10W', '193', 'US'],
   ['GA SANDERSVILLE', 'KOKZ', 'OKZ', 'null', '32.58N', '082.50W', '134', 'US'],
@@ -3418,7 +3418,7 @@ List<List<String>> _stations = [
     '32.01N',
     '081.09W',
     '13',
-    'US'
+    'US',
   ],
   ['GA STATESBORO', 'KTBR', 'TBR', 'null', '32.29N', '081.44W', '57', 'US'],
   ['GA SWAINSBORO', 'KSBO', 'SBO', 'null', '32.37N', '082.22W', '100', 'US'],
@@ -3432,7 +3432,7 @@ List<List<String>> _stations = [
     '32.57N',
     '084.16W',
     '243',
-    'US'
+    'US',
   ],
   ['GA THOMASVILLE', 'KTVI', 'TVI', 'null', '30.54N', '083.53W', '80', 'US'],
   ['GA TOCCOA', 'KTOC', 'TOC', 'null', '34.36N', '083.18W', '304', 'US'],
@@ -3445,7 +3445,7 @@ List<List<String>> _stations = [
     '30.47N',
     '083.16W',
     '62',
-    'US'
+    'US',
   ],
   ['GA VIDALIA MUNI', 'KVDI', 'VDI', 'null', '32.12N', '082.22W', '84', 'US'],
   [
@@ -3456,7 +3456,7 @@ List<List<String>> _stations = [
     '32.37N',
     '083.35W',
     '90',
-    'US'
+    'US',
   ],
   ['GA WASHINGTON', 'KIIY', 'IIY', 'null', '33.47N', '082.49W', '197', 'US'],
   [
@@ -3467,7 +3467,7 @@ List<List<String>> _stations = [
     '31.15N',
     '082.24W',
     '46',
-    'US'
+    'US',
   ],
   ['GA WINDER/BARROW', 'KWDR', 'WDR', 'null', '33.59N', '083.40W', '287', 'US'],
   [
@@ -3478,7 +3478,7 @@ List<List<String>> _stations = [
     '31.24N',
     '084.54W',
     '65',
-    'US'
+    'US',
   ],
   [
     'GA CANTON/CHEROKEE',
@@ -3488,7 +3488,7 @@ List<List<String>> _stations = [
     '34.19N',
     '084.25W',
     '372',
-    'US'
+    'US',
   ],
   ['GA COVINGTON', 'K9A1', '9A1', 'null', '33.38N', '083.51W', '247', 'US'],
   [
@@ -3499,7 +3499,7 @@ List<List<String>> _stations = [
     '34.06N',
     '082.49W',
     '184',
-    'US'
+    'US',
   ],
   ['GA JEFFERSON', 'K19A', '19A', 'null', '34.11N', '083.34W', '290', 'US'],
   [
@@ -3510,7 +3510,7 @@ List<List<String>> _stations = [
     '31.57N',
     '080.19W',
     '1',
-    'US'
+    'US',
   ],
   [
     'HI BARKING SANDS/KA',
@@ -3520,7 +3520,7 @@ List<List<String>> _stations = [
     '22.02N',
     '159.47W',
     '8',
-    'US'
+    'US',
   ],
   [
     'HI BRADSHAW AAF/HAW',
@@ -3530,7 +3530,7 @@ List<List<String>> _stations = [
     '19.46N',
     '155.33W',
     '1887',
-    'US'
+    'US',
   ],
   ['HI HANA', 'PHHN', 'HNM', '91199', '20.48N', '156.01W', '24', 'US'],
   ['HI HICKAM AFB', 'PHIK', 'HIK', 'null', '21.19N', '157.56W', '4', 'US'],
@@ -3551,7 +3551,7 @@ List<List<String>> _stations = [
     '20.00N',
     '155.40W',
     '817',
-    'US'
+    'US',
   ],
   ['HI KOHALA 88D', 'PHKM', 'HKM', 'null', '20.08N', '155.47W', '1162', 'US'],
   ['HI KANEOHE MCAS', 'PHNG', 'NGF', '91176', '21.26N', '157.46W', '3', 'US'],
@@ -3565,7 +3565,7 @@ List<List<String>> _stations = [
     '20.58N',
     '156.40W',
     '78',
-    'US'
+    'US',
   ],
   [
     'HI LANAI CITY AIRPO',
@@ -3575,7 +3575,7 @@ List<List<String>> _stations = [
     '20.46N',
     '156.56W',
     '399',
-    'US'
+    'US',
   ],
   [
     'HI LIHUE/KAUAI IS',
@@ -3585,7 +3585,7 @@ List<List<String>> _stations = [
     '21.58N',
     '159.20W',
     '45',
-    'US'
+    'US',
   ],
   ['HI MOLOKAI/KUKUI', 'PHMO', 'HMO', 'null', '21.08N', '157.11W', '415', 'US'],
   ['HI MOLOKAI', 'PHMK', 'MKK', '91186', '21.09N', '157.06W', '141', 'US'],
@@ -3597,7 +3597,7 @@ List<List<String>> _stations = [
     '19.06N',
     '155.34W',
     '421',
-    'US'
+    'US',
   ],
   ['HI NUMILA/S KAUAI', 'PHKI', 'HKI', 'null', '21.54N', '159.33W', '55', 'US'],
   ['HI UPOLU', 'PHUP', 'UPP', 'null', '20.16N', '155.52W', '30', 'US'],
@@ -3610,7 +3610,7 @@ List<List<String>> _stations = [
     '21.29N',
     '158.03W',
     '255',
-    'US'
+    'US',
   ],
   [
     'HI FR FRIGATE SHOAL',
@@ -3620,7 +3620,7 @@ List<List<String>> _stations = [
     '23.52N',
     '166.17W',
     '2',
-    'US'
+    'US',
   ],
   ['HI BARBERS PT NAS', 'PHNA', 'NAX', 'null', '21.19N', '158.04W', '15', 'US'],
   [
@@ -3631,7 +3631,7 @@ List<List<String>> _stations = [
     '28.13N',
     '177.22W',
     '4',
-    'US'
+    'US',
   ],
   ['IA ALGONA', 'KAXA', 'AXA', 'null', '43.04N', '094.16W', '372', 'US'],
   ['IA AMES', 'KAMW', 'AMW', 'null', '41.59N', '093.37W', '279', 'US'],
@@ -3650,7 +3650,7 @@ List<List<String>> _stations = [
     '40.41N',
     '092.54W',
     '314',
-    'US'
+    'US',
   ],
   ['IA CHARITON', 'KCNC', 'CNC', 'null', '41.01N', '093.22W', '320', 'US'],
   ['IA CHARLES CITY', 'KCCY', 'CCY', 'null', '43.04N', '092.37W', '343', 'US'],
@@ -3666,7 +3666,7 @@ List<List<String>> _stations = [
     '41.16N',
     '095.46W',
     '382',
-    'US'
+    'US',
   ],
   ['IA CRESTON', 'KCSQ', 'CSQ', 'null', '41.01N', '094.22W', '394', 'US'],
   [
@@ -3677,7 +3677,7 @@ List<List<String>> _stations = [
     '41.37N',
     '090.35W',
     '230',
-    'US'
+    'US',
   ],
   ['IA DECORAH', 'KDEH', 'DEH', 'null', '43.16N', '091.43W', '353', 'US'],
   ['IA DENISON', 'KDNS', 'DNS', 'null', '41.58N', '095.22W', '388', 'US'],
@@ -3700,7 +3700,7 @@ List<List<String>> _stations = [
     '42.28N',
     '093.16W',
     '347',
-    'US'
+    'US',
   ],
   [
     'IA JOHNSTON/DESMOIN',
@@ -3710,7 +3710,7 @@ List<List<String>> _stations = [
     '41.44N',
     '093.43W',
     '299',
-    'US'
+    'US',
   ],
   ['IA KEOKUK MUNI', 'KEOK', 'EOK', 'null', '40.28N', '091.25W', '205', 'US'],
   ['IA KNOXVILLE', 'KOXV', 'OXV', 'null', '41.17N', '093.07W', '283', 'US'],
@@ -3727,7 +3727,7 @@ List<List<String>> _stations = [
     '42.13N',
     '091.10W',
     '259',
-    'US'
+    'US',
   ],
   ['IA MT PLEASANT', 'KMPZ', 'MPZ', 'null', '40.57N', '091.31W', '224', 'US'],
   ['IA MUSCATINE', 'KMUT', 'MUT', 'null', '41.22N', '091.09W', '167', 'US'],
@@ -3743,7 +3743,7 @@ List<List<String>> _stations = [
     '41.14N',
     '092.30W',
     '256',
-    'US'
+    'US',
   ],
   ['IA OTTUMWA', 'KOTM', 'OTM', 'null', '41.06N', '092.27W', '256', 'US'],
   ['IA PELLA', 'KPEA', 'PEA', 'null', '41.24N', '092.57W', '270', 'US'],
@@ -3758,7 +3758,7 @@ List<List<String>> _stations = [
     '40.45N',
     '095.25W',
     '296',
-    'US'
+    'US',
   ],
   ['IA SIOUX CITY', 'KSUX', 'SUX', '72557', '42.23N', '096.23W', '338', 'US'],
   [
@@ -3769,7 +3769,7 @@ List<List<String>> _stations = [
     '41.53N',
     '093.41W',
     '315',
-    'US'
+    'US',
   ],
   ['IA SPENCER', 'KSPW', 'SPW', '72650', '43.10N', '095.13W', '403', 'US'],
   ['IA STORM LAKE', 'KSLB', 'SLB', 'null', '42.36N', '095.13W', '454', 'US'],
@@ -3791,7 +3791,7 @@ List<List<String>> _stations = [
     '41.40N',
     '093.31W',
     '262',
-    'US'
+    'US',
   ],
   ['IA AMES I35', 'XAME', 'null', 'null', '42.02N', '093.34W', '313', 'US'],
   ['IA ANKENY I35', 'XANK', 'null', 'null', '41.46N', '093.34W', '264', 'US'],
@@ -3804,7 +3804,7 @@ List<List<String>> _stations = [
     '40.49N',
     '091.05W',
     '218',
-    'US'
+    'US',
   ],
   ['IA CARROLL US30', 'XCAR', 'null', 'null', '42.05N', '094.53W', '389', 'US'],
   [
@@ -3815,7 +3815,7 @@ List<List<String>> _stations = [
     '41.49N',
     '091.40W',
     '236',
-    'US'
+    'US',
   ],
   [
     'IA CEDAR RAPID US30',
@@ -3825,7 +3825,7 @@ List<List<String>> _stations = [
     '41.56N',
     '091.41W',
     '246',
-    'US'
+    'US',
   ],
   [
     'IA CENTERVILLE IA2',
@@ -3835,7 +3835,7 @@ List<List<String>> _stations = [
     '40.44N',
     '093.00W',
     '295',
-    'US'
+    'US',
   ],
   [
     'IA COUNCIL BLUFF 80',
@@ -3845,7 +3845,7 @@ List<List<String>> _stations = [
     '41.14N',
     '095.52W',
     '268',
-    'US'
+    'US',
   ],
   ['IA CRESTON US34', 'XCRE', 'null', 'null', '41.04N', '094.18W', '388', 'US'],
   [
@@ -3856,7 +3856,7 @@ List<List<String>> _stations = [
     '41.36N',
     '090.41W',
     '206',
-    'US'
+    'US',
   ],
   ['IA DECORAH IA9', 'XDEC', 'null', 'null', '43.14N', '091.41W', '310', 'US'],
   [
@@ -3867,7 +3867,7 @@ List<List<String>> _stations = [
     '41.32N',
     '093.46W',
     '224',
-    'US'
+    'US',
   ],
   [
     'IA DES MOINES I235',
@@ -3877,7 +3877,7 @@ List<List<String>> _stations = [
     '41.35N',
     '093.37W',
     '281',
-    'US'
+    'US',
   ],
   [
     'IA DE SOTO 80/US169',
@@ -3887,7 +3887,7 @@ List<List<String>> _stations = [
     '41.32N',
     '094.06W',
     '291',
-    'US'
+    'US',
   ],
   [
     'IA DE WITT US30/61',
@@ -3897,7 +3897,7 @@ List<List<String>> _stations = [
     '41.50N',
     '090.34W',
     '240',
-    'US'
+    'US',
   ],
   ['IA DUBUQUE US20', 'XDUB', 'null', 'null', '42.29N', '090.44W', '250', 'US'],
   [
@@ -3908,7 +3908,7 @@ List<List<String>> _stations = [
     '42.26N',
     '094.11W',
     '286',
-    'US'
+    'US',
   ],
   ['IA GRINNELL I80', 'XGRI', 'null', 'null', '41.41N', '092.44W', '281', 'US'],
   [
@@ -3919,7 +3919,7 @@ List<List<String>> _stations = [
     '41.38N',
     '091.35W',
     '254',
-    'US'
+    'US',
   ],
   [
     'IA IOWA CITY I80',
@@ -3929,7 +3929,7 @@ List<List<String>> _stations = [
     '41.41N',
     '091.35W',
     '250',
-    'US'
+    'US',
   ],
   [
     'IA JEFFERSON IA4',
@@ -3939,7 +3939,7 @@ List<List<String>> _stations = [
     '42.03N',
     '094.23W',
     '310',
-    'US'
+    'US',
   ],
   ['IA LEON I35/IA2', 'XLEO', 'null', 'null', '40.44N', '093.50W', '349', 'US'],
   [
@@ -3950,7 +3950,7 @@ List<List<String>> _stations = [
     '42.26N',
     '091.26W',
     '309',
-    'US'
+    'US',
   ],
   [
     'IA MAQUOKETA 61/64',
@@ -3960,7 +3960,7 @@ List<List<String>> _stations = [
     '42.04N',
     '090.41W',
     '251',
-    'US'
+    'US',
   ],
   [
     'IA MARSHALTOWN US30',
@@ -3970,7 +3970,7 @@ List<List<String>> _stations = [
     '42.01N',
     '092.58W',
     '291',
-    'US'
+    'US',
   ],
   [
     'IA MASON CITY I35',
@@ -3980,7 +3980,7 @@ List<List<String>> _stations = [
     '43.02N',
     '093.20W',
     '376',
-    'US'
+    'US',
   ],
   [
     'IA MISSOURI VAL I29',
@@ -3990,7 +3990,7 @@ List<List<String>> _stations = [
     '41.32N',
     '095.55W',
     '309',
-    'US'
+    'US',
   ],
   [
     'IA MT PLEASANT U218',
@@ -4000,7 +4000,7 @@ List<List<String>> _stations = [
     '40.53N',
     '091.33W',
     '133',
-    'US'
+    'US',
   ],
   [
     'IA NEW HAMPTON US18',
@@ -4010,7 +4010,7 @@ List<List<String>> _stations = [
     '43.02N',
     '092.28W',
     '327',
-    'US'
+    'US',
   ],
   ['IA ONAWA I29', 'XONA', 'null', 'null', '41.52N', '096.01W', '303', 'US'],
   ['IA OSCEOLA I35', 'XOSC', 'null', 'null', '41.02N', '093.47W', '334', 'US'],
@@ -4024,7 +4024,7 @@ List<List<String>> _stations = [
     '40.59N',
     '094.59W',
     '290',
-    'US'
+    'US',
   ],
   [
     'IA SIDNEY I29/IA2',
@@ -4034,7 +4034,7 @@ List<List<String>> _stations = [
     '40.41N',
     '095.47W',
     '287',
-    'US'
+    'US',
   ],
   [
     'IA SIGOURNEY IA92',
@@ -4044,7 +4044,7 @@ List<List<String>> _stations = [
     '41.20N',
     '092.19W',
     '202',
-    'US'
+    'US',
   ],
   [
     'IA SIOUX CITY I29',
@@ -4054,7 +4054,7 @@ List<List<String>> _stations = [
     '42.29N',
     '096.23W',
     '364',
-    'US'
+    'US',
   ],
   ['IA SPENCER US18', 'XSPE', 'null', 'null', '43.08N', '095.05W', '452', 'US'],
   [
@@ -4065,7 +4065,7 @@ List<List<String>> _stations = [
     '42.44N',
     '095.09W',
     '405',
-    'US'
+    'US',
   ],
   ['IA TIPTON I80', 'XTIP', 'null', 'null', '41.38N', '091.08W', '236', 'US'],
   ['IA URBANA I380', 'XURB', 'null', 'null', '42.19N', '091.59W', '302', 'US'],
@@ -4077,7 +4077,7 @@ List<List<String>> _stations = [
     '42.27N',
     '092.19W',
     '269',
-    'US'
+    'US',
   ],
   ['IA WILLIAMS I35', 'XWIL', 'null', 'null', '42.32N', '093.34W', '325', 'US'],
   [
@@ -4088,7 +4088,7 @@ List<List<String>> _stations = [
     '41.41N',
     '092.01W',
     '260',
-    'US'
+    'US',
   ],
   [
     'IA HANLONTOWN I35',
@@ -4098,7 +4098,7 @@ List<List<String>> _stations = [
     '43.23N',
     '093.20W',
     '333',
-    'US'
+    'US',
   ],
   [
     'IA STEAMBOAT R US20',
@@ -4108,7 +4108,7 @@ List<List<String>> _stations = [
     '42.27N',
     '093.03W',
     '348',
-    'US'
+    'US',
   ],
   [
     'IA IDA GROVE US59',
@@ -4118,7 +4118,7 @@ List<List<String>> _stations = [
     '42.21N',
     '095.29W',
     '376',
-    'US'
+    'US',
   ],
   [
     'IA CEDAR RAPIDS U30',
@@ -4128,7 +4128,7 @@ List<List<String>> _stations = [
     '41.56N',
     '091.33W',
     '232',
-    'US'
+    'US',
   ],
   ['IA BEDFORD', 'XBFI', 'null', 'null', '40.41N', '094.43W', '357', 'US'],
   ['IA COLFAX', 'XCFI', 'null', 'null', '41.41N', '093.16W', '247', 'US'],
@@ -4164,7 +4164,7 @@ List<List<String>> _stations = [
     '41.32N',
     '093.37W',
     '294',
-    'US'
+    'US',
   ],
   ['IA CARROLL', 'QCAI', 'null', 'null', '42.04N', '094.52W', '423', 'US'],
   ['IA COON RAPIDS', 'QCBI', 'null', 'null', '41.53N', '094.41W', '386', 'US'],
@@ -4187,7 +4187,7 @@ List<List<String>> _stations = [
     '41.38N',
     '093.48W',
     '279',
-    'US'
+    'US',
   ],
   ['IA SHELDON', 'QDNI', 'null', 'null', '43.11N', '095.50W', '433', 'US'],
   ['IA RIVER WOODS', 'QDRI', 'null', 'null', '41.34N', '093.35W', '304', 'US'],
@@ -4215,7 +4215,7 @@ List<List<String>> _stations = [
     '42.18N',
     '093.39W',
     '340',
-    'US'
+    'US',
   ],
   ['IA KCCI', 'QKCI', 'null', 'null', '41.35N', '093.38W', '274', 'US'],
   ['IA KNOXVILLE', 'QKNI', 'null', 'null', '41.19N', '093.07W', '301', 'US'],
@@ -4257,7 +4257,7 @@ List<List<String>> _stations = [
     '42.23N',
     '094.38W',
     '384',
-    'US'
+    'US',
   ],
   ['IA ROCKFORD', 'QRRI', 'null', 'null', '43.03N', '092.56W', '316', 'US'],
   ['IA ROCKWELL', 'QRSI', 'null', 'null', '42.59N', '093.06W', '351', 'US'],
@@ -4276,7 +4276,7 @@ List<List<String>> _stations = [
     '41.59N',
     '092.39W',
     '256',
-    'US'
+    'US',
   ],
   ['IA UNION', 'QUNI', 'null', 'null', '42.14N', '093.04W', '301', 'US'],
   ['IA VENTURA', 'QVTI', 'null', 'null', '43.08N', '093.29W', '386', 'US'],
@@ -4293,7 +4293,7 @@ List<List<String>> _stations = [
     '43.29N',
     '116.14W',
     '933',
-    'US'
+    'US',
   ],
   ['ID BOISE', 'KBOI', 'BOI', '72681', '43.34N', '116.14W', '875', 'US'],
   ['ID BURLEY', 'KBYI', 'BYI', 'null', '42.33N', '113.46W', '1264', 'US'],
@@ -4308,7 +4308,7 @@ List<List<String>> _stations = [
     '47.46N',
     '116.49W',
     '707',
-    'US'
+    'US',
   ],
   [
     'ID DRIGGS REED MEM',
@@ -4318,7 +4318,7 @@ List<List<String>> _stations = [
     '43.45N',
     '111.06W',
     '1899',
-    'US'
+    'US',
   ],
   ['ID DUBIOS (VOR)', 'KDBS', 'DBS', 'null', '44.05N', '112.13W', '1638', 'US'],
   ['ID GRANGEVILLE', 'KGIC', 'GIC', '72687', '45.56N', '116.08W', '1009', 'US'],
@@ -4330,7 +4330,7 @@ List<List<String>> _stations = [
     '43.30N',
     '114.17W',
     '1620',
-    'US'
+    'US',
   ],
   ['ID IDAHO FALLS', 'KIDA', 'IDA', 'null', '43.31N', '112.04W', '1453', 'US'],
   [
@@ -4341,7 +4341,7 @@ List<List<String>> _stations = [
     '42.43N',
     '114.27W',
     '1222',
-    'US'
+    'US',
   ],
   ['ID LEWISTON', 'KLWS', 'LWS', '72783', '46.22N', '117.01W', '438', 'US'],
   [
@@ -4352,7 +4352,7 @@ List<List<String>> _stations = [
     '46.09N',
     '115.36W',
     '480',
-    'US'
+    'US',
   ],
   ['ID MALAD CITY', 'KMLD', 'MLD', 'null', '42.10N', '112.17W', '1373', 'US'],
   ['ID MALTA (AWRS)', 'K77M', '77M', 'null', '42.19N', '113.19W', '1375', 'US'],
@@ -4372,7 +4372,7 @@ List<List<String>> _stations = [
     '45.07N',
     '113.52W',
     '1233',
-    'US'
+    'US',
   ],
   ['ID SODA SPRINGS', 'KU78', 'U78', 'null', '42.38N', '111.34W', '1780', 'US'],
   ['ID SPENCER', 'KS14', 'S14', 'null', '44.21N', '112.10W', '1800', 'US'],
@@ -4384,7 +4384,7 @@ List<List<String>> _stations = [
     '43.06N',
     '112.41W',
     '1364',
-    'US'
+    'US',
   ],
   ['ID STANLEY', 'KSNT', 'SNT', 'null', '44.10N', '114.56W', '1980', 'US'],
   ['ID TWIN FALLS', 'KTWF', 'TWF', 'null', '42.29N', '114.29W', '1266', 'US'],
@@ -4396,7 +4396,7 @@ List<List<String>> _stations = [
     '48.18N',
     '116.34W',
     '648',
-    'US'
+    'US',
   ],
   [
     'ID CALDWELL (AWOS)',
@@ -4406,7 +4406,7 @@ List<List<String>> _stations = [
     '43.37N',
     '116.37W',
     '740',
-    'US'
+    'US',
   ],
   ['ID CHALLIS', 'KU15', 'U15', 'null', '44.31N', '114.13W', '1536', 'US'],
   ['ID GOODING', 'KGNG', 'GNG', '72586', '42.55N', '114.46W', '1126', 'US'],
@@ -4419,7 +4419,7 @@ List<List<String>> _stations = [
     '47.28N',
     '115.47W',
     '1011',
-    'US'
+    'US',
   ],
   ['ID REXBURG', 'KU11', 'U11', 'null', '43.50N', '111.48W', '1480', 'US'],
   [
@@ -4430,7 +4430,7 @@ List<List<String>> _stations = [
     '45.10N',
     '113.54W',
     '1210',
-    'US'
+    'US',
   ],
   ['ID SAYLOR CREEK', 'KMI1', 'MI1', 'null', '42.30N', '115.30W', '1000', 'US'],
   ['ID GRANGEVILLE', 'KS80', 'S80', 'null', '45.57N', '116.07W', '1011', 'US'],
@@ -4442,7 +4442,7 @@ List<List<String>> _stations = [
     '38.53N',
     '090.02W',
     '166',
-    'US'
+    'US',
   ],
   [
     'IL BLOOMINGTON/NORM',
@@ -4452,7 +4452,7 @@ List<List<String>> _stations = [
     '40.28N',
     '088.55W',
     '267',
-    'US'
+    'US',
   ],
   ['IL BRADFORD/VOR', 'KBDF', 'BDF', 'null', '41.09N', '089.35W', '247', 'US'],
   [
@@ -4463,7 +4463,7 @@ List<List<String>> _stations = [
     '38.34N',
     '090.09W',
     '126',
-    'US'
+    'US',
   ],
   ['IL CAIRO', 'KCIR', 'CIR', 'null', '37.04N', '089.13W', '98', 'US'],
   [
@@ -4474,7 +4474,7 @@ List<List<String>> _stations = [
     '37.47N',
     '089.15W',
     '130',
-    'US'
+    'US',
   ],
   ['IL CARMI MUNI', 'KCUL', 'null', 'null', '38.05N', '088.07W', '118', 'US'],
   ['IL CENTRALIA', 'KENL', 'ENL', 'null', '38.31N', '089.06W', '163', 'US'],
@@ -4486,7 +4486,7 @@ List<List<String>> _stations = [
     '40.02N',
     '088.16W',
     '228',
-    'US'
+    'US',
   ],
   ['IL CHICAGO', 'KMDW', 'MDW', '72534', '41.47N', '087.45W', '188', 'US'],
   [
@@ -4497,7 +4497,7 @@ List<List<String>> _stations = [
     '41.59N',
     '087.56W',
     '200',
-    'US'
+    'US',
   ],
   [
     'IL CHICAGO/AURORA',
@@ -4507,7 +4507,7 @@ List<List<String>> _stations = [
     '41.46N',
     '088.29W',
     '215',
-    'US'
+    'US',
   ],
   [
     'IL CHICAGO/DUPAGE',
@@ -4517,7 +4517,7 @@ List<List<String>> _stations = [
     '41.55N',
     '088.15W',
     '231',
-    'US'
+    'US',
   ],
   ['IL CHICAGO/MEIGS', 'KCGX', 'CGX', 'null', '41.52N', '087.35W', '181', 'US'],
   [
@@ -4528,7 +4528,7 @@ List<List<String>> _stations = [
     '41.32N',
     '087.32W',
     '188',
-    'US'
+    'US',
   ],
   ['IL CHICAGO/ARTCC', 'KZAU', 'ZAU', 'null', '41.47N', '088.20W', '213', 'US'],
   ['IL DANVILLE', 'KDNV', 'DNV', 'null', '40.12N', '087.36W', '212', 'US'],
@@ -4558,7 +4558,7 @@ List<List<String>> _stations = [
     '39.10N',
     '089.40W',
     '210',
-    'US'
+    'US',
   ],
   ['IL MACOMB MUNI', 'KMQB', 'MQB', 'null', '40.31N', '090.39W', '215', 'US'],
   [
@@ -4569,7 +4569,7 @@ List<List<String>> _stations = [
     '37.46N',
     '089.01W',
     '144',
-    'US'
+    'US',
   ],
   ['IL MARSEILLES', 'KMMO', 'MMO', '74460', '41.22N', '088.40W', '225', 'US'],
   [
@@ -4580,7 +4580,7 @@ List<List<String>> _stations = [
     '39.28N',
     '088.16W',
     '214',
-    'US'
+    'US',
   ],
   ['IL METROPOLIS', 'KM30', 'M30', 'null', '37.11N', '088.45W', '117', 'US'],
   [
@@ -4591,7 +4591,7 @@ List<List<String>> _stations = [
     '41.27N',
     '090.31W',
     '184',
-    'US'
+    'US',
   ],
   ['IL MONEE', 'KC56', 'C56', 'null', '41.23N', '087.41W', '241', 'US'],
   [
@@ -4602,7 +4602,7 @@ List<List<String>> _stations = [
     '41.26N',
     '088.25W',
     '178',
-    'US'
+    'US',
   ],
   ['IL MOUNT CARMEL', 'KAJG', 'AJG', 'null', '38.37N', '087.44W', '131', 'US'],
   [
@@ -4613,7 +4613,7 @@ List<List<String>> _stations = [
     '39.59N',
     '090.48W',
     '224',
-    'US'
+    'US',
   ],
   ['IL MOUNT VERNON', 'KMVN', 'MVN', 'null', '38.19N', '088.52W', '146', 'US'],
   ['IL OLNEY-NOBLE', 'KOLY', 'OLY', 'null', '38.43N', '088.11W', '147', 'US'],
@@ -4631,7 +4631,7 @@ List<List<String>> _stations = [
     '39.57N',
     '091.12W',
     '234',
-    'US'
+    'US',
   ],
   ['IL RANTOUL', 'KTIP', 'TIP', 'null', '40.17N', '088.09W', '225', 'US'],
   ['IL ROBINSON MUNI', 'KRSV', 'RSV', 'null', '39.01N', '087.39W', '141', 'US'],
@@ -4644,7 +4644,7 @@ List<List<String>> _stations = [
     '41.53N',
     '089.05W',
     '238',
-    'US'
+    'US',
   ],
   [
     'IL ROMEOVILLE/CHI',
@@ -4654,7 +4654,7 @@ List<List<String>> _stations = [
     '41.36N',
     '088.06W',
     '205',
-    'US'
+    'US',
   ],
   [
     'IL SALEM/LECKRONE',
@@ -4664,7 +4664,7 @@ List<List<String>> _stations = [
     '38.39N',
     '088.58W',
     '175',
-    'US'
+    'US',
   ],
   [
     'IL SAVANNA/TRITOWN',
@@ -4674,7 +4674,7 @@ List<List<String>> _stations = [
     '42.03N',
     '090.07W',
     '188',
-    'US'
+    'US',
   ],
   [
     'IL SCOTT AFB/BELLEV',
@@ -4684,7 +4684,7 @@ List<List<String>> _stations = [
     '38.32N',
     '089.50W',
     '138',
-    'US'
+    'US',
   ],
   ['IL SPARTA', 'KSAR', 'SAR', 'null', '38.09N', '089.42W', '164', 'US'],
   ['IL SPRINGFIELD', 'KSPI', 'SPI', '72439', '39.51N', '089.41W', '181', 'US'],
@@ -4696,7 +4696,7 @@ List<List<String>> _stations = [
     '41.45N',
     '089.40W',
     '197',
-    'US'
+    'US',
   ],
   ['IL TAYLORVILLE', 'KTAZ', 'TAZ', 'null', '39.32N', '089.20W', '190', 'US'],
   ['IL VANDALIA', 'KVLA', 'VLA', 'null', '38.59N', '089.10W', '164', 'US'],
@@ -4709,7 +4709,7 @@ List<List<String>> _stations = [
     '39.38N',
     '090.28W',
     '170',
-    'US'
+    'US',
   ],
   ['IL CHICAGO', 'KCHI', 'CHI', 'null', '42.00N', '087.53W', '203', 'US'],
   ['IL GLENVIEW NAS', 'KNBU', 'NBU', 'null', '42.05N', '087.49W', '199', 'US'],
@@ -4723,7 +4723,7 @@ List<List<String>> _stations = [
     '41.53N',
     '089.04W',
     '238',
-    'US'
+    'US',
   ],
   [
     'IN ANDERSON MUNICIP',
@@ -4733,7 +4733,7 @@ List<List<String>> _stations = [
     '40.07N',
     '085.37W',
     '280',
-    'US'
+    'US',
   ],
   ['IN ANGOLA', 'KANQ', 'ANQ', 'null', '41.38N', '085.05W', '303', 'US'],
   [
@@ -4744,7 +4744,7 @@ List<List<String>> _stations = [
     '41.18N',
     '085.04W',
     '269',
-    'US'
+    'US',
   ],
   ['IN BLOOMINGTON', 'KBMG', 'BMG', 'null', '39.09N', '086.37W', '257', 'US'],
   [
@@ -4755,7 +4755,7 @@ List<List<String>> _stations = [
     '39.16N',
     '085.54W',
     '200',
-    'US'
+    'US',
   ],
   [
     'IN CRAWFORDSVILLE',
@@ -4765,7 +4765,7 @@ List<List<String>> _stations = [
     '39.59N',
     '086.55W',
     '244',
-    'US'
+    'US',
   ],
   [
     'IN DAVIESS COUNTY',
@@ -4775,7 +4775,7 @@ List<List<String>> _stations = [
     '38.42N',
     '087.08W',
     '144',
-    'US'
+    'US',
   ],
   [
     'IN ELKHART MUNICIPA',
@@ -4785,7 +4785,7 @@ List<List<String>> _stations = [
     '41.43N',
     '086.00W',
     '237',
-    'US'
+    'US',
   ],
   ['IN EVANSVILLE', 'KEVV', 'EVV', '72432', '38.03N', '087.31W', '117', 'US'],
   ['IN EVANSVILLE', 'KVWX', 'VWX', 'null', '38.16N', '087.43W', '190', 'US'],
@@ -4802,7 +4802,7 @@ List<List<String>> _stations = [
     '40.38N',
     '086.09W',
     '247',
-    'US'
+    'US',
   ],
   ['IN HIMSEL AAF', 'K1II', '1II', 'null', '39.20N', '086.02W', '214', 'US'],
   ['IN HUNTINGBURG', 'KHNB', 'HNB', 'null', '38.15N', '086.57W', '161', 'US'],
@@ -4817,7 +4817,7 @@ List<List<String>> _stations = [
     '39.56N',
     '086.03W',
     '248',
-    'US'
+    'US',
   ],
   [
     'IN INDIANAPOL/ARTCC',
@@ -4827,7 +4827,7 @@ List<List<String>> _stations = [
     '39.44N',
     '086.17W',
     '243',
-    'US'
+    'US',
   ],
   [
     'IN INDIANAPOLIS EXC',
@@ -4837,7 +4837,7 @@ List<List<String>> _stations = [
     '40.02N',
     '086.15W',
     '281',
-    'US'
+    'US',
   ],
   [
     'IN INDIANAPOLIS REG',
@@ -4847,7 +4847,7 @@ List<List<String>> _stations = [
     '39.51N',
     '085.54W',
     '263',
-    'US'
+    'US',
   ],
   ['IN INDIANAPOLIS', 'KHFY', 'HFY', 'null', '39.38N', '086.05W', '251', 'US'],
   ['IN KENDALLVILLE', 'KC62', 'C62', 'null', '41.28N', '085.16W', '306', 'US'],
@@ -4859,7 +4859,7 @@ List<List<String>> _stations = [
     '41.20N',
     '086.40W',
     '209',
-    'US'
+    'US',
   ],
   ['IN KOKOMO', 'KOKK', 'OKK', 'null', '40.32N', '086.04W', '253', 'US'],
   ['IN LAFAYETTE', 'KLAF', 'LAF', 'null', '40.25N', '086.56W', '182', 'US'],
@@ -4882,7 +4882,7 @@ List<List<String>> _stations = [
     '37.56N',
     '087.46W',
     '117',
-    'US'
+    'US',
   ],
   ['IN RENSSELAER', 'KRZL', 'RZL', 'null', '40.57N', '087.11W', '213', 'US'],
   ['IN RICHMOND', 'KRID', 'RID', 'null', '39.45N', '084.51W', '348', 'US'],
@@ -4898,7 +4898,7 @@ List<List<String>> _stations = [
     '39.29N',
     '087.15W',
     '179',
-    'US'
+    'US',
   ],
   ['IN VALPARAISO', 'KVPZ', 'VPZ', 'null', '41.27N', '087.00W', '231', 'US'],
   ['IN WARSAW MUNI', 'KASW', 'ASW', 'null', '41.16N', '085.50W', '259', 'US'],
@@ -4910,7 +4910,7 @@ List<List<String>> _stations = [
     '40.49N',
     '087.03W',
     '212',
-    'US'
+    'US',
   ],
   ['IN BATESVILLE', 'KHLB', 'HLB', 'null', '39.21N', '085.16W', '200', 'US'],
   ['IN GREENCASTLE', 'K4I7', '4I7', 'null', '39.38N', '086.49W', '257', 'US'],
@@ -4922,7 +4922,7 @@ List<List<String>> _stations = [
     '39.50N',
     '086.18W',
     '251',
-    'US'
+    'US',
   ],
   [
     'IN JEFFERSON PRVG',
@@ -4932,7 +4932,7 @@ List<List<String>> _stations = [
     '38.50N',
     '085.25W',
     '266',
-    'US'
+    'US',
   ],
   ['IN SHELBYVILLE', 'K3SM', '3SM', 'null', '39.35N', '085.48W', '245', 'US'],
   ['KS ALMA/TOPEKA', 'KTWX', 'TWX', 'null', '39.00N', '096.14W', '417', 'US'],
@@ -4954,7 +4954,7 @@ List<List<String>> _stations = [
     '39.22N',
     '094.55W',
     '235',
-    'US'
+    'US',
   ],
   [
     'KS FT RILEY/MARSHAL',
@@ -4964,7 +4964,7 @@ List<List<String>> _stations = [
     '39.02N',
     '096.46W',
     '325',
-    'US'
+    'US',
   ],
   ['KS GARDEN CITY', 'KGCK', 'GCK', 'null', '37.55N', '100.43W', '877', 'US'],
   ['KS GARNETT', 'KK68', 'K68', 'null', '38.17N', '095.13W', '301', 'US'],
@@ -4979,7 +4979,7 @@ List<List<String>> _stations = [
     '37.39N',
     '099.06W',
     '648',
-    'US'
+    'US',
   ],
   ['KS HAYS MUNI', 'KHYS', 'HYS', 'null', '38.51N', '099.16W', '609', 'US'],
   ['KS HILL CITY', 'KHLC', 'HLC', 'null', '39.22N', '099.50W', '669', 'US'],
@@ -4991,7 +4991,7 @@ List<List<String>> _stations = [
     '38.17N',
     '097.17W',
     '477',
-    'US'
+    'US',
   ],
   ['KS HILLSBORO', 'null', 'null', '74547', '38.37N', '097.18W', '477', 'US'],
   ['KS HUTCHINSON', 'KHUT', 'HUT', 'null', '38.04N', '097.52W', '467', 'US'],
@@ -5007,7 +5007,7 @@ List<List<String>> _stations = [
     '38.27N',
     '101.21W',
     '1007',
-    'US'
+    'US',
   ],
   ['KS LIBERAL', 'KLBL', 'LBL', 'null', '37.02N', '100.58W', '879', 'US'],
   ['KS MANHATTAN', 'KMHK', 'MHK', 'null', '39.08N', '096.41W', '317', 'US'],
@@ -5021,7 +5021,7 @@ List<List<String>> _stations = [
     '37.17N',
     '098.33W',
     '469',
-    'US'
+    'US',
   ],
   [
     'KS NEODESHA PROFILE',
@@ -5031,7 +5031,7 @@ List<List<String>> _stations = [
     '37.22N',
     '095.37W',
     '255',
-    'US'
+    'US',
   ],
   ['KS NEW ALMELO', 'KAL8', 'AL8', 'null', '39.36N', '100.07W', '734', 'US'],
   ['KS NEWTON', 'KEWK', 'EWK', 'null', '38.02N', '097.16W', '467', 'US'],
@@ -5043,7 +5043,7 @@ List<List<String>> _stations = [
     '38.49N',
     '094.53W',
     '342',
-    'US'
+    'US',
   ],
   [
     'KS OLATHE/EXECUTIVE',
@@ -5053,7 +5053,7 @@ List<List<String>> _stations = [
     '38.51N',
     '094.44W',
     '326',
-    'US'
+    'US',
   ],
   ['KS OSWEGO/VOR', 'KOSW', 'OSW', 'null', '37.09N', '095.12W', '283', 'US'],
   ['KS OTTAWA', 'KOWI', 'OWI', 'null', '38.32N', '095.15W', '295', 'US'],
@@ -5075,7 +5075,7 @@ List<List<String>> _stations = [
     '37.45N',
     '097.13W',
     '434',
-    'US'
+    'US',
   ],
   ['KS WICHITA/BEECH', 'KBEC', 'BEC', 'null', '37.42N', '097.13W', '430', 'US'],
   [
@@ -5086,7 +5086,7 @@ List<List<String>> _stations = [
     '37.10N',
     '097.02W',
     '350',
-    'US'
+    'US',
   ],
   ['KS ELKHART', 'K1K5', '1K5', 'null', '37.00N', '101.53W', '1102', 'US'],
   [
@@ -5097,7 +5097,7 @@ List<List<String>> _stations = [
     '38.39N',
     '097.48W',
     '422',
-    'US'
+    'US',
   ],
   [
     'KS WICHITA/JABARA',
@@ -5107,7 +5107,7 @@ List<List<String>> _stations = [
     '37.45N',
     '097.13W',
     '433',
-    'US'
+    'US',
   ],
   ['KS OBERLIN', 'KOIN', 'OIN', 'null', '39.50N', '100.32W', '824', 'US'],
   ['KS SYRACUSE', 'K3K3', '3K3', 'null', '38.00N', '101.45W', '1013', 'US'],
@@ -5143,7 +5143,7 @@ List<List<String>> _stations = [
     '37.45N',
     '082.38W',
     '372',
-    'US'
+    'US',
   ],
   ['KY BOWLING GREE', 'KBWG', 'BWG', 'null', '36.58N', '086.25W', '168', 'US'],
   ['KY COVINGTON', 'KCVG', 'CVG', '72421', '39.03N', '084.40W', '269', 'US'],
@@ -5156,7 +5156,7 @@ List<List<String>> _stations = [
     '36.44N',
     '087.17W',
     '176',
-    'US'
+    'US',
   ],
   ['KY HOPKINSVILLE', 'KHOP', 'HOP', '74671', '36.40N', '087.30W', '174', 'US'],
   ['KY ELIZABETH', 'KEKX', 'EKX', 'null', '37.43N', '085.52W', '230', 'US'],
@@ -5171,7 +5171,7 @@ List<List<String>> _stations = [
     '37.53N',
     '085.58W',
     '230',
-    'US'
+    'US',
   ],
   ['KY FRANKFORT', 'KFFT', 'FFT', 'null', '38.11N', '084.54W', '236', 'US'],
   ['KY GLASGOW', 'KGLW', 'GLW', 'null', '37.02N', '085.57W', '218', 'US'],
@@ -5185,7 +5185,7 @@ List<List<String>> _stations = [
     '37.49N',
     '087.40W',
     '117',
-    'US'
+    'US',
   ],
   ['KY LEWISPORT', 'KKY8', 'KY8', 'null', '37.57N', '086.51W', '126', 'US'],
   ['KY LEXINGTON', 'KLEX', 'LEX', '72422', '38.02N', '084.36W', '300', 'US'],
@@ -5199,7 +5199,7 @@ List<List<String>> _stations = [
     '38.13N',
     '085.40W',
     '164',
-    'US'
+    'US',
   ],
   [
     'KY LOUISVILLE/WFO',
@@ -5209,7 +5209,7 @@ List<List<String>> _stations = [
     '38.14N',
     '085.40W',
     '166',
-    'US'
+    'US',
   ],
   [
     'KY LOUISVILLE VOR',
@@ -5219,7 +5219,7 @@ List<List<String>> _stations = [
     '38.06N',
     '085.35W',
     '219',
-    'US'
+    'US',
   ],
   ['KY MADISONVILLE', 'K2I0', '2I0', 'null', '37.21N', '087.24W', '134', 'US'],
   ['KY MARION', 'K5M9', '5M9', 'null', '37.20N', '088.07W', '199', 'US'],
@@ -5232,7 +5232,7 @@ List<List<String>> _stations = [
     '36.37N',
     '083.44W',
     '352',
-    'US'
+    'US',
   ],
   [
     'KY MONTICELLO/WAYNE',
@@ -5242,7 +5242,7 @@ List<List<String>> _stations = [
     '36.51N',
     '084.51W',
     '294',
-    'US'
+    'US',
   ],
   ['KY MOREHEAD', 'KSYM', 'SYM', 'null', '38.13N', '083.35W', '313', 'US'],
   [
@@ -5253,7 +5253,7 @@ List<List<String>> _stations = [
     '38.03N',
     '083.59W',
     '311',
-    'US'
+    'US',
   ],
   [
     'KY MURRAY KYLE-OAK',
@@ -5263,7 +5263,7 @@ List<List<String>> _stations = [
     '36.40N',
     '088.22W',
     '176',
-    'US'
+    'US',
   ],
   [
     'KY NOCTOR/JACKSON',
@@ -5273,7 +5273,7 @@ List<List<String>> _stations = [
     '37.36N',
     '083.19W',
     '416',
-    'US'
+    'US',
   ],
   [
     'KY OWENSBORO/DAVIES',
@@ -5283,7 +5283,7 @@ List<List<String>> _stations = [
     '37.43N',
     '087.10W',
     '124',
-    'US'
+    'US',
   ],
   ['KY PADUCAH', 'KPAH', 'PAH', '72435', '37.04N', '088.46W', '119', 'US'],
   ['KY PIKEVILLE', 'KPBX', 'PBX', 'null', '37.34N', '082.34W', '449', 'US'],
@@ -5295,7 +5295,7 @@ List<List<String>> _stations = [
     '37.38N',
     '084.20W',
     '306',
-    'US'
+    'US',
   ],
   ['KY SPRINGFIELD', 'K6I2', '6I2', 'null', '37.38N', '085.15W', '266', 'US'],
   ['KY SOMERSET', 'KSME', 'SME', 'null', '37.03N', '084.37W', '283', 'US'],
@@ -5309,7 +5309,7 @@ List<List<String>> _stations = [
     '37.49N',
     '087.40W',
     '117',
-    'US'
+    'US',
   ],
   ['KY MOREHEAD', 'KM97', 'M97', 'null', '38.13N', '083.35W', '313', 'US'],
   [
@@ -5320,7 +5320,7 @@ List<List<String>> _stations = [
     '37.28N',
     '082.31W',
     '446',
-    'US'
+    'US',
   ],
   ['KY PRESTONBURG', 'KK22', 'K22', 'null', '37.45N', '082.38W', '372', 'US'],
   [
@@ -5331,7 +5331,7 @@ List<List<String>> _stations = [
     '29.59N',
     '092.05W',
     '5',
-    'US'
+    'US',
   ],
   ['LA ALEXANDRIA', 'KAEX', 'AEX', '74754', '31.20N', '092.34W', '27', 'US'],
   ['LA ALEXANDRIA', 'KESF', 'ESF', 'null', '31.24N', '092.17W', '28', 'US'],
@@ -5343,7 +5343,7 @@ List<List<String>> _stations = [
     '29.41N',
     '091.05W',
     '2',
-    'US'
+    'US',
   ],
   ['LA AUDUBON PARK', 'KAUD', 'AUD', 'null', '29.56N', '090.08W', '2', 'US'],
   ['LA BARKSDALE AFB', 'KBAD', 'BAD', 'null', '32.30N', '093.40W', '51', 'US'],
@@ -5355,7 +5355,7 @@ List<List<String>> _stations = [
     '32.45N',
     '091.53W',
     '51',
-    'US'
+    'US',
   ],
   ['LA BATON ROUGE', 'KBTR', 'BTR', 'null', '30.32N', '091.09W', '21', 'US'],
   [
@@ -5366,7 +5366,7 @@ List<List<String>> _stations = [
     '30.49N',
     '089.52W',
     '36',
-    'US'
+    'US',
   ],
   ['LA BOOTHVILLE', 'KBVE', 'BVE', '72232', '29.19N', '089.24W', '1', 'US'],
   [
@@ -5377,7 +5377,7 @@ List<List<String>> _stations = [
     '29.46N',
     '093.17W',
     '1',
-    'US'
+    'US',
   ],
   [
     'LA CHENAULT/LK CHAS',
@@ -5387,7 +5387,7 @@ List<List<String>> _stations = [
     '30.13N',
     '093.09W',
     '4',
-    'US'
+    'US',
   ],
   [
     'LA DEQUINCEY IND AR',
@@ -5397,7 +5397,7 @@ List<List<String>> _stations = [
     '30.26N',
     '093.28W',
     '24',
-    'US'
+    'US',
   ],
   ['LA DERIDDER/FSS', 'KDRI', 'DRI', 'null', '30.50N', '093.20W', '63', 'US'],
   ['LA EUGENE IS 330', 'K3B6', '3B6', 'null', '28.14N', '091.41W', '1', 'US'],
@@ -5410,7 +5410,7 @@ List<List<String>> _stations = [
     '31.24N',
     '093.18W',
     '111',
-    'US'
+    'US',
   ],
   ['LA FULLERTON/POLK', 'KBKB', 'BKB', 'null', '31.00N', '092.55W', '94', 'US'],
   [
@@ -5421,7 +5421,7 @@ List<List<String>> _stations = [
     '31.07N',
     '093.09W',
     '114',
-    'US'
+    'US',
   ],
   [
     'LA FOURCHON (SAWRS)',
@@ -5431,7 +5431,7 @@ List<List<String>> _stations = [
     '29.06N',
     '090.12W',
     '2',
-    'US'
+    'US',
   ],
   ['LA PORT FOURCHON', 'KXPY', 'XPY', 'null', '29.07N', '090.12W', '2', 'US'],
   ['LA GALLIANO', 'KGAO', 'GAO', 'null', '29.27N', '090.16W', '1', 'US'],
@@ -5443,7 +5443,7 @@ List<List<String>> _stations = [
     '29.25N',
     '090.18W',
     '3',
-    'US'
+    'US',
   ],
   [
     'LA GRAND ISLE (SAWR',
@@ -5453,7 +5453,7 @@ List<List<String>> _stations = [
     '29.15N',
     '089.58W',
     '2',
-    'US'
+    'US',
   ],
   [
     'LA GRAND ISLE (VOR)',
@@ -5463,7 +5463,7 @@ List<List<String>> _stations = [
     '29.11N',
     '090.06W',
     '2',
-    'US'
+    'US',
   ],
   [
     'LA GREEN CANYON 184',
@@ -5473,7 +5473,7 @@ List<List<String>> _stations = [
     '27.46N',
     '091.31W',
     '1',
-    'US'
+    'US',
   ],
   ['LA GREEN CANYON 52', 'K28K', '28K', 'null', '27.53N', '091.30W', '1', 'US'],
   ['LA HAMMOND', 'KHDC', 'HDC', 'null', '30.31N', '090.25W', '13', 'US'],
@@ -5485,7 +5485,7 @@ List<List<String>> _stations = [
     '28.06N',
     '093.24W',
     '30',
-    'US'
+    'US',
   ],
   ['LA HIGH IS. 264C', 'KH08', 'H08', 'null', '28.28N', '093.44W', '30', 'US'],
   ['LA OFFSHORE', 'KH78', 'H78', 'null', '28.11N', '088.29W', '43', 'US'],
@@ -5497,7 +5497,7 @@ List<List<String>> _stations = [
     '29.34N',
     '090.40W',
     '3',
-    'US'
+    'US',
   ],
   [
     'LA INTRACOASTAL CIT',
@@ -5507,7 +5507,7 @@ List<List<String>> _stations = [
     '29.46N',
     '092.07W',
     '5',
-    'US'
+    'US',
   ],
   ['LA JENNINGS', 'K3R7', '3R7', 'null', '30.15N', '092.40W', '7', 'US'],
   ['LA LAFAYETTE', 'KLFT', 'LFT', 'null', '30.12N', '092.00W', '11', 'US'],
@@ -5525,7 +5525,7 @@ List<List<String>> _stations = [
     '30.03N',
     '090.02W',
     '3',
-    'US'
+    'US',
   ],
   ['LA NEW ORLEANS NAS', 'KNBG', 'NBG', 'null', '29.49N', '090.01W', '1', 'US'],
   [
@@ -5536,7 +5536,7 @@ List<List<String>> _stations = [
     '30.00N',
     '090.15W',
     '5',
-    'US'
+    'US',
   ],
   ['LA NEW ROADS', 'KHZR', 'HZR', 'null', '30.43N', '091.29W', '12', 'US'],
   ['LA NEW O SUPERDOME', 'KVSH', 'VSH', 'null', '29.57N', '090.05W', '5', 'US'],
@@ -5549,7 +5549,7 @@ List<List<String>> _stations = [
     '29.51N',
     '090.00W',
     '1',
-    'US'
+    'US',
   ],
   [
     'LA OAKDALE ALLEN P',
@@ -5559,7 +5559,7 @@ List<List<String>> _stations = [
     '30.45N',
     '092.41W',
     '33',
-    'US'
+    'US',
   ],
   ['LA OPELOUSAS', 'KOPL', 'OPL', 'null', '30.33N', '092.06W', '23', 'US'],
   ['LA RESERVE', 'KAPS', 'APS', 'null', '30.05N', '090.35W', '3', 'US'],
@@ -5571,7 +5571,7 @@ List<List<String>> _stations = [
     '32.31N',
     '092.35W',
     '95',
-    'US'
+    'US',
   ],
   [
     'LA PATTERSON MEMORI',
@@ -5581,7 +5581,7 @@ List<List<String>> _stations = [
     '29.43N',
     '091.19W',
     '3',
-    'US'
+    'US',
   ],
   ['LA SALT POINT', 'KP92', 'P92', 'null', '29.34N', '091.32W', '1', 'US'],
   ['LA SHIP SHOAL 207', 'KGSM', 'GSM', 'null', '28.32N', '090.59W', '1', 'US'],
@@ -5593,7 +5593,7 @@ List<List<String>> _stations = [
     '32.33N',
     '093.45W',
     '53',
-    'US'
+    'US',
   ],
   ['LA SHREVEPORT', 'KSHV', 'SHV', '72248', '32.27N', '093.50W', '83', 'US'],
   [
@@ -5604,7 +5604,7 @@ List<List<String>> _stations = [
     '32.46N',
     '093.49W',
     '80',
-    'US'
+    'US',
   ],
   ['LA SLIDELL/88D', 'KLIX', 'LIX', '72233', '30.20N', '089.50W', '7', 'US'],
   ['LA SLIDELL 22', 'KASD', 'ASD', 'null', '30.21N', '089.49W', '9', 'US'],
@@ -5621,7 +5621,7 @@ List<List<String>> _stations = [
     '32.21N',
     '091.02W',
     '26',
-    'US'
+    'US',
   ],
   ['LA VENICE HELIPORT', 'K1B7', '1B7', 'null', '29.21N', '089.26W', '1', 'US'],
   ['LA CAMERON', 'KCVW', 'CVW', 'null', '29.47N', '093.18W', '1', 'US'],
@@ -5639,7 +5639,7 @@ List<List<String>> _stations = [
     '31.53N',
     '092.46W',
     '93',
-    'US'
+    'US',
   ],
   [
     'LA ABBEVILLE CC MEM',
@@ -5649,7 +5649,7 @@ List<List<String>> _stations = [
     '29.59N',
     '092.05W',
     '5',
-    'US'
+    'US',
   ],
   [
     'LA ALEXANDRIA/AFB',
@@ -5659,7 +5659,7 @@ List<List<String>> _stations = [
     '31.08N',
     '092.34W',
     '67',
-    'US'
+    'US',
   ],
   [
     'LA BASTROP MOREHOUS',
@@ -5669,7 +5669,7 @@ List<List<String>> _stations = [
     '32.45N',
     '091.53W',
     '51',
-    'US'
+    'US',
   ],
   [
     'LA EUGENE IS. 266C',
@@ -5679,7 +5679,7 @@ List<List<String>> _stations = [
     '28.28N',
     '091.47W',
     '31',
-    'US'
+    'US',
   ],
   ['LA GALLIANO', 'KL49', 'L49', 'null', '29.27N', '090.16W', '1', 'US'],
   [
@@ -5690,7 +5690,7 @@ List<List<String>> _stations = [
     '27.22N',
     '093.12W',
     '1',
-    'US'
+    'US',
   ],
   [
     'LA GARDEN BANKS172',
@@ -5700,7 +5700,7 @@ List<List<String>> _stations = [
     '27.50N',
     '091.59W',
     '30',
-    'US'
+    'US',
   ],
   ['LA GONZALES', 'KREG', 'REG', 'null', '30.10N', '090.56W', '5', 'US'],
   ['LA GRAND CHEINER', 'KL29', 'L29', 'null', '29.48N', '092.50W', '1', 'US'],
@@ -5713,7 +5713,7 @@ List<List<String>> _stations = [
     '27.54N',
     '091.30W',
     '1',
-    'US'
+    'US',
   ],
   [
     'LA HIGH ISLAND 511',
@@ -5723,7 +5723,7 @@ List<List<String>> _stations = [
     '28.08N',
     '094.24W',
     '30',
-    'US'
+    'US',
   ],
   ['LA HIGH IS. A572C', 'KH39', 'H39', 'null', '27.57N', '093.59W', '30', 'US'],
   ['LA HIGH IS. A489B', 'KL40', 'L40', 'null', '28.12N', '094.12W', '30', 'US'],
@@ -5736,7 +5736,7 @@ List<List<String>> _stations = [
     '29.24N',
     '088.24W',
     '1',
-    'US'
+    'US',
   ],
   ['LA MINDEN', 'KF24', 'F24', 'null', '32.39N', '093.18W', '85', 'US'],
   ['LA MISS. CANYON', 'K1G7', '1G7', 'null', '28.47N', '089.03W', '18', 'US'],
@@ -5748,7 +5748,7 @@ List<List<String>> _stations = [
     '30.45N',
     '092.41W',
     '33',
-    'US'
+    'US',
   ],
   ['LA SHIP SHOAL 224A', 'KS02', 'S02', 'null', '28.30N', '091.18W', '2', 'US'],
   ['LA SHIP SHOAL 198G', 'KS65', 'S65', 'null', '28.30N', '091.12W', '2', 'US'],
@@ -5763,7 +5763,7 @@ List<List<String>> _stations = [
     '28.54N',
     '089.34W',
     '1',
-    'US'
+    'US',
   ],
   ['LA S. PASS BLK 62A', 'KH18', 'H18', 'null', '28.59N', '089.08W', '1', 'US'],
   [
@@ -5774,7 +5774,7 @@ List<List<String>> _stations = [
     '29.07N',
     '089.12W',
     '80',
-    'US'
+    'US',
   ],
   ['LA VERMILLION', 'K7W2', '7W2', 'null', '28.35N', '092.28W', '1', 'US'],
   ['LA VERMILLION AREA', 'KVRX', 'VRX', 'null', '28.03N', '092.27W', '1', 'US'],
@@ -5792,7 +5792,7 @@ List<List<String>> _stations = [
     '28.05N',
     '087.59W',
     '41',
-    'US'
+    'US',
   ],
   ['LA MAGNOLIA OILP', 'KGBK', 'GBK', 'null', '27.12N', '092.12W', '59', 'US'],
   ['LA SHIP SHOAL178', 'KSPR', 'SPR', 'null', '28.36N', '091.12W', '31', 'US'],
@@ -5804,7 +5804,7 @@ List<List<String>> _stations = [
     '28.39N',
     '089.48W',
     '31',
-    'US'
+    'US',
   ],
   [
     'LA E CAMERON278OILP',
@@ -5814,7 +5814,7 @@ List<List<String>> _stations = [
     '28.26N',
     '092.53W',
     '31',
-    'US'
+    'US',
   ],
   ['LA SABINE 13BOILP', 'KVBS', 'VBS', 'null', '29.29N', '093.38W', '31', 'US'],
   ['LA S MARSH268OILP', 'KSCF', 'SCF', 'null', '29.07N', '091.52W', '8', 'US'],
@@ -5826,7 +5826,7 @@ List<List<String>> _stations = [
     '29.28N',
     '092.22W',
     '28',
-    'US'
+    'US',
   ],
   [
     'LA EUGENE I 215OILP',
@@ -5836,7 +5836,7 @@ List<List<String>> _stations = [
     '28.38N',
     '091.29W',
     '28',
-    'US'
+    'US',
   ],
   ['LA ATLANTISOILP', 'KATP', 'ATP', 'null', '27.12N', '090.02W', '62', 'US'],
   ['LA E CAMERON 47JP', 'KCMB', 'CMB', 'null', '29.26N', '092.59W', '29', 'US'],
@@ -5848,7 +5848,7 @@ List<List<String>> _stations = [
     '27.38N',
     '090.27W',
     '58',
-    'US'
+    'US',
   ],
   ['LA HIGH IS. 179A', 'KXIH', 'XIH', 'null', '29.11N', '094.31W', '75', 'US'],
   ['LA MAIN PASS 289C', 'KVKY', 'VKY', 'null', '29.15N', '088.26W', '32', 'US'],
@@ -5861,7 +5861,7 @@ List<List<String>> _stations = [
     '28.10N',
     '090.40W',
     '25',
-    'US'
+    'US',
   ],
   ['LA VERMILION 331', 'KVQT', 'VQT', 'null', '28.16N', '092.16W', '25', 'US'],
   [
@@ -5872,7 +5872,7 @@ List<List<String>> _stations = [
     '28.31N',
     '088.17W',
     '25',
-    'US'
+    'US',
   ],
   ['LA KEATHLEY C 875', 'K18H', '18H', 'null', '26.08N', '092.02W', '10', 'US'],
   [
@@ -5883,7 +5883,7 @@ List<List<String>> _stations = [
     '26.14N',
     '095.15W',
     '10',
-    'US'
+    'US',
   ],
   ['MA BEDFORD', 'KBED', 'BED', '74490', '42.28N', '071.18W', '50', 'US'],
   ['MA BEVERLY', 'KBVY', 'BVY', 'null', '42.35N', '070.55W', '28', 'US'],
@@ -5895,7 +5895,7 @@ List<List<String>> _stations = [
     '41.13N',
     '071.07W',
     '192',
-    'US'
+    'US',
   ],
   [
     'MA BLUE HILL OBS',
@@ -5905,7 +5905,7 @@ List<List<String>> _stations = [
     '41.13N',
     '071.07W',
     '192',
-    'US'
+    'US',
   ],
   ['MA BOSTON', 'KBOS', 'BOS', '72509', '42.22N', '071.01W', '6', 'US'],
   ['MA BOSTON/TAUNTON', 'KBOX', 'BOX', 'null', '41.57N', '071.08W', '36', 'US'],
@@ -5921,7 +5921,7 @@ List<List<String>> _stations = [
     '42.12N',
     '072.31W',
     '75',
-    'US'
+    'US',
   ],
   [
     'MA CHICOPEE/WESTOVE',
@@ -5931,7 +5931,7 @@ List<List<String>> _stations = [
     '42.12N',
     '072.31W',
     '75',
-    'US'
+    'US',
   ],
   ['MA EAST MILTON', 'KMQE', 'MQE', 'null', '42.13N', '071.07W', '199', 'US'],
   [
@@ -5942,7 +5942,7 @@ List<List<String>> _stations = [
     '41.38N',
     '070.31W',
     '40',
-    'US'
+    'US',
   ],
   ['MA FITCHBURG', 'KFIT', 'FIT', 'null', '42.33N', '071.45W', '103', 'US'],
   ['MA HYANNIS', 'KHYA', 'HYA', 'null', '41.40N', '070.16W', '22', 'US'],
@@ -5956,7 +5956,7 @@ List<List<String>> _stations = [
     '41.24N',
     '070.37W',
     '16',
-    'US'
+    'US',
   ],
   ['MA NANTUCKET', 'KACK', 'ACK', '72506', '41.15N', '070.04W', '16', 'US'],
   ['MA NEW BEDFORD', 'KEWB', 'EWB', 'null', '41.41N', '070.57W', '23', 'US'],
@@ -5981,7 +5981,7 @@ List<List<String>> _stations = [
     '41.24N',
     '071.58W',
     '1',
-    'US'
+    'US',
   ],
   ['MA GARDNER', 'KGDM', 'GDM', 'null', '42.34N', '071.58W', '290', 'US'],
   ['MA G BARRINGTON', 'KGBR', 'GBR', 'null', '42.12N', '073.21W', '199', 'US'],
@@ -5998,7 +5998,7 @@ List<List<String>> _stations = [
     '39.28N',
     '076.10W',
     '18',
-    'US'
+    'US',
   ],
   [
     'MD ABERDEEN PRV GND',
@@ -6008,7 +6008,7 @@ List<List<String>> _stations = [
     '39.30N',
     '076.34W',
     '5',
-    'US'
+    'US',
   ],
   [
     'MD ANNAPOLIS/NAVAL',
@@ -6018,7 +6018,7 @@ List<List<String>> _stations = [
     '38.59N',
     '076.29W',
     '2',
-    'US'
+    'US',
   ],
   ['MD ANDREWS AFB', 'KADW', 'ADW', '74594', '38.49N', '076.52W', '86', 'US'],
   [
@@ -6029,7 +6029,7 @@ List<List<String>> _stations = [
     '39.10N',
     '076.41W',
     '59',
-    'US'
+    'US',
   ],
   [
     'MD BALTIMORE/MARTIN',
@@ -6039,7 +6039,7 @@ List<List<String>> _stations = [
     '39.19N',
     '076.25W',
     '7',
-    'US'
+    'US',
   ],
   [
     'MD BALTIMORE/DWNTWN',
@@ -6049,7 +6049,7 @@ List<List<String>> _stations = [
     '39.17N',
     '076.37W',
     '5',
-    'US'
+    'US',
   ],
   ['MD CAMBRIDGE-DORCH', 'KCGE', 'CGE', 'null', '38.32N', '076.02W', '6', 'US'],
   ['MD NSF THURMONT', 'KRSP', 'null', 'null', '39.39N', '077.28W', '561', 'US'],
@@ -6061,7 +6061,7 @@ List<List<String>> _stations = [
     '38.51N',
     '076.56W',
     '50',
-    'US'
+    'US',
   ],
   [
     'MD CAMP SPRINGS/HPC',
@@ -6071,7 +6071,7 @@ List<List<String>> _stations = [
     '38.51N',
     '076.56W',
     '50',
-    'US'
+    'US',
   ],
   [
     'MD CAMP SPRINGS/MPC',
@@ -6081,7 +6081,7 @@ List<List<String>> _stations = [
     '38.51N',
     '076.56W',
     '50',
-    'US'
+    'US',
   ],
   [
     'MD CAMP SPRINGS/CPC',
@@ -6091,7 +6091,7 @@ List<List<String>> _stations = [
     '38.51N',
     '076.56W',
     '50',
-    'US'
+    'US',
   ],
   [
     'MD CAMP SPRINGS/DBC',
@@ -6101,7 +6101,7 @@ List<List<String>> _stations = [
     '38.51N',
     '076.56W',
     '50',
-    'US'
+    'US',
   ],
   ['MD CARROLL CNTY', 'KDMW', 'DMW', 'null', '39.36N', '077.00W', '241', 'US'],
   ['MD CLINTON', 'KW32', 'W32', 'null', '38.45N', '076.56W', '76', 'US'],
@@ -6114,7 +6114,7 @@ List<List<String>> _stations = [
     '39.37N',
     '078.46W',
     '236',
-    'US'
+    'US',
   ],
   ['MD EASTON/NEWNAM', 'KESN', 'ESN', 'null', '38.48N', '076.04W', '22', 'US'],
   ['MD FORT MEADE', 'KFME', 'FME', 'null', '39.05N', '076.46W', '46', 'US'],
@@ -6132,7 +6132,7 @@ List<List<String>> _stations = [
     '38.16N',
     '076.24W',
     '12',
-    'US'
+    'US',
   ],
   ['MD RIDGELY', 'KRJD', 'RJD', 'null', '38.58N', '075.52W', '20', 'US'],
   ['MD SALISBURY', 'KSBY', 'SBY', 'null', '38.20N', '075.30W', '19', 'US'],
@@ -6145,7 +6145,7 @@ List<List<String>> _stations = [
     '38.19N',
     '076.33W',
     '44',
-    'US'
+    'US',
   ],
   ['MD CAMP DAVID', 'KDVD', 'DVD', 'null', '39.39N', '077.28W', '152', 'US'],
   [
@@ -6156,7 +6156,7 @@ List<List<String>> _stations = [
     '39.43N',
     '077.25W',
     '275',
-    'US'
+    'US',
   ],
   ['MD OCEAN CITY', 'KN80', 'N80', 'null', '38.19N', '075.07W', '4', 'US'],
   ['MD THOMAS POINT', 'null', 'null', '99440', '38.54N', '076.34W', '1', 'US'],
@@ -6170,7 +6170,7 @@ List<List<String>> _stations = [
     '44.02N',
     '070.16W',
     '88',
-    'US'
+    'US',
   ],
   ['ME AUGUSTA', 'KAUG', 'AUG', 'null', '44.19N', '069.48W', '109', 'US'],
   ['ME BANGOR', 'KBGR', 'BGR', '72607', '44.48N', '068.49W', '57', 'US'],
@@ -6191,7 +6191,7 @@ List<List<String>> _stations = [
     '43.53N',
     '070.15W',
     '125',
-    'US'
+    'US',
   ],
   ['ME GREENVILLE', 'KGNR', 'GNR', '72619', '45.28N', '069.33W', '427', 'US'],
   ['ME HOULTON/88D', 'KCBW', 'CBW', 'null', '46.02N', '067.48W', '227', 'US'],
@@ -6206,7 +6206,7 @@ List<List<String>> _stations = [
     '44.57N',
     '068.40W',
     '39',
-    'US'
+    'US',
   ],
   ['ME PORTLAND', 'KPWM', 'PWM', '72606', '43.39N', '070.18W', '15', 'US'],
   ['ME PRESQUE ISLE', 'KPQI', 'PQI', '72713', '46.40N', '068.02W', '146', 'US'],
@@ -6228,7 +6228,7 @@ List<List<String>> _stations = [
     '43.46N',
     '068.09W',
     '16',
-    'US'
+    'US',
   ],
   [
     'ME MOUNT DESERT RO',
@@ -6238,7 +6238,7 @@ List<List<String>> _stations = [
     '43.58N',
     '068.52W',
     '9',
-    'US'
+    'US',
   ],
   ['ME RUMFORD', 'KRUM', 'RUM', '72618', '44.32N', '070.32W', '207', 'US'],
   ['ME SEWEL RIDGE', 'K9B6', '9B6', 'null', '43.00N', '068.00W', '150', 'US'],
@@ -6261,7 +6261,7 @@ List<List<String>> _stations = [
     '44.16N',
     '085.25W',
     '398',
-    'US'
+    'US',
   ],
   ['MI CARO/TUSCOLA', 'KCFS', 'CFS', 'null', '43.28N', '083.27W', '214', 'US'],
   ['MI CHARLEVOIX', 'KCVX', 'CVX', 'null', '45.18N', '085.16W', '204', 'US'],
@@ -6278,7 +6278,7 @@ List<List<String>> _stations = [
     '42.24N',
     '083.01W',
     '190',
-    'US'
+    'US',
   ],
   [
     'MI DETROIT/WILLOW',
@@ -6288,7 +6288,7 @@ List<List<String>> _stations = [
     '42.14N',
     '083.32W',
     '215',
-    'US'
+    'US',
   ],
   [
     'MI DETROIT/WAYNE',
@@ -6298,7 +6298,7 @@ List<List<String>> _stations = [
     '42.14N',
     '083.20W',
     '195',
-    'US'
+    'US',
   ],
   [
     'MI DETROIT/WHITE LK',
@@ -6308,7 +6308,7 @@ List<List<String>> _stations = [
     '42.42N',
     '083.28W',
     '327',
-    'US'
+    'US',
   ],
   [
     'MI DETROIT/GROSSE I',
@@ -6318,7 +6318,7 @@ List<List<String>> _stations = [
     '42.06N',
     '083.09W',
     '180',
-    'US'
+    'US',
   ],
   ['MI DETROIT/VOR', 'KDXO', 'DXO', 'null', '42.13N', '083.22W', '215', 'US'],
   ['MI DRUMMOND IS', 'KDRM', 'DRM', 'null', '46.00N', '083.45W', '204', 'US'],
@@ -6334,7 +6334,7 @@ List<List<String>> _stations = [
     '44.54N',
     '084.43W',
     '446',
-    'US'
+    'US',
   ],
   ['MI GAYLORD', 'KGLR', 'GLR', 'null', '45.01N', '084.41W', '407', 'US'],
   ['MI GRAND RAPIDS', 'KGRR', 'GRR', '72635', '42.53N', '085.31W', '237', 'US'],
@@ -6349,7 +6349,7 @@ List<List<String>> _stations = [
     '45.26N',
     '084.55W',
     '209',
-    'US'
+    'US',
   ],
   ['MI HART/SHELBY', 'KC04', 'C04', 'null', '41.55N', '085.02W', '279', 'US'],
   ['MI HILLSDALE', 'KJYM', 'JYM', 'null', '41.55N', '084.35W', '360', 'US'],
@@ -6362,7 +6362,7 @@ List<List<String>> _stations = [
     '44.21N',
     '084.40W',
     '351',
-    'US'
+    'US',
   ],
   ['MI HOWELL', 'KOZW', 'OZW', 'null', '42.37N', '083.58W', '293', 'US'],
   ['MI IONIA', 'KY70', 'Y70', 'null', '42.56N', '085.04W', '250', 'US'],
@@ -6376,7 +6376,7 @@ List<List<String>> _stations = [
     '42.16N',
     '084.28W',
     '305',
-    'US'
+    'US',
   ],
   ['MI KALAMAZOO', 'KAZO', 'AZO', 'null', '42.14N', '085.33W', '272', 'US'],
   ['MI LAMBERTVILLE', 'KDUH', 'DUH', 'null', '41.44N', '083.39W', '204', 'US'],
@@ -6390,7 +6390,7 @@ List<List<String>> _stations = [
     '43.58N',
     '086.24W',
     '197',
-    'US'
+    'US',
   ],
   [
     'MI MACKINAC ISLAND',
@@ -6400,7 +6400,7 @@ List<List<String>> _stations = [
     '45.51N',
     '084.38W',
     '226',
-    'US'
+    'US',
   ],
   ['MI MANISTEE', 'KMBL', 'MBL', 'null', '44.16N', '086.15W', '189', 'US'],
   ['MI MANISTIQUE', 'KISQ', 'ISQ', 'null', '45.58N', '086.10W', '209', 'US'],
@@ -6416,7 +6416,7 @@ List<List<String>> _stations = [
     '43.40N',
     '084.16W',
     '194',
-    'US'
+    'US',
   ],
   ['MI MONROE', 'KTTF', 'TTF', 'null', '41.56N', '083.25W', '188', 'US'],
   [
@@ -6427,7 +6427,7 @@ List<List<String>> _stations = [
     '43.37N',
     '084.44W',
     '230',
-    'US'
+    'US',
   ],
   [
     'MI MUNISING LAKESH',
@@ -6437,7 +6437,7 @@ List<List<String>> _stations = [
     '46.25N',
     '086.39W',
     '187',
-    'US'
+    'US',
   ],
   ['MI MUSKEGON', 'KMKG', 'MKG', '72636', '43.10N', '086.14W', '191', 'US'],
   ['MI NEWBERRY', 'KERY', 'ERY', 'null', '46.18N', '085.27W', '265', 'US'],
@@ -6450,7 +6450,7 @@ List<List<String>> _stations = [
     '44.27N',
     '083.24W',
     '193',
-    'US'
+    'US',
   ],
   ['MI OSCODA (VOR)', 'KASP', 'ASP', 'null', '44.27N', '083.24W', '193', 'US'],
   ['MI OWOSSO', 'KRNP', 'RNP', 'null', '43.00N', '084.08W', '224', 'US'],
@@ -6469,7 +6469,7 @@ List<List<String>> _stations = [
     '43.26N',
     '083.52W',
     '183',
-    'US'
+    'US',
   ],
   [
     'MI SALEM (LANSING)',
@@ -6479,7 +6479,7 @@ List<List<String>> _stations = [
     '42.25N',
     '083.36W',
     '290',
-    'US'
+    'US',
   ],
   [
     'MI SAULT STE MARIE',
@@ -6489,7 +6489,7 @@ List<List<String>> _stations = [
     '46.28N',
     '084.22W',
     '221',
-    'US'
+    'US',
   ],
   [
     'MI SAULT STE MARIE',
@@ -6499,7 +6499,7 @@ List<List<String>> _stations = [
     '46.28N',
     '084.22W',
     '218',
-    'US'
+    'US',
   ],
   [
     'MI SELFRIDGE ANGB',
@@ -6509,7 +6509,7 @@ List<List<String>> _stations = [
     '42.37N',
     '082.49W',
     '177',
-    'US'
+    'US',
   ],
   ['MI SOUTH HAVEN', 'KLWA', 'LWA', 'null', '42.21N', '086.15W', '203', 'US'],
   [
@@ -6520,7 +6520,7 @@ List<List<String>> _stations = [
     '41.48N',
     '085.26W',
     '282',
-    'US'
+    'US',
   ],
   ['MI THREE RIVERS', 'KHAI', 'HAI', 'null', '41.58N', '085.36W', '251', 'US'],
   ['MI TRAVERSE CIT', 'KTVC', 'TVC', 'null', '44.44N', '085.34W', '190', 'US'],
@@ -6537,7 +6537,7 @@ List<List<String>> _stations = [
     '42.06N',
     '083.10W',
     '180',
-    'US'
+    'US',
   ],
   ['MI FREMONT', 'K3FM', '3FM', 'null', '43.26N', '086.00W', '236', 'US'],
   ['MI GRAYLING AF', 'K3RN', '3RN', 'null', '44.41N', '084.44W', '353', 'US'],
@@ -6550,7 +6550,7 @@ List<List<String>> _stations = [
     '45.26N',
     '084.55W',
     '209',
-    'US'
+    'US',
   ],
   ['MI HOWELL', 'K3HE', '3HE', 'null', '42.37N', '083.58W', '293', 'US'],
   ['MI LAMBERTVILLE', 'K5G9', '5G9', 'null', '41.44N', '083.39W', '204', 'US'],
@@ -6562,7 +6562,7 @@ List<List<String>> _stations = [
     '45.52N',
     '084.38W',
     '226',
-    'US'
+    'US',
   ],
   ['MI MARQUETTE', 'KMQT', 'MQT', '72743', '46.32N', '087.34W', '430', 'US'],
   ['MI MARSHALL', 'K5D8', '5D8', 'null', '42.15N', '084.57W', '287', 'US'],
@@ -6577,7 +6577,7 @@ List<List<String>> _stations = [
     '48.13N',
     '088.37W',
     '195',
-    'US'
+    'US',
   ],
   ['MI PECK', 'KECK', 'ECK', 'null', '43.15N', '082.43W', '247', 'US'],
   [
@@ -6588,7 +6588,7 @@ List<List<String>> _stations = [
     '47.52N',
     '089.40W',
     '183',
-    'US'
+    'US',
   ],
   [
     'MI SAULT STE MARIE',
@@ -6598,7 +6598,7 @@ List<List<String>> _stations = [
     '46.28N',
     '084.22W',
     '219',
-    'US'
+    'US',
   ],
   ['MI SOUTH HAVEN', 'K0D1', '0D1', 'null', '42.21N', '086.15W', '203', 'US'],
   [
@@ -6609,7 +6609,7 @@ List<List<String>> _stations = [
     '47.10N',
     '087.46W',
     '183',
-    'US'
+    'US',
   ],
   ['MI TROY/OAKLAND', 'K7D2', '7D2', 'null', '42.33N', '083.11W', '222', 'US'],
   ['MN AITKIN NDB', 'KAIT', 'AIT', 'null', '46.32N', '093.40W', '367', 'US'],
@@ -6623,7 +6623,7 @@ List<List<String>> _stations = [
     '45.13N',
     '096.00W',
     '311',
-    'US'
+    'US',
   ],
   ['MN AUSTIN MUNI', 'KAUM', 'AUM', 'null', '43.40N', '092.55W', '375', 'US'],
   ['MN BAUDETTE', 'KBDE', 'BDE', 'null', '48.44N', '094.37W', '329', 'US'],
@@ -6640,7 +6640,7 @@ List<List<String>> _stations = [
     '45.34N',
     '093.16W',
     '287',
-    'US'
+    'US',
   ],
   [
     'MN CANBY/MYERS FLD',
@@ -6650,7 +6650,7 @@ List<List<String>> _stations = [
     '44.44N',
     '096.16W',
     '364',
-    'US'
+    'US',
   ],
   ['MN CHANHASSEN', 'KMPX', 'MPX', '72649', '44.51N', '093.34W', '288', 'US'],
   ['MN CLOQUET', 'KCOQ', 'COQ', 'null', '46.42N', '092.30W', '390', 'US'],
@@ -6662,7 +6662,7 @@ List<List<String>> _stations = [
     '47.49N',
     '092.41W',
     '404',
-    'US'
+    'US',
   ],
   ['MN CRANE LAKE', 'KCDD', 'CDD', 'null', '48.16N', '092.29W', '341', 'US'],
   [
@@ -6673,7 +6673,7 @@ List<List<String>> _stations = [
     '47.51N',
     '096.37W',
     '273',
-    'US'
+    'US',
   ],
   ['MN DETROIT LAKES', 'KDTL', 'DTL', 'null', '46.49N', '095.52W', '426', 'US'],
   ['MN DODGE CENTER', 'KTOB', 'TOB', 'null', '44.01N', '092.49W', '398', 'US'],
@@ -6685,7 +6685,7 @@ List<List<String>> _stations = [
     '46.43N',
     '092.02W',
     '186',
-    'US'
+    'US',
   ],
   ['MN DULUTH', 'KDLH', 'DLH', '72745', '46.51N', '092.12W', '435', 'US'],
   [
@@ -6696,7 +6696,7 @@ List<List<String>> _stations = [
     '45.59N',
     '096.00W',
     '367',
-    'US'
+    'US',
   ],
   ['MN ELY MUNI', 'KELO', 'ELO', 'null', '47.49N', '091.49W', '443', 'US'],
   ['MN EVELETH MUNI', 'KEVM', 'EVM', 'null', '47.25N', '092.30W', '421', 'US'],
@@ -6709,7 +6709,7 @@ List<List<String>> _stations = [
     '44.20N',
     '093.19W',
     '322',
-    'US'
+    'US',
   ],
   ['MN FERGUS FALLS', 'KFFM', 'FFM', '72656', '46.17N', '096.09W', '361', 'US'],
   ['MN FLAG ISLAND', 'KFGN', 'FGN', 'null', '49.19N', '094.54W', '328', 'US'],
@@ -6726,7 +6726,7 @@ List<List<String>> _stations = [
     '47.50N',
     '090.22W',
     '548',
-    'US'
+    'US',
   ],
   ['MN GRAND RAPIDS', 'KGPZ', 'GPZ', 'null', '47.13N', '093.31W', '413', 'US'],
   ['MN GRANITE FALLS', 'KGDB', 'GDB', 'null', '44.45N', '095.33W', '319', 'US'],
@@ -6742,7 +6742,7 @@ List<List<String>> _stations = [
     '48.34N',
     '093.24W',
     '360',
-    'US'
+    'US',
   ],
   ['MN JACKSON MUNI', 'KMJQ', 'MJQ', 'null', '43.38N', '094.58W', '441', 'US'],
   ['MN LAKE ELMO', 'K21D', '21D', 'null', '45.00N', '092.51W', '285', 'US'],
@@ -6764,7 +6764,7 @@ List<List<String>> _stations = [
     '46.37N',
     '093.19W',
     '374',
-    'US'
+    'US',
   ],
   ['MN MINNEAPOLIS', 'KMSP', 'MSP', '72658', '44.53N', '093.14W', '265', 'US'],
   [
@@ -6775,7 +6775,7 @@ List<List<String>> _stations = [
     '45.09N',
     '093.13W',
     '278',
-    'US'
+    'US',
   ],
   [
     'MN MINNEAPOLIS/RFC',
@@ -6785,7 +6785,7 @@ List<List<String>> _stations = [
     '44.51N',
     '093.34W',
     '256',
-    'US'
+    'US',
   ],
   [
     'MN MINNEAPOLS/ARTCC',
@@ -6795,7 +6795,7 @@ List<List<String>> _stations = [
     '44.38N',
     '093.11W',
     '256',
-    'US'
+    'US',
   ],
   [
     'MN MNPLS/FLYING CLD',
@@ -6805,7 +6805,7 @@ List<List<String>> _stations = [
     '44.50N',
     '093.28W',
     '280',
-    'US'
+    'US',
   ],
   ['MN MNPLS/CRYSTAL', 'KMIC', 'MIC', 'null', '45.04N', '093.21W', '265', 'US'],
   ['MN MNPLS/AIRLAKE', 'KLVN', 'LVN', 'null', '44.38N', '093.14W', '293', 'US'],
@@ -6822,7 +6822,7 @@ List<List<String>> _stations = [
     '44.44N',
     '096.16W',
     '363',
-    'US'
+    'US',
   ],
   ['MN NEW ULM MUNI', 'KULM', 'ULM', 'null', '44.19N', '094.30W', '308', 'US'],
   ['MN NODINE VOR', 'KODI', 'ODI', 'null', '43.55N', '091.28W', '427', 'US'],
@@ -6840,7 +6840,7 @@ List<List<String>> _stations = [
     '46.43N',
     '094.22W',
     '395',
-    'US'
+    'US',
   ],
   ['MN PIPESTONE', 'KPQN', 'PQN', 'null', '43.58N', '096.19W', '529', 'US'],
   ['MN PRESTON', 'KFKA', 'FKA', 'null', '43.41N', '092.10W', '389', 'US'],
@@ -6852,7 +6852,7 @@ List<List<String>> _stations = [
     '45.34N',
     '093.36W',
     '298',
-    'US'
+    'US',
   ],
   ['MN RED WING', 'KRGK', 'RGK', 'null', '44.35N', '092.29W', '239', 'US'],
   ['MN REDWOOD FALL', 'KRWF', 'RWF', 'null', '44.33N', '095.05W', '311', 'US'],
@@ -6865,7 +6865,7 @@ List<List<String>> _stations = [
     '44.01N',
     '092.29W',
     '355',
-    'US'
+    'US',
   ],
   ['MN ROSEAU MUNI', 'KROX', 'ROX', 'null', '48.51N', '095.42W', '323', 'US'],
   ['MN RUSH CITY', 'KROS', 'ROS', 'null', '45.42N', '092.57W', '281', 'US'],
@@ -6898,7 +6898,7 @@ List<List<String>> _stations = [
     '43.54N',
     '095.06W',
     '430',
-    'US'
+    'US',
   ],
   ['MN WINONA MUNI', 'KONA', 'ONA', 'null', '44.04N', '091.42W', '200', 'US'],
   [
@@ -6909,7 +6909,7 @@ List<List<String>> _stations = [
     '44.40N',
     '095.26W',
     '319',
-    'US'
+    'US',
   ],
   ['MN WORTHINGTON', 'KOTG', 'OTG', 'null', '43.38N', '095.34W', '480', 'US'],
   ['MN BIGFORK', 'K85D', '85D', 'null', '47.46N', '093.39W', '411', 'US'],
@@ -6924,7 +6924,7 @@ List<List<String>> _stations = [
     '46.43N',
     '092.03W',
     '186',
-    'US'
+    'US',
   ],
   ['MN GLENCOE', 'KY29', 'Y29', 'null', '44.45N', '095.55W', '302', 'US'],
   ['MN GRANITE FALLS', 'K1G2', '1G2', 'null', '44.45N', '095.33W', '319', 'US'],
@@ -6937,7 +6937,7 @@ List<List<String>> _stations = [
     '45.06N',
     '094.30W',
     '347',
-    'US'
+    'US',
   ],
   ['MN LONGVILLE', 'KD33', 'D33', 'null', '46.59N', '094.12W', '407', 'US'],
   ['MN LUVERNE', 'KD19', 'D19', 'null', '43.37N', '096.13W', '436', 'US'],
@@ -6950,7 +6950,7 @@ List<List<String>> _stations = [
     '44.38N',
     '093.14W',
     '293',
-    'US'
+    'US',
   ],
   [
     'MN MCGREGOR/IVERSON',
@@ -6960,7 +6960,7 @@ List<List<String>> _stations = [
     '46.37N',
     '093.19W',
     '374',
-    'US'
+    'US',
   ],
   ['MN MORA MUNI', 'K19D', '19D', 'null', '45.52N', '093.16W', '309', 'US'],
   ['MN MOOREHEAD', 'K99M', '99M', 'null', '46.50N', '096.40W', '280', 'US'],
@@ -6997,7 +6997,7 @@ List<List<String>> _stations = [
     '36.52N',
     '089.58W',
     '130',
-    'US'
+    'US',
   ],
   ['MO BOONVILLE', 'KVER', 'VER', 'null', '38.57N', '092.41W', '218', 'US'],
   ['MO BRANSON', 'KBBG', 'BBG', 'null', '36.32N', '093.12W', '397', 'US'],
@@ -7012,7 +7012,7 @@ List<List<String>> _stations = [
     '37.14N',
     '089.35W',
     '102',
-    'US'
+    'US',
   ],
   ['MO CHILLICOTHE', 'KCDJ', 'CDJ', 'null', '39.49N', '093.35W', '234', 'US'],
   ['MO CLINTON', 'KGLY', 'GLY', 'null', '38.21N', '093.41W', '251', 'US'],
@@ -7025,7 +7025,7 @@ List<List<String>> _stations = [
     '37.31N',
     '092.42W',
     '390',
-    'US'
+    'US',
   ],
   ['MO FARMINGTON', 'KFAM', 'FAM', 'null', '37.46N', '090.25W', '288', 'US'],
   [
@@ -7036,7 +7036,7 @@ List<List<String>> _stations = [
     '37.43N',
     '092.07W',
     '353',
-    'US'
+    'US',
   ],
   ['MO GRANDVIEW', 'KGVW', 'GVW', 'null', '38.50N', '094.34W', '337', 'US'],
   ['MO HANNIBAL', 'KHAE', 'HAE', 'null', '39.44N', '091.27W', '234', 'US'],
@@ -7049,7 +7049,7 @@ List<List<String>> _stations = [
     '38.36N',
     '092.09W',
     '168',
-    'US'
+    'US',
   ],
   ['MO JOPLIN', 'KJLN', 'JLN', 'null', '37.09N', '094.30W', '299', 'US'],
   ['MO LEBANON', 'KLBO', 'LBO', 'null', '37.39N', '092.39W', '403', 'US'],
@@ -7062,7 +7062,7 @@ List<List<String>> _stations = [
     '39.18N',
     '094.44W',
     '320',
-    'US'
+    'US',
   ],
   [
     'MO KANSAS CITY/DNTN',
@@ -7072,7 +7072,7 @@ List<List<String>> _stations = [
     '39.07N',
     '094.36W',
     '227',
-    'US'
+    'US',
   ],
   [
     'MO KANSAS CITY/COM',
@@ -7082,7 +7082,7 @@ List<List<String>> _stations = [
     '39.07N',
     '094.36W',
     '231',
-    'US'
+    'US',
   ],
   [
     'MO KANSAS CITY/AWC',
@@ -7092,7 +7092,7 @@ List<List<String>> _stations = [
     '39.17N',
     '094.40W',
     '231',
-    'US'
+    'US',
   ],
   [
     'MO KANSAS CITY/RFC',
@@ -7102,7 +7102,7 @@ List<List<String>> _stations = [
     '38.49N',
     '094.16W',
     '312',
-    'US'
+    'US',
   ],
   [
     'MO KANSAS CIT/ARTCC',
@@ -7112,7 +7112,7 @@ List<List<String>> _stations = [
     '38.51N',
     '094.44W',
     '231',
-    'US'
+    'US',
   ],
   ['MO KENNETT', 'KTKX', 'TKX', 'null', '36.14N', '090.02W', '80', 'US'],
   ['MO KIRKSVILLE', 'KIRK', 'IRK', 'null', '40.06N', '092.33W', '293', 'US'],
@@ -7124,7 +7124,7 @@ List<List<String>> _stations = [
     '39.34N',
     '094.10W',
     '297',
-    'US'
+    'US',
   ],
   [
     'MO LEES SUMMIT MUNI',
@@ -7134,7 +7134,7 @@ List<List<String>> _stations = [
     '38.58N',
     '094.22W',
     '306',
-    'US'
+    'US',
   ],
   ['MO MALDEN', 'KMAW', 'MAW', 'null', '36.36N', '090.00W', '90', 'US'],
   ['MO MARSHALL', 'KMHL', 'MHL', 'null', '39.06N', '093.12W', '237', 'US'],
@@ -7156,7 +7156,7 @@ List<List<String>> _stations = [
     '38.49N',
     '094.16W',
     '303',
-    'US'
+    'US',
   ],
   ['MO POPULAR BLUFF', 'KPOF', 'POF', 'null', '36.46N', '090.19W', '99', 'US'],
   ['MO SEDALIA', 'KDMO', 'DMO', 'null', '38.43N', '093.10W', '274', 'US'],
@@ -7171,7 +7171,7 @@ List<List<String>> _stations = [
     '38.42N',
     '090.41W',
     '185',
-    'US'
+    'US',
   ],
   ['MO ST. CHARLES', 'KSET', 'SET', 'null', '38.56N', '090.26W', '134', 'US'],
   ['MO ST. JOSEPH', 'KSTJ', 'STJ', '72449', '39.46N', '094.55W', '247', 'US'],
@@ -7183,7 +7183,7 @@ List<List<String>> _stations = [
     '38.39N',
     '090.39W',
     '141',
-    'US'
+    'US',
   ],
   ['MO ST. LOUIS', 'KSTL', 'STL', '72434', '38.45N', '090.22W', '171', 'US'],
   ['MO SULLIVAN', 'KUUV', 'UUV', 'null', '38.14N', '091.10W', '284', 'US'],
@@ -7197,7 +7197,7 @@ List<List<String>> _stations = [
     '38.47N',
     '093.48W',
     '244',
-    'US'
+    'US',
   ],
   ['MO WASHINGTON', 'KFYG', 'FYG', 'null', '38.35N', '091.00W', '149', 'US'],
   ['MO WEST PLAINS', 'KUNO', 'UNO', '72348', '36.53N', '091.54W', '372', 'US'],
@@ -7214,7 +7214,7 @@ List<List<String>> _stations = [
     '38.47N',
     '093.48W',
     '244',
-    'US'
+    'US',
   ],
   ['MS ABERDEEN/AMORY', 'KM40', 'M40', 'null', '33.52N', '088.29W', '69', 'US'],
   ['MS BATESVILLE', 'KPMU', 'PMU', 'null', '34.22N', '089.54W', '68', 'US'],
@@ -7233,7 +7233,7 @@ List<List<String>> _stations = [
     '31.18N',
     '089.49W',
     '81',
-    'US'
+    'US',
   ],
   ['MS COLUMBUS AFB', 'KCBM', 'CBM', 'null', '33.38N', '088.27W', '67', 'US'],
   [
@@ -7244,7 +7244,7 @@ List<List<String>> _stations = [
     '33.54N',
     '088.20W',
     '145',
-    'US'
+    'US',
   ],
   [
     'MS CONCORDIA PARISH',
@@ -7254,7 +7254,7 @@ List<List<String>> _stations = [
     '31.34N',
     '091.30W',
     '17',
-    'US'
+    'US',
   ],
   [
     'MS CORINTH/R TURNER',
@@ -7264,7 +7264,7 @@ List<List<String>> _stations = [
     '34.55N',
     '088.36W',
     '130',
-    'US'
+    'US',
   ],
   [
     'MS GOLDEN/COLUMBUS',
@@ -7274,7 +7274,7 @@ List<List<String>> _stations = [
     '33.27N',
     '088.34W',
     '80',
-    'US'
+    'US',
   ],
   ['MS GREENVILLE', 'KGLH', 'GLH', 'null', '33.30N', '090.59W', '45', 'US'],
   ['MS GREENWOOD', 'KGWO', 'GWO', 'null', '33.30N', '090.05W', '44', 'US'],
@@ -7289,7 +7289,7 @@ List<List<String>> _stations = [
     '32.20N',
     '090.13W',
     '108',
-    'US'
+    'US',
   ],
   ['MS JACKSON', 'KJAN', 'JAN', '72235', '32.19N', '090.05W', '91', 'US'],
   ['MS LAUREL', 'KLUL', 'LUL', 'null', '31.28N', '089.20W', '91', 'US'],
@@ -7303,7 +7303,7 @@ List<List<String>> _stations = [
     '32.17N',
     '089.59W',
     '186',
-    'US'
+    'US',
   ],
   ['MS MCCOMB', 'KMCB', 'MCB', 'null', '31.11N', '090.28W', '124', 'US'],
   ['MS MERIDIAN NAS', 'KNMM', 'NMM', 'null', '32.32N', '088.34W', '97', 'US'],
@@ -7315,7 +7315,7 @@ List<List<String>> _stations = [
     '32.20N',
     '088.45W',
     '89',
-    'US'
+    'US',
   ],
   ['MS NATCHEZ/HARDY', 'KHEZ', 'HEZ', 'null', '31.37N', '091.18W', '83', 'US'],
   ['MS OLIVE BRANCH', 'KOLV', 'OLV', 'null', '34.59N', '089.47W', '122', 'US'],
@@ -7327,7 +7327,7 @@ List<List<String>> _stations = [
     '34.04N',
     '088.51W',
     '125',
-    'US'
+    'US',
   ],
   ['MS OXFORD', 'KUOX', 'UOX', 'null', '34.23N', '089.32W', '137', 'US'],
   ['MS PASCAGOULA', 'KPQL', 'PQL', 'null', '30.28N', '088.32W', '6', 'US'],
@@ -7354,7 +7354,7 @@ List<List<String>> _stations = [
     '45.16N',
     '111.39W',
     '1641',
-    'US'
+    'US',
   ],
   ['MT BILLINGS', 'KBIL', 'BIL', '72677', '45.48N', '108.33W', '1091', 'US'],
   [
@@ -7365,7 +7365,7 @@ List<List<String>> _stations = [
     '45.48N',
     '108.33W',
     '1091',
-    'US'
+    'US',
   ],
   ['MT BOZEMAN', 'KBZN', 'BZN', 'null', '45.47N', '111.10W', '1361', 'US'],
   ['MT BROWNING', 'K8S0', '8S0', 'null', '48.36N', '113.07W', '1419', 'US'],
@@ -7389,7 +7389,7 @@ List<List<String>> _stations = [
     '47.28N',
     '111.23W',
     '1132',
-    'US'
+    'US',
   ],
   ['MT GREAT FALLS', 'KGTF', 'GTF', '72775', '47.28N', '111.23W', '1119', 'US'],
   [
@@ -7400,7 +7400,7 @@ List<List<String>> _stations = [
     '46.15N',
     '114.08W',
     '1110',
-    'US'
+    'US',
   ],
   ['MT HARLOWTON', 'K3HT', '3HT', 'null', '46.25N', '109.49W', '1268', 'US'],
   ['MT HAVRE', 'KHVR', 'HVR', '72777', '48.33N', '109.46W', '787', 'US'],
@@ -7420,7 +7420,7 @@ List<List<String>> _stations = [
     '47.30N',
     '111.10W',
     '1075',
-    'US'
+    'US',
   ],
   ['MT MALTA', 'KM75', 'M75', 'null', '48.22N', '107.55W', '687', 'US'],
   ['MT MILES CITY', 'KMLS', 'MLS', '74230', '46.26N', '105.53W', '801', 'US'],
@@ -7432,7 +7432,7 @@ List<List<String>> _stations = [
     '47.02N',
     '113.59W',
     '2394',
-    'US'
+    'US',
   ],
   ['MT MISSOULA', 'KMSO', 'MSO', '72773', '46.55N', '114.06W', '975', 'US'],
   ['MT PLAINS', 'KS34', 'S34', 'null', '47.28N', '114.54W', '752', 'US'],
@@ -7449,7 +7449,7 @@ List<List<String>> _stations = [
     '47.42N',
     '104.12W',
     '605',
-    'US'
+    'US',
   ],
   [
     'MT THOMPSON FALLS',
@@ -7459,7 +7459,7 @@ List<List<String>> _stations = [
     '47.36N',
     '115.22W',
     '725',
-    'US'
+    'US',
   ],
   ['MT TWIN BRIDGES', 'K7S1', '7S1', 'null', '45.32N', '112.18W', '1456', 'US'],
   [
@@ -7470,7 +7470,7 @@ List<List<String>> _stations = [
     '44.38N',
     '111.05W',
     '2031',
-    'US'
+    'US',
   ],
   ['MT WOLF POINT', 'KOLF', 'OLF', 'null', '48.06N', '105.35W', '604', 'US'],
   [
@@ -7481,7 +7481,7 @@ List<List<String>> _stations = [
     '44.40N',
     '111.07W',
     '2025',
-    'US'
+    'US',
   ],
   [
     'MT YELLOWST/BILLING',
@@ -7491,7 +7491,7 @@ List<List<String>> _stations = [
     '45.51N',
     '108.36W',
     '1097',
-    'US'
+    'US',
   ],
   ['MT BROADUS', 'K4BQ', '4BQ', '72667', '45.26N', '105.24W', '922', 'US'],
   [
@@ -7502,7 +7502,7 @@ List<List<String>> _stations = [
     '46.15N',
     '114.09W',
     '1110',
-    'US'
+    'US',
   ],
   ['MT MONIDA', 'KMQM', 'MQM', 'null', '44.34N', '112.19W', '2068', 'US'],
   [
@@ -7513,7 +7513,7 @@ List<List<String>> _stations = [
     '36.17N',
     '077.10W',
     '21',
-    'US'
+    'US',
   ],
   [
     'NC ALBEMARLE STANLY',
@@ -7523,7 +7523,7 @@ List<List<String>> _stations = [
     '35.25N',
     '080.09W',
     '186',
-    'US'
+    'US',
   ],
   ['NC ANDREWS', 'KRHP', 'RHP', 'null', '35.11N', '083.51W', '518', 'US'],
   [
@@ -7534,7 +7534,7 @@ List<List<String>> _stations = [
     '35.01N',
     '080.05W',
     '92',
-    'US'
+    'US',
   ],
   ['NC ASHEBORO MUNI', 'KHBI', 'HBI', 'null', '35.39N', '079.54W', '205', 'US'],
   ['NC ASHEVILLE', 'KAVL', 'AVL', '72315', '35.26N', '082.32W', '670', 'US'],
@@ -7548,7 +7548,7 @@ List<List<String>> _stations = [
     '36.12N',
     '081.39W',
     '911',
-    'US'
+    'US',
   ],
   ['NC BURLINGTON', 'KBUY', 'BUY', 'null', '36.03N', '079.28W', '180', 'US'],
   ['NC CAPE HATTERAS', 'KHAT', 'HAT', '72302', '35.16N', '075.32W', '3', 'US'],
@@ -7564,7 +7564,7 @@ List<List<String>> _stations = [
     '35.40N',
     '078.29W',
     '106',
-    'US'
+    'US',
   ],
   ['NC CLINTON', 'KCTZ', 'CTZ', 'null', '34.59N', '078.22W', '45', 'US'],
   [
@@ -7575,7 +7575,7 @@ List<List<String>> _stations = [
     '35.23N',
     '080.43W',
     '210',
-    'US'
+    'US',
   ],
   ['NC CURRITUCK', 'KONX', 'ONX', 'null', '36.24N', '076.01W', '5', 'US'],
   [
@@ -7586,7 +7586,7 @@ List<List<String>> _stations = [
     '35.47N',
     '080.18W',
     '223',
-    'US'
+    'US',
   ],
   ['NC EDENTON', 'KEDE', 'EDE', 'null', '36.01N', '076.34W', '6', 'US'],
   ['NC ELIZABETH CITY', 'KECG', 'ECG', 'null', '36.16N', '076.11W', '11', 'US'],
@@ -7600,7 +7600,7 @@ List<List<String>> _stations = [
     '35.23N',
     '078.44W',
     '60',
-    'US'
+    'US',
   ],
   ['NC FAYETTEVILLE', 'KFAY', 'FAY', 'null', '34.59N', '078.53W', '55', 'US'],
   [
@@ -7611,7 +7611,7 @@ List<List<String>> _stations = [
     '35.07N',
     '078.55W',
     '74',
-    'US'
+    'US',
   ],
   ['NC GASTONIA', 'KAKH', 'AKH', 'null', '35.12N', '081.09W', '243', 'US'],
   [
@@ -7622,7 +7622,7 @@ List<List<String>> _stations = [
     '35.19N',
     '077.58W',
     '33',
-    'US'
+    'US',
   ],
   [
     'NC GOLDSBORO/WAYNE',
@@ -7632,7 +7632,7 @@ List<List<String>> _stations = [
     '35.28N',
     '077.58W',
     '41',
-    'US'
+    'US',
   ],
   ['NC GREENSBORO', 'KGSO', 'GSO', '72317', '36.06N', '079.57W', '275', 'US'],
   [
@@ -7643,7 +7643,7 @@ List<List<String>> _stations = [
     '35.14N',
     '075.37W',
     '3',
-    'US'
+    'US',
   ],
   [
     'NC HENDERSON/OXFORD',
@@ -7653,7 +7653,7 @@ List<List<String>> _stations = [
     '36.22N',
     '078.32W',
     '161',
-    'US'
+    'US',
   ],
   ['NC HICKORY', 'KHKY', 'HKY', 'null', '35.45N', '081.23W', '354', 'US'],
   [
@@ -7664,7 +7664,7 @@ List<List<String>> _stations = [
     '35.01N',
     '079.30W',
     '115',
-    'US'
+    'US',
   ],
   ['NC JACKSONVILLE', 'KOAJ', 'OAJ', 'null', '34.49N', '077.37W', '29', 'US'],
   ['NC JEFFERSON', 'KGEV', 'GEV', 'null', '36.26N', '081.25W', '969', 'US'],
@@ -7676,7 +7676,7 @@ List<List<String>> _stations = [
     '35.00N',
     '077.58W',
     '42',
-    'US'
+    'US',
   ],
   [
     'NC KILL DEVIL HILLS',
@@ -7686,7 +7686,7 @@ List<List<String>> _stations = [
     '36.01N',
     '075.40W',
     '4',
-    'US'
+    'US',
   ],
   [
     'NC KINSTON/STALLING',
@@ -7696,7 +7696,7 @@ List<List<String>> _stations = [
     '35.19N',
     '077.37W',
     '29',
-    'US'
+    'US',
   ],
   ['NC LINCOLNTON', 'KIPJ', 'IPJ', 'null', '35.29N', '081.10W', '267', 'US'],
   [
@@ -7707,7 +7707,7 @@ List<List<String>> _stations = [
     '36.01N',
     '078.20W',
     '113',
-    'US'
+    'US',
   ],
   ['NC LUMBERTON', 'KLBT', 'LBT', 'null', '34.36N', '079.04W', '37', 'US'],
   [
@@ -7718,7 +7718,7 @@ List<List<String>> _stations = [
     '35.13N',
     '083.25W',
     '616',
-    'US'
+    'US',
   ],
   ['NC MANTEO/DARE CO', 'KMQI', 'MQI', 'null', '35.55N', '075.42W', '4', 'US'],
   ['NC MAXTON', 'KMEB', 'MEB', 'null', '34.47N', '079.22W', '67', 'US'],
@@ -7731,7 +7731,7 @@ List<List<String>> _stations = [
     '34.46N',
     '076.52W',
     '9',
-    'US'
+    'US',
   ],
   [
     'NC MORGANTON/LENOIR',
@@ -7741,7 +7741,7 @@ List<List<String>> _stations = [
     '35.49N',
     '081.37W',
     '387',
-    'US'
+    'US',
   ],
   [
     'NC MOUNT AIRY/SURRY',
@@ -7751,7 +7751,7 @@ List<List<String>> _stations = [
     '36.28N',
     '080.33W',
     '380',
-    'US'
+    'US',
   ],
   ['NC NEW BERN', 'KEWN', 'EWN', 'null', '35.04N', '077.03W', '3', 'US'],
   ['NC NEW RIVER MCAS', 'KNCA', 'NCA', 'null', '34.43N', '077.27W', '8', 'US'],
@@ -7766,7 +7766,7 @@ List<List<String>> _stations = [
     '35.54N',
     '078.47W',
     '130',
-    'US'
+    'US',
   ],
   ['NC RALEIGH/WFO', 'KRAH', 'RAH', 'null', '35.52N', '078.47W', '133', 'US'],
   ['NC REIDSVILLE', 'KSIF', 'SIF', 'null', '36.26N', '079.51W', '211', 'US'],
@@ -7779,7 +7779,7 @@ List<List<String>> _stations = [
     '36.20N',
     '077.38W',
     '44',
-    'US'
+    'US',
   ],
   ['NC ROCKINGHAM', 'KRCZ', 'RCZ', 'null', '34.53N', '079.46W', '109', 'US'],
   ['NC ROCKY MOUNT', 'KRWI', 'RWI', 'null', '35.51N', '077.54W', '47', 'US'],
@@ -7791,7 +7791,7 @@ List<List<String>> _stations = [
     '36.17N',
     '078.59W',
     '186',
-    'US'
+    'US',
   ],
   ['NC RUTHERFORDTON', 'KFQD', 'FQD', 'null', '35.25N', '081.56W', '329', 'US'],
   [
@@ -7802,7 +7802,7 @@ List<List<String>> _stations = [
     '35.39N',
     '080.31W',
     '236',
-    'US'
+    'US',
   ],
   ['NC SANFORD', 'KTTA', 'TTA', 'null', '35.35N', '079.06W', '75', 'US'],
   [
@@ -7813,7 +7813,7 @@ List<List<String>> _stations = [
     '33.59N',
     '078.26W',
     '20',
-    'US'
+    'US',
   ],
   ['NC SHELBY MUNI', 'KEHO', 'EHO', 'null', '35.15N', '081.36W', '258', 'US'],
   ['NC SILER CITY', 'KSCR', 'SCR', 'null', '35.42N', '079.30W', '188', 'US'],
@@ -7825,7 +7825,7 @@ List<List<String>> _stations = [
     '35.13N',
     '079.24W',
     '141',
-    'US'
+    'US',
   ],
   [
     'NC SMITHFIELD JOHNS',
@@ -7835,7 +7835,7 @@ List<List<String>> _stations = [
     '35.32N',
     '078.23W',
     '50',
-    'US'
+    'US',
   ],
   ['NC STATESVILLE', 'KSVH', 'SVH', 'null', '35.45N', '080.57W', '294', 'US'],
   ['NC STUMPY POINT', 'K2DP', '2DP', '74695', '35.41N', '075.54W', '3', 'US'],
@@ -7854,7 +7854,7 @@ List<List<String>> _stations = [
     '36.08N',
     '080.13W',
     '291',
-    'US'
+    'US',
   ],
   ['NC ANDREWS', 'K6A3', '6A3', 'null', '35.11N', '083.51W', '518', 'US'],
   ['NC ASHEBORO', 'KW44', 'W44', 'null', '35.39N', '080.06W', '205', 'US'],
@@ -7866,7 +7866,7 @@ List<List<String>> _stations = [
     '34.40N',
     '077.02W',
     '7',
-    'US'
+    'US',
   ],
   ['NC CAPE LOOKOUT', 'null', 'null', '99416', '34.36N', '076.28W', '5', 'US'],
   ['NC CURRITUCK', 'K9W7', '9W7', 'null', '36.24N', '076.01W', '5', 'US'],
@@ -7879,7 +7879,7 @@ List<List<String>> _stations = [
     '35.09N',
     '075.42W',
     '1',
-    'US'
+    'US',
   ],
   [
     'NC ERWIN/HARNETT CO',
@@ -7889,7 +7889,7 @@ List<List<String>> _stations = [
     '35.22N',
     '078.43W',
     '60',
-    'US'
+    'US',
   ],
   [
     'NC FRYING PAN SHOA',
@@ -7899,7 +7899,7 @@ List<List<String>> _stations = [
     '33.28N',
     '077.25W',
     '1',
-    'US'
+    'US',
   ],
   ['NC HOT SPRINGS', 'KHSS', 'HSS', 'null', '35.54N', '082.49W', '451', 'US'],
   ['NC REIDSVILLE', 'K78N', '78N', 'null', '36.26N', '079.51W', '211', 'US'],
@@ -7926,7 +7926,7 @@ List<List<String>> _stations = [
     '46.54N',
     '096.48W',
     '274',
-    'US'
+    'US',
   ],
   ['ND GARRISON', 'KN60', 'N60', 'null', '47.39N', '101.26W', '582', 'US'],
   ['ND GLEN ULLIN', 'KD57', 'D57', 'null', '46.49N', '101.52W', '637', 'US'],
@@ -7939,7 +7939,7 @@ List<List<String>> _stations = [
     '47.58N',
     '097.24W',
     '278',
-    'US'
+    'US',
   ],
   ['ND GRAND FORKS', 'KGFK', 'GFK', 'null', '47.57N', '097.11W', '258', 'US'],
   ['ND GWINNER', 'KGWR', 'GWR', 'null', '46.13N', '097.39W', '386', 'US'],
@@ -7955,7 +7955,7 @@ List<List<String>> _stations = [
     '48.45N',
     '098.24W',
     '491',
-    'US'
+    'US',
   ],
   [
     'ND LIDGERWOOD (RAMO',
@@ -7965,7 +7965,7 @@ List<List<String>> _stations = [
     '46.06N',
     '097.09W',
     '351',
-    'US'
+    'US',
   ],
   ['ND LINTON', 'K7L2', '7L2', 'null', '46.13N', '100.15W', '543', 'US'],
   ['ND MANDAN', 'KY19', 'Y19', 'null', '46.46N', '100.54W', '593', 'US'],
@@ -7977,7 +7977,7 @@ List<List<String>> _stations = [
     '47.32N',
     '097.20W',
     '301',
-    'US'
+    'US',
   ],
   [
     'ND MCHENRY CY/MINOT',
@@ -7987,7 +7987,7 @@ List<List<String>> _stations = [
     '48.24N',
     '100.52W',
     '455',
-    'US'
+    'US',
   ],
   ['ND MINOT AFB', 'KMIB', 'MIB', 'null', '48.25N', '101.20W', '508', 'US'],
   ['ND MINOT', 'KMOT', 'MOT', 'null', '48.15N', '101.16W', '519', 'US'],
@@ -8010,7 +8010,7 @@ List<List<String>> _stations = [
     '42.34N',
     '100.00W',
     '789',
-    'US'
+    'US',
   ],
   ['NE ALBION MUNI', 'KBVN', 'BVN', 'null', '41.44N', '098.03W', '551', 'US'],
   ['NE ALLIANCE', 'KAIA', 'AIA', 'null', '42.03N', '102.48W', '1196', 'US'],
@@ -8023,7 +8023,7 @@ List<List<String>> _stations = [
     '40.17N',
     '096.45W',
     '403',
-    'US'
+    'US',
   ],
   ['NE BLAIR MUNI', 'KBTA', 'BTA', 'null', '41.25N', '096.07W', '396', 'US'],
   [
@@ -8034,7 +8034,7 @@ List<List<String>> _stations = [
     '41.26N',
     '099.38W',
     '776',
-    'US'
+    'US',
   ],
   ['NE CHADRON', 'KCDR', 'CDR', 'null', '42.50N', '103.06W', '1010', 'US'],
   ['NE COLUMBUS MUNI', 'KOLU', 'OLU', 'null', '41.27N', '097.19W', '440', 'US'],
@@ -8046,7 +8046,7 @@ List<List<String>> _stations = [
     '40.04N',
     '097.19W',
     '433',
-    'US'
+    'US',
   ],
   [
     'NE FALLS CITY/BRENN',
@@ -8056,7 +8056,7 @@ List<List<String>> _stations = [
     '40.04N',
     '095.35W',
     '300',
-    'US'
+    'US',
   ],
   [
     'NE FREMONT MUNI ARP',
@@ -8066,7 +8066,7 @@ List<List<String>> _stations = [
     '41.27N',
     '096.31W',
     '367',
-    'US'
+    'US',
   ],
   ['NE GORDON', 'KGRN', 'GRN', 'null', '42.48N', '102.11W', '1086', 'US'],
   ['NE GRAND ISLAND', 'KGRI', 'GRI', '72552', '40.58N', '098.19W', '561', 'US'],
@@ -8078,7 +8078,7 @@ List<List<String>> _stations = [
     '40.58N',
     '098.19W',
     '563',
-    'US'
+    'US',
   ],
   ['NE HASTINGS', 'KHSI', 'HSI', 'null', '40.36N', '098.26W', '591', 'US'],
   ['NE HEBRON MUNI', 'KHJH', 'HJH', 'null', '40.09N', '097.35W', '447', 'US'],
@@ -8090,7 +8090,7 @@ List<List<String>> _stations = [
     '40.27N',
     '099.19W',
     '705',
-    'US'
+    'US',
   ],
   [
     'NE IMPERIAL MUNICIP',
@@ -8100,7 +8100,7 @@ List<List<String>> _stations = [
     '40.31N',
     '101.37W',
     '998',
-    'US'
+    'US',
   ],
   ['NE KEARNEY MUNI', 'KEAR', 'EAR', 'null', '40.43N', '099.00W', '649', 'US'],
   ['NE KIMBALL MUNI', 'KIBM', 'IBM', 'null', '41.11N', '103.41W', '1501', 'US'],
@@ -8115,7 +8115,7 @@ List<List<String>> _stations = [
     '40.04N',
     '100.39W',
     '800',
-    'US'
+    'US',
   ],
   [
     'NE MERRIMAN PROFILE',
@@ -8125,7 +8125,7 @@ List<List<String>> _stations = [
     '42.53N',
     '101.41W',
     '991',
-    'US'
+    'US',
   ],
   ['NE NEBRASKA CITY', 'KAFK', 'AFK', 'null', '40.36N', '095.51W', '354', 'US'],
   [
@@ -8136,7 +8136,7 @@ List<List<String>> _stations = [
     '42.12N',
     '097.47W',
     '524',
-    'US'
+    'US',
   ],
   ['NE NORFOLK', 'KOFK', 'OFK', '72556', '41.59N', '097.26W', '470', 'US'],
   ['NE NORTH OMAHA', 'KOVN', 'OVN', '72553', '41.22N', '096.01W', '406', 'US'],
@@ -8151,7 +8151,7 @@ List<List<String>> _stations = [
     '41.07N',
     '095.55W',
     '319',
-    'US'
+    'US',
   ],
   ['NE OGALLALA', 'KOGA', 'OGA', 'null', '41.07N', '101.46W', '999', 'US'],
   ['NE OMAHA/EPPLEY', 'KOMA', 'OMA', '72550', '41.19N', '095.54W', '312', 'US'],
@@ -8163,7 +8163,7 @@ List<List<String>> _stations = [
     '41.19N',
     '096.22W',
     '350',
-    'US'
+    'US',
   ],
   ['NE OMAHA VOR', 'KOVR', 'OVR', 'null', '41.10N', '095.44W', '312', 'US'],
   ['NE OMAHA/MILLARD', 'KMLE', 'MLE', 'null', '41.12N', '096.07W', '320', 'US'],
@@ -8175,7 +8175,7 @@ List<List<String>> _stations = [
     '41.37N',
     '098.57W',
     '631',
-    'US'
+    'US',
   ],
   ['NE PAWNEE CITY', 'KPWE', 'PWE', 'null', '40.12N', '096.12W', '415', 'US'],
   [
@@ -8186,7 +8186,7 @@ List<List<String>> _stations = [
     '40.57N',
     '095.55W',
     '367',
-    'US'
+    'US',
   ],
   ['NE SCOTTSBLUFF', 'KBFF', 'BFF', '72566', '41.52N', '103.35W', '1203', 'US'],
   ['NE SIDNEY', 'KSNY', 'SNY', '72561', '41.06N', '102.59W', '1307', 'US'],
@@ -8199,7 +8199,7 @@ List<List<String>> _stations = [
     '41.57N',
     '100.35W',
     '905',
-    'US'
+    'US',
   ],
   [
     'NE THEDFORD/THOMAS',
@@ -8209,7 +8209,7 @@ List<List<String>> _stations = [
     '41.58N',
     '100.34W',
     '892',
-    'US'
+    'US',
   ],
   ['NE VALENTINE', 'KVTN', 'VTN', '72567', '42.52N', '100.33W', '788', 'US'],
   ['NE WAHOO', 'KAHQ', 'AHQ', 'null', '41.14N', '096.36W', '374', 'US'],
@@ -8222,7 +8222,7 @@ List<List<String>> _stations = [
     '40.19N',
     '098.27W',
     '602',
-    'US'
+    'US',
   ],
   ['NE WOLBACH (VOR)', 'KOBH', 'OBH', 'null', '41.23N', '098.21W', '670', 'US'],
   ['NE YORK', 'KJYR', 'JYR', 'null', '40.54N', '097.37W', '509', 'US'],
@@ -8234,7 +8234,7 @@ List<List<String>> _stations = [
     '40.03N',
     '101.32W',
     '953',
-    'US'
+    'US',
   ],
   ['NE BLAIR MUNI', 'KK46', 'K46', 'null', '41.25N', '096.07W', '396', 'US'],
   ['NE BURWELL', 'KBUB', 'BUB', '72555', '41.47N', '099.09W', '664', 'US'],
@@ -8257,7 +8257,7 @@ List<List<String>> _stations = [
     '44.16N',
     '071.18W',
     '1910',
-    'US'
+    'US',
   ],
   [
     'NH NASHUA/BOIRE FLD',
@@ -8267,7 +8267,7 @@ List<List<String>> _stations = [
     '42.47N',
     '071.31W',
     '61',
-    'US'
+    'US',
   ],
   [
     'NH NASHUA/ARTCC-BOS',
@@ -8277,7 +8277,7 @@ List<List<String>> _stations = [
     '42.44N',
     '071.29W',
     '61',
-    'US'
+    'US',
   ],
   ['NH PLYMOUTH', 'K1P1', '1P1', 'null', '43.47N', '071.45W', '154', 'US'],
   [
@@ -8288,7 +8288,7 @@ List<List<String>> _stations = [
     '43.04N',
     '070.49W',
     '31',
-    'US'
+    'US',
   ],
   ['NH ROCHESTER', 'KDAW', 'DAW', 'null', '43.17N', '070.55W', '100', 'US'],
   ['NH WHITEFIELD', 'KHIE', 'HIE', 'null', '44.22N', '071.33W', '318', 'US'],
@@ -8301,7 +8301,7 @@ List<List<String>> _stations = [
     '42.58N',
     '070.22W',
     '13',
-    'US'
+    'US',
   ],
   ['NH NORTH GROTON', 'KNGR', 'NGR', 'null', '43.46N', '071.52W', '390', 'US'],
   ['NH ROCHESTER', 'K6B1', '6B1', 'null', '43.17N', '070.55W', '100', 'US'],
@@ -8317,7 +8317,7 @@ List<List<String>> _stations = [
     '40.10N',
     '074.07W',
     '48',
-    'US'
+    'US',
   ],
   ['NJ BLAIRSTOWN', 'K1N7', '1N7', 'null', '40.58N', '075.00W', '113', 'US'],
   ['NJ CALDWELL', 'KCDW', 'CDW', 'null', '40.53N', '074.17W', '64', 'US'],
@@ -8340,7 +8340,7 @@ List<List<String>> _stations = [
     '40.47N',
     '074.25W',
     '57',
-    'US'
+    'US',
   ],
   ['NJ MOUNT HOLLY', 'KVAY', 'VAY', 'null', '39.56N', '074.50W', '15', 'US'],
   [
@@ -8351,7 +8351,7 @@ List<List<String>> _stations = [
     '40.01N',
     '074.49W',
     '4',
-    'US'
+    'US',
   ],
   ['NJ NEWARK', 'KEWR', 'EWR', '72502', '40.41N', '074.10W', '7', 'US'],
   ['NJ OCEAN CITY', 'K26N', '26N', 'null', '39.16N', '074.36W', '2', 'US'],
@@ -8377,7 +8377,7 @@ List<List<String>> _stations = [
     '40.01N',
     '074.35W',
     '41',
-    'US'
+    'US',
   ],
   ['NJ NEW BRUNSWICK', 'KNBK', 'NBK', 'null', '40.29N', '074.26W', '5', 'US'],
   ['NJ SANDY HOOK CGS', 'K56N', '56N', 'null', '40.28N', '074.01W', '5', 'US'],
@@ -8393,7 +8393,7 @@ List<List<String>> _stations = [
     '32.49N',
     '105.58W',
     '1279',
-    'US'
+    'US',
   ],
   ['NM ALBUQUERQUE', 'KABQ', 'ABQ', '72365', '35.03N', '106.37W', '1618', 'US'],
   [
@@ -8404,7 +8404,7 @@ List<List<String>> _stations = [
     '35.09N',
     '106.49W',
     '1789',
-    'US'
+    'US',
   ],
   [
     'NM KIRTLAND AFB-ABQ',
@@ -8414,7 +8414,7 @@ List<List<String>> _stations = [
     '35.03N',
     '106.36W',
     '1613',
-    'US'
+    'US',
   ],
   [
     'NM ALBUQUERQU/ARTCC',
@@ -8424,7 +8424,7 @@ List<List<String>> _stations = [
     '35.10N',
     '106.34W',
     '1621',
-    'US'
+    'US',
   ],
   ['NM ANGEL FIRE', 'KAXX', 'AXX', 'null', '36.25N', '105.17W', '2548', 'US'],
   ['NM ARTESIA', 'KATS', 'ATS', 'null', '32.51N', '104.28W', '1081', 'US'],
@@ -8436,7 +8436,7 @@ List<List<String>> _stations = [
     '36.49N',
     '107.54W',
     '1902',
-    'US'
+    'US',
   ],
   ['NM BELEN', 'KE80', 'E80', 'null', '34.39N', '106.50W', '1582', 'US'],
   [
@@ -8447,7 +8447,7 @@ List<List<String>> _stations = [
     '34.22N',
     '103.19W',
     '1309',
-    'US'
+    'US',
   ],
   [
     'NM CANNON AFB/88D',
@@ -8457,7 +8457,7 @@ List<List<String>> _stations = [
     '34.38N',
     '103.37W',
     '1417',
-    'US'
+    'US',
   ],
   ['NM CARLSBAD', 'KCNM', 'CNM', 'null', '32.20N', '104.15W', '985', 'US'],
   ['NM CHAMA (AWRS)', 'KE33', 'E33', 'null', '36.53N', '106.34W', '2393', 'US'],
@@ -8469,7 +8469,7 @@ List<List<String>> _stations = [
     '33.20N',
     '104.37W',
     '1150',
-    'US'
+    'US',
   ],
   [
     'NM CIMARRON (VOR)',
@@ -8479,7 +8479,7 @@ List<List<String>> _stations = [
     '36.29N',
     '104.52W',
     '2183',
-    'US'
+    'US',
   ],
   ['NM CLAYTON', 'KCAO', 'CAO', '72360', '36.27N', '103.09W', '1514', 'US'],
   [
@@ -8490,7 +8490,7 @@ List<List<String>> _stations = [
     '35.00N',
     '105.40W',
     '2160',
-    'US'
+    'US',
   ],
   ['NM CLOVIS MUNI', 'KCVN', 'CVN', 'null', '34.25N', '103.04W', '1284', 'US'],
   [
@@ -8501,7 +8501,7 @@ List<List<String>> _stations = [
     '34.06N',
     '105.40W',
     '1981',
-    'US'
+    'US',
   ],
   ['NM DEMING', 'KDMN', 'DMN', 'null', '32.16N', '107.43W', '1311', 'US'],
   [
@@ -8512,7 +8512,7 @@ List<List<String>> _stations = [
     '35.08N',
     '106.48W',
     '1779',
-    'US'
+    'US',
   ],
   ['NM FARMINGTON', 'KFMN', 'FMN', 'null', '36.45N', '108.14W', '1685', 'US'],
   [
@@ -8523,7 +8523,7 @@ List<List<String>> _stations = [
     '36.45N',
     '108.06W',
     '1775',
-    'US'
+    'US',
   ],
   ['NM GRANTS', 'KGNT', 'GNT', 'null', '35.10N', '107.54W', '1987', 'US'],
   [
@@ -8534,7 +8534,7 @@ List<List<String>> _stations = [
     '32.40N',
     '103.13W',
     '1115',
-    'US'
+    'US',
   ],
   [
     'NM HOLLOMAN AFB',
@@ -8544,7 +8544,7 @@ List<List<String>> _stations = [
     '32.51N',
     '106.05W',
     '1248',
-    'US'
+    'US',
   ],
   [
     'NM LAS CRUCES INTL',
@@ -8554,7 +8554,7 @@ List<List<String>> _stations = [
     '32.16N',
     '106.55W',
     '1358',
-    'US'
+    'US',
   ],
   ['NM LAS VEGAS', 'KLVS', 'LVS', 'null', '35.39N', '105.08W', '2091', 'US'],
   ['NM LORDSBURG', 'KLSB', 'LSB', 'null', '32.20N', '108.42W', '1307', 'US'],
@@ -8566,7 +8566,7 @@ List<List<String>> _stations = [
     '35.39N',
     '105.08W',
     '2094',
-    'US'
+    'US',
   ],
   ['NM LOS ALAMOS', 'KLAM', 'LAM', 'null', '35.52N', '106.16W', '2179', 'US'],
   [
@@ -8577,7 +8577,7 @@ List<List<String>> _stations = [
     '32.03N',
     '106.09W',
     '1283',
-    'US'
+    'US',
   ],
   [
     'NM MELROSE G RANGE',
@@ -8587,7 +8587,7 @@ List<List<String>> _stations = [
     '34.18N',
     '103.48W',
     '1326',
-    'US'
+    'US',
   ],
   ['NM MORIARTY', 'K4MY', '4MY', 'null', '34.59N', '106.00W', '1890', 'US'],
   ['NM MORIARTY', 'K0E0', '0E0', 'null', '34.59N', '106.00W', '1890', 'US'],
@@ -8601,7 +8601,7 @@ List<List<String>> _stations = [
     '33.28N',
     '105.31W',
     '2076',
-    'US'
+    'US',
   ],
   ['NM SANTA FE', 'KSAF', 'SAF', 'null', '35.37N', '106.06W', '1930', 'US'],
   [
@@ -8612,7 +8612,7 @@ List<List<String>> _stations = [
     '34.56N',
     '104.39W',
     '1460',
-    'US'
+    'US',
   ],
   [
     'NM SANTA TERESA/88D',
@@ -8622,7 +8622,7 @@ List<List<String>> _stations = [
     '31.52N',
     '106.42W',
     '1251',
-    'US'
+    'US',
   ],
   ['NM SANTA TERESA', 'KDNA', 'DNA', 'null', '31.53N', '106.42W', '1254', 'US'],
   ['NM SILVER CITY', 'KSVC', 'SVC', '72272', '32.38N', '108.09W', '1659', 'US'],
@@ -8635,7 +8635,7 @@ List<List<String>> _stations = [
     '36.27N',
     '105.40W',
     '2161',
-    'US'
+    'US',
   ],
   ['NM TORREON/CUBA', 'K4SL', '4SL', 'null', '35.47N', '107.10W', '2106', 'US'],
   [
@@ -8646,7 +8646,7 @@ List<List<String>> _stations = [
     '33.14N',
     '107.16W',
     '1469',
-    'US'
+    'US',
   ],
   [
     'NM TUCUMCARI PROFIL',
@@ -8656,7 +8656,7 @@ List<List<String>> _stations = [
     '35.04N',
     '103.35W',
     '1241',
-    'US'
+    'US',
   ],
   ['NM TUCUMCARI', 'KTCC', 'TCC', 'null', '35.11N', '103.36W', '1235', 'US'],
   [
@@ -8667,7 +8667,7 @@ List<List<String>> _stations = [
     '33.05N',
     '106.07W',
     '1287',
-    'US'
+    'US',
   ],
   [
     'NM WHITE SANDS PROF',
@@ -8677,7 +8677,7 @@ List<List<String>> _stations = [
     '32.23N',
     '106.20W',
     '1224',
-    'US'
+    'US',
   ],
   [
     'NM WHITE SANDS TEST',
@@ -8687,7 +8687,7 @@ List<List<String>> _stations = [
     '32.22N',
     '106.28W',
     '1244',
-    'US'
+    'US',
   ],
   [
     'NM CLINES CORNERS',
@@ -8697,7 +8697,7 @@ List<List<String>> _stations = [
     '34.55N',
     '105.34W',
     '2109',
-    'US'
+    'US',
   ],
   ['NM WHITE SANDS', 'KE28', 'E28', '74733', '32.56N', '106.25W', '1192', 'US'],
   ['NM TAOS(AWRS)', 'KE23', 'E23', 'null', '36.25N', '105.34W', '2123', 'US'],
@@ -8711,7 +8711,7 @@ List<List<String>> _stations = [
     '32.03N',
     '106.09W',
     '1283',
-    'US'
+    'US',
   ],
   [
     'NM TATUM NM 2SW',
@@ -8721,7 +8721,7 @@ List<List<String>> _stations = [
     '33.14N',
     '103.21W',
     '1225',
-    'US'
+    'US',
   ],
   ['NM DORA 2SW', 'XDR1', 'null', 'null', '33.55N', '103.21W', '1317', 'US'],
   ['NM HOBBS 5NW', 'XHO1', 'null', 'null', '32.46N', '103.11W', '1125', 'US'],
@@ -8735,7 +8735,7 @@ List<List<String>> _stations = [
     '40.36N',
     '116.52W',
     '1381',
-    'US'
+    'US',
   ],
   [
     'NV BATTLE MTN (VOR)',
@@ -8745,7 +8745,7 @@ List<List<String>> _stations = [
     '40.34N',
     '116.55W',
     '1381',
-    'US'
+    'US',
   ],
   ['NV BEATTY', 'KBTY', 'BTY', 'null', '36.48N', '116.44W', '892', 'US'],
   ['NV BOULDER CITY', 'KBVU', 'BVU', 'null', '35.57N', '114.52W', '671', 'US'],
@@ -8758,7 +8758,7 @@ List<List<String>> _stations = [
     '38.00N',
     '117.46W',
     '1600',
-    'US'
+    'US',
   ],
   [
     'NV DESERT R/MERCURY',
@@ -8768,7 +8768,7 @@ List<List<String>> _stations = [
     '36.37N',
     '116.02W',
     '1006',
-    'US'
+    'US',
   ],
   ['NV ELKO', 'KEKO', 'EKO', 'null', '40.49N', '115.47W', '1547', 'US'],
   ['NV ELKO/WFO', 'KLKN', 'LKN', '72582', '40.52N', '115.43W', '1608', 'US'],
@@ -8780,7 +8780,7 @@ List<List<String>> _stations = [
     '40.44N',
     '116.48W',
     '2056',
-    'US'
+    'US',
   ],
   ['NV ELY', 'KELY', 'ELY', '72486', '39.18N', '114.51W', '1906', 'US'],
   ['NV EUREKA', 'K05U', '05U', 'null', '39.36N', '116.00W', '1816', 'US'],
@@ -8795,7 +8795,7 @@ List<List<String>> _stations = [
     '36.35N',
     '115.40W',
     '955',
-    'US'
+    'US',
   ],
   [
     'NV IND SPRNG RANGE',
@@ -8805,7 +8805,7 @@ List<List<String>> _stations = [
     '36.31N',
     '115.34W',
     '972',
-    'US'
+    'US',
   ],
   ['NV LAS VEGAS', 'KLAS', 'LAS', '72386', '36.04N', '115.10W', '636', 'US'],
   [
@@ -8816,7 +8816,7 @@ List<List<String>> _stations = [
     '36.13N',
     '115.01W',
     '570',
-    'US'
+    'US',
   ],
   [
     'NV LAS VEGAS/NELSON',
@@ -8826,7 +8826,7 @@ List<List<String>> _stations = [
     '35.42N',
     '114.53W',
     '1483',
-    'US'
+    'US',
   ],
   [
     'NV VEGAS/HENDERSON',
@@ -8836,7 +8836,7 @@ List<List<String>> _stations = [
     '35.59N',
     '115.08W',
     '749',
-    'US'
+    'US',
   ],
   [
     'NV LAS VEGAS/WFO',
@@ -8846,7 +8846,7 @@ List<List<String>> _stations = [
     '36.03N',
     '115.11W',
     '694',
-    'US'
+    'US',
   ],
   ['NV LOVELOCK', 'KLOL', 'LOL', '72580', '40.04N', '118.34W', '1189', 'US'],
   ['NV MINDEN', 'KMEV', 'MEV', 'null', '39.00N', '119.45W', '1442', 'US'],
@@ -8858,7 +8858,7 @@ List<List<String>> _stations = [
     '36.13N',
     '115.12W',
     '671',
-    'US'
+    'US',
   ],
   ['NV RENO', 'KRNO', 'RNO', '72488', '39.30N', '119.46W', '1342', 'US'],
   ['NV RENO/WFO', 'KREV', 'REV', '72489', '39.34N', '119.48W', '1516', 'US'],
@@ -8871,7 +8871,7 @@ List<List<String>> _stations = [
     '39.45N',
     '119.28W',
     '2530',
-    'US'
+    'US',
   ],
   ['NV RENO(VOR)', 'KFMG', 'FMG', 'null', '39.32N', '119.39W', '1342', 'US'],
   ['NV TONOPAH', 'KTPH', 'TPH', '72485', '38.03N', '117.05W', '1652', 'US'],
@@ -8883,7 +8883,7 @@ List<List<String>> _stations = [
     '37.37N',
     '116.16W',
     '1756',
-    'US'
+    'US',
   ],
   ['NV WELLS', 'K9BB', '9BB', 'null', '41.06N', '114.58W', '1723', 'US'],
   [
@@ -8894,7 +8894,7 @@ List<List<String>> _stations = [
     '41.40N',
     '115.46W',
     '1902',
-    'US'
+    'US',
   ],
   ['NV WILSON CREEK', 'KILC', 'ILC', 'null', '38.15N', '114.23W', '2840', 'US'],
   ['NV WINNEMUCCA', 'KWMC', 'WMC', '72583', '40.54N', '117.48W', '1310', 'US'],
@@ -8909,7 +8909,7 @@ List<List<String>> _stations = [
     '36.32N',
     '115.34W',
     '1153',
-    'US'
+    'US',
   ],
   ['NV JACKPOT', 'K06U', '06U', 'null', '41.59N', '114.39W', '1589', 'US'],
   ['NV OWYHEE', 'KOWY', 'OWY', '72587', '41.57N', '116.06W', '1645', 'US'],
@@ -8921,7 +8921,7 @@ List<List<String>> _stations = [
     '37.47N',
     '116.46W',
     '1691',
-    'US'
+    'US',
   ],
   ['NY ALBANY', 'KALB', 'ALB', '72518', '42.45N', '073.48W', '92', 'US'],
   [
@@ -8932,7 +8932,7 @@ List<List<String>> _stations = [
     '42.35N',
     '074.04W',
     '557',
-    'US'
+    'US',
   ],
   ['NY ALBANY/WFO', 'KALY', 'ALY', 'null', '42.45N', '073.48W', '88', 'US'],
   ['NY BINGHAMTON', 'KBGM', 'BGM', '72515', '42.13N', '075.59W', '490', 'US'],
@@ -8944,7 +8944,7 @@ List<List<String>> _stations = [
     '40.52N',
     '072.52W',
     '26',
-    'US'
+    'US',
   ],
   [
     'NY BROOKHAVEN/KBNL',
@@ -8954,7 +8954,7 @@ List<List<String>> _stations = [
     '40.48N',
     '073.18W',
     '20',
-    'US'
+    'US',
   ],
   [
     'NY BUFFALO/CHEEKTOW',
@@ -8964,7 +8964,7 @@ List<List<String>> _stations = [
     '42.56N',
     '078.44W',
     '211',
-    'US'
+    'US',
   ],
   ['NY CANANDAIGUA', 'KD38', 'D38', 'null', '42.54N', '077.19W', '248', 'US'],
   ['NY CORTLAND', 'KN03', 'N03', 'null', '42.36N', '076.13W', '366', 'US'],
@@ -8980,7 +8980,7 @@ List<List<String>> _stations = [
     '42.05N',
     '076.06W',
     '254',
-    'US'
+    'US',
   ],
   ['NY FARMINGDALE', 'KFRG', 'FRG', 'null', '40.44N', '073.25W', '21', 'US'],
   ['NY FORT DRUM/88D', 'KTYX', 'TYX', 'null', '43.45N', '075.41W', '562', 'US'],
@@ -8992,7 +8992,7 @@ List<List<String>> _stations = [
     '44.04N',
     '075.43W',
     '207',
-    'US'
+    'US',
   ],
   ['NY FULTON', 'KFZY', 'FZY', 'null', '43.21N', '076.23W', '138', 'US'],
   ['NY GLENS FALLS', 'KGFL', 'GFL', 'null', '43.20N', '073.37W', '103', 'US'],
@@ -9004,7 +9004,7 @@ List<List<String>> _stations = [
     '42.51N',
     '075.34W',
     '347',
-    'US'
+    'US',
   ],
   ['NY HANCOCK VOR', 'KHNK', 'HNK', 'null', '42.04N', '075.19W', '690', 'US'],
   ['NY HORNELL', 'K4G6', '4G6', 'null', '42.23N', '077.41W', '372', 'US'],
@@ -9016,7 +9016,7 @@ List<List<String>> _stations = [
     '42.17N',
     '073.43W',
     '60',
-    'US'
+    'US',
   ],
   ['NY ISLIP', 'KISP', 'ISP', 'null', '40.48N', '073.06W', '43', 'US'],
   [
@@ -9027,7 +9027,7 @@ List<List<String>> _stations = [
     '42.28N',
     '076.27W',
     '335',
-    'US'
+    'US',
   ],
   ['NY JAMESTOWN', 'KJHW', 'JHW', 'null', '42.08N', '079.16W', '525', 'US'],
   ['NY JOHNSTOWN', 'KNY0', 'NY0', 'null', '43.00N', '074.19W', '269', 'US'],
@@ -9039,7 +9039,7 @@ List<List<String>> _stations = [
     '40.42N',
     '074.01W',
     '7',
-    'US'
+    'US',
   ],
   ['NY MASSENA', 'KMSS', 'MSS', 'null', '44.56N', '074.51W', '66', 'US'],
   ['NY MONTAUK', 'KMTP', 'MTP', 'null', '41.04N', '071.55W', '2', 'US'],
@@ -9053,7 +9053,7 @@ List<List<String>> _stations = [
     '41.30N',
     '074.05W',
     '150',
-    'US'
+    'US',
   ],
   ['NY NIAGARA FALLS', 'KIAG', 'IAG', 'null', '43.07N', '078.56W', '182', 'US'],
   ['NY NORWICH', 'KOIC', 'OIC', 'null', '42.34N', '075.31W', '312', 'US'],
@@ -9066,7 +9066,7 @@ List<List<String>> _stations = [
     '40.47N',
     '073.53W',
     '11',
-    'US'
+    'US',
   ],
   [
     'NY NYC/CENTRAL PARK',
@@ -9076,7 +9076,7 @@ List<List<String>> _stations = [
     '40.47N',
     '073.58W',
     '11',
-    'US'
+    'US',
   ],
   ['NY NEW YORK/ARTCC', 'KZNY', 'ZNY', 'null', '40.48N', '073.06W', '48', 'US'],
   [
@@ -9087,7 +9087,7 @@ List<List<String>> _stations = [
     '44.40N',
     '075.28W',
     '91',
-    'US'
+    'US',
   ],
   ['NY OLEAN', 'KOLE', 'OLE', 'null', '42.14N', '078.22W', '651', 'US'],
   ['NY PENN YAN', 'KPEO', 'PEO', 'null', '42.39N', '077.03W', '256', 'US'],
@@ -9100,7 +9100,7 @@ List<List<String>> _stations = [
     '44.39N',
     '073.28W',
     '72',
-    'US'
+    'US',
   ],
   ['NY POTSDAM', 'KPTD', 'PTD', 'null', '44.41N', '074.57W', '144', 'US'],
   ['NY POUGHKEEPSIE', 'KPOU', 'POU', 'null', '41.38N', '073.53W', '46', 'US'],
@@ -9113,7 +9113,7 @@ List<List<String>> _stations = [
     '43.13N',
     '075.24W',
     '154',
-    'US'
+    'US',
   ],
   ['NY SARANAC LAKE', 'KSLK', 'SLK', 'null', '44.24N', '074.12W', '498', 'US'],
   [
@@ -9124,7 +9124,7 @@ List<List<String>> _stations = [
     '43.03N',
     '073.52W',
     '132',
-    'US'
+    'US',
   ],
   [
     'NY SCHENECTADY AIRP',
@@ -9134,7 +9134,7 @@ List<List<String>> _stations = [
     '42.51N',
     '073.55W',
     '115',
-    'US'
+    'US',
   ],
   ['NY SHIRLEY', 'KHWV', 'HWV', 'null', '40.49N', '072.52W', '21', 'US'],
   ['NY SIDNEY', 'KN23', 'N23', 'null', '42.18N', '075.25W', '313', 'US'],
@@ -9152,7 +9152,7 @@ List<List<String>> _stations = [
     '40.51N',
     '072.37W',
     '33',
-    'US'
+    'US',
   ],
   ['NY WHITE PLAINS', 'KHPN', 'HPN', 'null', '41.04N', '073.42W', '121', 'US'],
   [
@@ -9163,7 +9163,7 @@ List<List<String>> _stations = [
     '43.14N',
     '077.07W',
     '129',
-    'US'
+    'US',
   ],
   ['NY AMBROSE', 'KN28', 'N28', '74499', '40.27N', '073.11W', '26', 'US'],
   [
@@ -9174,7 +9174,7 @@ List<List<String>> _stations = [
     '40.28N',
     '073.10W',
     '1',
-    'US'
+    'US',
   ],
   ['NY BOONVILLE', 'K1B8', '1B8', 'null', '43.27N', '075.21W', '482', 'US'],
   ['NY COLDEN', 'KCOL', 'COL', 'null', '42.40N', '078.41W', '312', 'US'],
@@ -9187,7 +9187,7 @@ List<List<String>> _stations = [
     '44.54N',
     '073.48W',
     '262',
-    'US'
+    'US',
   ],
   [
     'NY GALLOO ISLAND',
@@ -9197,7 +9197,7 @@ List<List<String>> _stations = [
     '43.52N',
     '076.34W',
     '76',
-    'US'
+    'US',
   ],
   ['NY MALONE', 'KMAL', 'MAL', 'null', '44.51N', '074.18W', '268', 'US'],
   ['NY ONEONTA', 'KOZX', 'OZX', 'null', '42.23N', '075.09W', '351', 'US'],
@@ -9209,7 +9209,7 @@ List<List<String>> _stations = [
     '43.21N',
     '076.23W',
     '145',
-    'US'
+    'US',
   ],
   ['NY PISECO LAKE', 'KPIC', 'PIC', 'null', '43.27N', '074.32W', '527', 'US'],
   [
@@ -9220,7 +9220,7 @@ List<List<String>> _stations = [
     '41.58N',
     '074.21W',
     '610',
-    'US'
+    'US',
   ],
   ['NY STORMVILLE', 'KSTM', 'STM', 'null', '41.32N', '073.44W', '279', 'US'],
   ['NY WARSAW', 'KWRS', 'WRS', 'null', '42.41N', '078.12W', '555', 'US'],
@@ -9232,7 +9232,7 @@ List<List<String>> _stations = [
     '43.28N',
     '075.27W',
     '154',
-    'US'
+    'US',
   ],
   [
     'OH AKRON (FULTON)',
@@ -9242,7 +9242,7 @@ List<List<String>> _stations = [
     '41.02N',
     '081.28W',
     '363',
-    'US'
+    'US',
   ],
   ['OH AKRON', 'KCAK', 'CAK', '72521', '40.55N', '081.27W', '377', 'US'],
   ['OH APPLETON', 'KAPE', 'APE', 'null', '40.09N', '082.35W', '453', 'US'],
@@ -9261,7 +9261,7 @@ List<List<String>> _stations = [
     '39.06N',
     '084.25W',
     '155',
-    'US'
+    'US',
   ],
   ['OH CLEVELAND', 'KBKL', 'BKL', 'null', '41.32N', '081.40W', '184', 'US'],
   ['OH CLEVELAND', 'KCLE', 'CLE', '72524', '41.25N', '081.51W', '233', 'US'],
@@ -9273,7 +9273,7 @@ List<List<String>> _stations = [
     '41.34N',
     '081.28W',
     '268',
-    'US'
+    'US',
   ],
   [
     'OH CLEVELAND/ARTCC',
@@ -9283,7 +9283,7 @@ List<List<String>> _stations = [
     '41.18N',
     '082.12W',
     '241',
-    'US'
+    'US',
   ],
   ['OH COLUMBUS', 'KCMH', 'CMH', '72428', '40.00N', '082.53W', '247', 'US'],
   [
@@ -9294,7 +9294,7 @@ List<List<String>> _stations = [
     '40.05N',
     '083.05W',
     '280',
-    'US'
+    'US',
   ],
   [
     'OH COLUMBUS/BOLTON',
@@ -9304,7 +9304,7 @@ List<List<String>> _stations = [
     '39.54N',
     '083.08W',
     '276',
-    'US'
+    'US',
   ],
   ['OH DAYTON', 'KDAY', 'DAY', '72429', '39.54N', '084.13W', '305', 'US'],
   ['OH DAYTON', 'KMGY', 'MGY', 'null', '39.36N', '084.14W', '289', 'US'],
@@ -9316,7 +9316,7 @@ List<List<String>> _stations = [
     '39.41N',
     '084.00W',
     '290',
-    'US'
+    'US',
   ],
   ['OH DEFIANCE', 'KDFI', 'DFI', 'null', '41.20N', '084.26W', '219', 'US'],
   ['OH DELAWARE', 'KDLZ', 'DLZ', 'null', '40.17N', '083.07W', '289', 'US'],
@@ -9340,7 +9340,7 @@ List<List<String>> _stations = [
     '39.32N',
     '084.24W',
     '198',
-    'US'
+    'US',
   ],
   [
     'OH MT VERNON/KNOX',
@@ -9350,7 +9350,7 @@ List<List<String>> _stations = [
     '40.20N',
     '082.32W',
     '363',
-    'US'
+    'US',
   ],
   [
     'OH NEW PHILADELPHIA',
@@ -9360,7 +9360,7 @@ List<List<String>> _stations = [
     '40.28N',
     '081.25W',
     '272',
-    'US'
+    'US',
   ],
   ['OH NEWARK', 'KVTA', 'VTA', 'null', '40.01N', '082.28W', '268', 'US'],
   ['OH OTTAWA', 'KOWX', 'OWX', 'null', '41.02N', '083.59W', '233', 'US'],
@@ -9373,7 +9373,7 @@ List<List<String>> _stations = [
     '41.13N',
     '081.15W',
     '365',
-    'US'
+    'US',
   ],
   [
     'OH RICKENBACKER ANG',
@@ -9383,7 +9383,7 @@ List<List<String>> _stations = [
     '39.49N',
     '082.55W',
     '227',
-    'US'
+    'US',
   ],
   ['OH ROSEWOOD VOR', 'KROD', 'ROD', 'null', '40.17N', '084.02W', '360', 'US'],
   [
@@ -9394,7 +9394,7 @@ List<List<String>> _stations = [
     '39.50N',
     '083.50W',
     '321',
-    'US'
+    'US',
   ],
   ['OH TOLEDO', 'KTDZ', 'TDZ', 'null', '41.34N', '083.29W', '189', 'US'],
   ['OH TOLEDO', 'KTOL', 'TOL', '72536', '41.35N', '083.48W', '210', 'US'],
@@ -9408,7 +9408,7 @@ List<List<String>> _stations = [
     '39.34N',
     '083.25W',
     '299',
-    'US'
+    'US',
   ],
   ['OH WAUSEON', 'KUSE', 'USE', 'null', '41.37N', '084.08W', '238', 'US'],
   ['OH WILLOUGHBY', 'KLNN', 'LNN', 'null', '41.40N', '081.22W', '191', 'US'],
@@ -9421,7 +9421,7 @@ List<List<String>> _stations = [
     '39.25N',
     '083.49W',
     '332',
-    'US'
+    'US',
   ],
   ['OH WOOSTER', 'KBJJ', 'BJJ', 'null', '40.52N', '081.53W', '343', 'US'],
   [
@@ -9432,7 +9432,7 @@ List<List<String>> _stations = [
     '39.49N',
     '084.02W',
     '251',
-    'US'
+    'US',
   ],
   ['OH YOUNGSTOWN', 'KYNG', 'YNG', '72525', '41.15N', '080.40W', '360', 'US'],
   ['OH ZANESVILLE', 'KZZV', 'ZZV', 'null', '39.57N', '081.54W', '268', 'US'],
@@ -9446,7 +9446,7 @@ List<List<String>> _stations = [
     '39.54N',
     '083.08W',
     '290',
-    'US'
+    'US',
   ],
   ['OH LANCASTER', 'KI15', 'I15', 'null', '39.45N', '082.39W', '265', 'US'],
   ['OH LORAIN/ELYRIA', 'K22G', '22G', 'null', '41.21N', '082.11W', '241', 'US'],
@@ -9459,7 +9459,7 @@ List<List<String>> _stations = [
     '41.13N',
     '081.15W',
     '365',
-    'US'
+    'US',
   ],
   [
     'OH SOUTH BASS ISLA',
@@ -9469,7 +9469,7 @@ List<List<String>> _stations = [
     '41.37N',
     '082.10W',
     '177',
-    'US'
+    'US',
   ],
   ['OK ADA', 'KADH', 'ADH', 'null', '34.48N', '096.40W', '308', 'US'],
   ['OK ARDMORE', 'KADM', 'ADM', 'null', '34.17N', '097.01W', '232', 'US'],
@@ -9483,7 +9483,7 @@ List<List<String>> _stations = [
     '34.42N',
     '099.20W',
     '437',
-    'US'
+    'US',
   ],
   ['OK ALVA', 'KAVK', 'AVK', 'null', '36.46N', '098.40W', '449', 'US'],
   ['OK ATOKA', 'KAQR', 'AQR', 'null', '34.24N', '096.09W', '189', 'US'],
@@ -9507,7 +9507,7 @@ List<List<String>> _stations = [
     '36.19N',
     '097.55W',
     '398',
-    'US'
+    'US',
   ],
   ['OK ENID/WOODRING', 'KWDG', 'WDG', 'null', '36.22N', '097.46W', '356', 'US'],
   ['OK FORT SILL', 'KFSI', 'FSI', '72355', '34.39N', '098.24W', '362', 'US'],
@@ -9519,7 +9519,7 @@ List<List<String>> _stations = [
     '34.21N',
     '098.59W',
     '386',
-    'US'
+    'US',
   ],
   ['OK GAGE', 'KGAG', 'GAG', 'null', '36.18N', '099.46W', '668', 'US'],
   ['OK HUGO', 'KHHW', 'HHW', 'null', '34.02N', '095.33W', '144', 'US'],
@@ -9535,7 +9535,7 @@ List<List<String>> _stations = [
     '35.46N',
     '095.46W',
     '212',
-    'US'
+    'US',
   ],
   ['OK HOBART', 'KHBR', 'HBR', 'null', '34.59N', '099.03W', '473', 'US'],
   ['OK IDABEL', 'K4O4', '4O4', 'null', '33.55N', '094.52W', '144', 'US'],
@@ -9547,7 +9547,7 @@ List<List<String>> _stations = [
     '36.11N',
     '095.34W',
     '204',
-    'US'
+    'US',
   ],
   [
     'OK LAMONT PROFILER',
@@ -9557,7 +9557,7 @@ List<List<String>> _stations = [
     '36.41N',
     '097.28W',
     '306',
-    'US'
+    'US',
   ],
   [
     'OK LAMONT ARM KLMN',
@@ -9567,7 +9567,7 @@ List<List<String>> _stations = [
     '36.37N',
     '097.29W',
     '318',
-    'US'
+    'US',
   ],
   ['OK LAWTON', 'KLAW', 'LAW', 'null', '34.33N', '098.25W', '337', 'US'],
   ['OK LEXINGTON', 'KHMY', 'HMY', 'null', '35.02N', '097.14W', '331', 'US'],
@@ -9582,7 +9582,7 @@ List<List<String>> _stations = [
     '35.15N',
     '097.28W',
     '357',
-    'US'
+    'US',
   ],
   ['OK NORMAN/SPC', 'KWNS', 'WNS', 'null', '35.13N', '097.27W', '357', 'US'],
   [
@@ -9593,7 +9593,7 @@ List<List<String>> _stations = [
     '35.23N',
     '097.36W',
     '390',
-    'US'
+    'US',
   ],
   [
     'OK OKLA CITY/WILEY',
@@ -9603,7 +9603,7 @@ List<List<String>> _stations = [
     '35.32N',
     '097.39W',
     '397',
-    'US'
+    'US',
   ],
   [
     'OK OKLA CITY/PAGE',
@@ -9613,7 +9613,7 @@ List<List<String>> _stations = [
     '35.29N',
     '097.49W',
     '413',
-    'US'
+    'US',
   ],
   ['OK OKMULGEE', 'KOKM', 'OKM', 'null', '35.40N', '095.57W', '220', 'US'],
   ['OK PAULS VALLEY', 'KPVJ', 'PVJ', 'null', '34.43N', '097.13W', '295', 'US'],
@@ -9626,7 +9626,7 @@ List<List<String>> _stations = [
     '35.01N',
     '094.37W',
     '138',
-    'US'
+    'US',
   ],
   [
     'OK PURCELL PROFILER',
@@ -9636,7 +9636,7 @@ List<List<String>> _stations = [
     '34.58N',
     '097.30W',
     '331',
-    'US'
+    'US',
   ],
   ['OK PURCELL', 'null', 'null', '74651', '34.58N', '097.42W', '343', 'US'],
   ['OK SALLISAW', 'KJSV', 'JSV', 'null', '35.26N', '094.48W', '161', 'US'],
@@ -9659,7 +9659,7 @@ List<List<String>> _stations = [
     '35.20N',
     '097.17W',
     '370',
-    'US'
+    'US',
   ],
   [
     'OK VANCE/KEGELMAN',
@@ -9669,7 +9669,7 @@ List<List<String>> _stations = [
     '36.44N',
     '098.08W',
     '369',
-    'US'
+    'US',
   ],
   [
     'OK VICI PROFILER',
@@ -9679,7 +9679,7 @@ List<List<String>> _stations = [
     '36.04N',
     '099.12W',
     '648',
-    'US'
+    'US',
   ],
   ['OK VICI', 'null', 'null', '74641', '36.04N', '099.20W', '622', 'US'],
   ['OK WATONGA', 'KJWG', 'JWG', 'null', '35.52N', '098.25W', '472', 'US'],
@@ -9697,7 +9697,7 @@ List<List<String>> _stations = [
     '45.33N',
     '122.57W',
     '68',
-    'US'
+    'US',
   ],
   ['OR ASTORIA', 'KAST', 'AST', '72791', '46.09N', '123.53W', '3', 'US'],
   ['OR AURORA', 'KUAO', 'UAO', 'null', '45.15N', '122.46W', '59', 'US'],
@@ -9713,7 +9713,7 @@ List<List<String>> _stations = [
     '42.50N',
     '124.34W',
     '57',
-    'US'
+    'US',
   ],
   [
     'OR CASCADE LOCKS ST',
@@ -9723,7 +9723,7 @@ List<List<String>> _stations = [
     '45.40N',
     '121.52W',
     '46',
-    'US'
+    'US',
   ],
   ['OR CLATSOP SPIT', 'K3CL', '3CL', 'null', '46.14N', '124.01W', '9', 'US'],
   [
@@ -9734,7 +9734,7 @@ List<List<String>> _stations = [
     '44.30N',
     '123.16W',
     '75',
-    'US'
+    'US',
   ],
   ['OR EUGENE', 'KEUG', 'EUG', '72693', '44.08N', '123.13W', '114', 'US'],
   ['OR FLORENCE MUNI', 'K6S2', '6S2', 'null', '43.59N', '124.07W', '16', 'US'],
@@ -9750,7 +9750,7 @@ List<List<String>> _stations = [
     '42.05N',
     '122.43W',
     '2290',
-    'US'
+    'US',
   ],
   [
     'OR JOHN DAY STATE',
@@ -9760,7 +9760,7 @@ List<List<String>> _stations = [
     '44.23N',
     '118.58W',
     '1127',
-    'US'
+    'US',
   ],
   ['OR KIMBERLY/VOR', 'KIMB', 'IMB', 'null', '44.39N', '119.43W', '1700', 'US'],
   [
@@ -9771,7 +9771,7 @@ List<List<String>> _stations = [
     '42.09N',
     '121.43W',
     '1246',
-    'US'
+    'US',
   ],
   ['OR LA GRANDE', 'KLGD', 'LGD', 'null', '45.16N', '118.00W', '827', 'US'],
   ['OR LAKEVIEW', 'KLKV', 'LKV', 'null', '42.10N', '120.24W', '1441', 'US'],
@@ -9793,7 +9793,7 @@ List<List<String>> _stations = [
     '45.43N',
     '122.58W',
     '479',
-    'US'
+    'US',
   ],
   ['OR PORTLAND/WFO', 'KPQR', 'PQR', 'null', '45.34N', '122.32W', '7', 'US'],
   ['OR PORTLAND/RFC', 'KPTR', 'PTR', 'null', '45.36N', '122.36W', '24', 'US'],
@@ -9814,7 +9814,7 @@ List<List<String>> _stations = [
     '44.07N',
     '124.08W',
     '121',
-    'US'
+    'US',
   ],
   [
     'OR SEXTON SUMMIT',
@@ -9824,7 +9824,7 @@ List<List<String>> _stations = [
     '42.36N',
     '123.22W',
     '1170',
-    'US'
+    'US',
   ],
   [
     'OR SISTERS EAGLEAIR',
@@ -9834,7 +9834,7 @@ List<List<String>> _stations = [
     '44.18N',
     '121.32W',
     '966',
-    'US'
+    'US',
   ],
   ['OR THE DALLES', 'KDLS', 'DLS', 'null', '45.37N', '121.10W', '71', 'US'],
   ['OR TILLAMOOK', 'KTMK', 'TMK', 'null', '45.25N', '123.49W', '11', 'US'],
@@ -9850,7 +9850,7 @@ List<List<String>> _stations = [
     '43.19N',
     '124.37W',
     '18',
-    'US'
+    'US',
   ],
   ['OR HERMISTON', 'KS22', 'S22', 'null', '45.50N', '119.16W', '195', 'US'],
   [
@@ -9861,7 +9861,7 @@ List<List<String>> _stations = [
     '44.23N',
     '118.58W',
     '1127',
-    'US'
+    'US',
   ],
   ['OR LAKEVIEW', 'K4LW', '4LW', '72589', '42.13N', '120.21W', '1455', 'US'],
   [
@@ -9872,7 +9872,7 @@ List<List<String>> _stations = [
     '44.37N',
     '124.55W',
     '9',
-    'US'
+    'US',
   ],
   ['OR PACIFIC CITY', 'KPFC', 'PFC', 'null', '45.12N', '123.57W', '5', 'US'],
   ['OR SCAPPOOSE', 'K1S4', '1S4', 'null', '45.46N', '122.52W', '14', 'US'],
@@ -9886,7 +9886,7 @@ List<List<String>> _stations = [
     '40.34N',
     '075.29W',
     '122',
-    'US'
+    'US',
   ],
   ['PA ALTOONA', 'KAOO', 'AOO', 'null', '40.18N', '078.19W', '455', 'US'],
   [
@@ -9897,7 +9897,7 @@ List<List<String>> _stations = [
     '41.20N',
     '075.43W',
     '291',
-    'US'
+    'US',
   ],
   [
     'PA BEAVER FALLS ARP',
@@ -9907,7 +9907,7 @@ List<List<String>> _stations = [
     '40.46N',
     '080.24W',
     '382',
-    'US'
+    'US',
   ],
   ['PA BEDFORD', 'KHMZ', 'HMZ', 'null', '40.05N', '078.31W', '355', 'US'],
   ['PA BRADFORD', 'KBFD', 'BFD', 'null', '41.48N', '078.38W', '647', 'US'],
@@ -9924,7 +9924,7 @@ List<List<String>> _stations = [
     '40.35N',
     '075.41W',
     '250',
-    'US'
+    'US',
   ],
   [
     'PA ELLWOOD CITY VOR',
@@ -9934,7 +9934,7 @@ List<List<String>> _stations = [
     '40.50N',
     '080.13W',
     '407',
-    'US'
+    'US',
   ],
   ['PA ERIE', 'KERI', 'ERI', '72526', '42.05N', '080.11W', '222', 'US'],
   [
@@ -9945,7 +9945,7 @@ List<List<String>> _stations = [
     '39.44N',
     '077.26W',
     '274',
-    'US'
+    'US',
   ],
   ['PA FRANKLIN', 'KFKL', 'FKL', 'null', '41.22N', '079.52W', '469', 'US'],
   ['PA GROVE CITY', 'K29D', '29D', 'null', '41.09N', '080.10W', '418', 'US'],
@@ -9960,7 +9960,7 @@ List<List<String>> _stations = [
     '40.37N',
     '079.05W',
     '429',
-    'US'
+    'US',
   ],
   ['PA JOHNSTOWN', 'KJST', 'JST', 'null', '40.19N', '078.50W', '694', 'US'],
   ['PA LANCASTER', 'KLNS', 'LNS', 'null', '40.07N', '076.18W', '125', 'US'],
@@ -9972,7 +9972,7 @@ List<List<String>> _stations = [
     '40.16N',
     '079.24W',
     '361',
-    'US'
+    'US',
   ],
   ['PA LEHIGHTON', 'K22N', '22N', 'null', '40.49N', '075.46W', '163', 'US'],
   ['PA LOCK HAVEN', 'KLHV', 'LHV', 'null', '41.08N', '077.25W', '170', 'US'],
@@ -9987,7 +9987,7 @@ List<List<String>> _stations = [
     '40.25N',
     '076.34W',
     '149',
-    'US'
+    'US',
   ],
   [
     'PA NEW CASTLE MUNI',
@@ -9997,7 +9997,7 @@ List<List<String>> _stations = [
     '41.02N',
     '080.25W',
     '327',
-    'US'
+    'US',
   ],
   ['PA PERKASIE', 'KCKZ', 'CKZ', 'null', '40.23N', '075.17W', '173', 'US'],
   ['PA PHILADELPHIA', 'KPHL', 'PHL', '72408', '39.52N', '075.14W', '18', 'US'],
@@ -10009,7 +10009,7 @@ List<List<String>> _stations = [
     '40.05N',
     '075.01W',
     '28',
-    'US'
+    'US',
   ],
   ['PA PHILLY WINGS F', 'KLOM', 'LOM', 'null', '40.08N', '075.16W', '92', 'US'],
   [
@@ -10020,7 +10020,7 @@ List<List<String>> _stations = [
     '40.52N',
     '078.04W',
     '594',
-    'US'
+    'US',
   ],
   [
     'PA PITTSBURGH/ALLEG',
@@ -10030,7 +10030,7 @@ List<List<String>> _stations = [
     '40.21N',
     '079.55W',
     '389',
-    'US'
+    'US',
   ],
   ['PA PITTSBURGH', 'KPIT', 'PIT', '72520', '40.30N', '080.16W', '357', 'US'],
   [
@@ -10041,7 +10041,7 @@ List<List<String>> _stations = [
     '40.32N',
     '080.13W',
     '361',
-    'US'
+    'US',
   ],
   ['PA POTTSTOWN', 'KPTW', 'PTW', 'null', '40.14N', '075.33W', '92', 'US'],
   [
@@ -10052,7 +10052,7 @@ List<List<String>> _stations = [
     '40.26N',
     '075.23W',
     '160',
-    'US'
+    'US',
   ],
   ['PA READING', 'KRDG', 'RDG', 'null', '40.22N', '075.58W', '109', 'US'],
   [
@@ -10063,7 +10063,7 @@ List<List<String>> _stations = [
     '40.55N',
     '078.00W',
     '733',
-    'US'
+    'US',
   ],
   ['PA SELINSGROVE', 'KSEG', 'SEG', 'null', '40.49N', '076.52W', '134', 'US'],
   ['PA SOMERSET', 'K2G9', '2G9', 'null', '40.02N', '079.01W', '694', 'US'],
@@ -10077,7 +10077,7 @@ List<List<String>> _stations = [
     '40.51N',
     '077.51W',
     '389',
-    'US'
+    'US',
   ],
   [
     'PA STATE COLLEG/RFC',
@@ -10087,7 +10087,7 @@ List<List<String>> _stations = [
     '40.51N',
     '077.51W',
     '389',
-    'US'
+    'US',
   ],
   ['PA TOWANDA', 'KN27', 'N27', 'null', '41.44N', '076.27W', '223', 'US'],
   ['PA WASHINGTON', 'KAFJ', 'AFJ', 'null', '40.07N', '080.16W', '361', 'US'],
@@ -10103,7 +10103,7 @@ List<List<String>> _stations = [
     '40.34N',
     '075.29W',
     '122',
-    'US'
+    'US',
   ],
   ['PA CLEARFIELD', 'KN97', 'N97', 'null', '41.03N', '078.25W', '462', 'US'],
   ['PA COATESVILLE', 'K40N', '40N', 'null', '39.59N', '075.52W', '201', 'US'],
@@ -10118,7 +10118,7 @@ List<List<String>> _stations = [
     '40.12N',
     '075.09W',
     '110',
-    'US'
+    'US',
   ],
   ['RI BLOCK ISLAND', 'KBID', 'BID', 'null', '41.10N', '071.35W', '33', 'US'],
   [
@@ -10129,7 +10129,7 @@ List<List<String>> _stations = [
     '41.36N',
     '071.25W',
     '6',
-    'US'
+    'US',
   ],
   ['RI NEWPORT', 'KUUU', 'UUU', 'null', '41.32N', '071.17W', '51', 'US'],
   ['RI PAWTUCKET', 'KSFZ', 'SFZ', 'null', '41.55N', '071.30W', '134', 'US'],
@@ -10141,7 +10141,7 @@ List<List<String>> _stations = [
     '41.43N',
     '071.26W',
     '16',
-    'US'
+    'US',
   ],
   ['RI WESTERLY', 'KWST', 'WST', 'null', '41.21N', '071.48W', '21', 'US'],
   ['RI NEWPORT', 'K2B4', '2B4', 'null', '41.32N', '071.17W', '52', 'US'],
@@ -10160,7 +10160,7 @@ List<List<String>> _stations = [
     '33.11N',
     '080.02W',
     '23',
-    'US'
+    'US',
   ],
   [
     'SC CAMDEN WOODWARD',
@@ -10170,7 +10170,7 @@ List<List<String>> _stations = [
     '34.17N',
     '080.34W',
     '92',
-    'US'
+    'US',
   ],
   ['SC CHARLESTON', 'KCHS', 'CHS', '72208', '32.54N', '080.02W', '13', 'US'],
   [
@@ -10181,7 +10181,7 @@ List<List<String>> _stations = [
     '32.39N',
     '081.03W',
     '30',
-    'US'
+    'US',
   ],
   ['SC CHARLESTON/EXEC', 'KJZI', 'JZI', 'null', '32.42N', '080.00W', '6', 'US'],
   ['SC CHERAW', 'KCQW', 'CQW', 'null', '34.43N', '079.57W', '73', 'US'],
@@ -10193,7 +10193,7 @@ List<List<String>> _stations = [
     '34.47N',
     '081.12W',
     '200',
-    'US'
+    'US',
   ],
   ['SC CLEMSON', 'KCEU', 'CEU', 'null', '34.40N', '082.53W', '268', 'US'],
   ['SC COLLIERS VOR', 'KIRQ', 'IRQ', 'null', '33.43N', '082.10W', '147', 'US'],
@@ -10207,7 +10207,7 @@ List<List<String>> _stations = [
     '33.50N',
     '079.07W',
     '11',
-    'US'
+    'US',
   ],
   [
     'SC DARLINGTON CNTY',
@@ -10217,7 +10217,7 @@ List<List<String>> _stations = [
     '34.27N',
     '079.53W',
     '59',
-    'US'
+    'US',
   ],
   ['SC FLORENCE', 'KFLO', 'FLO', 'null', '34.11N', '079.44W', '44', 'US'],
   ['SC GEORGETOWN', 'KGGE', 'GGE', 'null', '33.19N', '079.19W', '12', 'US'],
@@ -10230,7 +10230,7 @@ List<List<String>> _stations = [
     '34.54N',
     '082.13W',
     '287',
-    'US'
+    'US',
   ],
   ['SC GREENVILLE', 'KGMU', 'GMU', 'null', '34.51N', '082.21W', '315', 'US'],
   ['SC GREENVILLE', 'KGYH', 'GYH', 'null', '34.45N', '082.23W', '292', 'US'],
@@ -10250,7 +10250,7 @@ List<List<String>> _stations = [
     '33.55N',
     '080.47W',
     '77',
-    'US'
+    'US',
   ],
   ['SC MOUNT PLEASANT', 'KLRO', 'LRO', 'null', '32.54N', '079.47W', '4', 'US'],
   ['SC MYRTLE BEACH', 'KMYR', 'MYR', '74791', '33.40N', '078.55W', '8', 'US'],
@@ -10262,7 +10262,7 @@ List<List<String>> _stations = [
     '33.49N',
     '078.43W',
     '10',
-    'US'
+    'US',
   ],
   ['SC NEWBERRY', 'KEOE', 'EOE', 'null', '34.19N', '081.38W', '174', 'US'],
   ['SC ORANGEBURG', 'KOGB', 'OGB', 'null', '33.28N', '080.51W', '59', 'US'],
@@ -10276,7 +10276,7 @@ List<List<String>> _stations = [
     '33.58N',
     '080.28W',
     '74',
-    'US'
+    'US',
   ],
   ['SC SPARTANBURG', 'KSPA', 'SPA', 'null', '34.55N', '081.56W', '303', 'US'],
   ['SC SUMMERVILLE', 'KDYB', 'DYB', 'null', '33.04N', '080.17W', '18', 'US'],
@@ -10296,7 +10296,7 @@ List<List<String>> _stations = [
     '33.51N',
     '080.29W',
     '68',
-    'US'
+    'US',
   ],
   ['SD ABERDEEN', 'KABR', 'ABR', '72659', '45.27N', '098.25W', '397', 'US'],
   ['SD BELLE FOURCHE', 'KEFC', 'EFC', 'null', '44.43N', '103.52W', '982', 'US'],
@@ -10338,7 +10338,7 @@ List<List<String>> _stations = [
     '44.04N',
     '103.12W',
     '1027',
-    'US'
+    'US',
   ],
   ['SD RAPID CITY', 'KRAP', 'RAP', 'null', '44.03N', '103.03W', '965', 'US'],
   [
@@ -10349,7 +10349,7 @@ List<List<String>> _stations = [
     '44.08N',
     '102.50W',
     '919',
-    'US'
+    'US',
   ],
   ['SD SIOUX FALLS', 'KFSD', 'FSD', '72651', '43.35N', '096.45W', '436', 'US'],
   ['SD SISSETON', 'K8D3', '8D3', 'null', '45.40N', '096.59W', '354', 'US'],
@@ -10361,7 +10361,7 @@ List<List<String>> _stations = [
     '44.28N',
     '103.46W',
     '1188',
-    'US'
+    'US',
   ],
   ['SD STURGIS', 'K49B', '49B', 'null', '44.25N', '103.23W', '989', 'US'],
   ['SD TEA', 'KY14', 'Y14', 'null', '43.27N', '096.48W', '462', 'US'],
@@ -10378,7 +10378,7 @@ List<List<String>> _stations = [
     '44.04N',
     '098.32W',
     '471',
-    'US'
+    'US',
   ],
   ['SD WINNER', 'KICR', 'ICR', 'null', '43.23N', '099.51W', '621', 'US'],
   ['SD WINNER', 'KSFD', 'SFD', 'null', '43.23N', '099.51W', '621', 'US'],
@@ -10392,7 +10392,7 @@ List<List<String>> _stations = [
     '44.06N',
     '103.31W',
     '1494',
-    'US'
+    'US',
   ],
   ['SD ELLSWORTH I90', 'KEL0', 'EL0', 'null', '44.07N', '103.05W', '939', 'US'],
   ['SD WASTA I90', 'KWTA', 'null', 'null', '44.05N', '102.29W', '810', 'US'],
@@ -10404,7 +10404,7 @@ List<List<String>> _stations = [
     '44.02N',
     '103.26W',
     '1478',
-    'US'
+    'US',
   ],
   [
     'SD EDGEMONT US18',
@@ -10414,7 +10414,7 @@ List<List<String>> _stations = [
     '43.17N',
     '103.53W',
     '1136',
-    'US'
+    'US',
   ],
   [
     'SD SD-WY BORDR US85',
@@ -10424,7 +10424,7 @@ List<List<String>> _stations = [
     '44.11N',
     '104.03W',
     '1940',
-    'US'
+    'US',
   ],
   [
     'SD GLAD VLY SD20',
@@ -10434,7 +10434,7 @@ List<List<String>> _stations = [
     '45.24N',
     '101.47W',
     '753',
-    'US'
+    'US',
   ],
   [
     'SD BATESLAND US18',
@@ -10444,7 +10444,7 @@ List<List<String>> _stations = [
     '43.08N',
     '102.06W',
     '1042',
-    'US'
+    'US',
   ],
   ['SD LEMMON US12', 'KLEM', 'LEM', 'null', '45.56N', '102.11W', '783', 'US'],
   ['SD ANDOVER', 'KADR', 'ADR', 'null', '45.26N', '097.56W', '453', 'US'],
@@ -10518,7 +10518,7 @@ List<List<String>> _stations = [
     '35.13N',
     '089.03W',
     '152',
-    'US'
+    'US',
   ],
   ['TN BRISTOL', 'KTRI', 'TRI', 'null', '36.29N', '082.24W', '474', 'US'],
   ['TN CHATTANOOGA', 'KCHA', 'CHA', '72324', '35.02N', '085.12W', '210', 'US'],
@@ -10530,7 +10530,7 @@ List<List<String>> _stations = [
     '34.58N',
     '085.09W',
     '210',
-    'US'
+    'US',
   ],
   ['TN CLARKSVILLE', 'KCKV', 'CKV', 'null', '36.37N', '087.25W', '165', 'US'],
   [
@@ -10541,7 +10541,7 @@ List<List<String>> _stations = [
     '35.13N',
     '084.48W',
     '263',
-    'US'
+    'US',
   ],
   ['TN COLLEGEDALE', 'K3M3', '3M3', 'null', '35.03N', '085.01W', '262', 'US'],
   ['TN COLUMBIA', 'KMRC', 'MRC', 'null', '35.33N', '087.11W', '208', 'US'],
@@ -10556,7 +10556,7 @@ List<List<String>> _stations = [
     '35.12N',
     '090.03W',
     '69',
-    'US'
+    'US',
   ],
   ['TN DICKSON', 'KM02', 'M02', 'null', '36.08N', '087.26W', '272', 'US'],
   ['TN DYERSBURG', 'KDYR', 'DYR', 'null', '36.00N', '089.24W', '103', 'US'],
@@ -10570,7 +10570,7 @@ List<List<String>> _stations = [
     '35.39N',
     '088.23W',
     '157',
-    'US'
+    'US',
   ],
   ['TN GALLATIN', 'KM33', 'M33', 'null', '36.23N', '086.25W', '178', 'US'],
   [
@@ -10581,7 +10581,7 @@ List<List<String>> _stations = [
     '36.26N',
     '082.08W',
     '1317',
-    'US'
+    'US',
   ],
   ['TN HUNTINGDON', 'KHZD', 'HZD', 'null', '36.05N', '088.28W', '151', 'US'],
   ['TN JACKSBORO', 'KJAU', 'JAU', 'null', '36.20N', '084.10W', '360', 'US'],
@@ -10600,7 +10600,7 @@ List<List<String>> _stations = [
     '35.39N',
     '088.11W',
     '149',
-    'US'
+    'US',
   ],
   ['TN LIVINGSTON', 'K8A3', '8A3', 'null', '36.25N', '085.19W', '419', 'US'],
   ['TN MADISONVILLE', 'KMNV', 'MNV', 'null', '35.33N', '084.23W', '314', 'US'],
@@ -10618,7 +10618,7 @@ List<List<String>> _stations = [
     '36.10N',
     '083.24W',
     '408',
-    'US'
+    'US',
   ],
   [
     'TN MORRISTOWN/MOORE',
@@ -10628,7 +10628,7 @@ List<List<String>> _stations = [
     '36.11N',
     '083.23W',
     '401',
-    'US'
+    'US',
   ],
   ['TN MURFREESBORO', 'KMBT', 'MBT', 'null', '35.53N', '086.23W', '188', 'US'],
   ['TN NASHVILLE', 'KBNA', 'BNA', '72327', '36.07N', '086.41W', '210', 'US'],
@@ -10642,7 +10642,7 @@ List<List<String>> _stations = [
     '36.15N',
     '086.34W',
     '176',
-    'US'
+    'US',
   ],
   [
     'TN PARIS HENRY CTY',
@@ -10652,7 +10652,7 @@ List<List<String>> _stations = [
     '36.20N',
     '088.23W',
     '177',
-    'US'
+    'US',
   ],
   ['TN PORTLAND', 'K1M5', '1M5', 'null', '36.36N', '086.29W', '250', 'US'],
   ['TN PULASKI', 'KGZS', 'GZS', 'null', '35.09N', '087.03W', '210', 'US'],
@@ -10665,7 +10665,7 @@ List<List<String>> _stations = [
     '35.10N',
     '088.13W',
     '144',
-    'US'
+    'US',
   ],
   ['TN SEVIERVILLE', 'KGKT', 'GKT', 'null', '35.51N', '083.32W', '309', 'US'],
   ['TN SHELBYVILLE', 'KSYI', 'SYI', 'null', '35.34N', '086.27W', '245', 'US'],
@@ -10686,7 +10686,7 @@ List<List<String>> _stations = [
     '32.54N',
     '097.01W',
     '174',
-    'US'
+    'US',
   ],
   ['TX ABILENE', 'KABI', 'ABI', '72266', '32.25N', '099.41W', '548', 'US'],
   ['TX ALICE', 'KALI', 'ALI', 'null', '27.44N', '098.01W', '53', 'US'],
@@ -10698,7 +10698,7 @@ List<List<String>> _stations = [
     '30.23N',
     '103.41W',
     '1376',
-    'US'
+    'US',
   ],
   ['TX AMARILLO', 'KAMA', 'AMA', '72363', '35.13N', '101.43W', '1093', 'US'],
   ['TX ANDREWS', 'KE11', 'E11', 'null', '32.20N', '102.32W', '967', 'US'],
@@ -10717,7 +10717,7 @@ List<List<String>> _stations = [
     '29.57N',
     '094.02W',
     '5',
-    'US'
+    'US',
   ],
   ['TX BEAUMONT', 'KBMT', 'BMT', 'null', '30.04N', '094.13W', '10', 'US'],
   ['TX BEEVILLE MUNI', 'KBEA', 'BEA', 'null', '28.22N', '097.47W', '82', 'US'],
@@ -10744,7 +10744,7 @@ List<List<String>> _stations = [
     '28.31N',
     '099.49W',
     '183',
-    'US'
+    'US',
   ],
   [
     'TX CASTROVILLE MUNI',
@@ -10754,7 +10754,7 @@ List<List<String>> _stations = [
     '29.21N',
     '098.51W',
     '235',
-    'US'
+    'US',
   ],
   ['TX CENTER', 'KF17', 'F17', 'null', '31.50N', '094.09W', '92', 'US'],
   [
@@ -10765,7 +10765,7 @@ List<List<String>> _stations = [
     '30.23N',
     '097.32W',
     '181',
-    'US'
+    'US',
   ],
   ['TX CHILDRESS', 'KCDS', 'CDS', 'null', '34.26N', '100.17W', '594', 'US'],
   ['TX CISCO', 'KGZN', 'GZN', 'null', '32.22N', '099.01W', '522', 'US'],
@@ -10781,7 +10781,7 @@ List<List<String>> _stations = [
     '30.35N',
     '096.22W',
     '96',
-    'US'
+    'US',
   ],
   ['TX COLUMBUS', 'K66R', '66R', 'null', '29.38N', '096.31W', '74', 'US'],
   ['TX COMANCHE', 'KMKN', 'MKN', 'null', '31.55N', '098.36W', '423', 'US'],
@@ -10794,7 +10794,7 @@ List<List<String>> _stations = [
     '27.46N',
     '097.30W',
     '14',
-    'US'
+    'US',
   ],
   ['TX C. CHRISTI NAS', 'KNGP', 'NGP', 'null', '27.41N', '097.16W', '6', 'US'],
   ['TX CORSICANA', 'KCRS', 'CRS', 'null', '32.02N', '096.24W', '133', 'US'],
@@ -10809,7 +10809,7 @@ List<List<String>> _stations = [
     '32.51N',
     '096.51W',
     '158',
-    'US'
+    'US',
   ],
   ['TX DALLAS/ARTCC', 'KZFW', 'ZFW', 'null', '32.50N', '097.04W', '182', 'US'],
   [
@@ -10820,7 +10820,7 @@ List<List<String>> _stations = [
     '32.41N',
     '096.52W',
     '203',
-    'US'
+    'US',
   ],
   [
     'TX DALLAS NAS/HENSL',
@@ -10830,7 +10830,7 @@ List<List<String>> _stations = [
     '32.43N',
     '096.58W',
     '150',
-    'US'
+    'US',
   ],
   [
     'TX DALLAS/ADDISON',
@@ -10840,7 +10840,7 @@ List<List<String>> _stations = [
     '32.58N',
     '096.49W',
     '196',
-    'US'
+    'US',
   ],
   ['TX DECATUR', 'KLUD', 'LUD', 'null', '33.15N', '097.35W', '319', 'US'],
   ['TX DEL RIO', 'KDRT', 'DRT', '72261', '29.22N', '100.55W', '313', 'US'],
@@ -10855,7 +10855,7 @@ List<List<String>> _stations = [
     '35.51N',
     '102.01W',
     '1129',
-    'US'
+    'US',
   ],
   [
     'TX DYESS AFB/ABILEN',
@@ -10865,7 +10865,7 @@ List<List<String>> _stations = [
     '32.25N',
     '099.50W',
     '545',
-    'US'
+    'US',
   ],
   ['TX EAGLE LAKE', 'KELA', 'ELA', 'null', '29.36N', '096.19W', '57', 'US'],
   ['TX EAGLE PASS', 'K5T9', '5T9', 'null', '28.51N', '100.31W', '270', 'US'],
@@ -10885,7 +10885,7 @@ List<List<String>> _stations = [
     '32.50N',
     '097.18W',
     '211',
-    'US'
+    'US',
   ],
   [
     'TX FORT WORTH/88D',
@@ -10895,7 +10895,7 @@ List<List<String>> _stations = [
     '32.34N',
     '097.18W',
     '208',
-    'US'
+    'US',
   ],
   [
     'TX FORT WORTH NAS',
@@ -10905,7 +10905,7 @@ List<List<String>> _stations = [
     '32.47N',
     '097.26W',
     '198',
-    'US'
+    'US',
   ],
   [
     'TX FREDERICKSBURG',
@@ -10915,7 +10915,7 @@ List<List<String>> _stations = [
     '30.15N',
     '098.55W',
     '517',
-    'US'
+    'US',
   ],
   [
     'TX FT WORTH/ALLIANC',
@@ -10925,7 +10925,7 @@ List<List<String>> _stations = [
     '32.58N',
     '097.19W',
     '233',
-    'US'
+    'US',
   ],
   [
     'TX FT HOOD/KILLEEN',
@@ -10935,7 +10935,7 @@ List<List<String>> _stations = [
     '31.08N',
     '097.43W',
     '283',
-    'US'
+    'US',
   ],
   ['TX GALVESTON', 'KGLS', 'GLS', '72242', '29.16N', '094.52W', '6', 'US'],
   ['TX GAINESVILLE', 'KGLE', 'GLE', 'null', '33.39N', '097.12W', '256', 'US'],
@@ -10947,7 +10947,7 @@ List<List<String>> _stations = [
     '29.13N',
     '099.45W',
     '287',
-    'US'
+    'US',
   ],
   ['TX GATESVILLE', 'KGOP', 'GOP', 'null', '31.25N', '097.48W', '276', 'US'],
   ['TX GEORGETOWN', 'KGTU', 'GTU', 'null', '30.41N', '097.41W', '240', 'US'],
@@ -10965,7 +10965,7 @@ List<List<String>> _stations = [
     '33.04N',
     '096.04W',
     '163',
-    'US'
+    'US',
   ],
   [
     'TX GUADALUPE PASS',
@@ -10975,7 +10975,7 @@ List<List<String>> _stations = [
     '31.50N',
     '104.49W',
     '1692',
-    'US'
+    'US',
   ],
   ['TX HAMILTON MUNI', 'KMNZ', 'MNZ', 'null', '31.40N', '098.09W', '396', 'US'],
   ['TX HARLINGEN', 'KHRL', 'HRL', 'null', '26.14N', '097.39W', '10', 'US'],
@@ -10989,7 +10989,7 @@ List<List<String>> _stations = [
     '32.09N',
     '094.51W',
     '135',
-    'US'
+    'US',
   ],
   [
     'TX HEREFORD MUNI',
@@ -10999,7 +10999,7 @@ List<List<String>> _stations = [
     '34.52N',
     '102.20W',
     '1154',
-    'US'
+    'US',
   ],
   ['TX HILLSBORO', 'KINJ', 'INJ', 'null', '32.05N', '097.06W', '209', 'US'],
   ['TX HONDO', 'KHDO', 'HDO', 'null', '29.22N', '099.10W', '282', 'US'],
@@ -11012,7 +11012,7 @@ List<List<String>> _stations = [
     '30.04N',
     '095.33W',
     '46',
-    'US'
+    'US',
   ],
   ['TX HOUSTON/HOBBY', 'KHOU', 'HOU', 'null', '29.38N', '095.17W', '36', 'US'],
   ['TX HOUSTON', 'KLVJ', 'LVJ', 'null', '29.31N', '095.15W', '12', 'US'],
@@ -11026,7 +11026,7 @@ List<List<String>> _stations = [
     '29.28N',
     '095.05W',
     '5',
-    'US'
+    'US',
   ],
   [
     'TX HOUSTON/ELLINGTO',
@@ -11036,7 +11036,7 @@ List<List<String>> _stations = [
     '29.36N',
     '095.10W',
     '10',
-    'US'
+    'US',
   ],
   [
     'TX HOUSTON/SUGAR LA',
@@ -11046,7 +11046,7 @@ List<List<String>> _stations = [
     '29.37N',
     '095.39W',
     '2',
-    'US'
+    'US',
   ],
   ['TX HOUSTON/ARTCC', 'KZHU', 'ZHU', 'null', '29.39N', '095.17W', '34', 'US'],
   ['TX HOUSTON/UNIV', 'KMCJ', 'MCJ', 'null', '29.43N', '095.24W', '69', 'US'],
@@ -11058,7 +11058,7 @@ List<List<String>> _stations = [
     '29.31N',
     '095.29W',
     '21',
-    'US'
+    'US',
   ],
   ['TX WEST HOUSTON', 'KIWS', 'IWS', 'null', '29.49N', '095.40W', '34', 'US'],
   [
@@ -11069,7 +11069,7 @@ List<List<String>> _stations = [
     '27.55N',
     '097.13W',
     '6',
-    'US'
+    'US',
   ],
   [
     'TX INGLESIDE/TP MCC',
@@ -11079,7 +11079,7 @@ List<List<String>> _stations = [
     '27.55N',
     '097.13W',
     '6',
-    'US'
+    'US',
   ],
   [
     'TX JOHNSON SPACE C',
@@ -11089,7 +11089,7 @@ List<List<String>> _stations = [
     '29.38N',
     '095.17W',
     '36',
-    'US'
+    'US',
   ],
   ['TX HUNTSVILLE', 'KUTS', 'UTS', 'null', '30.45N', '095.35W', '104', 'US'],
   ['TX JACKSONVILLE', 'KJSO', 'JSO', 'null', '31.52N', '095.13W', '206', 'US'],
@@ -11102,7 +11102,7 @@ List<List<String>> _stations = [
     '33.00N',
     '100.58W',
     '707',
-    'US'
+    'US',
   ],
   ['TX JUNCTION', 'KJCT', 'JCT', '74740', '30.30N', '099.46W', '522', 'US'],
   ['TX KELLY AFB', 'KSKF', 'SKF', 'null', '29.22N', '098.34W', '210', 'US'],
@@ -11115,7 +11115,7 @@ List<List<String>> _stations = [
     '30.43N',
     '097.24W',
     '164',
-    'US'
+    'US',
   ],
   ['TX KERRVILLE', 'KERV', 'ERV', 'null', '29.59N', '099.05W', '510', 'US'],
   ['TX KICKAPOO', 'KCWC', 'CWC', 'null', '33.51N', '098.29W', '305', 'US'],
@@ -11136,7 +11136,7 @@ List<List<String>> _stations = [
     '29.16N',
     '100.17W',
     '345',
-    'US'
+    'US',
   ],
   [
     'TX LEDBETTER PROFIL',
@@ -11146,7 +11146,7 @@ List<List<String>> _stations = [
     '30.05N',
     '096.47W',
     '122',
-    'US'
+    'US',
   ],
   ['TX LLANO', 'KAQO', 'AQO', 'null', '30.47N', '098.40W', '336', 'US'],
   ['TX LONGVIEW', 'KGGG', 'GGG', '72247', '32.23N', '094.43W', '107', 'US'],
@@ -11163,7 +11163,7 @@ List<List<String>> _stations = [
     '32.52N',
     '097.02W',
     '165',
-    'US'
+    'US',
   ],
   ['TX MC GREGOR', 'KPWG', 'PWG', 'null', '31.28N', '097.19W', '180', 'US'],
   ['TX MCALLEN', 'KMFE', 'MFE', 'null', '26.11N', '098.15W', '38', 'US'],
@@ -11177,7 +11177,7 @@ List<List<String>> _stations = [
     '31.38N',
     '096.31W',
     '166',
-    'US'
+    'US',
   ],
   ['TX MIDLAND', 'KMAF', 'MAF', '72265', '31.57N', '102.12W', '874', 'US'],
   [
@@ -11188,7 +11188,7 @@ List<List<String>> _stations = [
     '32.02N',
     '102.06W',
     '854',
-    'US'
+    'US',
   ],
   [
     'TX MIDLOTHIAN/WAX',
@@ -11198,7 +11198,7 @@ List<List<String>> _stations = [
     '32.27N',
     '096.55W',
     '217',
-    'US'
+    'US',
   ],
   [
     'TX MINEOLA/QUITMAN',
@@ -11208,7 +11208,7 @@ List<List<String>> _stations = [
     '32.45N',
     '095.30W',
     '132',
-    'US'
+    'US',
   ],
   ['TX MINERAL WELLS', 'KMWL', 'MWL', 'null', '32.47N', '098.04W', '284', 'US'],
   [
@@ -11219,7 +11219,7 @@ List<List<String>> _stations = [
     '33.06N',
     '094.58W',
     '111',
-    'US'
+    'US',
   ],
   ['TX NACOGDOCHES', 'KOCH', 'OCH', 'null', '31.34N', '094.43W', '108', 'US'],
   ['TX NEW BRAUNFELS', 'KBAZ', 'BAZ', 'null', '29.43N', '098.03W', '195', 'US'],
@@ -11231,7 +11231,7 @@ List<List<String>> _stations = [
     '29.42N',
     '098.02W',
     '193',
-    'US'
+    'US',
   ],
   ['TX ODESSA', 'KODO', 'ODO', 'null', '31.55N', '102.24W', '902', 'US'],
   ['TX ORANGE GROVE', 'KNOG', 'NOG', 'null', '27.54N', '098.03W', '78', 'US'],
@@ -11246,7 +11246,7 @@ List<List<String>> _stations = [
     '31.46N',
     '095.42W',
     '119',
-    'US'
+    'US',
   ],
   [
     'TX PALESTINE MUNI',
@@ -11256,7 +11256,7 @@ List<List<String>> _stations = [
     '31.47N',
     '095.42W',
     '129',
-    'US'
+    'US',
   ],
   ['TX PAMPA', 'KPPA', 'PPA', 'null', '35.37N', '101.00W', '989', 'US'],
   [
@@ -11267,7 +11267,7 @@ List<List<String>> _stations = [
     '35.53N',
     '101.02W',
     '845',
-    'US'
+    'US',
   ],
   [
     'TX PARIS/COX FIELD',
@@ -11277,7 +11277,7 @@ List<List<String>> _stations = [
     '33.37N',
     '095.27W',
     '167',
-    'US'
+    'US',
   ],
   ['TX PECOS CITY', 'KPEQ', 'PEQ', 'null', '31.23N', '103.31W', '797', 'US'],
   ['TX PERRYTON', 'KPYX', 'PYX', 'null', '36.25N', '100.45W', '889', 'US'],
@@ -11291,7 +11291,7 @@ List<List<String>> _stations = [
     '28.57N',
     '098.31W',
     '132',
-    'US'
+    'US',
   ],
   ['TX PORT ARANSAS', 'KRAS', 'RAS', 'null', '27.49N', '097.05W', '2', 'US'],
   ['TX PORT ISABEL', 'KPIL', 'PIL', 'null', '26.10N', '097.20W', '5', 'US'],
@@ -11304,7 +11304,7 @@ List<List<String>> _stations = [
     '29.38N',
     '104.21W',
     '896',
-    'US'
+    'US',
   ],
   ['TX RANDOLPH AFB', 'KRND', 'RND', 'null', '29.31N', '098.16W', '232', 'US'],
   ['TX RANGER', 'K6P9', '6P9', 'null', '32.26N', '098.36W', '450', 'US'],
@@ -11316,7 +11316,7 @@ List<List<String>> _stations = [
     '33.36N',
     '102.02W',
     '1017',
-    'US'
+    'US',
   ],
   [
     'TX ROBSTOWN/NUECES',
@@ -11326,7 +11326,7 @@ List<List<String>> _stations = [
     '27.47N',
     '097.41W',
     '24',
-    'US'
+    'US',
   ],
   ['TX ROCKPORT', 'KRKP', 'RKP', 'null', '28.05N', '097.03W', '6', 'US'],
   ['TX ROCKSPRINGS', 'KECU', 'ECU', 'null', '29.57N', '100.10W', '725', 'US'],
@@ -11341,7 +11341,7 @@ List<List<String>> _stations = [
     '29.20N',
     '098.28W',
     '176',
-    'US'
+    'US',
   ],
   ['TX SAN ANTONIO', 'KSAT', 'SAT', '72253', '29.32N', '098.28W', '243', 'US'],
   [
@@ -11352,7 +11352,7 @@ List<List<String>> _stations = [
     '29.43N',
     '098.42W',
     '423',
-    'US'
+    'US',
   ],
   ['TX SAN MARCOS', 'KHYI', 'HYI', 'null', '29.53N', '097.52W', '182', 'US'],
   ['TX SAN MARCOS', 'KT98', 'T98', 'null', '29.53N', '097.52W', '182', 'US'],
@@ -11364,7 +11364,7 @@ List<List<String>> _stations = [
     '30.10N',
     '102.25W',
     '865',
-    'US'
+    'US',
   ],
   ['TX SEMINOLE', 'KGNC', 'GNC', 'null', '32.41N', '102.39W', '1010', 'US'],
   [
@@ -11375,7 +11375,7 @@ List<List<String>> _stations = [
     '32.32N',
     '099.15W',
     '462',
-    'US'
+    'US',
   ],
   [
     'TX SHERMAN/DENISON',
@@ -11385,7 +11385,7 @@ List<List<String>> _stations = [
     '33.43N',
     '096.40W',
     '228',
-    'US'
+    'US',
   ],
   [
     'TX SNYDER/WINSTON',
@@ -11395,7 +11395,7 @@ List<List<String>> _stations = [
     '32.42N',
     '100.57W',
     '741',
-    'US'
+    'US',
   ],
   ['TX SONORA', 'KSOA', 'SOA', 'null', '30.35N', '100.39W', '652', 'US'],
   ['TX SOUTH PADRE IS', 'KSPL', 'SPL', 'null', '26.04N', '097.09W', '4', 'US'],
@@ -11409,7 +11409,7 @@ List<List<String>> _stations = [
     '33.10N',
     '095.37W',
     '149',
-    'US'
+    'US',
   ],
   ['TX SWEETWATER', 'KSWW', 'SWW', 'null', '32.28N', '100.28W', '727', 'US'],
   ['TX TEMPLE/MILLER', 'KTPL', 'TPL', 'null', '31.08N', '097.24W', '208', 'US'],
@@ -11424,7 +11424,7 @@ List<List<String>> _stations = [
     '34.14N',
     '099.17W',
     '386',
-    'US'
+    'US',
   ],
   ['TX VICTORIA', 'KVCT', 'VCT', '72255', '28.52N', '096.56W', '31', 'US'],
   ['TX WACO', 'KACT', 'ACT', '72256', '31.37N', '097.14W', '151', 'US'],
@@ -11440,7 +11440,7 @@ List<List<String>> _stations = [
     '26.11N',
     '097.58W',
     '21',
-    'US'
+    'US',
   ],
   ['TX ZAPATA', 'KAPY', 'APY', 'null', '26.58N', '099.15W', '129', 'US'],
   [
@@ -11451,7 +11451,7 @@ List<List<String>> _stations = [
     '27.50N',
     '096.01W',
     '36',
-    'US'
+    'US',
   ],
   [
     'TX GALVESTON424 OIL',
@@ -11461,7 +11461,7 @@ List<List<String>> _stations = [
     '28.35N',
     '094.59W',
     '39',
-    'US'
+    'US',
   ],
   [
     'TX H ISLAND376 OILP',
@@ -11471,7 +11471,7 @@ List<List<String>> _stations = [
     '27.56N',
     '093.40W',
     '26',
-    'US'
+    'US',
   ],
   [
     'TX BRAZOS 451 OILP',
@@ -11481,7 +11481,7 @@ List<List<String>> _stations = [
     '28.30N',
     '095.43W',
     '34',
-    'US'
+    'US',
   ],
   [
     'TX MUSTANG IS31 OIL',
@@ -11491,7 +11491,7 @@ List<List<String>> _stations = [
     '27.17N',
     '096.44W',
     '36',
-    'US'
+    'US',
   ],
   [
     'TX MUSTANG A85A OIL',
@@ -11501,7 +11501,7 @@ List<List<String>> _stations = [
     '27.44N',
     '096.11W',
     '29',
-    'US'
+    'US',
   ],
   ['TX W CAMERON 368A', 'KCRH', 'CRH', 'null', '28.55N', '093.18W', '34', 'US'],
   [
@@ -11512,7 +11512,7 @@ List<List<String>> _stations = [
     '27.21N',
     '094.38W',
     '46',
-    'US'
+    'US',
   ],
   [
     'TX ALAMINOS CANYON',
@@ -11522,7 +11522,7 @@ List<List<String>> _stations = [
     '26.56N',
     '094.41W',
     '25',
-    'US'
+    'US',
   ],
   ['TX ARLINGTON', 'KF54', 'F54', 'null', '32.40N', '097.06W', '185', 'US'],
   [
@@ -11533,7 +11533,7 @@ List<List<String>> _stations = [
     '30.11N',
     '097.41W',
     '172',
-    'US'
+    'US',
   ],
   ['TX BAY CITY', 'K3R1', '3R1', 'null', '28.58N', '095.52W', '14', 'US'],
   ['TX BEEVILLE', 'KNIR', 'NIR', 'null', '28.22N', '097.40W', '20', 'US'],
@@ -11547,7 +11547,7 @@ List<List<String>> _stations = [
     '30.44N',
     '098.13W',
     '389',
-    'US'
+    'US',
   ],
   ['TX CARMEN', 'KCRM', 'CRM', 'null', '36.36N', '098.37W', '200', 'US'],
   ['TX CARSWELL', 'KAWN', 'AWN', 'null', '32.47N', '097.26W', '198', 'US'],
@@ -11559,7 +11559,7 @@ List<List<String>> _stations = [
     '29.21N',
     '098.51W',
     '235',
-    'US'
+    'US',
   ],
   ['TX CLARKSVILLE', 'K7F6', '7F6', 'null', '33.36N', '095.04W', '134', 'US'],
   ['TX CLEBURNE', 'KF18', 'F18', 'null', '32.21N', '097.26W', '260', 'US'],
@@ -11583,7 +11583,7 @@ List<List<String>> _stations = [
     '32.09N',
     '094.51W',
     '135',
-    'US'
+    'US',
   ],
   [
     'TX HILLSBORO MUNI',
@@ -11593,7 +11593,7 @@ List<List<String>> _stations = [
     '32.05N',
     '097.06W',
     '209',
-    'US'
+    'US',
   ],
   ['TX HOUSTON', 'KT02', 'T02', 'null', '29.31N', '095.15W', '12', 'US'],
   ['TX KICKAPOO', 'KT47', 'T47', 'null', '33.51N', '098.29W', '305', 'US'],
@@ -11608,7 +11608,7 @@ List<List<String>> _stations = [
     '32.45N',
     '095.30W',
     '132',
-    'US'
+    'US',
   ],
   ['TX NEW BRAUNFELS', 'K3R5', '3R5', 'null', '29.43N', '098.03W', '195', 'US'],
   ['TX ODESSA', 'KE02', 'E02', 'null', '31.55N', '102.24W', '902', 'US'],
@@ -11625,7 +11625,7 @@ List<List<String>> _stations = [
     '29.38N',
     '104.21W',
     '896',
-    'US'
+    'US',
   ],
   [
     'TX ROBSTOWN NUECES',
@@ -11635,7 +11635,7 @@ List<List<String>> _stations = [
     '27.47N',
     '097.41W',
     '24',
-    'US'
+    'US',
   ],
   ['TX SABINE PASS', 'K28T', '28T', 'null', '29.42N', '093.57W', '5', 'US'],
   ['TX SEMINOLE', 'K31F', '31F', 'null', '32.41N', '102.39W', '1010', 'US'],
@@ -11649,7 +11649,7 @@ List<List<String>> _stations = [
     '33.43N',
     '096.40W',
     '228',
-    'US'
+    'US',
   ],
   ['TX SONORA', 'KE29', 'E29', 'null', '30.35N', '100.39W', '652', 'US'],
   ['TX SOUTH BRAZOS', 'KT46', 'T46', 'null', '28.01N', '095.52W', '31', 'US'],
@@ -11672,7 +11672,7 @@ List<List<String>> _stations = [
     '34.11N',
     '101.42W',
     '1024',
-    'US'
+    'US',
   ],
   ['TX FLOYDADA 2NE', 'XFLS', 'null', 'null', '34.00N', '101.20W', '969', 'US'],
   [
@@ -11683,7 +11683,7 @@ List<List<String>> _stations = [
     '33.56N',
     '100.51W',
     '797',
-    'US'
+    'US',
   ],
   ['TX MORTON 1NE', 'XMNS', 'null', 'null', '33.44N', '102.44W', '1144', 'US'],
   [
@@ -11694,7 +11694,7 @@ List<List<String>> _stations = [
     '33.32N',
     '102.22W',
     '1066',
-    'US'
+    'US',
   ],
   ['TX LUBBOCK 12W', 'XREE', 'null', 'null', '33.37N', '102.04W', '1020', 'US'],
   ['TX RALLS 1SE', 'XRLS', 'null', 'null', '33.40N', '101.23W', '944', 'US'],
@@ -11707,7 +11707,7 @@ List<List<String>> _stations = [
     '33.09N',
     '102.16W',
     '1010',
-    'US'
+    'US',
   ],
   ['TX TAHOKA 3NE', 'XTAS', 'null', 'null', '33.12N', '101.47W', '946', 'US'],
   ['TX POST 1NE', 'XPTS', 'null', 'null', '33.12N', '101.22W', '792', 'US'],
@@ -11721,7 +11721,7 @@ List<List<String>> _stations = [
     '33.53N',
     '101.45W',
     '1016',
-    'US'
+    'US',
   ],
   ['TX OLTON 6S', 'XONS', 'null', 'null', '34.06N', '102.07W', '1087', 'US'],
   [
@@ -11732,7 +11732,7 @@ List<List<String>> _stations = [
     '32.59N',
     '101.50W',
     '931',
-    'US'
+    'US',
   ],
   [
     'TX SEAGRAVES 1SW',
@@ -11742,7 +11742,7 @@ List<List<String>> _stations = [
     '32.56N',
     '102.34W',
     '1024',
-    'US'
+    'US',
   ],
   ['TX LAMESA 2SE', 'XLES', 'null', 'null', '32.42N', '101.56W', '901', 'US'],
   ['TX HART 3N', 'XHRS', 'null', 'null', '34.25N', '102.06W', '1126', 'US'],
@@ -11755,7 +11755,7 @@ List<List<String>> _stations = [
     '33.32N',
     '101.10W',
     '824',
-    'US'
+    'US',
   ],
   ['TX GRAHAM 5SW', 'XGHS', 'null', 'null', '33.05N', '101.31W', '869', 'US'],
   ['TX SUNDOWN 8SW', 'XSDS', 'null', 'null', '33.23N', '102.37W', '1105', 'US'],
@@ -11778,7 +11778,7 @@ List<List<String>> _stations = [
     '34.50N',
     '102.25W',
     '1182',
-    'US'
+    'US',
   ],
   [
     'TX ASPERMONT 3NE',
@@ -11788,7 +11788,7 @@ List<List<String>> _stations = [
     '33.10N',
     '100.12W',
     '530',
-    'US'
+    'US',
   ],
   ['TX GOODLETT 3W', 'XGDS', 'null', 'null', '34.21N', '099.56W', '501', 'US'],
   ['TX MCLEAN 1E', 'XMCS', 'null', 'null', '35.14N', '100.34W', '873', 'US'],
@@ -11800,7 +11800,7 @@ List<List<String>> _stations = [
     '32.59N',
     '102.56W',
     '1113',
-    'US'
+    'US',
   ],
   [
     'TX LAKE ALAN HENRY',
@@ -11810,7 +11810,7 @@ List<List<String>> _stations = [
     '33.05N',
     '101.03W',
     '705',
-    'US'
+    'US',
   ],
   [
     'TX WOLFFORTH 6SW',
@@ -11820,7 +11820,7 @@ List<List<String>> _stations = [
     '33.25N',
     '102.03W',
     '1008',
-    'US'
+    'US',
   ],
   ['TX ANDREWS 2E', 'XANS', 'null', 'null', '32.19N', '102.31W', '966', 'US'],
   ['TX TURKEY 2WSW', 'XTUR', 'null', 'null', '34.23N', '100.56W', '747', 'US'],
@@ -11832,7 +11832,7 @@ List<List<String>> _stations = [
     '34.27N',
     '100.12W',
     '593',
-    'US'
+    'US',
   ],
   [
     'TX NORTHFIELD 1S',
@@ -11842,7 +11842,7 @@ List<List<String>> _stations = [
     '34.16N',
     '100.36W',
     '637',
-    'US'
+    'US',
   ],
   [
     'TX SAN ANGELO 7NW',
@@ -11852,7 +11852,7 @@ List<List<String>> _stations = [
     '31.33N',
     '100.31W',
     '597',
-    'US'
+    'US',
   ],
   [
     'TX ST LAWRENCE 5SW',
@@ -11862,7 +11862,7 @@ List<List<String>> _stations = [
     '31.39N',
     '101.36W',
     '821',
-    'US'
+    'US',
   ],
   ['TX HASKELL 1NW', 'XHA1', 'null', 'null', '33.10N', '099.45W', '488', 'US'],
   ['TX WALL 1E', 'XWA1', 'null', 'null', '31.22N', '100.17W', '572', 'US'],
@@ -11875,7 +11875,7 @@ List<List<String>> _stations = [
     '33.59N',
     '099.57W',
     '501',
-    'US'
+    'US',
   ],
   [
     'TX KNOX CITY 3NW',
@@ -11885,7 +11885,7 @@ List<List<String>> _stations = [
     '33.27N',
     '099.52W',
     '448',
-    'US'
+    'US',
   ],
   [
     'TX PINE SPRNGS GMNP',
@@ -11895,7 +11895,7 @@ List<List<String>> _stations = [
     '31.53N',
     '104.49W',
     '1698',
-    'US'
+    'US',
   ],
   ['TX ODELL 4ENE', 'XOD1', 'null', 'null', '34.22N', '099.21W', '418', 'US'],
   ['TX COYANOSA 2N', 'XCO1', 'null', 'null', '31.17N', '103.04W', '783', 'US'],
@@ -11907,7 +11907,7 @@ List<List<String>> _stations = [
     '34.25N',
     '101.04W',
     '808',
-    'US'
+    'US',
   ],
   [
     'TX BIG LAKE 1WNW',
@@ -11917,7 +11917,7 @@ List<List<String>> _stations = [
     '31.12N',
     '101.28W',
     '824',
-    'US'
+    'US',
   ],
   [
     'TX JUNCTION 1SSW',
@@ -11927,7 +11927,7 @@ List<List<String>> _stations = [
     '30.28N',
     '099.47W',
     '525',
-    'US'
+    'US',
   ],
   ['TX WEINERT 2NNE', 'XWE1', 'null', 'null', '33.21N', '099.40W', '458', 'US'],
   ['TX CANADIAN 6E', 'XCA1', 'null', 'null', '35.55N', '100.17W', '739', 'US'],
@@ -11939,7 +11939,7 @@ List<List<String>> _stations = [
     '34.59N',
     '101.42W',
     '1055',
-    'US'
+    'US',
   ],
   [
     'TX BOOTLEG 11WNW',
@@ -11949,7 +11949,7 @@ List<List<String>> _stations = [
     '34.53N',
     '102.59W',
     '1348',
-    'US'
+    'US',
   ],
   [
     'TX STERLING COUNTY',
@@ -11959,7 +11959,7 @@ List<List<String>> _stations = [
     '31.50N',
     '101.03W',
     '718',
-    'US'
+    'US',
   ],
   ['TX CLAUDE 12SW', 'XCL1', 'null', 'null', '34.59N', '101.30W', '1052', 'US'],
   [
@@ -11970,7 +11970,7 @@ List<List<String>> _stations = [
     '29.40N',
     '103.11W',
     '875',
-    'US'
+    'US',
   ],
   [
     'TX AMARILLO 7SSE',
@@ -11980,7 +11980,7 @@ List<List<String>> _stations = [
     '35.07N',
     '101.48W',
     '1101',
-    'US'
+    'US',
   ],
   [
     'TX UMBARGER 3NNE',
@@ -11990,7 +11990,7 @@ List<List<String>> _stations = [
     '34.59N',
     '102.05W',
     '1145',
-    'US'
+    'US',
   ],
   ['TX LOMAX 1SSE', 'XLO1', 'null', 'null', '32.06N', '101.38W', '765', 'US'],
   [
@@ -12001,7 +12001,7 @@ List<List<String>> _stations = [
     '35.20N',
     '101.48W',
     '1020',
-    'US'
+    'US',
   ],
   ['TX AIKEN 3WSW', 'XAI1', 'null', 'null', '34.08N', '101.34W', '1012', 'US'],
   ['TX MERTZON', 'XME1', 'null', 'null', '31.18N', '100.49W', '663', 'US'],
@@ -12013,7 +12013,7 @@ List<List<String>> _stations = [
     '32.21N',
     '100.32W',
     '758',
-    'US'
+    'US',
   ],
   [
     'TX AMARILLO 15NNW',
@@ -12023,7 +12023,7 @@ List<List<String>> _stations = [
     '35.25N',
     '101.56W',
     '1013',
-    'US'
+    'US',
   ],
   [
     'TX BOYS RANCH 1WSW',
@@ -12033,7 +12033,7 @@ List<List<String>> _stations = [
     '35.32N',
     '102.16W',
     '977',
-    'US'
+    'US',
   ],
   [
     'TX FORT CHADBOURNE',
@@ -12043,7 +12043,7 @@ List<List<String>> _stations = [
     '32.02N',
     '100.15W',
     '613',
-    'US'
+    'US',
   ],
   ['TX CLYDE 2WNW', 'XCL2', 'null', 'null', '32.25N', '099.32W', '615', 'US'],
   ['TX CROWELL 1E', 'XCR1', 'null', 'null', '33.59N', '099.43W', '452', 'US'],
@@ -12055,7 +12055,7 @@ List<List<String>> _stations = [
     '31.57N',
     '105.12W',
     '1131',
-    'US'
+    'US',
   ],
   ['TX DOZIER 3W', 'XDO1', 'null', 'null', '35.05N', '100.23W', '691', 'US'],
   [
@@ -12066,7 +12066,7 @@ List<List<String>> _stations = [
     '37.14N',
     '108.03W',
     '2361',
-    'US'
+    'US',
   ],
   ['TX GOODNIGHT', 'XGO1', 'null', 'null', '35.02N', '101.11W', '962', 'US'],
   [
@@ -12077,7 +12077,7 @@ List<List<String>> _stations = [
     '30.40N',
     '101.41W',
     '648',
-    'US'
+    'US',
   ],
   [
     'TX FORT MCKAVETT',
@@ -12087,7 +12087,7 @@ List<List<String>> _stations = [
     '32.21N',
     '100.32W',
     '664',
-    'US'
+    'US',
   ],
   ['TX MCCAMEY 1SSW', 'XMC4', 'null', 'null', '31.07N', '102.14W', '742', 'US'],
   ['TX MENARD 2NW', 'XMD1', 'null', 'null', '30.56N', '099.49W', '587', 'US'],
@@ -12100,7 +12100,7 @@ List<List<String>> _stations = [
     '35.20N',
     '101.23W',
     '1054',
-    'US'
+    'US',
   ],
   ['TX CANYON 16ESE', 'XPD2', 'null', 'null', '34.56N', '101.38W', '865', 'US'],
   [
@@ -12111,7 +12111,7 @@ List<List<String>> _stations = [
     '31.10N',
     '105.21W',
     '1390',
-    'US'
+    'US',
   ],
   [
     'TX STAMFORD 5ESE',
@@ -12121,7 +12121,7 @@ List<List<String>> _stations = [
     '32.55N',
     '099.43W',
     '473',
-    'US'
+    'US',
   ],
   [
     'TX STINNETT 1NNW',
@@ -12131,7 +12131,7 @@ List<List<String>> _stations = [
     '35.51N',
     '101.27W',
     '1013',
-    'US'
+    'US',
   ],
   ['TX TARZAN 2WNW', 'XTA1', 'null', 'null', '32.19N', '102.00W', '866', 'US'],
   ['TX VIGO PARK', 'XVP1', 'null', 'null', '34.39N', '101.30W', '1035', 'US'],
@@ -12145,7 +12145,7 @@ List<List<String>> _stations = [
     '33.10N',
     '099.11W',
     '420',
-    'US'
+    'US',
   ],
   [
     'TX COLORADO CITY',
@@ -12155,7 +12155,7 @@ List<List<String>> _stations = [
     '32.27N',
     '100.55W',
     '672',
-    'US'
+    'US',
   ],
   ['TX HAPPY', 'XHA2', 'null', 'null', '34.45N', '101.51W', '1101', 'US'],
   ['TX ADRIAN 6WSW', 'XAD1', 'null', 'null', '35.15N', '102.46W', '1299', 'US'],
@@ -12170,7 +12170,7 @@ List<List<String>> _stations = [
     '40.46N',
     '111.58W',
     '1286',
-    'US'
+    'US',
   ],
   ['UT BLANDING', 'KBDG', 'BDG', '72472', '37.35N', '109.29W', '1789', 'US'],
   ['UT BONNEVILLE', 'KBVL', 'BVL', 'null', '40.43N', '113.45W', '1286', 'US'],
@@ -12185,7 +12185,7 @@ List<List<String>> _stations = [
     '37.35N',
     '112.52W',
     '3231',
-    'US'
+    'US',
   ],
   ['UT DELTA', 'KDTA', 'DTA', '72479', '39.18N', '112.30W', '1402', 'US'],
   [
@@ -12196,7 +12196,7 @@ List<List<String>> _stations = [
     '40.12N',
     '112.55W',
     '1326',
-    'US'
+    'US',
   ],
   ['UT EAGLE RANGE', 'KU16', 'U16', '72430', '41.03N', '113.04W', '1292', 'US'],
   [
@@ -12207,7 +12207,7 @@ List<List<String>> _stations = [
     '41.03N',
     '113.04W',
     '1292',
-    'US'
+    'US',
   ],
   [
     'UT ELDER COUNTY/SLC',
@@ -12217,7 +12217,7 @@ List<List<String>> _stations = [
     '41.16N',
     '112.27W',
     '1969',
-    'US'
+    'US',
   ],
   [
     'UT GREEN RIVER RANG',
@@ -12227,7 +12227,7 @@ List<List<String>> _stations = [
     '39.00N',
     '110.10W',
     '1241',
-    'US'
+    'US',
   ],
   ['UT HANKSVILLE', 'KHVE', 'HVE', '72473', '38.25N', '110.42W', '1350', 'US'],
   [
@@ -12238,7 +12238,7 @@ List<List<String>> _stations = [
     '40.29N',
     '111.26W',
     '1718',
-    'US'
+    'US',
   ],
   [
     'UT HILL AFB/OGDEN',
@@ -12248,7 +12248,7 @@ List<List<String>> _stations = [
     '41.07N',
     '111.58W',
     '1459',
-    'US'
+    'US',
   ],
   ['UT LOGAN', 'KLGU', 'LGU', 'null', '41.47N', '111.51W', '1355', 'US'],
   ['UT MILFORD', 'KMLF', 'MLF', '72475', '38.25N', '113.01W', '1534', 'US'],
@@ -12269,7 +12269,7 @@ List<List<String>> _stations = [
     '40.37N',
     '111.59W',
     '1402',
-    'US'
+    'US',
   ],
   [
     'UT SALT LAKE/ARTCC',
@@ -12279,7 +12279,7 @@ List<List<String>> _stations = [
     '40.46N',
     '111.57W',
     '1287',
-    'US'
+    'US',
   ],
   [
     'UT SLC RFC=KSLR',
@@ -12289,7 +12289,7 @@ List<List<String>> _stations = [
     '40.46N',
     '111.57W',
     '1287',
-    'US'
+    'US',
   ],
   ['UT TOOELE', 'KT62', 'T62', 'null', '40.19N', '112.17W', '1628', 'US'],
   ['UT TOOELE', 'KTVY', 'TVY', 'null', '40.37N', '112.21W', '1317', 'US'],
@@ -12302,7 +12302,7 @@ List<List<String>> _stations = [
     '40.43N',
     '114.01W',
     '1292',
-    'US'
+    'US',
   ],
   ['UT BLANDING', 'K4BL', '4BL', 'null', '37.37N', '109.28W', '1840', 'US'],
   [
@@ -12313,7 +12313,7 @@ List<List<String>> _stations = [
     '37.30N',
     '110.42W',
     '1110',
-    'US'
+    'US',
   ],
   ['UT DELTA', 'KU24', 'U24', 'null', '39.20N', '112.35W', '1414', 'US'],
   ['UT HANKSVILLE', 'K4HV', '4HV', 'null', '38.22N', '110.43W', '1314', 'US'],
@@ -12325,7 +12325,7 @@ List<List<String>> _stations = [
     '40.29N',
     '111.26W',
     '1718',
-    'US'
+    'US',
   ],
   ['UT JOSEPH', 'K7LI', '7LI', 'null', '38.38N', '112.12W', '1829', 'US'],
   ['UT ROOSEVELT', 'KU67', 'U67', 'null', '40.17N', '109.58W', '1556', 'US'],
@@ -12339,7 +12339,7 @@ List<List<String>> _stations = [
     '37.13N',
     '080.25W',
     '650',
-    'US'
+    'US',
   ],
   [
     'VA BLACKSTONE ARMY',
@@ -12349,7 +12349,7 @@ List<List<String>> _stations = [
     '37.04N',
     '077.57W',
     '134',
-    'US'
+    'US',
   ],
   ['VA BROOKNEAL', 'K0V4', '0V4', 'null', '37.09N', '079.01W', '182', 'US'],
   ['VA BUMPASS', 'K7W4', '7W4', 'null', '37.58N', '077.45W', '107', 'US'],
@@ -12362,7 +12362,7 @@ List<List<String>> _stations = [
     '38.08N',
     '078.27W',
     '192',
-    'US'
+    'US',
   ],
   ['VA CHASE CITY', 'KCXE', 'CXE', 'null', '36.47N', '078.30W', '154', 'US'],
   ['VA CHESAPEAKE', 'KCPK', 'CPK', '99402', '36.40N', '076.19W', '6', 'US'],
@@ -12378,7 +12378,7 @@ List<List<String>> _stations = [
     '37.07N',
     '080.40W',
     '642',
-    'US'
+    'US',
   ],
   ['VA EMPORIA', 'KEMV', 'EMV', 'null', '36.41N', '077.29W', '39', 'US'],
   ['VA FARMVILLE', 'KFVX', 'FVX', 'null', '37.21N', '078.25W', '125', 'US'],
@@ -12391,7 +12391,7 @@ List<List<String>> _stations = [
     '38.43N',
     '077.10W',
     '21',
-    'US'
+    'US',
   ],
   ['VA FORT ROYAL', 'KFRR', 'FRR', 'null', '38.55N', '078.15W', '215', 'US'],
   [
@@ -12402,7 +12402,7 @@ List<List<String>> _stations = [
     '36.42N',
     '076.54W',
     '12',
-    'US'
+    'US',
   ],
   [
     'VA FREDERICKSB/SHAN',
@@ -12412,7 +12412,7 @@ List<List<String>> _stations = [
     '38.16N',
     '077.27W',
     '26',
-    'US'
+    'US',
   ],
   [
     'VA FT EUSTIS/FELKER',
@@ -12422,7 +12422,7 @@ List<List<String>> _stations = [
     '37.07N',
     '076.37W',
     '4',
-    'US'
+    'US',
   ],
   ['VA GORDONSVILLE', 'KGVE', 'GVE', 'null', '38.09N', '078.10W', '138', 'US'],
   [
@@ -12433,7 +12433,7 @@ List<List<String>> _stations = [
     '36.46N',
     '080.49W',
     '834',
-    'US'
+    'US',
   ],
   [
     'VA HOT SPRINGS/INGA',
@@ -12443,7 +12443,7 @@ List<List<String>> _stations = [
     '37.57N',
     '079.49W',
     '1156',
-    'US'
+    'US',
   ],
   ['VA JONESVILLE', 'K0VG', '0VG', 'null', '36.39N', '083.13W', '430', 'US'],
   ['VA KENBRIDGE', 'KW31', 'W31', 'null', '36.58N', '078.11W', '161', 'US'],
@@ -12455,7 +12455,7 @@ List<List<String>> _stations = [
     '37.04N',
     '076.22W',
     '3',
-    'US'
+    'US',
   ],
   ['VA LAWRENCEVILLE', 'KLVL', 'LVL', 'null', '36.46N', '077.48W', '100', 'US'],
   [
@@ -12466,7 +12466,7 @@ List<List<String>> _stations = [
     '39.04N',
     '077.34W',
     '119',
-    'US'
+    'US',
   ],
   ['VA LOUISA', 'KLKU', 'LKU', 'null', '38.01N', '077.58W', '150', 'US'],
   ['VA LURAY', 'KLUA', 'LUA', 'null', '38.40N', '078.30W', '275', 'US'],
@@ -12480,7 +12480,7 @@ List<List<String>> _stations = [
     '36.53N',
     '081.20W',
     '780',
-    'US'
+    'US',
   ],
   ['VA MARTINSVILLE', 'KMTV', 'MTV', 'null', '36.38N', '080.01W', '287', 'US'],
   ['VA MELFA/ACCOMACK', 'KMFV', 'MFV', 'null', '37.38N', '075.46W', '15', 'US'],
@@ -12494,7 +12494,7 @@ List<List<String>> _stations = [
     '36.55N',
     '076.16W',
     '5',
-    'US'
+    'US',
   ],
   ['VA NORFOLK', 'KORF', 'ORF', '72308', '36.54N', '076.12W', '14', 'US'],
   [
@@ -12505,7 +12505,7 @@ List<List<String>> _stations = [
     '36.59N',
     '077.00W',
     '34',
-    'US'
+    'US',
   ],
   ['VA NORFOLK/HAMPTON', 'KPVG', 'PVG', 'null', '36.47N', '076.27W', '7', 'US'],
   [
@@ -12516,7 +12516,7 @@ List<List<String>> _stations = [
     '36.49N',
     '076.01W',
     '7',
-    'US'
+    'US',
   ],
   ['VA ORANGE', 'KOMH', 'OMH', 'null', '38.15N', '078.03W', '142', 'US'],
   ['VA PETERSBURG', 'KPTB', 'PTB', 'null', '37.10N', '077.31W', '59', 'US'],
@@ -12530,7 +12530,7 @@ List<List<String>> _stations = [
     '37.42N',
     '077.26W',
     '62',
-    'US'
+    'US',
   ],
   [
     'VA RICHMOND/CHESTER',
@@ -12540,7 +12540,7 @@ List<List<String>> _stations = [
     '37.24N',
     '077.31W',
     '72',
-    'US'
+    'US',
   ],
   ['VA RICHMOND', 'KRIC', 'RIC', '72401', '37.31N', '077.19W', '50', 'US'],
   [
@@ -12551,7 +12551,7 @@ List<List<String>> _stations = [
     '37.12N',
     '080.24W',
     '648',
-    'US'
+    'US',
   ],
   [
     'VA ROANOKE/FLOYD CY',
@@ -12561,7 +12561,7 @@ List<List<String>> _stations = [
     '37.01N',
     '080.16W',
     '874',
-    'US'
+    'US',
   ],
   ['VA SALUDA', 'KW75', 'W75', 'null', '37.36N', '076.27W', '10', 'US'],
   ['VA SOUTH BOSTON', 'KW78', 'W78', 'null', '36.43N', '078.51W', '128', 'US'],
@@ -12573,7 +12573,7 @@ List<List<String>> _stations = [
     '36.41N',
     '078.02W',
     '135',
-    'US'
+    'US',
   ],
   ['VA STAFFORD REGNL', 'KRMN', 'RMN', 'null', '38.24N', '077.27W', '65', 'US'],
   [
@@ -12584,7 +12584,7 @@ List<List<String>> _stations = [
     '38.16N',
     '078.54W',
     '366',
-    'US'
+    'US',
   ],
   ['VA STERLING', 'KLWX', 'LWX', 'null', '38.59N', '077.29W', '89', 'US'],
   ['VA SUFFOLK', 'KSFQ', 'SFQ', 'null', '36.41N', '076.36W', '22', 'US'],
@@ -12598,7 +12598,7 @@ List<List<String>> _stations = [
     '37.56N',
     '075.28W',
     '14',
-    'US'
+    'US',
   ],
   ['VA WARRENTON', 'KHWY', 'HWY', 'null', '38.35N', '077.43W', '103', 'US'],
   [
@@ -12609,7 +12609,7 @@ List<List<String>> _stations = [
     '38.56N',
     '077.27W',
     '93',
-    'US'
+    'US',
   ],
   ['VA WAYNESBORO', 'KW13', 'W13', 'null', '38.05N', '078.57W', '438', 'US'],
   ['VA WEST POINT', 'KFYJ', 'FYJ', 'null', '37.31N', '076.46W', '7', 'US'],
@@ -12622,7 +12622,7 @@ List<List<String>> _stations = [
     '39.08N',
     '078.09W',
     '222',
-    'US'
+    'US',
   ],
   [
     'VA WISE/LONESOME PI',
@@ -12632,7 +12632,7 @@ List<List<String>> _stations = [
     '36.58N',
     '082.31W',
     '817',
-    'US'
+    'US',
   ],
   ['VA LURAY', 'KW45', 'W45', 'null', '38.40N', '078.30W', '275', 'US'],
   ['VA RICHLANDS', 'K6V3', '6V3', 'null', '37.04N', '081.48W', '809', 'US'],
@@ -12654,7 +12654,7 @@ List<List<String>> _stations = [
     '44.12N',
     '072.34W',
     '343',
-    'US'
+    'US',
   ],
   [
     'VT NEWPORT STATE',
@@ -12664,7 +12664,7 @@ List<List<String>> _stations = [
     '44.53N',
     '072.14W',
     '284',
-    'US'
+    'US',
   ],
   ['VT RUTLAND STATE', 'KRUT', 'RUT', 'null', '43.31N', '072.57W', '240', 'US'],
   ['VT SPRINGFIELD', 'KVSF', 'VSF', 'null', '43.21N', '072.31W', '175', 'US'],
@@ -12676,7 +12676,7 @@ List<List<String>> _stations = [
     '44.25N',
     '072.01W',
     '210',
-    'US'
+    'US',
   ],
   ['VT BALL MOUNTAIN', 'K8B3', '8B3', 'null', '43.07N', '072.48W', '345', 'US'],
   ['VT BENNINGTON', 'K5B5', '5B5', 'null', '42.53N', '073.15W', '244', 'US'],
@@ -12699,7 +12699,7 @@ List<List<String>> _stations = [
     '47.30N',
     '122.45W',
     '147',
-    'US'
+    'US',
   ],
   [
     'WA BURLINGTON/MT V',
@@ -12709,7 +12709,7 @@ List<List<String>> _stations = [
     '48.28N',
     '122.25W',
     '43',
-    'US'
+    'US',
   ],
   [
     'WA CHEHALIS CENTRAL',
@@ -12719,7 +12719,7 @@ List<List<String>> _stations = [
     '46.41N',
     '122.59W',
     '54',
-    'US'
+    'US',
   ],
   [
     'WA COLVILLE MUNICIP',
@@ -12729,7 +12729,7 @@ List<List<String>> _stations = [
     '48.32N',
     '117.52W',
     '572',
-    'US'
+    'US',
   ],
   ['WA DEER PARK', 'KDEW', 'DEW', '72787', '47.58N', '117.26W', '674', 'US'],
   ['WA EASTSOUND/ORCAS', 'KORS', 'ORS', 'null', '48.42N', '122.55W', '9', 'US'],
@@ -12745,7 +12745,7 @@ List<List<String>> _stations = [
     '47.04N',
     '122.34W',
     '92',
-    'US'
+    'US',
   ],
   ['WA FRIDAY HARBOR', 'KFHR', 'FHR', 'null', '48.31N', '123.02W', '32', 'US'],
   ['WA GRAYS HARBOR', 'KLGX', 'LGX', 'null', '47.07N', '124.06W', '103', 'US'],
@@ -12761,7 +12761,7 @@ List<List<String>> _stations = [
     '48.15N',
     '122.40W',
     '59',
-    'US'
+    'US',
   ],
   ['WA OLYMPIA', 'KOLM', 'OLM', '72792', '46.58N', '122.54W', '58', 'US'],
   ['WA OMAK', 'KOMK', 'OMK', '72789', '48.28N', '119.31W', '395', 'US'],
@@ -12776,7 +12776,7 @@ List<List<String>> _stations = [
     '46.45N',
     '117.07W',
     '773',
-    'US'
+    'US',
   ],
   ['WA PUYALLUP/THUN', 'KPLU', 'PLU', 'null', '47.06N', '122.17W', '164', 'US'],
   ['WA QUILLAYUTE', 'KUIL', 'UIL', '72797', '47.56N', '124.33W', '54', 'US'],
@@ -12791,7 +12791,7 @@ List<List<String>> _stations = [
     '47.27N',
     '122.19W',
     '136',
-    'US'
+    'US',
   ],
   ['WA SEATTLE/WFO', 'KSEW', 'SEW', 'null', '47.41N', '122.15W', '7', 'US'],
   ['WA SEATTLE/ARTCC', 'KZSE', 'ZSE', 'null', '47.17N', '122.11W', '99', 'US'],
@@ -12803,7 +12803,7 @@ List<List<String>> _stations = [
     '48.12N',
     '122.30W',
     '151',
-    'US'
+    'US',
   ],
   ['WA SHELTON', 'KSHN', 'SHN', 'null', '47.14N', '123.08W', '82', 'US'],
   ['WA SPOKANE', 'KOTX', 'OTX', '72786', '47.41N', '117.38W', '727', 'US'],
@@ -12816,7 +12816,7 @@ List<List<String>> _stations = [
     '47.37N',
     '117.32W',
     '735',
-    'US'
+    'US',
   ],
   [
     'WA STAMPEDE PASS',
@@ -12826,7 +12826,7 @@ List<List<String>> _stations = [
     '47.17N',
     '121.20W',
     '1208',
-    'US'
+    'US',
   ],
   ['WA SUNNYSIDE', 'K1S5', '1S5', 'null', '46.20N', '119.58W', '234', 'US'],
   ['WA TACOMA', 'KTIW', 'TIW', 'null', '47.16N', '122.35W', '89', 'US'],
@@ -12838,7 +12838,7 @@ List<List<String>> _stations = [
     '47.07N',
     '122.28W',
     '98',
-    'US'
+    'US',
   ],
   ['WA TATOOSH/VOR', 'KTOU', 'TOU', '99430', '48.18N', '124.38W', '520', 'US'],
   [
@@ -12849,7 +12849,7 @@ List<List<String>> _stations = [
     '46.28N',
     '122.47W',
     '113',
-    'US'
+    'US',
   ],
   ['WA VANCOUVER', 'KVUO', 'VUO', 'null', '45.37N', '122.39W', '8', 'US'],
   ['WA WALLA WALLA', 'KALW', 'ALW', '72788', '46.06N', '118.17W', '363', 'US'],
@@ -12862,7 +12862,7 @@ List<List<String>> _stations = [
     '48.21N',
     '122.39W',
     '14',
-    'US'
+    'US',
   ],
   ['WA YAKIMA', 'KYKM', 'YKM', '72781', '46.34N', '120.32W', '324', 'US'],
   [
@@ -12873,7 +12873,7 @@ List<List<String>> _stations = [
     '48.28N',
     '122.25W',
     '43',
-    'US'
+    'US',
   ],
   ['WA COLVILLE', 'K63S', '63S', 'null', '48.32N', '117.52W', '571', 'US'],
   ['WA DEER PARK', 'K07S', '07S', 'null', '47.58N', '117.26W', '668', 'US'],
@@ -12885,7 +12885,7 @@ List<List<String>> _stations = [
     '47.40N',
     '124.31W',
     '21',
-    'US'
+    'US',
   ],
   [
     'WA OAK HARBOR AIRPA',
@@ -12895,7 +12895,7 @@ List<List<String>> _stations = [
     '48.15N',
     '122.40W',
     '59',
-    'US'
+    'US',
   ],
   [
     'WA PORT ANGELES CG',
@@ -12905,7 +12905,7 @@ List<List<String>> _stations = [
     '48.08N',
     '123.25W',
     '4',
-    'US'
+    'US',
   ],
   ['WA SMITH ISLAND', 'null', 'null', '99418', '48.19N', '122.10W', '15', 'US'],
   [
@@ -12916,7 +12916,7 @@ List<List<String>> _stations = [
     '45.37N',
     '122.39W',
     '8',
-    'US'
+    'US',
   ],
   ['WA YAGABOND AAF', 'K1YT', 'null', 'null', '46.40N', '120.27W', '438', 'US'],
   [
@@ -12927,7 +12927,7 @@ List<List<String>> _stations = [
     '47.40N',
     '122.34W',
     '3',
-    'US'
+    'US',
   ],
   [
     'WI ANTIGO/LANGLADE',
@@ -12937,7 +12937,7 @@ List<List<String>> _stations = [
     '45.09N',
     '089.07W',
     '464',
-    'US'
+    'US',
   ],
   [
     'WI APPLETON/OUTAGAM',
@@ -12947,7 +12947,7 @@ List<List<String>> _stations = [
     '44.16N',
     '088.31W',
     '280',
-    'US'
+    'US',
   ],
   ['WI ASHWAUBENON', 'KGRB', 'GRB', '72645', '44.29N', '088.08W', '208', 'US'],
   ['WI ASHLAND', 'KASX', 'ASX', 'null', '46.33N', '090.55W', '251', 'US'],
@@ -12959,7 +12959,7 @@ List<List<String>> _stations = [
     '44.15N',
     '090.51W',
     '255',
-    'US'
+    'US',
   ],
   [
     'WI BLUE RIVER PROFI',
@@ -12969,7 +12969,7 @@ List<List<String>> _stations = [
     '43.13N',
     '090.31W',
     '226',
-    'US'
+    'US',
   ],
   ['WI BOSCOBEL', 'KOVS', 'OVS', 'null', '43.09N', '090.41W', '202', 'US'],
   ['WI BURLINGTON', 'KBUU', 'BUU', 'null', '42.41N', '088.18W', '237', 'US'],
@@ -12986,7 +12986,7 @@ List<List<String>> _stations = [
     '45.08N',
     '087.11W',
     '233',
-    'US'
+    'US',
   ],
   ['WI EAU CLAIRE', 'KEAU', 'EAU', 'null', '44.52N', '091.28W', '276', 'US'],
   ['WI FOND DU LAC', 'KFLD', 'FLD', 'null', '43.46N', '088.29W', '240', 'US'],
@@ -12999,7 +12999,7 @@ List<List<String>> _stations = [
     '42.37N',
     '089.03W',
     '246',
-    'US'
+    'US',
   ],
   ['WI JUNEAU', 'KUNU', 'UNU', 'null', '43.25N', '088.42W', '285', 'US'],
   ['WI KENOSHA', 'KENW', 'ENW', 'null', '42.36N', '087.56W', '219', 'US'],
@@ -13014,7 +13014,7 @@ List<List<String>> _stations = [
     '45.30N',
     '091.00W',
     '377',
-    'US'
+    'US',
   ],
   ['WI LAND O LAKES', 'KLNL', 'LNL', 'null', '46.09N', '089.13W', '520', 'US'],
   ['WI LONE ROCK', 'KLNR', 'LNR', 'null', '43.13N', '090.11W', '217', 'US'],
@@ -13027,7 +13027,7 @@ List<List<String>> _stations = [
     '44.07N',
     '087.40W',
     '198',
-    'US'
+    'US',
   ],
   [
     'WI MANITOWISH WATER',
@@ -13037,7 +13037,7 @@ List<List<String>> _stations = [
     '46.07N',
     '089.53W',
     '491',
-    'US'
+    'US',
   ],
   ['WI MARSHFIELD', 'KMFI', 'MFI', 'null', '44.38N', '090.11W', '379', 'US'],
   ['WI MEDFORD', 'KMDZ', 'MDZ', 'null', '45.06N', '090.18W', '448', 'US'],
@@ -13049,7 +13049,7 @@ List<List<String>> _stations = [
     '44.54N',
     '091.52W',
     '273',
-    'US'
+    'US',
   ],
   ['WI MERRILL', 'KRRL', 'RRL', 'null', '45.12N', '089.43W', '401', 'US'],
   ['WI MIDDLETON', 'KC29', 'C29', 'null', '43.07N', '089.32W', '283', 'US'],
@@ -13062,7 +13062,7 @@ List<List<String>> _stations = [
     '42.58N',
     '088.33W',
     '292',
-    'US'
+    'US',
   ],
   [
     'WI MILWAUKEE/LAWREN',
@@ -13072,7 +13072,7 @@ List<List<String>> _stations = [
     '43.07N',
     '088.02W',
     '227',
-    'US'
+    'US',
   ],
   ['WI MILWAUKEE VOR', 'KBAE', 'BAE', 'null', '43.07N', '088.17W', '206', 'US'],
   ['WI MINERAL POINT', 'KMRJ', 'MRJ', 'null', '42.53N', '090.14W', '359', 'US'],
@@ -13084,7 +13084,7 @@ List<List<String>> _stations = [
     '45.55N',
     '089.43W',
     '496',
-    'US'
+    'US',
   ],
   ['WI MONROE', 'KEFT', 'EFT', 'null', '42.37N', '089.36W', '331', 'US'],
   [
@@ -13095,7 +13095,7 @@ List<List<String>> _stations = [
     '44.47N',
     '089.40W',
     '389',
-    'US'
+    'US',
   ],
   ['WI NEW LISBON', 'K82C', '82C', 'null', '43.50N', '090.08W', '277', 'US'],
   [
@@ -13106,7 +13106,7 @@ List<List<String>> _stations = [
     '45.09N',
     '092.32W',
     '304',
-    'US'
+    'US',
   ],
   ['WI OCONTO', 'KOCQ', 'OCQ', 'null', '44.52N', '087.55W', '183', 'US'],
   ['WI OSCEOLA', 'KOEO', 'OEO', 'null', '45.19N', '092.42W', '275', 'US'],
@@ -13119,7 +13119,7 @@ List<List<String>> _stations = [
     '45.42N',
     '090.24W',
     '449',
-    'US'
+    'US',
   ],
   ['WI PLATTEVILLE', 'KPVB', 'PVB', 'null', '42.41N', '090.26W', '313', 'US'],
   [
@@ -13130,7 +13130,7 @@ List<List<String>> _stations = [
     '43.01N',
     '091.07W',
     '201',
-    'US'
+    'US',
   ],
   ['WI RACINE', 'KRAC', 'RAC', 'null', '42.46N', '087.49W', '203', 'US'],
   ['WI REEDSBURG', 'KC35', 'C35', 'null', '43.32N', '089.59W', '276', 'US'],
@@ -13148,7 +13148,7 @@ List<List<String>> _stations = [
     '43.58N',
     '090.44W',
     '256',
-    'US'
+    'US',
   ],
   ['WI STEVENS POINT', 'KSTE', 'STE', 'null', '44.33N', '089.32W', '338', 'US'],
   ['WI STURGEON BAY', 'KSUE', 'SUE', 'null', '44.51N', '087.25W', '221', 'US'],
@@ -13161,7 +13161,7 @@ List<List<String>> _stations = [
     '45.28N',
     '089.49W',
     '453',
-    'US'
+    'US',
   ],
   ['WI VIROQUA MUNI', 'KY51', 'Y51', 'null', '43.35N', '090.54W', '394', 'US'],
   [
@@ -13172,7 +13172,7 @@ List<List<String>> _stations = [
     '43.55N',
     '090.16W',
     '277',
-    'US'
+    'US',
   ],
   [
     'WI WASHINGTON ISL',
@@ -13182,7 +13182,7 @@ List<List<String>> _stations = [
     '45.23N',
     '086.55W',
     '200',
-    'US'
+    'US',
   ],
   ['WI WATERTOWN', 'KRYV', 'RYV', 'null', '43.10N', '088.43W', '254', 'US'],
   ['WI WAUKESHA CNTY', 'KUES', 'UES', 'null', '43.03N', '088.15W', '278', 'US'],
@@ -13198,7 +13198,7 @@ List<List<String>> _stations = [
     '44.22N',
     '089.50W',
     '307',
-    'US'
+    'US',
   ],
   ['WI BARABOO', 'KC85', 'C85', 'null', '43.32N', '089.46W', '299', 'US'],
   ['WI BURLINGTON', 'KC52', 'C52', 'null', '42.41N', '088.18W', '237', 'US'],
@@ -13210,7 +13210,7 @@ List<List<String>> _stations = [
     '47.04N',
     '090.16W',
     '192',
-    'US'
+    'US',
   ],
   [
     'WI MENOMONIE MUNI',
@@ -13220,7 +13220,7 @@ List<List<String>> _stations = [
     '44.54N',
     '091.52W',
     '273',
-    'US'
+    'US',
   ],
   ['WI NEENAH', 'KEEW', 'EEW', 'null', '44.13N', '088.33W', '275', 'US'],
   ['WI PARK FALLS', 'KPKF', 'PKF', '72741', '45.56N', '090.27W', '469', 'US'],
@@ -13234,7 +13234,7 @@ List<List<String>> _stations = [
     '45.28N',
     '089.48W',
     '453',
-    'US'
+    'US',
   ],
   ['WV BECKLEY', 'KBKW', 'BKW', '72412', '37.48N', '081.07W', '764', 'US'],
   ['WV BLUEFIELD', 'KBLF', 'BLF', 'null', '37.18N', '081.12W', '873', 'US'],
@@ -13252,7 +13252,7 @@ List<List<String>> _stations = [
     '37.52N',
     '080.24W',
     '702',
-    'US'
+    'US',
   ],
   ['WV LOGAN', 'K6L4', '6L4', 'null', '37.51N', '081.55W', '508', 'US'],
   ['WV MARTINSBURG', 'KMRB', 'MRB', 'null', '39.24N', '077.59W', '164', 'US'],
@@ -13269,7 +13269,7 @@ List<List<String>> _stations = [
     '38.19N',
     '081.43W',
     '329',
-    'US'
+    'US',
   ],
   [
     'WV SUTTON/BRAXTON',
@@ -13279,7 +13279,7 @@ List<List<String>> _stations = [
     '38.41N',
     '080.39W',
     '397',
-    'US'
+    'US',
   ],
   ['WV WHEELING', 'KHLG', 'HLG', 'null', '40.10N', '080.39W', '372', 'US'],
   [
@@ -13290,7 +13290,7 @@ List<List<String>> _stations = [
     '37.46N',
     '080.19W',
     '549',
-    'US'
+    'US',
   ],
   ['WY AFTON', 'KAFO', 'AFO', 'null', '42.43N', '110.57W', '1897', 'US'],
   ['WY ALPINE', 'K46U', '46U', 'null', '43.11N', '111.02W', '1721', 'US'],
@@ -13304,7 +13304,7 @@ List<List<String>> _stations = [
     '43.28N',
     '108.14W',
     '2225',
-    'US'
+    'US',
   ],
   ['WY BUFFALO', 'KBYG', 'BYG', 'null', '44.23N', '106.43W', '1497', 'US'],
   ['WY CASPER', 'KCPR', 'CPR', '72569', '42.54N', '106.28W', '1621', 'US'],
@@ -13318,7 +13318,7 @@ List<List<String>> _stations = [
     '44.55N',
     '108.27W',
     '1248',
-    'US'
+    'US',
   ],
   [
     'WY WARREN AIR BASE',
@@ -13328,7 +13328,7 @@ List<List<String>> _stations = [
     '41.08N',
     '104.52W',
     '1878',
-    'US'
+    'US',
   ],
   ['WY CODY', 'KCOD', 'COD', '72670', '44.31N', '109.01W', '1553', 'US'],
   [
@@ -13339,7 +13339,7 @@ List<List<String>> _stations = [
     '44.00N',
     '106.26W',
     '1550',
-    'US'
+    'US',
   ],
   ['WY DIXON', 'KDWX', 'DWX', 'null', '41.02N', '107.30W', '1996', 'US'],
   ['WY DOUGLAS', 'KDGW', 'DGW', '72568', '42.48N', '105.23W', '1499', 'US'],
@@ -13362,7 +13362,7 @@ List<List<String>> _stations = [
     '43.40N',
     '110.02W',
     '3161',
-    'US'
+    'US',
   ],
   [
     'WY MEDICINE BOW PRO',
@@ -13372,7 +13372,7 @@ List<List<String>> _stations = [
     '41.53N',
     '106.10W',
     '2300',
-    'US'
+    'US',
   ],
   [
     'WY NEWCASTLE MONDEL',
@@ -13382,7 +13382,7 @@ List<List<String>> _stations = [
     '43.53N',
     '104.19W',
     '1273',
-    'US'
+    'US',
   ],
   [
     'WY PINEDALE R WENZ',
@@ -13392,7 +13392,7 @@ List<List<String>> _stations = [
     '42.48N',
     '109.48W',
     '2160',
-    'US'
+    'US',
   ],
   [
     'WY PINE BLUFFS MUNI',
@@ -13402,7 +13402,7 @@ List<List<String>> _stations = [
     '41.09N',
     '104.08W',
     '1570',
-    'US'
+    'US',
   ],
   ['WY POWELL', 'KPOY', 'POY', 'null', '44.52N', '108.48W', '1554', 'US'],
   [
@@ -13413,7 +13413,7 @@ List<List<String>> _stations = [
     '41.47N',
     '107.12W',
     '2077',
-    'US'
+    'US',
   ],
   ['WY RIVERTON', 'KRIW', 'RIW', '72672', '43.04N', '108.28W', '1697', 'US'],
   [
@@ -13424,7 +13424,7 @@ List<List<String>> _stations = [
     '41.36N',
     '109.04W',
     '2060',
-    'US'
+    'US',
   ],
   [
     'WY ROCK SPNGS(VOR)',
@@ -13434,7 +13434,7 @@ List<List<String>> _stations = [
     '41.35N',
     '109.01W',
     '2060',
-    'US'
+    'US',
   ],
   ['WY SARATOGA', 'KSAA', 'SAA', 'null', '41.27N', '106.50W', '2138', 'US'],
   ['WY SHERIDAN', 'KSHR', 'SHR', '72666', '44.46N', '106.58W', '1202', 'US'],
@@ -13451,7 +13451,7 @@ List<List<String>> _stations = [
     '44.33N',
     '110.25W',
     '2388',
-    'US'
+    'US',
   ],
   ['WY DOUGLAS', 'K4DG', '4DG', 'null', '42.45N', '105.23W', '1477', 'US'],
   ['WY MOORCROFT', 'K81V', '81V', 'null', '44.16N', '104.57W', '1301', 'US'],
@@ -13464,7 +13464,7 @@ List<List<String>> _stations = [
     '41.43N',
     '107.47W',
     '2146',
-    'US'
+    'US',
   ],
   ['WY VEDAUWOO', 'KVDW', 'VDW', 'null', '41.09N', '105.24W', '2542', 'US'],
   ['WY PUMPKIN VINE', 'KPUM', 'PUM', 'null', '41.03N', '105.28W', '2420', 'US'],
@@ -13478,7 +13478,7 @@ List<List<String>> _stations = [
     '41.32N',
     '109.28W',
     '1949',
-    'US'
+    'US',
   ],
   ['WY FIRST DIVIDE', 'KFIR', 'FIR', 'null', '41.18N', '110.46W', '2294', 'US'],
   ['WY I-25 DIVIDE', 'KIDV', 'IDV', 'null', '43.56N', '106.39W', '1531', 'US'],
@@ -13493,7 +13493,7 @@ List<List<String>> _stations = [
     '43.56N',
     '105.27W',
     '1422',
-    'US'
+    'US',
   ],
   ['WY WHITAKER', 'KWTR', 'WTR', 'null', '41.25N', '104.52W', '1882', 'US'],
   [
@@ -13504,7 +13504,7 @@ List<List<String>> _stations = [
     '42.34N',
     '106.51W',
     '1912',
-    'US'
+    'US',
   ],
   ['WY BEAVER RIM', 'KBVR', 'BVR', 'null', '42.35N', '108.17W', '2072', 'US'],
   ['WY SIBLEY PEAK', 'KSIB', 'SIB', 'null', '42.27N', '105.02W', '1500', 'US'],
@@ -13520,7 +13520,7 @@ List<List<String>> _stations = [
     '43.06N',
     '110.19W',
     '2294',
-    'US'
+    'US',
   ],
   [
     'WY SAGE / JUNCTION',
@@ -13530,7 +13530,7 @@ List<List<String>> _stations = [
     '41.47N',
     '110.30W',
     '2354',
-    'US'
+    'US',
   ],
   ['WY GUNBARREL', 'KGUN', 'GUN', 'null', '41.26N', '104.21W', '1695', 'US'],
   ['WY CHIEF JOSEPH', 'KCHJ', 'CHJ', 'null', '44.45N', '109.22W', '2512', 'US'],
@@ -13543,7 +13543,7 @@ List<List<String>> _stations = [
     '44.59N',
     '110.42W',
     '1902',
-    'US'
+    'US',
   ],
   ['WY TOWER FALLS', 'KTOW', 'TOW', 'null', '44.54N', '110.23W', '1800', 'US'],
   [
@@ -13554,7 +13554,7 @@ List<List<String>> _stations = [
     '44.16N',
     '108.52W',
     '1803',
-    'US'
+    'US',
   ],
   ['DC NWS HDQTRS', 'KWBC', 'WBC', 'null', '38.51N', '076.56W', '50', 'US'],
   [
@@ -13565,7 +13565,7 @@ List<List<String>> _stations = [
     '38.51N',
     '077.02W',
     '18',
-    'US'
+    'US',
   ],
   [
     'DC WASHINGTON/ARTCC',
@@ -13575,7 +13575,7 @@ List<List<String>> _stations = [
     '39.06N',
     '077.33W',
     '20',
-    'US'
+    'US',
   ],
   ['AB ABEE AGDM', 'CXAF', 'null', '71285', '54.17N', '112.58W', '664', 'CA'],
   ['AB ANDREW AGDM', 'CXAG', 'null', '71286', '53.55N', '112.17W', '625', 'CA'],
@@ -13589,7 +13589,7 @@ List<List<String>> _stations = [
     '49.48N',
     '112.18W',
     '824',
-    'CA'
+    'CA',
   ],
   ['AB BEAVERLODGE', 'CWBM', 'null', '71230', '55.12N', '119.24W', '745', 'CA'],
   ['AB BODO AGDM', 'CXBA', 'null', '71214', '52.07N', '110.06W', '687', 'CA'],
@@ -13603,7 +13603,7 @@ List<List<String>> _stations = [
     '49.37N',
     '113.49W',
     '1073',
-    'CA'
+    'CA',
   ],
   [
     'AB BROOKS (AUTOB)',
@@ -13613,7 +13613,7 @@ List<List<String>> _stations = [
     '50.32N',
     '111.50W',
     '747',
-    'CA'
+    'CA',
   ],
   [
     'AB CALGARY INTNL AR',
@@ -13623,7 +13623,7 @@ List<List<String>> _stations = [
     '51.07N',
     '114.01W',
     '1084',
-    'CA'
+    'CA',
   ],
   [
     'AB CALGARY INTL',
@@ -13633,7 +13633,7 @@ List<List<String>> _stations = [
     '51.07N',
     '114.01W',
     '1081',
-    'CA'
+    'CA',
   ],
   [
     'AB CALGARY/SPRINGBA',
@@ -13643,7 +13643,7 @@ List<List<String>> _stations = [
     '51.06N',
     '114.22W',
     '1200',
-    'CA'
+    'CA',
   ],
   [
     'AB CARDSTON (AUT)',
@@ -13653,7 +13653,7 @@ List<List<String>> _stations = [
     '49.12N',
     '113.16W',
     '1136',
-    'CA'
+    'CA',
   ],
   [
     'AB CHAMPION AGDM',
@@ -13663,7 +13663,7 @@ List<List<String>> _stations = [
     '50.17N',
     '113.21W',
     '1006',
-    'CA'
+    'CA',
   ],
   [
     'AB CLARESHOLM (AUTO',
@@ -13673,7 +13673,7 @@ List<List<String>> _stations = [
     '50.01N',
     '113.37W',
     '1012',
-    'CA'
+    'CA',
   ],
   [
     'AB CLEARDALE AGDM',
@@ -13683,7 +13683,7 @@ List<List<String>> _stations = [
     '56.19N',
     '119.45W',
     '630',
-    'CA'
+    'CA',
   ],
   [
     'AB COLD LAKE (CAN',
@@ -13693,7 +13693,7 @@ List<List<String>> _stations = [
     '54.24N',
     '110.17W',
     '544',
-    'CA'
+    'CA',
   ],
   [
     'AB CONSORT AGDM',
@@ -13703,7 +13703,7 @@ List<List<String>> _stations = [
     '51.56N',
     '110.43W',
     '772',
-    'CA'
+    'CA',
   ],
   [
     'AB CORONATION(AUT)',
@@ -13713,7 +13713,7 @@ List<List<String>> _stations = [
     '52.04N',
     '111.28W',
     '791',
-    'CA'
+    'CA',
   ],
   ['AB CROWSNEST', 'CWRT', 'WRT', '71236', '49.37N', '114.28W', '1303', 'CA'],
   ['AB DAPP AGDM', 'CXDP', 'null', '71340', '54.19N', '113.57W', '614', 'CA'],
@@ -13725,7 +13725,7 @@ List<List<String>> _stations = [
     '49.03N',
     '112.49W',
     '1310',
-    'CA'
+    'CA',
   ],
   [
     'AB DRUMHELLER EAST',
@@ -13735,7 +13735,7 @@ List<List<String>> _stations = [
     '51.25N',
     '112.40W',
     '678',
-    'CA'
+    'CA',
   ],
   [
     'AB EDMONTON INTL AR',
@@ -13745,7 +13745,7 @@ List<List<String>> _stations = [
     '53.17N',
     '113.34W',
     '723',
-    'CA'
+    'CA',
   ],
   [
     'AB EDMONTON INTL AR',
@@ -13755,7 +13755,7 @@ List<List<String>> _stations = [
     '53.18N',
     '113.36W',
     '715',
-    'CA'
+    'CA',
   ],
   [
     'AB EDMONTON MUNI',
@@ -13765,7 +13765,7 @@ List<List<String>> _stations = [
     '53.34N',
     '113.31W',
     '671',
-    'CA'
+    'CA',
   ],
   [
     'AB EDMONTON MUNICIP',
@@ -13775,7 +13775,7 @@ List<List<String>> _stations = [
     '53.34N',
     '113.31W',
     '671',
-    'CA'
+    'CA',
   ],
   [
     'AB EDMONTON/NAMAO(M',
@@ -13785,7 +13785,7 @@ List<List<String>> _stations = [
     '53.40N',
     '113.28W',
     '688',
-    'CA'
+    'CA',
   ],
   [
     'AB EDMONTON/STONY P',
@@ -13795,7 +13795,7 @@ List<List<String>> _stations = [
     '53.32N',
     '114.05W',
     '766',
-    'CA'
+    'CA',
   ],
   [
     'AB EDMONTON/STONY P',
@@ -13805,7 +13805,7 @@ List<List<String>> _stations = [
     '53.33N',
     '114.06W',
     '766',
-    'CA'
+    'CA',
   ],
   [
     'AB EDMONTON/STONY P',
@@ -13815,7 +13815,7 @@ List<List<String>> _stations = [
     '53.33N',
     '114.06W',
     '766',
-    'CA'
+    'CA',
   ],
   [
     'AB EDMONTON/VILLENU',
@@ -13825,7 +13825,7 @@ List<List<String>> _stations = [
     '53.40N',
     '113.51W',
     '686',
-    'CA'
+    'CA',
   ],
   [
     'AB EDSON AIRPORT',
@@ -13835,7 +13835,7 @@ List<List<String>> _stations = [
     '53.34N',
     '116.28W',
     '925',
-    'CA'
+    'CA',
   ],
   ['AB EDSON', 'CZZJ', 'null', '71156', '53.35N', '116.28W', '927', 'CA'],
   ['AB ESTHER 1', 'CWGY', 'WGY', '71240', '51.40N', '110.12W', '707', 'CA'],
@@ -13847,7 +13847,7 @@ List<List<String>> _stations = [
     '56.05N',
     '118.26W',
     '655',
-    'CA'
+    'CA',
   ],
   [
     'AB FOREMOST AGDM',
@@ -13857,7 +13857,7 @@ List<List<String>> _stations = [
     '49.29N',
     '111.29W',
     '881',
-    'CA'
+    'CA',
   ],
   [
     'AB FORT CHIPEWYAN A',
@@ -13867,7 +13867,7 @@ List<List<String>> _stations = [
     '58.46N',
     '111.07W',
     '232',
-    'CA'
+    'CA',
   ],
   [
     'AB FORT MCMURRAY AR',
@@ -13877,7 +13877,7 @@ List<List<String>> _stations = [
     '56.39N',
     '111.13W',
     '369',
-    'CA'
+    'CA',
   ],
   [
     'AB FORT MCMURRAY AR',
@@ -13887,7 +13887,7 @@ List<List<String>> _stations = [
     '56.39N',
     '111.13W',
     '369',
-    'CA'
+    'CA',
   ],
   [
     'AB FORT VERMILLION',
@@ -13897,7 +13897,7 @@ List<List<String>> _stations = [
     '58.23N',
     '116.02W',
     '289',
-    'CA'
+    'CA',
   ],
   [
     'AB GRANDE PRAIRE AR',
@@ -13907,7 +13907,7 @@ List<List<String>> _stations = [
     '55.11N',
     '118.53W',
     '669',
-    'CA'
+    'CA',
   ],
   [
     'AB HIGH LEVEL AIRPO',
@@ -13917,7 +13917,7 @@ List<List<String>> _stations = [
     '58.37N',
     '117.10W',
     '338',
-    'CA'
+    'CA',
   ],
   [
     'AB HIGH PRAIRIE AGD',
@@ -13927,7 +13927,7 @@ List<List<String>> _stations = [
     '55.24N',
     '116.29W',
     '602',
-    'CA'
+    'CA',
   ],
   ['AB HIGHVALE', 'CWHA', 'WHA', '71241', '53.27N', '114.28W', '747', 'CA'],
   ['AB HOLDEN AGDM', 'CXHD', 'null', '71227', '53.11N', '112.15W', '688', 'CA'],
@@ -13940,7 +13940,7 @@ List<List<String>> _stations = [
     '52.56N',
     '118.02W',
     '1020',
-    'CA'
+    'CA',
   ],
   ['AB KILLAM AGDM', 'CXKM', 'null', '71228', '52.49N', '111.51W', '675', 'CA'],
   [
@@ -13951,7 +13951,7 @@ List<List<String>> _stations = [
     '54.46N',
     '112.01W',
     '567',
-    'CA'
+    'CA',
   ],
   [
     'AB LETHBRIDGE VOR',
@@ -13961,7 +13961,7 @@ List<List<String>> _stations = [
     '49.38N',
     '112.48W',
     '929',
-    'CA'
+    'CA',
   ],
   [
     'AB LLOYDMINSTER ARP',
@@ -13971,7 +13971,7 @@ List<List<String>> _stations = [
     '53.19N',
     '110.04W',
     '669',
-    'CA'
+    'CA',
   ],
   [
     'AB MANNING AGDM',
@@ -13981,7 +13981,7 @@ List<List<String>> _stations = [
     '56.58N',
     '117.27W',
     '457',
-    'CA'
+    'CA',
   ],
   [
     'AB MASINASIN AGDM',
@@ -13991,7 +13991,7 @@ List<List<String>> _stations = [
     '49.07N',
     '111.39W',
     '947',
-    'CA'
+    'CA',
   ],
   ['AB MEDICINE HAT', 'CYXH', 'YXH', '71872', '50.01N', '110.43W', '716', 'CA'],
   [
@@ -14002,7 +14002,7 @@ List<List<String>> _stations = [
     '50.02N',
     '110.43W',
     '717',
-    'CA'
+    'CA',
   ],
   ['AB MILK RIVER', 'CWRY', 'WRY', '71244', '49.07N', '112.02W', '1050', 'CA'],
   ['AB MORRIN AGDM', 'CXMO', 'null', '71257', '51.40N', '112.41W', '836', 'CA'],
@@ -14014,7 +14014,7 @@ List<List<String>> _stations = [
     '53.34N',
     '112.18W',
     '683',
-    'CA'
+    'CA',
   ],
   ['AB NORDEGG CS', 'CXND', 'null', 'null', '52.28N', '116.05W', '1362', 'CA'],
   ['AB OLDS AGDM', 'CXOL', 'null', '71258', '51.46N', '114.05W', '1046', 'CA'],
@@ -14028,7 +14028,7 @@ List<List<String>> _stations = [
     '49.07N',
     '110.28W',
     '935',
-    'CA'
+    'CA',
   ],
   [
     'AB PEACE RIVER AIRP',
@@ -14038,7 +14038,7 @@ List<List<String>> _stations = [
     '56.13N',
     '117.27W',
     '571',
-    'CA'
+    'CA',
   ],
   ['AB PEORIA AGDM', 'CXPA', 'null', '71348', '55.37N', '118.18W', '621', 'CA'],
   [
@@ -14049,7 +14049,7 @@ List<List<String>> _stations = [
     '49.31N',
     '114.00W',
     '1190',
-    'CA'
+    'CA',
   ],
   [
     'AB POLLOCKVILLE AGD',
@@ -14059,7 +14059,7 @@ List<List<String>> _stations = [
     '51.08N',
     '111.42W',
     '750',
-    'CA'
+    'CA',
   ],
   [
     'AB PRAIRIE RIVER',
@@ -14069,7 +14069,7 @@ List<List<String>> _stations = [
     '58.27N',
     '111.40W',
     '213',
-    'CA'
+    'CA',
   ],
   ['AB PRENTISS', 'CZPS', 'null', '71353', '52.26N', '113.36W', '965', 'CA'],
   [
@@ -14080,7 +14080,7 @@ List<List<String>> _stations = [
     '54.45N',
     '110.02W',
     '702',
-    'CA'
+    'CA',
   ],
   [
     'AB PRIMROSE LAKE 2',
@@ -14090,7 +14090,7 @@ List<List<String>> _stations = [
     '54.46N',
     '110.04W',
     '606',
-    'CA'
+    'CA',
   ],
   [
     'AB RED DEER AIRPORT',
@@ -14100,7 +14100,7 @@ List<List<String>> _stations = [
     '52.10N',
     '113.54W',
     '905',
-    'CA'
+    'CA',
   ],
   [
     'AB RICH LAKE AGDM',
@@ -14110,7 +14110,7 @@ List<List<String>> _stations = [
     '54.30N',
     '111.42W',
     '585',
-    'CA'
+    'CA',
   ],
   [
     'AB ROCKY HOUSE (MAR',
@@ -14120,7 +14120,7 @@ List<List<String>> _stations = [
     '52.25N',
     '114.55W',
     '988',
-    'CA'
+    'CA',
   ],
   [
     'AB SCHULER AGDM',
@@ -14130,7 +14130,7 @@ List<List<String>> _stations = [
     '50.18N',
     '110.05W',
     '800',
-    'CA'
+    'CA',
   ],
   [
     'AB SCHULER RADAR',
@@ -14140,7 +14140,7 @@ List<List<String>> _stations = [
     '50.29N',
     '110.12W',
     '777',
-    'CA'
+    'CA',
   ],
   [
     'AB SLAVE LAKE AIRPO',
@@ -14150,7 +14150,7 @@ List<List<String>> _stations = [
     '55.17N',
     '114.46W',
     '581',
-    'CA'
+    'CA',
   ],
   [
     'AB SMOKY LAKE AGDM',
@@ -14160,7 +14160,7 @@ List<List<String>> _stations = [
     '54.17N',
     '112.30W',
     '680',
-    'CA'
+    'CA',
   ],
   [
     'AB SPIRIT RIVER',
@@ -14170,7 +14170,7 @@ List<List<String>> _stations = [
     '55.42N',
     '119.14W',
     '1015',
-    'CA'
+    'CA',
   ],
   [
     'AB STETTLER AGDM',
@@ -14180,7 +14180,7 @@ List<List<String>> _stations = [
     '52.21N',
     '112.36W',
     '795',
-    'CA'
+    'CA',
   ],
   [
     'AB ST PAUL AGDM',
@@ -14190,7 +14190,7 @@ List<List<String>> _stations = [
     '54.01N',
     '111.16W',
     '649',
-    'CA'
+    'CA',
   ],
   [
     'AB SUFFIELD AIRPORT',
@@ -14200,7 +14200,7 @@ List<List<String>> _stations = [
     '50.16N',
     '111.10W',
     '770',
-    'CA'
+    'CA',
   ],
   ['AB SUNDRE', 'CWAV', 'WAV', '71248', '51.46N', '114.40W', '1114', 'CA'],
   ['AB THREE HILLS', 'CWHI', 'WHI', '71249', '51.42N', '113.13W', '907', 'CA'],
@@ -14212,7 +14212,7 @@ List<List<String>> _stations = [
     '49.35N',
     '114.25W',
     '2164',
-    'CA'
+    'CA',
   ],
   [
     'AB TWO HILLS AGDM',
@@ -14222,7 +14222,7 @@ List<List<String>> _stations = [
     '53.38N',
     '111.41W',
     '678',
-    'CA'
+    'CA',
   ],
   [
     'AB VALLEYVIEW AGDM',
@@ -14232,7 +14232,7 @@ List<List<String>> _stations = [
     '55.06N',
     '117.12W',
     '698',
-    'CA'
+    'CA',
   ],
   [
     'AB VEGREVILLE (AUTO',
@@ -14242,7 +14242,7 @@ List<List<String>> _stations = [
     '53.31N',
     '112.06W',
     '639',
-    'CA'
+    'CA',
   ],
   [
     'AB VERMILION AGDM',
@@ -14252,7 +14252,7 @@ List<List<String>> _stations = [
     '53.21N',
     '110.53W',
     '623',
-    'CA'
+    'CA',
   ],
   ['AB VILNA AG', 'CPVI', 'null', '71761', '54.08N', '111.55W', '645', 'CA'],
   [
@@ -14263,7 +14263,7 @@ List<List<String>> _stations = [
     '49.08N',
     '113.47W',
     '1296',
-    'CA'
+    'CA',
   ],
   [
     'AB WHITECOURT AIRPO',
@@ -14273,7 +14273,7 @@ List<List<String>> _stations = [
     '54.09N',
     '115.47W',
     '785',
-    'CA'
+    'CA',
   ],
   [
     'AB WHITECOURT AIRPO',
@@ -14283,7 +14283,7 @@ List<List<String>> _stations = [
     '54.09N',
     '115.47W',
     '785',
-    'CA'
+    'CA',
   ],
   [
     'AB WRENTHAN AGDM',
@@ -14293,7 +14293,7 @@ List<List<String>> _stations = [
     '49.30N',
     '112.07W',
     '944',
-    'CA'
+    'CA',
   ],
   [
     'AB YOHO PARK (AUTOB',
@@ -14303,7 +14303,7 @@ List<List<String>> _stations = [
     '51.27N',
     '116.19W',
     '1615',
-    'CA'
+    'CA',
   ],
   [
     'AB BLOOD TRIBE AGDM',
@@ -14313,7 +14313,7 @@ List<List<String>> _stations = [
     '49.34N',
     '113.03W',
     '980',
-    'CA'
+    'CA',
   ],
   [
     'AB ENCHANT AGDM',
@@ -14323,7 +14323,7 @@ List<List<String>> _stations = [
     '50.11N',
     '112.26W',
     '801',
-    'CA'
+    'CA',
   ],
   [
     'AB FINCASTLE AGDM',
@@ -14333,7 +14333,7 @@ List<List<String>> _stations = [
     '49.48N',
     '112.02W',
     '833',
-    'CA'
+    'CA',
   ],
   [
     'AB IRON SPRINGS',
@@ -14343,7 +14343,7 @@ List<List<String>> _stations = [
     '49.54N',
     '112.44W',
     '858',
-    'CA'
+    'CA',
   ],
   [
     'AB LETHBRIDGE DEMO',
@@ -14353,7 +14353,7 @@ List<List<String>> _stations = [
     '49.41N',
     '112.45W',
     '903',
-    'CA'
+    'CA',
   ],
   [
     'AB ROSEMARY AGDM',
@@ -14363,7 +14363,7 @@ List<List<String>> _stations = [
     '50.50N',
     '112.03W',
     '714',
-    'CA'
+    'CA',
   ],
   [
     'AB RAYMOND AGDM',
@@ -14373,7 +14373,7 @@ List<List<String>> _stations = [
     '49.29N',
     '112.41W',
     '937',
-    'CA'
+    'CA',
   ],
   [
     'AB STRATHMORE AGDM',
@@ -14383,7 +14383,7 @@ List<List<String>> _stations = [
     '51.02N',
     '113.17W',
     '967',
-    'CA'
+    'CA',
   ],
   [
     'AB SEVEN PERSONS',
@@ -14393,7 +14393,7 @@ List<List<String>> _stations = [
     '49.55N',
     '110.55W',
     '766',
-    'CA'
+    'CA',
   ],
   [
     'AB BOW ISLAND AGDM',
@@ -14403,7 +14403,7 @@ List<List<String>> _stations = [
     '49.52N',
     '111.23W',
     '799',
-    'CA'
+    'CA',
   ],
   [
     'AB BANFF (CWBA-old)',
@@ -14413,7 +14413,7 @@ List<List<String>> _stations = [
     '51.10N',
     '115.34W',
     '1383',
-    'CA'
+    'CA',
   ],
   [
     'BC ABBOTSFORD AIRPO',
@@ -14423,7 +14423,7 @@ List<List<String>> _stations = [
     '49.02N',
     '122.23W',
     '58',
-    'CA'
+    'CA',
   ],
   [
     'BC ADDENBROKE ISL (',
@@ -14433,7 +14433,7 @@ List<List<String>> _stations = [
     '51.36N',
     '127.52W',
     '21',
-    'CA'
+    'CA',
   ],
   [
     'BC AGASSIZ (AUTO)',
@@ -14443,7 +14443,7 @@ List<List<String>> _stations = [
     '49.15N',
     '121.46W',
     '15',
-    'CA'
+    'CA',
   ],
   [
     'BC AMPHITRITE POINT',
@@ -14453,7 +14453,7 @@ List<List<String>> _stations = [
     '48.55N',
     '125.32W',
     '27',
-    'CA'
+    'CA',
   ],
   ['BC ASHCROFT', 'CVAS', 'null', '71681', '50.43N', '121.17W', '327', 'CA'],
   [
@@ -14464,7 +14464,7 @@ List<List<String>> _stations = [
     '49.21N',
     '124.10W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'BC BELLA COOLA ARPT',
@@ -14474,7 +14474,7 @@ List<List<String>> _stations = [
     '52.22N',
     '126.34W',
     '35',
-    'CA'
+    'CA',
   ],
   ['BC BELLA BELLA', 'CBBC', 'null', 'null', '52.11N', '128.09W', '43', 'CA'],
   [
@@ -14485,7 +14485,7 @@ List<List<String>> _stations = [
     '51.15N',
     '123.04W',
     '1670',
-    'CA'
+    'CA',
   ],
   [
     'BC BLEIBLER RANCH',
@@ -14495,7 +14495,7 @@ List<List<String>> _stations = [
     '51.16N',
     '121.41W',
     '1128',
-    'CA'
+    'CA',
   ],
   [
     'BC BLUE RIVER (MAN)',
@@ -14505,7 +14505,7 @@ List<List<String>> _stations = [
     '52.08N',
     '119.17W',
     '683',
-    'CA'
+    'CA',
   ],
   [
     'BC BLUE RIVER (MARS',
@@ -14515,7 +14515,7 @@ List<List<String>> _stations = [
     '52.06N',
     '119.17W',
     '683',
-    'CA'
+    'CA',
   ],
   [
     'BC BOAT BLUFF (LGT',
@@ -14525,7 +14525,7 @@ List<List<String>> _stations = [
     '52.39N',
     '128.31W',
     '15',
-    'CA'
+    'CA',
   ],
   [
     'BC BONILLA ISL (MAP',
@@ -14535,7 +14535,7 @@ List<List<String>> _stations = [
     '53.30N',
     '130.38W',
     '17',
-    'CA'
+    'CA',
   ],
   [
     'BC BONILLA ISLAND (',
@@ -14545,7 +14545,7 @@ List<List<String>> _stations = [
     '53.30N',
     '130.38W',
     '16',
-    'CA'
+    'CA',
   ],
   ['BC BURNS LAKE', 'CWPZ', 'WPZ', '71952', '54.23N', '125.58W', '713', 'CA'],
   [
@@ -14556,7 +14556,7 @@ List<List<String>> _stations = [
     '49.57N',
     '125.16W',
     '106',
-    'CA'
+    'CA',
   ],
   ['BC CAPE MUDGE (LGT', 'CWAD', 'WAD', 'null', '50.00N', '125.12W', '4', 'CA'],
   [
@@ -14567,7 +14567,7 @@ List<List<String>> _stations = [
     '50.46N',
     '128.25W',
     '72',
-    'CA'
+    'CA',
   ],
   ['BC CAPE ST JAMES', 'CWZV', 'WZV', '71107', '51.56N', '131.01W', '92', 'CA'],
   [
@@ -14578,7 +14578,7 @@ List<List<String>> _stations = [
     '49.17N',
     '117.37W',
     '495',
-    'CA'
+    'CA',
   ],
   [
     'BC CATHEDRAL PT(MAP',
@@ -14588,7 +14588,7 @@ List<List<String>> _stations = [
     '52.11N',
     '127.28W',
     '32',
-    'CA'
+    'CA',
   ],
   [
     'BC CHATHAM POINT (L',
@@ -14598,7 +14598,7 @@ List<List<String>> _stations = [
     '50.20N',
     '125.27W',
     '23',
-    'CA'
+    'CA',
   ],
   [
     'BC CHETWYND AIRPORT',
@@ -14608,7 +14608,7 @@ List<List<String>> _stations = [
     '55.42N',
     '121.37W',
     '609',
-    'CA'
+    'CA',
   ],
   [
     'BC CLINTON (MARS)',
@@ -14618,7 +14618,7 @@ List<List<String>> _stations = [
     '51.08N',
     '121.30W',
     '1057',
-    'CA'
+    'CA',
   ],
   [
     'BC COMOX (CAN MIL)',
@@ -14628,7 +14628,7 @@ List<List<String>> _stations = [
     '49.43N',
     '124.54W',
     '24',
-    'CA'
+    'CA',
   ],
   ['BC CRANBROOK', 'CYXC', 'YXC', '71880', '49.36N', '115.46W', '939', 'CA'],
   [
@@ -14639,7 +14639,7 @@ List<List<String>> _stations = [
     '49.04N',
     '116.30W',
     '646',
-    'CA'
+    'CA',
   ],
   [
     'BC CUMSHEWA ISL (MA',
@@ -14649,7 +14649,7 @@ List<List<String>> _stations = [
     '53.02N',
     '131.36W',
     '17',
-    'CA'
+    'CA',
   ],
   [
     'BC DAWSON CREEK ARP',
@@ -14659,7 +14659,7 @@ List<List<String>> _stations = [
     '55.45N',
     '120.10W',
     '655',
-    'CA'
+    'CA',
   ],
   ['BC DEASE LAKE', 'CWDL', 'null', '71958', '58.26N', '130.01W', '816', 'CA'],
   ['BC DEASE LAKE', 'CYDL', 'null', 'null', '58.25N', '130.01W', '816', 'CA'],
@@ -14671,7 +14671,7 @@ List<List<String>> _stations = [
     '58.26N',
     '130.01W',
     '793',
-    'CA'
+    'CA',
   ],
   [
     'BC DISCOVERY ISLAND',
@@ -14681,7 +14681,7 @@ List<List<String>> _stations = [
     '48.25N',
     '123.14W',
     '17',
-    'CA'
+    'CA',
   ],
   [
     'BC DRYAD POINT (LGT',
@@ -14691,7 +14691,7 @@ List<List<String>> _stations = [
     '52.11N',
     '128.07W',
     '4',
-    'CA'
+    'CA',
   ],
   ['BC EGG ISLAND', 'CWEM', 'WEM', 'null', '51.15N', '127.50W', '14', 'CA'],
   [
@@ -14702,7 +14702,7 @@ List<List<String>> _stations = [
     '49.13N',
     '123.47W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'BC ESQUIMALT METOC',
@@ -14712,7 +14712,7 @@ List<List<String>> _stations = [
     '48.26N',
     '123.26W',
     '12',
-    'CA'
+    'CA',
   ],
   [
     'BC ESTEVAN PT. (MAR',
@@ -14722,7 +14722,7 @@ List<List<String>> _stations = [
     '49.23N',
     '126.33W',
     '7',
-    'CA'
+    'CA',
   ],
   ['BC FANNY ISLAND', 'CXFA', 'null', '71568', '50.27N', '126.00W', '5', 'CA'],
   [
@@ -14733,7 +14733,7 @@ List<List<String>> _stations = [
     '58.49N',
     '122.34W',
     '382',
-    'CA'
+    'CA',
   ],
   [
     'BC FORT ST. JOHN AR',
@@ -14743,7 +14743,7 @@ List<List<String>> _stations = [
     '56.15N',
     '120.44W',
     '695',
-    'CA'
+    'CA',
   ],
   ['BC GOLDEN ARPT', 'CYGE', 'YGE', 'null', '51.18N', '116.59W', '785', 'CA'],
   [
@@ -14754,7 +14754,7 @@ List<List<String>> _stations = [
     '54.34N',
     '130.42W',
     '12',
-    'CA'
+    'CA',
   ],
   [
     'BC GREY ISLET (MAPS',
@@ -14764,7 +14764,7 @@ List<List<String>> _stations = [
     '54.35N',
     '130.42W',
     '8',
-    'CA'
+    'CA',
   ],
   [
     'BC HELMCKEN ISL(MAP',
@@ -14774,7 +14774,7 @@ List<List<String>> _stations = [
     '50.23N',
     '125.52W',
     '19',
-    'CA'
+    'CA',
   ],
   [
     'BC HERBERT ISL (MAP',
@@ -14784,7 +14784,7 @@ List<List<String>> _stations = [
     '50.56N',
     '127.38W',
     '17',
-    'CA'
+    'CA',
   ],
   ['BC HOLBERG CCR', 'CWXH', 'WXH', '71562', '50.38N', '128.08W', '568', 'CA'],
   [
@@ -14795,7 +14795,7 @@ List<List<String>> _stations = [
     '54.10N',
     '130.21W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'BC HOPE AIRPORT (MA',
@@ -14805,7 +14805,7 @@ List<List<String>> _stations = [
     '49.22N',
     '121.30W',
     '39',
-    'CA'
+    'CA',
   ],
   ['BC HOPE SLIDE', 'CWKV', 'WKV', 'null', '49.16N', '121.13W', '674', 'CA'],
   [
@@ -14816,7 +14816,7 @@ List<List<String>> _stations = [
     '52.16N',
     '121.02W',
     '846',
-    'CA'
+    'CA',
   ],
   ['BC HOSKINS ISLET', 'CWZK', 'null', '71773', '52.32N', '131.33W', '8', 'CA'],
   [
@@ -14827,7 +14827,7 @@ List<List<String>> _stations = [
     '56.43N',
     '131.40W',
     '15',
-    'CA'
+    'CA',
   ],
   ['BC IVORY ISLAND', 'CWJG', 'WJG', 'null', '52.16N', '128.25W', '10', 'CA'],
   [
@@ -14838,7 +14838,7 @@ List<List<String>> _stations = [
     '50.42N',
     '120.27W',
     '346',
-    'CA'
+    'CA',
   ],
   ['BC KAMLOOPS', 'CZKA', 'null', 'null', '50.42N', '120.26W', '345', 'CA'],
   ['BC KELOWNA APT', 'CYLW', 'YLW', '71203', '49.57N', '119.22W', '430', 'CA'],
@@ -14850,7 +14850,7 @@ List<List<String>> _stations = [
     '48.33N',
     '123.14W',
     '1',
-    'CA'
+    'CA',
   ],
   [
     'BC KINDAKUN ROCKS(A',
@@ -14860,7 +14860,7 @@ List<List<String>> _stations = [
     '53.19N',
     '132.46W',
     '14',
-    'CA'
+    'CA',
   ],
   ['BC LANGARA', 'CWJU', 'WJU', '71903', '54.15N', '133.04W', '41', 'CA'],
   ['BC LANGARA', 'CWLA', 'WLA', '71899', '54.15N', '133.04W', '41', 'CA'],
@@ -14872,7 +14872,7 @@ List<List<String>> _stations = [
     '54.18N',
     '130.37W',
     '27',
-    'CA'
+    'CA',
   ],
   [
     'BC LYTTON (READAC)',
@@ -14882,7 +14882,7 @@ List<List<String>> _stations = [
     '50.13N',
     '121.35W',
     '229',
-    'CA'
+    'CA',
   ],
   [
     'BC MACKENZIE AIRPOR',
@@ -14892,7 +14892,7 @@ List<List<String>> _stations = [
     '55.17N',
     '123.07W',
     '690',
-    'CA'
+    'CA',
   ],
   [
     'BC MALAHAT (AUTOB)',
@@ -14902,7 +14902,7 @@ List<List<String>> _stations = [
     '48.34N',
     '123.33W',
     '366',
-    'CA'
+    'CA',
   ],
   ['BC MASSET', 'CZMT', 'null', 'null', '54.02N', '132.08W', '8', 'CA'],
   [
@@ -14913,7 +14913,7 @@ List<List<String>> _stations = [
     '52.16N',
     '128.43W',
     '26',
-    'CA'
+    'CA',
   ],
   ['BC MERRY ISLAND', 'CWMR', 'WMR', 'null', '49.28N', '123.55W', '8', 'CA'],
   [
@@ -14924,7 +14924,7 @@ List<List<String>> _stations = [
     '48.52N',
     '123.45W',
     '1',
-    'CA'
+    'CA',
   ],
   ['BC MUNCHO LAKE', 'CWWQ', 'WWQ', 'null', '58.56N', '125.46W', '837', 'CA'],
   [
@@ -14935,7 +14935,7 @@ List<List<String>> _stations = [
     '50.16N',
     '117.49W',
     '524',
-    'CA'
+    'CA',
   ],
   [
     'BC NANAIMO AIRPORT',
@@ -14945,7 +14945,7 @@ List<List<String>> _stations = [
     '49.03N',
     '123.52W',
     '30',
-    'CA'
+    'CA',
   ],
   [
     'BC NECHAKO RIVER AU',
@@ -14955,7 +14955,7 @@ List<List<String>> _stations = [
     '53.40N',
     '124.49W',
     '715',
-    'CA'
+    'CA',
   ],
   [
     'BC NELSON (AUTOB)',
@@ -14965,7 +14965,7 @@ List<List<String>> _stations = [
     '49.30N',
     '117.17W',
     '535',
-    'CA'
+    'CA',
   ],
   [
     'BC NITINAT LAKE (MA',
@@ -14975,7 +14975,7 @@ List<List<String>> _stations = [
     '48.40N',
     '124.50W',
     '41',
-    'CA'
+    'CA',
   ],
   [
     'BC NOOTKA LIGHTSTAT',
@@ -14985,7 +14985,7 @@ List<List<String>> _stations = [
     '49.36N',
     '126.37W',
     '16',
-    'CA'
+    'CA',
   ],
   [
     'BC OSOYOOS (AUTOB)',
@@ -14995,7 +14995,7 @@ List<List<String>> _stations = [
     '49.02N',
     '119.26W',
     '283',
-    'CA'
+    'CA',
   ],
   [
     'BC P. MEADOWS CS AU',
@@ -15005,7 +15005,7 @@ List<List<String>> _stations = [
     '49.13N',
     '122.41W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'BC PEMBERTON (AUTOB',
@@ -15015,7 +15015,7 @@ List<List<String>> _stations = [
     '50.18N',
     '122.44W',
     '204',
-    'CA'
+    'CA',
   ],
   [
     'BC PEMBERTON (AUTOB',
@@ -15025,7 +15025,7 @@ List<List<String>> _stations = [
     '50.18N',
     '122.44W',
     '204',
-    'CA'
+    'CA',
   ],
   [
     'BC PENTICTON AIRPOR',
@@ -15035,7 +15035,7 @@ List<List<String>> _stations = [
     '49.28N',
     '119.35W',
     '344',
-    'CA'
+    'CA',
   ],
   [
     'BC PINE ISLAND (MAP',
@@ -15045,7 +15045,7 @@ List<List<String>> _stations = [
     '50.59N',
     '127.44W',
     '9',
-    'CA'
+    'CA',
   ],
   [
     'BC PORT ALBERNI (MA',
@@ -15055,7 +15055,7 @@ List<List<String>> _stations = [
     '49.19N',
     '124.56W',
     '53',
-    'CA'
+    'CA',
   ],
   [
     'BC PORT HARDY AIRPO',
@@ -15065,7 +15065,7 @@ List<List<String>> _stations = [
     '50.40N',
     '127.22W',
     '22',
-    'CA'
+    'CA',
   ],
   [
     'BC POWELL RIVER ARP',
@@ -15075,7 +15075,7 @@ List<List<String>> _stations = [
     '49.49N',
     '124.30W',
     '130',
-    'CA'
+    'CA',
   ],
   [
     'BC PRINCE GEORGE',
@@ -15085,7 +15085,7 @@ List<List<String>> _stations = [
     '53.54N',
     '122.41W',
     '691',
-    'CA'
+    'CA',
   ],
   [
     'BC PRINCE GEORGE',
@@ -15095,7 +15095,7 @@ List<List<String>> _stations = [
     '53.37N',
     '122.57W',
     '1101',
-    'CA'
+    'CA',
   ],
   [
     'BC PRINCE RUPERT AR',
@@ -15105,7 +15105,7 @@ List<List<String>> _stations = [
     '54.17N',
     '130.25W',
     '34',
-    'CA'
+    'CA',
   ],
   ['BC PRINCETON', 'CWPR', 'WPR', '71032', '49.28N', '120.31W', '700', 'CA'],
   ['BC PRINCETON', 'CYDC', 'YDC', '71886', '49.28N', '120.31W', '700', 'CA'],
@@ -15117,7 +15117,7 @@ List<List<String>> _stations = [
     '52.07N',
     '124.07W',
     '910',
-    'CA'
+    'CA',
   ],
   [
     'BC QUATSINO (LGT ST',
@@ -15127,7 +15127,7 @@ List<List<String>> _stations = [
     '50.26N',
     '128.02W',
     '21',
-    'CA'
+    'CA',
   ],
   [
     'BC QUESNEL AIRPORT',
@@ -15137,7 +15137,7 @@ List<List<String>> _stations = [
     '53.01N',
     '122.31W',
     '545',
-    'CA'
+    'CA',
   ],
   [
     'BC RACE ROCKS AUTOB',
@@ -15147,7 +15147,7 @@ List<List<String>> _stations = [
     '48.18N',
     '123.32W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'BC REVELSTOKE AIRPO',
@@ -15157,7 +15157,7 @@ List<List<String>> _stations = [
     '50.58N',
     '118.10W',
     '443',
-    'CA'
+    'CA',
   ],
   [
     'BC ROSE SPIT (MAPS)',
@@ -15167,7 +15167,7 @@ List<List<String>> _stations = [
     '54.10N',
     '131.40W',
     '7',
-    'CA'
+    'CA',
   ],
   [
     'BC SALMON ARM AUTOB',
@@ -15177,7 +15177,7 @@ List<List<String>> _stations = [
     '50.42N',
     '119.16W',
     '351',
-    'CA'
+    'CA',
   ],
   ['BC SAND HEADS (LS)', 'CWVF', 'WVF', 'null', '49.06N', '123.18W', '1', 'CA'],
   [
@@ -15188,7 +15188,7 @@ List<List<String>> _stations = [
     '53.15N',
     '131.49W',
     '6',
-    'CA'
+    'CA',
   ],
   [
     'BC SARTINE ISL (MAP',
@@ -15198,7 +15198,7 @@ List<List<String>> _stations = [
     '50.49N',
     '128.54W',
     '111',
-    'CA'
+    'CA',
   ],
   [
     'BC SATURNA ISL (MAP',
@@ -15208,7 +15208,7 @@ List<List<String>> _stations = [
     '48.47N',
     '123.03W',
     '7',
-    'CA'
+    'CA',
   ],
   ['BC SCUDDER POINT', 'CWZD', 'null', 'null', '52.27N', '131.14W', '5', 'CA'],
   [
@@ -15219,7 +15219,7 @@ List<List<String>> _stations = [
     '48.23N',
     '123.55W',
     '21',
-    'CA'
+    'CA',
   ],
   [
     'BC SILVER STAR RADR',
@@ -15229,7 +15229,7 @@ List<List<String>> _stations = [
     '50.22N',
     '119.04W',
     '1681',
-    'CA'
+    'CA',
   ],
   [
     'BC SIKANNI CHIEF AU',
@@ -15239,7 +15239,7 @@ List<List<String>> _stations = [
     '57.15N',
     '122.43W',
     '937',
-    'CA'
+    'CA',
   ],
   [
     'BC SISTERS IL AUTOB',
@@ -15249,7 +15249,7 @@ List<List<String>> _stations = [
     '49.29N',
     '124.26W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'BC SMITHERS AIRPORT',
@@ -15259,7 +15259,7 @@ List<List<String>> _stations = [
     '54.49N',
     '127.11W',
     '523',
-    'CA'
+    'CA',
   ],
   [
     'BC SOLANDER ISL (MA',
@@ -15269,7 +15269,7 @@ List<List<String>> _stations = [
     '50.07N',
     '127.56W',
     '98',
-    'CA'
+    'CA',
   ],
   [
     'BC SPARWOOD (AUTOB)',
@@ -15279,7 +15279,7 @@ List<List<String>> _stations = [
     '49.45N',
     '114.54W',
     '1137',
-    'CA'
+    'CA',
   ],
   [
     'BC SPARWOOD/ELK VAL',
@@ -15289,7 +15289,7 @@ List<List<String>> _stations = [
     '49.45N',
     '114.52W',
     '1138',
-    'CA'
+    'CA',
   ],
   [
     'BC SQUAMISH (AUTOB)',
@@ -15299,7 +15299,7 @@ List<List<String>> _stations = [
     '49.47N',
     '123.10W',
     '60',
-    'CA'
+    'CA',
   ],
   [
     'BC SQUAMISH (AUTOB)',
@@ -15309,7 +15309,7 @@ List<List<String>> _stations = [
     '49.47N',
     '123.10W',
     '52',
-    'CA'
+    'CA',
   ],
   [
     'BC STEWART AIRPORT',
@@ -15319,7 +15319,7 @@ List<List<String>> _stations = [
     '55.56N',
     '129.59W',
     '7',
-    'CA'
+    'CA',
   ],
   [
     'BC SUMMERLAND (AUTO',
@@ -15329,7 +15329,7 @@ List<List<String>> _stations = [
     '49.34N',
     '119.39W',
     '454',
-    'CA'
+    'CA',
   ],
   [
     'BC TATLAYOKO LAKE',
@@ -15339,7 +15339,7 @@ List<List<String>> _stations = [
     '51.40N',
     '124.24W',
     '875',
-    'CA'
+    'CA',
   ],
   [
     'BC TERRACE AIRPORT',
@@ -15349,7 +15349,7 @@ List<List<String>> _stations = [
     '54.28N',
     '128.34W',
     '217',
-    'CA'
+    'CA',
   ],
   ['BC TETSA RIVER', 'CWTH', 'WTH', 'null', '58.39N', '124.14W', '804', 'CA'],
   [
@@ -15360,7 +15360,7 @@ List<List<String>> _stations = [
     '49.05N',
     '125.46W',
     '24',
-    'CA'
+    'CA',
   ],
   [
     'BC TRIPLE ISLAND (L',
@@ -15370,7 +15370,7 @@ List<List<String>> _stations = [
     '54.18N',
     '130.53W',
     '21',
-    'CA'
+    'CA',
   ],
   [
     'BC VANCOUVER (AUTOB',
@@ -15380,7 +15380,7 @@ List<List<String>> _stations = [
     '49.17N',
     '123.07W',
     '2',
-    'CA'
+    'CA',
   ],
   [
     'BC VANCOUVER INTL A',
@@ -15390,7 +15390,7 @@ List<List<String>> _stations = [
     '49.10N',
     '123.10W',
     '2',
-    'CA'
+    'CA',
   ],
   [
     'BC VERNON (AUTOB)',
@@ -15400,7 +15400,7 @@ List<List<String>> _stations = [
     '50.13N',
     '119.11W',
     '556',
-    'CA'
+    'CA',
   ],
   [
     'BC VERNON BRIDGE',
@@ -15410,7 +15410,7 @@ List<List<String>> _stations = [
     '50.13N',
     '119.16W',
     '555',
-    'CA'
+    'CA',
   ],
   [
     'BC VIC. HARTLAND AU',
@@ -15420,7 +15420,7 @@ List<List<String>> _stations = [
     '48.31N',
     '123.28W',
     '49',
-    'CA'
+    'CA',
   ],
   [
     'BC VICTORIA (AUTOB)',
@@ -15430,7 +15430,7 @@ List<List<String>> _stations = [
     '48.25N',
     '123.19W',
     '70',
-    'CA'
+    'CA',
   ],
   [
     'BC VICTORIA HARBOUR',
@@ -15440,7 +15440,7 @@ List<List<String>> _stations = [
     '48.25N',
     '123.23W',
     '10',
-    'CA'
+    'CA',
   ],
   [
     'BC VICTORIA INTL AR',
@@ -15450,7 +15450,7 @@ List<List<String>> _stations = [
     '48.39N',
     '123.26W',
     '19',
-    'CA'
+    'CA',
   ],
   ['BC VICTORIA UNIV', 'CWYJ', 'WYJ', '71783', '48.27N', '123.18W', '39', 'CA'],
   [
@@ -15461,7 +15461,7 @@ List<List<String>> _stations = [
     '49.21N',
     '123.10W',
     '178',
-    'CA'
+    'CA',
   ],
   ['BC WHISTLER', 'CWAE', 'WAE', 'null', '50.08N', '122.57W', '658', 'CA'],
   [
@@ -15472,7 +15472,7 @@ List<List<String>> _stations = [
     '49.01N',
     '122.47W',
     '15',
-    'CA'
+    'CA',
   ],
   [
     'BC WILLIAMS LAKE AR',
@@ -15482,7 +15482,7 @@ List<List<String>> _stations = [
     '52.11N',
     '122.04W',
     '940',
-    'CA'
+    'CA',
   ],
   [
     'BC ALERT BAY (CWAQ)',
@@ -15492,7 +15492,7 @@ List<List<String>> _stations = [
     '50.34N',
     '126.55W',
     '59',
-    'CA'
+    'CA',
   ],
   [
     'BC INGENIKA PT CWWU',
@@ -15502,7 +15502,7 @@ List<List<String>> _stations = [
     '56.47N',
     '124.54W',
     '680',
-    'CA'
+    'CA',
   ],
   ['MB ARNES', 'CWRE', 'null', 'null', '50.48N', '096.57W', '221', 'CA'],
   [
@@ -15513,7 +15513,7 @@ List<List<String>> _stations = [
     '52.21N',
     '097.02W',
     '222',
-    'CA'
+    'CA',
   ],
   [
     'MB BERENS RIVER APT',
@@ -15523,7 +15523,7 @@ List<List<String>> _stations = [
     '52.21N',
     '097.02W',
     '222',
-    'CA'
+    'CA',
   ],
   [
     'MB BRANDON AIRPORT',
@@ -15533,7 +15533,7 @@ List<List<String>> _stations = [
     '49.55N',
     '099.57W',
     '409',
-    'CA'
+    'CA',
   ],
   [
     'MB CARMAN U OF M',
@@ -15543,7 +15543,7 @@ List<List<String>> _stations = [
     '49.30N',
     '098.02W',
     '268',
-    'CA'
+    'CA',
   ],
   [
     'MB CHURCHILL AIRPOR',
@@ -15553,7 +15553,7 @@ List<List<String>> _stations = [
     '58.45N',
     '094.04W',
     '29',
-    'CA'
+    'CA',
   ],
   [
     'MB DAUPHIN AIRPORT',
@@ -15563,7 +15563,7 @@ List<List<String>> _stations = [
     '51.06N',
     '100.02W',
     '305',
-    'CA'
+    'CA',
   ],
   ['MB DAUPHIN', 'CYDN', 'YDN', '71036', '51.06N', '100.03W', '305', 'CA'],
   ['MB DEERWOOD RCS', 'CXDW', 'XDW', '71840', '49.24N', '098.19W', '341', 'CA'],
@@ -15575,7 +15575,7 @@ List<List<String>> _stations = [
     '50.11N',
     '098.23W',
     '248',
-    'CA'
+    'CA',
   ],
   ['MB EMERSON', 'CWEX', 'null', '71560', '49.00N', '097.14W', '242', 'CA'],
   [
@@ -15586,7 +15586,7 @@ List<List<String>> _stations = [
     '51.04N',
     '097.32W',
     '253',
-    'CA'
+    'CA',
   ],
   [
     'MB FLIN FLON AIRPOR',
@@ -15596,7 +15596,7 @@ List<List<String>> _stations = [
     '54.40N',
     '101.40W',
     '304',
-    'CA'
+    'CA',
   ],
   [
     'MB FOXWARREN RADAR',
@@ -15606,7 +15606,7 @@ List<List<String>> _stations = [
     '50.33N',
     '101.06W',
     '547',
-    'CA'
+    'CA',
   ],
   [
     'MB GEORGE ISL (MAPS',
@@ -15616,7 +15616,7 @@ List<List<String>> _stations = [
     '52.49N',
     '097.37W',
     '223',
-    'CA'
+    'CA',
   ],
   [
     'MB GILLAM AIRPORT',
@@ -15626,7 +15626,7 @@ List<List<String>> _stations = [
     '56.21N',
     '094.42W',
     '145',
-    'CA'
+    'CA',
   ],
   [
     'MB GILLAM AIRPORT',
@@ -15636,7 +15636,7 @@ List<List<String>> _stations = [
     '56.21N',
     '094.42W',
     '145',
-    'CA'
+    'CA',
   ],
   ['MB GIMLI', 'CYGM', 'YGM', '71856', '50.37N', '097.01W', '230', 'CA'],
   [
@@ -15647,7 +15647,7 @@ List<List<String>> _stations = [
     '50.38N',
     '097.00W',
     '217',
-    'CA'
+    'CA',
   ],
   [
     'MB GRAND RAPIDS (MA',
@@ -15657,7 +15657,7 @@ List<List<String>> _stations = [
     '53.10N',
     '099.16W',
     '223',
-    'CA'
+    'CA',
   ],
   [
     'MB GRETNA (MARS)',
@@ -15667,7 +15667,7 @@ List<List<String>> _stations = [
     '49.01N',
     '097.34W',
     '251',
-    'CA'
+    'CA',
   ],
   [
     'MB HUNTERS POINT MA',
@@ -15677,7 +15677,7 @@ List<List<String>> _stations = [
     '53.02N',
     '100.56W',
     '256',
-    'CA'
+    'CA',
   ],
   [
     'MB ISLAND LAKE AIRP',
@@ -15687,7 +15687,7 @@ List<List<String>> _stations = [
     '53.51N',
     '094.39W',
     '237',
-    'CA'
+    'CA',
   ],
   [
     'MB KELSEY DAM CS',
@@ -15697,7 +15697,7 @@ List<List<String>> _stations = [
     '56.02N',
     '096.31W',
     '183',
-    'CA'
+    'CA',
   ],
   [
     'MB LYNN LAKE AIRPOR',
@@ -15707,7 +15707,7 @@ List<List<String>> _stations = [
     '56.52N',
     '101.04W',
     '357',
-    'CA'
+    'CA',
   ],
   ['MB MELITA', 'CWEI', 'null', '71447', '49.17N', '100.59W', '446', 'CA'],
   ['MB MORDEN', 'CXMD', 'XMD', '71564', '49.13N', '098.05W', '301', 'CA'],
@@ -15719,7 +15719,7 @@ List<List<String>> _stations = [
     '49.12N',
     '098.54W',
     '470',
-    'CA'
+    'CA',
   ],
   [
     'MB PORTAGE SOUTHPOR',
@@ -15729,7 +15729,7 @@ List<List<String>> _stations = [
     '49.53N',
     '098.16W',
     '269',
-    'CA'
+    'CA',
   ],
   ['MB SHILO', 'CWLO', 'WLO', '71853', '49.46N', '099.37W', '373', 'CA'],
   [
@@ -15740,7 +15740,7 @@ List<List<String>> _stations = [
     '52.07N',
     '101.13W',
     '335',
-    'CA'
+    'CA',
   ],
   [
     'MB TADOULE LAKE CS',
@@ -15750,7 +15750,7 @@ List<List<String>> _stations = [
     '58.42N',
     '098.30W',
     '262',
-    'CA'
+    'CA',
   ],
   ['MB TADOULE LAKE', 'CYBQ', 'null', 'null', '58.42N', '098.30W', '262', 'CA'],
   [
@@ -15761,7 +15761,7 @@ List<List<String>> _stations = [
     '53.58N',
     '101.05W',
     '271',
-    'CA'
+    'CA',
   ],
   [
     'MB THOMPSON AIRPORT',
@@ -15771,7 +15771,7 @@ List<List<String>> _stations = [
     '55.47N',
     '097.52W',
     '218',
-    'CA'
+    'CA',
   ],
   [
     'MB VICTORIA BEACH',
@@ -15781,7 +15781,7 @@ List<List<String>> _stations = [
     '50.42N',
     '096.34W',
     '220',
-    'CA'
+    'CA',
   ],
   ['MB VIVIAN RADAR', 'CWVJ', 'null', 'null', '49.53N', '096.28W', '290', 'CA'],
   [
@@ -15792,7 +15792,7 @@ List<List<String>> _stations = [
     '49.53N',
     '097.13W',
     '239',
-    'CA'
+    'CA',
   ],
   ['MB WINNIPEG', 'CXWI', 'null', '71843', '49.53N', '097.08W', '251', 'CA'],
   [
@@ -15803,7 +15803,7 @@ List<List<String>> _stations = [
     '49.53N',
     '097.08W',
     '230',
-    'CA'
+    'CA',
   ],
   [
     'MB NORWAY HOUSE ARP',
@@ -15813,7 +15813,7 @@ List<List<String>> _stations = [
     '53.58N',
     '097.49W',
     '223',
-    'CA'
+    'CA',
   ],
   [
     'NB BATHURST ARPT(AW',
@@ -15823,7 +15823,7 @@ List<List<String>> _stations = [
     '47.37N',
     '065.45W',
     '59',
-    'CA'
+    'CA',
   ],
   [
     'NB CHARLO AIRPORT',
@@ -15833,7 +15833,7 @@ List<List<String>> _stations = [
     '47.58N',
     '066.19W',
     '38',
-    'CA'
+    'CA',
   ],
   ['NB CHARLO', 'null', 'null', '71315', '47.59N', '066.20W', '42', 'CA'],
   ['NB CHIPMAN RADAR', 'CXNC', 'null', 'null', '46.13N', '065.42W', '1', 'CA'],
@@ -15846,7 +15846,7 @@ List<List<String>> _stations = [
     '45.52N',
     '066.31W',
     '20',
-    'CA'
+    'CA',
   ],
   [
     'NB GAGETOWN(CAN M',
@@ -15856,7 +15856,7 @@ List<List<String>> _stations = [
     '45.49N',
     '066.25W',
     '51',
-    'CA'
+    'CA',
   ],
   ['NB GRAND MANAN', 'CXGM', 'null', '71030', '44.43N', '066.48W', '78', 'CA'],
   [
@@ -15867,7 +15867,7 @@ List<List<String>> _stations = [
     '45.42N',
     '065.10W',
     '1',
-    'CA'
+    'CA',
   ],
   ['NB MIRAMICHI', 'CACQ', 'YCH', '71717', '47.01N', '065.28W', '31', 'CA'],
   [
@@ -15878,7 +15878,7 @@ List<List<String>> _stations = [
     '48.01N',
     '064.30W',
     '3',
-    'CA'
+    'CA',
   ],
   [
     'NB MONCTON AIRPORT',
@@ -15888,7 +15888,7 @@ List<List<String>> _stations = [
     '46.07N',
     '064.40W',
     '71',
-    'CA'
+    'CA',
   ],
   ['NB POINT LEPREAU', 'CWPE', 'WPE', 'null', '45.04N', '066.28W', '1', 'CA'],
   [
@@ -15899,7 +15899,7 @@ List<List<String>> _stations = [
     '47.04N',
     '064.47W',
     '5',
-    'CA'
+    'CA',
   ],
   ['NB SAINT JOHN', 'CYSJ', 'YSJ', '71609', '45.19N', '065.52W', '109', 'CA'],
   [
@@ -15910,7 +15910,7 @@ List<List<String>> _stations = [
     '47.08N',
     '067.49W',
     '241',
-    'CA'
+    'CA',
   ],
   [
     'NB ST LEONARD AUTOB',
@@ -15920,7 +15920,7 @@ List<List<String>> _stations = [
     '47.08N',
     '067.49W',
     '241',
-    'CA'
+    'CA',
   ],
   [
     'NB ST. STEPHEN (MAR',
@@ -15930,7 +15930,7 @@ List<List<String>> _stations = [
     '45.12N',
     '067.15W',
     '26',
-    'CA'
+    'CA',
   ],
   [
     'NB CHARLO AIRPORT',
@@ -15940,7 +15940,7 @@ List<List<String>> _stations = [
     '47.59N',
     '066.20W',
     '38',
-    'CA'
+    'CA',
   ],
   ['NB CHATHAM', 'CYCH', 'null', 'null', '47.00N', '065.27W', '31', 'CA'],
   [
@@ -15951,7 +15951,7 @@ List<List<String>> _stations = [
     '47.00N',
     '065.28W',
     '34',
-    'CA'
+    'CA',
   ],
   [
     'NL ARGENTIA (MARS)',
@@ -15961,7 +15961,7 @@ List<List<String>> _stations = [
     '47.17N',
     '054.00W',
     '16',
-    'CA'
+    'CA',
   ],
   [
     'NL BADGER (MARS)',
@@ -15971,7 +15971,7 @@ List<List<String>> _stations = [
     '48.58N',
     '056.04W',
     '105',
-    'CA'
+    'CA',
   ],
   ['NL BONAVISTA', 'CWVA', 'WVA', '71196', '48.40N', '053.07W', '27', 'CA'],
   ['NL BURGEO', 'CWBF', 'null', 'null', '47.37N', '057.38W', '12', 'CA'],
@@ -15983,7 +15983,7 @@ List<List<String>> _stations = [
     '59.58N',
     '064.10W',
     '551',
-    'CA'
+    'CA',
   ],
   [
     'NL CAPE KIGLAPAIT',
@@ -15993,7 +15993,7 @@ List<List<String>> _stations = [
     '57.07N',
     '061.28W',
     '834',
-    'CA'
+    'CA',
   ],
   [
     'NL CAPE RACE (MARS)',
@@ -16003,7 +16003,7 @@ List<List<String>> _stations = [
     '46.38N',
     '053.04W',
     '28',
-    'CA'
+    'CA',
   ],
   ['NL CARTWRIGHT', 'CWCA', 'null', '71818', '53.42N', '057.01W', '14', 'CA'],
   ['NL CARTWRIGHT', 'CYCA', 'null', 'null', '53.41N', '057.02W', '12', 'CA'],
@@ -16015,7 +16015,7 @@ List<List<String>> _stations = [
     '53.32N',
     '064.05W',
     '440',
-    'CA'
+    'CA',
   ],
   [
     'NL DANIEL\'S HARBOUR',
@@ -16025,7 +16025,7 @@ List<List<String>> _stations = [
     '50.13N',
     '057.34W',
     '19',
-    'CA'
+    'CA',
   ],
   [
     'NL DEER LAKE AIRPOR',
@@ -16035,7 +16035,7 @@ List<List<String>> _stations = [
     '49.13N',
     '057.24W',
     '22',
-    'CA'
+    'CA',
   ],
   ['NL ENGLEE (MAPS)', 'CWDA', 'WDA', '71417', '50.43N', '056.07W', '29', 'CA'],
   [
@@ -16046,7 +16046,7 @@ List<List<String>> _stations = [
     '51.01N',
     '057.06W',
     '6',
-    'CA'
+    'CA',
   ],
   [
     'NL GANDER INTL AIRP',
@@ -16056,7 +16056,7 @@ List<List<String>> _stations = [
     '48.57N',
     '054.35W',
     '151',
-    'CA'
+    'CA',
   ],
   [
     'NL GOOSE BAY AIRPOR',
@@ -16066,7 +16066,7 @@ List<List<String>> _stations = [
     '53.19N',
     '060.25W',
     '49',
-    'CA'
+    'CA',
   ],
   ['NL GRATES COVE', 'CWVW', 'null', '71336', '48.10N', '052.56W', '18', 'CA'],
   ['NL HOLYROOD RADAR', 'CWTP', 'null', 'null', '47.20N', '053.11W', '1', 'CA'],
@@ -16078,7 +16078,7 @@ List<List<String>> _stations = [
     '55.27N',
     '060.13W',
     '8',
-    'CA'
+    'CA',
   ],
   ['NL LA SCIE', 'CWAG', 'null', '71337', '49.55N', '055.40W', '192', 'CA'],
   ['NL LONG POND', 'CWWU', 'null', 'null', '47.31N', '052.59W', '13', 'CA'],
@@ -16090,7 +16090,7 @@ List<List<String>> _stations = [
     '55.04N',
     '059.10W',
     '71',
-    'CA'
+    'CA',
   ],
   [
     'NL MARBLE MTN RADAR',
@@ -16100,7 +16100,7 @@ List<List<String>> _stations = [
     '48.56N',
     '057.50W',
     '1',
-    'CA'
+    'CA',
   ],
   [
     'NL MARY\'S HARBOUR',
@@ -16110,7 +16110,7 @@ List<List<String>> _stations = [
     '52.17N',
     '055.51W',
     '11',
-    'CA'
+    'CA',
   ],
   ['NL NAIN AIRPORT', 'CYDP', 'YDP', '71902', '56.32N', '061.40W', '7', 'CA'],
   [
@@ -16121,7 +16121,7 @@ List<List<String>> _stations = [
     '47.34N',
     '059.10W',
     '40',
-    'CA'
+    'CA',
   ],
   ['NL ROCKY HARBOUR', 'CXRH', 'XRH', '71588', '49.34N', '057.53W', '68', 'CA'],
   ['NL SAGLEK (BAY)', 'CWZZ', 'WZZ', '71804', '58.19N', '062.34W', '483', 'CA'],
@@ -16133,7 +16133,7 @@ List<List<String>> _stations = [
     '58.20N',
     '062.35W',
     '501',
-    'CA'
+    'CA',
   ],
   [
     'NL SAGONA ISL (MAPS',
@@ -16143,7 +16143,7 @@ List<List<String>> _stations = [
     '47.22N',
     '055.48W',
     '64',
-    'CA'
+    'CA',
   ],
   [
     'NL SAINT ANTHONY',
@@ -16153,7 +16153,7 @@ List<List<String>> _stations = [
     '51.23N',
     '056.05W',
     '111',
-    'CA'
+    'CA',
   ],
   [
     'NL SAINT ANTHONY',
@@ -16163,7 +16163,7 @@ List<List<String>> _stations = [
     '51.23N',
     '056.06W',
     '29',
-    'CA'
+    'CA',
   ],
   [
     'NL SAINT ANTHONY AR',
@@ -16173,7 +16173,7 @@ List<List<String>> _stations = [
     '51.23N',
     '056.04W',
     '28',
-    'CA'
+    'CA',
   ],
   ['NL ST JOHNS ARP', 'CYYT', 'YYT', '71801', '47.37N', '052.43W', '140', 'CA'],
   [
@@ -16184,7 +16184,7 @@ List<List<String>> _stations = [
     '47.31N',
     '052.47W',
     '114',
-    'CA'
+    'CA',
   ],
   [
     'NL STEPHENVILLE ARP',
@@ -16194,7 +16194,7 @@ List<List<String>> _stations = [
     '48.33N',
     '058.34W',
     '26',
-    'CA'
+    'CA',
   ],
   ['NL TERRA NOVA', 'CXTP', 'XTP', '71589', '48.33N', '053.58W', '107', 'CA'],
   ['NL TUKIALIK BAY', 'CWTU', 'WTU', '71179', '54.43N', '058.21W', '683', 'CA'],
@@ -16206,7 +16206,7 @@ List<List<String>> _stations = [
     '49.40N',
     '054.47W',
     '92',
-    'CA'
+    'CA',
   ],
   [
     'NL WABUSH LAKE AIRP',
@@ -16216,7 +16216,7 @@ List<List<String>> _stations = [
     '52.55N',
     '066.52W',
     '551',
-    'CA'
+    'CA',
   ],
   ['NL WRECKHOUSE', 'CXWR', 'null', '71584', '47.43N', '059.19W', '33', 'CA'],
   [
@@ -16227,7 +16227,7 @@ List<List<String>> _stations = [
     '46.46N',
     '056.11W',
     '8',
-    'FR'
+    'FR',
   ],
   [
     'NS AMHERST (MARS)',
@@ -16237,7 +16237,7 @@ List<List<String>> _stations = [
     '45.51N',
     '064.16W',
     '23',
-    'CA'
+    'CA',
   ],
   [
     'NS BEAVER ISLAND(MA',
@@ -16247,7 +16247,7 @@ List<List<String>> _stations = [
     '44.49N',
     '062.19W',
     '10',
-    'CA'
+    'CA',
   ],
   [
     'NS BRIER ISLAND(AUT',
@@ -16257,7 +16257,7 @@ List<List<String>> _stations = [
     '44.17N',
     '066.20W',
     '16',
-    'CA'
+    'CA',
   ],
   [
     'NS CAPE GEORGE (AUT',
@@ -16267,7 +16267,7 @@ List<List<String>> _stations = [
     '45.52N',
     '061.54W',
     '120',
-    'CA'
+    'CA',
   ],
   [
     'NS CARIBOU POINT(MA',
@@ -16277,7 +16277,7 @@ List<List<String>> _stations = [
     '45.46N',
     '062.40W',
     '2',
-    'CA'
+    'CA',
   ],
   ['NS CHETICAMP', 'CXCH', 'XCH', 'null', '46.38N', '060.57W', '44', 'CA'],
   ['NS DEBERT', 'CZDB', 'null', '71317', '45.25N', '063.28W', '38', 'CA'],
@@ -16289,7 +16289,7 @@ List<List<String>> _stations = [
     '44.32N',
     '065.46W',
     '152',
-    'CA'
+    'CA',
   ],
   [
     'NS FOURCHU HEAD(MAP',
@@ -16299,7 +16299,7 @@ List<List<String>> _stations = [
     '45.43N',
     '060.13W',
     '10',
-    'CA'
+    'CA',
   ],
   [
     'NS GRAND ETANG (AUT',
@@ -16309,7 +16309,7 @@ List<List<String>> _stations = [
     '46.32N',
     '061.03W',
     '17',
-    'CA'
+    'CA',
   ],
   [
     'NS GREENWOOD (CAN M',
@@ -16319,7 +16319,7 @@ List<List<String>> _stations = [
     '44.59N',
     '064.55W',
     '28',
-    'CA'
+    'CA',
   ],
   [
     'NS HALIFAX INTL ARP',
@@ -16329,7 +16329,7 @@ List<List<String>> _stations = [
     '44.52N',
     '063.30W',
     '145',
-    'CA'
+    'CA',
   ],
   [
     'NS HART ISLAND (MAP',
@@ -16339,7 +16339,7 @@ List<List<String>> _stations = [
     '45.21N',
     '060.59W',
     '8',
-    'CA'
+    'CA',
   ],
   ['NS INGONISH BEACH', 'CXIB', 'XIB', '71027', '46.40N', '060.23W', '8', 'CA'],
   [
@@ -16350,7 +16350,7 @@ List<List<String>> _stations = [
     '44.26N',
     '065.12W',
     '165',
-    'CA'
+    'CA',
   ],
   [
     'NS KENTVILLE (AUTOB',
@@ -16360,7 +16360,7 @@ List<List<String>> _stations = [
     '45.04N',
     '064.29W',
     '49',
-    'CA'
+    'CA',
   ],
   ['NS LUNENBURG', 'CXLB', 'null', 'null', '44.22N', '064.18W', '4', 'CA'],
   ['NS MALAY FALLS', 'CXMY', 'XMY', 'null', '44.59N', '062.29W', '40', 'CA'],
@@ -16374,7 +16374,7 @@ List<List<String>> _stations = [
     '45.45N',
     '064.14W',
     '20',
-    'CA'
+    'CA',
   ],
   [
     'NS NORTH MOUNTAIN',
@@ -16384,7 +16384,7 @@ List<List<String>> _stations = [
     '46.49N',
     '060.40W',
     '439',
-    'CA'
+    'CA',
   ],
   [
     'NS PORT HAWKESBURY',
@@ -16394,7 +16394,7 @@ List<List<String>> _stations = [
     '45.40N',
     '061.22W',
     '114',
-    'CA'
+    'CA',
   ],
   [
     'NS ROWAN GORILLA II',
@@ -16404,7 +16404,7 @@ List<List<String>> _stations = [
     '43.52N',
     '060.32W',
     '44',
-    'CA'
+    'CA',
   ],
   ['NS SABLE ISLAND', 'CWSA', 'WSA', '71600', '43.56N', '060.00W', '4', 'CA'],
   [
@@ -16415,7 +16415,7 @@ List<List<String>> _stations = [
     '43.55N',
     '060.00W',
     '4',
-    'CA'
+    'CA',
   ],
   [
     'NS SHEARWATER(CAN M',
@@ -16425,7 +16425,7 @@ List<List<String>> _stations = [
     '44.38N',
     '063.30W',
     '51',
-    'CA'
+    'CA',
   ],
   ['NS SHELBURNE', 'CWOS', 'WOS', '71399', '43.43N', '065.15W', '30', 'CA'],
   [
@@ -16436,7 +16436,7 @@ List<List<String>> _stations = [
     '47.13N',
     '060.07W',
     '26',
-    'CA'
+    'CA',
   ],
   [
     'NS SYDNEY AIRPORT',
@@ -16446,7 +16446,7 @@ List<List<String>> _stations = [
     '46.10N',
     '060.02W',
     '62',
-    'CA'
+    'CA',
   ],
   ['NS TRACADIE', 'CXTD', 'null', '71308', '45.37N', '061.41W', '68', 'CA'],
   [
@@ -16457,7 +16457,7 @@ List<List<String>> _stations = [
     '45.37N',
     '062.37W',
     '97',
-    'CA'
+    'CA',
   ],
   ['NS TRURO (MARS)', 'CWUR', 'WUR', '71398', '45.22N', '063.16W', '40', 'CA'],
   [
@@ -16468,7 +16468,7 @@ List<List<String>> _stations = [
     '43.58N',
     '064.40W',
     '9',
-    'CA'
+    'CA',
   ],
   [
     'NS YARMOUTH AIRPORT',
@@ -16478,7 +16478,7 @@ List<List<String>> _stations = [
     '43.50N',
     '066.05W',
     '43',
-    'CA'
+    'CA',
   ],
   ['NT AKLAVIK AIRPORT', 'CYKD', 'YKD', 'null', '68.13N', '135.00W', '7', 'CA'],
   [
@@ -16489,7 +16489,7 @@ List<List<String>> _stations = [
     '70.10N',
     '124.43W',
     '93',
-    'CA'
+    'CA',
   ],
   [
     'NT COLVILLE LAKE',
@@ -16499,7 +16499,7 @@ List<List<String>> _stations = [
     '67.01N',
     '126.08W',
     '259',
-    'CA'
+    'CA',
   ],
   [
     'NT DEADMAN VALLEY',
@@ -16509,7 +16509,7 @@ List<List<String>> _stations = [
     '61.16N',
     '124.28W',
     '283',
-    'CA'
+    'CA',
   ],
   ['NT DELINE', 'CXDE', 'XDE', '71503', '65.13N', '123.26W', '213', 'CA'],
   ['NT EKATI (PWS)', 'CYOA', 'YOA', 'null', '64.42N', '110.37W', '469', 'CA'],
@@ -16521,7 +16521,7 @@ List<List<String>> _stations = [
     '65.13N',
     '123.26W',
     '176',
-    'CA'
+    'CA',
   ],
   [
     'NT FORT GOOD HOPE A',
@@ -16531,7 +16531,7 @@ List<List<String>> _stations = [
     '66.16N',
     '128.37W',
     '66',
-    'CA'
+    'CA',
   ],
   [
     'NT FORT LIARD AIRPO',
@@ -16541,7 +16541,7 @@ List<List<String>> _stations = [
     '60.13N',
     '123.28W',
     '215',
-    'CA'
+    'CA',
   ],
   [
     'NT FORT MCPHERSON A',
@@ -16551,7 +16551,7 @@ List<List<String>> _stations = [
     '67.24N',
     '134.52W',
     '43',
-    'CA'
+    'CA',
   ],
   [
     'NT FORT NORMAN AIRP',
@@ -16561,7 +16561,7 @@ List<List<String>> _stations = [
     '64.55N',
     '125.34W',
     '98',
-    'CA'
+    'CA',
   ],
   [
     'NT FORT PROVIDENCE',
@@ -16571,7 +16571,7 @@ List<List<String>> _stations = [
     '61.19N',
     '117.36W',
     '161',
-    'CA'
+    'CA',
   ],
   [
     'NT FORT RESOLUTION',
@@ -16581,7 +16581,7 @@ List<List<String>> _stations = [
     '61.10N',
     '113.40W',
     '164',
-    'CA'
+    'CA',
   ],
   [
     'NT FORT SIMPSON ARP',
@@ -16591,7 +16591,7 @@ List<List<String>> _stations = [
     '61.45N',
     '121.13W',
     '169',
-    'CA'
+    'CA',
   ],
   [
     'NT FT SIMPSON 71681',
@@ -16601,7 +16601,7 @@ List<List<String>> _stations = [
     '61.45N',
     '121.14W',
     '169',
-    'CA'
+    'CA',
   ],
   [
     'NT FORT SIMPSON',
@@ -16611,7 +16611,7 @@ List<List<String>> _stations = [
     '61.46N',
     '121.14W',
     '168',
-    'CA'
+    'CA',
   ],
   [
     'NT FORT SMITH AIRPO',
@@ -16621,7 +16621,7 @@ List<List<String>> _stations = [
     '60.02N',
     '111.58W',
     '203',
-    'CA'
+    'CA',
   ],
   ['NT FORT SMITH', 'CZSM', 'null', '71362', '60.02N', '111.56W', '203', 'CA'],
   [
@@ -16632,7 +16632,7 @@ List<List<String>> _stations = [
     '70.38N',
     '100.16W',
     '20',
-    'CA'
+    'CA',
   ],
   [
     'NT HAY RIVER AIRPOR',
@@ -16642,7 +16642,7 @@ List<List<String>> _stations = [
     '60.49N',
     '115.46W',
     '166',
-    'CA'
+    'CA',
   ],
   ['NT HAY RIVER', 'CZHY', 'null', '71361', '60.50N', '115.47W', '164', 'CA'],
   [
@@ -16653,7 +16653,7 @@ List<List<String>> _stations = [
     '63.36N',
     '105.08W',
     '318',
-    'CA'
+    'CA',
   ],
   [
     'NT HOLMAN ISLAND AR',
@@ -16663,7 +16663,7 @@ List<List<String>> _stations = [
     '70.46N',
     '117.47W',
     '36',
-    'CA'
+    'CA',
   ],
   ['NT HOLMAN CS', 'CXHI', 'null', '71029', '70.46N', '117.48W', '30', 'CA'],
   ['NT INDIAN RIVER', 'CWIE', 'WIE', '71161', '64.23N', '115.01W', '478', 'CA'],
@@ -16675,7 +16675,7 @@ List<List<String>> _stations = [
     '68.19N',
     '133.30W',
     '68',
-    'CA'
+    'CA',
   ],
   ['NT INUVIK', 'CZEV', 'null', '71364', '68.19N', '133.31W', '103', 'CA'],
   ['NT JEAN MARIER', 'CXJM', 'null', '71159', '61.21N', '120.47W', '227', 'CA'],
@@ -16688,7 +16688,7 @@ List<List<String>> _stations = [
     '63.08N',
     '117.15W',
     '271',
-    'CA'
+    'CA',
   ],
   [
     'NT LINDBERG LANDING',
@@ -16698,7 +16698,7 @@ List<List<String>> _stations = [
     '61.07N',
     '122.51W',
     '183',
-    'CA'
+    'CA',
   ],
   [
     'NT LIVERPOOL BAY',
@@ -16708,7 +16708,7 @@ List<List<String>> _stations = [
     '69.35N',
     '130.54W',
     '102',
-    'CA'
+    'CA',
   ],
   [
     'NT LOWER CARP LAKE',
@@ -16718,7 +16718,7 @@ List<List<String>> _stations = [
     '63.36N',
     '113.51W',
     '373',
-    'CA'
+    'CA',
   ],
   [
     'NT LUTSEL KE ARPT (',
@@ -16728,7 +16728,7 @@ List<List<String>> _stations = [
     '62.25N',
     '110.40W',
     '179',
-    'CA'
+    'CA',
   ],
   [
     'NT LUTSEL KE CS',
@@ -16738,7 +16738,7 @@ List<List<String>> _stations = [
     '62.25N',
     '110.40W',
     '179',
-    'CA'
+    'CA',
   ],
   ['NT MOULD BAY', 'CYMD', 'YMD', '71072', '76.13N', '119.19W', '12', 'CA'],
   ['NT MOULD BAY CAMP', 'CWMD', 'WMD', 'null', '76.13N', '119.19W', '12', 'CA'],
@@ -16750,7 +16750,7 @@ List<List<String>> _stations = [
     '65.16N',
     '126.47W',
     '74',
-    'CA'
+    'CA',
   ],
   [
     'NT PAULATUK AIRPORT',
@@ -16760,7 +16760,7 @@ List<List<String>> _stations = [
     '69.22N',
     '124.04W',
     '6',
-    'CA'
+    'CA',
   ],
   ['NT PELLY ISLAND', 'CWND', 'null', '71502', '69.38N', '135.26W', '12', 'CA'],
   ['NT QAVVIK LAKE', 'CXQA', 'null', '71583', '68.15N', '122.06W', '530', 'CA'],
@@ -16774,7 +16774,7 @@ List<List<String>> _stations = [
     '65.06N',
     '102.26W',
     '244',
-    'CA'
+    'CA',
   ],
   [
     'NT SACHS HARBOUR(M',
@@ -16784,7 +16784,7 @@ List<List<String>> _stations = [
     '72.00N',
     '125.16W',
     '86',
-    'CA'
+    'CA',
   ],
   ['NT TRAIL VALLEY', 'CXTV', 'XTV', '71683', '68.45N', '133.30W', '85', 'CA'],
   ['NT TUKTOYAKTUK', 'CYUB', 'YUB', '71954', '69.27N', '133.01W', '5', 'CA'],
@@ -16796,7 +16796,7 @@ List<List<String>> _stations = [
     '69.12N',
     '122.21W',
     '552',
-    'CA'
+    'CA',
   ],
   ['NT WEKWEETI', 'CYWE', 'null', 'null', '64.11N', '114.05W', '371', 'CA'],
   [
@@ -16807,7 +16807,7 @@ List<List<String>> _stations = [
     '63.13N',
     '123.25W',
     '150',
-    'CA'
+    'CA',
   ],
   [
     'NT YELLOWKNIFE AIRP',
@@ -16817,7 +16817,7 @@ List<List<String>> _stations = [
     '62.28N',
     '114.27W',
     '206',
-    'CA'
+    'CA',
   ],
   ['NT YOHIN', 'CXYH', 'null', '71020', '61.15N', '123.45W', '204', 'CA'],
   ['NT CANADA/ARTCC', 'CZVE', 'ZVE', 'null', '70.10N', '124.41W', '1', 'CA'],
@@ -16835,7 +16835,7 @@ List<List<String>> _stations = [
     '61.06N',
     '094.04W',
     '10',
-    'CA'
+    'CA',
   ],
   [
     'NU BAKER LAKE AIRPO',
@@ -16845,7 +16845,7 @@ List<List<String>> _stations = [
     '64.17N',
     '096.04W',
     '18',
-    'CA'
+    'CA',
   ],
   ['NU BAKER LAKE', 'CXBL', 'null', '71356', '64.19N', '096.00W', '51', 'CA'],
   [
@@ -16856,7 +16856,7 @@ List<List<String>> _stations = [
     '63.19N',
     '064.09W',
     '367',
-    'CA'
+    'CA',
   ],
   ['NU QIKIQTARJUAQ', 'CYVM', 'null', '71338', '67.32N', '064.01W', '6', 'CA'],
   [
@@ -16867,7 +16867,7 @@ List<List<String>> _stations = [
     '67.31N',
     '063.46W',
     '573',
-    'CA'
+    'CA',
   ],
   ['NU BROWN RIVER', 'CWBR', 'null', '71049', '66.02N', '091.50W', '31', 'CA'],
   [
@@ -16878,7 +16878,7 @@ List<List<String>> _stations = [
     '69.05N',
     '105.07W',
     '27',
-    'CA'
+    'CA',
   ],
   [
     'NU CAMBRIDGE BAY',
@@ -16888,7 +16888,7 @@ List<List<String>> _stations = [
     '69.06N',
     '105.08W',
     '19',
-    'CA'
+    'CA',
   ],
   [
     'NU CAPE DORSET AIRP',
@@ -16898,7 +16898,7 @@ List<List<String>> _stations = [
     '64.13N',
     '076.31W',
     '47',
-    'CA'
+    'CA',
   ],
   [
     'NU CAPE DYER AIRPOR',
@@ -16908,7 +16908,7 @@ List<List<String>> _stations = [
     '66.34N',
     '061.35W',
     '393',
-    'CA'
+    'CA',
   ],
   ['NU CAPE HOOPER', 'CWUP', 'WUP', '71093', '68.28N', '066.49W', '390', 'CA'],
   ['NU CAPE MERCY', 'CWYM', 'WYM', '71975', '64.57N', '063.34W', '583', 'CA'],
@@ -16920,7 +16920,7 @@ List<List<String>> _stations = [
     '69.01N',
     '107.49W',
     '165',
-    'CA'
+    'CA',
   ],
   [
     'NU CHESTERFIELD INL',
@@ -16930,7 +16930,7 @@ List<List<String>> _stations = [
     '63.21N',
     '090.43W',
     '11',
-    'CA'
+    'CA',
   ],
   [
     'NU COPPERMINE AIRPO',
@@ -16940,7 +16940,7 @@ List<List<String>> _stations = [
     '67.49N',
     '115.09W',
     '22',
-    'CA'
+    'CA',
   ],
   [
     'NU CORAL HARBOUR AR',
@@ -16950,7 +16950,7 @@ List<List<String>> _stations = [
     '64.12N',
     '083.22W',
     '64',
-    'CA'
+    'CA',
   ],
   ['NU CROKER RIVER', 'CWXR', 'WXR', '71059', '69.16N', '119.13W', '69', 'CA'],
   ['NU CYLDE AIRPORT', 'CYCY', 'YCY', '71090', '70.28N', '068.31W', '26', 'CA'],
@@ -16963,7 +16963,7 @@ List<List<String>> _stations = [
     '61.08N',
     '100.54W',
     '357',
-    'CA'
+    'CA',
   ],
   ['NU EUREKA', 'CWEU', 'null', '71917', '80.00N', '085.55W', '10', 'CA'],
   ['NU EUREKA', 'CYEU', 'null', 'null', '80.00N', '085.49W', '78', 'CA'],
@@ -16975,7 +16975,7 @@ List<List<String>> _stations = [
     '63.45N',
     '068.33W',
     '34',
-    'CA'
+    'CA',
   ],
   [
     'NU IQALUIT (CYFB)',
@@ -16985,7 +16985,7 @@ List<List<String>> _stations = [
     '63.45N',
     '068.33W',
     '34',
-    'CA'
+    'CA',
   ],
   [
     'NU GJOA HAVEN AIRPO',
@@ -16995,7 +16995,7 @@ List<List<String>> _stations = [
     '68.37N',
     '095.50W',
     '46',
-    'CA'
+    'CA',
   ],
   ['NU GJOA HAVEN', 'CZHK', 'null', '71363', '68.38N', '095.51W', '42', 'CA'],
   [
@@ -17006,7 +17006,7 @@ List<List<String>> _stations = [
     '76.25N',
     '082.54W',
     '45',
-    'CA'
+    'CA',
   ],
   [
     'NU HALL BEACH AIRPO',
@@ -17016,7 +17016,7 @@ List<List<String>> _stations = [
     '68.46N',
     '081.15W',
     '8',
-    'CA'
+    'CA',
   ],
   ['NU HALL BEACH', 'CXUX', 'null', '71320', '68.47N', '081.15W', '8', 'CA'],
   ['NU HAT ISLAND', 'CWIL', 'WIL', '71084', '68.19N', '100.04W', '36', 'CA'],
@@ -17028,7 +17028,7 @@ List<List<String>> _stations = [
     '69.22N',
     '081.49W',
     '51',
-    'CA'
+    'CA',
   ],
   [
     'NU ISACHSEN (MAPS)',
@@ -17038,7 +17038,7 @@ List<List<String>> _stations = [
     '78.47N',
     '103.33W',
     '58',
-    'CA'
+    'CA',
   ],
   [
     'NU LADY FRANKLIN PO',
@@ -17048,7 +17048,7 @@ List<List<String>> _stations = [
     '68.30N',
     '113.13W',
     '16',
-    'CA'
+    'CA',
   ],
   [
     'NU LAKE HARBOUR ARP',
@@ -17058,7 +17058,7 @@ List<List<String>> _stations = [
     '62.51N',
     '069.52W',
     '53',
-    'CA'
+    'CA',
   ],
   [
     'NU LONGSTAFF BLUFF',
@@ -17068,7 +17068,7 @@ List<List<String>> _stations = [
     '68.54N',
     '075.09W',
     '162',
-    'CA'
+    'CA',
   ],
   [
     'NU LUPIN ARPT (SAWR',
@@ -17078,7 +17078,7 @@ List<List<String>> _stations = [
     '65.46N',
     '111.15W',
     '494',
-    'CA'
+    'CA',
   ],
   ['NU LUPIN (MAPS)', 'CWIJ', 'WIJ', 'null', '65.46N', '111.14W', '500', 'CA'],
   [
@@ -17089,7 +17089,7 @@ List<List<String>> _stations = [
     '72.58N',
     '084.37W',
     '649',
-    'CA'
+    'CA',
   ],
   [
     'NU PANGNIRTUNG AIRP',
@@ -17099,7 +17099,7 @@ List<List<String>> _stations = [
     '66.09N',
     '065.43W',
     '23',
-    'CA'
+    'CA',
   ],
   ['NU PELLY BAY 1', 'CWRF', 'WRF', '71918', '69.25N', '089.43W', '325', 'CA'],
   [
@@ -17110,7 +17110,7 @@ List<List<String>> _stations = [
     '68.31N',
     '089.49W',
     '15',
-    'CA'
+    'CA',
   ],
   [
     'NU POND INLET AIRPO',
@@ -17120,7 +17120,7 @@ List<List<String>> _stations = [
     '72.40N',
     '077.58W',
     '57',
-    'CA'
+    'CA',
   ],
   ['NU RAE POINT', 'CZRP', 'null', '71983', '75.22N', '105.43W', '12', 'CA'],
   [
@@ -17131,7 +17131,7 @@ List<List<String>> _stations = [
     '62.49N',
     '092.07W',
     '32',
-    'CA'
+    'CA',
   ],
   [
     'NU REPULSE BAY AIRP',
@@ -17141,7 +17141,7 @@ List<List<String>> _stations = [
     '66.31N',
     '086.15W',
     '24',
-    'CA'
+    'CA',
   ],
   [
     'NU RESOLUTE AIRPORT',
@@ -17151,7 +17151,7 @@ List<List<String>> _stations = [
     '74.43N',
     '094.58W',
     '67',
-    'CA'
+    'CA',
   ],
   ['NU RESOLUTE CS', 'CXRB', 'null', '71018', '74.43N', '094.59W', '30', 'CA'],
   [
@@ -17162,7 +17162,7 @@ List<List<String>> _stations = [
     '61.34N',
     '064.39W',
     '369',
-    'CA'
+    'CA',
   ],
   ['NU ROWLEY ISLAND', 'CWRX', 'WRX', '71088', '69.04N', '079.01W', '41', 'CA'],
   [
@@ -17173,7 +17173,7 @@ List<List<String>> _stations = [
     '56.32N',
     '079.15W',
     '26',
-    'CA'
+    'CA',
   ],
   [
     'NU SHEPHERD BAY ARP',
@@ -17183,7 +17183,7 @@ List<List<String>> _stations = [
     '68.49N',
     '093.25W',
     '42',
-    'CA'
+    'CA',
   ],
   [
     'NU SPENCE BAY AIRPO',
@@ -17193,7 +17193,7 @@ List<List<String>> _stations = [
     '69.32N',
     '093.34W',
     '28',
-    'CA'
+    'CA',
   ],
   [
     'NU STEFANSSON IS',
@@ -17203,7 +17203,7 @@ List<List<String>> _stations = [
     '73.46N',
     '105.17W',
     '11',
-    'CA'
+    'CA',
   ],
   ['NU WAGER BAY', 'CXWB', 'null', 'null', '65.53N', '089.27W', '18', 'CA'],
   [
@@ -17214,7 +17214,7 @@ List<List<String>> _stations = [
     '62.13N',
     '092.35W',
     '20',
-    'CA'
+    'CA',
   ],
   [
     'NU IQALUIT CLIMATE',
@@ -17224,7 +17224,7 @@ List<List<String>> _stations = [
     '63.45N',
     '068.33W',
     '34',
-    'CA'
+    'CA',
   ],
   [
     'ON ARMSTRONG (MARS)',
@@ -17234,7 +17234,7 @@ List<List<String>> _stations = [
     '50.18N',
     '.88.54W',
     '351',
-    'CN'
+    'CN',
   ],
   [
     'ON ATIKOKAN (AUT)',
@@ -17244,7 +17244,7 @@ List<List<String>> _stations = [
     '48.45N',
     '091.37W',
     '424',
-    'CA'
+    'CA',
   ],
   ['ON ATIKOKAN', 'null', 'WIB', '71748', '48.45N', '091.36W', '393', 'CA'],
   ['ON ATTAWAPISKAT', 'CYAT', 'null', 'null', '52.56N', '082.26W', '9', 'CA'],
@@ -17256,7 +17256,7 @@ List<List<String>> _stations = [
     '45.04N',
     '077.52W',
     '331',
-    'CA'
+    'CA',
   ],
   [
     'ON BARRIE (MARS)',
@@ -17266,7 +17266,7 @@ List<List<String>> _stations = [
     '44.22N',
     '079.46W',
     '295',
-    'CA'
+    'CA',
   ],
   ['ON BARRIE-ORO', 'CXBI', 'null', '71314', '44.29N', '079.33W', '289', 'CA'],
   [
@@ -17277,7 +17277,7 @@ List<List<String>> _stations = [
     '44.51N',
     '079.52W',
     '183',
-    'CA'
+    'CA',
   ],
   [
     'ON BELLE RIVER AUT0',
@@ -17287,7 +17287,7 @@ List<List<String>> _stations = [
     '42.17N',
     '082.42W',
     '184',
-    'CA'
+    'CA',
   ],
   [
     'ON BIG TROUT LAKE',
@@ -17297,7 +17297,7 @@ List<List<String>> _stations = [
     '53.49N',
     '089.53W',
     '222',
-    'CA'
+    'CA',
   ],
   [
     'ON BIG TROUT LAKE',
@@ -17307,7 +17307,7 @@ List<List<String>> _stations = [
     '53.49N',
     '089.53W',
     '224',
-    'CA'
+    'CA',
   ],
   ['ON BORDEN', 'CYBN', 'YBN', '71534', '44.16N', '079.55W', '223', 'CA'],
   ['ON BRITT (MARS)', 'CWBI', 'WBI', '71632', '45.48N', '080.32W', '190', 'CA'],
@@ -17319,7 +17319,7 @@ List<List<String>> _stations = [
     '43.18N',
     '079.47W',
     '76',
-    'CA'
+    'CA',
   ],
   [
     'ON CAMERON FALLS',
@@ -17329,7 +17329,7 @@ List<List<String>> _stations = [
     '49.09N',
     '088.21W',
     '228',
-    'CA'
+    'CA',
   ],
   [
     'ON CARIBOU ISL (MAP',
@@ -17339,7 +17339,7 @@ List<List<String>> _stations = [
     '47.19N',
     '085.49W',
     '187',
-    'CA'
+    'CA',
   ],
   [
     'ON CHAPLEAU ARPT(SA',
@@ -17349,7 +17349,7 @@ List<List<String>> _stations = [
     '47.49N',
     '083.20W',
     '447',
-    'CA'
+    'CA',
   ],
   ['ON CHATHAM', 'CYCK', 'null', 'null', '42.18N', '082.05W', '198', 'CA'],
   [
@@ -17360,7 +17360,7 @@ List<List<String>> _stations = [
     '43.57N',
     '078.10W',
     '78',
-    'CA'
+    'CA',
   ],
   [
     'ON COLLINGWOOD (AUT',
@@ -17370,7 +17370,7 @@ List<List<String>> _stations = [
     '44.27N',
     '080.10W',
     '221',
-    'CA'
+    'CA',
   ],
   [
     'ON COVE ISLAND (MAP',
@@ -17380,7 +17380,7 @@ List<List<String>> _stations = [
     '45.19N',
     '081.44W',
     '181',
-    'CA'
+    'CA',
   ],
   [
     'ON CYPRUS LAKE CS',
@@ -17390,7 +17390,7 @@ List<List<String>> _stations = [
     '45.14N',
     '081.32W',
     '190',
-    'CA'
+    'CA',
   ],
   [
     'ON DELHI CS (AUT)',
@@ -17400,7 +17400,7 @@ List<List<String>> _stations = [
     '42.52N',
     '080.33W',
     '232',
-    'CA'
+    'CA',
   ],
   [
     'ON DRYDEN AIRPORT',
@@ -17410,7 +17410,7 @@ List<List<String>> _stations = [
     '49.49N',
     '092.45W',
     '413',
-    'CA'
+    'CA',
   ],
   ['ON DRYDEN', 'CXDR', 'null', 'null', '49.51N', '092.48W', '413', 'CA'],
   [
@@ -17421,7 +17421,7 @@ List<List<String>> _stations = [
     '50.38N',
     '093.13W',
     '355',
-    'CA'
+    'CA',
   ],
   [
     'ON EARLTON AIRPORT',
@@ -17431,7 +17431,7 @@ List<List<String>> _stations = [
     '47.42N',
     '079.50W',
     '243',
-    'CA'
+    'CA',
   ],
   ['ON EARLTON', 'CZXR', 'null', '71533', '47.42N', '079.50W', '243', 'CA'],
   ['ON EGBERT CS', 'CXET', 'XET', '71296', '44.14N', '079.47W', '251', 'CA'],
@@ -17443,7 +17443,7 @@ List<List<String>> _stations = [
     '44.14N',
     '079.47W',
     '251',
-    'CA'
+    'CA',
   ],
   [
     'ON ELLIOT LAKE (SAW',
@@ -17453,7 +17453,7 @@ List<List<String>> _stations = [
     '46.21N',
     '082.34W',
     '329',
-    'CA'
+    'CA',
   ],
   ['ON ELORA RCS', 'CZEL', 'null', '71352', '43.39N', '080.25W', '376', 'CA'],
   [
@@ -17464,7 +17464,7 @@ List<List<String>> _stations = [
     '42.15N',
     '081.54W',
     '178',
-    'CA'
+    'CA',
   ],
   ['ON EXETER RADAR', 'CWSO', 'null', 'null', '43.22N', '081.23W', '1', 'CA'],
   ['ON FT SEVERN', 'CYER', 'null', '71099', '56.01N', '087.41W', '16', 'CA'],
@@ -17477,7 +17477,7 @@ List<List<String>> _stations = [
     '49.46N',
     '086.55W',
     '351',
-    'CA'
+    'CA',
   ],
   [
     'ON GODERICH (AUTOB)',
@@ -17487,7 +17487,7 @@ List<List<String>> _stations = [
     '43.46N',
     '081.43W',
     '214',
-    'CA'
+    'CA',
   ],
   [
     'ON GORE BAY AIRPORT',
@@ -17497,7 +17497,7 @@ List<List<String>> _stations = [
     '45.52N',
     '082.34W',
     '193',
-    'CA'
+    'CA',
   ],
   [
     'ON GREAT DUCK ISLAN',
@@ -17507,7 +17507,7 @@ List<List<String>> _stations = [
     '45.37N',
     '082.58W',
     '183',
-    'CA'
+    'CA',
   ],
   [
     'ON GRENADIER ISLAND',
@@ -17517,7 +17517,7 @@ List<List<String>> _stations = [
     '44.25N',
     '075.51W',
     '82',
-    'CA'
+    'CA',
   ],
   [
     'ON HAMILTON AIRPORT',
@@ -17527,7 +17527,7 @@ List<List<String>> _stations = [
     '43.10N',
     '079.56W',
     '238',
-    'CA'
+    'CA',
   ],
   [
     'ON HAMILTON RBG CS',
@@ -17537,7 +17537,7 @@ List<List<String>> _stations = [
     '43.17N',
     '079.54W',
     '107',
-    'CA'
+    'CA',
   ],
   ['ON HARROW CDA', 'CXHA', 'XHA', '71298', '42.02N', '082.54W', '191', 'CA'],
   [
@@ -17548,7 +17548,7 @@ List<List<String>> _stations = [
     '49.25N',
     '082.28W',
     '227',
-    'CA'
+    'CA',
   ],
   [
     'ON KAPUSKASING CDA',
@@ -17558,7 +17558,7 @@ List<List<String>> _stations = [
     '49.24N',
     '082.27W',
     '218',
-    'CA'
+    'CA',
   ],
   [
     'ON KATATOTA ISLAND',
@@ -17568,7 +17568,7 @@ List<List<String>> _stations = [
     '49.43N',
     '088.20W',
     '260',
-    'CA'
+    'CA',
   ],
   ['ON KEMPTVILLE', 'CXKE', 'XKE', '71300', '45.00N', '075.38W', '99', 'CA'],
   [
@@ -17579,7 +17579,7 @@ List<List<String>> _stations = [
     '49.46N',
     '094.22W',
     '411',
-    'CA'
+    'CA',
   ],
   [
     'ON KILLARNEY (MAPS)',
@@ -17589,7 +17589,7 @@ List<List<String>> _stations = [
     '45.59N',
     '081.29W',
     '196',
-    'CA'
+    'CA',
   ],
   [
     'ON KINGSTON ARPT (M',
@@ -17599,7 +17599,7 @@ List<List<String>> _stations = [
     '44.13N',
     '076.35W',
     '93',
-    'CA'
+    'CA',
   ],
   [
     'ON KIRKLAND LAKE',
@@ -17609,7 +17609,7 @@ List<List<String>> _stations = [
     '48.13N',
     '080.00W',
     '324',
-    'CA'
+    'CA',
   ],
   [
     'ON LADRIENNE RADAR',
@@ -17619,7 +17619,7 @@ List<List<String>> _stations = [
     '48.33N',
     '077.48W',
     '1',
-    'CA'
+    'CA',
   ],
   ['ON LAGOON CITY', 'CWGL', 'WGL', '71282', '44.31N', '079.13W', '221', 'CA'],
   [
@@ -17630,7 +17630,7 @@ List<List<String>> _stations = [
     '52.13N',
     '087.52W',
     '242',
-    'CA'
+    'CA',
   ],
   [
     'ON LANSDOWNE HOUSE',
@@ -17640,7 +17640,7 @@ List<List<String>> _stations = [
     '52.14N',
     '087.53W',
     '242',
-    'CA'
+    'CA',
   ],
   [
     'ON LANSDOWNE 71697',
@@ -17650,7 +17650,7 @@ List<List<String>> _stations = [
     '52.12N',
     '087.56W',
     '254',
-    'CA'
+    'CA',
   ],
   ['ON OSHAWA', 'null', 'null', '71697', '43.55N', '078.53W', '140', 'CA'],
   ['ON LONDON CS', 'CWSN', 'null', '71622', '43.02N', '081.09W', '278', 'CA'],
@@ -17662,7 +17662,7 @@ List<List<String>> _stations = [
     '43.01N',
     '081.09W',
     '278',
-    'CA'
+    'CA',
   ],
   [
     'ON LONG POINT (MAPS',
@@ -17672,7 +17672,7 @@ List<List<String>> _stations = [
     '42.34N',
     '080.02W',
     '175',
-    'CA'
+    'CA',
   ],
   ['ON MARATHON', 'CYSP', 'null', 'null', '48.45N', '086.21W', '315', 'CA'],
   [
@@ -17683,7 +17683,7 @@ List<List<String>> _stations = [
     '47.14N',
     '084.35W',
     '559',
-    'CA'
+    'CA',
   ],
   ['ON MONTREAL RIV', 'CZGJ', 'null', 'null', '47.15N', '084.36W', '520', 'CA'],
   [
@@ -17694,7 +17694,7 @@ List<List<String>> _stations = [
     '51.17N',
     '080.37W',
     '10',
-    'CA'
+    'CA',
   ],
   ['ON MOOSONEE', 'CWZC', 'null', 'null', '51.17N', '080.36W', '11', 'CA'],
   ['ON MOOSONEE RCS', 'CXZC', 'null', '71309', '51.18N', '080.37W', '9', 'CA'],
@@ -17706,7 +17706,7 @@ List<List<String>> _stations = [
     '43.58N',
     '080.45W',
     '415',
-    'CA'
+    'CA',
   ],
   [
     'ON MUSKOKA AIRPORT',
@@ -17716,7 +17716,7 @@ List<List<String>> _stations = [
     '44.58N',
     '079.17W',
     '282',
-    'CA'
+    'CA',
   ],
   ['ON MUSKRAT DAM', 'CZMD', 'null', 'null', '53.26N', '091.46W', '278', 'CA'],
   [
@@ -17727,7 +17727,7 @@ List<List<String>> _stations = [
     '49.45N',
     '084.10W',
     '256',
-    'CA'
+    'CA',
   ],
   [
     'ON NORTH BAY AIRPOR',
@@ -17737,7 +17737,7 @@ List<List<String>> _stations = [
     '46.21N',
     '079.25W',
     '371',
-    'CA'
+    'CA',
   ],
   ['ON NORTHEAST ONT', 'CXTI', 'null', 'null', '49.17N', '081.47W', '1', 'CA'],
   ['ON OGOKI POST', 'CYKP', 'YKP', 'null', '51.40N', '085.54W', '179', 'CA'],
@@ -17749,7 +17749,7 @@ List<List<String>> _stations = [
     '44.43N',
     '081.16W',
     '182',
-    'CA'
+    'CA',
   ],
   ['ON OSHAWA', 'CYOO', 'null', 'null', '43.55N', '078.54W', '139', 'CA'],
   ['ON OTTAWA INTL', 'CYOW', 'YOW', '71628', '45.19N', '075.40W', '114', 'CA'],
@@ -17761,7 +17761,7 @@ List<List<String>> _stations = [
     '45.23N',
     '075.43W',
     '79',
-    'CA'
+    'CA',
   ],
   [
     'ON N ONTARIO PORTAB',
@@ -17771,7 +17771,7 @@ List<List<String>> _stations = [
     '48.26N',
     '089.13W',
     '183',
-    'CA'
+    'CA',
   ],
   ['ON PARRY SOUND', 'CXPC', 'null', '71172', '45.21N', '080.03W', '176', 'CA'],
   ['ON PEAWANUCK', 'CYPO', 'YPO', 'null', '54.59N', '085.26W', '53', 'CA'],
@@ -17784,7 +17784,7 @@ List<List<String>> _stations = [
     '44.13N',
     '078.22W',
     '191',
-    'CA'
+    'CA',
   ],
   ['ON PICKLE LAKE', 'CYPL', 'YPL', '71845', '51.28N', '090.12W', '373', 'CA'],
   [
@@ -17795,7 +17795,7 @@ List<List<String>> _stations = [
     '43.50N',
     '077.09W',
     '79',
-    'CA'
+    'CA',
   ],
   [
     'ON PORT COLBORNE(AU',
@@ -17805,7 +17805,7 @@ List<List<String>> _stations = [
     '42.52N',
     '079.15W',
     '184',
-    'CA'
+    'CA',
   ],
   [
     'ON PORT WELLER (MAR',
@@ -17815,7 +17815,7 @@ List<List<String>> _stations = [
     '43.15N',
     '079.13W',
     '79',
-    'CA'
+    'CA',
   ],
   ['ON PUKASKWA PARK', 'CWCJ', 'WCJ', 'null', '48.36N', '086.17W', '206', 'CA'],
   ['ON RAWSON LAKE', 'CYTA', 'null', 'null', '49.40N', '093.44W', '435', 'CA'],
@@ -17828,7 +17828,7 @@ List<List<String>> _stations = [
     '51.04N',
     '093.47W',
     '383',
-    'CA'
+    'CA',
   ],
   [
     'ON RIDGETOWN RCS',
@@ -17838,7 +17838,7 @@ List<List<String>> _stations = [
     '42.27N',
     '081.53W',
     '205',
-    'CA'
+    'CA',
   ],
   ['ON ROQUEMAURE', 'CWGQ', 'WGQ', '71736', '48.37N', '079.27W', '269', 'CA'],
   [
@@ -17849,7 +17849,7 @@ List<List<String>> _stations = [
     '41.49N',
     '082.28W',
     '195',
-    'CA'
+    'CA',
   ],
   ['ON SANDY LAKE', 'CZSJ', 'null', '71098', '53.04N', '093.21W', '290', 'CA'],
   [
@@ -17860,7 +17860,7 @@ List<List<String>> _stations = [
     '43.00N',
     '082.18W',
     '181',
-    'CA'
+    'CA',
   ],
   [
     'ON SAULT STE MARIE',
@@ -17870,7 +17870,7 @@ List<List<String>> _stations = [
     '46.28N',
     '084.31W',
     '192',
-    'CA'
+    'CA',
   ],
   [
     'ON SIOUX LOOKOUT AR',
@@ -17880,7 +17880,7 @@ List<List<String>> _stations = [
     '50.07N',
     '091.54W',
     '390',
-    'CA'
+    'CA',
   ],
   [
     'ON ST. CATHARINES A',
@@ -17890,7 +17890,7 @@ List<List<String>> _stations = [
     '43.12N',
     '079.10W',
     '98',
-    'CA'
+    'CA',
   ],
   ['QC STERLING', 'CYQC', 'null', 'null', '46.19N', '077.38W', '139', 'CA'],
   [
@@ -17901,7 +17901,7 @@ List<List<String>> _stations = [
     '46.38N',
     '080.48W',
     '348',
-    'CA'
+    'CA',
   ],
   [
     'ON SUPERIOR W RADAR',
@@ -17911,7 +17911,7 @@ List<List<String>> _stations = [
     '48.51N',
     '089.07W',
     '1',
-    'CA'
+    'CA',
   ],
   [
     'ON TERRACE BAY (SAW',
@@ -17921,7 +17921,7 @@ List<List<String>> _stations = [
     '48.49N',
     '087.05W',
     '287',
-    'CA'
+    'CA',
   ],
   ['ON THUNDER BAY', 'CYQT', 'YQT', '71749', '48.22N', '089.19W', '199', 'CA'],
   ['ON THUNDER BAY', 'CZTB', 'null', 'null', '48.22N', '089.19W', '199', 'CA'],
@@ -17933,7 +17933,7 @@ List<List<String>> _stations = [
     '48.34N',
     '081.22W',
     '295',
-    'CA'
+    'CA',
   ],
   [
     'ON TORONTO BUTTONVI',
@@ -17943,7 +17943,7 @@ List<List<String>> _stations = [
     '43.52N',
     '079.22W',
     '198',
-    'CA'
+    'CA',
   ],
   ['ON TORONTO ILVOR', 'CYTZ', 'YTZ', '71265', '43.38N', '079.24W', '77', 'CA'],
   [
@@ -17954,7 +17954,7 @@ List<List<String>> _stations = [
     '43.40N',
     '079.37W',
     '173',
-    'CA'
+    'CA',
   ],
   [
     'ON TORONTO CITY',
@@ -17964,7 +17964,7 @@ List<List<String>> _stations = [
     '43.40N',
     '079.24W',
     '113',
-    'CA'
+    'CA',
   ],
   [
     'ON TRENTON (CAN MIL',
@@ -17974,7 +17974,7 @@ List<List<String>> _stations = [
     '44.07N',
     '077.31W',
     '86',
-    'CA'
+    'CA',
   ],
   [
     'ON TROWBRIDGE (MAPS',
@@ -17984,7 +17984,7 @@ List<List<String>> _stations = [
     '48.17N',
     '088.52W',
     '218',
-    'CA'
+    'CA',
   ],
   [
     'ON UPPER RIDEAU LAK',
@@ -17994,7 +17994,7 @@ List<List<String>> _stations = [
     '44.42N',
     '076.17W',
     '125',
-    'CA'
+    'CA',
   ],
   [
     'ON UPSALA (MARS)',
@@ -18004,7 +18004,7 @@ List<List<String>> _stations = [
     '49.01N',
     '090.28W',
     '489',
-    'CA'
+    'CA',
   ],
   [
     'ON UPSALA (RADAR)',
@@ -18014,7 +18014,7 @@ List<List<String>> _stations = [
     '49.02N',
     '090.25W',
     '538',
-    'CA'
+    'CA',
   ],
   [
     'ON VINELAND (AU8)',
@@ -18024,7 +18024,7 @@ List<List<String>> _stations = [
     '43.11N',
     '079.24W',
     '79',
-    'CA'
+    'CA',
   ],
   [
     'ON WATERLOO WELL',
@@ -18034,7 +18034,7 @@ List<List<String>> _stations = [
     '43.28N',
     '080.23W',
     '317',
-    'CA'
+    'CA',
   ],
   ['ON WAWA AIRPORT', 'CYXZ', 'YXZ', '71738', '47.58N', '084.46W', '287', 'CA'],
   [
@@ -18045,7 +18045,7 @@ List<List<String>> _stations = [
     '48.22N',
     '089.07W',
     '209',
-    'CA'
+    'CA',
   ],
   [
     'ON WESTERN ISL (MAP',
@@ -18055,7 +18055,7 @@ List<List<String>> _stations = [
     '45.01N',
     '080.22W',
     '191',
-    'CA'
+    'CA',
   ],
   ['ON WIARTON AIR', 'CYVV', 'YVV', '71633', '44.45N', '081.05W', '222', 'CA'],
   [
@@ -18066,7 +18066,7 @@ List<List<String>> _stations = [
     '42.16N',
     '082.58W',
     '190',
-    'CA'
+    'CA',
   ],
   [
     'ON SIMCOE (MARS)',
@@ -18076,7 +18076,7 @@ List<List<String>> _stations = [
     '42.51N',
     '080.16W',
     '241',
-    'CA'
+    'CA',
   ],
   [
     'ON KENORA/ONT VOR',
@@ -18086,7 +18086,7 @@ List<List<String>> _stations = [
     '49.28N',
     '094.02W',
     '394',
-    'CA'
+    'CA',
   ],
   ['ON PICKLE LAKE', 'CWPL', 'WPL', 'null', '51.28N', '090.12W', '386', 'CA'],
   ['ON ALFRED', 'CTAE', 'null', '71366', '45.33N', '074.53W', '57', 'CA'],
@@ -18098,7 +18098,7 @@ List<List<String>> _stations = [
     '45.19N',
     '074.37W',
     '77',
-    'CA'
+    'CA',
   ],
   ['ON MOOSE CREEK', 'CTCK', 'null', '71304', '45.15N', '074.58W', '85', 'CA'],
   ['ON CORNWALL', 'CTCW', 'null', '71369', '45.02N', '074.41W', '58', 'CA'],
@@ -18110,7 +18110,7 @@ List<List<String>> _stations = [
     '45.32N',
     '078.16W',
     '410',
-    'CA'
+    'CA',
   ],
   ['ON WINCHESTER', 'CTWN', 'null', '71367', '45.03N', '075.20W', '75', 'CA'],
   [
@@ -18121,7 +18121,7 @@ List<List<String>> _stations = [
     '46.16N',
     '063.07W',
     '54',
-    'CA'
+    'CA',
   ],
   [
     'PE CONFEDERATION BR',
@@ -18131,7 +18131,7 @@ List<List<String>> _stations = [
     '46.14N',
     '063.44W',
     '54',
-    'CA'
+    'CA',
   ],
   [
     'PE EAST POINT (MARS',
@@ -18141,7 +18141,7 @@ List<List<String>> _stations = [
     '46.27N',
     '061.58W',
     '11',
-    'CA'
+    'CA',
   ],
   [
     'PE MAPLE PLAINS PEI',
@@ -18151,7 +18151,7 @@ List<List<String>> _stations = [
     '46.18N',
     '063.35W',
     '46',
-    'CA'
+    'CA',
   ],
   [
     'PE NORTH POINT (AUT',
@@ -18161,7 +18161,7 @@ List<List<String>> _stations = [
     '47.04N',
     '064.00W',
     '15',
-    'CA'
+    'CA',
   ],
   ['PE ST PETERS', 'CZSP', 'null', '71310', '46.27N', '062.35W', '30', 'CA'],
   [
@@ -18172,7 +18172,7 @@ List<List<String>> _stations = [
     '46.25N',
     '063.51W',
     '24',
-    'CA'
+    'CA',
   ],
   [
     'PE SUMMERSIDE(CAN M',
@@ -18182,7 +18182,7 @@ List<List<String>> _stations = [
     '46.25N',
     '063.49W',
     '24',
-    'CA'
+    'CA',
   ],
   [
     'PE HARRINGTON CDA',
@@ -18192,7 +18192,7 @@ List<List<String>> _stations = [
     '46.21N',
     '063.10W',
     '53',
-    'CA'
+    'CA',
   ],
   ['QC AMQUI', 'CWZS', 'WZS', '71386', '48.28N', '067.26W', '166', 'CA'],
   [
@@ -18203,7 +18203,7 @@ List<List<String>> _stations = [
     '60.49N',
     '078.09W',
     '9',
-    'CA'
+    'CA',
   ],
   ['QC AUPALUK', 'CYLA', 'YLA', 'null', '59.17N', '069.35W', '35', 'CA'],
   [
@@ -18214,7 +18214,7 @@ List<List<String>> _stations = [
     '48.20N',
     '070.59W',
     '159',
-    'CA'
+    'CA',
   ],
   [
     'QC BAIE COMEAU AIRP',
@@ -18224,7 +18224,7 @@ List<List<String>> _stations = [
     '49.07N',
     '068.12W',
     '22',
-    'CA'
+    'CA',
   ],
   [
     'QC BARRAGE ANGLIERS',
@@ -18234,7 +18234,7 @@ List<List<String>> _stations = [
     '47.33N',
     '079.14W',
     '266',
-    'CA'
+    'CA',
   ],
   ['QC BEAUCEVILLE', 'CWHV', 'WHV', '71323', '46.12N', '070.46W', '229', 'CA'],
   ['QC BEAUPORT', 'CXBO', 'XBO', '71578', '46.50N', '071.12W', '100', 'CA'],
@@ -18246,7 +18246,7 @@ List<List<String>> _stations = [
     '51.27N',
     '057.10W',
     '35',
-    'CA'
+    'CA',
   ],
   [
     'QC BONNARD(AUTO)',
@@ -18256,7 +18256,7 @@ List<List<String>> _stations = [
     '50.44N',
     '071.01W',
     '497',
-    'CA'
+    'CA',
   ],
   [
     'QC BORDER (MAPS)',
@@ -18266,7 +18266,7 @@ List<List<String>> _stations = [
     '55.19N',
     '063.13W',
     '479',
-    'CA'
+    'CA',
   ],
   [
     'QC CAP CHAT (MAPS)',
@@ -18276,7 +18276,7 @@ List<List<String>> _stations = [
     '49.07N',
     '066.39W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'QC CAP D\'ESPOIR (MA',
@@ -18286,7 +18286,7 @@ List<List<String>> _stations = [
     '48.25N',
     '064.19W',
     '16',
-    'CA'
+    'CA',
   ],
   [
     'QC CAP MADELEINE(MA',
@@ -18296,7 +18296,7 @@ List<List<String>> _stations = [
     '49.15N',
     '065.19W',
     '29',
-    'CA'
+    'CA',
   ],
   ['QC CAP TOURMENTE', 'CWTN', 'WTN', '71384', '47.04N', '070.47W', '6', 'CA'],
   [
@@ -18307,7 +18307,7 @@ List<List<String>> _stations = [
     '49.16N',
     '073.20W',
     '305',
-    'CA'
+    'CA',
   ],
   ['QC CHAPAIS', 'CWUK', 'null', '71824', '49.49N', '074.59W', '381', 'CA'],
   [
@@ -18318,7 +18318,7 @@ List<List<String>> _stations = [
     '47.17N',
     '070.38W',
     '719',
-    'CA'
+    'CA',
   ],
   [
     'QC CHARLEVOIX AIRPO',
@@ -18328,7 +18328,7 @@ List<List<String>> _stations = [
     '47.36N',
     '070.13W',
     '298',
-    'CA'
+    'CA',
   ],
   [
     'QC CHATHAM BROWNBRG',
@@ -18338,7 +18338,7 @@ List<List<String>> _stations = [
     '45.37N',
     '074.25W',
     '75',
-    'CA'
+    'CA',
   ],
   ['QC CHEVERY (MARS)', 'CWDM', 'WDM', '71814', '50.28N', '059.37W', '6', 'CA'],
   [
@@ -18349,7 +18349,7 @@ List<List<String>> _stations = [
     '49.46N',
     '074.31W',
     '387',
-    'CA'
+    'CA',
   ],
   [
     'QC CHUTE DES PASSES',
@@ -18359,7 +18359,7 @@ List<List<String>> _stations = [
     '49.53N',
     '071.15W',
     '399',
-    'CA'
+    'CA',
   ],
   ['QC DESCHAMBAULTS', 'CWHQ', 'WHQ', '71389', '46.41N', '071.58W', '55', 'CA'],
   [
@@ -18370,7 +18370,7 @@ List<List<String>> _stations = [
     '52.13N',
     '078.31W',
     '7',
-    'CA'
+    'CA',
   ],
   ['QC FRELIGHSBURG', 'CWFQ', 'WFQ', '71373', '45.02N', '072.49W', '152', 'CA'],
   ['QC GASPE AIRPORT', 'CYGP', 'YGP', '71188', '48.46N', '064.28W', '33', 'CA'],
@@ -18382,7 +18382,7 @@ List<List<String>> _stations = [
     '45.31N',
     '075.34W',
     '64',
-    'CA'
+    'CA',
   ],
   ['QC HARRINGTON', 'CMHN', 'null', 'null', '45.48N', '074.39W', '168', 'CA'],
   [
@@ -18393,7 +18393,7 @@ List<List<String>> _stations = [
     '50.16N',
     '063.37W',
     '33',
-    'CA'
+    'CA',
   ],
   [
     'QC HEATH POINT (MAP',
@@ -18403,7 +18403,7 @@ List<List<String>> _stations = [
     '49.04N',
     '061.42W',
     '4',
-    'CA'
+    'CA',
   ],
   [
     'QC HIGH FALLS CS (A',
@@ -18413,7 +18413,7 @@ List<List<String>> _stations = [
     '45.50N',
     '075.39W',
     '190',
-    'CA'
+    'CA',
   ],
   ['QC ICE AUX GRUES', 'CWIG', 'WIG', 'null', '47.04N', '070.32W', '18', 'CA'],
   [
@@ -18424,7 +18424,7 @@ List<List<String>> _stations = [
     '50.13N',
     '064.13W',
     '9',
-    'CA'
+    'CA',
   ],
   ['QC ILE BICQUETTE', 'CWQO', 'WQO', '71385', '48.25N', '068.54W', '1', 'CA'],
   ['QC ILE CHARRON', 'CWVZ', 'WVZ', 'null', '45.35N', '073.30W', '12', 'CA'],
@@ -18436,7 +18436,7 @@ List<List<String>> _stations = [
     '47.00N',
     '070.49W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'QC ILE ROUGE(MAPS)',
@@ -18446,7 +18446,7 @@ List<List<String>> _stations = [
     '48.04N',
     '069.32W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'QC ILES DE LA MADEL',
@@ -18456,7 +18456,7 @@ List<List<String>> _stations = [
     '47.25N',
     '061.46W',
     '10',
-    'CA'
+    'CA',
   ],
   [
     'QC ILES-DE-LA-MADEL',
@@ -18466,7 +18466,7 @@ List<List<String>> _stations = [
     '47.25N',
     '061.48W',
     '60',
-    'CA'
+    'CA',
   ],
   ['QC INUKJUAK', 'null', 'null', '71907', '58.27N', '078.05W', '3', 'CA'],
   ['QC INUKJUAK', 'CYPH', 'YPH', '71306', '58.28N', '078.05W', '25', 'CA'],
@@ -18478,7 +18478,7 @@ List<List<String>> _stations = [
     '62.25N',
     '077.56W',
     '42',
-    'CA'
+    'CA',
   ],
   [
     'QC JONQUIERE(AUTO)',
@@ -18488,7 +18488,7 @@ List<List<String>> _stations = [
     '48.26N',
     '071.09W',
     '133',
-    'CA'
+    'CA',
   ],
   [
     'QC KANGIKSUALUJJUAQ',
@@ -18498,7 +18498,7 @@ List<List<String>> _stations = [
     '58.43N',
     '065.58W',
     '60',
-    'CA'
+    'CA',
   ],
   [
     'QC KANGIQSUJUAQ(SAW',
@@ -18508,7 +18508,7 @@ List<List<String>> _stations = [
     '61.34N',
     '071.55W',
     '151',
-    'CA'
+    'CA',
   ],
   [
     'QC KANGIRSUK (SAWR)',
@@ -18518,7 +18518,7 @@ List<List<String>> _stations = [
     '60.01N',
     '070.00W',
     '117',
-    'CA'
+    'CA',
   ],
   [
     'QC KUUJJUAQ AIRPORT',
@@ -18528,7 +18528,7 @@ List<List<String>> _stations = [
     '58.07N',
     '068.25W',
     '60',
-    'CA'
+    'CA',
   ],
   [
     'QC KUUJJUARAPIK ARP',
@@ -18538,7 +18538,7 @@ List<List<String>> _stations = [
     '55.16N',
     '077.46W',
     '12',
-    'CA'
+    'CA',
   ],
   ['QC L\'ACADIE', 'CWIZ', 'WIZ', '71372', '45.17N', '073.20W', '45', 'CA'],
   ['QC L\'ASSOMPTION', 'CWEW', 'WEW', '71524', '45.49N', '073.26W', '21', 'CA'],
@@ -18551,7 +18551,7 @@ List<List<String>> _stations = [
     '53.34N',
     '076.12W',
     '233',
-    'CA'
+    'CA',
   ],
   [
     'QC LA GRANDE IV ARP',
@@ -18561,7 +18561,7 @@ List<List<String>> _stations = [
     '53.45N',
     '073.40W',
     '306',
-    'CA'
+    'CA',
   ],
   [
     'QC LA GRANDE RIVIER',
@@ -18571,7 +18571,7 @@ List<List<String>> _stations = [
     '53.37N',
     '077.42W',
     '195',
-    'CA'
+    'CA',
   ],
   ['QC LA POCATIERE', 'CWST', 'null', '71713', '47.21N', '070.01W', '31', 'CA'],
   ['QC LA TUQUE', 'CWDQ', 'WDQ', '71378', '47.25N', '072.47W', '169', 'CA'],
@@ -18583,7 +18583,7 @@ List<List<String>> _stations = [
     '51.52N',
     '063.16W',
     '561',
-    'CA'
+    'CA',
   ],
   [
     'QC LAC MEMPHREMAGOG',
@@ -18593,7 +18593,7 @@ List<List<String>> _stations = [
     '45.16N',
     '072.10W',
     '209',
-    'CA'
+    'CA',
   ],
   [
     'QC LAC ST PIERRE (A',
@@ -18603,7 +18603,7 @@ List<List<String>> _stations = [
     '46.11N',
     '072.55W',
     '16',
-    'CA'
+    'CA',
   ],
   ['QC LATERRIERE', 'CXLT', 'null', '71040', '48.18N', '071.08W', '162', 'CA'],
   ['QC LAUZON', 'CWLU', 'WLU', 'null', '46.50N', '071.10W', '20', 'CA'],
@@ -18617,7 +18617,7 @@ List<List<String>> _stations = [
     '50.16N',
     '064.14W',
     '11',
-    'CA'
+    'CA',
   ],
   ['QC MANIWAKI', 'CWMJ', 'WMJ', '71721', '46.16N', '076.00W', '200', 'CA'],
   ['QC MANIWAKI', 'CWMW', 'WMW', '71722', '46.22N', '075.58W', '170', 'CA'],
@@ -18629,7 +18629,7 @@ List<List<String>> _stations = [
     '49.46N',
     '077.49W',
     '281',
-    'CA'
+    'CA',
   ],
   ['QC MCGILL RADAR', 'CWMN', 'null', 'null', '45.25N', '073.56W', '63', 'CA'],
   [
@@ -18640,7 +18640,7 @@ List<List<String>> _stations = [
     '45.30N',
     '073.35W',
     '63',
-    'CA'
+    'CA',
   ],
   [
     'QC MISTOOK (AUT)',
@@ -18650,7 +18650,7 @@ List<List<String>> _stations = [
     '48.36N',
     '071.43W',
     '113',
-    'CA'
+    'CA',
   ],
   [
     'QC MONT JOLI AIRPOR',
@@ -18660,7 +18660,7 @@ List<List<String>> _stations = [
     '48.36N',
     '068.13W',
     '52',
-    'CA'
+    'CA',
   ],
   ['QC MONT ORFORD', 'CWHY', 'WHY', '71618', '45.19N', '072.15W', '851', 'CA'],
   ['QC MONTREAL EST', 'CWPQ', 'WPQ', '71675', '45.38N', '073.30W', '6', 'CA'],
@@ -18672,7 +18672,7 @@ List<List<String>> _stations = [
     '45.28N',
     '073.44W',
     '36',
-    'CA'
+    'CA',
   ],
   [
     'QC MONTREAL/DORVAL',
@@ -18682,7 +18682,7 @@ List<List<String>> _stations = [
     '45.28N',
     '073.45W',
     '32',
-    'CA'
+    'CA',
   ],
   [
     'QC MONTREAL/MIRABEL',
@@ -18692,7 +18692,7 @@ List<List<String>> _stations = [
     '45.40N',
     '074.01W',
     '82',
-    'CA'
+    'CA',
   ],
   [
     'QC NATASHQUAN AIRP',
@@ -18702,7 +18702,7 @@ List<List<String>> _stations = [
     '50.10N',
     '061.49W',
     '11',
-    'CA'
+    'CA',
   ],
   [
     'QC NEMISCAU ARPT(SA',
@@ -18712,7 +18712,7 @@ List<List<String>> _stations = [
     '51.42N',
     '076.07W',
     '244',
-    'CA'
+    'CA',
   ],
   ['QC NEW CARLISLE1', 'CWOC', 'WOC', '71619', '48.01N', '065.19W', '47', 'CA'],
   [
@@ -18723,7 +18723,7 @@ List<List<String>> _stations = [
     '46.13N',
     '072.39W',
     '10',
-    'CA'
+    'CA',
   ],
   ['QC NORMANDIN', 'CWOD', 'WOD', '71379', '48.51N', '072.33W', '137', 'CA'],
   ['QC ONATCHIWAY', 'CWXC', 'WXC', '71387', '48.53N', '071.02W', '300', 'CA'],
@@ -18735,7 +18735,7 @@ List<List<String>> _stations = [
     '47.34N',
     '071.13W',
     '803',
-    'CA'
+    'CA',
   ],
   [
     'QC PARENT (MARS)',
@@ -18745,7 +18745,7 @@ List<List<String>> _stations = [
     '47.55N',
     '074.37W',
     '442',
-    'CA'
+    'CA',
   ],
   [
     'QC POINTE DES MONTS',
@@ -18755,7 +18755,7 @@ List<List<String>> _stations = [
     '49.19N',
     '067.22W',
     '5',
-    'CA'
+    'CA',
   ],
   [
     'QC POINTE NOIRES CS',
@@ -18765,7 +18765,7 @@ List<List<String>> _stations = [
     '50.10N',
     '066.26W',
     '25',
-    'CA'
+    'CA',
   ],
   [
     'QC PORT MENIER (MAR',
@@ -18775,7 +18775,7 @@ List<List<String>> _stations = [
     '49.49N',
     '064.17W',
     '53',
-    'CA'
+    'CA',
   ],
   ['QC PUVIRGNITUQ', 'CYPX', 'YPX', 'null', '60.02N', '077.16W', '23', 'CA'],
   ['QC POINTE CLAVEAU', 'CWQV', 'WQV', '71189', '48.16N', '070.07W', '1', 'CA'],
@@ -18787,7 +18787,7 @@ List<List<String>> _stations = [
     '61.02N',
     '069.37W',
     '30',
-    'CA'
+    'CA',
   ],
   ['QC QUEBEC', 'CYQB', 'YQB', '71714', '46.47N', '071.22W', '73', 'CA'],
   ['QC RAWDON', 'CMWD', 'null', 'null', '46.01N', '073.49W', '210', 'CA'],
@@ -18799,7 +18799,7 @@ List<List<String>> _stations = [
     '47.47N',
     '069.32W',
     '148',
-    'CA'
+    'CA',
   ],
   [
     'QC ROBERVAL AIRPORT',
@@ -18809,7 +18809,7 @@ List<List<String>> _stations = [
     '48.31N',
     '072.16W',
     '179',
-    'CA'
+    'CA',
   ],
   ['QC ROUYN AIRPORT', 'CYUY', 'YUY', 'null', '48.12N', '078.49W', '301', 'CA'],
   [
@@ -18820,7 +18820,7 @@ List<List<String>> _stations = [
     '45.31N',
     '073.25W',
     '27',
-    'CA'
+    'CA',
   ],
   ['QC SAINT LOUIS', 'CMLI', 'null', 'null', '45.52N', '073.00W', '31', 'CA'],
   [
@@ -18831,7 +18831,7 @@ List<List<String>> _stations = [
     '62.10N',
     '075.40W',
     '226',
-    'CA'
+    'CA',
   ],
   [
     'QC SCHEFFERVILLE AR',
@@ -18841,7 +18841,7 @@ List<List<String>> _stations = [
     '54.47N',
     '066.49W',
     '521',
-    'CA'
+    'CA',
   ],
   [
     'QC SEPT ILES AIRPOR',
@@ -18851,7 +18851,7 @@ List<List<String>> _stations = [
     '50.13N',
     '066.16W',
     '55',
-    'CA'
+    'CA',
   ],
   ['QC SEPT ILES', 'CXZV', 'null', 'null', '50.13N', '066.15W', '52', 'CA'],
   ['QC SHAWINIGAN', 'CXSH', 'XSH', '71370', '46.35N', '072.44W', '110', 'CA'],
@@ -18865,7 +18865,7 @@ List<List<String>> _stations = [
     '46.47N',
     '071.16W',
     '91',
-    'CA'
+    'CA',
   ],
   ['QC ST GEDEON', 'CWIU', 'WIU', 'null', '48.29N', '071.47W', '103', 'CA'],
   ['QC ST HENRI', 'CWIA', 'WIA', 'null', '48.39N', '071.51W', '103', 'CA'],
@@ -18877,7 +18877,7 @@ List<List<String>> _stations = [
     '46.04N',
     '074.34W',
     '239',
-    'CA'
+    'CA',
   ],
   [
     'QC ST CLOTHILDE (A',
@@ -18887,7 +18887,7 @@ List<List<String>> _stations = [
     '45.10N',
     '073.40W',
     '52',
-    'CA'
+    'CA',
   ],
   [
     'QC STE ANNE DE BELL',
@@ -18897,7 +18897,7 @@ List<List<String>> _stations = [
     '45.25N',
     '073.55W',
     '39',
-    'CA'
+    'CA',
   ],
   ['QC TASIUJAQ A', 'CYTQ', 'YTQ', 'null', '58.40N', '069.57W', '31', 'CA'],
   [
@@ -18908,7 +18908,7 @@ List<List<String>> _stations = [
     '46.43N',
     '079.06W',
     '181',
-    'CA'
+    'CA',
   ],
   ['QC TROIS RIVIERES', 'CWTY', 'WTY', '71724', '46.21N', '072.31W', '6', 'CA'],
   [
@@ -18919,7 +18919,7 @@ List<List<String>> _stations = [
     '46.21N',
     '072.41W',
     '61',
-    'CA'
+    'CA',
   ],
   ['QC UMIUJAQ', 'CYMU', 'YMU', 'null', '56.31N', '076.31W', '71', 'CA'],
   [
@@ -18930,7 +18930,7 @@ List<List<String>> _stations = [
     '48.04N',
     '077.46W',
     '337',
-    'CA'
+    'CA',
   ],
   [
     'QC VALCARTIER AIRPO',
@@ -18940,7 +18940,7 @@ List<List<String>> _stations = [
     '46.53N',
     '071.30W',
     '168',
-    'CA'
+    'CA',
   ],
   ['QC VARENNES', 'CWHM', 'WHM', '71184', '45.43N', '073.22W', '192', 'CA'],
   [
@@ -18951,7 +18951,7 @@ List<List<String>> _stations = [
     '46.27N',
     '071.55W',
     '108',
-    'CA'
+    'CA',
   ],
   [
     'QC WASKAGANISH AIRP',
@@ -18961,7 +18961,7 @@ List<List<String>> _stations = [
     '51.28N',
     '078.45W',
     '23',
-    'CA'
+    'CA',
   ],
   ['QC WEMINDJI', 'CYNC', 'YNC', 'null', '53.01N', '078.49W', '14', 'CA'],
   ['QC INUKJUAK', 'CWPH', 'WPH', 'null', '58.27N', '078.07W', '253', 'CA'],
@@ -18974,7 +18974,7 @@ List<List<String>> _stations = [
     '48.29N',
     '067.36W',
     '583',
-    'CA'
+    'CA',
   ],
   ['QC BEAUHARNOS', 'CMBR', 'null', 'null', '45.19N', '073.55W', '22', 'CA'],
   ['QC ST CONSTANT', 'CMCT', 'null', 'null', '45.20N', '073.35W', '39', 'CA'],
@@ -18987,7 +18987,7 @@ List<List<String>> _stations = [
     '47.19N',
     '071.09W',
     '672',
-    'CA'
+    'CA',
   ],
   ['QC GRANBY', 'CMGB', 'null', 'null', '45.22N', '072.46W', '86', 'CA'],
   ['QC HOWICK', 'CMHW', 'null', 'null', '45.10N', '073.52W', '42', 'CA'],
@@ -19001,7 +19001,7 @@ List<List<String>> _stations = [
     '45.18N',
     '074.18W',
     '56',
-    'CA'
+    'CA',
   ],
   ['QC ROUGEMONT', 'CMRG', 'null', 'null', '45.25N', '073.03W', '54', 'CA'],
   ['QC RIGAUD', 'CMRI', 'null', '71305', '45.29N', '074.18W', '30', 'CA'],
@@ -19014,7 +19014,7 @@ List<List<String>> _stations = [
     '45.07N',
     '073.41W',
     '59',
-    'CA'
+    'CA',
   ],
   ['QC ST SABINE', 'CMSB', 'null', 'null', '45.13N', '073.01W', '49', 'CA'],
   ['QC ST CELESTIN', 'CMSC', 'null', 'null', '46.12N', '072.27W', '55', 'CA'],
@@ -19026,7 +19026,7 @@ List<List<String>> _stations = [
     '45.11N',
     '073.37W',
     '59',
-    'CA'
+    'CA',
   ],
   [
     'QC ST CHRYSOSTOME',
@@ -19036,7 +19036,7 @@ List<List<String>> _stations = [
     '45.08N',
     '073.46W',
     '55',
-    'CA'
+    'CA',
   ],
   [
     'SK ASSINIBOIA ARPT',
@@ -19046,7 +19046,7 @@ List<List<String>> _stations = [
     '49.43N',
     '105.55W',
     '724',
-    'CA'
+    'CA',
   ],
   ['SK BROADVIEW', 'CWIK', 'WIK', '71861', '50.22N', '102.35W', '602', 'CA'],
   ['SK BRATTS LAKE', 'CXBK', 'XBK', '71569', '50.12N', '104.42W', '580', 'CA'],
@@ -19058,7 +19058,7 @@ List<List<String>> _stations = [
     '50.23N',
     '102.41W',
     '600',
-    'CA'
+    'CA',
   ],
   [
     'SK BUFFALO NARROWS',
@@ -19068,7 +19068,7 @@ List<List<String>> _stations = [
     '55.49N',
     '108.25W',
     '434',
-    'CA'
+    'CA',
   ],
   [
     'SK BUFFALO NARROWS',
@@ -19078,7 +19078,7 @@ List<List<String>> _stations = [
     '55.49N',
     '108.25W',
     '434',
-    'CA'
+    'CA',
   ],
   ['SK CANDLE LAKE', 'CWLZ', 'WLZ', '71146', '53.44N', '105.16W', '503', 'CA'],
   ['SK CLUFF LAKE', 'CXXX', 'null', '71073', '58.23N', '109.31W', '339', 'CA'],
@@ -19091,7 +19091,7 @@ List<List<String>> _stations = [
     '49.38N',
     '109.31W',
     '1271',
-    'CA'
+    'CA',
   ],
   [
     'SK EASTEND CYPRESS',
@@ -19101,7 +19101,7 @@ List<List<String>> _stations = [
     '49.25N',
     '108.58W',
     '1078',
-    'CA'
+    'CA',
   ],
   ['SK ELBOW (MARS)', 'CWOK', 'WOK', '71450', '51.07N', '106.34W', '595', 'CA'],
   [
@@ -19112,7 +19112,7 @@ List<List<String>> _stations = [
     '49.13N',
     '102.58W',
     '581',
-    'CA'
+    'CA',
   ],
   ['SK HUDSON BAY', 'CYHB', 'YHB', '71868', '52.49N', '102.19W', '358', 'CA'],
   [
@@ -19123,7 +19123,7 @@ List<List<String>> _stations = [
     '50.33N',
     '103.39W',
     '582',
-    'CA'
+    'CA',
   ],
   ['SK JIMMY LAKE', 'CWHN', 'WHN', 'null', '54.53N', '109.58W', '636', 'CA'],
   ['SK KEY LAKE', 'CYKJ', 'YKJ', '71488', '57.15N', '105.37W', '509', 'CA'],
@@ -19136,7 +19136,7 @@ List<List<String>> _stations = [
     '55.09N',
     '105.16W',
     '379',
-    'CA'
+    'CA',
   ],
   [
     'SK LA RONGE AIRPORT',
@@ -19146,7 +19146,7 @@ List<List<String>> _stations = [
     '55.09N',
     '105.16W',
     '379',
-    'CA'
+    'CA',
   ],
   [
     'SK LEADER ARPT (AUT',
@@ -19156,7 +19156,7 @@ List<List<String>> _stations = [
     '50.53N',
     '109.30W',
     '672',
-    'CA'
+    'CA',
   ],
   [
     'SK LUCKY LAKE (AUTO',
@@ -19166,7 +19166,7 @@ List<List<String>> _stations = [
     '50.57N',
     '107.09W',
     '665',
-    'CA'
+    'CA',
   ],
   [
     'SK MAPLECREEK (AUTO',
@@ -19176,7 +19176,7 @@ List<List<String>> _stations = [
     '49.54N',
     '109.28W',
     '767',
-    'CA'
+    'CA',
   ],
   [
     'SK MEADOW LAKE AIRP',
@@ -19186,7 +19186,7 @@ List<List<String>> _stations = [
     '54.07N',
     '108.31W',
     '480',
-    'CA'
+    'CA',
   ],
   [
     'SK MELFORT (AUTOB)',
@@ -19196,7 +19196,7 @@ List<List<String>> _stations = [
     '52.49N',
     '104.35W',
     '490',
-    'CA'
+    'CA',
   ],
   [
     'SK MOOSE JAW (CAN M',
@@ -19206,7 +19206,7 @@ List<List<String>> _stations = [
     '50.19N',
     '105.32W',
     '577',
-    'CA'
+    'CA',
   ],
   ['SK MOOSE JAW', 'CZMJ', 'null', 'null', '50.20N', '105.34W', '577', 'CA'],
   [
@@ -19217,7 +19217,7 @@ List<List<String>> _stations = [
     '53.19N',
     '104.00W',
     '374',
-    'CA'
+    'CA',
   ],
   ['SK NIPAWIN', 'CWBU', 'null', 'null', '53.20N', '104.01W', '373', 'CA'],
   [
@@ -19228,7 +19228,7 @@ List<List<String>> _stations = [
     '52.46N',
     '108.15W',
     '548',
-    'CA'
+    'CA',
   ],
   [
     'SK PRINCE ALBERT AR',
@@ -19238,7 +19238,7 @@ List<List<String>> _stations = [
     '53.13N',
     '105.40W',
     '428',
-    'CA'
+    'CA',
   ],
   [
     'SK REGINA AIRPORT',
@@ -19248,7 +19248,7 @@ List<List<String>> _stations = [
     '50.26N',
     '104.40W',
     '577',
-    'CA'
+    'CA',
   ],
   [
     'SK REGINA UNIVERSIT',
@@ -19258,7 +19258,7 @@ List<List<String>> _stations = [
     '50.24N',
     '104.35W',
     '573',
-    'CA'
+    'CA',
   ],
   [
     'SK ROCKGLEN (MARS)',
@@ -19268,7 +19268,7 @@ List<List<String>> _stations = [
     '49.10N',
     '105.58W',
     '917',
-    'CA'
+    'CA',
   ],
   [
     'SK ROSETOWN EAST (A',
@@ -19278,7 +19278,7 @@ List<List<String>> _stations = [
     '51.34N',
     '107.55W',
     '586',
-    'CA'
+    'CA',
   ],
   [
     'SK SASKATOON AIRPOR',
@@ -19288,7 +19288,7 @@ List<List<String>> _stations = [
     '52.10N',
     '106.42W',
     '504',
-    'CA'
+    'CA',
   ],
   [
     'SK SOUTHEND (AUTOB)',
@@ -19298,7 +19298,7 @@ List<List<String>> _stations = [
     '56.19N',
     '103.16W',
     '344',
-    'CA'
+    'CA',
   ],
   [
     'SK SPIRITWOOD WEST',
@@ -19308,7 +19308,7 @@ List<List<String>> _stations = [
     '53.22N',
     '107.32W',
     '584',
-    'CA'
+    'CA',
   ],
   [
     'SK STONY RAPIDS ARP',
@@ -19318,7 +19318,7 @@ List<List<String>> _stations = [
     '59.15N',
     '105.49W',
     '250',
-    'CA'
+    'CA',
   ],
   ['SK SWIFT CURREN', 'CYYN', 'YYN', '71870', '50.16N', '107.40W', '818', 'CA'],
   [
@@ -19329,7 +19329,7 @@ List<List<String>> _stations = [
     '59.34N',
     '108.28W',
     '318',
-    'CA'
+    'CA',
   ],
   [
     'SK VAL MARIE SE(AUT',
@@ -19339,7 +19339,7 @@ List<List<String>> _stations = [
     '49.04N',
     '107.34W',
     '785',
-    'CA'
+    'CA',
   ],
   [
     'SK WATROUS EAST (AU',
@@ -19349,7 +19349,7 @@ List<List<String>> _stations = [
     '51.40N',
     '105.24W',
     '526',
-    'CA'
+    'CA',
   ],
   [
     'SK WEYBURN (AUTOB)',
@@ -19359,7 +19359,7 @@ List<List<String>> _stations = [
     '49.42N',
     '103.48W',
     '589',
-    'CA'
+    'CA',
   ],
   [
     'SK WYNYARD (AUT)',
@@ -19369,7 +19369,7 @@ List<List<String>> _stations = [
     '51.46N',
     '104.12W',
     '560',
-    'CA'
+    'CA',
   ],
   [
     'SK YORKTON AIRPORT',
@@ -19379,7 +19379,7 @@ List<List<String>> _stations = [
     '51.16N',
     '102.28W',
     '498',
-    'CA'
+    'CA',
   ],
   ['SK WALDRON VOR', 'CYDR', 'YDR', 'null', '50.22N', '102.32W', '615', 'CA'],
   ['SK CANADA ARTCC', 'CZFD', 'ZFD', 'null', '59.19N', '107.11W', '131', 'CA'],
@@ -19391,7 +19391,7 @@ List<List<String>> _stations = [
     '62.25N',
     '140.52W',
     '649',
-    'CA'
+    'CA',
   ],
   ['YT BURWASH', 'CYDB', 'YDB', '71967', '61.22N', '139.03W', '801', 'CA'],
   ['YT CARMACKS', 'CXCK', 'XCK', '71039', '62.07N', '136.12W', '540', 'CA'],
@@ -19403,7 +19403,7 @@ List<List<String>> _stations = [
     '64.02N',
     '139.07W',
     '369',
-    'CA'
+    'CA',
   ],
   ['YT FARO (MARS)', 'CWUM', 'WUM', '71949', '62.13N', '133.20W', '717', 'CA'],
   [
@@ -19414,7 +19414,7 @@ List<List<String>> _stations = [
     '62.12N',
     '133.22W',
     '717',
-    'CA'
+    'CA',
   ],
   [
     'YT HAINES JUNCTION',
@@ -19424,7 +19424,7 @@ List<List<String>> _stations = [
     '60.46N',
     '137.35W',
     '599',
-    'CA'
+    'CA',
   ],
   [
     'YT HERSCHEL ISLAND',
@@ -19434,7 +19434,7 @@ List<List<String>> _stations = [
     '69.34N',
     '138.55W',
     '1',
-    'CA'
+    'CA',
   ],
   ['YT KOMAKUK BEACH', 'CWKM', 'WKM', '71046', '69.36N', '140.10W', '13', 'CA'],
   [
@@ -19445,7 +19445,7 @@ List<List<String>> _stations = [
     '68.48N',
     '140.51W',
     '543',
-    'CA'
+    'CA',
   ],
   [
     'YT MAYO AIRPORT',
@@ -19455,7 +19455,7 @@ List<List<String>> _stations = [
     '63.37N',
     '135.52W',
     '504',
-    'CA'
+    'CA',
   ],
   [
     'YT OLD CROW AIRPORT',
@@ -19465,7 +19465,7 @@ List<List<String>> _stations = [
     '67.34N',
     '139.49W',
     '251',
-    'CA'
+    'CA',
   ],
   [
     'YT SHINGLE POINT AR',
@@ -19475,7 +19475,7 @@ List<List<String>> _stations = [
     '68.57N',
     '137.17W',
     '38',
-    'CA'
+    'CA',
   ],
   ['YT STORM HILLS', 'CWVH', 'WVH', '71052', '68.54N', '133.56W', '261', 'CA'],
   ['YT TESLIN (MARS)', 'CWZW', 'WZW', 'null', '60.10N', '132.44W', '705', 'CA'],
@@ -19487,7 +19487,7 @@ List<List<String>> _stations = [
     '60.10N',
     '132.45W',
     '705',
-    'CA'
+    'CA',
   ],
   [
     'YT WATSON LAKE AIRP',
@@ -19497,7 +19497,7 @@ List<List<String>> _stations = [
     '60.07N',
     '128.49W',
     '690',
-    'CA'
+    'CA',
   ],
   ['YT WATSON LAKE', 'CXQH', 'null', '71199', '60.07N', '128.49W', '690', 'CA'],
   [
@@ -19508,7 +19508,7 @@ List<List<String>> _stations = [
     '60.43N',
     '135.04W',
     '703',
-    'CA'
+    'CA',
   ],
   ['ACAPULCO/G. ALVA', 'MMAA', 'ACA', 'null', '16.45N', '099.45W', '5', 'MX'],
   ['ACAPULCO/G. ALVA', 'null', 'null', '76805', '16.50N', '099.56W', '3', 'MX'],
@@ -19525,7 +19525,7 @@ List<List<String>> _stations = [
     '28.42N',
     '105.58W',
     '1372',
-    'MX'
+    'MX',
   ],
   ['CIUDAD DEL CARM', 'MMCE', 'CME', 'null', '18.39N', '091.48W', '2', 'MX'],
   [
@@ -19536,7 +19536,7 @@ List<List<String>> _stations = [
     '31.37N',
     '106.25W',
     '1171',
-    'MX'
+    'MX',
   ],
   ['CHICHEN ITZA YU', 'MMCT', 'MCT', 'null', '20.38N', '088.27W', '28', 'MX'],
   ['CIUDAD OBREGON', 'MMCN', 'CEN', 'null', '27.24N', '109.50W', '43', 'MX'],
@@ -19556,7 +19556,7 @@ List<List<String>> _stations = [
     '24.07N',
     '104.31W',
     '1857',
-    'MX'
+    'MX',
   ],
   ['GUAYMAS INTL ARP', 'MMGM', 'GYM', 'null', '27.57N', '110.55W', '20', 'MX'],
   ['EMPALME', 'null', 'null', '76256', '27.57N', '110.46W', '12', 'MX'],
@@ -19584,7 +19584,7 @@ List<List<String>> _stations = [
     '19.25N',
     '099.05W',
     '2238',
-    'MX'
+    'MX',
   ],
   [
     'MEXICO CITY/TACU',
@@ -19594,7 +19594,7 @@ List<List<String>> _stations = [
     '19.24N',
     '099.12W',
     '2313',
-    'MX'
+    'MX',
   ],
   ['MINATITLAN', 'MMMT', 'MTT', 'null', '18.06N', '094.34W', '40', 'MX'],
   ['MONCLOVA', 'MMMV', 'MOV', '76342', '26.57N', '101.28W', '615', 'MX'],
@@ -19606,7 +19606,7 @@ List<List<String>> _stations = [
     '25.52N',
     '100.14W',
     '448',
-    'MX'
+    'MX',
   ],
   ['MONTERREY/GEN MA', 'MMMY', 'MTY', 'null', '25.46N', '100.05W', '387', 'MX'],
   ['MORELIA NEW', 'MMMM', 'MLM', '76665', '19.51N', '101.01W', '1833', 'MX'],
@@ -19620,7 +19620,7 @@ List<List<String>> _stations = [
     '17.00N',
     '096.43W',
     '1528',
-    'MX'
+    'MX',
   ],
   ['PIEDRAS NEGRAS', 'MMPG', 'PNG', '76243', '28.39N', '100.31W', '250', 'MX'],
   ['POCA RICA-TAJIN', 'MMPA', 'PAZ', 'null', '20.30N', '097.28W', '142', 'MX'],
@@ -19643,7 +19643,7 @@ List<List<String>> _stations = [
     '22.15N',
     '100.56W',
     '1903',
-    'MX'
+    'MX',
   ],
   ['SANTA ROSALIA', 'null', 'SRL', '76253', '27.19N', '112.17W', '75', 'MX'],
   ['TAMPICO/GEN FJ M', 'MMTM', 'TAM', '76548', '22.16N', '097.52W', '24', 'MX'],
@@ -19659,7 +19659,7 @@ List<List<String>> _stations = [
     '19.21N',
     '099.34W',
     '2576',
-    'MX'
+    'MX',
   ],
   [
     'TORREON AIRPORT',
@@ -19669,7 +19669,7 @@ List<List<String>> _stations = [
     '25.34N',
     '103.24W',
     '1124',
-    'MX'
+    'MX',
   ],
   ['TULANCINGO', 'MMTL', 'TCG', '76634', '20.04N', '098.22W', '2181', 'MX'],
   [
@@ -19680,7 +19680,7 @@ List<List<String>> _stations = [
     '16.34N',
     '093.02W',
     '528',
-    'MX'
+    'MX',
   ],
   ['TUXTLA GUTIERREZ', 'MMTB', 'TGM', 'null', '16.44N', '093.10W', '528', 'MX'],
   [
@@ -19691,7 +19691,7 @@ List<List<String>> _stations = [
     '19.23N',
     '102.01W',
     '1593',
-    'MX'
+    'MX',
   ],
   ['VERACRUZ', 'MMVR', 'VER', '76692', '19.09N', '096.11W', '16', 'MX'],
   ['VILLAHERMOSA', 'MMVA', 'VSA', 'null', '18.00N', '092.49W', '13', 'MX'],
@@ -19706,7 +19706,7 @@ List<List<String>> _stations = [
     '22.45N',
     '102.30W',
     '2265',
-    'MX'
+    'MX',
   ],
   ['TAPACHULA', 'null', 'null', '76904', '14.46N', '092.22W', '29', 'MX'],
   ['GU AGANA', 'PGUM', 'null', 'null', '13.29N', '144.48E', '91', 'US'],
@@ -19718,7 +19718,7 @@ List<List<String>> _stations = [
     '13.34N',
     '144.55E',
     '187',
-    'US'
+    'US',
   ],
   ['GU TAGUAC', 'PGAC', 'null', '91212', '13.33N', '144.49E', '111', 'US'],
   ['GU TAGUAC', 'null', 'null', '91217', '13.33N', '144.49E', '111', 'US'],
@@ -19730,7 +19730,7 @@ List<List<String>> _stations = [
     '14.59N',
     '145.37E',
     '82',
-    'US'
+    'US',
   ],
   [
     'UM PAGAN/N. MARIANA',
@@ -19740,7 +19740,7 @@ List<List<String>> _stations = [
     '18.00N',
     '145.25E',
     '2',
-    'US'
+    'US',
   ],
   [
     'UM SABANETTAN/TINIA',
@@ -19750,7 +19750,7 @@ List<List<String>> _stations = [
     '15.00N',
     '145.37E',
     '80',
-    'US'
+    'US',
   ],
   ['UM WEST TINIAN', 'PGTI', 'null', 'null', '15.00N', '145.37E', '82', 'US'],
   [
@@ -19761,7 +19761,7 @@ List<List<String>> _stations = [
     '16.44N',
     '169.31W',
     '5',
-    'US'
+    'US',
   ],
   [
     'UM WAKE ISLAND AIRF',
@@ -19771,7 +19771,7 @@ List<List<String>> _stations = [
     '19.17N',
     '166.39E',
     '4',
-    'US'
+    'US',
   ],
   [
     'UM CHRISTMAS/CASSID',
@@ -19781,7 +19781,7 @@ List<List<String>> _stations = [
     '01.59N',
     '157.21W',
     '3',
-    'US'
+    'US',
   ],
   [
     'UM FANNING ISLAND',
@@ -19791,7 +19791,7 @@ List<List<String>> _stations = [
     '03.51N',
     '159.22W',
     '5',
-    'US'
+    'US',
   ],
   [
     'UM PALMYRA/COOPER(A',
@@ -19801,7 +19801,7 @@ List<List<String>> _stations = [
     '05.52N',
     '162.03W',
     '2',
-    'US'
+    'US',
   ],
   [
     'UM ENIWETOK AUX AF',
@@ -19811,7 +19811,7 @@ List<List<String>> _stations = [
     '11.20N',
     '162.20E',
     '5',
-    'US'
+    'US',
   ],
   [
     'UM JARVIS ISLAND (A',
@@ -19821,7 +19821,7 @@ List<List<String>> _stations = [
     '00.22S',
     '160.01W',
     '2',
-    'US'
+    'US',
   ],
   [
     'MH MAJURO WSO AIRPO',
@@ -19831,7 +19831,7 @@ List<List<String>> _stations = [
     '07.04N',
     '171.16E',
     '3',
-    'US'
+    'US',
   ],
   [
     'MH MAJURO ATOLL/NWS',
@@ -19841,7 +19841,7 @@ List<List<String>> _stations = [
     '07.05N',
     '171.23E',
     '4',
-    'US'
+    'US',
   ],
   [
     'MH KWAJALEIN/BUCHOL',
@@ -19851,7 +19851,7 @@ List<List<String>> _stations = [
     '08.43N',
     '167.43E',
     '8',
-    'US'
+    'US',
   ],
   [
     'MH MILI/MARSHALL IS',
@@ -19861,7 +19861,7 @@ List<List<String>> _stations = [
     '06.00N',
     '172.00E',
     '0',
-    'US'
+    'US',
   ],
   ['UJAE ATOLL/MARSH', 'UJAP', 'null', '99449', '08.55N', '165.45E', '2', 'RU'],
   ['ENEWETAK/MARSHAL', 'ENIP', 'null', '99448', '11.22N', '162.22E', '2', 'NO'],
@@ -19875,7 +19875,7 @@ List<List<String>> _stations = [
     '07.22N',
     '134.33E',
     '54',
-    'FM'
+    'FM',
   ],
   ['KOROR PALAU/NWS', 'PTKR', 'null', 'null', '07.20N', '134.29E', '30', 'FM'],
   ['KOSRAE ISLAND', 'PTSA', 'null', '91356', '05.21N', '162.57E', '3', 'FM'],
@@ -19892,7 +19892,7 @@ List<List<String>> _stations = [
     '18.30N',
     '067.08W',
     '72',
-    'US'
+    'US',
   ],
   [
     'PR FERN LUIS RIBAS',
@@ -19902,7 +19902,7 @@ List<List<String>> _stations = [
     '18.27N',
     '066.06W',
     '3',
-    'US'
+    'US',
   ],
   [
     'PR MAYAGUEZ/EUGENIO',
@@ -19912,7 +19912,7 @@ List<List<String>> _stations = [
     '18.16N',
     '067.09W',
     '9',
-    'US'
+    'US',
   ],
   [
     'PR ROOSEVELT RD NAS',
@@ -19922,7 +19922,7 @@ List<List<String>> _stations = [
     '18.15N',
     '065.38W',
     '12',
-    'US'
+    'US',
   ],
   [
     'PR PONCE/MERCEDITA',
@@ -19932,7 +19932,7 @@ List<List<String>> _stations = [
     '18.01N',
     '066.34W',
     '9',
-    'US'
+    'US',
   ],
   [
     'PR SAN JUAN/CAYEY',
@@ -19942,7 +19942,7 @@ List<List<String>> _stations = [
     '18.07N',
     '066.05W',
     '852',
-    'US'
+    'US',
   ],
   ['PR SAN JUAN/WFO', 'TJSJ', 'SJU', '78526', '18.26N', '066.01W', '21', 'US'],
   ['PROVIDENCIALES', 'MBPV', 'null', 'null', '21.46N', '072.16W', '5', 'BS'],
@@ -19971,7 +19971,7 @@ List<List<String>> _stations = [
     '22.02N',
     '078.47W',
     '101',
-    'CU'
+    'CU',
   ],
   ['CANAGUA', 'MUCC', 'null', 'null', '22.28N', '078.20W', '4', 'CU'],
   [
@@ -19982,7 +19982,7 @@ List<List<String>> _stations = [
     '22.08N',
     '080.24W',
     '39',
-    'CU'
+    'CU',
   ],
   [
     'CAMAGUEY/IGANCI',
@@ -19992,7 +19992,7 @@ List<List<String>> _stations = [
     '21.25N',
     '077.51W',
     '122',
-    'CU'
+    'CU',
   ],
   ['COLON', 'MUCO', 'null', '78332', '22.40N', '080.55W', '35', 'CU'],
   ['CAYO LARGO D SUR', 'MUCL', 'null', 'null', '21.38N', '081.33W', '5', 'CU'],
@@ -20008,7 +20008,7 @@ List<List<String>> _stations = [
     '20.46N',
     '076.19W',
     '106',
-    'CU'
+    'CU',
   ],
   ['MOA MILITARY', 'MUMO', 'null', 'null', '20.39N', '074.55W', '5', 'CU'],
   ['MANZANILLO', 'MUMZ', 'null', '78256', '20.17N', '077.06W', '60', 'CU'],
@@ -20022,7 +20022,7 @@ List<List<String>> _stations = [
     '22.25N',
     '083.40W',
     '37',
-    'CU'
+    'CU',
   ],
   ['SAN ANTONIO BANO', 'MUSA', 'null', 'null', '22.52N', '082.31W', '50', 'CU'],
   ['SANTA CLARA', 'MUSC', 'null', 'null', '22.30N', '079.57W', '103', 'CU'],
@@ -20059,7 +20059,7 @@ List<List<String>> _stations = [
     '19.24N',
     '070.36W',
     '184',
-    'DO'
+    'DO',
   ],
   ['SANTO DOMINGO', 'TSDM', 'null', '78486', '18.28N', '069.53W', '14', 'DO'],
   ['CANEFIELD AIRPOR', 'TDCF', 'null', '78906', '15.20N', '061.24W', '5', 'DM'],
@@ -20071,7 +20071,7 @@ List<List<String>> _stations = [
     '15.33N',
     '061.18W',
     '14',
-    'DM'
+    'DM',
   ],
   ['ROSEAU', 'TDPR', 'null', '78907', '15.18N', '061.23W', '72', 'DM'],
   ['CHARLOTTE AMALIE', 'KSTT', 'null', 'null', '18.20N', '064.59W', '15', 'VI'],
@@ -20089,7 +20089,7 @@ List<List<String>> _stations = [
     '17.07N',
     '061.47W',
     '14',
-    'AG'
+    'AG',
   ],
   ['LE LAMENTIN/MART', 'TFFF', 'null', '78925', '14.36N', '061.00W', '5', 'MQ'],
   [
@@ -20100,7 +20100,7 @@ List<List<String>> _stations = [
     '17.54N',
     '062.51W',
     '290',
-    'GP'
+    'GP',
   ],
   ['LE RAIZET', 'TFFR', 'null', '78897', '16.16N', '061.32W', '11', 'GP'],
   [
@@ -20111,7 +20111,7 @@ List<List<String>> _stations = [
     '17.18N',
     '062.43W',
     '48',
-    'KN'
+    'KN',
   ],
   [
     'CHARLESTOWN/NEWC',
@@ -20121,7 +20121,7 @@ List<List<String>> _stations = [
     '17.11N',
     '062.34W',
     '17',
-    'AG'
+    'AG',
   ],
   ['VIGIE/ST LUCIA', 'TLPC', 'null', '78947', '14.01N', '061.00W', '2', 'LC'],
   ['HEWANORRA INTL', 'TLPL', 'null', '78948', '13.45N', '060.57W', '3', 'LC'],
@@ -20135,7 +20135,7 @@ List<List<String>> _stations = [
     '17.28N',
     '062.58W',
     '39',
-    'AN'
+    'AN',
   ],
   ['BLACKBURNE/PLYMO', 'TRPM', 'null', 'null', '16.45N', '062.10W', '12', 'AG'],
   ['J F MITCHELL ARP', 'TVSB', 'null', 'null', '12.59N', '061.16W', '4', 'VC'],
@@ -20156,7 +20156,7 @@ List<List<String>> _stations = [
     '16.47N',
     '062.12W',
     '168',
-    'MS'
+    'MS',
   ],
   [
     'PIARCO INT AIRPT',
@@ -20166,7 +20166,7 @@ List<List<String>> _stations = [
     '10.35N',
     '061.21W',
     '15',
-    'TT'
+    'TT',
   ],
   ['CROWN PT/SCARBOR', 'TTCP', 'null', 'null', '11.09N', '060.51W', '8', 'TT'],
   ['PORT OF SPAIN', 'TTPS', 'null', '78967', '10.39N', '061.31W', '2', 'TT'],
@@ -20184,7 +20184,7 @@ List<List<String>> _stations = [
     '16.55N',
     '089.53W',
     '115',
-    'GT'
+    'GT',
   ],
   ['AURORA ARP', 'MGGI', 'null', 'null', '14.35N', '090.31W', '1489', 'GT'],
   [
@@ -20195,7 +20195,7 @@ List<List<String>> _stations = [
     '14.34N',
     '090.32W',
     '1509',
-    'GT'
+    'GT',
   ],
   ['HUEHUETENANGO', 'MGHT', 'null', '78627', '15.19N', '091.30W', '1901', 'GT'],
   [
@@ -20206,7 +20206,7 @@ List<List<String>> _stations = [
     '17.04N',
     '089.09W',
     '105',
-    'GT'
+    'GT',
   ],
   ['PUERTO BARRIOS(', 'MGPB', 'null', '78637', '15.43N', '088.35W', '10', 'GT'],
   ['POPTUN', 'MGPP', 'null', '78625', '16.19N', '089.25W', '500', 'GT'],
@@ -20219,7 +20219,7 @@ List<List<String>> _stations = [
     '14.32N',
     '091.42W',
     '200',
-    'GT'
+    'GT',
   ],
   ['SAN JOSE (CIV/M', 'MGSJ', 'null', '78647', '13.55N', '090.50W', '9', 'GT'],
   ['TIKAL INTL', 'MGTK', 'null', 'null', '16.55N', '089.52W', '128', 'GT'],
@@ -20243,7 +20243,7 @@ List<List<String>> _stations = [
     '14.47N',
     '088.47W',
     '1079',
-    'HN'
+    'HN',
   ],
   [
     'TEGUCIGALPA/TON',
@@ -20253,7 +20253,7 @@ List<List<String>> _stations = [
     '14.04N',
     '087.13W',
     '1004',
-    'HN'
+    'HN',
   ],
   ['TELA', 'MHTE', 'null', '78706', '15.47N', '087.29W', '3', 'HN'],
   ['YORO', 'MHYR', 'null', '78707', '15.08N', '087.07W', '670', 'HN'],
@@ -20271,7 +20271,7 @@ List<List<String>> _stations = [
     '13.42N',
     '089.07W',
     '616',
-    'SV'
+    'SV',
   ],
   ['SANTA ANA', 'MSSA', 'null', '78655', '13.58N', '089.34W', '725', 'SV'],
   ['SAN MIGUEL', 'MSSM', 'null', '78670', '13.26N', '088.07W', '80', 'SV'],
@@ -20289,7 +20289,7 @@ List<List<String>> _stations = [
     '12.25N',
     '086.54W',
     '100',
-    'NI'
+    'NI',
   ],
   ['RIVAS', 'MNRS', 'null', '78733', '11.25N', '085.49W', '53', 'NI'],
   ['CHACHARITA', 'MRCH', 'null', 'null', '09.59N', '084.47W', '2', 'CR'],
@@ -20318,7 +20318,7 @@ List<List<String>> _stations = [
     '09.19N',
     '079.58W',
     '52',
-    'PA'
+    'PA',
   ],
   ['JAQUE', 'MPJE', 'null', 'null', '07.31N', '078.09W', '9', 'PA'],
   ['ALBROOK AFS/BALB', 'MPLB', 'null', 'null', '08.58N', '079.32W', '9', 'PA'],
@@ -20336,7 +20336,7 @@ List<List<String>> _stations = [
     '04.27N',
     '075.46W',
     '1219',
-    'CO'
+    'CO',
   ],
   ['PUERTO ASIS', 'SKAS', 'null', '80372', '00.30N', '076.30W', '254', 'CO'],
   [
@@ -20347,7 +20347,7 @@ List<List<String>> _stations = [
     '09.04N',
     '073.58W',
     '34',
-    'CO'
+    'CO',
   ],
   [
     'BUCARAMANGO/PALO',
@@ -20357,7 +20357,7 @@ List<List<String>> _stations = [
     '07.08N',
     '073.11W',
     '1189',
-    'CO'
+    'CO',
   ],
   [
     'BOGOTA/ELDORADO',
@@ -20367,7 +20367,7 @@ List<List<String>> _stations = [
     '04.42N',
     '074.07W',
     '2548',
-    'CO'
+    'CO',
   ],
   [
     'BARRANQUILLA/ERN',
@@ -20377,7 +20377,7 @@ List<List<String>> _stations = [
     '10.54N',
     '074.46W',
     '10',
-    'CO'
+    'CO',
   ],
   ['BAHIA SOLANO/JOS', 'SKBS', 'null', 'null', '06.10N', '077.24W', '24', 'CO'],
   ['BUENAVENTURA', 'SKBU', 'null', '80252', '03.52N', '077.04W', '15', 'CO'],
@@ -20389,7 +20389,7 @@ List<List<String>> _stations = [
     '07.55N',
     '072.31W',
     '317',
-    'CO'
+    'CO',
   ],
   ['CARTAGENA/RAFAEL', 'SKCG', 'null', '80022', '10.26N', '075.31W', '1', 'CO'],
   [
@@ -20400,7 +20400,7 @@ List<List<String>> _stations = [
     '03.32N',
     '076.22W',
     '969',
-    'CO'
+    'CO',
   ],
   ['TUMACO/LA FLORID', 'SKCO', 'null', '80336', '01.49N', '078.45W', '6', 'CO'],
   [
@@ -20411,7 +20411,7 @@ List<List<String>> _stations = [
     '07.01N',
     '073.47W',
     '134',
-    'CO'
+    'CO',
   ],
   [
     'FLORENCIA/CAPITO',
@@ -20421,7 +20421,7 @@ List<List<String>> _stations = [
     '01.36N',
     '075.31W',
     '244',
-    'CO'
+    'CO',
   ],
   [
     'GIRARDOT/SANTIAG',
@@ -20431,7 +20431,7 @@ List<List<String>> _stations = [
     '04.16N',
     '074.47W',
     '293',
-    'CO'
+    'CO',
   ],
   ['GUAPI', 'SKGP', 'null', '80300', '02.34N', '077.54W', '54', 'CO'],
   ['IBAGUE/PERALES', 'SKIB', 'null', '80214', '04.25N', '075.09W', '928', 'CO'],
@@ -20443,7 +20443,7 @@ List<List<String>> _stations = [
     '00.53N',
     '077.40W',
     '2961',
-    'CO'
+    'CO',
   ],
   [
     'APARTADO/LOS CED',
@@ -20453,7 +20453,7 @@ List<List<String>> _stations = [
     '07.49N',
     '076.42W',
     '30',
-    'CO'
+    'CO',
   ],
   ['LETICIA/VASQUEZ', 'SKLT', 'null', '80398', '04.12S', '069.56W', '84', 'CO'],
   [
@@ -20464,7 +20464,7 @@ List<List<String>> _stations = [
     '06.13N',
     '075.35W',
     '1499',
-    'CO'
+    'CO',
   ],
   [
     'MONTERIA/LOS GAR',
@@ -20474,7 +20474,7 @@ List<List<String>> _stations = [
     '08.49N',
     '075.50W',
     '26',
-    'CO'
+    'CO',
   ],
   ['MITU', 'SKMU', 'null', '80361', '01.07N', '070.02W', '207', 'CO'],
   [
@@ -20485,7 +20485,7 @@ List<List<String>> _stations = [
     '05.02N',
     '075.28W',
     '2080',
-    'CO'
+    'CO',
   ],
   [
     'NEIVA/LA MANGUIT',
@@ -20495,7 +20495,7 @@ List<List<String>> _stations = [
     '02.58N',
     '075.17W',
     '443',
-    'CO'
+    'CO',
   ],
   ['OTU', 'SKOT', 'null', '80089', '07.00N', '074.43W', '630', 'CO'],
   ['PUERTO CARRENO', 'SKPC', 'null', '80139', '06.10N', '067.30W', '55', 'CO'],
@@ -20507,7 +20507,7 @@ List<List<String>> _stations = [
     '04.49N',
     '075.44W',
     '1346',
-    'CO'
+    'CO',
   ],
   ['PITALITO', 'SKPI', 'null', '80346', '01.52N', '076.02W', '1320', 'CO'],
   [
@@ -20518,7 +20518,7 @@ List<List<String>> _stations = [
     '02.28N',
     '076.35W',
     '1730',
-    'CO'
+    'CO',
   ],
   [
     'PASTO/ANTONIO NA',
@@ -20528,7 +20528,7 @@ List<List<String>> _stations = [
     '01.24N',
     '077.17W',
     '1826',
-    'CO'
+    'CO',
   ],
   ['PROVIDENCIA ISLA', 'SKPV', 'null', '80002', '13.22N', '081.20W', '6', 'CO'],
   ['MARIQUITA', 'SKQU', 'null', 'null', '05.13N', '074.52W', '467', 'CO'],
@@ -20540,7 +20540,7 @@ List<List<String>> _stations = [
     '06.10N',
     '075.25W',
     '2137',
-    'CO'
+    'CO',
   ],
   ['RIOHACHA/ALMIRAN', 'SKRH', 'null', '80035', '11.31N', '072.55W', '4', 'CO'],
   [
@@ -20551,7 +20551,7 @@ List<List<String>> _stations = [
     '02.34N',
     '072.37W',
     '155',
-    'CO'
+    'CO',
   ],
   ['SANTA MARTA/SIMO', 'SKSM', 'null', '80009', '11.07N', '074.13W', '4', 'CO'],
   [
@@ -20562,7 +20562,7 @@ List<List<String>> _stations = [
     '12.34N',
     '081.43W',
     '-2',
-    'CO'
+    'CO',
   ],
   ['TRINIDAD', 'SKTD', 'null', '80175', '05.25N', '071.39W', '217', 'CO'],
   ['TURBO/GONZALO ME', 'SKTU', 'null', '80062', '08.07N', '076.43W', '5', 'CO'],
@@ -20574,7 +20574,7 @@ List<List<String>> _stations = [
     '07.04N',
     '070.43W',
     '128',
-    'CO'
+    'CO',
   ],
   [
     'QUIBDO/EL CARANO',
@@ -20584,7 +20584,7 @@ List<List<String>> _stations = [
     '05.43N',
     '076.37W',
     '33',
-    'CO'
+    'CO',
   ],
   ['TULUA/FARFAN', 'SKUL', 'null', 'null', '04.05N', '076.13W', '955', 'CO'],
   [
@@ -20595,7 +20595,7 @@ List<List<String>> _stations = [
     '10.25N',
     '073.15W',
     '138',
-    'CO'
+    'CO',
   ],
   [
     'VILLAVICENCIO/VA',
@@ -20605,7 +20605,7 @@ List<List<String>> _stations = [
     '04.10N',
     '073.37W',
     '431',
-    'CO'
+    'CO',
   ],
   [
     'YOPAL/EL ALCARAV',
@@ -20615,7 +20615,7 @@ List<List<String>> _stations = [
     '05.19N',
     '072.23W',
     '312',
-    'CO'
+    'CO',
   ],
   ['GAVIOTAS', 'MCGV', 'null', '80241', '04.32N', '070.55W', '167', 'CO'],
   [
@@ -20626,7 +20626,7 @@ List<List<String>> _stations = [
     '09.33N',
     '069.13W',
     '225',
-    'VE'
+    'VE',
   ],
   ['BARCELONA/GEN JO', 'SVBC', 'null', '80419', '10.07N', '064.40W', '7', 'VE'],
   ['BARINAS', 'SVBI', 'null', '80440', '08.37N', '070.13W', '204', 'VE'],
@@ -20638,7 +20638,7 @@ List<List<String>> _stations = [
     '10.10N',
     '067.32W',
     '442',
-    'VE'
+    'VE',
   ],
   [
     'BARQUISIMETO (MI',
@@ -20648,7 +20648,7 @@ List<List<String>> _stations = [
     '10.03N',
     '069.22W',
     '614',
-    'VE'
+    'VE',
   ],
   [
     'MARISCAL SUCRE(M',
@@ -20658,7 +20658,7 @@ List<List<String>> _stations = [
     '10.15N',
     '067.39W',
     '437',
-    'VE'
+    'VE',
   ],
   ['CIUDAD BOLIVAR', 'SVCB', 'null', '80444', '08.09N', '063.32W', '48', 'VE'],
   ['CALABOZO', 'SVCL', 'null', '80442', '08.55N', '067.25W', '101', 'VE'],
@@ -20672,7 +20672,7 @@ List<List<String>> _stations = [
     '11.25N',
     '069.40W',
     '17',
-    'VE'
+    'VE',
   ],
   [
     'CARACAS/OSCAR MA',
@@ -20682,7 +20682,7 @@ List<List<String>> _stations = [
     '10.18N',
     '066.49W',
     '654',
-    'VE'
+    'VE',
   ],
   ['CUMANA/ANTONIO J', 'SVCU', 'null', '80420', '10.27N', '064.08W', '4', 'VE'],
   ['CARRIZAL', 'SVCZ', 'null', 'null', '09.22N', '066.55W', '160', 'VE'],
@@ -20694,7 +20694,7 @@ List<List<String>> _stations = [
     '10.29N',
     '066.50W',
     '835',
-    'VE'
+    'VE',
   ],
   ['GUASDUALITO', 'SVGD', 'null', '80448', '07.13N', '070.45W', '131', 'VE'],
   ['GUIRIA', 'SVGI', 'null', '80423', '10.34N', '062.19W', '14', 'VE'],
@@ -20709,7 +20709,7 @@ List<List<String>> _stations = [
     '09.55N',
     '067.23W',
     '429',
-    'VE'
+    'VE',
   ],
   ['LA FRIA', 'SVLF', 'null', 'null', '08.15N', '072.16W', '98', 'VE'],
   ['LA ORCHILA ISL(M', 'SVLO', 'null', '80405', '11.48N', '066.10W', '3', 'VE'],
@@ -20721,7 +20721,7 @@ List<List<String>> _stations = [
     '10.34N',
     '071.43W',
     '65',
-    'VE'
+    'VE',
   ],
   [
     'MERIDA/ALBERTO C',
@@ -20731,7 +20731,7 @@ List<List<String>> _stations = [
     '08.35N',
     '071.10W',
     '1498',
-    'VE'
+    'VE',
   ],
   ['MARGARITA/DEL CA', 'SVMG', 'null', 'null', '10.55N', '063.58W', '23', 'VE'],
   [
@@ -20742,7 +20742,7 @@ List<List<String>> _stations = [
     '10.35N',
     '067.00W',
     '48',
-    'VE'
+    'VE',
   ],
   ['MENE GRANDE', 'SVMN', 'null', '80425', '09.49N', '070.55W', '28', 'VE'],
   [
@@ -20753,7 +20753,7 @@ List<List<String>> _stations = [
     '10.07N',
     '066.46W',
     '175',
-    'VE'
+    'VE',
   ],
   ['MATURIN', 'SVMT', 'null', '80435', '09.45N', '063.10W', '66', 'VE'],
   ['PUERTO AYACUCHO', 'SVPA', 'null', '80457', '05.37N', '067.36W', '74', 'VE'],
@@ -20766,7 +20766,7 @@ List<List<String>> _stations = [
     '07.47N',
     '072.12W',
     '1000',
-    'VE'
+    'VE',
   ],
   [
     'GUAYANA/MANUEL C',
@@ -20776,7 +20776,7 @@ List<List<String>> _stations = [
     '08.17N',
     '062.46W',
     '144',
-    'VE'
+    'VE',
   ],
   [
     'SAN ANTONIO TACH',
@@ -20786,7 +20786,7 @@ List<List<String>> _stations = [
     '07.50N',
     '072.27W',
     '378',
-    'VE'
+    'VE',
   ],
   [
     'SANTA ELENA UAIR',
@@ -20796,7 +20796,7 @@ List<List<String>> _stations = [
     '04.35N',
     '061.07W',
     '907',
-    'VE'
+    'VE',
   ],
   [
     'SANTO DOMINGO/MA',
@@ -20806,7 +20806,7 @@ List<List<String>> _stations = [
     '07.34N',
     '072.02W',
     '327',
-    'VE'
+    'VE',
   ],
   ['SAN FELIPE', 'SVSP', 'null', 'null', '10.16N', '068.45W', '232', 'VE'],
   [
@@ -20817,7 +20817,7 @@ List<List<String>> _stations = [
     '07.54N',
     '067.25W',
     '48',
-    'VE'
+    'VE',
   ],
   [
     'SAN TOME (PRIVAT',
@@ -20827,7 +20827,7 @@ List<List<String>> _stations = [
     '08.56N',
     '064.09W',
     '262',
-    'VE'
+    'VE',
   ],
   ['SANTA BARBARA ZU', 'SVSZ', 'null', 'null', '08.58N', '071.57W', '10', 'VE'],
   ['TUMEREMO', 'SVTM', 'null', '80453', '07.17N', '061.27W', '181', 'VE'],
@@ -20839,7 +20839,7 @@ List<List<String>> _stations = [
     '09.01N',
     '062.37W',
     '30',
-    'VE'
+    'VE',
   ],
   [
     'ZIM VALENCIA INT',
@@ -20849,7 +20849,7 @@ List<List<String>> _stations = [
     '10.09N',
     '067.55W',
     '431',
-    'VE'
+    'VE',
   ],
   [
     'EL VIGIA/PEREZ A',
@@ -20859,7 +20859,7 @@ List<List<String>> _stations = [
     '08.37N',
     '071.40W',
     '100',
-    'VE'
+    'VE',
   ],
   [
     'VALERA/DR. ANTON',
@@ -20869,7 +20869,7 @@ List<List<String>> _stations = [
     '09.20N',
     '070.35W',
     '575',
-    'VE'
+    'VE',
   ],
   [
     'VALLE DE LA PASC',
@@ -20879,7 +20879,7 @@ List<List<String>> _stations = [
     '09.13N',
     '066.01W',
     '125',
-    'VE'
+    'VE',
   ],
   ['CARRIZAL', 'MVCZ', 'null', '80432', '09.25N', '066.55W', '161', 'VE'],
   ['MENE GRANDE', 'MVMN', 'null', 'null', '09.49N', '070.55W', '28', 'VE'],
@@ -20898,7 +20898,7 @@ List<List<String>> _stations = [
     '06.30N',
     '058.15W',
     '30',
-    'GY'
+    'GY',
   ],
   ['KAMARANG', 'SYKM', 'null', '81005', '05.52N', '060.37W', '488', 'GY'],
   ['KATO', 'SYKT', 'null', 'null', '04.39N', '059.50W', '701', 'GY'],
@@ -20915,7 +20915,7 @@ List<List<String>> _stations = [
     '01.11S',
     '078.34W',
     '2520',
-    'EC'
+    'EC',
   ],
   ['ASCAZUBI', 'SEAS', 'null', 'null', '00.04S', '078.17W', '2743', 'EC'],
   ['BAHIA DE CARAQUE', 'SEBC', 'null', '84101', '00.34S', '080.24W', '3', 'EC'],
@@ -20929,7 +20929,7 @@ List<List<String>> _stations = [
     '02.52S',
     '078.58W',
     '2531',
-    'EC'
+    'EC',
   ],
   ['ESMERALDAS-TACHI', 'SEES', 'null', '84018', '00.58N', '079.37W', '8', 'EC'],
   [
@@ -20940,7 +20940,7 @@ List<List<String>> _stations = [
     '00.27S',
     '090.16W',
     '16',
-    'EC'
+    'EC',
   ],
   ['GUAYAQUIL/SIMON', 'SEGU', 'null', '84203', '02.08S', '079.52W', '9', 'EC'],
   [
@@ -20951,7 +20951,7 @@ List<List<String>> _stations = [
     '00.21N',
     '078.07W',
     '2228',
-    'EC'
+    'EC',
   ],
   ['LAGO AGRIO', 'SELA', 'null', '84063', '00.04N', '076.52W', '299', 'EC'],
   ['LIMONCOCHA', 'SELI', 'null', 'null', '00.24S', '076.35W', '221', 'EC'],
@@ -20963,7 +20963,7 @@ List<List<String>> _stations = [
     '04.00S',
     '079.22W',
     '1238',
-    'EC'
+    'EC',
   ],
   [
     'LATACUNGA/COTOPA',
@@ -20973,7 +20973,7 @@ List<List<String>> _stations = [
     '00.55S',
     '078.37W',
     '2785',
-    'EC'
+    'EC',
   ],
   [
     'MACARA/J.M.VELAS',
@@ -20983,7 +20983,7 @@ List<List<String>> _stations = [
     '04.22S',
     '079.55W',
     '430',
-    'EC'
+    'EC',
   ],
   [
     'MACHALA/GEN SERR',
@@ -20993,7 +20993,7 @@ List<List<String>> _stations = [
     '03.15S',
     '079.58W',
     '10',
-    'EC'
+    'EC',
   ],
   [
     'MANTA/ELOY ALFAR',
@@ -21003,7 +21003,7 @@ List<List<String>> _stations = [
     '00.57S',
     '080.40W',
     '14',
-    'EC'
+    'EC',
   ],
   ['LAGO AGRIO', 'SENL', 'null', 'null', '00.06N', '076.52W', '293', 'EC'],
   [
@@ -21014,7 +21014,7 @@ List<List<String>> _stations = [
     '01.30S',
     '078.02W',
     '1043',
-    'EC'
+    'EC',
   ],
   ['PORTOVIEJO/REALE', 'SEPV', 'null', 'null', '01.01S', '080.28W', '44', 'EC'],
   ['QUITO/NEW INTL', 'SEQM', 'null', 'null', '00.07S', '078.21W', '2400', 'EC'],
@@ -21026,7 +21026,7 @@ List<List<String>> _stations = [
     '00.09S',
     '078.28W',
     '2812',
-    'EC'
+    'EC',
   ],
   [
     'RIOBAMBA/CHIMBOR',
@@ -21036,7 +21036,7 @@ List<List<String>> _stations = [
     '01.37S',
     '078.40W',
     '2796',
-    'EC'
+    'EC',
   ],
   ['SALINAS/GEN ULPI', 'SESA', 'null', '84200', '02.12S', '080.58W', '8', 'EC'],
   ['SAN LORENZO', 'SESL', 'null', 'null', '01.16N', '078.50W', '40', 'EC'],
@@ -21051,7 +21051,7 @@ List<List<String>> _stations = [
     '00.49N',
     '077.42W',
     '2940',
-    'EC'
+    'EC',
   ],
   ['ATALAYA', 'SPAY', 'null', '84593', '10.43S', '073.46W', '451', 'PE'],
   ['MOYOBAMBA', 'SPBB', 'null', '84435', '06.01S', '076.58W', '833', 'PE'],
@@ -21063,7 +21063,7 @@ List<List<String>> _stations = [
     '08.23S',
     '074.35W',
     '149',
-    'PE'
+    'PE',
   ],
   ['MOLLENDO', 'SPDO', 'null', '84761', '17.01S', '072.01W', '13', 'PE'],
   [
@@ -21074,7 +21074,7 @@ List<List<String>> _stations = [
     '09.10S',
     '078.31W',
     '11',
-    'PE'
+    'PE',
   ],
   [
     'CESAR TORQUE POD',
@@ -21084,7 +21084,7 @@ List<List<String>> _stations = [
     '17.10S',
     '070.55W',
     '1366',
-    'PE'
+    'PE',
   ],
   ['TINGO MARIA', 'SPGM', 'null', '84534', '09.17S', '076.00W', '665', 'PE'],
   [
@@ -21095,7 +21095,7 @@ List<List<String>> _stations = [
     '06.46S',
     '079.49W',
     '34',
-    'PE'
+    'PE',
   ],
   [
     'AYACUCHO/CORONEL',
@@ -21105,7 +21105,7 @@ List<List<String>> _stations = [
     '13.10S',
     '074.13W',
     '2749',
-    'PE'
+    'PE',
   ],
   ['HUANCAYO', 'SPHU', 'null', 'null', '12.04S', '075.13W', '3350', 'PE'],
   ['ANDAHUAYLA', 'SPHY', 'null', '84688', '13.42S', '073.21W', '3548', 'PE'],
@@ -21119,7 +21119,7 @@ List<List<String>> _stations = [
     '12.01S',
     '077.07W',
     '13',
-    'PE'
+    'PE',
   ],
   ['RIOJA', 'SPJA', 'null', '84440', '06.02S', '077.09W', '792', 'PE'],
   ['JUANJUI', 'SPJI', 'null', '84474', '07.10S', '076.43W', '363', 'PE'],
@@ -21133,7 +21133,7 @@ List<List<String>> _stations = [
     '15.21S',
     '075.08W',
     '40',
-    'PE'
+    'PE',
   ],
   [
     'CAJAMARCA/REVORE',
@@ -21143,7 +21143,7 @@ List<List<String>> _stations = [
     '07.07S',
     '078.28W',
     '2622',
-    'PE'
+    'PE',
   ],
   ['ILO', 'SPLO', 'null', '84773', '17.42S', '071.21W', '9', 'PE'],
   ['LAS PALMAS (MIL)', 'SPLP', 'null', 'null', '12.10S', '077.00W', '76', 'PE'],
@@ -21155,7 +21155,7 @@ List<List<String>> _stations = [
     '03.32S',
     '080.24W',
     '27',
-    'PE'
+    'PE',
   ],
   [
     'YURIMAGUAS/MOISE',
@@ -21165,7 +21165,7 @@ List<List<String>> _stations = [
     '05.54S',
     '076.07W',
     '179',
-    'PE'
+    'PE',
   ],
   [
     'HUANUCO/ALFEREZ',
@@ -21175,7 +21175,7 @@ List<List<String>> _stations = [
     '09.54S',
     '075.45W',
     '1860',
-    'PE'
+    'PE',
   ],
   ['ZORRITOS', 'SPOS', 'null', 'null', '03.40S', '080.40W', '49', 'PE'],
   ['PARAMONGA', 'SPPG', 'null', 'null', '10.40S', '077.49W', '46', 'PE'],
@@ -21189,7 +21189,7 @@ List<List<String>> _stations = [
     '16.20S',
     '071.34W',
     '2554',
-    'PE'
+    'PE',
   ],
   [
     'TRUJILLO/MARTINE',
@@ -21199,7 +21199,7 @@ List<List<String>> _stations = [
     '08.05S',
     '079.07W',
     '30',
-    'PE'
+    'PE',
   ],
   ['PISCO (CIV/MIL)', 'SPSO', 'null', '84691', '13.44S', '076.13W', '10', 'PE'],
   ['TARAPOTO', 'SPST', 'null', '84455', '06.31S', '076.22W', '282', 'PE'],
@@ -21212,7 +21212,7 @@ List<List<String>> _stations = [
     '12.37S',
     '069.12W',
     '266',
-    'PE'
+    'PE',
   ],
   [
     'PIURA/CAPT CONCH',
@@ -21222,7 +21222,7 @@ List<List<String>> _stations = [
     '05.10S',
     '080.35W',
     '55',
-    'PE'
+    'PE',
   ],
   ['CARAVELI', 'SPVL', 'null', 'null', '15.46S', '073.22W', '1833', 'PE'],
   [
@@ -21233,7 +21233,7 @@ List<List<String>> _stations = [
     '04.34S',
     '081.15W',
     '90',
-    'PE'
+    'PE',
   ],
   [
     'NAZCA REICHE APT',
@@ -21243,7 +21243,7 @@ List<List<String>> _stations = [
     '14.52S',
     '074.57W',
     '765',
-    'PE'
+    'PE',
   ],
   [
     'CUZCO/VELAZCO AS',
@@ -21253,7 +21253,7 @@ List<List<String>> _stations = [
     '13.33S',
     '071.58W',
     '3249',
-    'PE'
+    'PE',
   ],
   ['APOLO', 'SLAP', 'null', '85151', '14.43S', '068.25W', '1415', 'BO'],
   [
@@ -21264,7 +21264,7 @@ List<List<String>> _stations = [
     '15.43S',
     '063.06W',
     '247',
-    'BO'
+    'BO',
   ],
   ['CAMIRI', 'SLCA', 'null', '85315', '20.00S', '063.32W', '798', 'BO'],
   [
@@ -21275,7 +21275,7 @@ List<List<String>> _stations = [
     '17.25S',
     '066.11W',
     '2548',
-    'BO'
+    'BO',
   ],
   ['CHARANA', 'SLCN', 'null', '85230', '17.35S', '069.27W', '4057', 'BO'],
   ['COBIJA', 'SLCO', 'null', '85041', '11.02S', '068.47W', '272', 'BO'],
@@ -21288,7 +21288,7 @@ List<List<String>> _stations = [
     '17.48S',
     '063.10W',
     '414',
-    'BO'
+    'BO',
   ],
   ['GUAYARAMERIN', 'SLGY', 'null', '85033', '10.49S', '065.20W', '130', 'BO'],
   ['SAN JOSE', 'SLJE', 'null', '85247', '17.49S', '060.45W', '284', 'BO'],
@@ -21302,7 +21302,7 @@ List<List<String>> _stations = [
     '16.31S',
     '068.10W',
     '4014',
-    'BO'
+    'BO',
   ],
   ['MAGDALENA', 'SLMG', 'null', '85114', '13.16S', '064.04W', '141', 'BO'],
   [
@@ -21313,7 +21313,7 @@ List<List<String>> _stations = [
     '17.58S',
     '067.05W',
     '3702',
-    'BO'
+    'BO',
   ],
   ['POTOSI/ROJAS', 'SLPO', 'null', '85293', '19.31S', '065.43W', '3934', 'BO'],
   [
@@ -21324,7 +21324,7 @@ List<List<String>> _stations = [
     '18.59S',
     '057.49W',
     '135',
-    'BO'
+    'BO',
   ],
   [
     'ROBORE (CIV/MIL)',
@@ -21334,7 +21334,7 @@ List<List<String>> _stations = [
     '18.19S',
     '059.45W',
     '284',
-    'BO'
+    'BO',
   ],
   ['RIBERALTA', 'SLRI', 'null', '85043', '11.01S', '066.05W', '135', 'BO'],
   ['RURRENABAQUE', 'SLRQ', 'null', '85141', '14.25S', '067.30W', '203', 'BO'],
@@ -21347,7 +21347,7 @@ List<List<String>> _stations = [
     '13.46S',
     '065.26W',
     '144',
-    'BO'
+    'BO',
   ],
   [
     'SAN BORJA/CAPT G',
@@ -21357,7 +21357,7 @@ List<List<String>> _stations = [
     '14.52S',
     '066.45W',
     '194',
-    'BO'
+    'BO',
   ],
   [
     'SAN IGNACIO VELA',
@@ -21367,7 +21367,7 @@ List<List<String>> _stations = [
     '16.22S',
     '060.57W',
     '413',
-    'BO'
+    'BO',
   ],
   [
     'SAN IGNACIO DE M',
@@ -21377,7 +21377,7 @@ List<List<String>> _stations = [
     '14.58S',
     '065.38W',
     '160',
-    'BO'
+    'BO',
   ],
   [
     'SUCRE/JUANA AZUR',
@@ -21387,7 +21387,7 @@ List<List<String>> _stations = [
     '19.01S',
     '065.16W',
     '2903',
-    'BO'
+    'BO',
   ],
   [
     'TARIJA/CAPT ORIE',
@@ -21397,7 +21397,7 @@ List<List<String>> _stations = [
     '21.33S',
     '064.43W',
     '1858',
-    'BO'
+    'BO',
   ],
   [
     'TRINIDAD/JORGE H',
@@ -21407,7 +21407,7 @@ List<List<String>> _stations = [
     '14.50S',
     '064.55W',
     '157',
-    'BO'
+    'BO',
   ],
   [
     'VILLA MONTES/RAF',
@@ -21417,7 +21417,7 @@ List<List<String>> _stations = [
     '21.15S',
     '063.24W',
     '400',
-    'BO'
+    'BO',
   ],
   [
     'VIRU VIRU INTL A',
@@ -21427,7 +21427,7 @@ List<List<String>> _stations = [
     '17.38S',
     '063.07W',
     '373',
-    'BO'
+    'BO',
   ],
   ['YACUIBA', 'SLYA', 'null', '85365', '21.58S', '063.39W', '645', 'BO'],
   [
@@ -21438,7 +21438,7 @@ List<List<String>> _stations = [
     '08.21S',
     '049.18W',
     '199',
-    'BR'
+    'BR',
   ],
   [
     'AFONSOS ARPT (MI',
@@ -21448,7 +21448,7 @@ List<List<String>> _stations = [
     '22.52S',
     '043.22W',
     '34',
-    'BR'
+    'BR',
   ],
   ['AMAPA AIRPORT', 'SBAM', 'null', '82030', '02.04N', '050.51W', '10', 'BR'],
   [
@@ -21459,7 +21459,7 @@ List<List<String>> _stations = [
     '16.13S',
     '048.58W',
     '1137',
-    'BR'
+    'BR',
   ],
   ['ASSIS', 'SBAS', 'null', 'null', '22.38S', '050.27W', '564', 'BR'],
   ['ARARAQUARA', 'SBAQ', 'null', 'null', '21.48S', '048.08W', '708', 'BR'],
@@ -21476,7 +21476,7 @@ List<List<String>> _stations = [
     '04.22S',
     '070.01W',
     '65',
-    'BR'
+    'BR',
   ],
   [
     'BELEM/VAL DE CAE',
@@ -21486,7 +21486,7 @@ List<List<String>> _stations = [
     '01.22S',
     '048.28W',
     '16',
-    'BR'
+    'BR',
   ],
   [
     'BAGE/CMDT KRAEME',
@@ -21496,7 +21496,7 @@ List<List<String>> _stations = [
     '31.23S',
     '054.07W',
     '180',
-    'BR'
+    'BR',
   ],
   [
     'BELO HORIZ/PAMPU',
@@ -21506,7 +21506,7 @@ List<List<String>> _stations = [
     '19.51S',
     '043.57W',
     '785',
-    'BR'
+    'BR',
   ],
   [
     'CURITIBA/BACACHE',
@@ -21516,7 +21516,7 @@ List<List<String>> _stations = [
     '25.24S',
     '049.14W',
     '923',
-    'BR'
+    'BR',
   ],
   [
     'BARBACENA (CIV/M',
@@ -21526,7 +21526,7 @@ List<List<String>> _stations = [
     '21.15S',
     '043.46W',
     '1171',
-    'BR'
+    'BR',
   ],
   [
     'BRASILIA (CIV/MI',
@@ -21536,7 +21536,7 @@ List<List<String>> _stations = [
     '15.52S',
     '047.55W',
     '1061',
-    'BR'
+    'BR',
   ],
   ['CHAFEI AMSEI', 'SBBT', 'null', 'null', '20.35S', '048.36W', '579', 'BR'],
   ['BAURU', 'SBBU', 'null', '83722', '22.19S', '049.04W', '590', 'BR'],
@@ -21548,7 +21548,7 @@ List<List<String>> _stations = [
     '02.51N',
     '060.42W',
     '140',
-    'BR'
+    'BR',
   ],
   [
     'BERRA DO GARCAS',
@@ -21558,7 +21558,7 @@ List<List<String>> _stations = [
     '15.52S',
     '052.22W',
     '350',
-    'BR'
+    'BR',
   ],
   ['BUZIOS/MODIANO', 'SBBZ', 'null', 'null', '22.45S', '041.57W', '3', 'BR'],
   ['CASCAVEL', 'SBCA', 'null', 'null', '25.00S', '053.30W', '754', 'BR'],
@@ -21573,7 +21573,7 @@ List<List<String>> _stations = [
     '19.38S',
     '043.58W',
     '828',
-    'BR'
+    'BR',
   ],
   [
     'CAMPO GRANDE INT',
@@ -21583,7 +21583,7 @@ List<List<String>> _stations = [
     '20.28S',
     '054.40W',
     '567',
-    'BR'
+    'BR',
   ],
   ['CHAPECO', 'SBCH', 'null', 'null', '27.08S', '052.40W', '650', 'BR'],
   [
@@ -21594,7 +21594,7 @@ List<List<String>> _stations = [
     '07.19S',
     '047.28W',
     '183',
-    'BR'
+    'BR',
   ],
   ['CARAJAS/MARABA', 'SBCJ', 'null', 'null', '06.07S', '050.00W', '621', 'BR'],
   ['FORQUILHINHA', 'SBCM', 'null', 'null', '28.43S', '049.25W', '28', 'BR'],
@@ -21606,7 +21606,7 @@ List<List<String>> _stations = [
     '29.57S',
     '051.09W',
     '47',
-    'BR'
+    'BR',
   ],
   [
     'CAMPOS/BARTOLOME',
@@ -21616,7 +21616,7 @@ List<List<String>> _stations = [
     '21.42S',
     '041.18W',
     '11',
-    'BR'
+    'BR',
   ],
   [
     'CORUMBA INTL ARP',
@@ -21626,7 +21626,7 @@ List<List<String>> _stations = [
     '19.00S',
     '057.40W',
     '141',
-    'BR'
+    'BR',
   ],
   [
     'CURITIBA/AFONSO',
@@ -21636,7 +21636,7 @@ List<List<String>> _stations = [
     '25.31S',
     '049.10W',
     '908',
-    'BR'
+    'BR',
   ],
   ['CARAVELAS AIRPOR', 'SBCV', 'null', '83497', '17.37S', '039.15W', '4', 'BR'],
   ['CAXIAS DO SUL', 'SBCX', 'null', 'null', '29.12S', '051.11W', '754', 'BR'],
@@ -21648,7 +21648,7 @@ List<List<String>> _stations = [
     '15.39S',
     '056.07W',
     '182',
-    'BR'
+    'BR',
   ],
   [
     'CRUZEIRO DO SUL',
@@ -21658,7 +21658,7 @@ List<List<String>> _stations = [
     '07.37S',
     '072.46W',
     '170',
-    'BR'
+    'BR',
   ],
   [
     'PRESIDENTE PRUDE',
@@ -21668,7 +21668,7 @@ List<List<String>> _stations = [
     '22.11S',
     '051.26W',
     '435',
-    'BR'
+    'BR',
   ],
   ['PIRANA P15 OIL', 'SBEC', 'null', 'null', '22.40S', '040.36W', '10', 'BR'],
   ['EDUARDO GOMES IN', 'SBEG', 'null', '82111', '03.01S', '060.02W', '2', 'BR'],
@@ -21682,7 +21682,7 @@ List<List<String>> _stations = [
     '22.49S',
     '042.06W',
     '11',
-    'BR'
+    'BR',
   ],
   [
     'FOZ DO IGUACU AR',
@@ -21692,7 +21692,7 @@ List<List<String>> _stations = [
     '25.36S',
     '054.29W',
     '243',
-    'BR'
+    'BR',
   ],
   ['FLORIANOPOLIS AR', 'SBFL', 'null', '83899', '27.40S', '048.32W', '5', 'BR'],
   [
@@ -21703,7 +21703,7 @@ List<List<String>> _stations = [
     '03.51S',
     '032.25W',
     '56',
-    'BR'
+    'BR',
   ],
   ['CMP D GOITACAZES', 'SBFS', 'null', 'null', '22.01S', '041.04W', '3', 'BR'],
   ['FRONTEIRA', 'SBFT', 'null', 'null', '20.17S', '049.11W', '487', 'BR'],
@@ -21715,7 +21715,7 @@ List<List<String>> _stations = [
     '20.41S',
     '046.19W',
     '735',
-    'BR'
+    'BR',
   ],
   ['FORTALEZA/PINTO', 'SBFZ', 'null', '82398', '03.46S', '038.31W', '25', 'BR'],
   ['GAMA', 'SBGA', 'null', '83375', '16.03S', '048.02W', '700', 'BR'],
@@ -21729,7 +21729,7 @@ List<List<String>> _stations = [
     '16.37S',
     '049.13W',
     '747',
-    'BR'
+    'BR',
   ],
   ['GAVIAO PEIXOTO', 'SBGP', 'null', 'null', '21.46S', '048.24W', '609', 'BR'],
   [
@@ -21740,7 +21740,7 @@ List<List<String>> _stations = [
     '23.25S',
     '046.28W',
     '750',
-    'BR'
+    'BR',
   ],
   ['GUARAPUAVA', 'SBGU', 'null', 'null', '25.23S', '051.31W', '1065', 'BR'],
   ['GOV VALADARES', 'SBGV', 'null', 'null', '18.53S', '041.59W', '171', 'BR'],
@@ -21752,7 +21752,7 @@ List<List<String>> _stations = [
     '22.46S',
     '045.12W',
     '533',
-    'BR'
+    'BR',
   ],
   ['ALTAMIRA', 'SBHT', 'null', '82353', '03.15S', '052.16W', '74', 'BR'],
   ['ITACOATIARA', 'SBIC', 'null', '82335', '03.07S', '058.28W', '43', 'BR'],
@@ -21766,7 +21766,7 @@ List<List<String>> _stations = [
     '19.28S',
     '042.29W',
     '239',
-    'BR'
+    'BR',
   ],
   ['ITUMBIARA', 'SBIT', 'null', 'null', '18.26S', '049.12W', '497', 'BR'],
   ['IMPERATRIZE', 'SBIZ', 'null', '82564', '05.31S', '047.27W', '123', 'BR'],
@@ -21778,7 +21778,7 @@ List<List<String>> _stations = [
     '21.46S',
     '043.23W',
     '939',
-    'BR'
+    'BR',
   ],
   ['JOAO PESSOA/PRES', 'SBJP', 'null', '82798', '07.09S', '034.57W', '7', 'BR'],
   ['RIO/JACAREPAGUA', 'SBJR', 'null', '83111', '22.58S', '043.22W', '3', 'BR'],
@@ -21790,7 +21790,7 @@ List<List<String>> _stations = [
     '07.13S',
     '039.16W',
     '409',
-    'BR'
+    'BR',
   ],
   ['JOINVILLE', 'SBJV', 'null', '83905', '26.13S', '048.48W', '4', 'BR'],
   ['CAMPINA GRANDE', 'SBKG', 'null', '82795', '07.16S', '035.52W', '560', 'BR'],
@@ -21802,7 +21802,7 @@ List<List<String>> _stations = [
     '23.00S',
     '047.07W',
     '661',
-    'BR'
+    'BR',
   ],
   ['ALBACORA P25 OIL', 'SBLB', 'null', 'null', '22.06S', '039.55W', '10', 'BR'],
   ['LENCOIS CHAPADA', 'SBLE', 'null', 'null', '12.29S', '041.17W', '511', 'BR'],
@@ -21816,7 +21816,7 @@ List<List<String>> _stations = [
     '23.19S',
     '051.07W',
     '570',
-    'BR'
+    'BR',
   ],
   [
     'BOM JESUS DA LAP',
@@ -21826,7 +21826,7 @@ List<List<String>> _stations = [
     '13.16S',
     '043.25W',
     '440',
-    'BR'
+    'BR',
   ],
   [
     'LAGOA SANTA(CV/M',
@@ -21836,7 +21836,7 @@ List<List<String>> _stations = [
     '19.40S',
     '043.53W',
     '852',
-    'BR'
+    'BR',
   ],
   ['MARABA', 'SBMA', 'null', '82562', '05.22S', '049.08W', '102', 'BR'],
   ['MINACU', 'SBMC', 'null', 'null', '13.33S', '048.12W', '440', 'BR'],
@@ -21854,7 +21854,7 @@ List<List<String>> _stations = [
     '03.08S',
     '059.58W',
     '84',
-    'BR'
+    'BR',
   ],
   [
     'MACEIO/CAMPO PAL',
@@ -21864,7 +21864,7 @@ List<List<String>> _stations = [
     '09.31S',
     '035.46W',
     '115',
-    'BR'
+    'BR',
   ],
   [
     'MACAPA INTL AIRP',
@@ -21874,7 +21874,7 @@ List<List<String>> _stations = [
     '00.03N',
     '051.04W',
     '15',
-    'BR'
+    'BR',
   ],
   ['MOSSORO', 'SBMS', 'null', '82591', '05.12S', '037.22W', '18', 'BR'],
   [
@@ -21885,7 +21885,7 @@ List<List<String>> _stations = [
     '23.31S',
     '046.37W',
     '722',
-    'BR'
+    'BR',
   ],
   ['MANICORE', 'SBMY', 'null', '82533', '05.49S', '061.17W', '49', 'BR'],
   ['PORTO DE MOZ', 'SBMZ', 'null', '82184', '01.44S', '052.15W', '17', 'BR'],
@@ -21898,7 +21898,7 @@ List<List<String>> _stations = [
     '28.16S',
     '054.10W',
     '322',
-    'BR'
+    'BR',
   ],
   [
     'NATAL/AUGUSTO SE',
@@ -21908,7 +21908,7 @@ List<List<String>> _stations = [
     '05.55S',
     '035.15W',
     '49',
-    'BR'
+    'BR',
   ],
   ['OIAPOQUE', 'SBOI', 'null', '82017', '03.51N', '051.49W', '39', 'BR'],
   ['PORTO ALEGRE/SAL', 'SBPA', 'null', '83971', '30.00S', '051.10W', '3', 'BR'],
@@ -21921,7 +21921,7 @@ List<List<String>> _stations = [
     '21.51S',
     '046.34W',
     '1260',
-    'BR'
+    'BR',
   ],
   [
     'PASSO FUNDO/LAUR',
@@ -21931,7 +21931,7 @@ List<List<String>> _stations = [
     '28.15S',
     '052.20W',
     '684',
-    'BR'
+    'BR',
   ],
   ['PARANAGUA', 'SBPG', 'null', '83844', '25.31S', '048.31W', '4', 'BR'],
   ['PALMAS', 'SBPJ', 'null', '83065', '10.17S', '048.22W', '236', 'BR'],
@@ -21944,7 +21944,7 @@ List<List<String>> _stations = [
     '09.22S',
     '040.34W',
     '375',
-    'BR'
+    'BR',
   ],
   [
     'PORTO NACIONAL A',
@@ -21954,7 +21954,7 @@ List<List<String>> _stations = [
     '10.43S',
     '048.23W',
     '265',
-    'BR'
+    'BR',
   ],
   [
     'PONTA PORA INTL',
@@ -21964,7 +21964,7 @@ List<List<String>> _stations = [
     '22.33S',
     '055.42W',
     '660',
-    'BR'
+    'BR',
   ],
   ['BELO HORIZONTE', 'SBPR', 'null', '83571', '19.54S', '043.59W', '927', 'BR'],
   ['PORTO SEGURO', 'SBPS', 'null', '83460', '16.26S', '039.04W', '51', 'BR'],
@@ -21976,7 +21976,7 @@ List<List<String>> _stations = [
     '08.43S',
     '063.54W',
     '88',
-    'BR'
+    'BR',
   ],
   [
     'VITORIA DA CONQU',
@@ -21986,7 +21986,7 @@ List<List<String>> _stations = [
     '14.52S',
     '040.52W',
     '893',
-    'BR'
+    'BR',
   ],
   [
     'RIO BRANCO/MEDIC',
@@ -21996,7 +21996,7 @@ List<List<String>> _stations = [
     '10.00S',
     '067.47W',
     '143',
-    'BR'
+    'BR',
   ],
   [
     'RECIFE/GUARARAPE',
@@ -22006,7 +22006,7 @@ List<List<String>> _stations = [
     '08.08S',
     '034.55W',
     '19',
-    'BR'
+    'BR',
   ],
   ['RIO GRANDE', 'SBRG', 'null', '83995', '32.01S', '052.05W', '8', 'BR'],
   ['SANTOS DUMONT/RI', 'SBRJ', 'null', '83755', '22.53S', '043.10W', '3', 'BR'],
@@ -22018,7 +22018,7 @@ List<List<String>> _stations = [
     '21.07S',
     '047.46W',
     '549',
-    'BR'
+    'BR',
   ],
   [
     'SAO ROQUE/S. PAU',
@@ -22028,7 +22028,7 @@ List<List<String>> _stations = [
     '23.31S',
     '047.07W',
     '750',
-    'BR'
+    'BR',
   ],
   ['RESENDE', 'SBRS', 'null', '83738', '22.28S', '044.28W', '439', 'BR'],
   [
@@ -22039,7 +22039,7 @@ List<List<String>> _stations = [
     '22.01S',
     '047.52W',
     '856',
-    'BR'
+    'BR',
   ],
   ['SANTA CRUZ (MIL)', 'SBSC', 'null', '83741', '22.55S', '043.43W', '3', 'BR'],
   ['NATAL', 'SBSG', 'null', 'null', '05.46S', '035.22W', '83', 'BR'],
@@ -22051,7 +22051,7 @@ List<List<String>> _stations = [
     '23.13S',
     '045.52W',
     '646',
-    'BR'
+    'BR',
   ],
   [
     'SAO LUIS/MARECHA',
@@ -22061,7 +22061,7 @@ List<List<String>> _stations = [
     '02.36S',
     '044.13W',
     '53',
-    'BR'
+    'BR',
   ],
   [
     'SANTA MARIA(CV/M',
@@ -22071,7 +22071,7 @@ List<List<String>> _stations = [
     '29.43S',
     '053.42W',
     '85',
-    'BR'
+    'BR',
   ],
   [
     'SANTAREM INTL AR',
@@ -22081,7 +22081,7 @@ List<List<String>> _stations = [
     '02.25S',
     '054.47W',
     '72',
-    'BR'
+    'BR',
   ],
   [
     'SAO PAULO/CONGON',
@@ -22091,7 +22091,7 @@ List<List<String>> _stations = [
     '23.37S',
     '046.38W',
     '803',
-    'BR'
+    'BR',
   ],
   ['SAO JOSE PRETO', 'SBSR', 'null', 'null', '20.48S', '049.24W', '543', 'BR'],
   ['SANTOS (BRAZ-AFB', 'SBST', 'null', '83818', '23.55S', '046.17W', '3', 'BR'],
@@ -22104,7 +22104,7 @@ List<List<String>> _stations = [
     '11.34S',
     '050.40W',
     '197',
-    'BR'
+    'BR',
   ],
   ['TAUBATE (BASE)', 'SBTA', 'null', 'null', '23.02S', '045.30W', '586', 'BR'],
   ['ORIXIMINA', 'SBTB', 'null', 'null', '01.29S', '056.23W', '87', 'BR'],
@@ -22118,7 +22118,7 @@ List<List<String>> _stations = [
     '05.02S',
     '042.49W',
     '69',
-    'BR'
+    'BR',
   ],
   ['TEFE', 'SBTF', 'null', '82317', '03.22S', '064.43W', '47', 'BR'],
   ['TARAUACA', 'SBTK', 'null', '82808', '08.10S', '070.46W', '188', 'BR'],
@@ -22133,7 +22133,7 @@ List<List<String>> _stations = [
     '04.15S',
     '069.56W',
     '85',
-    'BR'
+    'BR',
   ],
   ['TUCURUI', 'SBTU', 'null', '82361', '03.47S', '049.43W', '40', 'BR'],
   [
@@ -22144,7 +22144,7 @@ List<List<String>> _stations = [
     '00.09S',
     '066.59W',
     '79',
-    'BR'
+    'BR',
   ],
   ['PAULO AFONSO', 'SBUF', 'null', '82986', '09.24S', '038.15W', '252', 'BR'],
   [
@@ -22155,7 +22155,7 @@ List<List<String>> _stations = [
     '29.46S',
     '057.01W',
     '74',
-    'BR'
+    'BR',
   ],
   ['CARAUARI', 'SBUI', 'null', '82418', '04.57S', '066.54W', '81', 'BR'],
   ['UBERLANDIA', 'SBUL', 'null', '83525', '18.52S', '048.13W', '922', 'BR'],
@@ -22167,7 +22167,7 @@ List<List<String>> _stations = [
     '20.48S',
     '051.34W',
     '356',
-    'BR'
+    'BR',
   ],
   ['UBERABA', 'SBUR', 'null', '83576', '19.46S', '047.58W', '807', 'BR'],
   ['PORTO URUCU', 'SBUY', 'null', 'null', '04.53S', '065.21W', '72', 'BR'],
@@ -22182,7 +22182,7 @@ List<List<String>> _stations = [
     '09.21S',
     '054.53W',
     '432',
-    'BR'
+    'BR',
   ],
   ['XAVANTINA', 'SBXV', 'null', '83319', '14.41S', '052.21W', '315', 'BR'],
   [
@@ -22193,7 +22193,7 @@ List<List<String>> _stations = [
     '00.37N',
     '069.12W',
     '105',
-    'BR'
+    'BR',
   ],
   [
     'PIRASSUNUNGA/CAM',
@@ -22203,7 +22203,7 @@ List<List<String>> _stations = [
     '21.58S',
     '047.19W',
     '598',
-    'BR'
+    'BR',
   ],
   ['BARCELOS', 'SWBC', 'null', '82113', '00.58S', '062.55W', '40', 'BR'],
   ['PARINTINS', 'SWPI', 'null', 'null', '02.40S', '056.47W', '27', 'BR'],
@@ -22216,7 +22216,7 @@ List<List<String>> _stations = [
     '07.37S',
     '072.40W',
     '170',
-    'BR'
+    'BR',
   ],
   [
     'SAO LUIS/MARECHA',
@@ -22226,7 +22226,7 @@ List<List<String>> _stations = [
     '02.36S',
     '044.13W',
     '53',
-    'BR'
+    'BR',
   ],
   [
     'ASUNCION/SILVIO',
@@ -22236,7 +22236,7 @@ List<List<String>> _stations = [
     '25.15S',
     '057.31W',
     '101',
-    'PY'
+    'PY',
   ],
   [
     'CONCEPCION/MARIS',
@@ -22246,7 +22246,7 @@ List<List<String>> _stations = [
     '23.25S',
     '057.17W',
     '74',
-    'PY'
+    'PY',
   ],
   ['ENCARNACION', 'SGEN', 'null', '86297', '27.19S', '055.49W', '91', 'PY'],
   ['GUARANY', 'SGES', 'null', 'null', '25.27S', '054.51W', '849', 'PY'],
@@ -22259,7 +22259,7 @@ List<List<String>> _stations = [
     '22.01S',
     '060.36W',
     '181',
-    'PY'
+    'PY',
   ],
   ['NUEVA ASUNCION', 'SGNA', 'null', '86017', '20.43S', '061.55W', '315', 'PY'],
   ['PILAR', 'SGPI', 'null', '86255', '26.51S', '058.19W', '56', 'PY'],
@@ -22271,7 +22271,7 @@ List<List<String>> _stations = [
     '34.46S',
     '056.15W',
     '54',
-    'UY'
+    'UY',
   ],
   ['ARTIGAS', 'SUAG', 'null', '86330', '30.24S', '056.30W', '123', 'UY'],
   [
@@ -22282,7 +22282,7 @@ List<List<String>> _stations = [
     '34.27S',
     '057.46W',
     '23',
-    'UY'
+    'UY',
   ],
   [
     'DURAZNO/SANTA BE',
@@ -22292,7 +22292,7 @@ List<List<String>> _stations = [
     '33.21S',
     '056.30W',
     '93',
-    'UY'
+    'UY',
   ],
   ['CAPITAN CORBETA', 'SULS', 'null', 'null', '34.52S', '055.06W', '30', 'UY'],
   [
@@ -22303,7 +22303,7 @@ List<List<String>> _stations = [
     '33.15S',
     '058.04W',
     '22',
-    'UY'
+    'UY',
   ],
   [
     'MELO/CERRO LARGO',
@@ -22313,7 +22313,7 @@ List<List<String>> _stations = [
     '32.20S',
     '054.13W',
     '100',
-    'UY'
+    'UY',
   ],
   [
     'CARRASCO (CIV/MI',
@@ -22323,7 +22323,7 @@ List<List<String>> _stations = [
     '34.49S',
     '056.00W',
     '32',
-    'UY'
+    'UY',
   ],
   ['MALDONADO/PUNTA', 'SUPE', 'null', 'null', '34.55S', '054.55W', '15', 'UY'],
   ['PAYSANDU', 'SUPU', 'null', '86430', '32.19S', '058.01W', '61', 'UY'],
@@ -22341,7 +22341,7 @@ List<List<String>> _stations = [
     '18.21S',
     '070.19W',
     '59',
-    'CL'
+    'CL',
   ],
   ['CABO JUAN ROMAN', 'SCAS', 'null', 'null', '45.24S', '072.40W', '10', 'CL'],
   [
@@ -22352,7 +22352,7 @@ List<List<String>> _stations = [
     '27.16S',
     '070.46W',
     '204',
-    'CL'
+    'CL',
   ],
   ['BALMACEDA', 'SCBA', 'null', '85874', '45.55S', '071.40W', '524', 'CL'],
   [
@@ -22363,7 +22363,7 @@ List<List<String>> _stations = [
     '33.02S',
     '071.25W',
     '123',
-    'CL'
+    'CL',
   ],
   [
     'BERNADO OHIGGINS',
@@ -22373,7 +22373,7 @@ List<List<String>> _stations = [
     '63.19S',
     '056.41W',
     '10',
-    'CL'
+    'CL',
   ],
   [
     'EL BOSQUE (MIL)',
@@ -22383,7 +22383,7 @@ List<List<String>> _stations = [
     '33.34S',
     '070.40W',
     '573',
-    'CL'
+    'CL',
   ],
   ['CHILE CHICO', 'SCCC', 'null', '85886', '46.35S', '071.42W', '325', 'CL'],
   ['CALAMA/EL LOA', 'SCCF', 'null', '85432', '22.30S', '068.54W', '2312', 'CL'],
@@ -22395,7 +22395,7 @@ List<List<String>> _stations = [
     '36.34S',
     '072.01W',
     '148',
-    'CL'
+    'CL',
   ],
   [
     'PUNTA ARENAS/PRE',
@@ -22405,7 +22405,7 @@ List<List<String>> _stations = [
     '53.00S',
     '070.50W',
     '37',
-    'CL'
+    'CL',
   ],
   [
     'COYHAIQUE/TENIEN',
@@ -22415,7 +22415,7 @@ List<List<String>> _stations = [
     '45.34S',
     '072.06W',
     '311',
-    'CL'
+    'CL',
   ],
   [
     'IQUIQUE/DIEGO AR',
@@ -22425,7 +22425,7 @@ List<List<String>> _stations = [
     '20.31S',
     '070.10W',
     '52',
-    'CL'
+    'CL',
   ],
   [
     'PUDAHUEL/ARTURO',
@@ -22435,7 +22435,7 @@ List<List<String>> _stations = [
     '33.22S',
     '070.46W',
     '476',
-    'CL'
+    'CL',
   ],
   ['QUINTERO (MIL)', 'SCER', 'null', '85543', '32.46S', '071.31W', '8', 'CL'],
   [
@@ -22446,7 +22446,7 @@ List<List<String>> _stations = [
     '23.25S',
     '070.25W',
     '120',
-    'CL'
+    'CL',
   ],
   ['CAPT FUENTES MAR', 'SCFM', 'null', 'null', '53.15S', '070.19W', '30', 'CL'],
   ['FUTALEUFU', 'SCFT', 'null', '85832', '43.10S', '071.51W', '318', 'CL'],
@@ -22460,7 +22460,7 @@ List<List<String>> _stations = [
     '27.18S',
     '070.25W',
     '291',
-    'CL'
+    'CL',
   ],
   ['COCHRANE', 'SCHR', 'null', '85892', '47.13S', '072.32W', '167', 'CL'],
   [
@@ -22471,7 +22471,7 @@ List<List<String>> _stations = [
     '34.58S',
     '071.13W',
     '242',
-    'CL'
+    'CL',
   ],
   [
     'CONCEPCION/CARRI',
@@ -22481,7 +22481,7 @@ List<List<String>> _stations = [
     '36.46S',
     '073.04W',
     '16',
-    'CL'
+    'CL',
   ],
   ['EASTER ISLAND', 'SCIP', 'null', '85469', '27.10S', '109.26W', '69', 'CL'],
   ['ROBINSON CRUSOE', 'SCIR', 'null', '85585', '33.40S', '078.56W', '29', 'CL'],
@@ -22493,7 +22493,7 @@ List<List<String>> _stations = [
     '40.36S',
     '073.02W',
     '65',
-    'CL'
+    'CL',
   ],
   ['VALLENAR', 'SCLL', 'null', '85486', '28.36S', '070.46W', '538', 'CL'],
   ['MELINKA ARPT', 'SCMK', 'null', 'null', '43.54S', '073.44W', '11', 'CL'],
@@ -22511,7 +22511,7 @@ List<List<String>> _stations = [
     '34.10S',
     '070.46W',
     '441',
-    'CL'
+    'CL',
   ],
   ['TENIENTE R MARSH', 'SCRM', 'null', 'null', '62.11S', '058.59W', '45', 'CL'],
   [
@@ -22522,7 +22522,7 @@ List<List<String>> _stations = [
     '29.55S',
     '071.12W',
     '146',
-    'CL'
+    'CL',
   ],
   ['SANTO DOMINGO', 'SCSN', 'null', '85586', '33.38S', '071.37W', '75', 'CL'],
   [
@@ -22533,7 +22533,7 @@ List<List<String>> _stations = [
     '42.04S',
     '071.52W',
     '366',
-    'CL'
+    'CL',
   ],
   ['CASTRO/GAMBOA', 'SCST', 'null', '85825', '42.28S', '073.46W', '44', 'CL'],
   [
@@ -22544,7 +22544,7 @@ List<List<String>> _stations = [
     '33.27S',
     '070.32W',
     '649',
-    'CL'
+    'CL',
   ],
   [
     'TEMUCO/MAQUEHUE',
@@ -22554,7 +22554,7 @@ List<List<String>> _stations = [
     '38.45S',
     '072.37W',
     '120',
-    'CL'
+    'CL',
   ],
   [
     'PUERTO MONTT/TEP',
@@ -22564,7 +22564,7 @@ List<List<String>> _stations = [
     '41.25S',
     '073.04W',
     '86',
-    'CL'
+    'CL',
   ],
   ['LOS CERRILLOS', 'SCTI', 'null', '85579', '33.28S', '070.42W', '511', 'CL'],
   ['CHAITEN', 'SCTN', 'null', '85830', '42.55S', '072.42W', '4', 'CL'],
@@ -22578,7 +22578,7 @@ List<List<String>> _stations = [
     '31.18S',
     '058.01W',
     '38',
-    'AR'
+    'AR',
   ],
   [
     'GUALEGUAYCHU ARP',
@@ -22588,7 +22588,7 @@ List<List<String>> _stations = [
     '33.00S',
     '058.37W',
     '21',
-    'AR'
+    'AR',
   ],
   ['JUNIN AIRPORT', 'SAAJ', 'null', '87548', '34.32S', '060.57W', '81', 'AR'],
   [
@@ -22599,7 +22599,7 @@ List<List<String>> _stations = [
     '31.46S',
     '060.28W',
     '78',
-    'AR'
+    'AR',
   ],
   ['ROSARIO AIRPORT', 'SAAR', 'null', '87480', '32.55S', '060.46W', '25', 'AR'],
   ['VILLAGUAY', 'SAAU', 'null', '87385', '31.51S', '059.04W', '43', 'AR'],
@@ -22611,7 +22611,7 @@ List<List<String>> _stations = [
     '31.41S',
     '060.49W',
     '18',
-    'AR'
+    'AR',
   ],
   [
     'BUENOS AIRES (OB',
@@ -22621,7 +22621,7 @@ List<List<String>> _stations = [
     '34.34S',
     '058.28W',
     '25',
-    'AR'
+    'AR',
   ],
   ['AEROPARQUE(CIV/M', 'SABE', 'null', '87582', '34.34S', '058.25W', '6', 'AR'],
   ['LA CUMBRE', 'SACC', 'null', 'null', '31.00S', '064.32W', '1138', 'AR'],
@@ -22633,7 +22633,7 @@ List<List<String>> _stations = [
     '31.40S',
     '063.52W',
     '338',
-    'AR'
+    'AR',
   ],
   [
     'CORDOBA AIRPORT',
@@ -22643,7 +22643,7 @@ List<List<String>> _stations = [
     '31.19S',
     '064.13W',
     '474',
-    'AR'
+    'AR',
   ],
   ['CHEPES', 'SACP', 'null', '87322', '31.19S', '066.35W', '658', 'AR'],
   ['MONTE QUEMADO', 'SACQ', 'null', '87071', '25.45S', '062.52W', '220', 'AR'],
@@ -22655,7 +22655,7 @@ List<List<String>> _stations = [
     '30.22S',
     '066.17W',
     '457',
-    'AR'
+    'AR',
   ],
   [
     'VILLA MARIA DEL',
@@ -22665,7 +22665,7 @@ List<List<String>> _stations = [
     '29.53S',
     '063.40W',
     '341',
-    'AR'
+    'AR',
   ],
   ['DON TORCUATO ARP', 'SADD', 'null', '87568', '34.28S', '058.37W', '4', 'AR'],
   ['SAN FERNANDO', 'SADF', 'null', 'null', '34.27S', '058.35W', '4', 'AR'],
@@ -22678,7 +22678,7 @@ List<List<String>> _stations = [
     '34.58S',
     '057.53W',
     '19',
-    'AR'
+    'AR',
   ],
   [
     'BUENOS AIRES/MOR',
@@ -22688,7 +22688,7 @@ List<List<String>> _stations = [
     '34.40S',
     '058.38W',
     '30',
-    'AR'
+    'AR',
   ],
   [
     'EL PALOMAR AIRPO',
@@ -22698,7 +22698,7 @@ List<List<String>> _stations = [
     '34.36S',
     '058.36W',
     '12',
-    'AR'
+    'AR',
   ],
   [
     'BUENOS AIRES/EZE',
@@ -22708,7 +22708,7 @@ List<List<String>> _stations = [
     '34.49S',
     '058.31W',
     '20',
-    'AR'
+    'AR',
   ],
   [
     'MENDOZA/EL PLUME',
@@ -22718,7 +22718,7 @@ List<List<String>> _stations = [
     '32.49S',
     '068.46W',
     '704',
-    'AR'
+    'AR',
   ],
   ['SAN MARTIN', 'SAMI', 'null', '87416', '33.04S', '068.25W', '653', 'AR'],
   ['JACHAL', 'SAMJ', 'null', '87305', '30.15S', '068.45W', '1165', 'AR'],
@@ -22730,7 +22730,7 @@ List<List<String>> _stations = [
     '35.30S',
     '069.34W',
     '1425',
-    'AR'
+    'AR',
   ],
   [
     'SAN RAFAEL AIRPO',
@@ -22740,7 +22740,7 @@ List<List<String>> _stations = [
     '34.34S',
     '068.24W',
     '748',
-    'AR'
+    'AR',
   ],
   ['SAN CARLOS', 'SAMS', 'null', '87412', '33.46S', '069.01W', '940', 'AR'],
   ['USPALLATA', 'SAMU', 'null', '87405', '32.36S', '069.19W', '1844', 'AR'],
@@ -22752,7 +22752,7 @@ List<List<String>> _stations = [
     '28.36S',
     '065.46W',
     '454',
-    'AR'
+    'AR',
   ],
   [
     'SANTIAGO DEL EST',
@@ -22762,7 +22762,7 @@ List<List<String>> _stations = [
     '27.46S',
     '064.17W',
     '199',
-    'AR'
+    'AR',
   ],
   ['TINOGASTA', 'SANI', 'null', '87211', '28.04S', '067.34W', '1201', 'AR'],
   [
@@ -22773,7 +22773,7 @@ List<List<String>> _stations = [
     '29.22S',
     '066.49W',
     '429',
-    'AR'
+    'AR',
   ],
   ['CHILECITO', 'SANO', 'null', '87214', '29.13S', '067.25W', '950', 'AR'],
   [
@@ -22784,7 +22784,7 @@ List<List<String>> _stations = [
     '26.51S',
     '065.05W',
     '450',
-    'AR'
+    'AR',
   ],
   [
     'SAN JUAN AIRPORT',
@@ -22794,7 +22794,7 @@ List<List<String>> _stations = [
     '31.34S',
     '068.25W',
     '598',
-    'AR'
+    'AR',
   ],
   ['CERES', 'SANW', 'null', '87257', '29.52S', '061.57W', '88', 'AR'],
   [
@@ -22805,7 +22805,7 @@ List<List<String>> _stations = [
     '33.07S',
     '064.16W',
     '421',
-    'AR'
+    'AR',
   ],
   [
     'VILLA DOLORES AR',
@@ -22815,7 +22815,7 @@ List<List<String>> _stations = [
     '31.56S',
     '065.07W',
     '569',
-    'AR'
+    'AR',
   ],
   ['LABOULAYE', 'SAOL', 'null', '87534', '34.07S', '063.22W', '137', 'AR'],
   [
@@ -22826,7 +22826,7 @@ List<List<String>> _stations = [
     '32.42S',
     '062.08W',
     '114',
-    'AR'
+    'AR',
   ],
   [
     'VILLA REYNOLDS A',
@@ -22836,7 +22836,7 @@ List<List<String>> _stations = [
     '33.43S',
     '065.22W',
     '486',
-    'AR'
+    'AR',
   ],
   [
     'SAN LUIS AIRPORT',
@@ -22846,7 +22846,7 @@ List<List<String>> _stations = [
     '33.16S',
     '066.20W',
     '702',
-    'AR'
+    'AR',
   ],
   [
     'CORRIENTES AIRPO',
@@ -22856,7 +22856,7 @@ List<List<String>> _stations = [
     '27.26S',
     '058.46W',
     '62',
-    'AR'
+    'AR',
   ],
   [
     'RESISTENCIA AIRP',
@@ -22866,7 +22866,7 @@ List<List<String>> _stations = [
     '27.26S',
     '059.02W',
     '52',
-    'AR'
+    'AR',
   ],
   ['FORMOSA AIRPORT', 'SARF', 'null', '87162', '26.13S', '058.13W', '60', 'AR'],
   [
@@ -22877,7 +22877,7 @@ List<List<String>> _stations = [
     '25.43S',
     '054.28W',
     '270',
-    'AR'
+    'AR',
   ],
   [
     'PASO DE LOS LIBR',
@@ -22887,7 +22887,7 @@ List<List<String>> _stations = [
     '29.40S',
     '057.08W',
     '70',
-    'AR'
+    'AR',
   ],
   [
     'MONTE CASEROS AR',
@@ -22897,7 +22897,7 @@ List<List<String>> _stations = [
     '30.15S',
     '057.38W',
     '54',
-    'AR'
+    'AR',
   ],
   [
     'POSADAS AIRPORT',
@@ -22907,7 +22907,7 @@ List<List<String>> _stations = [
     '27.23S',
     '055.58W',
     '125',
-    'AR'
+    'AR',
   ],
   [
     'PRESIDENT R S PE',
@@ -22917,7 +22917,7 @@ List<List<String>> _stations = [
     '26.49S',
     '060.27W',
     '92',
-    'AR'
+    'AR',
   ],
   ['SALTA AIRPORT', 'SASA', 'null', '87047', '24.51S', '065.28W', '1216', 'AR'],
   ['JUJUY AIRPORT', 'SASJ', 'null', '87046', '24.22S', '065.06W', '1167', 'AR'],
@@ -22930,7 +22930,7 @@ List<List<String>> _stations = [
     '22.06S',
     '065.35W',
     '3462',
-    'AR'
+    'AR',
   ],
   ['RIVADAVIA', 'SASR', 'null', '87065', '24.10S', '062.53W', '205', 'AR'],
   [
@@ -22941,7 +22941,7 @@ List<List<String>> _stations = [
     '22.38S',
     '063.49W',
     '450',
-    'AR'
+    'AR',
   ],
   ['GOYA', 'SATG', 'null', 'null', '29.06S', '059.13W', '38', 'AR'],
   ['LAS LOMITAS', 'SATK', 'null', '87078', '24.41S', '060.34W', '130', 'AR'],
@@ -22955,7 +22955,7 @@ List<List<String>> _stations = [
     '29.46S',
     '057.58W',
     '73',
-    'AR'
+    'AR',
   ],
   ['EL BOLSON AERO', 'SAVB', 'null', '87800', '41.58S', '071.31W', '337', 'AR'],
   [
@@ -22966,7 +22966,7 @@ List<List<String>> _stations = [
     '45.46S',
     '067.28W',
     '46',
-    'AR'
+    'AR',
   ],
   ['EL MAITEN', 'SAVD', 'null', 'null', '42.01S', '071.10W', '720', 'AR'],
   ['ESQUEL AIRPORT', 'SAVE', 'null', '87803', '42.54S', '071.09W', '794', 'AR'],
@@ -22980,7 +22980,7 @@ List<List<String>> _stations = [
     '45.01S',
     '070.49W',
     '697',
-    'AR'
+    'AR',
   ],
   [
     'TRELEW/ALMIRANTE',
@@ -22990,7 +22990,7 @@ List<List<String>> _stations = [
     '43.12S',
     '065.16W',
     '43',
-    'AR'
+    'AR',
   ],
   ['VIEDMA/CASTELLO', 'SAVV', 'null', '87791', '40.51S', '063.01W', '7', 'AR'],
   ['EL TEHUELCHE', 'SAVY', 'null', 'null', '42.46S', '065.06W', '136', 'AR'],
@@ -23002,7 +23002,7 @@ List<List<String>> _stations = [
     '50.19S',
     '072.17W',
     '220',
-    'AR'
+    'AR',
   ],
   [
     'PUERTO DESEADO A',
@@ -23012,7 +23012,7 @@ List<List<String>> _stations = [
     '47.43S',
     '065.55W',
     '80',
-    'AR'
+    'AR',
   ],
   [
     'RIO GRANDE AIRPO',
@@ -23022,7 +23022,7 @@ List<List<String>> _stations = [
     '53.47S',
     '067.45W',
     '22',
-    'AR'
+    'AR',
   ],
   [
     'RIO GALLEGOS ARP',
@@ -23032,7 +23032,7 @@ List<List<String>> _stations = [
     '51.37S',
     '069.19W',
     '19',
-    'AR'
+    'AR',
   ],
   [
     'USHUAIA (ARG-NAV',
@@ -23042,7 +23042,7 @@ List<List<String>> _stations = [
     '54.51S',
     '068.18W',
     '14',
-    'AR'
+    'AR',
   ],
   [
     'SAN JULIAN AIRPO',
@@ -23052,7 +23052,7 @@ List<List<String>> _stations = [
     '49.19S',
     '067.46W',
     '62',
-    'AR'
+    'AR',
   ],
   ['RIO MAYO', 'SAWM', 'null', 'null', '45.42S', '070.15W', '545', 'AR'],
   [
@@ -23063,7 +23063,7 @@ List<List<String>> _stations = [
     '46.31S',
     '071.01W',
     '429',
-    'AR'
+    'AR',
   ],
   [
     'GOBERNADOR GREGO',
@@ -23073,7 +23073,7 @@ List<List<String>> _stations = [
     '48.46S',
     '070.10W',
     '356',
-    'AR'
+    'AR',
   ],
   [
     'EL TURBIO/RIO TU',
@@ -23083,7 +23083,7 @@ List<List<String>> _stations = [
     '51.36S',
     '072.13W',
     '273',
-    'AR'
+    'AR',
   ],
   [
     'SANTA CRUZ AIRPO',
@@ -23093,7 +23093,7 @@ List<List<String>> _stations = [
     '50.01S',
     '068.34W',
     '111',
-    'AR'
+    'AR',
   ],
   ['AZUL AIRPORT', 'SAZA', 'null', '87642', '36.45S', '059.49W', '132', 'AR'],
   [
@@ -23104,7 +23104,7 @@ List<List<String>> _stations = [
     '38.43S',
     '062.10W',
     '83',
-    'AR'
+    'AR',
   ],
   ['DOLORES AIRPORT', 'SAZD', 'null', '87648', '36.21S', '057.43W', '9', 'AR'],
   ['PIGUE AIRPORT', 'SAZE', 'null', '87679', '37.36S', '062.22W', '304', 'AR'],
@@ -23116,7 +23116,7 @@ List<List<String>> _stations = [
     '35.42S',
     '063.45W',
     '145',
-    'AR'
+    'AR',
   ],
   ['TRES ARROYOS', 'SAZH', 'null', '87688', '38.19S', '060.15W', '115', 'AR'],
   ['BOLIVAR', 'SAZI', 'null', '87639', '36.11S', '061.05W', '94', 'AR'],
@@ -23128,7 +23128,7 @@ List<List<String>> _stations = [
     '37.55S',
     '057.34W',
     '21',
-    'AR'
+    'AR',
   ],
   [
     'NEUQUEN AIRPORT',
@@ -23138,7 +23138,7 @@ List<List<String>> _stations = [
     '38.57S',
     '068.09W',
     '271',
-    'AR'
+    'AR',
   ],
   [
     'NECOCHEA AIRPORT',
@@ -23148,7 +23148,7 @@ List<List<String>> _stations = [
     '38.28S',
     '058.49W',
     '32',
-    'AR'
+    'AR',
   ],
   [
     'PEHUAJO/CMDR ZAN',
@@ -23158,7 +23158,7 @@ List<List<String>> _stations = [
     '35.52S',
     '061.53W',
     '86',
-    'AR'
+    'AR',
   ],
   ['RIO COLORADO', 'SAZQ', 'null', '87736', '39.01S', '064.04W', '79', 'AR'],
   [
@@ -23169,7 +23169,7 @@ List<List<String>> _stations = [
     '36.34S',
     '064.16W',
     '191',
-    'AR'
+    'AR',
   ],
   [
     'SAN CARLOS BARIL',
@@ -23179,7 +23179,7 @@ List<List<String>> _stations = [
     '41.08S',
     '071.10W',
     '840',
-    'AR'
+    'AR',
   ],
   ['TANDIL AIRPORT', 'SAZT', 'null', '87645', '37.13S', '059.15W', '175', 'AR'],
   ['VILLA GESELL', 'SAZV', 'null', '87663', '37.13S', '057.01W', '7', 'AR'],
@@ -23198,7 +23198,7 @@ List<List<String>> _stations = [
     '03.46N',
     '056.08W',
     '323',
-    'SR'
+    'SR',
   ],
   ['PARAMARIBO', 'SMZO', 'null', 'null', '05.49N', '055.11W', '10', 'SR'],
   [
@@ -23209,7 +23209,7 @@ List<List<String>> _stations = [
     '05.27N',
     '055.12W',
     '15',
-    'SR'
+    'SR',
   ],
   ['AASIAAT/EGEDESMI', 'BGAA', 'null', 'null', '68.42N', '052.48W', '41', 'GL'],
   ['ANGMAGSSALIK', 'BGAM', 'null', '04360', '65.35N', '037.37W', '52', 'GL'],
@@ -23222,7 +23222,7 @@ List<List<String>> _stations = [
     '67.46N',
     '032.16W',
     '23',
-    'GL'
+    'GL',
   ],
   ['NARSSARSSUAQ', 'BGBW', 'null', '04270', '61.10N', '045.25W', '26', 'GL'],
   ['CHRISTIANHAB(POR', 'BGCH', 'null', 'null', '68.45N', '051.30W', '76', 'GL'],
@@ -23236,7 +23236,7 @@ List<List<String>> _stations = [
     '76.46N',
     '018.40W',
     '12',
-    'GL'
+    'GL',
   ],
   ['DUNDAS', 'BGDU', 'null', 'null', '76.30N', '069.00W', '20', 'GL'],
   [
@@ -23247,7 +23247,7 @@ List<List<String>> _stations = [
     '68.42N',
     '052.45W',
     '47',
-    'GL'
+    'GL',
   ],
   ['FREDERIKSDAL', 'BGFD', 'null', 'null', '60.15N', '045.30W', '23', 'GL'],
   [
@@ -23258,7 +23258,7 @@ List<List<String>> _stations = [
     '62.00N',
     '049.43W',
     '16',
-    'GL'
+    'GL',
   ],
   ['GRONNEDAL', 'BGGD', 'null', '04261', '61.13N', '048.07W', '29', 'GL'],
   ['GODTHAB (PORT)', 'BGGH', 'null', '04250', '64.12N', '051.41W', '70', 'GL'],
@@ -23272,7 +23272,7 @@ List<List<String>> _stations = [
     '60.43N',
     '046.02W',
     '34',
-    'GL'
+    'GL',
   ],
   [
     'JAKOBSHAVN (PORT',
@@ -23282,7 +23282,7 @@ List<List<String>> _stations = [
     '69.15N',
     '051.04W',
     '25',
-    'GL'
+    'GL',
   ],
   ['KULUSUK AIRPORT', 'BGKK', 'null', '04361', '65.34N', '037.08W', '34', 'GL'],
   [
@@ -23293,7 +23293,7 @@ List<List<String>> _stations = [
     '70.25N',
     '021.58W',
     '41',
-    'GL'
+    'GL',
   ],
   ['MANIITSOQ', 'BGMQ', 'null', 'null', '65.25N', '052.56W', '15', 'GL'],
   ['MESTERS VIG', 'BGMV', 'null', 'null', '72.15N', '024.19W', '10', 'GL'],
@@ -23311,7 +23311,7 @@ List<List<String>> _stations = [
     '67.00N',
     '050.43W',
     '53',
-    'GL'
+    'GL',
   ],
   ['SISIMIUT', 'BGSS', 'null', 'null', '66.57N', '053.44W', '50', 'GL'],
   ['SUKKERTOPPEN', 'BGST', 'null', 'null', '65.25N', '053.00W', '24', 'GL'],
@@ -23327,7 +23327,7 @@ List<List<String>> _stations = [
     '72.46N',
     '056.10W',
     '63',
-    'GL'
+    'GL',
   ],
   ['WALRUS BAY', 'null', 'null', '04342', '70.30N', '021.58W', '7', 'GL'],
   ['IKATEQ', 'BIKA', 'null', '04353', '65.56N', '036.41W', '56', 'GL'],
@@ -23346,7 +23346,7 @@ List<List<String>> _stations = [
     '63.59N',
     '022.36W',
     '54',
-    'IS'
+    'IS',
   ],
   ['SAUOARKROKUR', 'BIKR', 'null', 'null', '65.44N', '019.34W', '3', 'IS'],
   ['RAUFARHOFN', 'BIRG', 'null', '04077', '66.27N', '015.56W', '10', 'IS'],
@@ -23358,7 +23358,7 @@ List<List<String>> _stations = [
     '64.08N',
     '021.56W',
     '61',
-    'IS'
+    'IS',
   ],
   ['STYKKISHOLMUR', 'BIST', 'null', '04013', '65.04N', '022.43W', '8', 'IS'],
   [
@@ -23369,7 +23369,7 @@ List<List<String>> _stations = [
     '63.25N',
     '020.16W',
     '124',
-    'IS'
+    'IS',
   ],
   [
     'SKJALDTHINGSSTAD',
@@ -23379,7 +23379,7 @@ List<List<String>> _stations = [
     '65.45N',
     '014.49W',
     '48',
-    'IS'
+    'IS',
   ],
   ['HVALLATUR', 'null', 'null', '04001', '65.32N', '024.28W', '17', 'IS'],
   ['ANTWERP/DEURNE', 'EBAW', 'null', '06450', '51.12N', '004.28E', '14', 'BE'],
@@ -23391,7 +23391,7 @@ List<List<String>> _stations = [
     '50.45N',
     '004.46E',
     '127',
-    'BE'
+    'BE',
   ],
   [
     'KLEINE-BROGEL(BA',
@@ -23401,7 +23401,7 @@ List<List<String>> _stations = [
     '51.10N',
     '005.28E',
     '64',
-    'BE'
+    'BE',
   ],
   [
     'BRUSSELS NATIONA',
@@ -23411,7 +23411,7 @@ List<List<String>> _stations = [
     '50.54N',
     '004.30E',
     '58',
-    'BE'
+    'BE',
   ],
   [
     'BRASSCHAAT (MIL)',
@@ -23421,7 +23421,7 @@ List<List<String>> _stations = [
     '51.19N',
     '004.30E',
     '23',
-    'BE'
+    'BE',
   ],
   [
     'BERTRIX (BEL-AFB',
@@ -23431,7 +23431,7 @@ List<List<String>> _stations = [
     '49.53N',
     '005.13E',
     '461',
-    'BE'
+    'BE',
   ],
   [
     'CHARLEROI/GOSSEL',
@@ -23441,7 +23441,7 @@ List<List<String>> _stations = [
     '50.28N',
     '004.27E',
     '192',
-    'BE'
+    'BE',
   ],
   ['CHIEVRES AB', 'EBCV', 'null', '06432', '50.34N', '003.49E', '63', 'BE'],
   ['SCHAFFEN', 'EBDT', 'null', '06465', '51.01N', '005.04E', '54', 'BE'],
@@ -23454,7 +23454,7 @@ List<List<String>> _stations = [
     '50.13N',
     '004.39E',
     '299',
-    'BE'
+    'BE',
   ],
   ['GRIMBERGEN', 'EBGB', 'null', 'null', '50.57N', '004.24E', '21', 'BE'],
   ['HOEVENEN', 'EBHN', 'null', 'null', '51.18N', '004.23E', '3', 'BE'],
@@ -23468,7 +23468,7 @@ List<List<String>> _stations = [
     '50.28N',
     '006.10E',
     '570',
-    'BE'
+    'BE',
   ],
   [
     'BIERSET/LIEGE (C',
@@ -23478,7 +23478,7 @@ List<List<String>> _stations = [
     '50.38N',
     '005.27E',
     '178',
-    'BE'
+    'BE',
   ],
   [
     'BIERSET/LIEGE (M',
@@ -23488,7 +23488,7 @@ List<List<String>> _stations = [
     '50.38N',
     '005.27E',
     '178',
-    'BE'
+    'BE',
   ],
   [
     'MELSBROEK (BEL-A',
@@ -23498,7 +23498,7 @@ List<List<String>> _stations = [
     '50.53N',
     '004.30E',
     '55',
-    'BE'
+    'BE',
   ],
   ['OOSTENDE AIRPORT', 'EBOS', 'null', '06407', '51.12N', '002.52E', '5', 'BE'],
   [
@@ -23509,7 +23509,7 @@ List<List<String>> _stations = [
     '50.28N',
     '005.55E',
     '482',
-    'BE'
+    'BE',
   ],
   [
     'ST. TRUIDEN (BAF',
@@ -23519,7 +23519,7 @@ List<List<String>> _stations = [
     '50.47N',
     '005.12E',
     '75',
-    'BE'
+    'BE',
   ],
   ['SAINT HUBERT', 'EBSH', 'null', 'null', '50.01N', '005.24E', '588', 'BE'],
   [
@@ -23530,7 +23530,7 @@ List<List<String>> _stations = [
     '50.01N',
     '005.24E',
     '557',
-    'BE'
+    'BE',
   ],
   [
     'SEMMERZAKE (MIL)',
@@ -23540,7 +23540,7 @@ List<List<String>> _stations = [
     '50.56N',
     '003.39E',
     '37',
-    'BE'
+    'BE',
   ],
   [
     'GOETSENHOVEN (MI',
@@ -23550,7 +23550,7 @@ List<List<String>> _stations = [
     '50.46N',
     '004.57E',
     '81',
-    'BE'
+    'BE',
   ],
   ['MAUBRAY', 'EBTY', 'null', 'null', '50.32N', '003.30E', '49', 'BE'],
   ['WEELDE (MIL)', 'EBWE', 'null', '06462', '51.25N', '005.00E', '60', 'BE'],
@@ -23566,7 +23566,7 @@ List<List<String>> _stations = [
     '51.11N',
     '003.48E',
     '13',
-    'BE'
+    'BE',
   ],
   ['MUNTE (MIL)', 'EBMT', 'null', 'null', '50.55N', '003.43E', '60', 'BE'],
   ['ALTENBURG-NOBITZ', 'EDAC', 'AOC', 'null', '50.59N', '012.30E', '195', 'DE'],
@@ -23585,7 +23585,7 @@ List<List<String>> _stations = [
     '52.23N',
     '013.32E',
     '48',
-    'DE'
+    'DE',
   ],
   [
     'DRESDEN/KLOTZSCH',
@@ -23595,7 +23595,7 @@ List<List<String>> _stations = [
     '51.08N',
     '013.45E',
     '226',
-    'DE'
+    'DE',
   ],
   [
     'ERFURT/BINDERSLE',
@@ -23605,7 +23605,7 @@ List<List<String>> _stations = [
     '50.59N',
     '010.58E',
     '323',
-    'DE'
+    'DE',
   ],
   [
     'FRANKFURT MAIN A',
@@ -23615,7 +23615,7 @@ List<List<String>> _stations = [
     '50.03N',
     '008.36E',
     '113',
-    'DE'
+    'DE',
   ],
   [
     'MUENSTER/OSNABRU',
@@ -23625,7 +23625,7 @@ List<List<String>> _stations = [
     '52.08N',
     '007.42E',
     '52',
-    'DE'
+    'DE',
   ],
   [
     'HAMBURG/FUHLSBUT',
@@ -23635,7 +23635,7 @@ List<List<String>> _stations = [
     '53.38N',
     '010.00E',
     '16',
-    'DE'
+    'DE',
   ],
   [
     'BERLIN/TEMPELHOF',
@@ -23645,7 +23645,7 @@ List<List<String>> _stations = [
     '52.28N',
     '013.24E',
     '49',
-    'DE'
+    'DE',
   ],
   ['KOELN/BONN', 'EDDK', 'null', '10513', '50.52N', '007.09E', '99', 'DE'],
   ['DUESSELDORF', 'EDDL', 'null', '10400', '51.18N', '006.46E', '44', 'DE'],
@@ -23657,7 +23657,7 @@ List<List<String>> _stations = [
     '48.21N',
     '011.49E',
     '447',
-    'DE'
+    'DE',
   ],
   ['NUERNBERG', 'EDDN', 'null', '10763', '49.30N', '011.05E', '312', 'DE'],
   [
@@ -23668,7 +23668,7 @@ List<List<String>> _stations = [
     '51.26N',
     '012.14E',
     '149',
-    'DE'
+    'DE',
   ],
   ['SAARBRUECKEN', 'EDDR', 'null', '10708', '49.13N', '007.06E', '320', 'DE'],
   [
@@ -23679,7 +23679,7 @@ List<List<String>> _stations = [
     '48.40N',
     '009.13E',
     '419',
-    'DE'
+    'DE',
   ],
   [
     'BERLIN/TEGEL (FA',
@@ -23689,7 +23689,7 @@ List<List<String>> _stations = [
     '52.34N',
     '013.19E',
     '37',
-    'DE'
+    'DE',
   ],
   ['HANNOVER', 'EDDV', 'null', '10338', '52.28N', '009.41E', '54', 'DE'],
   ['BREMEN', 'EDDW', 'null', '10224', '53.02N', '008.48E', '5', 'DE'],
@@ -23701,7 +23701,7 @@ List<List<String>> _stations = [
     '49.57N',
     '008.58E',
     '131',
-    'DE'
+    'DE',
   ],
   [
     'BAUMHOLDER (USA',
@@ -23711,7 +23711,7 @@ List<List<String>> _stations = [
     '49.38N',
     '007.17E',
     '426',
-    'DE'
+    'DE',
   ],
   ['EGELSBACH', 'EDFE', 'null', 'null', '49.58N', '008.38E', '118', 'DE'],
   ['HAHN', 'EDFH', 'null', '10616', '49.57N', '007.16E', '498', 'DE'],
@@ -23726,7 +23726,7 @@ List<List<String>> _stations = [
     '53.32N',
     '009.50E',
     '13',
-    'DE'
+    'DE',
   ],
   ['KIEL/HOLTENAU CI', 'EDHK', 'null', 'null', '54.23N', '010.09E', '31', 'DE'],
   [
@@ -23737,7 +23737,7 @@ List<List<String>> _stations = [
     '53.48N',
     '010.43E',
     '16',
-    'DE'
+    'DE',
   ],
   [
     'GIESSEN (USA-HP',
@@ -23747,7 +23747,7 @@ List<List<String>> _stations = [
     '50.36N',
     '008.43E',
     '152',
-    'DE'
+    'DE',
   ],
   [
     'ILLESHEIM (USAF)',
@@ -23757,7 +23757,7 @@ List<List<String>> _stations = [
     '49.28N',
     '010.23E',
     '325',
-    'DE'
+    'DE',
   ],
   [
     'FEUCHT (USA-AF)',
@@ -23767,7 +23767,7 @@ List<List<String>> _stations = [
     '49.23N',
     '011.11E',
     '386',
-    'DE'
+    'DE',
   ],
   [
     'HOHENFELS (USAF)',
@@ -23777,7 +23777,7 @@ List<List<String>> _stations = [
     '49.13N',
     '011.49E',
     '442',
-    'DE'
+    'DE',
   ],
   [
     'MEMMINGEN ALLGAU',
@@ -23787,7 +23787,7 @@ List<List<String>> _stations = [
     '47.59N',
     '010.14E',
     '633',
-    'DE'
+    'DE',
   ],
   ['MONCHENGLADBACH', 'EDLN', 'null', 'null', '51.14N', '006.30E', '38', 'DE'],
   [
@@ -23798,7 +23798,7 @@ List<List<String>> _stations = [
     '51.37N',
     '008.37E',
     '213',
-    'DE'
+    'DE',
   ],
   ['NIEDERRHEIN', 'EDLV', 'null', 'null', '51.36N', '006.09E', '32', 'DE'],
   [
@@ -23809,7 +23809,7 @@ List<List<String>> _stations = [
     '51.31N',
     '007.37E',
     '127',
-    'DE'
+    'DE',
   ],
   [
     'AUGSBURG/MULHAUS',
@@ -23819,7 +23819,7 @@ List<List<String>> _stations = [
     '48.25N',
     '010.55E',
     '463',
-    'DE'
+    'DE',
   ],
   [
     'OBERPFAFFENHOFEN',
@@ -23829,7 +23829,7 @@ List<List<String>> _stations = [
     '48.04N',
     '011.16E',
     '600',
-    'DE'
+    'DE',
   ],
   [
     'FRIEDRICHSHAFEN',
@@ -23839,7 +23839,7 @@ List<List<String>> _stations = [
     '47.40N',
     '009.31E',
     '424',
-    'DE'
+    'DE',
   ],
   ['SCHWERIN-PARCHIM', 'EDOP', 'null', 'null', '53.26N', '011.47E', '51', 'DE'],
   [
@@ -23850,7 +23850,7 @@ List<List<String>> _stations = [
     '47.58N',
     '008.54E',
     '794',
-    'DE'
+    'DE',
   ],
   ['BAYREUTH', 'EDQD', 'null', '10677', '49.58N', '011.37E', '498', 'DE'],
   ['HOF', 'EDQM', 'null', '10685', '50.18N', '011.51E', '568', 'DE'],
@@ -23866,7 +23866,7 @@ List<List<String>> _stations = [
     '49.07N',
     '009.47E',
     '400',
-    'DE'
+    'DE',
   ],
   ['KONSTANZ', 'EDTZ', 'null', '10929', '47.41N', '009.11E', '447', 'DE'],
   ['BRAUNSCHWEIG', 'EDVE', 'null', '10348', '52.19N', '010.33E', '88', 'DE'],
@@ -23883,7 +23883,7 @@ List<List<String>> _stations = [
     '49.59N',
     '006.42E',
     '365',
-    'DE'
+    'DE',
   ],
   [
     'RAMSTEIN (USAFB)',
@@ -23893,7 +23893,7 @@ List<List<String>> _stations = [
     '49.25N',
     '007.35E',
     '238',
-    'DE'
+    'DE',
   ],
   [
     'PIRNA-PRATZSCHWI',
@@ -23903,7 +23903,7 @@ List<List<String>> _stations = [
     '50.59N',
     '013.55E',
     '400',
-    'DE'
+    'DE',
   ],
   [
     'SEMBACH (USAFB)',
@@ -23913,7 +23913,7 @@ List<List<String>> _stations = [
     '49.30N',
     '007.52E',
     '321',
-    'DE'
+    'DE',
   ],
   ['SEMBACH (USAFB)', 'EDAS', 'null', 'null', '49.30N', '007.52E', '321', 'DE'],
   [
@@ -23924,7 +23924,7 @@ List<List<String>> _stations = [
     '50.49N',
     '006.10E',
     '191',
-    'DE'
+    'DE',
   ],
   [
     'BUTZWEILERHOF (B',
@@ -23934,7 +23934,7 @@ List<List<String>> _stations = [
     '50.58N',
     '006.54E',
     '49',
-    'DE'
+    'DE',
   ],
   [
     'KATTERBACH (USA-',
@@ -23944,7 +23944,7 @@ List<List<String>> _stations = [
     '49.19N',
     '010.37E',
     '467',
-    'DE'
+    'DE',
   ],
   [
     'BAD KREUZNACH AA',
@@ -23954,7 +23954,7 @@ List<List<String>> _stations = [
     '49.51N',
     '007.52E',
     '103',
-    'DE'
+    'DE',
   ],
   [
     'GIEBELSTADT(USA-',
@@ -23964,7 +23964,7 @@ List<List<String>> _stations = [
     '49.38N',
     '009.58E',
     '298',
-    'DE'
+    'DE',
   ],
   ['BERGEN (MIL)', 'ETGB', 'null', '10238', '52.49N', '009.55E', '69', 'DE'],
   ['MEIERWIK', 'ETGG', 'null', '10033', '54.50N', '009.30E', '33', 'DE'],
@@ -23976,7 +23976,7 @@ List<List<String>> _stations = [
     '49.42N',
     '007.19E',
     '377',
-    'DE'
+    'DE',
   ],
   ['KUEMMERSBRUCK', 'ETGK', 'null', '10771', '49.26N', '011.54E', '418', 'DE'],
   ['MEPPEN (MIL)', 'ETGM', 'null', '10304', '52.43N', '007.19E', '26', 'DE'],
@@ -23990,7 +23990,7 @@ List<List<String>> _stations = [
     '51.45N',
     '006.16E',
     '43',
-    'DE'
+    'DE',
   ],
   ['MESSSTETTEN', 'ETGZ', 'null', '10827', '48.11N', '009.00E', '920', 'DE'],
   [
@@ -24001,7 +24001,7 @@ List<List<String>> _stations = [
     '47.49N',
     '010.52E',
     '760',
-    'DE'
+    'DE',
   ],
   [
     'BUCKEBURG(GER-AR',
@@ -24011,7 +24011,7 @@ List<List<String>> _stations = [
     '52.16N',
     '009.04E',
     '78',
-    'DE'
+    'DE',
   ],
   [
     'CELLE (GER-ARMY)',
@@ -24021,7 +24021,7 @@ List<List<String>> _stations = [
     '52.36N',
     '010.01E',
     '52',
-    'DE'
+    'DE',
   ],
   ['RHEINE/BENTLAGE', 'ETHE', 'null', '10306', '52.17N', '007.22E', '49', 'DE'],
   [
@@ -24032,7 +24032,7 @@ List<List<String>> _stations = [
     '51.07N',
     '009.16E',
     '181',
-    'DE'
+    'DE',
   ],
   ['ITZEHOE (GER-ARM', 'ETHI', 'null', 'null', '54.00N', '009.34E', '26', 'DE'],
   [
@@ -24043,7 +24043,7 @@ List<List<String>> _stations = [
     '48.13N',
     '009.55E',
     '549',
-    'DE'
+    'DE',
   ],
   [
     'MENDIG (GER-ARMY',
@@ -24053,7 +24053,7 @@ List<List<String>> _stations = [
     '50.22N',
     '007.19E',
     '191',
-    'DE'
+    'DE',
   ],
   [
     'NIEDERSTETTEN (G',
@@ -24063,7 +24063,7 @@ List<List<String>> _stations = [
     '49.23N',
     '009.58E',
     '473',
-    'DE'
+    'DE',
   ],
   [
     'ROTH (GER-ARMY)',
@@ -24073,7 +24073,7 @@ List<List<String>> _stations = [
     '49.13N',
     '011.05E',
     '395',
-    'DE'
+    'DE',
   ],
   [
     'FASSBERG (GER-AF',
@@ -24083,7 +24083,7 @@ List<List<String>> _stations = [
     '52.55N',
     '010.11E',
     '88',
-    'DE'
+    'DE',
   ],
   [
     'COTTBUS (FLUGPLA',
@@ -24093,7 +24093,7 @@ List<List<String>> _stations = [
     '51.46N',
     '014.18E',
     '67',
-    'DE'
+    'DE',
   ],
   ['GRAFENWOEHR', 'ETIC', 'null', '10687', '49.42N', '011.56E', '415', 'DE'],
   ['HANAU (USA-AF)', 'ETID', 'null', '10642', '50.10N', '008.58E', '112', 'DE'],
@@ -24105,7 +24105,7 @@ List<List<String>> _stations = [
     '49.23N',
     '008.39E',
     '109',
-    'DE'
+    'DE',
   ],
   [
     'HOHENFELS (USA-A',
@@ -24115,7 +24115,7 @@ List<List<String>> _stations = [
     '49.13N',
     '011.49E',
     '442',
-    'DE'
+    'DE',
   ],
   [
     'ILLESHEIM (USA-A',
@@ -24125,7 +24125,7 @@ List<List<String>> _stations = [
     '49.28N',
     '010.22E',
     '325',
-    'DE'
+    'DE',
   ],
   [
     'KITZINGEN (USA-A',
@@ -24135,7 +24135,7 @@ List<List<String>> _stations = [
     '49.45N',
     '010.11E',
     '210',
-    'DE'
+    'DE',
   ],
   [
     'EGGEBEK (GER-NAV',
@@ -24145,7 +24145,7 @@ List<List<String>> _stations = [
     '54.37N',
     '009.20E',
     '22',
-    'DE'
+    'DE',
   ],
   [
     'KIEL/HOLTENAU(GN',
@@ -24155,7 +24155,7 @@ List<List<String>> _stations = [
     '54.23N',
     '010.09E',
     '31',
-    'DE'
+    'DE',
   ],
   [
     'NORDHOLZ (GER-NA',
@@ -24165,7 +24165,7 @@ List<List<String>> _stations = [
     '53.46N',
     '008.40E',
     '31',
-    'DE'
+    'DE',
   ],
   [
     'AHLHORN (GER-AFB',
@@ -24175,7 +24175,7 @@ List<List<String>> _stations = [
     '52.53N',
     '008.14E',
     '45',
-    'DE'
+    'DE',
   ],
   [
     'DIEPHOLZ (GER-AF',
@@ -24185,7 +24185,7 @@ List<List<String>> _stations = [
     '52.35N',
     '008.21E',
     '43',
-    'DE'
+    'DE',
   ],
   [
     'GEILENKIRCHEN(NA',
@@ -24195,7 +24195,7 @@ List<List<String>> _stations = [
     '50.58N',
     '006.02E',
     '98',
-    'DE'
+    'DE',
   ],
   ['HOHN (GER-AFB)', 'ETNH', 'null', '10038', '54.19N', '009.33E', '17', 'DE'],
   ['JEVER (GER-AFB)', 'ETNJ', 'null', '10122', '53.31N', '007.52E', '21', 'DE'],
@@ -24208,7 +24208,7 @@ List<List<String>> _stations = [
     '50.49N',
     '006.40E',
     '135',
-    'DE'
+    'DE',
   ],
   [
     'HOPSTEN (GER-AFB',
@@ -24218,7 +24218,7 @@ List<List<String>> _stations = [
     '52.19N',
     '007.32E',
     '43',
-    'DE'
+    'DE',
   ],
   [
     'SCHLESWIG(GER-NA',
@@ -24228,7 +24228,7 @@ List<List<String>> _stations = [
     '54.28N',
     '009.31E',
     '25',
-    'DE'
+    'DE',
   ],
   [
     'WITTMUNDHAVEN(GA',
@@ -24238,7 +24238,7 @@ List<List<String>> _stations = [
     '53.32N',
     '007.40E',
     '12',
-    'DE'
+    'DE',
   ],
   ['TROLLENHAGEN', 'ETNU', 'null', '10281', '53.36N', '013.19E', '71', 'DE'],
   [
@@ -24249,7 +24249,7 @@ List<List<String>> _stations = [
     '52.27N',
     '009.25E',
     '70',
-    'DE'
+    'DE',
   ],
   [
     'COLEMAN (USA-AF)',
@@ -24259,7 +24259,7 @@ List<List<String>> _stations = [
     '49.34N',
     '008.28E',
     '94',
-    'DE'
+    'DE',
   ],
   [
     'WIESBADEN (USA-A',
@@ -24269,7 +24269,7 @@ List<List<String>> _stations = [
     '50.02N',
     '008.19E',
     '141',
-    'DE'
+    'DE',
   ],
   [
     'LANDSBERG (GER-A',
@@ -24279,7 +24279,7 @@ List<List<String>> _stations = [
     '48.04N',
     '010.54E',
     '628',
-    'DE'
+    'DE',
   ],
   ['BUECHEL', 'ETSB', 'null', '10613', '50.10N', '007.04E', '486', 'DE'],
   [
@@ -24290,7 +24290,7 @@ List<List<String>> _stations = [
     '48.19N',
     '011.56E',
     '467',
-    'DE'
+    'DE',
   ],
   [
     'FUERSTENFELDBRUC',
@@ -24300,7 +24300,7 @@ List<List<String>> _stations = [
     '48.12N',
     '011.16E',
     '535',
-    'DE'
+    'DE',
   ],
   ['HOLZDORF', 'ETSH', 'null', '10476', '51.46N', '013.10E', '79', 'DE'],
   [
@@ -24311,7 +24311,7 @@ List<List<String>> _stations = [
     '48.43N',
     '011.31E',
     '370',
-    'DE'
+    'DE',
   ],
   [
     'LECHFELD (GER-AF',
@@ -24321,7 +24321,7 @@ List<List<String>> _stations = [
     '48.10N',
     '010.52E',
     '562',
-    'DE'
+    'DE',
   ],
   [
     'MEMMINGEN (GER-A',
@@ -24331,7 +24331,7 @@ List<List<String>> _stations = [
     '47.58N',
     '010.13E',
     '644',
-    'DE'
+    'DE',
   ],
   ['NEUBURG/DONAU', 'ETSN', 'null', '10853', '48.43N', '011.13E', '387', 'DE'],
   [
@@ -24342,7 +24342,7 @@ List<List<String>> _stations = [
     '49.51N',
     '007.35E',
     '396',
-    'DE'
+    'DE',
   ],
   ['LAARBRUCH (RAF)', 'ETUL', 'null', '10405', '51.36N', '006.09E', '31', 'DE'],
   ['NORDHORN RANGE', 'ETUN', 'null', '10308', '52.27N', '007.10E', '26', 'DE'],
@@ -24354,7 +24354,7 @@ List<List<String>> _stations = [
     '51.47N',
     '008.18E',
     '72',
-    'DE'
+    'DE',
   ],
   ['BRUGGEN (RAF)', 'ETUR', 'null', '10401', '51.12N', '006.07E', '76', 'DE'],
   ['MEPPEN', 'ETWM', 'null', 'null', '52.43N', '007.20E', '21', 'DE'],
@@ -24367,7 +24367,7 @@ List<List<String>> _stations = [
     '48.07N',
     '011.41E',
     '529',
-    'DE'
+    'DE',
   ],
   ['HANNOVER', 'EDVV', 'null', 'null', '52.28N', '009.41E', '54', 'DE'],
   ['ESSEN', 'EDLE', 'null', 'null', '51.24N', '006.58E', '161', 'DE'],
@@ -24394,7 +24394,7 @@ List<List<String>> _stations = [
     '48.50N',
     '009.12E',
     '315',
-    'DE'
+    'DE',
   ],
   [
     'MUENCHEN/OBERSCH',
@@ -24404,7 +24404,7 @@ List<List<String>> _stations = [
     '48.15N',
     '011.35E',
     '484',
-    'DE'
+    'DE',
   ],
   [
     'HOHENPEISSENBERG',
@@ -24414,7 +24414,7 @@ List<List<String>> _stations = [
     '47.48N',
     '011.01E',
     '986',
-    'DE'
+    'DE',
   ],
   ['FURSTENZELL', 'null', 'null', '10895', '48.33N', '013.21E', '480', 'DE'],
   ['KARDLA', 'EEKA', 'null', '26116', '58.59N', '022.50E', '4', 'EE'],
@@ -24431,7 +24431,7 @@ List<List<String>> _stations = [
     '61.51N',
     '024.48E',
     '145',
-    'FI'
+    'FI',
   ],
   ['HELSINKI/MALMI', 'EFHF', 'null', '02975', '60.15N', '025.03E', '28', 'FI'],
   ['HELSINKI/VANTAA', 'EFHK', 'null', '02974', '60.19N', '024.58E', '56', 'FI'],
@@ -24448,7 +24448,7 @@ List<List<String>> _stations = [
     '62.24N',
     '025.41E',
     '145',
-    'FI'
+    'FI',
   ],
   [
     'KAUHAVA (FIN-AFB',
@@ -24458,7 +24458,7 @@ List<List<String>> _stations = [
     '63.06N',
     '023.03E',
     '44',
-    'FI'
+    'FI',
   ],
   ['KEMI', 'EFKE', 'null', '02864', '65.46N', '024.34E', '15', 'FI'],
   ['KAJAANI', 'EFKI', 'null', '02897', '64.16N', '027.40E', '136', 'FI'],
@@ -24473,7 +24473,7 @@ List<List<String>> _stations = [
     '63.01N',
     '027.48E',
     '102',
-    'FI'
+    'FI',
   ],
   ['LAPPEENRANTA', 'EFLP', 'null', '02958', '61.04N', '028.08E', '106', 'FI'],
   ['LUOSTO FELL', 'null', 'null', '05841', '67.08N', '026.54E', '525', 'FI'],
@@ -24491,7 +24491,7 @@ List<List<String>> _stations = [
     '66.34N',
     '025.49E',
     '201',
-    'FI'
+    'FI',
   ],
   [
     'SAVONLINNA (AUT)',
@@ -24501,7 +24501,7 @@ List<List<String>> _stations = [
     '61.57N',
     '028.56E',
     '95',
-    'FI'
+    'FI',
   ],
   ['SEINAJOKI-ILMAJO', 'EFSI', 'SJY', 'null', '62.42N', '022.50E', '91', 'FI'],
   ['SODANKYLA', 'EFSO', 'null', '02836', '67.22N', '026.38E', '179', 'FI'],
@@ -24514,7 +24514,7 @@ List<List<String>> _stations = [
     '61.25N',
     '023.37E',
     '112',
-    'FI'
+    'FI',
   ],
   ['TURKU/ABO', 'EFTU', 'null', '02972', '60.31N', '022.16E', '59', 'FI'],
   ['UTTI (FIN-AFB)', 'EFUT', 'null', '02966', '60.53N', '026.55E', '100', 'FI'],
@@ -24531,7 +24531,7 @@ List<List<String>> _stations = [
     '54.38N',
     '006.13W',
     '81',
-    'GB'
+    'GB',
   ],
   ['BELFAST HARBOUR', 'EGAC', 'null', '03924', '54.37N', '005.52W', '5', 'GB'],
   ['EGLINTON/LONDOND', 'EGAE', 'null', 'null', '55.02N', '007.09W', '9', 'GB'],
@@ -24543,7 +24543,7 @@ List<List<String>> _stations = [
     '52.28N',
     '001.45W',
     '99',
-    'GB'
+    'GB',
   ],
   ['CAMPBELTOWN', 'EGEC', 'CAL', 'null', '55.26N', '005.41W', '13', 'GB'],
   ['COVENTRY AIRPORT', 'EGBE', 'null', 'null', '52.22N', '001.28W', '82', 'GB'],
@@ -24560,7 +24560,7 @@ List<List<String>> _stations = [
     '50.21N',
     '004.07W',
     '27',
-    'GB'
+    'GB',
   ],
   ['CHIVENOR RAF', 'EGDC', 'null', '03707', '51.05N', '004.09W', '8', 'GB'],
   ['NEWQUAY', 'EGHQ', 'null', 'null', '50.26N', '005.00W', '119', 'GB'],
@@ -24574,7 +24574,7 @@ List<List<String>> _stations = [
     '51.15N',
     '001.46W',
     '139',
-    'GB'
+    'GB',
   ],
   ['PORTLAND HELIPOR', 'EGDP', 'null', '03858', '50.34N', '002.27W', '3', 'GB'],
   ['CULDROSE (NAVY)', 'EGDR', 'null', '03809', '50.05N', '005.15W', '82', 'GB'],
@@ -24587,7 +24587,7 @@ List<List<String>> _stations = [
     '51.00N',
     '002.37W',
     '23',
-    'GB'
+    'GB',
   ],
   ['OBAN AIRPORT', 'EGEO', 'null', 'null', '56.28N', '005.24W', '6', 'GB'],
   [
@@ -24598,7 +24598,7 @@ List<List<String>> _stations = [
     '51.23N',
     '003.21W',
     '67',
-    'GB'
+    'GB',
   ],
   ['SWANSEA', 'EGFH', 'null', 'null', '51.36N', '004.04W', '90', 'GB'],
   [
@@ -24609,7 +24609,7 @@ List<List<String>> _stations = [
     '51.22N',
     '002.43W',
     '189',
-    'GB'
+    'GB',
   ],
   ['LIVERPOOL AIRPOR', 'EGGP', 'null', 'null', '53.19N', '002.51W', '26', 'GB'],
   ['LUTON AIRPORT', 'EGGW', 'null', 'null', '51.52N', '000.22W', '160', 'GB'],
@@ -24622,7 +24622,7 @@ List<List<String>> _stations = [
     '49.55N',
     '006.17W',
     '31',
-    'GB'
+    'GB',
   ],
   [
     'BOURNEMOUTH AIRP',
@@ -24632,7 +24632,7 @@ List<List<String>> _stations = [
     '50.47N',
     '001.50W',
     '11',
-    'GB'
+    'GB',
   ],
   [
     'SOUTHAMPTON WX C',
@@ -24642,7 +24642,7 @@ List<List<String>> _stations = [
     '50.57N',
     '001.21W',
     '14',
-    'GB'
+    'GB',
   ],
   ['PENZANCE HELIPOR', 'EGHK', 'null', 'null', '50.07N', '005.31W', '4', 'GB'],
   ['ALDERNEY/CHANNEL', 'EGJA', 'null', 'null', '49.43N', '002.12W', '71', 'GB'],
@@ -24654,7 +24654,7 @@ List<List<String>> _stations = [
     '49.25N',
     '002.36W',
     '102',
-    'GB'
+    'GB',
   ],
   ['JERSEY AIRPORT', 'EGJJ', 'null', '03895', '49.13N', '002.12W', '84', 'GB'],
   ['SHOREHAM-BY-SEA', 'EGKA', 'null', '03876', '50.50N', '000.18W', '2', 'GB'],
@@ -24667,7 +24667,7 @@ List<List<String>> _stations = [
     '51.08N',
     '000.10W',
     '62',
-    'GB'
+    'GB',
   ],
   ['WEST MALLING', 'EGKM', 'null', 'null', '51.16N', '000.25E', '104', 'GB'],
   ['LONDON CITY AIRP', 'EGLC', 'null', 'null', '51.30N', '000.03E', '5', 'GB'],
@@ -24685,7 +24685,7 @@ List<List<String>> _stations = [
     '53.46N',
     '003.01W',
     '10',
-    'GB'
+    'GB',
   ],
   ['HUMBERSIDE', 'EGNJ', 'null', 'null', '53.34N', '000.21W', '31', 'GB'],
   [
@@ -24696,7 +24696,7 @@ List<List<String>> _stations = [
     '54.07N',
     '003.15W',
     '15',
-    'GB'
+    'GB',
   ],
   [
     'LEEDS AND BRADFO',
@@ -24706,7 +24706,7 @@ List<List<String>> _stations = [
     '53.52N',
     '001.38W',
     '208',
-    'GB'
+    'GB',
   ],
   ['WHARTON', 'EGNO', 'null', 'null', '53.45N', '002.53W', '17', 'GB'],
   ['HAWARDEN (AUT)', 'EGNR', 'null', '03321', '53.10N', '002.58W', '10', 'GB'],
@@ -24718,7 +24718,7 @@ List<List<String>> _stations = [
     '54.05N',
     '004.38W',
     '17',
-    'GB'
+    'GB',
   ],
   ['NEWCASTLE', 'EGNT', 'null', 'null', '55.01N', '001.42W', '81', 'GB'],
   ['TEES-SIDE', 'EGNV', 'null', 'null', '54.31N', '001.25W', '37', 'GB'],
@@ -24738,7 +24738,7 @@ List<List<String>> _stations = [
     '54.51N',
     '004.57W',
     '12',
-    'GB'
+    'GB',
   ],
   [
     'KIRKWALL AIRPORT',
@@ -24748,7 +24748,7 @@ List<List<String>> _stations = [
     '58.57N',
     '002.53W',
     '21',
-    'GB'
+    'GB',
   ],
   ['TAIN RANGE (SAWS', 'EGQA', 'null', '03062', '57.50N', '003.57W', '4', 'GB'],
   ['SUMBURGH (CAPE)', 'EGPB', 'null', '03003', '59.52N', '001.18W', '5', 'GB'],
@@ -24764,7 +24764,7 @@ List<List<String>> _stations = [
     '55.57N',
     '003.21W',
     '41',
-    'GB'
+    'GB',
   ],
   ['ISLAY/PORT ELLEN', 'EGPI', 'null', 'null', '55.41N', '006.15W', '18', 'GB'],
   [
@@ -24775,7 +24775,7 @@ List<List<String>> _stations = [
     '55.30N',
     '004.34W',
     '20',
-    'GB'
+    'GB',
   ],
   ['BENBECULA ISLAND', 'EGPL', 'null', '03022', '57.28N', '007.22W', '6', 'GB'],
   ['SCATSA/SHETLAND', 'EGPM', 'null', 'null', '60.25N', '001.18W', '22', 'GB'],
@@ -24792,7 +24792,7 @@ List<List<String>> _stations = [
     '55.25N',
     '005.42W',
     '13',
-    'GB'
+    'GB',
   ],
   ['KINLOSS RAF', 'EGQK', 'null', '03066', '57.39N', '003.34W', '7', 'GB'],
   ['LEUCHARS RAF', 'EGQL', 'null', '03171', '56.23N', '002.52W', '12', 'GB'],
@@ -24806,7 +24806,7 @@ List<List<String>> _stations = [
     '51.30N',
     '000.07W',
     '39',
-    'GB'
+    'GB',
   ],
   ['UK MET EXETER', 'EGRR', 'null', '03763', '50.44N', '003.29W', '27', 'GB'],
   ['CAMBRIDGE', 'EGSC', 'null', 'null', '52.12N', '000.10E', '15', 'GB'],
@@ -24819,7 +24819,7 @@ List<List<String>> _stations = [
     '52.41N',
     '001.17E',
     '36',
-    'GB'
+    'GB',
   ],
   [
     'STANSTED AIRPORT',
@@ -24829,7 +24829,7 @@ List<List<String>> _stations = [
     '51.53N',
     '000.13E',
     '106',
-    'GB'
+    'GB',
   ],
   ['YORKSHIRE/HUMBER', 'EGSY', 'null', 'null', '53.24N', '001.23W', '70', 'GB'],
   ['CRANFIELD', 'EGTC', 'null', 'null', '52.04N', '000.37W', '111', 'GB'],
@@ -24847,7 +24847,7 @@ List<List<String>> _stations = [
     '51.16N',
     '000.46W',
     '72',
-    'GB'
+    'GB',
   ],
   ['HIGH WYCOMBE RAF', 'EGUH', 'null', 'null', '51.37N', '000.46W', '75', 'GB'],
   ['LAKENHEATH RAF', 'EGUL', 'null', '03583', '52.25N', '000.34E', '10', 'GB'],
@@ -24862,7 +24862,7 @@ List<List<String>> _stations = [
     '50.49N',
     '001.13W',
     '10',
-    'GB'
+    'GB',
   ],
   ['WATTISHAM RAF', 'EGUW', 'null', '03590', '52.07N', '000.58E', '87', 'GB'],
   ['WYTON RAF', 'EGUY', 'null', '03566', '52.21N', '000.07W', '41', 'GB'],
@@ -24877,7 +24877,7 @@ List<List<String>> _stations = [
     '51.46N',
     '001.35W',
     '88',
-    'GB'
+    'GB',
   ],
   ['ODIHAM RAF', 'EGVO', 'null', '03761', '51.14N', '000.57W', '123', 'GB'],
   ['MIDDLE WALLOP', 'EGVP', 'null', '03749', '51.08N', '001.34W', '91', 'GB'],
@@ -24904,7 +24904,7 @@ List<List<String>> _stations = [
     '54.03N',
     '001.15W',
     '16',
-    'GB'
+    'GB',
   ],
   ['LECONFIELD (AUT)', 'EGXV', 'null', '03384', '53.52N', '000.27W', '6', 'GB'],
   ['WADDINGTON RAF', 'EGXW', 'null', '03377', '53.11N', '000.31W', '70', 'GB'],
@@ -24918,7 +24918,7 @@ List<List<String>> _stations = [
     '52.58N',
     '000.34W',
     '112',
-    'GB'
+    'GB',
   ],
   ['HOLBEACH (AUT)', 'EGYH', 'null', '03469', '52.52N', '000.09E', '3', 'GB'],
   ['MARHAM RAF', 'EGYM', 'null', '03482', '52.38N', '000.34E', '23', 'GB'],
@@ -24934,7 +24934,7 @@ List<List<String>> _stations = [
     '60.08N',
     '001.11W',
     '82',
-    'GB'
+    'GB',
   ],
   ['ALBERMARLE', 'null', 'null', '03238', '55.06N', '001.56W', '146', 'GB'],
   ['NOTTINGHAM', 'null', 'null', '03354', '53.00N', '001.15W', '117', 'GB'],
@@ -24949,7 +24949,7 @@ List<List<String>> _stations = [
     '50.26N',
     '005.00W',
     '119',
-    'GB'
+    'GB',
   ],
   ['KEMBLE RAF', 'EGDK', 'null', 'null', '51.40N', '002.02W', '133', 'GB'],
   ['SANDOWN/WIGHT IS', 'EGHN', 'null', 'null', '50.38N', '001.08W', '18', 'GB'],
@@ -24963,7 +24963,7 @@ List<List<String>> _stations = [
     '51.55N',
     '001.15W',
     '134',
-    'GB'
+    'GB',
   ],
   ['ABINGDON RAF', 'EGUD', 'null', 'null', '51.40N', '001.19W', '80', 'GB'],
   ['SCULTHORPE (AF M', 'EGUP', 'null', 'null', '52.51N', '000.46E', '65', 'GB'],
@@ -24982,7 +24982,7 @@ List<List<String>> _stations = [
     '50.55N',
     '005.46E',
     '116',
-    'NL'
+    'NL',
   ],
   ['DE BILT', 'EHDB', 'null', '06260', '52.06N', '005.10E', '4', 'NL'],
   ['DEELEN RNLAFB', 'EHDL', 'null', '06275', '52.04N', '005.52E', '52', 'NL'],
@@ -24994,7 +24994,7 @@ List<List<String>> _stations = [
     '51.27N',
     '005.23E',
     '22',
-    'NL'
+    'NL',
   ],
   ['GRONINGEN/EELDE', 'EHGG', 'null', '06280', '53.07N', '006.34E', '4', 'NL'],
   [
@@ -25005,7 +25005,7 @@ List<List<String>> _stations = [
     '51.34N',
     '004.55E',
     '13',
-    'NL'
+    'NL',
   ],
   ['DE KOOY (NAVY)', 'EHKD', 'null', '06235', '52.55N', '004.46E', '14', 'NL'],
   ['LELYSTAD', 'EHLE', 'LEY', '06269', '52.27N', '005.31E', '-6', 'NL'],
@@ -25018,7 +25018,7 @@ List<List<String>> _stations = [
     '51.57N',
     '004.27E',
     '-5',
-    'NL'
+    'NL',
   ],
   [
     'SOESTERBERG RNLA',
@@ -25028,7 +25028,7 @@ List<List<String>> _stations = [
     '52.07N',
     '005.16E',
     '13',
-    'NL'
+    'NL',
   ],
   ['TWENTE RNLAFB', 'EHTW', 'null', '06290', '52.16N', '006.54E', '36', 'NL'],
   ['TEXEL ISLAND', 'EHTX', 'null', 'null', '53.04N', '004.45E', '3', 'NL'],
@@ -25043,7 +25043,7 @@ List<List<String>> _stations = [
     '51.27N',
     '004.19E',
     '17',
-    'NL'
+    'NL',
   ],
   ['YPENBURG RNLAFB', 'EHYB', 'null', '06200', '52.01N', '004.20E', '1', 'NL'],
   ['A12-CPP SEA', 'EHAK', 'null', '06205', '55.25N', '003.49E', '50', 'NL'],
@@ -25068,7 +25068,7 @@ List<List<String>> _stations = [
     '51.51N',
     '008.28W',
     '162',
-    'IE'
+    'IE',
   ],
   ['GALWAY', 'EICM', 'GWY', 'null', '53.18N', '008.56W', '25', 'IE'],
   ['DONEGAL ARPT', 'EIDL', 'CFN', 'null', '55.03N', '008.20W', '9', 'IE'],
@@ -25088,7 +25088,7 @@ List<List<String>> _stations = [
     '56.17N',
     '010.37E',
     '25',
-    'DK'
+    'DK',
   ],
   ['ANHOLT ISLAND (A', 'EKAT', 'null', '06078', '56.42N', '011.33E', '8', 'DK'],
   ['AVNO (DAN-AFB)', 'EKAV', 'null', '06150', '55.04N', '011.46E', '4', 'DK'],
@@ -25108,7 +25108,7 @@ List<List<String>> _stations = [
     '56.23N',
     '008.26E',
     '15',
-    'DK'
+    'DK',
   ],
   ['HORNS REV B HELI', 'EKHR', 'null', 'null', '55.31N', '007.53E', '50', 'DK'],
   ['HADSUND', 'EKHS', 'null', '06048', '56.45N', '010.14E', '2', 'DK'],
@@ -25123,7 +25123,7 @@ List<List<String>> _stations = [
     '55.28N',
     '010.19E',
     '17',
-    'DK'
+    'DK',
   ],
   [
     'COPENHAGEN/ROSKI',
@@ -25133,7 +25133,7 @@ List<List<String>> _stations = [
     '55.34N',
     '012.07E',
     '44',
-    'DK'
+    'DK',
   ],
   ['RONNE', 'EKRN', 'null', '06190', '55.04N', '014.45E', '16', 'DK'],
   [
@@ -25144,7 +25144,7 @@ List<List<String>> _stations = [
     '54.58N',
     '009.48E',
     '23',
-    'DK'
+    'DK',
   ],
   ['SINDAL AIRPORT', 'EKSN', 'null', '06034', '57.30N', '010.13E', '28', 'DK'],
   [
@@ -25155,7 +25155,7 @@ List<List<String>> _stations = [
     '55.13N',
     '009.16E',
     '40',
-    'DK'
+    'DK',
   ],
   ['SYDFYNS/TASINGE', 'EKST', 'null', '06124', '55.01N', '010.34E', '6', 'DK'],
   ['SKIVE AIRPORT', 'EKSV', 'null', '06062', '56.32N', '009.10E', '21', 'DK'],
@@ -25169,7 +25169,7 @@ List<List<String>> _stations = [
     '55.43N',
     '009.13E',
     '74',
-    'DK'
+    'DK',
   ],
   [
     'VAMDRUP (AUT/MAN',
@@ -25179,7 +25179,7 @@ List<List<String>> _stations = [
     '55.25N',
     '009.19E',
     '45',
-    'DK'
+    'DK',
   ],
   ['SORVAAG/VAGAR', 'EKVG', 'null', '06010', '62.04N', '007.18W', '85', 'DK'],
   ['STAUNING AIRPORT', 'EKVJ', 'null', '06066', '55.58N', '008.20E', '5', 'DK'],
@@ -25191,7 +25191,7 @@ List<List<String>> _stations = [
     '55.46N',
     '012.19E',
     '31',
-    'DK'
+    'DK',
   ],
   ['ALBORG', 'EKYT', 'null', '06030', '57.06N', '009.52E', '3', 'DK'],
   [
@@ -25202,7 +25202,7 @@ List<List<String>> _stations = [
     '62.01N',
     '006.46W',
     '55',
-    'DK'
+    'DK',
   ],
   ['KOEBENHAVN/JAEG', 'null', 'null', '06181', '55.46N', '012.32E', '50', 'DK'],
   [
@@ -25213,7 +25213,7 @@ List<List<String>> _stations = [
     '49.38N',
     '006.12E',
     '379',
-    'LU'
+    'LU',
   ],
   ['ALESUND/VIGRA', 'ENAL', 'null', '01210', '62.34N', '006.07E', '22', 'NO'],
   [
@@ -25224,7 +25224,7 @@ List<List<String>> _stations = [
     '69.17N',
     '016.08E',
     '14',
-    'NO'
+    'NO',
   ],
   ['NY-ALESUND II', 'ENAS', 'null', '01004', '78.55N', '011.55E', '8', 'NO'],
   ['ALTA AIRPORT', 'ENAT', 'null', '01049', '69.58N', '023.22E', '3', 'NO'],
@@ -25237,7 +25237,7 @@ List<List<String>> _stations = [
     '61.24N',
     '005.46E',
     '150',
-    'NO'
+    'NO',
   ],
   ['VOSS/BOMOEN', 'ENBM', 'null', '01336', '60.38N', '006.30E', '122', 'NO'],
   ['BRONNOYSUND/BRON', 'ENBN', 'null', '01112', '65.28N', '012.13E', '9', 'NO'],
@@ -25249,7 +25249,7 @@ List<List<String>> _stations = [
     '67.16N',
     '014.22E',
     '13',
-    'NO'
+    'NO',
   ],
   ['BERGEN/FLESLAND', 'ENBR', 'null', '01311', '60.17N', '005.13E', '50', 'NO'],
   ['BATSFJORD', 'ENBS', 'null', 'null', '70.37N', '029.43E', '10', 'NO'],
@@ -25262,7 +25262,7 @@ List<List<String>> _stations = [
     '58.12N',
     '008.04E',
     '17',
-    'NO'
+    'NO',
   ],
   ['DRAUGEN', 'ENDR', 'null', 'null', '64.21N', '007.48E', '50', 'NO'],
   [
@@ -25273,7 +25273,7 @@ List<List<String>> _stations = [
     '69.02N',
     '018.33E',
     '79',
-    'NO'
+    'NO',
   ],
   ['EKOFISK OIL PLTF', 'ENEK', 'null', '01400', '56.32N', '003.15E', '3', 'NO'],
   [
@@ -25284,7 +25284,7 @@ List<List<String>> _stations = [
     '68.31N',
     '016.40E',
     '26',
-    'NO'
+    'NO',
   ],
   ['STATFJORD B OILP', 'ENFB', 'null', 'null', '61.12N', '001.50E', '10', 'NO'],
   [
@@ -25295,7 +25295,7 @@ List<List<String>> _stations = [
     '61.00N',
     '009.18E',
     '822',
-    'NO'
+    'NO',
   ],
   ['FLORO', 'ENFL', 'null', '01310', '61.34N', '005.01E', '9', 'NO'],
   ['FRIGG', 'ENFR', 'null', 'null', '59.55N', '002.00E', '0', 'NO'],
@@ -25308,7 +25308,7 @@ List<List<String>> _stations = [
     '60.12N',
     '011.06E',
     '204',
-    'NO'
+    'NO',
   ],
   [
     'HAUGESUND/KARMOY',
@@ -25318,7 +25318,7 @@ List<List<String>> _stations = [
     '59.21N',
     '005.13E',
     '24',
-    'NO'
+    'NO',
   ],
   ['HEIDRUN', 'ENHE', 'null', 'null', '65.20N', '002.20E', '1', 'NO'],
   ['HAMMERFEST', 'ENHF', 'null', '01052', '70.40N', '023.40E', '81', 'NO'],
@@ -25333,7 +25333,7 @@ List<List<String>> _stations = [
     '71.01N',
     '025.58E',
     '14',
-    'NO'
+    'NO',
   ],
   ['JAN MAYEN(NOR-NA', 'ENJA', 'null', '01001', '70.55N', '008.40W', '9', 'NO'],
   ['KAUTOKEINO II', 'ENKA', 'null', '01047', '69.01N', '023.04E', '330', 'NO'],
@@ -25345,7 +25345,7 @@ List<List<String>> _stations = [
     '63.07N',
     '007.49E',
     '62',
-    'NO'
+    'NO',
   ],
   [
     'KIRKENES (CIV/MI',
@@ -25355,7 +25355,7 @@ List<List<String>> _stations = [
     '69.43N',
     '029.53E',
     '91',
-    'NO'
+    'NO',
   ],
   ['ULA PLATFORM (OI', 'ENLA', 'null', 'null', '59.06N', '002.50E', '4', 'NO'],
   [
@@ -25366,7 +25366,7 @@ List<List<String>> _stations = [
     '58.06N',
     '006.37E',
     '10',
-    'NO'
+    'NO',
   ],
   ['LEKNES', 'ENLK', 'null', '01141', '68.09N', '013.37E', '26', 'NO'],
   ['MEHAMN', 'ENMH', 'null', '01074', '71.01N', '027.49E', '13', 'NO'],
@@ -25379,7 +25379,7 @@ List<List<String>> _stations = [
     '65.47N',
     '013.13E',
     '70',
-    'NO'
+    'NO',
   ],
   ['BANAK/LAKSELV (A', 'ENNA', 'null', '01059', '70.04N', '024.58E', '8', 'NO'],
   ['NORNE FPSO OILP', 'ENNE', 'null', 'null', '66.02N', '008.05E', '10', 'NO'],
@@ -25391,7 +25391,7 @@ List<List<String>> _stations = [
     '68.28N',
     '017.23E',
     '23',
-    'NO'
+    'NO',
   ],
   ['NAMSOS AIRPORT', 'ENNM', 'null', '01290', '64.28N', '011.34E', '2', 'NO'],
   ['NOTODDEN', 'ENNO', 'null', 'null', '59.34N', '009.13E', '19', 'NO'],
@@ -25405,7 +25405,7 @@ List<List<String>> _stations = [
     '62.10N',
     '006.04E',
     '74',
-    'NO'
+    'NO',
   ],
   ['TROLL-A HELI', 'ENQA', 'null', 'null', '60.39N', '003.43E', '20', 'NO'],
   ['TROLL-C HELI', 'ENQC', 'null', 'null', '60.53N', '003.37E', '20', 'NO'],
@@ -25423,7 +25423,7 @@ List<List<String>> _stations = [
     '78.15N',
     '015.28E',
     '29',
-    'NO'
+    'NO',
   ],
   ['SANDANE/ANDA', 'ENSD', 'null', '01320', '61.49N', '006.07E', '60', 'NO'],
   ['SNORRE A OILP', 'ENSE', 'null', 'null', '61.27N', '002.09E', '10', 'NO'],
@@ -25436,7 +25436,7 @@ List<List<String>> _stations = [
     '61.08N',
     '007.07E',
     '497',
-    'NO'
+    'NO',
   ],
   ['SVOLVAER/HELLE', 'ENSH', 'null', '01161', '68.15N', '014.40E', '9', 'NO'],
   ['STORKMARKNES/SKA', 'ENSK', 'null', '01162', '68.34N', '015.01E', '3', 'NO'],
@@ -25449,7 +25449,7 @@ List<List<String>> _stations = [
     '59.10N',
     '009.34E',
     '14',
-    'NO'
+    'NO',
   ],
   ['STORD/SOERSTOKKE', 'ENSO', 'null', 'null', '59.47N', '005.20E', '49', 'NO'],
   ['SORKJOSEN', 'ENSR', 'null', '01046', '69.46N', '020.58E', '6', 'NO'],
@@ -25462,7 +25462,7 @@ List<List<String>> _stations = [
     '65.58N',
     '012.28E',
     '17',
-    'NO'
+    'NO',
   ],
   ['TROMSO/LANGNES', 'ENTC', 'null', '01025', '69.41N', '018.55E', '10', 'NO'],
   [
@@ -25473,7 +25473,7 @@ List<List<String>> _stations = [
     '59.12N',
     '010.16E',
     '88',
-    'NO'
+    'NO',
   ],
   [
     'TRONDHEIM/VAERNE',
@@ -25483,7 +25483,7 @@ List<List<String>> _stations = [
     '63.28N',
     '010.55E',
     '17',
-    'NO'
+    'NO',
   ],
   ['VADSO', 'ENVD', 'null', '01088', '70.04N', '029.51E', '39', 'NO'],
   ['VALHALL (OIL)', 'ENVH', 'null', 'null', '56.16N', '003.23E', '4', 'NO'],
@@ -25504,7 +25504,7 @@ List<List<String>> _stations = [
     '54.22N',
     '018.28E',
     '138',
-    'PL'
+    'PL',
   ],
   ['INOWROCLAW INOWR', 'EPIR', 'null', 'null', '52.50N', '018.20E', '79', 'PL'],
   ['JEZOW SUDECKI', 'EPJS', 'null', 'null', '50.56N', '015.46E', '559', 'PL'],
@@ -25518,7 +25518,7 @@ List<List<String>> _stations = [
     '50.14N',
     '019.02E',
     '284',
-    'PL'
+    'PL',
   ],
   ['KRZESINY ARPT', 'EPKS', 'null', 'null', '52.20N', '016.58E', '81', 'PL'],
   [
@@ -25529,7 +25529,7 @@ List<List<String>> _stations = [
     '50.28N',
     '019.05E',
     '284',
-    'PL'
+    'PL',
   ],
   ['LUBLIN', 'EPLB', 'null', 'null', '51.14N', '022.43E', '206', 'PL'],
   ['LASK ARPT', 'EPLK', 'null', 'null', '51.33N', '019.11E', '193', 'PL'],
@@ -25545,7 +25545,7 @@ List<List<String>> _stations = [
     '52.12N',
     '021.39E',
     '185',
-    'PL'
+    'PL',
   ],
   ['MODLIN', 'EPMO', 'null', 'null', '52.27N', '020.39E', '104', 'PL'],
   ['GDYNIA-BABIE DO', 'EPOK', 'null', 'null', '54.35N', '018.31E', '44', 'PL'],
@@ -25561,7 +25561,7 @@ List<List<String>> _stations = [
     '50.06N',
     '022.03E',
     '202',
-    'PL'
+    'PL',
   ],
   ['SZCZECIN/GOLENIO', 'EPSC', 'null', '12205', '53.35N', '014.54E', '3', 'PL'],
   ['SLUPSK', 'EPSK', 'null', 'null', '54.28N', '017.01E', '25', 'PL'],
@@ -25577,7 +25577,7 @@ List<List<String>> _stations = [
     '51.06N',
     '016.52E',
     '121',
-    'PL'
+    'PL',
   ],
   ['ZIELONA GORA', 'EPZG', 'null', '12400', '52.08N', '015.48E', '59', 'PL'],
   ['LEBA', 'null', 'null', '12120', '54.45N', '017.32E', '2', 'PL'],
@@ -25590,7 +25590,7 @@ List<List<String>> _stations = [
     '51.08N',
     '016.59E',
     '116',
-    'PL'
+    'PL',
   ],
   [
     'LINKOPING/MALMEN',
@@ -25600,7 +25600,7 @@ List<List<String>> _stations = [
     '58.23N',
     '015.31E',
     '117',
-    'SE'
+    'SE',
   ],
   [
     'SODERHAMN (SWE-A',
@@ -25610,7 +25610,7 @@ List<List<String>> _stations = [
     '61.16N',
     '017.06E',
     '36',
-    'SE'
+    'SE',
   ],
   [
     'UPPSALA (SWE-AFB',
@@ -25620,7 +25620,7 @@ List<List<String>> _stations = [
     '59.52N',
     '017.36E',
     '41',
-    'SE'
+    'SE',
   ],
   [
     'LJUNGBYHED(SWE-A',
@@ -25630,7 +25630,7 @@ List<List<String>> _stations = [
     '56.04N',
     '013.13E',
     '52',
-    'SE'
+    'SE',
   ],
   [
     'ANGELHOLM (SWE-A',
@@ -25640,7 +25640,7 @@ List<List<String>> _stations = [
     '56.17N',
     '012.50E',
     '47',
-    'SE'
+    'SE',
   ],
   [
     'RONNEBY (SWE-AFB',
@@ -25650,7 +25650,7 @@ List<List<String>> _stations = [
     '56.16N',
     '015.16E',
     '74',
-    'SE'
+    'SE',
   ],
   [
     'VAXJO/URASA (AFB',
@@ -25660,7 +25660,7 @@ List<List<String>> _stations = [
     '56.52N',
     '014.48E',
     '166',
-    'SE'
+    'SE',
   ],
   [
     'GOTEBORG/LANDVET',
@@ -25670,7 +25670,7 @@ List<List<String>> _stations = [
     '57.40N',
     '012.18E',
     '169',
-    'SE'
+    'SE',
   ],
   [
     'GOTEBORG/LANDVET',
@@ -25680,7 +25680,7 @@ List<List<String>> _stations = [
     '57.40N',
     '012.18E',
     '169',
-    'SE'
+    'SE',
   ],
   [
     'JONKOPING AIRPOR',
@@ -25690,7 +25690,7 @@ List<List<String>> _stations = [
     '57.46N',
     '014.04E',
     '232',
-    'SE'
+    'SE',
   ],
   ['LIDKOPING', 'ESGL', 'null', 'null', '58.28N', '013.10E', '61', 'SE'],
   [
@@ -25701,7 +25701,7 @@ List<List<String>> _stations = [
     '57.46N',
     '011.52E',
     '53',
-    'SE'
+    'SE',
   ],
   ['SKOVDE AIRPORT', 'ESGR', 'null', '02535', '58.27N', '013.58E', '105', 'SE'],
   ['TROLLHATTAN (PVT', 'ESGT', 'null', 'null', '58.19N', '012.20E', '41', 'SE'],
@@ -25713,7 +25713,7 @@ List<List<String>> _stations = [
     '58.25N',
     '012.41E',
     '74',
-    'SE'
+    'SE',
   ],
   ['SKAVSTA/STOCKHO', 'ESKN', 'null', 'null', '58.47N', '016.54E', '43', 'SE'],
   [
@@ -25724,7 +25724,7 @@ List<List<String>> _stations = [
     '55.55N',
     '014.04E',
     '23',
-    'SE'
+    'SE',
   ],
   ['KALMAR', 'ESMQ', 'null', '02672', '56.41N', '016.18E', '16', 'SE'],
   ['MALMO/STURUP', 'ESMS', 'null', '02636', '55.32N', '013.22E', '106', 'SE'],
@@ -25736,7 +25736,7 @@ List<List<String>> _stations = [
     '56.40N',
     '012.49E',
     '30',
-    'SE'
+    'SE',
   ],
   [
     'HAGSHULT (SWE-AF',
@@ -25746,7 +25746,7 @@ List<List<String>> _stations = [
     '57.17N',
     '014.07E',
     '172',
-    'SE'
+    'SE',
   ],
   [
     'VAXJO/KRONOBERG',
@@ -25756,7 +25756,7 @@ List<List<String>> _stations = [
     '56.55N',
     '014.43E',
     '186',
-    'SE'
+    'SE',
   ],
   ['SVEG', 'ESND', 'null', 'null', '62.03N', '014.25E', '359', 'SE'],
   [
@@ -25767,7 +25767,7 @@ List<List<String>> _stations = [
     '67.08N',
     '020.49E',
     '310',
-    'SE'
+    'SE',
   ],
   [
     'JOKKMOKK (SWE-AF',
@@ -25777,7 +25777,7 @@ List<List<String>> _stations = [
     '66.37N',
     '019.38E',
     '264',
-    'SE'
+    'SE',
   ],
   [
     'KRAMFORS (SWE-AF',
@@ -25787,7 +25787,7 @@ List<List<String>> _stations = [
     '63.02N',
     '017.46E',
     '19',
-    'SE'
+    'SE',
   ],
   ['LYCKSELE', 'ESNL', 'null', 'null', '64.33N', '018.43E', '214', 'SE'],
   [
@@ -25798,7 +25798,7 @@ List<List<String>> _stations = [
     '62.31N',
     '017.26E',
     '10',
-    'SE'
+    'SE',
   ],
   [
     'SUNDSVALL/HARNOS',
@@ -25808,7 +25808,7 @@ List<List<String>> _stations = [
     '62.31N',
     '017.26E',
     '10',
-    'SE'
+    'SE',
   ],
   [
     'ORNSKOLDSVIK ARP',
@@ -25818,7 +25818,7 @@ List<List<String>> _stations = [
     '63.23N',
     '018.58E',
     '103',
-    'SE'
+    'SE',
   ],
   ['KIRUNA AIRPORT', 'ESNQ', 'null', '02044', '67.49N', '020.19E', '452', 'SE'],
   [
@@ -25829,7 +25829,7 @@ List<List<String>> _stations = [
     '64.37N',
     '021.04E',
     '49',
-    'SE'
+    'SE',
   ],
   ['UMEA AIRPORT', 'ESNU', 'null', '02286', '63.47N', '020.16E', '14', 'SE'],
   ['VILHELMINA', 'ESNV', 'null', 'null', '64.35N', '016.50E', '348', 'SE'],
@@ -25845,7 +25845,7 @@ List<List<String>> _stations = [
     '65.32N',
     '022.07E',
     '34',
-    'SE'
+    'SE',
   ],
   [
     'KALLAX/LULEA (AF',
@@ -25855,7 +25855,7 @@ List<List<String>> _stations = [
     '65.32N',
     '022.07E',
     '34',
-    'SE'
+    'SE',
   ],
   [
     'OSTERSUND/FROSON',
@@ -25865,7 +25865,7 @@ List<List<String>> _stations = [
     '63.10N',
     '014.30E',
     '370',
-    'SE'
+    'SE',
   ],
   [
     'GUNNARN (SWE-AFB',
@@ -25875,7 +25875,7 @@ List<List<String>> _stations = [
     '65.01N',
     '017.40E',
     '281',
-    'SE'
+    'SE',
   ],
   [
     'VIDSEL (SWE-AFB)',
@@ -25885,7 +25885,7 @@ List<List<String>> _stations = [
     '65.53N',
     '020.09E',
     '182',
-    'SE'
+    'SE',
   ],
   [
     'VISBY AERO STATI',
@@ -25895,7 +25895,7 @@ List<List<String>> _stations = [
     '57.38N',
     '018.21E',
     '47',
-    'SE'
+    'SE',
   ],
   [
     'STOCKHOLM/ARLAND',
@@ -25905,7 +25905,7 @@ List<List<String>> _stations = [
     '59.38N',
     '017.56E',
     '61',
-    'SE'
+    'SE',
   ],
   [
     'STOCKHOLM/BROMMA',
@@ -25915,7 +25915,7 @@ List<List<String>> _stations = [
     '59.21N',
     '017.56E',
     '11',
-    'SE'
+    'SE',
   ],
   [
     'BORLANGE (SWE-AF',
@@ -25925,7 +25925,7 @@ List<List<String>> _stations = [
     '60.25N',
     '015.30E',
     '161',
-    'SE'
+    'SE',
   ],
   [
     'HULTSFRED (SWE-A',
@@ -25935,7 +25935,7 @@ List<List<String>> _stations = [
     '57.31N',
     '015.49E',
     '112',
-    'SE'
+    'SE',
   ],
   ['GAVLE/SANDVIKEN', 'ESSK', 'null', '02443', '60.36N', '016.57E', '69', 'SE'],
   ['LINKOPING/SAAB', 'ESSL', 'null', 'null', '58.23N', '015.40E', '52', 'SE'],
@@ -25948,7 +25948,7 @@ List<List<String>> _stations = [
     '59.22N',
     '013.28E',
     '55',
-    'SE'
+    'SE',
   ],
   ['TORSBY', 'ESST', 'null', 'null', '60.09N', '012.59E', '120', 'SE'],
   ['VISBY AIRPORT', 'ESSV', 'null', '02590', '57.40N', '018.21E', '47', 'SE'],
@@ -25969,7 +25969,7 @@ List<List<String>> _stations = [
     '63.10N',
     '014.30E',
     '370',
-    'SE'
+    'SE',
   ],
   ['KAUNAS', 'EYKA', 'null', 'null', '54.58N', '024.05E', '77', 'LT'],
   ['PALANGA INTL', 'EYPA', 'null', 'null', '55.58N', '021.05E', '10', 'LT'],
@@ -25989,7 +25989,7 @@ List<List<String>> _stations = [
     '42.39N',
     '023.23E',
     '595',
-    'BG'
+    'BG',
   ],
   ['VARNA', 'LBWN', 'null', '15552', '43.13N', '027.49E', '43', 'BG'],
   ['ERCAN', 'LCEN', 'null', 'null', '35.08N', '033.30E', '91', 'CY'],
@@ -26003,7 +26003,7 @@ List<List<String>> _stations = [
     '35.08N',
     '033.23E',
     '161',
-    'CY'
+    'CY',
   ],
   ['PAPHOS/BAF INTL', 'LCPH', 'null', '17600', '34.43N', '032.28E', '8', 'CY'],
   ['AKROTIRI (RAF)', 'LCRA', 'null', '17601', '34.34N', '032.58E', '23', 'CY'],
@@ -26015,7 +26015,7 @@ List<List<String>> _stations = [
     '45.49N',
     '016.02E',
     '123',
-    'HR'
+    'HR',
   ],
   [
     'DUBROVNIK-CILIPI',
@@ -26025,7 +26025,7 @@ List<List<String>> _stations = [
     '42.34N',
     '018.16E',
     '165',
-    'HR'
+    'HR',
   ],
   ['LOSINJ ISLAND', 'LDLO', 'null', 'null', '44.34N', '014.24E', '46', 'HR'],
   ['OSIJEK', 'LDOS', 'null', '13157', '45.28N', '018.49E', '89', 'HR'],
@@ -26040,7 +26040,7 @@ List<List<String>> _stations = [
     '43.31N',
     '016.18E',
     '21',
-    'HR'
+    'HR',
   ],
   ['SHIP C7M/MIKE', 'LDWR', 'null', '99018', '66.00N', '002.00E', '0', 'HR'],
   ['ZAGREB/PLESO', 'LDZA', 'null', '13131', '45.43N', '016.04E', '107', 'HR'],
@@ -26053,7 +26053,7 @@ List<List<String>> _stations = [
     '38.57N',
     '001.51W',
     '704',
-    'ES'
+    'ES',
   ],
   [
     'ALICANTE/EL ALTE',
@@ -26063,7 +26063,7 @@ List<List<String>> _stations = [
     '38.16N',
     '000.33W',
     '31',
-    'ES'
+    'ES',
   ],
   ['ALMERIA AIRPORT', 'LEAM', 'null', '08487', '36.51N', '002.22W', '21', 'ES'],
   [
@@ -26074,7 +26074,7 @@ List<List<String>> _stations = [
     '43.32N',
     '006.01W',
     '134',
-    'ES'
+    'ES',
   ],
   ['CORDOBA AIRPORT', 'LEBA', 'null', '08410', '37.51N', '004.49W', '92', 'ES'],
   ['BILBAO/SONDICA', 'LEBB', 'null', '08025', '43.17N', '002.55W', '34', 'ES'],
@@ -26086,7 +26086,7 @@ List<List<String>> _stations = [
     '42.22N',
     '003.37W',
     '891',
-    'ES'
+    'ES',
   ],
   ['BARCELONA AIRPOR', 'LEBL', 'null', '08181', '41.16N', '002.04E', '6', 'ES'],
   [
@@ -26097,7 +26097,7 @@ List<List<String>> _stations = [
     '42.12N',
     '001.26W',
     '295',
-    'ES'
+    'ES',
   ],
   [
     'TALAVERA AB/BADA',
@@ -26107,7 +26107,7 @@ List<List<String>> _stations = [
     '38.52N',
     '006.49W',
     '192',
-    'ES'
+    'ES',
   ],
   ['CALAMOCHA', 'LECH', 'null', '08233', '40.52N', '001.18W', '899', 'ES'],
   [
@@ -26118,7 +26118,7 @@ List<List<String>> _stations = [
     '43.17N',
     '008.22W',
     '103',
-    'ES'
+    'ES',
   ],
   ['MADRI-COLMENAR', 'LECV', 'null', '08219', '40.38N', '003.43W', '710', 'ES'],
   ['LLEIDA/ALGUAIRE', 'LEDA', 'null', 'null', '41.44N', '000.32E', '350', 'ES'],
@@ -26130,7 +26130,7 @@ List<List<String>> _stations = [
     '37.07N',
     '003.37W',
     '686',
-    'ES'
+    'ES',
   ],
   [
     'GERONA/COSTA BRA',
@@ -26140,7 +26140,7 @@ List<List<String>> _stations = [
     '41.53N',
     '002.46E',
     '129',
-    'ES'
+    'ES',
   ],
   [
     'GRANADA AIRPORT',
@@ -26150,7 +26150,7 @@ List<List<String>> _stations = [
     '37.10N',
     '003.46W',
     '559',
-    'ES'
+    'ES',
   ],
   [
     'MADRID/GETAFE (A',
@@ -26160,7 +26160,7 @@ List<List<String>> _stations = [
     '40.17N',
     '003.43W',
     '612',
-    'ES'
+    'ES',
   ],
   ['HUESCA-PIRINEOS', 'LEHC', 'null', 'null', '42.05N', '000.19W', '539', 'ES'],
   [
@@ -26171,7 +26171,7 @@ List<List<String>> _stations = [
     '38.31N',
     '005.07W',
     '534',
-    'ES'
+    'ES',
   ],
   ['IBIZA/ES CODOLA', 'LEIB', 'null', '08373', '38.52N', '001.22E', '12', 'ES'],
   ['JEREZ (CIV/MIL)', 'LEJR', 'null', '08451', '36.45N', '006.04W', '30', 'ES'],
@@ -26185,7 +26185,7 @@ List<List<String>> _stations = [
     '42.34N',
     '005.39W',
     '914',
-    'ES'
+    'ES',
   ],
   [
     'LOGRONO/AGONCILL',
@@ -26195,7 +26195,7 @@ List<List<String>> _stations = [
     '42.27N',
     '002.19W',
     '363',
-    'ES'
+    'ES',
   ],
   ['MADRID/BARAJAS', 'LEMD', 'null', '08221', '40.29N', '003.34W', '582', 'ES'],
   ['MALAGA (CIV/MIL)', 'LEMG', 'null', '08482', '36.40N', '004.30W', '7', 'ES'],
@@ -26207,7 +26207,7 @@ List<List<String>> _stations = [
     '39.52N',
     '004.13E',
     '82',
-    'ES'
+    'ES',
   ],
   [
     'MORON (SP-USAFB)',
@@ -26217,7 +26217,7 @@ List<List<String>> _stations = [
     '37.10N',
     '005.37W',
     '88',
-    'ES'
+    'ES',
   ],
   ['PALMA DE MALLORC', 'LEPA', 'null', '08306', '39.32N', '002.43E', '8', 'ES'],
   ['PAMPLONA/NOAIN', 'LEPP', 'null', '08085', '42.46N', '001.39W', '459', 'ES'],
@@ -26229,7 +26229,7 @@ List<List<String>> _stations = [
     '37.57N',
     '001.13W',
     '75',
-    'ES'
+    'ES',
   ],
   ['REUS (CIV/MIL)', 'LERS', 'null', '08175', '41.08N', '001.10E', '76', 'ES'],
   [
@@ -26240,7 +26240,7 @@ List<List<String>> _stations = [
     '36.38N',
     '006.20W',
     '26',
-    'ES'
+    'ES',
   ],
   ['ROTA NAVAL STATI', 'KQNR', 'null', 'null', '36.38N', '006.20W', '26', 'ES'],
   [
@@ -26251,7 +26251,7 @@ List<List<String>> _stations = [
     '40.57N',
     '005.30W',
     '795',
-    'ES'
+    'ES',
   ],
   ['SAN SEBASTIAN/FU', 'LESO', 'null', '08029', '43.21N', '001.48W', '8', 'ES'],
   [
@@ -26262,7 +26262,7 @@ List<List<String>> _stations = [
     '42.53N',
     '008.25W',
     '367',
-    'ES'
+    'ES',
   ],
   ['PIRINEUS/LA SEU', 'LESU', 'null', 'null', '42.20N', '001.24E', '800', 'ES'],
   ['SEVILLA/TABLADA', 'LETA', 'null', '08390', '37.22N', '006.00W', '14', 'ES'],
@@ -26274,7 +26274,7 @@ List<List<String>> _stations = [
     '40.28N',
     '003.28W',
     '608',
-    'ES'
+    'ES',
   ],
   [
     'VALENCIA (CIV/MI',
@@ -26284,7 +26284,7 @@ List<List<String>> _stations = [
     '39.30N',
     '000.28W',
     '62',
-    'ES'
+    'ES',
   ],
   [
     'VALLADOLID(MIL/C',
@@ -26294,7 +26294,7 @@ List<List<String>> _stations = [
     '41.43N',
     '004.50W',
     '854',
-    'ES'
+    'ES',
   ],
   [
     'MADRID/CUATRO VI',
@@ -26304,7 +26304,7 @@ List<List<String>> _stations = [
     '40.22N',
     '003.46W',
     '687',
-    'ES'
+    'ES',
   ],
   ['VITORIA', 'LEVT', 'null', '08080', '42.52N', '002.43W', '509', 'ES'],
   ['VIGO/PEINADOR', 'LEVX', 'null', '08045', '42.13N', '008.37W', '256', 'ES'],
@@ -26317,7 +26317,7 @@ List<List<String>> _stations = [
     '41.40N',
     '001.03W',
     '263',
-    'ES'
+    'ES',
   ],
   [
     'ZARAGOZA (MIL/CI',
@@ -26327,7 +26327,7 @@ List<List<String>> _stations = [
     '41.40N',
     '001.01W',
     '258',
-    'ES'
+    'ES',
   ],
   [
     'SEVILLA (CIV/MIL',
@@ -26337,7 +26337,7 @@ List<List<String>> _stations = [
     '37.25N',
     '005.54W',
     '31',
-    'ES'
+    'ES',
   ],
   ['LA CORUNA CITY', 'null', 'null', '08001', '43.22N', '008.25W', '67', 'ES'],
   ['SANTANDER CITY', 'null', 'null', '08023', '43.28N', '003.49W', '79', 'ES'],
@@ -26352,7 +26352,7 @@ List<List<String>> _stations = [
     '28.26N',
     '013.52W',
     '23',
-    'ES'
+    'ES',
   ],
   ['LA GOMERA ARPT', 'GCGM', 'null', 'null', '28.02N', '017.13W', '219', 'ES'],
   ['HIERRO AIRPORT', 'GCHI', 'null', '60001', '27.49N', '017.52W', '30', 'ES'],
@@ -26364,7 +26364,7 @@ List<List<String>> _stations = [
     '28.37N',
     '017.45W',
     '31',
-    'ES'
+    'ES',
   ],
   [
     'LAS PALMAS/GANDO',
@@ -26374,7 +26374,7 @@ List<List<String>> _stations = [
     '27.55N',
     '015.22W',
     '25',
-    'ES'
+    'ES',
   ],
   [
     'ARRECIFE/LANZARO',
@@ -26384,7 +26384,7 @@ List<List<String>> _stations = [
     '28.56N',
     '013.35W',
     '40',
-    'ES'
+    'ES',
   ],
   [
     'TENERIFE SUR/REI',
@@ -26394,7 +26394,7 @@ List<List<String>> _stations = [
     '28.03N',
     '016.34W',
     '72',
-    'ES'
+    'ES',
   ],
   [
     'TENERIFE/LOS ROD',
@@ -26404,7 +26404,7 @@ List<List<String>> _stations = [
     '28.29N',
     '016.21W',
     '632',
-    'ES'
+    'ES',
   ],
   ['MELILLA', 'GEML', 'null', '60338', '35.16N', '002.57W', '55', 'ES'],
   ['CALAIS/DUNKERQUE', 'LFAC', 'null', 'null', '50.58N', '001.57E', '3', 'FR'],
@@ -26417,7 +26417,7 @@ List<List<String>> _stations = [
     '50.31N',
     '001.37E',
     '14',
-    'FR'
+    'FR',
   ],
   ['AGEN/LA GARENNE', 'LFBA', 'null', '07524', '44.10N', '000.36E', '60', 'FR'],
   [
@@ -26428,7 +26428,7 @@ List<List<String>> _stations = [
     '44.31N',
     '001.07W',
     '33',
-    'FR'
+    'FR',
   ],
   [
     'BORDEAUX/MERIGNA',
@@ -26438,7 +26438,7 @@ List<List<String>> _stations = [
     '44.49N',
     '000.42W',
     '61',
-    'FR'
+    'FR',
   ],
   [
     'BERGERAC/ROUMANI',
@@ -26448,7 +26448,7 @@ List<List<String>> _stations = [
     '44.49N',
     '000.31E',
     '52',
-    'FR'
+    'FR',
   ],
   [
     'TOULOUSE/FRANCAZ',
@@ -26458,7 +26458,7 @@ List<List<String>> _stations = [
     '43.31N',
     '001.22E',
     '166',
-    'FR'
+    'FR',
   ],
   [
     'COGNAC/CHATEAUBE',
@@ -26468,7 +26468,7 @@ List<List<String>> _stations = [
     '45.40N',
     '000.19W',
     '31',
-    'FR'
+    'FR',
   ],
   [
     'LA ROCHELLE/LALE',
@@ -26478,7 +26478,7 @@ List<List<String>> _stations = [
     '46.11N',
     '001.12W',
     '10',
-    'FR'
+    'FR',
   ],
   [
     'POITIERS/BIARD(A',
@@ -26488,7 +26488,7 @@ List<List<String>> _stations = [
     '46.34N',
     '000.19E',
     '120',
-    'FR'
+    'FR',
   ],
   [
     'MONTLUCON/GUERET',
@@ -26498,7 +26498,7 @@ List<List<String>> _stations = [
     '46.13N',
     '002.22E',
     '415',
-    'FR'
+    'FR',
   ],
   [
     'LIMOGES/BELLEGAR',
@@ -26508,7 +26508,7 @@ List<List<String>> _stations = [
     '45.52N',
     '001.10E',
     '402',
-    'FR'
+    'FR',
   ],
   [
     'MONT-DE-MARSAN F',
@@ -26518,7 +26518,7 @@ List<List<String>> _stations = [
     '43.55N',
     '000.30W',
     '63',
-    'FR'
+    'FR',
   ],
   [
     'NIORT/SOUCHE (AU',
@@ -26528,7 +26528,7 @@ List<List<String>> _stations = [
     '46.19N',
     '000.24W',
     '61',
-    'FR'
+    'FR',
   ],
   [
     'TOULOUSE/BLAGNAC',
@@ -26538,7 +26538,7 @@ List<List<String>> _stations = [
     '43.37N',
     '001.22E',
     '153',
-    'FR'
+    'FR',
   ],
   [
     'PONT-LONG-UZEIN/',
@@ -26548,7 +26548,7 @@ List<List<String>> _stations = [
     '43.22N',
     '000.25W',
     '185',
-    'FR'
+    'FR',
   ],
   ['MURET/LHERM', 'LFBR', 'null', 'null', '43.27N', '001.16E', '189', 'FR'],
   [
@@ -26559,7 +26559,7 @@ List<List<String>> _stations = [
     '44.22N',
     '001.08W',
     '39',
-    'FR'
+    'FR',
   ],
   ['TARBES/OSSUN', 'LFBT', 'null', '07621', '43.10N', '000.00E', '363', 'FR'],
   ['BRIE CHAMPNIERS', 'LFBU', 'null', 'null', '45.43N', '000.13E', '133', 'FR'],
@@ -26571,7 +26571,7 @@ List<List<String>> _stations = [
     '45.08N',
     '001.28E',
     '117',
-    'FR'
+    'FR',
   ],
   [
     'PERIGUEUX/BASSIL',
@@ -26581,7 +26581,7 @@ List<List<String>> _stations = [
     '45.12N',
     '000.49E',
     '97',
-    'FR'
+    'FR',
   ],
   ['DAX/SEYRESSE', 'LFBY', 'null', '07603', '43.40N', '001.04W', '32', 'FR'],
   ['BIARRITZ/ANGLET', 'LFBZ', 'null', '07602', '43.28N', '001.31W', '71', 'FR'],
@@ -26593,7 +26593,7 @@ List<List<String>> _stations = [
     '44.21N',
     '001.28E',
     '278',
-    'FR'
+    'FR',
   ],
   [
     'ST. GIRONS/ANTIC',
@@ -26603,7 +26603,7 @@ List<List<String>> _stations = [
     '43.00N',
     '001.06E',
     '412',
-    'FR'
+    'FR',
   ],
   [
     'ALBI/LE SEQUESTR',
@@ -26613,7 +26613,7 @@ List<List<String>> _stations = [
     '43.55N',
     '002.07E',
     '178',
-    'FR'
+    'FR',
   ],
   ['CASTRES-MAZAMET', 'LFCK', 'null', 'null', '43.33N', '002.17E', '240', 'FR'],
   [
@@ -26624,7 +26624,7 @@ List<List<String>> _stations = [
     '44.23N',
     '002.28E',
     '580',
-    'FR'
+    'FR',
   ],
   ['MONTAUBAN', 'LFDB', 'null', 'null', '44.08N', '001.29E', '160', 'FR'],
   [
@@ -26635,7 +26635,7 @@ List<List<String>> _stations = [
     '43.40N',
     '000.36E',
     '128',
-    'FR'
+    'FR',
   ],
   [
     'SUIPPES RANGE (M',
@@ -26645,7 +26645,7 @@ List<List<String>> _stations = [
     '49.08N',
     '004.31E',
     '199',
-    'FR'
+    'FR',
   ],
   ['COLMAR HOUSSEN', 'LFGA', 'null', 'null', '48.06N', '007.21E', '191', 'FR'],
   ['DOLE TAVAUX', 'LFGJ', 'null', 'null', '47.03N', '005.26E', '196', 'FR'],
@@ -26658,7 +26658,7 @@ List<List<String>> _stations = [
     '45.04N',
     '003.46E',
     '833',
-    'FR'
+    'FR',
   ],
   [
     'CASSAGNES-BEGONH',
@@ -26668,7 +26668,7 @@ List<List<String>> _stations = [
     '44.10N',
     '002.31E',
     '1020',
-    'FR'
+    'FR',
   ],
   [
     'METZ-NANCY-LORRA',
@@ -26678,7 +26678,7 @@ List<List<String>> _stations = [
     '48.58N',
     '006.15E',
     '264',
-    'FR'
+    'FR',
   ],
   ['MARCE', 'LFJR', 'null', 'null', '47.34N', '000.18W', '60', 'FR'],
   ['BASTIA/PORETTA', 'LFKB', 'null', '07790', '42.32N', '009.28E', '12', 'FR'],
@@ -26690,7 +26690,7 @@ List<List<String>> _stations = [
     '42.31N',
     '008.48E',
     '58',
-    'FR'
+    'FR',
   ],
   ['FIGARI (AUT)', 'LFKF', 'null', '07780', '41.30N', '009.05E', '23', 'FR'],
   ['AJACCIO/CAMPO OR', 'LFKJ', 'null', '07761', '41.55N', '008.48E', '9', 'FR'],
@@ -26702,7 +26702,7 @@ List<List<String>> _stations = [
     '41.55N',
     '009.24E',
     '22',
-    'FR'
+    'FR',
   ],
   ['AUXERRE (AUT)', 'LFLA', 'null', '07265', '47.47N', '003.32E', '212', 'FR'],
   [
@@ -26713,7 +26713,7 @@ List<List<String>> _stations = [
     '45.38N',
     '005.52E',
     '239',
-    'FR'
+    'FR',
   ],
   [
     'CLERMONT/AULNAT',
@@ -26723,7 +26723,7 @@ List<List<String>> _stations = [
     '45.46N',
     '003.10E',
     '330',
-    'FR'
+    'FR',
   ],
   ['BOURGES (AUT)', 'LFLD', 'null', '07255', '47.04N', '002.22E', '166', 'FR'],
   ['LYON/SATOLAS', 'LFLL', 'null', '07481', '45.43N', '005.04E', '240', 'FR'],
@@ -26735,7 +26735,7 @@ List<List<String>> _stations = [
     '46.17N',
     '004.47E',
     '217',
-    'FR'
+    'FR',
   ],
   ['SAINT YAN', 'LFLN', 'null', '07379', '46.25N', '004.01E', '244', 'FR'],
   ['ANNECY/MEYTHET', 'LFLP', 'null', 'null', '45.55N', '006.05E', '463', 'FR'],
@@ -26747,7 +26747,7 @@ List<List<String>> _stations = [
     '44.34N',
     '004.43E',
     '74',
-    'FR'
+    'FR',
   ],
   [
     'GRENOBLE/ST. GEO',
@@ -26757,7 +26757,7 @@ List<List<String>> _stations = [
     '45.22N',
     '005.19E',
     '386',
-    'FR'
+    'FR',
   ],
   [
     'VALENCE-CHABEUIL',
@@ -26767,7 +26767,7 @@ List<List<String>> _stations = [
     '44.55N',
     '004.59E',
     '160',
-    'FR'
+    'FR',
   ],
   ['VICHY/CHARMEIL', 'LFLV', 'null', '07374', '46.10N', '003.23E', '251', 'FR'],
   ['AURILLAC (AUT)', 'LFLW', 'null', '07549', '44.53N', '002.25E', '639', 'FR'],
@@ -26779,7 +26779,7 @@ List<List<String>> _stations = [
     '46.51N',
     '001.43E',
     '157',
-    'FR'
+    'FR',
   ],
   ['LYON/BRON', 'LFLY', 'null', '07480', '45.43N', '004.57E', '201', 'FR'],
   [
@@ -26790,7 +26790,7 @@ List<List<String>> _stations = [
     '43.30N',
     '005.22E',
     '111',
-    'FR'
+    'FR',
   ],
   [
     'LE LUC/LE CANNET',
@@ -26800,7 +26800,7 @@ List<List<String>> _stations = [
     '43.22N',
     '006.22E',
     '78',
-    'FR'
+    'FR',
   ],
   ['CANNES/MANDELIEU', 'LFMD', 'null', '07684', '43.32N', '006.57E', '9', 'FR'],
   [
@@ -26811,7 +26811,7 @@ List<List<String>> _stations = [
     '43.52N',
     '004.24E',
     '62',
-    'FR'
+    'FR',
   ],
   [
     'ST ETIENNE/BOUTH',
@@ -26821,7 +26821,7 @@ List<List<String>> _stations = [
     '45.31N',
     '004.17E',
     '402',
-    'FR'
+    'FR',
   ],
   [
     'ISTRES/LE TUBE F',
@@ -26831,7 +26831,7 @@ List<List<String>> _stations = [
     '43.31N',
     '004.55E',
     '24',
-    'FR'
+    'FR',
   ],
   [
     'CARCASSONNE/SALV',
@@ -26841,7 +26841,7 @@ List<List<String>> _stations = [
     '43.13N',
     '002.19E',
     '130',
-    'FR'
+    'FR',
   ],
   [
     'MARSEILLE/MARIGN',
@@ -26851,7 +26851,7 @@ List<List<String>> _stations = [
     '43.27N',
     '005.13E',
     '36',
-    'FR'
+    'FR',
   ],
   [
     'NICE/COTE D\'AZUR',
@@ -26861,7 +26861,7 @@ List<List<String>> _stations = [
     '43.38N',
     '007.12E',
     '10',
-    'FR'
+    'FR',
   ],
   [
     'ORANGE/CARITAT(F',
@@ -26871,7 +26871,7 @@ List<List<String>> _stations = [
     '44.07N',
     '004.52E',
     '55',
-    'FR'
+    'FR',
   ],
   [
     'PERPIGNAN/RIVESA',
@@ -26881,7 +26881,7 @@ List<List<String>> _stations = [
     '42.43N',
     '002.52E',
     '48',
-    'FR'
+    'FR',
   ],
   ['FREJORGUES/MONTP', 'LFMT', 'null', '07643', '43.34N', '003.58E', '6', 'FR'],
   ['BEZIERS/VIAS', 'LFMU', 'null', 'null', '43.19N', '003.21E', '17', 'FR'],
@@ -26894,7 +26894,7 @@ List<List<String>> _stations = [
     '44.04N',
     '006.00E',
     '461',
-    'FR'
+    'FR',
   ],
   ['SALON (FAFB)', 'LFMY', 'null', '07648', '43.36N', '005.05E', '60', 'FR'],
   ['GAP/TALLARD', 'LFNA', 'null', 'null', '44.34N', '006.04E', '733', 'FR'],
@@ -26909,7 +26909,7 @@ List<List<String>> _stations = [
     '49.28N',
     '002.07E',
     '111',
-    'FR'
+    'FR',
   ],
   [
     'CHATEAUDUN (FAFB',
@@ -26919,7 +26919,7 @@ List<List<String>> _stations = [
     '48.02N',
     '001.22E',
     '127',
-    'FR'
+    'FR',
   ],
   [
     'EVREUX/FAUVILLE',
@@ -26929,7 +26929,7 @@ List<List<String>> _stations = [
     '49.01N',
     '001.13E',
     '146',
-    'FR'
+    'FR',
   ],
   [
     'ALENCON/VALFRAMB',
@@ -26939,7 +26939,7 @@ List<List<String>> _stations = [
     '48.27N',
     '000.07E',
     '141',
-    'FR'
+    'FR',
   ],
   [
     'LE HAVRE/OCTEVIL',
@@ -26949,7 +26949,7 @@ List<List<String>> _stations = [
     '49.31N',
     '000.04E',
     '103',
-    'FR'
+    'FR',
   ],
   ['ABBEVILLE (AUT)', 'LFOI', 'null', '07005', '50.08N', '001.50E', '77', 'FR'],
   [
@@ -26960,7 +26960,7 @@ List<List<String>> _stations = [
     '47.58N',
     '001.45E',
     '125',
-    'FR'
+    'FR',
   ],
   [
     'CHALONS/VATRY FA',
@@ -26970,7 +26970,7 @@ List<List<String>> _stations = [
     '48.47N',
     '004.11E',
     '162',
-    'FR'
+    'FR',
   ],
   [
     'ROUEN/BOOS (AUT)',
@@ -26980,7 +26980,7 @@ List<List<String>> _stations = [
     '49.22N',
     '001.10E',
     '157',
-    'FR'
+    'FR',
   ],
   [
     'CHARTRES/CHAMPOL',
@@ -26990,7 +26990,7 @@ List<List<String>> _stations = [
     '48.28N',
     '001.31E',
     '156',
-    'FR'
+    'FR',
   ],
   [
     'VITTEFLEUR/ST. V',
@@ -27000,7 +27000,7 @@ List<List<String>> _stations = [
     '49.49N',
     '000.39E',
     '83',
-    'FR'
+    'FR',
   ],
   [
     'TOURS/ST SYMPHOR',
@@ -27010,7 +27010,7 @@ List<List<String>> _stations = [
     '47.26N',
     '000.43E',
     '108',
-    'FR'
+    'FR',
   ],
   ['LAVAL/ENTRAMMES', 'LFOV', 'null', 'null', '48.02N', '000.45W', '101', 'FR'],
   [
@@ -27021,7 +27021,7 @@ List<List<String>> _stations = [
     '49.49N',
     '003.12E',
     '101',
-    'FR'
+    'FR',
   ],
   [
     'PARIS/LE BOURGET',
@@ -27031,7 +27031,7 @@ List<List<String>> _stations = [
     '48.58N',
     '002.27E',
     '65',
-    'FR'
+    'FR',
   ],
   ['CREIL (FAFB)', 'LFPC', 'null', '07057', '49.15N', '002.31E', '88', 'FR'],
   [
@@ -27042,7 +27042,7 @@ List<List<String>> _stations = [
     '49.01N',
     '002.31E',
     '109',
-    'FR'
+    'FR',
   ],
   [
     'MELUN/VILLAROCHE',
@@ -27052,7 +27052,7 @@ List<List<String>> _stations = [
     '48.37N',
     '002.40E',
     '92',
-    'FR'
+    'FR',
   ],
   [
     'TOUSSUS LE NOBLE',
@@ -27062,7 +27062,7 @@ List<List<String>> _stations = [
     '48.45N',
     '002.07E',
     '164',
-    'FR'
+    'FR',
   ],
   ['PARIS/ORLY', 'LFPO', 'null', '07149', '48.43N', '002.23E', '96', 'FR'],
   ['CORMEILLES VEXIN', 'LFPT', 'null', 'null', '49.06N', '002.02E', '99', 'FR'],
@@ -27074,7 +27074,7 @@ List<List<String>> _stations = [
     '48.46N',
     '002.12E',
     '179',
-    'FR'
+    'FR',
   ],
   ['PARIS MET CENTER', 'LFPW', 'null', 'null', '48.49N', '002.19E', '75', 'FR'],
   [
@@ -27085,7 +27085,7 @@ List<List<String>> _stations = [
     '48.36N',
     '002.19E',
     '85',
-    'FR'
+    'FR',
   ],
   ['REIMS/PRUNAY', 'LFQA', 'null', '07072', '49.12N', '004.09E', '95', 'FR'],
   [
@@ -27096,7 +27096,7 @@ List<List<String>> _stations = [
     '48.19N',
     '004.01E',
     '118',
-    'FR'
+    'FR',
   ],
   [
     'ROUVRES (FR-ARMY',
@@ -27106,7 +27106,7 @@ List<List<String>> _stations = [
     '49.13N',
     '005.40E',
     '234',
-    'FR'
+    'FR',
   ],
   [
     'NEVERS/FOURCHAMB',
@@ -27116,7 +27116,7 @@ List<List<String>> _stations = [
     '47.00N',
     '003.06E',
     '181',
-    'FR'
+    'FR',
   ],
   [
     'CHATILLON-SUR-SE',
@@ -27126,7 +27126,7 @@ List<List<String>> _stations = [
     '47.51N',
     '004.32E',
     '264',
-    'FR'
+    'FR',
   ],
   [
     'CAMBRAI/EPINOY(F',
@@ -27136,7 +27136,7 @@ List<List<String>> _stations = [
     '50.13N',
     '003.08E',
     '77',
-    'FR'
+    'FR',
   ],
   ['LILLE/LESQUIN', 'LFQQ', 'null', '07015', '50.34N', '003.06E', '52', 'FR'],
   [
@@ -27147,7 +27147,7 @@ List<List<String>> _stations = [
     '49.46N',
     '004.37E',
     '150',
-    'FR'
+    'FR',
   ],
   [
     'ANGERS/AVRILLE(A',
@@ -27157,7 +27157,7 @@ List<List<String>> _stations = [
     '47.30N',
     '000.34W',
     '58',
-    'FR'
+    'FR',
   ],
   ['BREST/GUIPAVAS', 'LFRB', 'null', '07110', '48.27N', '004.25W', '103', 'FR'],
   [
@@ -27168,7 +27168,7 @@ List<List<String>> _stations = [
     '49.38N',
     '001.28W',
     '138',
-    'FR'
+    'FR',
   ],
   [
     'DINARD/PLEURTUIT',
@@ -27178,7 +27178,7 @@ List<List<String>> _stations = [
     '48.35N',
     '002.04W',
     '59',
-    'FR'
+    'FR',
   ],
   ['ST GATIEN', 'LFRG', 'null', 'null', '49.22N', '000.09E', '146', 'FR'],
   [
@@ -27189,7 +27189,7 @@ List<List<String>> _stations = [
     '47.46N',
     '003.27W',
     '44',
-    'FR'
+    'FR',
   ],
   [
     'LA ROCHE/LES AJO',
@@ -27199,7 +27199,7 @@ List<List<String>> _stations = [
     '46.42N',
     '001.22W',
     '91',
-    'FR'
+    'FR',
   ],
   [
     'LANDIVISIAU (NAV',
@@ -27209,7 +27209,7 @@ List<List<String>> _stations = [
     '48.31N',
     '004.09W',
     '115',
-    'FR'
+    'FR',
   ],
   [
     'CAEN/CARPIQUET(A',
@@ -27219,7 +27219,7 @@ List<List<String>> _stations = [
     '49.10N',
     '000.27W',
     '67',
-    'FR'
+    'FR',
   ],
   [
     'LANVEOC/POULMIC(',
@@ -27229,7 +27229,7 @@ List<List<String>> _stations = [
     '48.16N',
     '004.25W',
     '82',
-    'FR'
+    'FR',
   ],
   [
     'LE MANS/ARNAGE(A',
@@ -27239,7 +27239,7 @@ List<List<String>> _stations = [
     '47.57N',
     '000.12E',
     '52',
-    'FR'
+    'FR',
   ],
   [
     'RENNES/ST. JACQU',
@@ -27249,7 +27249,7 @@ List<List<String>> _stations = [
     '48.04N',
     '001.43W',
     '37',
-    'FR'
+    'FR',
   ],
   ['LANNION/SERVEL', 'LFRO', 'null', 'null', '48.45N', '003.28W', '89', 'FR'],
   [
@@ -27260,7 +27260,7 @@ List<List<String>> _stations = [
     '47.58N',
     '004.10W',
     '94',
-    'FR'
+    'FR',
   ],
   [
     'NANTES/CHATEAU B',
@@ -27270,7 +27270,7 @@ List<List<String>> _stations = [
     '47.10N',
     '001.36W',
     '27',
-    'FR'
+    'FR',
   ],
   [
     'SAINT-BRIEUC ARM',
@@ -27280,7 +27280,7 @@ List<List<String>> _stations = [
     '48.31N',
     '002.51W',
     '136',
-    'FR'
+    'FR',
   ],
   ['MORLAIX/PLOUJEAN', 'LFRU', 'null', 'null', '48.36N', '003.49W', '86', 'FR'],
   ['VANNES/MEUCON', 'LFRV', 'null', 'null', '47.43N', '002.43W', '133', 'FR'],
@@ -27293,7 +27293,7 @@ List<List<String>> _stations = [
     '47.15N',
     '005.58E',
     '309',
-    'FR'
+    'FR',
   ],
   ['BALE/MULHOUSE', 'LFSB', 'null', '07299', '47.36N', '007.31E', '271', 'FR'],
   [
@@ -27304,7 +27304,7 @@ List<List<String>> _stations = [
     '47.55N',
     '007.24E',
     '217',
-    'FR'
+    'FR',
   ],
   [
     'DIJON/LONGVIC(FA',
@@ -27314,7 +27314,7 @@ List<List<String>> _stations = [
     '47.16N',
     '005.04E',
     '227',
-    'FR'
+    'FR',
   ],
   [
     'METZ/FRESCATY(FA',
@@ -27324,7 +27324,7 @@ List<List<String>> _stations = [
     '49.04N',
     '006.07E',
     '191',
-    'FR'
+    'FR',
   ],
   [
     'EPINAL/MIRECOURT',
@@ -27334,7 +27334,7 @@ List<List<String>> _stations = [
     '48.20N',
     '006.04E',
     '330',
-    'FR'
+    'FR',
   ],
   [
     'ST. DIZIER/ROBIN',
@@ -27344,7 +27344,7 @@ List<List<String>> _stations = [
     '48.37N',
     '004.54E',
     '140',
-    'FR'
+    'FR',
   ],
   ['BRIVE/SOUILLAC', 'LFSL', 'null', 'null', '45.02N', '001.29E', '310', 'FR'],
   ['NANCY/ESSEY', 'LFSN', 'null', '07180', '48.40N', '006.13E', '217', 'FR'],
@@ -27356,7 +27356,7 @@ List<List<String>> _stations = [
     '48.34N',
     '005.58E',
     '350',
-    'FR'
+    'FR',
   ],
   ['PONTARLIER', 'LFSP', 'null', 'null', '46.53N', '006.19E', '817', 'FR'],
   [
@@ -27367,7 +27367,7 @@ List<List<String>> _stations = [
     '47.37N',
     '006.52E',
     '423',
-    'FR'
+    'FR',
   ],
   ['REIMS/CHAMPAGNE', 'LFSR', 'null', '07070', '49.17N', '004.01E', '99', 'FR'],
   [
@@ -27378,7 +27378,7 @@ List<List<String>> _stations = [
     '48.32N',
     '007.37E',
     '154',
-    'FR'
+    'FR',
   ],
   [
     'LUXEUIL/ST. SAUV',
@@ -27388,7 +27388,7 @@ List<List<String>> _stations = [
     '47.46N',
     '006.20E',
     '273',
-    'FR'
+    'FR',
   ],
   ['PIERREFEN (NAVY)', 'LFTF', 'null', 'null', '43.15N', '006.07E', '81', 'FR'],
   ['HYERES/LE PALYVE', 'LFTH', 'null', '07667', '43.06N', '006.09E', '4', 'FR'],
@@ -27401,7 +27401,7 @@ List<List<String>> _stations = [
     '43.45N',
     '004.25E',
     '96',
-    'FR'
+    'FR',
   ],
   [
     'AMBERIEU (FAFB/A',
@@ -27411,7 +27411,7 @@ List<List<String>> _stations = [
     '45.58N',
     '005.19E',
     '257',
-    'FR'
+    'FR',
   ],
   [
     'APT/ST. CHRISTOL',
@@ -27421,7 +27421,7 @@ List<List<String>> _stations = [
     '44.02N',
     '005.28E',
     '837',
-    'FR'
+    'FR',
   ],
   [
     'NIERGNIES (FAFB)',
@@ -27431,7 +27431,7 @@ List<List<String>> _stations = [
     '50.07N',
     '003.16E',
     '110',
-    'FR'
+    'FR',
   ],
   [
     'BROYE-LES-PESMES',
@@ -27441,7 +27441,7 @@ List<List<String>> _stations = [
     '47.20N',
     '005.31E',
     '208',
-    'FR'
+    'FR',
   ],
   [
     'CAPTIEUX (MET/OB',
@@ -27451,7 +27451,7 @@ List<List<String>> _stations = [
     '44.10N',
     '000.16W',
     '133',
-    'FR'
+    'FR',
   ],
   ['LURE/MALBOUHANS', 'LFYL', 'null', 'null', '47.42N', '006.32E', '317', 'FR'],
   [
@@ -27462,7 +27462,7 @@ List<List<String>> _stations = [
     '47.19N',
     '001.40E',
     '86',
-    'FR'
+    'FR',
   ],
   ['TRAPPES (AUT)', 'null', 'null', '07145', '48.46N', '002.01E', '168', 'FR'],
   [
@@ -27473,7 +27473,7 @@ List<List<String>> _stations = [
     '37.55N',
     '021.16E',
     '12',
-    'GR'
+    'GR',
   ],
   ['ALEXANDROUPOLIS', 'LGAL', 'null', '16627', '40.51N', '025.57E', '3', 'GR'],
   ['ATHENS/ELEF-VEN', 'LGAV', 'null', 'null', '37.56N', '023.57E', '94', 'GR'],
@@ -27486,7 +27486,7 @@ List<List<String>> _stations = [
     '38.04N',
     '023.33E',
     '31',
-    'GR'
+    'GR',
   ],
   ['CHIOS AIRPORT', 'LGHI', 'null', '16706', '38.19N', '026.07E', '4', 'GR'],
   [
@@ -27497,7 +27497,7 @@ List<List<String>> _stations = [
     '35.19N',
     '025.10E',
     '39',
-    'GR'
+    'GR',
   ],
   ['KITHIRA ARPT', 'LGKC', 'null', 'null', '36.17N', '023.01E', '319', 'GR'],
   ['KEFALLINIA', 'LGKF', 'null', '16685', '38.07N', '020.30E', '18', 'GR'],
@@ -27514,7 +27514,7 @@ List<List<String>> _stations = [
     '40.17N',
     '021.50E',
     '628',
-    'GR'
+    'GR',
   ],
   ['LIMNOS ISLAND AR', 'LGLM', 'null', '16650', '39.55N', '025.14E', '5', 'GR'],
   ['LARISA AIRPORT', 'LGLR', 'null', '16648', '39.39N', '022.28E', '74', 'GR'],
@@ -27532,7 +27532,7 @@ List<List<String>> _stations = [
     '38.10N',
     '021.25E',
     '15',
-    'GR'
+    'GR',
   ],
   [
     'SOUDA/KHANIA (AF',
@@ -27542,7 +27542,7 @@ List<List<String>> _stations = [
     '35.32N',
     '024.08E',
     '135',
-    'GR'
+    'GR',
   ],
   ['SKIATHOS ISLAND', 'LGSK', 'null', '16660', '39.11N', '023.30E', '15', 'GR'],
   ['SAMOS AIRPORT', 'LGSM', 'null', '16723', '37.41N', '026.55E', '6', 'GR'],
@@ -27555,7 +27555,7 @@ List<List<String>> _stations = [
     '36.24N',
     '025.29E',
     '40',
-    'GR'
+    'GR',
   ],
   ['SITIA AIRPORT', 'LGST', 'null', '16757', '35.13N', '026.06E', '115', 'GR'],
   ['SKIROS', 'LGSY', 'null', '16684', '38.58N', '024.29E', '15', 'GR'],
@@ -27567,7 +27567,7 @@ List<List<String>> _stations = [
     '38.20N',
     '023.34E',
     '148',
-    'GR'
+    'GR',
   ],
   [
     'KASTELI AIRPORT',
@@ -27577,7 +27577,7 @@ List<List<String>> _stations = [
     '35.12N',
     '025.20E',
     '360',
-    'GR'
+    'GR',
   ],
   ['THESSALONIKI/MIK', 'LGTS', 'null', '16622', '40.31N', '022.58E', '7', 'GR'],
   ['ZAKINTHOS AIRPOR', 'LGZA', 'null', 'null', '37.45N', '020.52E', '3', 'GR'],
@@ -27589,7 +27589,7 @@ List<List<String>> _stations = [
     '38.37N',
     '021.22E',
     '24',
-    'GR'
+    'GR',
   ],
   [
     'ATHENS/HELLENKIO',
@@ -27599,7 +27599,7 @@ List<List<String>> _stations = [
     '37.53N',
     '023.43E',
     '21',
-    'GR'
+    'GR',
   ],
   ['IKARIA', 'LGIK', 'null', '16779', '37.41N', '026.21E', '24', 'GR'],
   ['IOANNINA', 'LGIO', 'null', '16642', '39.42N', '020.49E', '476', 'GR'],
@@ -27611,7 +27611,7 @@ List<List<String>> _stations = [
     '40.27N',
     '021.16E',
     '669',
-    'GR'
+    'GR',
   ],
   ['KASTELLORIZO', 'LGKJ', 'null', '16767', '36.04N', '029.20E', '145', 'GR'],
   ['KASOS', 'LGKS', 'null', '16770', '35.25N', '026.55E', '10', 'GR'],
@@ -27629,7 +27629,7 @@ List<List<String>> _stations = [
     '37.31N',
     '022.23E',
     '652',
-    'GR'
+    'GR',
   ],
   [
     'TATOI/DEKELIA (A',
@@ -27639,7 +27639,7 @@ List<List<String>> _stations = [
     '38.06N',
     '023.46E',
     '235',
-    'GR'
+    'GR',
   ],
   ['TYMBAKI', 'LGTY', 'null', '16759', '35.04N', '024.46E', '7', 'GR'],
   ['VOLOS (CIV/MIL)', 'LGVO', 'null', 'null', '39.22N', '022.56E', '27', 'GR'],
@@ -27652,7 +27652,7 @@ List<List<String>> _stations = [
     '47.25N',
     '019.16E',
     '185',
-    'HU'
+    'HU',
   ],
   [
     'DEBRECEN AIRPORT',
@@ -27662,7 +27662,7 @@ List<List<String>> _stations = [
     '47.28N',
     '021.37E',
     '112',
-    'HU'
+    'HU',
   ],
   ['KECSKEMET', 'LHKE', 'null', 'null', '46.55N', '019.45E', '115', 'HU'],
   ['PAPA', 'LHPA', 'null', 'null', '47.21N', '017.30E', '148', 'HU'],
@@ -27678,7 +27678,7 @@ List<List<String>> _stations = [
     '47.26N',
     '019.11E',
     '140',
-    'HU'
+    'HU',
   ],
   ['SZEGED (AUT)', 'LHUD', 'null', '12982', '46.15N', '020.06E', '84', 'HU'],
   ['TASZAR', 'LHTA', 'null', 'null', '46.24N', '017.55E', '160', 'HU'],
@@ -27690,7 +27690,7 @@ List<List<String>> _stations = [
     '41.31N',
     '015.43E',
     '60',
-    'IT'
+    'IT',
   ],
   ['CROTONE', 'LIBC', 'null', '16350', '39.00N', '017.04E', '161', 'IT'],
   [
@@ -27701,7 +27701,7 @@ List<List<String>> _stations = [
     '41.07N',
     '016.46E',
     '44',
-    'IT'
+    'IT',
   ],
   [
     'SANT\'ANGELO (MOU',
@@ -27711,7 +27711,7 @@ List<List<String>> _stations = [
     '41.43N',
     '015.57E',
     '844',
-    'IT'
+    'IT',
   ],
   ['FOGGIA/GINO LISA', 'LIBF', 'null', 'null', '41.25N', '015.31E', '80', 'IT'],
   [
@@ -27722,7 +27722,7 @@ List<List<String>> _stations = [
     '40.31N',
     '017.23E',
     '69',
-    'IT'
+    'IT',
   ],
   [
     'MARINA DI GINOSA',
@@ -27732,7 +27732,7 @@ List<List<String>> _stations = [
     '40.25N',
     '016.52E',
     '12',
-    'IT'
+    'IT',
   ],
   ['VIESTE', 'LIBI', 'null', 'null', '41.55N', '016.03E', '50', 'IT'],
   ['VIBO VALENTIA', 'LIBJ', 'null', 'null', '38.40N', '016.06E', '520', 'IT'],
@@ -27744,7 +27744,7 @@ List<List<String>> _stations = [
     '38.52N',
     '016.28E',
     '343',
-    'IT'
+    'IT',
   ],
   ['PALASCIA', 'LIBL', 'null', 'null', '40.06N', '018.31E', '89', 'IT'],
   ['GROTTAMMARE', 'LIBM', 'null', 'null', '42.58N', '013.52E', '1', 'IT'],
@@ -27758,7 +27758,7 @@ List<List<String>> _stations = [
     '39.19N',
     '016.23E',
     '1720',
-    'IT'
+    'IT',
   ],
   ['BRINDISI/CASALE', 'LIBR', 'null', '16320', '40.39N', '017.57E', '10', 'IT'],
   ['CAMPOBASSO', 'LIBS', 'null', '16252', '41.34N', '014.39E', '807', 'IT'],
@@ -27772,7 +27772,7 @@ List<List<String>> _stations = [
     '40.46N',
     '016.55E',
     '350',
-    'IT'
+    'IT',
   ],
   [
     'BONIFATI (CAPE)',
@@ -27782,7 +27782,7 @@ List<List<String>> _stations = [
     '39.34N',
     '015.52E',
     '485',
-    'IT'
+    'IT',
   ],
   [
     'MARTINA FRANCA(A',
@@ -27792,7 +27792,7 @@ List<List<String>> _stations = [
     '40.42N',
     '017.19E',
     '447',
-    'IT'
+    'IT',
   ],
   [
     'SANTA MARIA DI L',
@@ -27802,7 +27802,7 @@ List<List<String>> _stations = [
     '39.49N',
     '018.21E',
     '112',
-    'IT'
+    'IT',
   ],
   ['POTENZA', 'LIBZ', 'null', '16300', '40.37N', '015.48E', '843', 'IT'],
   ['LAMEZIA TERME', 'LICA', 'null', '16362', '38.53N', '016.15E', '15', 'IT'],
@@ -27815,7 +27815,7 @@ List<List<String>> _stations = [
     '37.28N',
     '015.03E',
     '17',
-    'IT'
+    'IT',
   ],
   [
     'LAMPEDUSA ISLAND',
@@ -27825,7 +27825,7 @@ List<List<String>> _stations = [
     '35.30N',
     '012.37E',
     '20',
-    'IT'
+    'IT',
   ],
   ['ENNA', 'LICE', 'null', '16450', '37.34N', '014.16E', '965', 'IT'],
   ['MESSINA', 'LICF', 'null', '16420', '38.12N', '015.33E', '51', 'IT'],
@@ -27837,7 +27837,7 @@ List<List<String>> _stations = [
     '36.49N',
     '011.58E',
     '191',
-    'IT'
+    'IT',
   ],
   ['CAPE SPARTIVENTO', 'LICH', 'null', 'null', '37.55N', '016.04E', '17', 'IT'],
   [
@@ -27848,7 +27848,7 @@ List<List<String>> _stations = [
     '38.10N',
     '013.05E',
     '34',
-    'IT'
+    'IT',
   ],
   ['GELA', 'LICL', 'null', '16453', '37.04N', '014.13E', '33', 'IT'],
   ['CALOPEZZATI', 'LICM', 'null', 'null', '39.32N', '016.48E', '179', 'IT'],
@@ -27861,7 +27861,7 @@ List<List<String>> _stations = [
     '38.06N',
     '013.18E',
     '117',
-    'IT'
+    'IT',
   ],
   ['REGGIO CALABRIA', 'LICR', 'null', '16422', '38.04N', '015.39E', '21', 'IT'],
   ['SCIACCA', 'LICS', 'null', 'null', '37.31N', '013.03E', '125', 'IT'],
@@ -27878,7 +27878,7 @@ List<List<String>> _stations = [
     '39.56N',
     '009.43E',
     '156',
-    'IT'
+    'IT',
   ],
   ['CAPE CARBONARA', 'LIEC', 'null', '16564', '39.06N', '009.31E', '118', 'IT'],
   [
@@ -27889,7 +27889,7 @@ List<List<String>> _stations = [
     '39.21N',
     '008.58E',
     '28',
-    'IT'
+    'IT',
   ],
   ['CAGLIARI/ELMAS(A', 'LIEE', 'null', '16560', '39.15N', '009.04E', '4', 'IT'],
   ['CAPE FRASCA', 'LIEF', 'null', '16539', '39.44N', '008.28E', '92', 'IT'],
@@ -27906,7 +27906,7 @@ List<List<String>> _stations = [
     '40.53N',
     '009.31E',
     '13',
-    'IT'
+    'IT',
   ],
   ['PERDASDEFOGU', 'LIEP', 'null', '16541', '39.40N', '009.25E', '645', 'IT'],
   ['TORTOLI', 'LIET', 'null', 'null', '39.55N', '009.41E', '8', 'IT'],
@@ -27919,7 +27919,7 @@ List<List<String>> _stations = [
     '45.37N',
     '008.43E',
     '211',
-    'IT'
+    'IT',
   ],
   [
     'GRIGNA SETTENTRI',
@@ -27929,7 +27929,7 @@ List<List<String>> _stations = [
     '45.57N',
     '009.22E',
     '2403',
-    'IT'
+    'IT',
   ],
   [
     'BERGAMO/ORIO SER',
@@ -27939,7 +27939,7 @@ List<List<String>> _stations = [
     '45.40N',
     '009.41E',
     '237',
-    'IT'
+    'IT',
   ],
   ['TORINO/CASELLE', 'LIMF', 'null', '16059', '45.13N', '007.39E', '287', 'IT'],
   ['ALBENGA', 'LIMG', 'null', '16122', '44.02N', '008.07E', '49', 'IT'],
@@ -27951,7 +27951,7 @@ List<List<String>> _stations = [
     '45.56N',
     '007.42E',
     '3488',
-    'IT'
+    'IT',
   ],
   ['GENOVA/SESTRI', 'LIMJ', 'null', '16120', '44.25N', '008.50E', '3', 'IT'],
   [
@@ -27962,7 +27962,7 @@ List<List<String>> _stations = [
     '45.01N',
     '007.43E',
     '710',
-    'IT'
+    'IT',
   ],
   ['MILANO/LINATE', 'LIML', 'null', '16080', '45.28N', '009.16E', '103', 'IT'],
   [
@@ -27973,7 +27973,7 @@ List<List<String>> _stations = [
     '45.31N',
     '008.40E',
     '169',
-    'IT'
+    'IT',
   ],
   [
     'BISBINO MOUNTAIN',
@@ -27983,7 +27983,7 @@ List<List<String>> _stations = [
     '45.52N',
     '009.04E',
     '1322',
-    'IT'
+    'IT',
   ],
   ['PARMA', 'LIMP', 'null', 'null', '44.49N', '010.18E', '50', 'IT'],
   ['GOVONE', 'LIMQ', 'null', '16116', '44.47N', '008.05E', '315', 'IT'],
@@ -27995,7 +27995,7 @@ List<List<String>> _stations = [
     '44.55N',
     '009.43E',
     '138',
-    'IT'
+    'IT',
   ],
   ['CISA PASS', 'LIMT', 'null', '16124', '44.28N', '009.55E', '1040', 'IT'],
   ['CAPE MELE', 'LIMU', 'null', '16153', '43.57N', '008.10E', '221', 'IT'],
@@ -28009,7 +28009,7 @@ List<List<String>> _stations = [
     '44.15N',
     '007.47E',
     '1742',
-    'IT'
+    'IT',
   ],
   ['LEVALDIGI', 'LIMZ', 'null', 'null', '44.32N', '007.37E', '380', 'IT'],
   [
@@ -28020,7 +28020,7 @@ List<List<String>> _stations = [
     '46.01N',
     '012.35E',
     '126',
-    'IT'
+    'IT',
   ],
   [
     'BOLZANO(CIV/IT-A',
@@ -28030,7 +28030,7 @@ List<List<String>> _stations = [
     '46.28N',
     '011.19E',
     '241',
-    'IT'
+    'IT',
   ],
   ['CERVIA (IT-AFB)', 'LIPC', 'null', '16148', '44.13N', '012.18E', '10', 'IT'],
   [
@@ -28041,7 +28041,7 @@ List<List<String>> _stations = [
     '46.01N',
     '013.10E',
     '94',
-    'IT'
+    'IT',
   ],
   [
     'BOLOGNA/BORGO (A',
@@ -28051,7 +28051,7 @@ List<List<String>> _stations = [
     '44.31N',
     '011.18E',
     '42',
-    'IT'
+    'IT',
   ],
   ['FERRARA (AUT)', 'LIPF', 'null', '16138', '44.49N', '011.37E', '10', 'IT'],
   [
@@ -28062,7 +28062,7 @@ List<List<String>> _stations = [
     '45.38N',
     '012.10E',
     '23',
-    'IT'
+    'IT',
   ],
   [
     'RIVOLTO (IT-AFB)',
@@ -28072,7 +28072,7 @@ List<List<String>> _stations = [
     '45.58N',
     '013.03E',
     '53',
-    'IT'
+    'IT',
   ],
   [
     'FORLI (CIV/IT-AF',
@@ -28082,7 +28082,7 @@ List<List<String>> _stations = [
     '44.12N',
     '012.04E',
     '32',
-    'IT'
+    'IT',
   ],
   ['GHEDI (IT-AFB)', 'LIPL', 'null', '16088', '45.25N', '010.16E', '92', 'IT'],
   ['VERONA/BOSCOMANT', 'LIPN', 'null', 'null', '45.28N', '010.55E', '91', 'IT'],
@@ -28094,7 +28094,7 @@ List<List<String>> _stations = [
     '45.25N',
     '010.20E',
     '109',
-    'IT'
+    'IT',
   ],
   ['DOVA ACC', 'LIPP', 'null', 'null', '45.23N', '011.52E', '14', 'IT'],
   [
@@ -28105,7 +28105,7 @@ List<List<String>> _stations = [
     '45.49N',
     '013.28E',
     '12',
-    'IT'
+    'IT',
   ],
   [
     'RIMINI (CIV/IT-A',
@@ -28115,7 +28115,7 @@ List<List<String>> _stations = [
     '44.01N',
     '012.37E',
     '13',
-    'IT'
+    'IT',
   ],
   [
     'ISTRANA (IT-AFB)',
@@ -28125,7 +28125,7 @@ List<List<String>> _stations = [
     '45.40N',
     '012.05E',
     '41',
-    'IT'
+    'IT',
   ],
   [
     'VICENZA(CIV/IT-A',
@@ -28135,7 +28135,7 @@ List<List<String>> _stations = [
     '45.34N',
     '011.31E',
     '53',
-    'IT'
+    'IT',
   ],
   [
     'PADOVA (CIV/IT-A',
@@ -28145,7 +28145,7 @@ List<List<String>> _stations = [
     '45.23N',
     '011.50E',
     '14',
-    'IT'
+    'IT',
   ],
   ['VENEZIA/SAN NICO', 'LIPV', 'null', 'null', '45.25N', '012.22E', '4', 'IT'],
   [
@@ -28156,7 +28156,7 @@ List<List<String>> _stations = [
     '45.23N',
     '010.52E',
     '68',
-    'IT'
+    'IT',
   ],
   [
     'FALCONARA (IT-AF',
@@ -28166,7 +28166,7 @@ List<List<String>> _stations = [
     '43.37N',
     '013.22E',
     '10',
-    'IT'
+    'IT',
   ],
   ['VENEZIA/TESSERA', 'LIPZ', 'null', '16105', '45.30N', '012.21E', '6', 'IT'],
   ['AREZZO', 'LIQB', 'null', '16172', '43.28N', '011.50E', '249', 'IT'],
@@ -28180,7 +28180,7 @@ List<List<String>> _stations = [
     '42.27N',
     '013.41E',
     '2138',
-    'IT'
+    'IT',
   ],
   ['CIVITAVECCHIA', 'LIQJ', 'null', '16214', '42.01N', '011.49E', '4', 'IT'],
   ['CAPE PALINURO', 'LIQK', 'null', '16310', '40.02N', '015.17E', '185', 'IT'],
@@ -28193,7 +28193,7 @@ List<List<String>> _stations = [
     '42.22N',
     '011.10E',
     '632',
-    'IT'
+    'IT',
   ],
   [
     'PALMARIA ISLAND',
@@ -28203,7 +28203,7 @@ List<List<String>> _stations = [
     '44.01N',
     '009.49E',
     '192',
-    'IT'
+    'IT',
   ],
   ['RADICOFANI', 'LIQR', 'null', '16204', '42.53N', '011.46E', '918', 'IT'],
   ['SIENA', 'LIQS', 'null', 'null', '43.19N', '011.20E', '322', 'IT'],
@@ -28219,7 +28219,7 @@ List<List<String>> _stations = [
     '41.48N',
     '012.35E',
     '101',
-    'IT'
+    'IT',
   ],
   [
     'VIGNA DI VALLE(M',
@@ -28229,7 +28229,7 @@ List<List<String>> _stations = [
     '42.04N',
     '012.13E',
     '270',
-    'IT'
+    'IT',
   ],
   [
     'PRATICA DI MARE(',
@@ -28239,7 +28239,7 @@ List<List<String>> _stations = [
     '41.38N',
     '012.25E',
     '12',
-    'IT'
+    'IT',
   ],
   ['ROME/FIUMICINO', 'LIRF', 'null', '16242', '41.47N', '012.13E', '3', 'IT'],
   [
@@ -28250,7 +28250,7 @@ List<List<String>> _stations = [
     '42.00N',
     '012.43E',
     '89',
-    'IT'
+    'IT',
   ],
   [
     'FROSINONE (IT-AF',
@@ -28260,7 +28260,7 @@ List<List<String>> _stations = [
     '41.39N',
     '013.18E',
     '181',
-    'IT'
+    'IT',
   ],
   ['PONTECAGNANO (AF', 'LIRI', 'null', 'null', '40.37N', '014.55E', '40', 'IT'],
   ['M. CALAMITA', 'LIRJ', 'null', '16197', '42.46N', '010.14E', '397', 'IT'],
@@ -28272,7 +28272,7 @@ List<List<String>> _stations = [
     '42.28N',
     '012.58E',
     '1875',
-    'IT'
+    'IT',
   ],
   ['LATINA (IT-AFB)', 'LIRL', 'null', '16243', '41.32N', '012.54E', '26', 'IT'],
   [
@@ -28283,7 +28283,7 @@ List<List<String>> _stations = [
     '41.02N',
     '014.04E',
     '10',
-    'IT'
+    'IT',
   ],
   [
     'NAPLES/CAPODICHI',
@@ -28293,7 +28293,7 @@ List<List<String>> _stations = [
     '40.53N',
     '014.18E',
     '72',
-    'IT'
+    'IT',
   ],
   ['PISA (CIV/IT-AFB', 'LIRP', 'null', '16158', '43.40N', '010.22E', '2', 'IT'],
   [
@@ -28304,7 +28304,7 @@ List<List<String>> _stations = [
     '43.47N',
     '011.11E',
     '38',
-    'IT'
+    'IT',
   ],
   ['GROSSETO (IT-AFB', 'LIRS', 'null', '16206', '42.45N', '011.04E', '7', 'IT'],
   ['TREVICO', 'LIRT', 'null', '16263', '41.02N', '015.13E', '1093', 'IT'],
@@ -28316,7 +28316,7 @@ List<List<String>> _stations = [
     '41.57N',
     '012.30E',
     '24',
-    'IT'
+    'IT',
   ],
   [
     'VITERBO (IT-MIL)',
@@ -28326,7 +28326,7 @@ List<List<String>> _stations = [
     '42.25N',
     '012.04E',
     '300',
-    'IT'
+    'IT',
   ],
   ['MONTE CALAMITA', 'LIRX', 'null', 'null', '42.44N', '010.23E', '297', 'IT'],
   ['PERUGIA', 'LIRZ', 'null', '16181', '43.06N', '012.30E', '205', 'IT'],
@@ -28338,7 +28338,7 @@ List<List<String>> _stations = [
     '44.12N',
     '010.41E',
     '2173',
-    'IT'
+    'IT',
   ],
   ['DOBBIACO', 'LIVD', 'null', '16033', '46.43N', '012.13E', '1226', 'IT'],
   ['RESIA PASS', 'LIVE', 'null', 'null', '46.51N', '010.30E', '1800', 'IT'],
@@ -28351,7 +28351,7 @@ List<List<String>> _stations = [
     '45.52N',
     '011.48E',
     '1775',
-    'IT'
+    'IT',
   ],
   ['POINT MARINA/RAV', 'LIVM', 'null', '16146', '44.27N', '012.18E', '6', 'IT'],
   ['TARVISIO', 'LIVO', 'null', '16040', '46.30N', '013.34E', '778', 'IT'],
@@ -28363,7 +28363,7 @@ List<List<String>> _stations = [
     '46.09N',
     '011.02E',
     '2129',
-    'IT'
+    'IT',
   ],
   ['ROLLE PASS', 'LIVR', 'null', '16021', '46.17N', '011.46E', '2006', 'IT'],
   ['TRIESTE', 'LIVT', 'null', '16110', '45.41N', '013.45E', '20', 'IT'],
@@ -28378,7 +28378,7 @@ List<List<String>> _stations = [
     '44.39N',
     '011.37E',
     '38',
-    'IT'
+    'IT',
   ],
   ['CERKLJE', 'LJCE', 'null', '14122', '45.54N', '015.31E', '155', 'SI'],
   [
@@ -28389,7 +28389,7 @@ List<List<String>> _stations = [
     '46.13N',
     '014.28E',
     '385',
-    'SI'
+    'SI',
   ],
   ['MARIBOR', 'LJMB', 'null', '14026', '46.28N', '015.40E', '265', 'SI'],
   ['MURSKA SOBOTA', 'LJMS', 'null', '14031', '46.38N', '016.10E', '188', 'SI'],
@@ -28418,7 +28418,7 @@ List<List<String>> _stations = [
     '49.05N',
     '016.37E',
     '195',
-    'CZ'
+    'CZ',
   ],
   ['KOSICE', 'LKKZ', 'null', 'null', '48.42N', '021.16E', '232', 'CZ'],
   ['PIESTANY', 'LKPP', 'null', 'null', '48.37N', '017.50E', '161', 'CZ'],
@@ -28431,7 +28431,7 @@ List<List<String>> _stations = [
     '50.32N',
     '015.00E',
     '244',
-    'CZ'
+    'CZ',
   ],
   ['VODOCHODY', 'LKVO', 'null', 'null', '50.13N', '014.24E', '280', 'CZ'],
   [
@@ -28442,7 +28442,7 @@ List<List<String>> _stations = [
     '48.10N',
     '017.13E',
     '134',
-    'SK'
+    'SK',
   ],
   ['LUCENEC AIRPORT', 'LZLU', 'null', 'null', '48.20N', '019.44E', '200', 'SK'],
   ['POPRAD/TATRY', 'LZTT', 'TAT', '11934', '49.04N', '020.15E', '707', 'SK'],
@@ -28454,7 +28454,7 @@ List<List<String>> _stations = [
     '48.56N',
     '021.59E',
     '177',
-    'SK'
+    'SK',
   ],
   ['KOSICE BARCA', 'LZKZ', 'KSC', '11968', '48.40N', '021.14E', '232', 'SK'],
   ['PIESTANY', 'LZPP', 'PZY', '11826', '48.37N', '017.50E', '161', 'SK'],
@@ -28471,7 +28471,7 @@ List<List<String>> _stations = [
     '32.00N',
     '034.53E',
     '49',
-    'IL'
+    'IL',
   ],
   [
     'BEER-SHEVA/TEYMA',
@@ -28481,7 +28481,7 @@ List<List<String>> _stations = [
     '31.17N',
     '034.43E',
     '200',
-    'IL'
+    'IL',
   ],
   [
     'ELAT/J. HOZMAN(A',
@@ -28491,7 +28491,7 @@ List<List<String>> _stations = [
     '29.33N',
     '034.57E',
     '13',
-    'IL'
+    'IL',
   ],
   ['HAIFA (ISR-AFB)', 'LLHA', 'null', '40155', '32.47N', '035.01E', '8', 'IL'],
   ['BEN YA AKOV', 'LLIB', 'null', 'null', '32.59N', '035.34E', '282', 'IL'],
@@ -28503,7 +28503,7 @@ List<List<String>> _stations = [
     '31.52N',
     '035.13E',
     '759',
-    'IL'
+    'IL',
   ],
   [
     'OVDA (ISR-AFB/CI',
@@ -28513,7 +28513,7 @@ List<List<String>> _stations = [
     '29.56N',
     '034.56E',
     '432',
-    'IL'
+    'IL',
   ],
   ['SDE DOV AIRPORT', 'LLSD', 'null', 'null', '32.07N', '034.47E', '14', 'IL'],
   ['LUQA/MALTA', 'LMML', 'null', '16597', '35.51N', '014.28E', '91', 'MT'],
@@ -28526,7 +28526,7 @@ List<List<String>> _stations = [
     '48.27N',
     '015.38E',
     '312',
-    'AT'
+    'AT',
   ],
   [
     'WR.NEUSTADT EAST',
@@ -28536,7 +28536,7 @@ List<List<String>> _stations = [
     '47.51N',
     '016.15E',
     '272',
-    'AT'
+    'AT',
   ],
   [
     'VOESLAU-KOTTINGB',
@@ -28546,7 +28546,7 @@ List<List<String>> _stations = [
     '47.58N',
     '016.16E',
     '233',
-    'AT'
+    'AT',
   ],
   [
     'PUNITZ/GUESSING',
@@ -28556,7 +28556,7 @@ List<List<String>> _stations = [
     '47.09N',
     '016.19E',
     '290',
-    'AT'
+    'AT',
   ],
   [
     'HOHENEMS-DORNBIR',
@@ -28566,7 +28566,7 @@ List<List<String>> _stations = [
     '47.23N',
     '009.42E',
     '418',
-    'AT'
+    'AT',
   ],
   ['OBEROSTERREICH', 'LOLF', 'null', 'null', '48.31N', '014.25E', '685', 'AT'],
   ['GRAZ (MIL/CIV)', 'LOWG', 'null', '11240', '47.00N', '015.25E', '347', 'AT'],
@@ -28578,7 +28578,7 @@ List<List<String>> _stations = [
     '47.16N',
     '011.20E',
     '581',
-    'AT'
+    'AT',
   ],
   [
     'KLAGENFURT(CIV/M',
@@ -28588,7 +28588,7 @@ List<List<String>> _stations = [
     '46.39N',
     '014.19E',
     '441',
-    'AT'
+    'AT',
   ],
   ['LINZ (CIV/MIL)', 'LOWL', 'null', '11010', '48.13N', '014.11E', '313', 'AT'],
   [
@@ -28599,7 +28599,7 @@ List<List<String>> _stations = [
     '47.47N',
     '013.01E',
     '450',
-    'AT'
+    'AT',
   ],
   [
     'VIENNA/SCHWECHAT',
@@ -28609,7 +28609,7 @@ List<List<String>> _stations = [
     '48.07N',
     '016.34E',
     '190',
-    'AT'
+    'AT',
   ],
   ['ZELL AM SEE', 'LOWZ', 'null', 'null', '47.18N', '012.47E', '754', 'AT'],
   [
@@ -28620,7 +28620,7 @@ List<List<String>> _stations = [
     '47.31N',
     '014.07E',
     '649',
-    'AT'
+    'AT',
   ],
   [
     'HORSCHING (AUS-A',
@@ -28630,7 +28630,7 @@ List<List<String>> _stations = [
     '48.13N',
     '014.10E',
     '313',
-    'AT'
+    'AT',
   ],
   [
     'WR.NEUSTADT WEST',
@@ -28640,7 +28640,7 @@ List<List<String>> _stations = [
     '47.50N',
     '016.13E',
     '280',
-    'AT'
+    'AT',
   ],
   [
     'SCHWAZ (HELIPORT',
@@ -28650,7 +28650,7 @@ List<List<String>> _stations = [
     '47.19N',
     '011.41E',
     '543',
-    'AT'
+    'AT',
   ],
   [
     'LANGENLEBARN/TUL',
@@ -28660,7 +28660,7 @@ List<List<String>> _stations = [
     '48.19N',
     '016.07E',
     '176',
-    'AT'
+    'AT',
   ],
   ['ZELTWEG (MIL)', 'LOXZ', 'null', '11165', '47.12N', '014.45E', '682', 'AT'],
   [
@@ -28671,7 +28671,7 @@ List<List<String>> _stations = [
     '48.15N',
     '016.22E',
     '200',
-    'AT'
+    'AT',
   ],
   ['ALVERCA', 'LPAR', 'null', '08537', '38.53N', '009.02W', '3', 'PT'],
   [
@@ -28682,7 +28682,7 @@ List<List<String>> _stations = [
     '36.58N',
     '025.10W',
     '100',
-    'PT'
+    'PT',
   ],
   ['BRAGANCA', 'LPBG', 'null', '08575', '41.51N', '006.42W', '692', 'PT'],
   [
@@ -28693,7 +28693,7 @@ List<List<String>> _stations = [
     '38.05N',
     '007.56W',
     '247',
-    'PT'
+    'PT',
   ],
   ['CORVO IS AZORES', 'LPCR', 'null', 'null', '39.40N', '031.07W', '26', 'PT'],
   ['CASCAIS', 'LPCS', 'null', 'null', '38.44N', '009.21W', '99', 'PT'],
@@ -28708,7 +28708,7 @@ List<List<String>> _stations = [
     '38.31N',
     '028.43W',
     '41',
-    'PT'
+    'PT',
   ],
   ['LAJES AB', 'LPLA', 'null', '08509', '38.46N', '027.06W', '55', 'PT'],
   ['FUNCHAL/MADEIRA', 'LPMA', 'null', 'null', '32.42N', '016.46W', '55', 'PT'],
@@ -28720,7 +28720,7 @@ List<List<String>> _stations = [
     '39.49N',
     '008.52W',
     '54',
-    'PT'
+    'PT',
   ],
   [
     'MONTIJO (POR-AFB',
@@ -28730,7 +28730,7 @@ List<List<String>> _stations = [
     '38.42N',
     '009.03W',
     '11',
-    'PT'
+    'PT',
   ],
   ['OTA (POR-AFB)', 'LPOT', 'null', '08539', '39.07N', '008.58W', '49', 'PT'],
   ['OVAR MIL', 'LPOV', 'null', 'null', '40.55N', '008.39W', '17', 'PT'],
@@ -28742,7 +28742,7 @@ List<List<String>> _stations = [
     '37.43N',
     '025.41W',
     '72',
-    'PT'
+    'PT',
   ],
   ['RPICO IS AZORES', 'LPPI', 'null', 'null', '38.33N', '028.26W', '33', 'PT'],
   [
@@ -28753,7 +28753,7 @@ List<List<String>> _stations = [
     '41.13N',
     '008.40W',
     '73',
-    'PT'
+    'PT',
   ],
   [
     'PORTO SANTO ISLA',
@@ -28763,7 +28763,7 @@ List<List<String>> _stations = [
     '33.04N',
     '016.21W',
     '82',
-    'PT'
+    'PT',
   ],
   ['LISBON/PORTELA', 'LPPT', 'null', '08536', '38.46N', '009.07W', '123', 'PT'],
   [
@@ -28774,7 +28774,7 @@ List<List<String>> _stations = [
     '38.49N',
     '009.19W',
     '130',
-    'PT'
+    'PT',
   ],
   [
     'TANCOS (POR-AFB)',
@@ -28784,7 +28784,7 @@ List<List<String>> _stations = [
     '39.28N',
     '008.25W',
     '80',
-    'PT'
+    'PT',
   ],
   ['VILA REAL', 'LPVR', 'null', '08567', '41.16N', '007.43W', '562', 'PT'],
   ['HORTA', 'null', 'null', '08506', '38.31N', '028.38W', '62', 'PT'],
@@ -28796,7 +28796,7 @@ List<List<String>> _stations = [
     '38.45N',
     '027.05W',
     '55',
-    'PT'
+    'PT',
   ],
   ['FUNCHAL', 'null', 'null', '08522', '32.38N', '016.54W', '56', 'PT'],
   ['LISBON/GAGO C', 'null', 'null', '08579', '38.46N', '009.08W', '105', 'PT'],
@@ -28810,7 +28810,7 @@ List<List<String>> _stations = [
     '43.49N',
     '018.19E',
     '511',
-    'CS'
+    'CS',
   ],
   ['TUZLA', 'LQTZ', 'null', 'null', '44.28N', '018.44E', '306', 'CS'],
   ['BELGRADE/SURCIN', 'LYBE', 'null', '13272', '44.49N', '020.17E', '99', 'CS'],
@@ -28829,7 +28829,7 @@ List<List<String>> _stations = [
     '42.22N',
     '019.15E',
     '33',
-    'CS'
+    'CS',
   ],
   ['TIVAT', 'LYTV', 'null', '13457', '42.23N', '018.43E', '5', 'CS'],
   ['VRSAC', 'LYVR', 'null', '13183', '45.08N', '021.19E', '85', 'CS'],
@@ -28842,7 +28842,7 @@ List<List<String>> _stations = [
     '44.47N',
     '020.32E',
     '243',
-    'CS'
+    'CS',
   ],
   ['PRISHTINA', 'LYPR', 'null', 'null', '42.35N', '021.02E', '546', 'CS'],
   ['MOSTAR AIRPORT', 'LQMO', 'null', 'null', '43.17N', '017.50E', '48', 'BA'],
@@ -28857,7 +28857,7 @@ List<List<String>> _stations = [
     '44.30N',
     '026.05E',
     '91',
-    'RO'
+    'RO',
   ],
   ['KOGALNICEANU', 'LRCK', 'null', '15481', '44.22N', '028.29E', '108', 'RO'],
   [
@@ -28868,7 +28868,7 @@ List<List<String>> _stations = [
     '46.47N',
     '023.41E',
     '413',
-    'RO'
+    'RO',
   ],
   ['CARANSEBES', 'LRCS', 'null', '15292', '45.25N', '022.15E', '242', 'RO'],
   ['CAMPIA TURZII', 'LRCT', 'null', 'null', '46.30N', '023.53E', '331', 'RO'],
@@ -28883,7 +28883,7 @@ List<List<String>> _stations = [
     '44.34N',
     '026.06E',
     '95',
-    'RO'
+    'RO',
   ],
   ['SIBIU/TURNISOR', 'LRSB', 'null', '15260', '45.47N', '024.05E', '444', 'RO'],
   ['SATU MARE', 'LRSM', 'null', '15010', '47.42N', '022.53E', '124', 'RO'],
@@ -28897,7 +28897,7 @@ List<List<String>> _stations = [
     '46.28N',
     '024.25E',
     '309',
-    'RO'
+    'RO',
   ],
   [
     'TIMISOARA/GIARMA',
@@ -28907,7 +28907,7 @@ List<List<String>> _stations = [
     '45.49N',
     '021.20E',
     '88',
-    'RO'
+    'RO',
   ],
   ['AVRAMENI', 'null', 'null', '15001', '48.01N', '026.57E', '240', 'RO'],
   ['CONSTANTA', 'null', 'null', '15480', '44.11N', '028.40E', '17', 'RO'],
@@ -28920,7 +28920,7 @@ List<List<String>> _stations = [
     '46.15N',
     '006.07E',
     '416',
-    'CH'
+    'CH',
   ],
   [
     'LAUSANNE/BLECHER',
@@ -28930,7 +28930,7 @@ List<List<String>> _stations = [
     '46.32N',
     '006.37E',
     '615',
-    'CH'
+    'CH',
   ],
   [
     'NEUCHATEL (AUT)',
@@ -28940,7 +28940,7 @@ List<List<String>> _stations = [
     '46.57N',
     '006.52E',
     '487',
-    'CH'
+    'CH',
   ],
   [
     'SION (MIL/CIV/AU',
@@ -28950,7 +28950,7 @@ List<List<String>> _stations = [
     '46.13N',
     '007.19E',
     '481',
-    'CH'
+    'CH',
   ],
   ['ALPNACH', 'LSMA', 'null', 'null', '46.57N', '008.17E', '444', 'CH'],
   ['DUBENDORF', 'LSMD', 'null', 'null', '47.24N', '008.39E', '448', 'CH'],
@@ -28964,7 +28964,7 @@ List<List<String>> _stations = [
     '46.49N',
     '006.55E',
     '491',
-    'CH'
+    'CH',
   ],
   ['SION (MIL)', 'LSMS', 'null', 'null', '46.13N', '007.19E', '481', 'CH'],
   [
@@ -28975,7 +28975,7 @@ List<List<String>> _stations = [
     '46.00N',
     '008.55E',
     '276',
-    'CH'
+    'CH',
   ],
   ['BERN/BELP', 'LSZB', 'null', 'null', '46.55N', '007.30E', '505', 'CH'],
   ['BUOCHS', 'LSZC', 'null', 'null', '46.58N', '008.23E', '450', 'CH'],
@@ -28988,7 +28988,7 @@ List<List<String>> _stations = [
     '47.29N',
     '008.32E',
     '432',
-    'CH'
+    'CH',
   ],
   ['LOCARNO', 'LSZL', 'null', 'null', '46.10N', '008.53E', '600', 'CH'],
   ['LOCARNO/ASCONA', 'LSZD', 'null', 'null', '46.09N', '008.47E', '600', 'CH'],
@@ -29000,7 +29000,7 @@ List<List<String>> _stations = [
     '47.29N',
     '009.34E',
     '398',
-    'CH'
+    'CH',
   ],
   ['SAMEDAN', 'LSZS', 'null', '06792', '46.32N', '009.53E', '1706', 'CH'],
   ['ANKARA/GUVERCIN', 'LTAB', 'null', 'null', '39.55N', '032.45E', '819', 'TR'],
@@ -29012,7 +29012,7 @@ List<List<String>> _stations = [
     '40.07N',
     '032.58E',
     '949',
-    'TR'
+    'TR',
   ],
   [
     'ANKARA/ETIMESGUT',
@@ -29022,7 +29022,7 @@ List<List<String>> _stations = [
     '39.57N',
     '032.40E',
     '806',
-    'TR'
+    'TR',
   ],
   [
     'MURTED (TUR-AFB)',
@@ -29032,7 +29032,7 @@ List<List<String>> _stations = [
     '40.04N',
     '032.34E',
     '843',
-    'TR'
+    'TR',
   ],
   ['ADANA/SAKIRPASA', 'LTAF', 'null', '17352', '36.58N', '035.17E', '20', 'TR'],
   [
@@ -29043,7 +29043,7 @@ List<List<String>> _stations = [
     '37.00N',
     '035.25E',
     '66',
-    'TR'
+    'TR',
   ],
   ['AFYON (MIL)', 'LTAH', 'null', '17190', '38.45N', '030.31E', '1034', 'TR'],
   [
@@ -29054,7 +29054,7 @@ List<List<String>> _stations = [
     '36.54N',
     '030.48E',
     '54',
-    'TR'
+    'TR',
   ],
   ['GAZIANTEP', 'LTAJ', 'null', '17260', '36.57N', '037.29E', '855', 'TR'],
   ['ISKENDERUN', 'LTAK', 'null', '17370', '36.34N', '036.10E', '3', 'TR'],
@@ -29068,7 +29068,7 @@ List<List<String>> _stations = [
     '37.58N',
     '032.32E',
     '1006',
-    'TR'
+    'TR',
   ],
   [
     'MERZIFON (TUR-AF',
@@ -29078,7 +29078,7 @@ List<List<String>> _stations = [
     '40.50N',
     '035.31E',
     '535',
-    'TR'
+    'TR',
   ],
   ['SAMSUN AIRPORT', 'LTAQ', 'null', '17029', '41.16N', '036.17E', '168', 'TR'],
   [
@@ -29089,7 +29089,7 @@ List<List<String>> _stations = [
     '39.48N',
     '036.54E',
     '1271',
-    'TR'
+    'TR',
   ],
   ['ZONGULDAK', 'LTAS', 'null', '17022', '41.31N', '032.05E', '136', 'TR'],
   [
@@ -29100,7 +29100,7 @@ List<List<String>> _stations = [
     '38.25N',
     '038.04E',
     '849',
-    'TR'
+    'TR',
   ],
   [
     'KAYSERI/ERKILET',
@@ -29110,7 +29110,7 @@ List<List<String>> _stations = [
     '38.46N',
     '035.28E',
     '1054',
-    'TR'
+    'TR',
   ],
   ['SIVRIHISAR', 'LTAV', 'null', 'null', '39.27N', '031.21E', '96', 'TR'],
   ['TOKAT', 'LTAW', 'null', '17086', '40.17N', '036.22E', '608', 'TR'],
@@ -29124,7 +29124,7 @@ List<List<String>> _stations = [
     '40.58N',
     '028.49E',
     '37',
-    'TR'
+    'TR',
   ],
   ['AYDIN', 'LTBD', 'null', '17234', '37.51N', '027.51E', '57', 'TR'],
   ['BURSA', 'LTBE', 'null', '17116', '40.10N', '029.04E', '100', 'TR'],
@@ -29136,7 +29136,7 @@ List<List<String>> _stations = [
     '39.37N',
     '027.55E',
     '102',
-    'TR'
+    'TR',
   ],
   [
     'BANDIRMA (CIV/AF',
@@ -29146,7 +29146,7 @@ List<List<String>> _stations = [
     '40.19N',
     '027.58E',
     '49',
-    'TR'
+    'TR',
   ],
   ['CANAKKALE', 'LTBH', 'null', '17112', '40.08N', '026.25E', '3', 'TR'],
   [
@@ -29157,7 +29157,7 @@ List<List<String>> _stations = [
     '39.46N',
     '030.34E',
     '785',
-    'TR'
+    'TR',
   ],
   [
     'IZMIR/ADNAN MEND',
@@ -29167,7 +29167,7 @@ List<List<String>> _stations = [
     '38.17N',
     '027.09E',
     '120',
-    'TR'
+    'TR',
   ],
   ['IZMIR/CIGLI(CV/A', 'LTBL', 'null', '17218', '38.30N', '027.01E', '5', 'TR'],
   ['ISPARTA', 'LTBM', 'null', '17240', '37.45N', '030.33E', '997', 'TR'],
@@ -29179,7 +29179,7 @@ List<List<String>> _stations = [
     '39.25N',
     '030.01E',
     '921',
-    'TR'
+    'TR',
   ],
   ['USAK', 'LTBO', 'null', '17188', '38.40N', '029.28E', '919', 'TR'],
   ['TOPEL (TUR-AFB)', 'LTBQ', 'null', 'null', '40.43N', '030.04E', '50', 'TR'],
@@ -29193,7 +29193,7 @@ List<List<String>> _stations = [
     '38.55N',
     '027.51E',
     '93',
-    'TR'
+    'TR',
   ],
   ['CORLU', 'LTBU', 'null', 'null', '41.07N', '027.55E', '173', 'TR'],
   ['ANADOLU', 'LTBY', 'null', 'null', '39.49N', '030.31E', '789', 'TR'],
@@ -29206,7 +29206,7 @@ List<List<String>> _stations = [
     '38.36N',
     '039.16E',
     '882',
-    'TR'
+    'TR',
   ],
   ['AGRI', 'LTCB', 'null', '17099', '39.43N', '043.02E', '1632', 'TR'],
   [
@@ -29217,7 +29217,7 @@ List<List<String>> _stations = [
     '37.52N',
     '040.12E',
     '677',
-    'TR'
+    'TR',
   ],
   ['ERZINCAN', 'LTCD', 'null', '17092', '39.43N', '039.30E', '1215', 'TR'],
   [
@@ -29228,7 +29228,7 @@ List<List<String>> _stations = [
     '39.57N',
     '041.10E',
     '1758',
-    'TR'
+    'TR',
   ],
   ['KARS', 'LTCF', 'null', '17098', '40.34N', '043.07E', '1795', 'TR'],
   ['TRABZON', 'LTCG', 'null', '17038', '41.00N', '039.48E', '30', 'TR'],
@@ -29242,7 +29242,7 @@ List<List<String>> _stations = [
     '37.56N',
     '041.07E',
     '540',
-    'TR'
+    'TR',
   ],
   ['MUS (TUR-AFB)', 'LTCK', 'null', 'null', '38.45N', '041.40E', '1266', 'TR'],
   ['SIIRT AIRPORT', 'LTCL', 'null', 'null', '37.59N', '041.50E', '610', 'TR'],
@@ -29273,7 +29273,7 @@ List<List<String>> _stations = [
     '40.58N',
     '029.05E',
     '33',
-    'TR'
+    'TR',
   ],
   [
     'GOLCUK/DUMLUPINA',
@@ -29283,7 +29283,7 @@ List<List<String>> _stations = [
     '40.43N',
     '029.49E',
     '18',
-    'TR'
+    'TR',
   ],
   ['CENGIZTOPEL', 'null', 'null', '17068', '40.44N', '030.05E', '70', 'TR'],
   ['ANKARA/CENTRAL', 'null', 'null', '17130', '39.57N', '032.53E', '894', 'TR'],
@@ -29302,7 +29302,7 @@ List<List<String>> _stations = [
     '41.58N',
     '021.38E',
     '239',
-    'MK'
+    'MK',
   ],
   ['OHRID', 'LWOH', 'null', '13578', '41.11N', '020.45E', '761', 'MK'],
   ['GIBRALTAR (CIV/M', 'LXGB', 'null', '08495', '36.08N', '005.20W', '5', 'GI'],
@@ -29315,7 +29315,7 @@ List<List<String>> _stations = [
     '12.31N',
     '007.57W',
     '381',
-    'ML'
+    'ML',
   ],
   ['SHIP C7L/ROMEO', 'GACA', 'null', '99023', '47.00N', '017.00W', '0', 'ML'],
   ['GAO (CIV/MIL)', 'GAGO', 'null', '61226', '16.16N', '000.03W', '260', 'ML'],
@@ -29333,7 +29333,7 @@ List<List<String>> _stations = [
     '14.31N',
     '004.05W',
     '272',
-    'ML'
+    'ML',
   ],
   ['MENAKA', 'GAMK', 'null', '61250', '15.52N', '002.13E', '278', 'ML'],
   ['NARA/KEIBANE', 'GANK', 'null', '61233', '15.10N', '007.16W', '265', 'ML'],
@@ -29349,7 +29349,7 @@ List<List<String>> _stations = [
     '16.43N',
     '003.00W',
     '264',
-    'ML'
+    'ML',
   ],
   ['TESSALIT', 'GATS', 'null', '61202', '20.11N', '000.58E', '491', 'ML'],
   ['YELIMANE', 'GAYE', 'null', 'null', '15.08N', '010.34W', '99', 'ML'],
@@ -29361,7 +29361,7 @@ List<List<String>> _stations = [
     '13.20N',
     '016.39W',
     '36',
-    'GM'
+    'GM',
   ],
   ['BONTHE', 'GFBN', 'null', '61866', '07.31N', '012.30W', '8', 'SL'],
   ['BO', 'GFBO', 'null', '61881', '07.57N', '011.46W', '93', 'SL'],
@@ -29377,7 +29377,7 @@ List<List<String>> _stations = [
     '11.52N',
     '015.39W',
     '36',
-    'GW'
+    'GW',
   ],
   ['CONAKRY/GBESSIA', 'GUCY', 'null', '61832', '09.34N', '013.37W', '26', 'GN'],
   ['FARANAH/BADALA', 'GUFH', 'null', '61833', '10.01N', '010.45W', '459', 'GN'],
@@ -29393,7 +29393,7 @@ List<List<String>> _stations = [
     '07.43N',
     '008.49W',
     '470',
-    'GN'
+    'GN',
   ],
   ['BOKE/BARALANDE', 'GUOK', 'null', '61816', '10.55N', '014.19W', '69', 'GN'],
   ['SIGUIRI', 'GUSI', 'null', '61811', '11.25N', '009.10W', '366', 'GN'],
@@ -29405,7 +29405,7 @@ List<List<String>> _stations = [
     '10.22N',
     '009.18W',
     '384',
-    'GN'
+    'GN',
   ],
   [
     'SPRIGGS PAYNE/MO',
@@ -29415,7 +29415,7 @@ List<List<String>> _stations = [
     '06.19N',
     '010.45W',
     '12',
-    'LR'
+    'LR',
   ],
   [
     'ROBERTS INTL/MON',
@@ -29425,7 +29425,7 @@ List<List<String>> _stations = [
     '06.15N',
     '010.20W',
     '18',
-    'LR'
+    'LR',
   ],
   ['AGADIR/INEZGANE', 'GMAA', 'null', '60250', '30.22N', '009.34W', '23', 'MA'],
   ['AL MASSIRA MC', 'GMAD', 'null', '60252', '30.19N', '009.25W', '74', 'MA'],
@@ -29438,7 +29438,7 @@ List<List<String>> _stations = [
     '28.26N',
     '011.09W',
     '200',
-    'MA'
+    'MA',
   ],
   ['ZAGORA', 'GMAZ', 'null', '60275', '30.19N', '005.52W', '729', 'MA'],
   ['FES-SAIS', 'GMFF', 'null', '60141', '33.55N', '004.58W', '579', 'MA'],
@@ -29450,7 +29450,7 @@ List<List<String>> _stations = [
     '33.30N',
     '005.10W',
     '1665',
-    'MA'
+    'MA',
   ],
   [
     'ER-RACHIDIA (RMA',
@@ -29460,7 +29460,7 @@ List<List<String>> _stations = [
     '31.57N',
     '004.24W',
     '1045',
-    'MA'
+    'MA',
   ],
   [
     'MEKNES/BASSATINE',
@@ -29470,7 +29470,7 @@ List<List<String>> _stations = [
     '33.52N',
     '005.31W',
     '549',
-    'MA'
+    'MA',
   ],
   ['TAOUIMA/NADOR', 'GMFN', 'null', '60340', '35.08N', '002.55W', '16', 'MA'],
   ['OUJDA/ANGADS', 'GMFO', 'null', '60115', '34.46N', '001.55W', '470', 'MA'],
@@ -29484,7 +29484,7 @@ List<List<String>> _stations = [
     '34.02N',
     '006.46W',
     '75',
-    'MA'
+    'MA',
   ],
   ['SIDI IFNI', 'GMMF', 'null', '60060', '29.22N', '010.10W', '66', 'MA'],
   ['ESSAOUIRA', 'GMMI', 'null', '60220', '31.31N', '009.46W', '8', 'MA'],
@@ -29497,7 +29497,7 @@ List<List<String>> _stations = [
     '33.22N',
     '007.34W',
     '206',
-    'MA'
+    'MA',
   ],
   ['SAFI', 'GMMS', 'null', '60185', '32.16N', '009.13W', '45', 'MA'],
   ['CASABLANCA T-M', 'GMMT', 'null', 'null', '33.36N', '007.28W', '96', 'MA'],
@@ -29510,7 +29510,7 @@ List<List<String>> _stations = [
     '31.37N',
     '008.01W',
     '466',
-    'MA'
+    'MA',
   ],
   [
     'KENITRA/TOURISME',
@@ -29520,7 +29520,7 @@ List<List<String>> _stations = [
     '34.17N',
     '006.35W',
     '14',
-    'MA'
+    'MA',
   ],
   ['OUARZAZATE', 'GMMZ', 'null', '60265', '30.55N', '006.54W', '1140', 'MA'],
   ['SIDI SLIMANE', 'GMSL', 'null', '60136', '34.13N', '006.02W', '52', 'MA'],
@@ -29533,7 +29533,7 @@ List<List<String>> _stations = [
     '35.34N',
     '005.19W',
     '10',
-    'MA'
+    'MA',
   ],
   [
     'TANGIER/BOUKHALF',
@@ -29543,7 +29543,7 @@ List<List<String>> _stations = [
     '35.43N',
     '005.54W',
     '21',
-    'MA'
+    'MA',
   ],
   ['DAKHLA AIRPORT', 'GMMH', 'null', 'null', '23.43N', '015.56W', '11', 'MA'],
   ['ZIGUINCHOR', 'GOGG', 'null', '61695', '12.33N', '016.16W', '23', 'SN'],
@@ -29561,7 +29561,7 @@ List<List<String>> _stations = [
     '15.36N',
     '013.20W',
     '17',
-    'SN'
+    'SN',
   ],
   ['PODOR', 'GOSP', 'null', '61612', '16.41N', '014.58W', '7', 'SN'],
   ['SAINT LOUIS', 'GOSS', 'null', '61600', '16.03N', '016.26W', '4', 'SN'],
@@ -29576,7 +29576,7 @@ List<List<String>> _stations = [
     '16.41N',
     '009.35W',
     '223',
-    'MR'
+    'MR',
   ],
   ['BOUTILIMIT', 'GQNB', 'null', '61461', '17.31N', '014.40W', '75', 'MR'],
   ['TIDJIKJA', 'GQND', 'null', '61450', '18.34N', '011.25W', '402', 'MR'],
@@ -29597,7 +29597,7 @@ List<List<String>> _stations = [
     '25.13N',
     '011.37W',
     '360',
-    'MR'
+    'MR',
   ],
   ['EL AAIUN', 'GSAI', 'null', '60033', '27.08N', '013.11W', '63', 'EH'],
   [
@@ -29608,7 +29608,7 @@ List<List<String>> _stations = [
     '23.41N',
     '015.52W',
     '10',
-    'EH'
+    'EH',
   ],
   ['SAL ISL/AMILCAR', 'GVAC', 'null', '08594', '16.43N', '022.56W', '55', 'CV'],
   ['RABIL AIRPORT', 'GVBA', 'null', 'null', '16.08N', '022.53W', '22', 'CV'],
@@ -29626,7 +29626,7 @@ List<List<String>> _stations = [
     '36.43N',
     '003.13E',
     '25',
-    'DZ'
+    'DZ',
   ],
   ['DJANET/TISKA', 'DAAJ', 'null', '60670', '24.17N', '009.28E', '968', 'DZ'],
   [
@@ -29637,7 +29637,7 @@ List<List<String>> _stations = [
     '26.43N',
     '008.37E',
     '558',
-    'DZ'
+    'DZ',
   ],
   [
     'SETIF/AIN-ARNAT',
@@ -29647,7 +29647,7 @@ List<List<String>> _stations = [
     '36.11N',
     '005.20E',
     '1038',
-    'DZ'
+    'DZ',
   ],
   [
     'TAMANRASSET/AGUE',
@@ -29657,7 +29657,7 @@ List<List<String>> _stations = [
     '22.49N',
     '005.28E',
     '1377',
-    'DZ'
+    'DZ',
   ],
   ['JIJEL/TAHER', 'DAAV', 'null', '60351', '36.48N', '005.53E', '11', 'DZ'],
   [
@@ -29668,7 +29668,7 @@ List<List<String>> _stations = [
     '28.07N',
     '006.49E',
     '387',
-    'DZ'
+    'DZ',
   ],
   ['MECHERIA', 'DAAY', 'null', '60549', '33.32N', '000.15W', '1149', 'DZ'],
   ['ANNABA/EL MELLAH', 'DABB', 'null', '60360', '36.49N', '007.49E', '4', 'DZ'],
@@ -29680,7 +29680,7 @@ List<List<String>> _stations = [
     '36.16N',
     '006.37E',
     '694',
-    'DZ'
+    'DZ',
   ],
   ['SKIKDA', 'DABP', 'null', '60355', '36.55N', '006.57E', '7', 'DZ'],
   ['TEBESSA', 'DABS', 'null', '60475', '35.26N', '008.07E', '813', 'DZ'],
@@ -29711,7 +29711,7 @@ List<List<String>> _stations = [
     '32.22N',
     '003.49E',
     '450',
-    'DZ'
+    'DZ',
   ],
   [
     'HASSI-MESSAOUD/I',
@@ -29721,7 +29721,7 @@ List<List<String>> _stations = [
     '31.40N',
     '006.09E',
     '142',
-    'DZ'
+    'DZ',
   ],
   ['IN SALAH NORTH', 'DAUI', 'null', 'null', '27.15N', '002.31E', '269', 'DZ'],
   [
@@ -29732,7 +29732,7 @@ List<List<String>> _stations = [
     '33.05N',
     '006.07E',
     '85',
-    'DZ'
+    'DZ',
   ],
   ['LAGHOUAT', 'DAUL', 'null', '60545', '33.46N', '002.55E', '765', 'DZ'],
   ['EL OUED/GUEMER', 'DAUO', 'null', '60559', '33.30N', '006.47E', '63', 'DZ'],
@@ -29746,7 +29746,7 @@ List<List<String>> _stations = [
     '28.03N',
     '009.37E',
     '562',
-    'DZ'
+    'DZ',
   ],
   ['COTONOU/CADJEHOU', 'DBBB', 'null', '65344', '06.20N', '002.22E', '9', 'BJ'],
   ['BOHICON/CANA', 'DBBC', 'null', '65338', '07.10N', '002.04E', '167', 'BJ'],
@@ -29767,7 +29767,7 @@ List<List<String>> _stations = [
     '12.20N',
     '001.31W',
     '306',
-    'BF'
+    'BF',
   ],
   ['DEDOUGOU', 'DFOD', 'null', '65505', '12.28N', '003.28W', '300', 'BF'],
   ['GAOUA', 'DFOG', 'null', '65522', '10.19N', '003.10W', '335', 'BF'],
@@ -29780,7 +29780,7 @@ List<List<String>> _stations = [
     '05.35N',
     '000.10W',
     '69',
-    'GH'
+    'GH',
   ],
   ['ADA', 'DGAD', 'null', '65475', '05.46N', '000.37E', '7', 'GH'],
   ['HO', 'DGAH', 'null', '65453', '06.35N', '000.28E', '158', 'GH'],
@@ -29798,7 +29798,7 @@ List<List<String>> _stations = [
     '09.30N',
     '000.51W',
     '173',
-    'GH'
+    'GH',
   ],
   ['NAVRONGO', 'DGLN', 'null', '65401', '10.54N', '001.06W', '203', 'GH'],
   ['WA', 'DGLW', 'null', '65404', '10.03N', '002.30W', '323', 'GH'],
@@ -29819,7 +29819,7 @@ List<List<String>> _stations = [
     '07.43N',
     '005.04W',
     '376',
-    'CI'
+    'CI',
   ],
   ['BONDOUKOU/SOKO', 'DIBU', 'null', '65545', '08.03N', '002.46W', '370', 'CI'],
   ['DIMBOKRO CITY', 'DIDK', 'null', '65562', '06.39N', '004.42W', '92', 'CI'],
@@ -29838,7 +29838,7 @@ List<List<String>> _stations = [
     '04.57N',
     '006.04W',
     '66',
-    'CI'
+    'CI',
   ],
   ['TABOU', 'DITB', 'null', '65592', '04.25N', '007.22W', '21', 'CI'],
   ['YAMOUSSOUKRO', 'DIYO', 'null', '65563', '06.54N', '005.20W', '213', 'CI'],
@@ -29853,7 +29853,7 @@ List<List<String>> _stations = [
     '06.19N',
     '005.35E',
     '79',
-    'NG'
+    'NG',
   ],
   ['BIDA', 'DNBI', 'null', '65112', '09.05N', '006.01E', '143', 'NG'],
   ['CALABAR', 'DNCA', 'null', '65264', '04.58N', '008.20E', '63', 'NG'],
@@ -29870,7 +29870,7 @@ List<List<String>> _stations = [
     '10.35N',
     '007.27E',
     '642',
-    'NG'
+    'NG',
   ],
   [
     'KANO/MALLAM AMIN',
@@ -29880,7 +29880,7 @@ List<List<String>> _stations = [
     '12.03N',
     '008.31E',
     '481',
-    'NG'
+    'NG',
   ],
   ['MAIDUGURI', 'DNMA', 'null', '65082', '11.50N', '013.04E', '354', 'NG'],
   ['MAKURDI (MIL)', 'DNMK', 'null', '65271', '07.40N', '008.37E', '97', 'NG'],
@@ -29904,7 +29904,7 @@ List<List<String>> _stations = [
     '13.28N',
     '002.10E',
     '227',
-    'NE'
+    'NE',
   ],
   ['TAHOUA', 'DRRT', 'null', '61043', '14.54N', '005.15E', '391', 'NE'],
   [
@@ -29915,7 +29915,7 @@ List<List<String>> _stations = [
     '16.58N',
     '008.00E',
     '502',
-    'NE'
+    'NE',
   ],
   ['DIFFA', 'DRZF', 'null', '61085', '13.25N', '012.46E', '305', 'NE'],
   ['GOURE', 'DRZG', 'null', '61045', '13.58N', '010.18E', '460', 'NE'],
@@ -29946,7 +29946,7 @@ List<List<String>> _stations = [
     '07.32N',
     '001.07E',
     '402',
-    'TG'
+    'TG',
   ],
   ['DJANGOU AIRPORT', 'DXDP', 'null', 'null', '10.48N', '000.14E', '280', 'TG'],
   ['MANGO/SANSANNE', 'DXMG', 'null', '65352', '10.22N', '000.28E', '146', 'TG'],
@@ -29958,7 +29958,7 @@ List<List<String>> _stations = [
     '09.46N',
     '001.06E',
     '343',
-    'TG'
+    'TG',
   ],
   ['SOKODE', 'DXSK', 'null', '65361', '09.00N', '001.09E', '387', 'TG'],
   ['TABLIGBO', 'DXTA', 'null', '65380', '06.34N', '001.30E', '44', 'TG'],
@@ -29970,7 +29970,7 @@ List<List<String>> _stations = [
     '06.10N',
     '001.15E',
     '25',
-    'TG'
+    'TG',
   ],
   [
     'ADDIS ABABA/BOLE',
@@ -29980,7 +29980,7 @@ List<List<String>> _stations = [
     '08.58N',
     '038.47E',
     '2355',
-    'ET'
+    'ET',
   ],
   ['AGORDAT', 'HAAG', 'null', 'null', '15.33N', '037.52E', '626', 'ET'],
   ['ARBA MINCH', 'HAAM', 'null', '63500', '06.04N', '037.40E', '1219', 'ET'],
@@ -29994,7 +29994,7 @@ List<List<String>> _stations = [
     '15.16N',
     '038.55E',
     '2325',
-    'ET'
+    'ET',
   ],
   [
     'ASMARA/YOHANNES',
@@ -30004,7 +30004,7 @@ List<List<String>> _stations = [
     '15.16N',
     '038.55E',
     '2356',
-    'ET'
+    'ET',
   ],
   ['BACO/BAKO', 'HABC', 'null', 'null', '05.49N', '036.37E', '1311', 'ET'],
   ['BAHAR DAR', 'HABD', 'null', '63332', '11.36N', '037.19E', '1822', 'ET'],
@@ -30016,7 +30016,7 @@ List<List<String>> _stations = [
     '11.04N',
     '039.43E',
     '1864',
-    'ET'
+    'ET',
   ],
   ['DEBRE MARCOS', 'HADM', 'null', '63334', '10.20N', '037.43E', '2476', 'ET'],
   [
@@ -30027,7 +30027,7 @@ List<List<String>> _stations = [
     '09.35N',
     '041.52E',
     '1146',
-    'ET'
+    'ET',
   ],
   ['GHINNIR/GINIR', 'HAGH', 'null', 'null', '07.09N', '040.43E', '1844', 'ET'],
   ['GONDAR', 'HAGN', 'null', '63331', '12.31N', '037.25E', '1985', 'ET'],
@@ -30041,7 +30041,7 @@ List<List<String>> _stations = [
     '08.43N',
     '039.00E',
     '1876',
-    'ET'
+    'ET',
   ],
   ['JIJIGA (MIL)', 'HAJJ', 'null', '63473', '09.19N', '042.43E', '1644', 'ET'],
   ['JIMMA', 'HAJM', 'null', '63402', '07.40N', '036.49E', '1676', 'ET'],
@@ -30053,7 +30053,7 @@ List<List<String>> _stations = [
     '06.45N',
     '044.16E',
     '550',
-    'ET'
+    'ET',
   ],
   ['AWASSA (LAKE)', 'HALA', 'null', '63460', '07.04N', '038.30E', '1652', 'ET'],
   ['MAKALE/MEQELE', 'HAMK', 'null', '63330', '13.28N', '039.32E', '2255', 'ET'],
@@ -30067,7 +30067,7 @@ List<List<String>> _stations = [
     '05.16N',
     '039.45E',
     '1455',
-    'ET'
+    'ET',
   ],
   ['ASSAB', 'HASB', 'null', '63043', '13.04N', '042.43E', '14', 'ET'],
   ['ASSOSA/ASOSA', 'HASO', 'null', 'null', '10.01N', '034.31E', '1733', 'ET'],
@@ -30079,7 +30079,7 @@ List<List<String>> _stations = [
     '15.07N',
     '036.40E',
     '615',
-    'ET'
+    'ET',
   ],
   ['BUJUMBURA', 'HBBA', 'null', '64390', '03.19S', '029.19E', '783', 'BI'],
   ['ALULA', 'HCMA', 'null', '63200', '11.56N', '050.43E', '2', 'SO'],
@@ -30107,7 +30107,7 @@ List<List<String>> _stations = [
     '11.33N',
     '043.08E',
     '19',
-    'DJ'
+    'DJ',
   ],
   ['MENIA', 'HEAM', 'null', 'null', '28.00N', '030.45E', '1', 'EG'],
   ['EL ARISH', 'HEAR', 'null', '62337', '31.04N', '033.49E', '32', 'EG'],
@@ -30123,7 +30123,7 @@ List<List<String>> _stations = [
     '22.23N',
     '031.37E',
     '188',
-    'EG'
+    'EG',
   ],
   [
     'CAIRO INTL AIRPO',
@@ -30133,7 +30133,7 @@ List<List<String>> _stations = [
     '30.07N',
     '031.23E',
     '74',
-    'EG'
+    'EG',
   ],
   ['HURGUADA', 'HEGN', 'null', '62463', '27.11N', '033.48E', '14', 'EG'],
   ['JIYANKLIS AFB', 'HEGS', 'null', 'null', '30.49N', '030.11E', '15', 'EG'],
@@ -30148,7 +30148,7 @@ List<List<String>> _stations = [
     '31.19N',
     '027.13E',
     '30',
-    'EG'
+    'EG',
   ],
   ['PORT SAID', 'HEPS', 'null', '62333', '31.17N', '032.15E', '6', 'EG'],
   ['ST CATHERINE', 'HESC', 'SKV', 'null', '28.41N', '034.04E', '1332', 'EG'],
@@ -30161,7 +30161,7 @@ List<List<String>> _stations = [
     '23.58N',
     '032.49E',
     '194',
-    'EG'
+    'EG',
   ],
   ['TABA INTL', 'HETB', 'TCP', 'null', '29.35N', '034.47E', '750', 'EG'],
   ['EL TOR', 'HETR', 'null', '62459', '28.13N', '033.39E', '35', 'EG'],
@@ -30177,7 +30177,7 @@ List<List<String>> _stations = [
     '01.19S',
     '036.55E',
     '1624',
-    'KE'
+    'KE',
   ],
   ['KAKAMEGA', 'HKKG', 'null', '63687', '00.16N', '034.46E', '1530', 'KE'],
   ['KISUMU', 'HKKI', 'null', '63708', '00.06S', '034.45E', '1146', 'KE'],
@@ -30199,7 +30199,7 @@ List<List<String>> _stations = [
     '04.01S',
     '039.37E',
     '55',
-    'KE'
+    'KE',
   ],
   ['MAKINDU', 'HKMU', 'null', '63766', '02.16S', '037.49E', '1000', 'KE'],
   ['MARA SERENA', 'HKMS', 'null', 'null', '01.24S', '035.00E', '1612', 'KE'],
@@ -30211,7 +30211,7 @@ List<List<String>> _stations = [
     '03.28N',
     '039.06E',
     '1097',
-    'KE'
+    'KE',
   ],
   [
     'NAIROBI/JOMO KEN',
@@ -30221,7 +30221,7 @@ List<List<String>> _stations = [
     '01.19S',
     '036.55E',
     '1624',
-    'KE'
+    'KE',
   ],
   [
     'NAIROBI/DAGORETT',
@@ -30231,7 +30231,7 @@ List<List<String>> _stations = [
     '01.18S',
     '036.45E',
     '1798',
-    'KE'
+    'KE',
   ],
   ['NYERI', 'HKNI', 'null', '63717', '00.22S', '036.55E', '1759', 'KE'],
   ['NAKURU', 'HKNK', 'null', '63714', '00.18S', '036.10E', '1901', 'KE'],
@@ -30244,7 +30244,7 @@ List<List<String>> _stations = [
     '01.19S',
     '036.49E',
     '1679',
-    'KE'
+    'KE',
   ],
   ['NANYUKI', 'HKNY', 'null', 'null', '00.04S', '037.01E', '1905', 'KE'],
   ['MOI AIRBASE', 'HKRE', 'null', 'null', '01.17S', '036.52E', '1627', 'KE'],
@@ -30260,7 +30260,7 @@ List<List<String>> _stations = [
     '24.13N',
     '023.18E',
     '435',
-    'LY'
+    'LY',
   ],
   [
     'BENINA/BENGHAZI',
@@ -30270,7 +30270,7 @@ List<List<String>> _stations = [
     '32.04N',
     '020.16E',
     '132',
-    'LY'
+    'LY',
   ],
   ['MITIGA', 'HLLM', 'null', 'null', '32.54N', '013.17E', '11', 'LY'],
   ['EL BEIDA', 'HLLQ', 'null', 'null', '32.47N', '021.58E', '657', 'LY'],
@@ -30283,7 +30283,7 @@ List<List<String>> _stations = [
     '32.40N',
     '013.09E',
     '81',
-    'LY'
+    'LY',
   ],
   ['HON', 'HLON', 'null', 'null', '29.07N', '015.58E', '280', 'LY'],
   ['GHADAMES', 'HLTD', 'null', '62103', '30.07N', '009.30E', '357', 'LY'],
@@ -30304,7 +30304,7 @@ List<List<String>> _stations = [
     '19.10N',
     '030.28E',
     '226',
-    'SD'
+    'SD',
   ],
   ['DAMAZIN', 'HSDZ', 'null', '62805', '11.46N', '034.22E', '470', 'SD'],
   ['EL FASHER', 'HSFS', 'null', '62760', '13.37N', '025.19E', '730', 'SD'],
@@ -30335,7 +30335,7 @@ List<List<String>> _stations = [
     '15.35N',
     '032.32E',
     '380',
-    'SD'
+    'SD',
   ],
   ['HALFA (WADI)', 'HSSW', 'null', '62600', '21.49N', '031.28E', '183', 'SD'],
   ['TORIT', 'HSTR', 'null', 'null', '04.25N', '032.34E', '624', 'SD'],
@@ -30351,7 +30351,7 @@ List<List<String>> _stations = [
     '06.53S',
     '039.12E',
     '55',
-    'TZ'
+    'TZ',
   ],
   ['DODOMA', 'HTDO', 'null', '63862', '06.10S', '035.46E', '1120', 'TZ'],
   ['IRINGA', 'HTIR', 'null', '63887', '07.40S', '035.45E', '1428', 'TZ'],
@@ -30365,7 +30365,7 @@ List<List<String>> _stations = [
     '03.25S',
     '037.04E',
     '896',
-    'TZ'
+    'TZ',
   ],
   ['MBEYA', 'HTMB', 'null', '63932', '08.55S', '033.28E', '1707', 'TZ'],
   ['MOROGORO (MET)', 'HTMG', 'null', '63866', '06.49S', '037.38E', '526', 'TZ'],
@@ -30383,7 +30383,7 @@ List<List<String>> _stations = [
     '05.15S',
     '039.49E',
     '25',
-    'TZ'
+    'TZ',
   ],
   ['SAME', 'HTSE', 'null', '63816', '04.04S', '037.43E', '872', 'TZ'],
   ['SONGEA', 'HTSO', 'null', '63962', '10.40S', '035.34E', '1067', 'TZ'],
@@ -30397,7 +30397,7 @@ List<List<String>> _stations = [
     '05.04S',
     '032.49E',
     '1190',
-    'TZ'
+    'TZ',
   ],
   ['TANGA', 'HTTG', 'null', '63844', '05.04S', '039.04E', '35', 'TZ'],
   [
@@ -30408,7 +30408,7 @@ List<List<String>> _stations = [
     '06.13S',
     '039.13E',
     '15',
-    'TZ'
+    'TZ',
   ],
   ['ARUA', 'HUAR', 'null', '63602', '03.02N', '030.55E', '1211', 'UG'],
   [
@@ -30419,7 +30419,7 @@ List<List<String>> _stations = [
     '00.02N',
     '032.27E',
     '1155',
-    'UG'
+    'UG',
   ],
   ['FORT PORTAL', 'HUFP', 'null', 'null', '00.40N', '030.16E', '1533', 'UG'],
   [
@@ -30430,7 +30430,7 @@ List<List<String>> _stations = [
     '02.45N',
     '032.19E',
     '1105',
-    'UG'
+    'UG',
   ],
   ['JINJA', 'HUJI', 'null', '63682', '00.27N', '033.10E', '1173', 'UG'],
   ['KABALE', 'HUKB', 'null', '63726', '01.15S', '029.58E', '1869', 'UG'],
@@ -30454,7 +30454,7 @@ List<List<String>> _stations = [
     '29.06S',
     '026.18E',
     '1348',
-    'ZA'
+    'ZA',
   ],
   [
     'BETHLEHEM AIRPOR',
@@ -30464,7 +30464,7 @@ List<List<String>> _stations = [
     '28.15S',
     '028.19E',
     '1682',
-    'ZA'
+    'ZA',
   ],
   ['BARBERTON', 'FABN', 'null', 'null', '25.43S', '031.00E', '800', 'ZA'],
   ['BREDASDORP', 'FABR', 'null', 'null', '34.31S', '020.01E', '50', 'ZA'],
@@ -30476,7 +30476,7 @@ List<List<String>> _stations = [
     '32.21S',
     '022.34E',
     '842',
-    'ZA'
+    'ZA',
   ],
   ['COOKHOUSE', 'FACH', 'null', 'null', '32.46S', '025.45E', '900', 'ZA'],
   ['CAROLINA', 'FACL', 'null', '68380', '26.04S', '030.07E', '1700', 'ZA'],
@@ -30488,7 +30488,7 @@ List<List<String>> _stations = [
     '33.58S',
     '018.36E',
     '42',
-    'ZA'
+    'ZA',
   ],
   [
     'CALVINIA (MET)',
@@ -30498,7 +30498,7 @@ List<List<String>> _stations = [
     '31.28S',
     '019.46E',
     '1000',
-    'ZA'
+    'ZA',
   ],
   ['CLANWILLIAM', 'FACW', 'null', 'null', '32.10S', '018.52E', '150', 'ZA'],
   ['DE AAR', 'FADA', 'null', '68536', '30.38S', '024.01E', '1247', 'ZA'],
@@ -30513,7 +30513,7 @@ List<List<String>> _stations = [
     '26.21S',
     '028.28E',
     '1620',
-    'ZA'
+    'ZA',
   ],
   ['DE AAR MET', 'FADY', 'null', 'null', '30.38S', '023.55E', '384', 'ZA'],
   [
@@ -30524,7 +30524,7 @@ List<List<String>> _stations = [
     '33.01S',
     '027.49E',
     '125',
-    'ZA'
+    'ZA',
   ],
   ['ERMELO', 'FAEO', 'null', 'null', '26.30S', '029.58E', '1737', 'ZA'],
   ['ELLISRAS', 'FAER', 'null', '68156', '23.44S', '027.41E', '839', 'ZA'],
@@ -30544,7 +30544,7 @@ List<List<String>> _stations = [
     '34.00S',
     '022.22E',
     '193',
-    'ZA'
+    'ZA',
   ],
   [
     'JOHANNESBURG/RAN',
@@ -30554,7 +30554,7 @@ List<List<String>> _stations = [
     '26.15S',
     '028.09E',
     '1672',
-    'ZA'
+    'ZA',
   ],
   ['GRAAFF REINET', 'FAGR', 'null', '68736', '32.15S', '024.31E', '754', 'ZA'],
   ['GRAHAMSTOWN', 'FAGT', 'null', 'null', '33.16S', '026.30E', '651', 'ZA'],
@@ -30568,7 +30568,7 @@ List<List<String>> _stations = [
     '28.04S',
     '026.52E',
     '1337',
-    'ZA'
+    'ZA',
   ],
   ['HUMANSDORP', 'FAHD', 'null', 'null', '34.01S', '024.46E', '40', 'ZA'],
   [
@@ -30579,7 +30579,7 @@ List<List<String>> _stations = [
     '26.01S',
     '029.36E',
     '1576',
-    'ZA'
+    'ZA',
   ],
   ['HEIDELBERG', 'FAHG', 'null', 'null', '26.31S', '028.22E', '1560', 'ZA'],
   [
@@ -30590,7 +30590,7 @@ List<List<String>> _stations = [
     '24.22S',
     '031.01E',
     '500',
-    'ZA'
+    'ZA',
   ],
   [
     'PRETORIA/IRENE',
@@ -30600,7 +30600,7 @@ List<List<String>> _stations = [
     '25.55S',
     '028.13E',
     '1500',
-    'ZA'
+    'ZA',
   ],
   [
     'JOHANNESBURG CIT',
@@ -30610,7 +30610,7 @@ List<List<String>> _stations = [
     '26.09S',
     '028.00E',
     '1626',
-    'ZA'
+    'ZA',
   ],
   ['JAGERSFONTEIN', 'FAJF', 'null', 'null', '29.46S', '025.25E', '1400', 'ZA'],
   ['KLERKSDORP', 'FAKD', 'null', 'null', '26.52S', '026.43E', '1355', 'ZA'],
@@ -30622,7 +30622,7 @@ List<List<String>> _stations = [
     '28.48S',
     '024.46E',
     '1192',
-    'ZA'
+    'ZA',
   ],
   [
     'KRUGER MPUMALANG',
@@ -30632,7 +30632,7 @@ List<List<String>> _stations = [
     '25.23S',
     '031.06E',
     '862',
-    'ZA'
+    'ZA',
   ],
   ['KOMATIPOORT', 'FAKP', 'null', 'null', '25.25S', '031.55E', '152', 'ZA'],
   ['KROONSTAD', 'FAKS', 'null', '68352', '27.40S', '027.15E', '1350', 'ZA'],
@@ -30645,7 +30645,7 @@ List<List<String>> _stations = [
     '25.55S',
     '027.55E',
     '1377',
-    'ZA'
+    'ZA',
   ],
   [
     'LIME ACRES(PRIVA',
@@ -30655,7 +30655,7 @@ List<List<String>> _stations = [
     '28.22S',
     '023.26E',
     '1494',
-    'ZA'
+    'ZA',
   ],
   ['DURBAN SHAKA', 'FALE', 'null', '68592', '29.37S', '031.07E', '109', 'ZA'],
   ['LICHTENBURG', 'FALI', 'null', 'null', '26.10S', '026.11E', '1486', 'ZA'],
@@ -30676,7 +30676,7 @@ List<List<String>> _stations = [
     '25.48S',
     '025.31E',
     '1277',
-    'ZA'
+    'ZA',
   ],
   [
     'MOSSEL BAY (LGT-',
@@ -30686,7 +30686,7 @@ List<List<String>> _stations = [
     '34.10S',
     '022.08E',
     '59',
-    'ZA'
+    'ZA',
   ],
   [
     'MPACHA (CIV/MIL)',
@@ -30696,7 +30696,7 @@ List<List<String>> _stations = [
     '17.37S',
     '024.10E',
     '985',
-    'ZA'
+    'ZA',
   ],
   [
     'MARIEPSKOP (SAAF',
@@ -30706,7 +30706,7 @@ List<List<String>> _stations = [
     '24.33S',
     '030.52E',
     '1927',
-    'ZA'
+    'ZA',
   ],
   ['MEYERTON', 'FAMT', 'null', 'null', '26.33S', '028.01E', '1500', 'ZA'],
   ['NEWCASTLE', 'FANC', 'null', 'null', '27.46S', '029.58E', '1251', 'ZA'],
@@ -30721,7 +30721,7 @@ List<List<String>> _stations = [
     '26.07S',
     '028.13E',
     '1700',
-    'ZA'
+    'ZA',
   ],
   [
     'ONDANGWA (MIL/CI',
@@ -30731,7 +30731,7 @@ List<List<String>> _stations = [
     '17.55S',
     '015.58E',
     '1100',
-    'ZA'
+    'ZA',
   ],
   ['OVERBERG', 'FAOB', 'null', 'null', '34.36S', '020.16E', '75', 'ZA'],
   ['OUDTSHOORN', 'FAOH', 'null', '68826', '33.34S', '022.13E', '359', 'ZA'],
@@ -30743,7 +30743,7 @@ List<List<String>> _stations = [
     '23.52S',
     '029.26E',
     '1222',
-    'ZA'
+    'ZA',
   ],
   ['PLETTENBERG BAY', 'FAPG', 'null', 'null', '34.05S', '023.20E', '139', 'ZA'],
   [
@@ -30754,7 +30754,7 @@ List<List<String>> _stations = [
     '33.13S',
     '022.01E',
     '900',
-    'ZA'
+    'ZA',
   ],
   ['PORT ELIZABETH', 'FAPE', 'null', '68842', '33.58S', '025.36E', '60', 'ZA'],
   [
@@ -30765,7 +30765,7 @@ List<List<String>> _stations = [
     '23.55S',
     '031.08E',
     '400',
-    'ZA'
+    'ZA',
   ],
   [
     'PIETERSBURG(CIVI',
@@ -30775,7 +30775,7 @@ List<List<String>> _stations = [
     '23.53S',
     '029.28E',
     '1327',
-    'ZA'
+    'ZA',
   ],
   [
     'PORT ST. JOHNS (',
@@ -30785,7 +30785,7 @@ List<List<String>> _stations = [
     '31.37S',
     '029.33E',
     '47',
-    'ZA'
+    'ZA',
   ],
   [
     'PIETERMARITZBURG',
@@ -30795,7 +30795,7 @@ List<List<String>> _stations = [
     '29.38S',
     '030.23E',
     '739',
-    'ZA'
+    'ZA',
   ],
   ['PILANESBERG', 'FAPN', 'null', 'null', '25.20S', '027.10E', '1039', 'ZA'],
   ['POLOKWANE INTL', 'FAPP', 'null', 'null', '23.50S', '029.27E', '1242', 'ZA'],
@@ -30807,7 +30807,7 @@ List<List<String>> _stations = [
     '25.43S',
     '028.10E',
     '1322',
-    'ZA'
+    'ZA',
   ],
   [
     'POTCHEFSTROOM(SA',
@@ -30817,7 +30817,7 @@ List<List<String>> _stations = [
     '26.40S',
     '027.06E',
     '1400',
-    'ZA'
+    'ZA',
   ],
   ['QUEENSTOWN', 'FAQT', 'null', '68648', '31.53S', '026.52E', '1086', 'ZA'],
   ['RICHARD\'S BAY', 'FARB', 'null', '68498', '28.48S', '032.06E', '0', 'ZA'],
@@ -30830,7 +30830,7 @@ List<List<String>> _stations = [
     '17.55S',
     '019.46E',
     '1100',
-    'ZA'
+    'ZA',
   ],
   ['SPRINGBOK', 'FASB', 'null', '68512', '29.40S', '017.52E', '990', 'ZA'],
   ['SPRINGS', 'FASI', 'null', 'null', '26.15S', '028.24E', '1628', 'ZA'],
@@ -30842,7 +30842,7 @@ List<List<String>> _stations = [
     '25.49S',
     '028.10E',
     '1457',
-    'ZA'
+    'ZA',
   ],
   ['SISHEN', 'FASS', 'null', 'null', '27.38S', '023.00E', '1173', 'ZA'],
   [
@@ -30853,7 +30853,7 @@ List<List<String>> _stations = [
     '37.02S',
     '012.19W',
     '23',
-    'ZA'
+    'ZA',
   ],
   [
     'TSUMEB (PRIVATE)',
@@ -30863,7 +30863,7 @@ List<List<String>> _stations = [
     '19.16S',
     '017.43E',
     '1327',
-    'ZA'
+    'ZA',
   ],
   ['TZANEEN', 'FATZ', 'null', 'null', '23.49S', '030.19E', '583', 'ZA'],
   ['ULUNDI', 'FAUL', 'null', 'null', '28.19S', '031.25E', '525', 'ZA'],
@@ -30875,7 +30875,7 @@ List<List<String>> _stations = [
     '28.23S',
     '021.16E',
     '836',
-    'ZA'
+    'ZA',
   ],
   [
     'UMTATA/KD MATANZ',
@@ -30885,7 +30885,7 @@ List<List<String>> _stations = [
     '31.31S',
     '028.40E',
     '752',
-    'ZA'
+    'ZA',
   ],
   ['VEREENIGING', 'FAVV', 'null', 'null', '26.34S', '027.58E', '1483', 'ZA'],
   ['VRYBURG', 'FAVB', 'null', '68338', '26.59S', '024.44E', '1195', 'ZA'],
@@ -30901,7 +30901,7 @@ List<List<String>> _stations = [
     '25.38S',
     '028.13E',
     '1248',
-    'ZA'
+    'ZA',
   ],
   ['WINDHOEK', 'FAWE', 'null', '68110', '22.34S', '017.06E', '1700', 'ZA'],
   ['WITBANK', 'FAWI', 'null', 'null', '25.50S', '029.12E', '1553', 'ZA'],
@@ -30913,7 +30913,7 @@ List<List<String>> _stations = [
     '25.49S',
     '028.13E',
     '1500',
-    'ZA'
+    'ZA',
   ],
   ['WELKOM', 'FAWM', 'null', '68346', '28.00S', '026.40E', '1341', 'ZA'],
   ['YSTERPLANT (SAAF', 'FAYP', 'null', 'null', '33.53S', '018.30E', '16', 'ZA'],
@@ -30926,7 +30926,7 @@ List<List<String>> _stations = [
     '22.34S',
     '017.06E',
     '1725',
-    'ZA'
+    'ZA',
   ],
   ['J. G. STRIJDOM', 'FAWH', 'null', 'null', '22.28S', '017.28E', '1700', 'ZA'],
   ['JAN SMUTS', 'FAJS', 'null', 'null', '26.07S', '028.13E', '1700', 'ZA'],
@@ -30940,7 +30940,7 @@ List<List<String>> _stations = [
     '24.36S',
     '024.40E',
     '1200',
-    'BW'
+    'BW',
   ],
   ['KASANE', 'FBKE', 'null', '68029', '17.49S', '025.10E', '1000', 'BW'],
   ['GBADOLITE', 'FBLT', 'null', '68040', '21.25S', '025.36E', '985', 'BW'],
@@ -30955,7 +30955,7 @@ List<List<String>> _stations = [
     '24.33S',
     '025.55E',
     '1005',
-    'BW'
+    'BW',
   ],
   ['SUA-PAN', 'FBSN', 'null', '68038', '20.28S', '025.58E', '904', 'BW'],
   ['SELEBI PHIKWE', 'FBSP', 'null', 'null', '22.03S', '027.49E', '892', 'BW'],
@@ -30971,7 +30971,7 @@ List<List<String>> _stations = [
     '04.15S',
     '015.15E',
     '316',
-    'CG'
+    'CG',
   ],
   ['DJAMBALA', 'FCBD', 'null', '64453', '02.31S', '014.46E', '790', 'CG'],
   ['MOUYONDZI', 'FCBM', 'null', '64402', '03.58S', '013.55E', '512', 'CG'],
@@ -30993,7 +30993,7 @@ List<List<String>> _stations = [
     '04.23S',
     '015.27E',
     '312',
-    'CD'
+    'CD',
   ],
   ['MOANDA', 'FZAG', 'null', '64201', '06.00S', '012.25E', '27', 'CD'],
   [
@@ -31004,7 +31004,7 @@ List<List<String>> _stations = [
     '05.55S',
     '012.26E',
     '120',
-    'CD'
+    'CD',
   ],
   ['MATADI/TSHIMPI', 'FZAM', 'null', '64207', '05.47S', '013.25E', '340', 'CD'],
   ['INGA', 'FZAN', 'null', '64206', '05.31S', '013.34E', '277', 'CD'],
@@ -31026,7 +31026,7 @@ List<List<String>> _stations = [
     '00.31N',
     '025.10E',
     '396',
-    'CD'
+    'CD',
   ],
   ['ISIRO', 'FZJA', 'null', '64062', '02.46N', '027.38E', '764', 'CD'],
   ['BUNIA', 'FZKA', 'null', '64076', '01.30N', '030.13E', '1239', 'CD'],
@@ -31042,7 +31042,7 @@ List<List<String>> _stations = [
     '01.40S',
     '029.13E',
     '1552',
-    'CD'
+    'CD',
   ],
   ['RUTSHURU', 'FZNC', 'null', '64157', '01.10S', '029.26E', '1275', 'CD'],
   ['KINDU', 'FZOA', 'null', '64155', '02.57S', '025.55E', '497', 'CD'],
@@ -31056,7 +31056,7 @@ List<List<String>> _stations = [
     '11.35S',
     '027.32E',
     '1309',
-    'CD'
+    'CD',
   ],
   ['KOLWEZI', 'FZQM', 'null', '64328', '10.43S', '025.26E', '1526', 'CD'],
   ['MITWABA', 'FZQV', 'null', '64348', '08.35S', '027.19E', '1579', 'CD'],
@@ -31072,7 +31072,7 @@ List<List<String>> _stations = [
     '08.37S',
     '025.15E',
     '1106',
-    'CD'
+    'CD',
   ],
   ['SANDOA', 'FZSD', 'null', '64303', '09.37S', '022.51E', '921', 'CD'],
   ['DILOLO', 'FZSI', 'null', '64301', '10.40S', '022.19E', '1028', 'CD'],
@@ -31097,7 +31097,7 @@ List<List<String>> _stations = [
     '26.31S',
     '031.18E',
     '641',
-    'SZ'
+    'SZ',
   ],
   ['MAYIWANE', 'FDMY', 'null', 'null', '25.52S', '031.31E', '480', 'SZ'],
   ['NDZEVANE', 'FDND', 'null', 'null', '26.58S', '031.58E', '207', 'SZ'],
@@ -31117,7 +31117,7 @@ List<List<String>> _stations = [
     '04.24N',
     '018.31E',
     '366',
-    'CF'
+    'CF',
   ],
   ['BANGASSOU', 'FEFG', 'null', '64656', '04.43N', '022.49E', '500', 'CF'],
   ['BIRAO', 'FEFI', 'null', '64658', '10.16N', '022.46E', '464', 'CF'],
@@ -31140,7 +31140,7 @@ List<List<String>> _stations = [
     '07.58S',
     '014.24W',
     '79',
-    'SH'
+    'SH',
   ],
   ['PLAISANCE', 'FIMP', 'null', '61990', '20.25S', '057.40E', '57', 'MU'],
   [
@@ -31151,7 +31151,7 @@ List<List<String>> _stations = [
     '19.45S',
     '063.22E',
     '31',
-    'MU'
+    'MU',
   ],
   ['DIEGO GARCIA', 'FJDG', 'null', '61967', '07.19S', '072.25E', '3', 'MU'],
   ['BANYO', 'FKAB', 'null', '64880', '06.46N', '011.49E', '1110', 'CM'],
@@ -31180,7 +31180,7 @@ List<List<String>> _stations = [
     '05.39N',
     '010.45E',
     '1210',
-    'CM'
+    'CM',
   ],
   ['NGAOUNDERE', 'FKKN', 'null', '64870', '07.20N', '013.34E', '1104', 'CM'],
   ['BERTOUA', 'FKKO', 'null', 'null', '04.32N', '013.43E', '670', 'CM'],
@@ -31199,7 +31199,7 @@ List<List<String>> _stations = [
     '08.50S',
     '031.19E',
     '1673',
-    'ZM'
+    'ZM',
   ],
   ['CHOMA', 'FLCH', 'null', '67753', '16.49S', '027.04E', '1278', 'ZM'],
   ['CHIPATA', 'FLCP', 'null', '67581', '13.33S', '032.34E', '1032', 'ZM'],
@@ -31215,7 +31215,7 @@ List<List<String>> _stations = [
     '14.26S',
     '028.28E',
     '1207',
-    'ZM'
+    'ZM',
   ],
   [
     'LUSAKA CITY AIRP',
@@ -31225,7 +31225,7 @@ List<List<String>> _stations = [
     '15.25S',
     '028.20E',
     '1280',
-    'ZM'
+    'ZM',
   ],
   ['LUNDAZI', 'FLLD', 'null', '67583', '12.16S', '033.12E', '1143', 'ZM'],
   [
@@ -31236,7 +31236,7 @@ List<List<String>> _stations = [
     '17.49S',
     '025.49E',
     '986',
-    'ZM'
+    'ZM',
   ],
   [
     'LIVINGSTONE NKUM',
@@ -31246,7 +31246,7 @@ List<List<String>> _stations = [
     '17.49S',
     '025.49E',
     '986',
-    'ZM'
+    'ZM',
   ],
   ['LUSAKA KUANDA', 'FLKK', 'null', '67665', '15.19S', '028.27E', '1154', 'ZM'],
   ['MANSA', 'FLMA', 'null', '67461', '11.05S', '028.51E', '1259', 'ZM'],
@@ -31273,7 +31273,7 @@ List<List<String>> _stations = [
     '15.19S',
     '028.26E',
     '1154',
-    'ZM'
+    'ZM',
   ],
   [
     'MORONI/HAHAIA IN',
@@ -31283,7 +31283,7 @@ List<List<String>> _stations = [
     '11.31S',
     '043.16E',
     '29',
-    'KM'
+    'KM',
   ],
   ['MORONI/ICONI ARP', 'FMCN', 'null', '67001', '11.41S', '043.13E', '6', 'KM'],
   ['ANJOUAN/OUANI', 'FMCV', 'null', '67004', '12.07S', '044.25E', '12', 'KM'],
@@ -31298,7 +31298,7 @@ List<List<String>> _stations = [
     '18.48S',
     '047.28E',
     '1276',
-    'KM'
+    'KM',
   ],
   ['MAINTIRANO', 'FMMO', 'null', '67073', '18.03S', '044.01E', '23', 'KM'],
   ['SAINTE-MARIE ARP', 'FMMS', 'null', '67072', '17.04S', '049.49E', '3', 'KM'],
@@ -31312,7 +31312,7 @@ List<List<String>> _stations = [
     '12.20S',
     '049.17E',
     '105',
-    'KM'
+    'KM',
   ],
   ['ANDAPA', 'FMND', 'null', '67022', '14.39S', '049.37E', '474', 'KM'],
   [
@@ -31323,7 +31323,7 @@ List<List<String>> _stations = [
     '14.52S',
     '050.15E',
     '88',
-    'KM'
+    'KM',
   ],
   ['ANALALAVA', 'FMNL', 'null', '67019', '14.37S', '047.46E', '57', 'KM'],
   [
@@ -31334,7 +31334,7 @@ List<List<String>> _stations = [
     '15.40S',
     '046.21E',
     '18',
-    'KM'
+    'KM',
   ],
   ['NOSY BE/FASCENE', 'FMNN', 'null', '67012', '13.19S', '048.19E', '9', 'KM'],
   ['BESALAMPY', 'FMNQ', 'null', '67037', '16.45S', '044.28E', '36', 'KM'],
@@ -31355,7 +31355,7 @@ List<List<String>> _stations = [
     '20.52S',
     '055.31E',
     '25',
-    'FR'
+    'FR',
   ],
   [
     'ST. PIERRE/FONDS',
@@ -31365,7 +31365,7 @@ List<List<String>> _stations = [
     '21.19S',
     '055.25E',
     '53',
-    'FR'
+    'FR',
   ],
   [
     'BENGUELA/MONBACA',
@@ -31375,7 +31375,7 @@ List<List<String>> _stations = [
     '12.37S',
     '013.24E',
     '36',
-    'AO'
+    'AO',
   ],
   ['CABINDA', 'FNCA', 'null', '66104', '05.32S', '012.10E', '20', 'AO'],
   [
@@ -31386,7 +31386,7 @@ List<List<String>> _stations = [
     '12.49S',
     '015.46E',
     '1701',
-    'AO'
+    'AO',
   ],
   [
     'BIE/KUITO/SILVA',
@@ -31396,7 +31396,7 @@ List<List<String>> _stations = [
     '12.22S',
     '016.56E',
     '1699',
-    'AO'
+    'AO',
   ],
   ['LOBITO', 'FNLB', 'null', '66305', '12.22S', '013.31E', '3', 'AO'],
   [
@@ -31407,7 +31407,7 @@ List<List<String>> _stations = [
     '08.50S',
     '013.13E',
     '70',
-    'AO'
+    'AO',
   ],
   ['MALANGE', 'FNMA', 'null', '66215', '09.33S', '016.22E', '1142', 'AO'],
   [
@@ -31418,7 +31418,7 @@ List<List<String>> _stations = [
     '14.39S',
     '017.40E',
     '1343',
-    'AO'
+    'AO',
   ],
   ['PORTO AMBOIM', 'FNPA', 'null', '66240', '10.41S', '013.45E', '5', 'AO'],
   [
@@ -31429,7 +31429,7 @@ List<List<String>> _stations = [
     '09.41S',
     '020.26E',
     '1093',
-    'AO'
+    'AO',
   ],
   [
     'WAKU KUNGU/CELA',
@@ -31439,7 +31439,7 @@ List<List<String>> _stations = [
     '11.25S',
     '015.07E',
     '1304',
-    'AO'
+    'AO',
   ],
   [
     'N\'ZETO/AMBRIZETE',
@@ -31449,7 +31449,7 @@ List<List<String>> _stations = [
     '07.13S',
     '012.52E',
     '17',
-    'AO'
+    'AO',
   ],
   ['MOUILA CITY', 'FOGM', 'null', '64550', '01.52S', '011.01E', '89', 'GA'],
   ['LAMBARENE', 'FOGR', 'null', '64551', '00.43S', '010.13E', '26', 'GA'],
@@ -31466,7 +31466,7 @@ List<List<String>> _stations = [
     '00.34N',
     '012.52E',
     '515',
-    'GA'
+    'GA',
   ],
   ['LIBREVILLE/LEON', 'FOOL', 'null', '64500', '00.27N', '009.25E', '15', 'GA'],
   ['MITZIC', 'FOOM', 'null', '64552', '00.46N', '011.31E', '583', 'GA'],
@@ -31478,7 +31478,7 @@ List<List<String>> _stations = [
     '01.38S',
     '013.25E',
     '441',
-    'GA'
+    'GA',
   ],
   ['LASTOURSVILLE', 'FOOR', 'null', '64560', '00.49S', '012.43E', '485', 'GA'],
   ['TCHIBANGA', 'FOOT', 'null', '64507', '02.51S', '011.01E', '79', 'GA'],
@@ -31492,7 +31492,7 @@ List<List<String>> _stations = [
     '00.22N',
     '006.43E',
     '13',
-    'ST'
+    'ST',
   ],
   ['ANGOCHE', 'FQAG', 'null', '67273', '16.13S', '039.53E', '62', 'MZ'],
   ['BEIRA', 'FQBR', 'null', '67297', '19.48S', '034.53E', '16', 'MZ'],
@@ -31511,7 +31511,7 @@ List<List<String>> _stations = [
     '11.20S',
     '040.22E',
     '29',
-    'MZ'
+    'MZ',
   ],
   ['MARRUPA', 'FQMR', 'null', '67221', '13.43S', '037.32E', '838', 'MZ'],
   ['MUTARARA', 'FQMU', 'null', 'null', '17.22S', '035.01E', '89', 'MZ'],
@@ -31541,7 +31541,7 @@ List<List<String>> _stations = [
     '12.07N',
     '015.01E',
     '295',
-    'TD'
+    'TD',
   ],
   ['BOKORO', 'FTTK', 'null', '64708', '12.22N', '017.03E', '301', 'TD'],
   ['BOL-BERIM', 'FTTL', 'null', '64702', '13.25N', '014.43E', '292', 'TD'],
@@ -31557,7 +31557,7 @@ List<List<String>> _stations = [
     '18.00N',
     '019.10E',
     '234',
-    'TD'
+    'TD',
   ],
   [
     'BARDAI-ZOUGRA(MI',
@@ -31567,7 +31567,7 @@ List<List<String>> _stations = [
     '21.26N',
     '017.03E',
     '1074',
-    'TD'
+    'TD',
   ],
   ['BEITBRIDGE', 'FVBB', 'null', '67991', '22.13S', '030.00E', '457', 'ZW'],
   ['BINGA', 'FVBI', 'null', '67755', '17.37S', '027.19E', '617', 'ZW'],
@@ -31579,7 +31579,7 @@ List<List<String>> _stations = [
     '20.01S',
     '028.37E',
     '1326',
-    'ZW'
+    'ZW',
   ],
   ['CHIPINGE', 'FVCH', 'null', '67983', '20.11S', '032.37E', '1132', 'ZW'],
   [
@@ -31590,7 +31590,7 @@ List<List<String>> _stations = [
     '21.01S',
     '031.34E',
     '430',
-    'ZW'
+    'ZW',
   ],
   [
     'VICTORIA FALLS',
@@ -31600,7 +31600,7 @@ List<List<String>> _stations = [
     '18.06S',
     '025.51E',
     '1062',
-    'ZW'
+    'ZW',
   ],
   ['GOKWE', 'FVGO', 'null', '67861', '18.13S', '028.55E', '1282', 'ZW'],
   [
@@ -31611,7 +31611,7 @@ List<List<String>> _stations = [
     '18.58S',
     '032.27E',
     '1019',
-    'ZW'
+    'ZW',
   ],
   [
     'HARARE/KUTSAGA(M',
@@ -31621,7 +31621,7 @@ List<List<String>> _stations = [
     '17.55S',
     '031.07E',
     '1503',
-    'ZW'
+    'ZW',
   ],
   ['KAROI', 'FVKA', 'null', '67765', '16.49S', '029.37E', '1344', 'ZW'],
   ['KARIBA', 'FVKB', 'null', '67761', '16.31S', '028.52E', '518', 'ZW'],
@@ -31636,7 +31636,7 @@ List<List<String>> _stations = [
     '19.26S',
     '029.51E',
     '1429',
-    'ZW'
+    'ZW',
   ],
   [
     'HWANGE NATL. PAR',
@@ -31646,7 +31646,7 @@ List<List<String>> _stations = [
     '18.37S',
     '027.00E',
     '1077',
-    'ZW'
+    'ZW',
   ],
   [
     'CHILEKA INTL ARP',
@@ -31656,7 +31656,7 @@ List<List<String>> _stations = [
     '15.40S',
     '034.58E',
     '767',
-    'MW'
+    'MW',
   ],
   ['CHITIPA', 'FWCT', 'null', '67421', '09.41S', '033.16E', '1278', 'MW'],
   ['DEDZA', 'FWDZ', 'null', '67689', '14.19S', '034.16E', '1632', 'MW'],
@@ -31669,7 +31669,7 @@ List<List<String>> _stations = [
     '13.46S',
     '033.46E',
     '1229',
-    'MW'
+    'MW',
   ],
   ['NKHOTA KOTA', 'FWKK', 'null', '67591', '12.55S', '034.16E', '500', 'MW'],
   [
@@ -31680,7 +31680,7 @@ List<List<String>> _stations = [
     '13.47S',
     '033.47E',
     '1230',
-    'MW'
+    'MW',
   ],
   [
     'LILONGWE INTL AR',
@@ -31690,7 +31690,7 @@ List<List<String>> _stations = [
     '13.58S',
     '033.46E',
     '1067',
-    'MW'
+    'MW',
   ],
   ['MANGOCHI', 'FWMG', 'null', '67695', '14.25S', '035.15E', '485', 'MW'],
   ['MONKEY BAY', 'FWMY', 'null', '67690', '14.04S', '034.55E', '474', 'MW'],
@@ -31705,7 +31705,7 @@ List<List<String>> _stations = [
     '29.28S',
     '027.33E',
     '1631',
-    'LS'
+    'LS',
   ],
   [
     'MEJAMETALANA/MAS',
@@ -31715,7 +31715,7 @@ List<List<String>> _stations = [
     '29.18S',
     '027.30E',
     '1556',
-    'LS'
+    'LS',
   ],
   ['AROAB', 'FYAB', 'null', 'null', '26.46S', '019.38E', '986', 'NA'],
   ['ARANOS', 'FYAN', 'null', 'null', '24.09S', '019.07E', '1189', 'NA'],
@@ -31739,7 +31739,7 @@ List<List<String>> _stations = [
     '26.40S',
     '015.15E',
     '130',
-    'NA'
+    'NA',
   ],
   ['MALTAHOEHE', 'FYMH', 'null', 'null', '24.46S', '016.59E', '1375', 'NA'],
   ['MARIENTAL ARPT', 'FYML', 'null', 'null', '24.36S', '017.56E', '1113', 'NA'],
@@ -31760,7 +31760,7 @@ List<List<String>> _stations = [
     '20.26S',
     '016.40E',
     '1481',
-    'NA'
+    'NA',
   ],
   ['REHOBETH', 'FYRH', 'null', 'null', '23.19S', '017.05E', '1380', 'NA'],
   ['ROOIKOP (SAAF/CI', 'FYRK', 'null', 'null', '22.58S', '014.39E', '88', 'NA'],
@@ -31779,7 +31779,7 @@ List<List<String>> _stations = [
     '22.28S',
     '017.28E',
     '1700',
-    'NA'
+    'NA',
   ],
   ['WINDHOEK', 'FYWW', 'null', 'null', '22.34S', '017.06E', '1725', 'NA'],
   ['KUNDUZ', 'EQBA', 'null', '99876', '36.40N', '068.55E', '433', 'AF'],
@@ -31794,7 +31794,7 @@ List<List<String>> _stations = [
     '36.42N',
     '067.12E',
     '378',
-    'AF'
+    'AF',
   ],
   ['KANDAHAR', 'EQCB', 'null', '99903', '31.31N', '065.52E', '1010', 'AF'],
   ['TARIN KOWT', 'EQTK', 'null', '99915', '32.36N', '065.51E', '1357', 'AF'],
@@ -31806,7 +31806,7 @@ List<List<String>> _stations = [
     '34.33N',
     '069.13E',
     '1791',
-    'AF'
+    'AF',
   ],
   ['ASMAR', 'OAAS', 'null', '40934', '35.01N', '071.25E', '880', 'AF'],
   ['BEHSOOD', 'OABD', 'null', 'null', '34.17N', '067.50E', '2975', 'AF'],
@@ -31822,7 +31822,7 @@ List<List<String>> _stations = [
     '36.42N',
     '071.34E',
     '2620',
-    'AF'
+    'AF',
   ],
   ['ISLAM-QALA', 'OAEQ', 'null', '40935', '34.38N', '061.34E', '800', 'AF'],
   ['FARAH', 'OAFR', 'null', '40974', '32.22N', '062.10E', '700', 'AF'],
@@ -31842,7 +31842,7 @@ List<List<String>> _stations = [
     '34.25N',
     '070.28E',
     '580',
-    'AF'
+    'AF',
   ],
   ['JABUL-SARAJ', 'OAJS', 'null', '40932', '35.07N', '069.15E', '1630', 'AF'],
   ['KAJAKI', 'OAKJ', 'null', 'null', '32.10N', '065.05E', '1000', 'AF'],
@@ -31854,7 +31854,7 @@ List<List<String>> _stations = [
     '31.30N',
     '065.50E',
     '1010',
-    'AF'
+    'AF',
   ],
   ['KALDAR', 'OAKR', 'null', '40924', '37.12N', '067.43E', '304', 'AF'],
   ['KHOST', 'OAKS', 'null', '40971', '33.21N', '069.57E', '1146', 'AF'],
@@ -31883,7 +31883,7 @@ List<List<String>> _stations = [
     '26.29N',
     '038.07E',
     '624',
-    'SA'
+    'SA',
   ],
   ['AL BAHA', 'OEBA', 'null', '41055', '20.18N', '041.37E', '1656', 'SA'],
   ['AL DAWADMI', 'OEDM', 'null', 'null', '24.27N', '044.07E', '922', 'SA'],
@@ -31895,7 +31895,7 @@ List<List<String>> _stations = [
     '19.58N',
     '042.37E',
     '1157',
-    'SA'
+    'SA',
   ],
   ['KING FAHD INTL', 'OEDF', 'null', 'null', '26.28N', '049.48E', '22', 'SA'],
   [
@@ -31906,7 +31906,7 @@ List<List<String>> _stations = [
     '26.16N',
     '050.10E',
     '17',
-    'SA'
+    'SA',
   ],
   ['DAWADMI', 'OEDW', 'null', '40435', '24.30N', '044.23E', '990', 'SA'],
   ['GIZAN', 'OEGN', 'null', '41140', '16.53N', '042.34E', '3', 'SA'],
@@ -31923,7 +31923,7 @@ List<List<String>> _stations = [
     '21.41N',
     '039.09E',
     '15',
-    'SA'
+    'SA',
   ],
   ['KAIBER', 'OEKB', 'null', 'null', '25.40N', '039.23E', '754', 'SA'],
   ['AL KHARJ AB', 'OEKJ', 'null', 'null', '24.04N', '047.35E', '503', 'SA'],
@@ -31935,7 +31935,7 @@ List<List<String>> _stations = [
     '24.04N',
     '047.35E',
     '503',
-    'SA'
+    'SA',
   ],
   [
     'KING KHALID MIL',
@@ -31945,7 +31945,7 @@ List<List<String>> _stations = [
     '27.53N',
     '045.31E',
     '413',
-    'SA'
+    'SA',
   ],
   [
     'KHAMIS MUSHAIT A',
@@ -31955,7 +31955,7 @@ List<List<String>> _stations = [
     '18.18N',
     '042.47E',
     '2054',
-    'SA'
+    'SA',
   ],
   [
     'MADINAH INTL ARP',
@@ -31965,7 +31965,7 @@ List<List<String>> _stations = [
     '24.33N',
     '039.42E',
     '631',
-    'SA'
+    'SA',
   ],
   ['MAKKAH/MECCA', 'OEMK', 'null', '41030', '21.26N', '040.00E', '369', 'SA'],
   ['MUAYH', 'OEMH', 'null', 'null', '22.26N', '041.42E', '971', 'SA'],
@@ -31978,7 +31978,7 @@ List<List<String>> _stations = [
     '28.19N',
     '046.07E',
     '355',
-    'SA'
+    'SA',
   ],
   [
     'RAFHA (PRIVATE)',
@@ -31988,7 +31988,7 @@ List<List<String>> _stations = [
     '29.37N',
     '043.28E',
     '447',
-    'SA'
+    'SA',
   ],
   [
     'RIYADH/KING KHAL',
@@ -31998,7 +31998,7 @@ List<List<String>> _stations = [
     '24.57N',
     '046.43E',
     '612',
-    'SA'
+    'SA',
   ],
   ['ARAR', 'OERR', 'null', '40357', '30.53N', '041.07E', '552', 'SA'],
   [
@@ -32009,7 +32009,7 @@ List<List<String>> _stations = [
     '24.43N',
     '046.43E',
     '612',
-    'SA'
+    'SA',
   ],
   [
     'SHARURAH (CIV/MI',
@@ -32019,7 +32019,7 @@ List<List<String>> _stations = [
     '17.28N',
     '047.07E',
     '722',
-    'SA'
+    'SA',
   ],
   [
     'AL-JOUF (CIV/MIL',
@@ -32029,7 +32029,7 @@ List<List<String>> _stations = [
     '29.46N',
     '040.06E',
     '684',
-    'SA'
+    'SA',
   ],
   [
     'TABUK (SAUD-AFB)',
@@ -32039,7 +32039,7 @@ List<List<String>> _stations = [
     '28.22N',
     '036.37E',
     '770',
-    'SA'
+    'SA',
   ],
   [
     'TAIF (CIV/MIL)',
@@ -32049,7 +32049,7 @@ List<List<String>> _stations = [
     '21.28N',
     '040.32E',
     '1449',
-    'SA'
+    'SA',
   ],
   ['TURAIF', 'OETR', 'null', '40356', '31.42N', '038.44E', '855', 'SA'],
   [
@@ -32060,7 +32060,7 @@ List<List<String>> _stations = [
     '20.30N',
     '045.12E',
     '617',
-    'SA'
+    'SA',
   ],
   ['WEJH', 'OEWJ', 'null', '40400', '26.11N', '036.28E', '16', 'SA'],
   ['YENBO', 'OEYN', 'null', '40439', '24.08N', '038.04E', '8', 'SA'],
@@ -32072,7 +32072,7 @@ List<List<String>> _stations = [
     '30.22N',
     '048.15E',
     '11',
-    'IR'
+    'IR',
   ],
   [
     'DEZFUL (IRAN-AFB',
@@ -32082,7 +32082,7 @@ List<List<String>> _stations = [
     '32.26N',
     '048.24E',
     '143',
-    'IR'
+    'IR',
   ],
   ['AGHA JARI', 'OIAG', 'null', '40833', '30.46N', '049.40E', '29', 'IR'],
   [
@@ -32093,7 +32093,7 @@ List<List<String>> _stations = [
     '30.20N',
     '050.50E',
     '738',
-    'IR'
+    'IR',
   ],
   [
     'MASJED-SOLEYMAN',
@@ -32103,7 +32103,7 @@ List<List<String>> _stations = [
     '32.00N',
     '049.16E',
     '372',
-    'IR'
+    'IR',
   ],
   ['BANDAR MAHSHAHR', 'OIAM', 'null', '40832', '30.33N', '049.09E', '4', 'IR'],
   ['AHWAZ', 'OIAW', 'null', '40811', '31.19N', '048.46E', '22', 'IR'],
@@ -32115,7 +32115,7 @@ List<List<String>> _stations = [
     '28.58N',
     '050.49E',
     '19',
-    'IR'
+    'IR',
   ],
   ['KISH ISLAND', 'OIBK', 'KIH', 'null', '26.32N', '053.59E', '30', 'IR'],
   ['BANDAR LENGEH', 'OIBL', 'null', '40883', '26.32N', '054.49E', '14', 'IR'],
@@ -32127,7 +32127,7 @@ List<List<String>> _stations = [
     '34.20N',
     '047.10E',
     '1322',
-    'IR'
+    'IR',
   ],
   ['GHASRE-SHIRIN', 'OICG', 'null', '40765', '34.31N', '045.34E', '378', 'IR'],
   ['BORUJERD', 'OICJ', 'null', 'null', '33.54N', '048.45E', '1600', 'IR'],
@@ -32142,7 +32142,7 @@ List<List<String>> _stations = [
     '32.45N',
     '051.52E',
     '1542',
-    'IR'
+    'IR',
   ],
   ['SHAHRE-KORD', 'OIFS', 'null', '40798', '32.19N', '050.51E', '2078', 'IR'],
   ['RASHT', 'OIGG', 'null', '40719', '37.20N', '049.36E', '-13', 'IR'],
@@ -32157,7 +32157,7 @@ List<List<String>> _stations = [
     '35.41N',
     '051.18E',
     '1191',
-    'IR'
+    'IR',
   ],
   ['GHAZVIN', 'OIIK', 'null', '40731', '36.15N', '050.03E', '1278', 'IR'],
   ['KARAJ/PAYAM', 'OIIP', 'null', 'null', '35.47N', '050.50E', '1271', 'IR'],
@@ -32171,7 +32171,7 @@ List<List<String>> _stations = [
     '27.13N',
     '056.22E',
     '10',
-    'IR'
+    'IR',
   ],
   ['KERMAN', 'OIKK', 'null', '40841', '30.15N', '056.58E', '1754', 'IR'],
   ['BAM', 'OIKM', 'null', '40854', '29.05N', '058.27E', '985', 'IR'],
@@ -32186,7 +32186,7 @@ List<List<String>> _stations = [
     '35.16N',
     '059.13E',
     '1333',
-    'IR'
+    'IR',
   ],
   [
     'MASHHAD (AFB/CIV',
@@ -32196,7 +32196,7 @@ List<List<String>> _stations = [
     '36.14N',
     '059.37E',
     '980',
-    'IR'
+    'IR',
   ],
   ['BOJNOURD', 'OIMN', 'null', '40723', '37.29N', '057.18E', '1074', 'IR'],
   ['KASMAR', 'OIMQ', 'null', 'null', '35.14N', '058.28E', '1140', 'IR'],
@@ -32218,7 +32218,7 @@ List<List<String>> _stations = [
     '29.31N',
     '052.34E',
     '1491',
-    'IR'
+    'IR',
   ],
   ['KHOY', 'OITK', 'null', '40703', '38.25N', '044.59E', '1107', 'IR'],
   ['PARSABAD', 'OITP', 'null', 'null', '39.36N', '047.53E', '77', 'IR'],
@@ -32233,7 +32233,7 @@ List<List<String>> _stations = [
     '38.08N',
     '046.14E',
     '1361',
-    'IR'
+    'IR',
   ],
   ['ZANJAN', 'OITZ', 'null', '40729', '36.46N', '048.22E', '1663', 'IR'],
   ['YAZD', 'OIYY', 'null', '40821', '31.54N', '054.17E', '1236', 'IR'],
@@ -32247,7 +32247,7 @@ List<List<String>> _stations = [
     '29.28N',
     '060.55E',
     '1370',
-    'IR'
+    'IR',
   ],
   ['IRANSHAHR', 'OIZI', 'null', '40879', '27.14N', '060.43E', '591', 'IR'],
   ['JASK', 'OIZJ', 'null', '40893', '25.39N', '057.48E', '4', 'IR'],
@@ -32266,7 +32266,7 @@ List<List<String>> _stations = [
     '34.17N',
     '048.49E',
     '1726',
-    'IR'
+    'IR',
   ],
   ['IMAM KHOMEINI', 'OIIE', 'null', 'null', '35.25N', '051.09E', '1008', 'IR'],
   ['RAFSANJAN', 'OIKR', 'null', 'null', '30.18N', '056.03E', '1615', 'IR'],
@@ -32286,7 +32286,7 @@ List<List<String>> _stations = [
     '31.43N',
     '036.00E',
     '730',
-    'JO'
+    'JO',
   ],
   [
     'AMMAN/KING ABDUL',
@@ -32296,7 +32296,7 @@ List<List<String>> _stations = [
     '31.58N',
     '035.58E',
     '773',
-    'JO'
+    'JO',
   ],
   [
     'AQABA INTL AIRPO',
@@ -32306,7 +32306,7 @@ List<List<String>> _stations = [
     '29.37N',
     '035.01E',
     '51',
-    'JO'
+    'JO',
   ],
   ['IRBID (MET)', 'OJBD', 'null', '40255', '32.32N', '035.51E', '619', 'JO'],
   [
@@ -32317,7 +32317,7 @@ List<List<String>> _stations = [
     '32.12N',
     '037.07E',
     '670',
-    'JO'
+    'JO',
   ],
   [
     'HOTEL-4 \'IRWAISH',
@@ -32327,7 +32327,7 @@ List<List<String>> _stations = [
     '32.30N',
     '038.12E',
     '688',
-    'JO'
+    'JO',
   ],
   [
     'MAFRAQ (JOR-AFB)',
@@ -32337,7 +32337,7 @@ List<List<String>> _stations = [
     '32.22N',
     '036.15E',
     '687',
-    'JO'
+    'JO',
   ],
   ['MA\'AN', 'OJMN', 'null', '40310', '30.10N', '035.46E', '1070', 'JO'],
   [
@@ -32348,7 +32348,7 @@ List<List<String>> _stations = [
     '29.13N',
     '047.58E',
     '55',
-    'KW'
+    'KW',
   ],
   [
     'BEIRUT (CIV/MIL)',
@@ -32358,7 +32358,7 @@ List<List<String>> _stations = [
     '33.49N',
     '035.28E',
     '19',
-    'LB'
+    'LB',
   ],
   ['ABU DHABI INTL', 'OMAA', 'null', '41217', '24.25N', '054.38E', '27', 'AE'],
   ['BUHASA', 'OMAB', 'null', 'null', '23.37N', '053.22E', '94', 'AE'],
@@ -32372,7 +32372,7 @@ List<List<String>> _stations = [
     '24.15N',
     '055.36E',
     '262',
-    'AE'
+    'AE',
   ],
   ['DUBAI INTL AIRPO', 'OMDB', 'null', '41194', '25.15N', '055.22E', '5', 'AE'],
   ['DELMA ISLAND', 'OMDL', 'null', 'null', '24.30N', '052.20E', '25', 'AE'],
@@ -32386,7 +32386,7 @@ List<List<String>> _stations = [
     '25.06N',
     '056.19E',
     '28',
-    'AE'
+    'AE',
   ],
   ['RAS AL KHAIMAH', 'OMRK', 'null', '41184', '25.37N', '055.55E', '31', 'AE'],
   [
@@ -32397,7 +32397,7 @@ List<List<String>> _stations = [
     '25.19N',
     '055.31E',
     '33',
-    'AE'
+    'AE',
   ],
   ['BURAIMI (AUT)', 'OOBR', 'null', '41244', '24.13N', '055.46E', '299', 'OM'],
   ['FAHUD (AUT)', 'OOFD', 'null', '41262', '22.21N', '056.28E', '170', 'OM'],
@@ -32409,7 +32409,7 @@ List<List<String>> _stations = [
     '21.22N',
     '057.02E',
     '135',
-    'OM'
+    'OM',
   ],
   ['HAIMA', 'OOHA', 'null', 'null', '19.58N', '056.16E', '122', 'OM'],
   ['IBRA', 'OOIA', 'null', 'null', '22.37N', '058.40E', '1100', 'OM'],
@@ -32423,7 +32423,7 @@ List<List<String>> _stations = [
     '20.40N',
     '058.53E',
     '19',
-    'OM'
+    'OM',
   ],
   ['SEEB INTL/MUSCAT', 'OOMS', 'null', '41256', '23.34N', '058.16E', '8', 'OM'],
   ['NIZWA', 'OONZ', 'null', 'null', '22.55N', '057.31E', '1900', 'OM'],
@@ -32439,7 +32439,7 @@ List<List<String>> _stations = [
     '17.40N',
     '054.01E',
     '445',
-    'OM'
+    'OM',
   ],
   ['BANNU', 'OPBN', 'null', 'null', '32.58N', '070.31E', '404', 'PK'],
   ['BAHAWALPUR', 'OPBW', 'null', '41700', '29.21N', '071.43E', '120', 'PK'],
@@ -32453,7 +32453,7 @@ List<List<String>> _stations = [
     '31.49N',
     '070.55E',
     '173',
-    'PK'
+    'PK',
   ],
   ['FAISALABAD INTL', 'OPFA', 'null', 'null', '31.22N', '073.00E', '185', 'PK'],
   ['GWADAR', 'OPGD', 'null', 'null', '25.14N', '062.20E', '29', 'PK'],
@@ -32466,7 +32466,7 @@ List<List<String>> _stations = [
     '28.18N',
     '068.28E',
     '56',
-    'PK'
+    'PK',
   ],
   ['JIWANI (CAPE)', 'OPJI', 'null', '41756', '25.04N', '061.47E', '57', 'PK'],
   [
@@ -32477,7 +32477,7 @@ List<List<String>> _stations = [
     '24.53N',
     '067.10E',
     '22',
-    'PK'
+    'PK',
   ],
   [
     'HYDERABAD AIRPOR',
@@ -32487,7 +32487,7 @@ List<List<String>> _stations = [
     '25.19N',
     '068.22E',
     '41',
-    'PK'
+    'PK',
   ],
   ['KALAT', 'OPKL', 'null', 'null', '29.01N', '066.34E', '2015', 'PK'],
   [
@@ -32498,7 +32498,7 @@ List<List<String>> _stations = [
     '31.31N',
     '074.24E',
     '217',
-    'PK'
+    'PK',
   ],
   ['LAHORE/WALTON', 'OPLH', 'null', '41640', '31.33N', '074.19E', '215', 'PK'],
   [
@@ -32509,7 +32509,7 @@ List<List<String>> _stations = [
     '32.32N',
     '071.31E',
     '212',
-    'PK'
+    'PK',
   ],
   [
     'MIRANSHAH(CIV/MI',
@@ -32519,7 +32519,7 @@ List<List<String>> _stations = [
     '32.58N',
     '070.07E',
     '921',
-    'PK'
+    'PK',
   ],
   ['KARACHI/MASROOR', 'OPMR', 'null', '41781', '24.53N', '066.55E', '16', 'PK'],
   ['MULTAN', 'OPMT', 'null', '41675', '30.11N', '071.25E', '123', 'PK'],
@@ -32535,7 +32535,7 @@ List<List<String>> _stations = [
     '34.01N',
     '071.31E',
     '360',
-    'PK'
+    'PK',
   ],
   [
     'QUETTA (CIV/MIL)',
@@ -32545,7 +32545,7 @@ List<List<String>> _stations = [
     '30.15N',
     '066.56E',
     '1606',
-    'PK'
+    'PK',
   ],
   ['SHAIKH ZAID', 'OPRK', 'null', 'null', '28.23N', '070.17E', '83', 'PK'],
   [
@@ -32556,7 +32556,7 @@ List<List<String>> _stations = [
     '33.37N',
     '073.05E',
     '508',
-    'PK'
+    'PK',
   ],
   [
     'RAIFIQUI (PAK-AF',
@@ -32566,7 +32566,7 @@ List<List<String>> _stations = [
     '30.46N',
     '072.16E',
     '150',
-    'PK'
+    'PK',
   ],
   [
     'RISALPUR (PAK-AF',
@@ -32576,7 +32576,7 @@ List<List<String>> _stations = [
     '34.04N',
     '071.58E',
     '317',
-    'PK'
+    'PK',
   ],
   ['SIBI', 'OPSB', 'null', '41697', '29.33N', '067.52E', '134', 'PK'],
   ['SUKKUR', 'OPSK', 'null', 'null', '27.43N', '068.48E', '58', 'PK'],
@@ -32588,7 +32588,7 @@ List<List<String>> _stations = [
     '32.02N',
     '072.40E',
     '188',
-    'PK'
+    'PK',
   ],
   ['SAIDU SHARIF', 'OPSS', 'null', '41523', '34.49N', '072.21E', '970', 'PK'],
   ['SIALKOT AIRPORT', 'OPST', 'null', 'null', '32.32N', '074.22E', '247', 'PK'],
@@ -32606,7 +32606,7 @@ List<List<String>> _stations = [
     '36.19N',
     '043.08E',
     '223',
-    'IQ'
+    'IQ',
   ],
   ['SADDAM(IRQ-AFB/C', 'ORBS', 'null', 'null', '33.16N', '044.13E', '34', 'IQ'],
   ['ERBIL INTL', 'ORER', 'null', 'null', '36.14N', '043.58E', '409', 'IQ'],
@@ -32622,7 +32622,7 @@ List<List<String>> _stations = [
     '36.10N',
     '037.13E',
     '393',
-    'SY'
+    'SY',
   ],
   [
     'DAMASCUS (CIV/MI',
@@ -32632,7 +32632,7 @@ List<List<String>> _stations = [
     '33.25N',
     '036.31E',
     '605',
-    'SY'
+    'SY',
   ],
   [
     'DEIR ZZOR (CIV/M',
@@ -32642,7 +32642,7 @@ List<List<String>> _stations = [
     '35.19N',
     '040.08E',
     '212',
-    'SY'
+    'SY',
   ],
   ['KAMISHLI', 'OSKL', 'null', '40001', '37.02N', '041.12E', '455', 'SY'],
   ['LATAKIA', 'OSLK', 'null', '40022', '35.24N', '035.57E', '7', 'SY'],
@@ -32654,7 +32654,7 @@ List<List<String>> _stations = [
     '34.32N',
     '038.17E',
     '404',
-    'SY'
+    'SY',
   ],
   [
     'DOHA INTL AIRPOR',
@@ -32664,7 +32664,7 @@ List<List<String>> _stations = [
     '25.15N',
     '051.34E',
     '10',
-    'QA'
+    'QA',
   ],
   ['DOHA/AL UDEID AB', 'OTBH', 'null', 'null', '25.07N', '051.19E', '40', 'QA'],
   ['DOHA HAMAD INTL', 'OTHH', 'null', 'null', '25.15N', '051.36E', '0', 'QA'],
@@ -32692,7 +32692,7 @@ List<List<String>> _stations = [
     '15.29N',
     '044.13E',
     '2190',
-    'YE'
+    'YE',
   ],
   ['SANA\'A', 'null', 'null', '41404', '15.22N', '044.12E', '2190', 'YE'],
   ['SOCOTRA ISLAND', 'OYSQ', 'null', '41494', '12.37N', '053.53E', '45', 'YE'],
@@ -32711,7 +32711,7 @@ List<List<String>> _stations = [
     '51.01N',
     '071.28E',
     '355',
-    'KZ'
+    'KZ',
   ],
   ['PETROPAVLOVSK', 'UACP', 'null', 'null', '54.47N', '069.11E', '142', 'KZ'],
   ['KOKSHETAU', 'UACK', 'null', 'null', '53.19N', '069.35E', '2547', 'KZ'],
@@ -32747,7 +32747,7 @@ List<List<String>> _stations = [
     '41.40N',
     '044.57E',
     '495',
-    'GE'
+    'GE',
   ],
   ['KOPITNARI', 'UGKO', 'null', 'null', '42.11N', '042.29E', '68', 'GE'],
   ['BATUMI', 'UGSB', 'null', '37484', '41.37N', '041.36E', '32', 'GE'],
@@ -32762,7 +32762,7 @@ List<List<String>> _stations = [
     '40.07N',
     '044.28E',
     '907',
-    'AM'
+    'AM',
   ],
   ['SHIRAK', 'UGEL', 'null', 'null', '40.45N', '043.51E', '1524', 'AM'],
   ['SHIRAK', 'UDSG', 'null', 'null', '40.45N', '043.52E', '1524', 'AM'],
@@ -32777,7 +32777,7 @@ List<List<String>> _stations = [
     '56.55N',
     '124.55E',
     '859',
-    'RU'
+    'RU',
   ],
   ['POLYARNY', 'UERP', 'null', 'null', '66.24N', '112.02E', '509', 'RU'],
   ['MIRNY', 'UERR', 'null', 'null', '62.32N', '114.03E', '347', 'RU'],
@@ -32791,7 +32791,7 @@ List<List<String>> _stations = [
     '50.26N',
     '127.25E',
     '195',
-    'RU'
+    'RU',
   ],
   ['EKIMCAN', 'UHBP', 'null', '31329', '53.04N', '132.55E', '543', 'RU'],
   ['KHABAROVSK/NOVY', 'UHHH', 'null', '31735', '48.31N', '135.11E', '72', 'RU'],
@@ -32809,7 +32809,7 @@ List<List<String>> _stations = [
     '59.55N',
     '150.43E',
     '118',
-    'RU'
+    'RU',
   ],
   ['MARKOVO', 'UHMO', 'null', 'null', '64.39N', '170.27E', '18', 'RU'],
   ['PEVEK', 'UHMP', 'null', '25051', '69.47N', '170.36E', '4', 'RU'],
@@ -32822,7 +32822,7 @@ List<List<String>> _stations = [
     '53.09N',
     '140.39E',
     '68',
-    'RU'
+    'RU',
   ],
   [
     'PETROPAVLOVSK-KA',
@@ -32832,7 +32832,7 @@ List<List<String>> _stations = [
     '53.10N',
     '158.27E',
     '40',
-    'RU'
+    'RU',
   ],
   ['OKHA', 'UHSH', 'null', '32010', '53.31N', '142.53E', '37', 'RU'],
   ['JUZNO-SAHALINSK', 'UHSS', 'null', '32150', '46.53N', '142.43E', '31', 'RU'],
@@ -32854,7 +32854,7 @@ List<List<String>> _stations = [
     '51.48N',
     '107.27E',
     '515',
-    'RU'
+    'RU',
   ],
   ['MARIUPOL INTL', 'UKCM', 'null', 'null', '47.05N', '037.27E', '76', 'RU'],
   ['ARHANGELSK', 'ULAA', 'null', '22550', '64.36N', '040.43E', '19', 'RU'],
@@ -32876,7 +32876,7 @@ List<List<String>> _stations = [
     '59.17N',
     '038.01E',
     '115',
-    'RU'
+    'RU',
   ],
   ['TOT\'MA', 'ULWT', 'null', '27051', '59.52N', '042.45E', '134', 'RU'],
   ['VOLOGDA', 'ULWW', 'null', '27037', '59.17N', '039.56E', '131', 'RU'],
@@ -32900,7 +32900,7 @@ List<List<String>> _stations = [
     '55.05N',
     '082.59E',
     '177',
-    'RU'
+    'RU',
   ],
   ['TOLMACHEVO', 'UNNT', 'null', 'null', '55.01N', '082.38E', '111', 'RU'],
   ['TSENTRALNY/OMSK', 'UNOO', 'OMS', 'null', '54.58N', '073.19E', '95', 'RU'],
@@ -32912,7 +32912,7 @@ List<List<String>> _stations = [
     '56.23N',
     '085.13E',
     '182',
-    'RU'
+    'RU',
   ],
   ['NOVOKUZNETSK', 'UNWW', 'null', 'null', '53.49N', '086.53E', '308', 'RU'],
   ['KHATANGA', 'UOHH', 'null', '20891', '71.59N', '102.30E', '33', 'RU'],
@@ -32931,7 +32931,7 @@ List<List<String>> _stations = [
     '44.13N',
     '043.06E',
     '314',
-    'RU'
+    'RU',
   ],
   ['NALCHIK', 'URMN', 'NAL', 'null', '43.31N', '043.38E', '445', 'RU'],
   ['BESLAN', 'URMO', 'null', 'null', '43.12N', '044.36E', '510', 'RU'],
@@ -32943,7 +32943,7 @@ List<List<String>> _stations = [
     '45.07N',
     '042.07E',
     '453',
-    'RU'
+    'RU',
   ],
   ['ROSTOV-ON-DON', 'URRR', 'null', '34731', '47.15N', '039.49E', '77', 'RU'],
   ['SOTCHI', 'URSS', 'null', '37171', '43.27N', '039.57E', '16', 'RU'],
@@ -32957,7 +32957,7 @@ List<List<String>> _stations = [
     '48.47N',
     '044.20E',
     '147',
-    'RU'
+    'RU',
   ],
   [
     'CHELYABINSK-BALA',
@@ -32967,7 +32967,7 @@ List<List<String>> _stations = [
     '55.18N',
     '061.30E',
     '234',
-    'RU'
+    'RU',
   ],
   ['MAGNITOGORSK', 'USCM', 'null', 'null', '53.24N', '058.45E', '435', 'RU'],
   ['SALEKHARD', 'USDD', 'null', '23330', '66.35N', '066.37E', '67', 'RU'],
@@ -32982,7 +32982,7 @@ List<List<String>> _stations = [
     '57.55N',
     '056.01E',
     '123',
-    'RU'
+    'RU',
   ],
   ['SURGUT', 'USRR', 'null', '23849', '61.20N', '073.25E', '44', 'RU'],
   ['NIZHNEVARTOVSK', 'USNN', 'null', 'null', '60.57N', '076.29E', '54', 'RU'],
@@ -32996,7 +32996,7 @@ List<List<String>> _stations = [
     '60.40N',
     '060.25E',
     '101',
-    'RU'
+    'RU',
   ],
   ['EKATERINBURG', 'USSS', 'null', 'null', '56.45N', '060.49E', '233', 'RU'],
   ['EKATERINBURG', 'null', 'null', '28440', '56.50N', '060.38E', '280', 'RU'],
@@ -33012,7 +33012,7 @@ List<List<String>> _stations = [
     '55.33N',
     '038.09E',
     '115',
-    'RU'
+    'RU',
   ],
   [
     'MOSCOW/DOMODEDOV',
@@ -33022,7 +33022,7 @@ List<List<String>> _stations = [
     '55.24N',
     '037.54E',
     '168',
-    'RU'
+    'RU',
   ],
   ['YAROSLAV', 'UUDL', 'null', 'null', '57.34N', '040.10E', '88', 'RU'],
   [
@@ -33033,7 +33033,7 @@ List<List<String>> _stations = [
     '55.58N',
     '037.25E',
     '190',
-    'RU'
+    'RU',
   ],
   [
     'KALININ/MIGALOVO',
@@ -33043,7 +33043,7 @@ List<List<String>> _stations = [
     '56.49N',
     '035.45E',
     '143',
-    'RU'
+    'RU',
   ],
   ['OSTAFYEVO INTL', 'UUMO', 'null', 'null', '55.31N', '037.30E', '174', 'RU'],
   ['BELGOROD', 'UUOB', 'null', 'null', '50.39N', '036.35E', '224', 'RU'],
@@ -33068,7 +33068,7 @@ List<List<String>> _stations = [
     '51.48N',
     '055.28E',
     '109',
-    'RU'
+    'RU',
   ],
   ['ORSK', 'UWOR', 'null', 'null', '51.04N', '058.36E', '277', 'RU'],
   ['PENZA (STREAM)', 'UWPP', 'null', '27962', '53.07N', '045.01E', '174', 'RU'],
@@ -33080,7 +33080,7 @@ List<List<String>> _stations = [
     '51.34N',
     '046.04E',
     '166',
-    'RU'
+    'RU',
   ],
   ['BASHKORTOSTAN', 'UWUU', 'null', 'null', '54.34N', '055.52E', '137', 'RU'],
   ['KURUMOCH', 'UWWW', 'null', 'null', '53.30N', '050.10E', '146', 'RU'],
@@ -33092,7 +33092,7 @@ List<List<String>> _stations = [
     '53.13N',
     '050.19E',
     '44',
-    'RU'
+    'RU',
   ],
   ['VORKUTA', 'UUYW', 'null', 'null', '67.29N', '064.00E', '185', 'RU'],
   [
@@ -33103,7 +33103,7 @@ List<List<String>> _stations = [
     '50.20N',
     '030.54E',
     '119',
-    'UA'
+    'UA',
   ],
   ['DONETSK', 'UKCC', 'null', 'null', '48.05N', '037.45E', '241', 'UA'],
   ['LUHANSK', 'UKCW', 'null', 'null', '48.25N', '039.23E', '194', 'UA'],
@@ -33119,7 +33119,7 @@ List<List<String>> _stations = [
     '49.55N',
     '036.17E',
     '155',
-    'UA'
+    'UA',
   ],
   ['CHERKASY', 'UKKE', 'null', 'null', '49.25N', '032.00E', '114', 'UA'],
   ['KYIV/ZHYLIANY', 'UKKK', 'null', 'null', '50.24N', '030.27E', '179', 'UA'],
@@ -33175,7 +33175,7 @@ List<List<String>> _stations = [
     '38.50N',
     '065.46E',
     '1365',
-    'UZ'
+    'UZ',
   ],
   ['SAMARKAND', 'UTSS', 'SMD', '38696', '39.38N', '066.56E', '724', 'TM'],
   ['TERMEZ', 'UTST', 'TMJ', '38927', '37.17N', '067.19E', '302', 'TM'],
@@ -33198,7 +33198,7 @@ List<List<String>> _stations = [
     '28.11N',
     '113.04E',
     '46',
-    'CN'
+    'CN',
   ],
   ['DAYONG', 'ZGDY', 'null', 'null', '29.08N', '110.29E', '900', 'CN'],
   [
@@ -33209,7 +33209,7 @@ List<List<String>> _stations = [
     '23.24N',
     '113.18E',
     '15',
-    'CN'
+    'CN',
   ],
   ['HUANGHUA/CHANGSH', 'ZGHA', 'CSX', 'null', '28.11N', '113.13E', '66', 'CN'],
   ['HAIKOU', 'ZGHK', 'null', '59758', '20.01N', '110.20E', '15', 'CN'],
@@ -33230,7 +33230,7 @@ List<List<String>> _stations = [
     '40.40N',
     '129.11E',
     '23',
-    'CN'
+    'CN',
   ],
   ['PYONGYANG/SUNAN', 'ZKPY', 'null', '47058', '39.01N', '125.46E', '38', 'CN'],
   [
@@ -33241,7 +33241,7 @@ List<List<String>> _stations = [
     '38.19N',
     '106.24E',
     '1112',
-    'CN'
+    'CN',
   ],
   [
     'JIUQUAN/SUZHOU',
@@ -33251,7 +33251,7 @@ List<List<String>> _stations = [
     '39.46N',
     '098.28E',
     '1478',
-    'CN'
+    'CN',
   ],
   ['LANZHOU', 'ZLLL', 'null', '52889', '36.31N', '103.37E', '1947', 'CN'],
   ['XI\'AN', 'ZLSN', 'null', '57036', '34.17N', '108.55E', '398', 'CN'],
@@ -33267,7 +33267,7 @@ List<List<String>> _stations = [
     '23.42N',
     '100.01E',
     '2107',
-    'CN'
+    'CN',
   ],
   [
     'KUNMING/WUJIABA',
@@ -33277,7 +33277,7 @@ List<List<String>> _stations = [
     '25.00N',
     '102.45E',
     '1892',
-    'CN'
+    'CN',
   ],
   ['XIAMEN', 'ZSAM', 'null', '59134', '24.32N', '118.08E', '139', 'CN'],
   ['CHANGZHOU', 'ZSCG', 'null', 'null', '31.42N', '119.58E', '2', 'CN'],
@@ -33292,7 +33292,7 @@ List<List<String>> _stations = [
     '30.13N',
     '120.26E',
     '43',
-    'CN'
+    'CN',
   ],
   ['JINAN YAOQIANG', 'ZSJN', 'null', 'null', '36.51N', '117.13E', '23', 'CN'],
   ['HUANGYAN', 'ZSLC', 'null', 'null', '28.25N', '122.22E', '1', 'CN'],
@@ -33309,7 +33309,7 @@ List<List<String>> _stations = [
     '36.16N',
     '120.23E',
     '77',
-    'CN'
+    'CN',
   ],
   ['SHANGHAI/HONGQIA', 'ZSSS', 'null', '58367', '31.12N', '121.20E', '7', 'CN'],
   ['JINAN/TSINAN', 'ZSTN', 'null', '54823', '36.40N', '116.58E', '58', 'CN'],
@@ -33325,7 +33325,7 @@ List<List<String>> _stations = [
     '29.43N',
     '106.38E',
     '351',
-    'CN'
+    'CN',
   ],
   ['GUIYANG', 'ZUGY', 'null', '57816', '26.32N', '106.48E', '1074', 'CN'],
   ['LHASA', 'ZULS', 'null', 'null', '29.18N', '090.55E', '3650', 'CN'],
@@ -33348,7 +33348,7 @@ List<List<String>> _stations = [
     '44.31N',
     '129.34E',
     '269',
-    'CN'
+    'CN',
   ],
   ['QIQIHAR', 'ZYQQ', 'null', '50745', '47.22N', '123.55E', '148', 'CN'],
   [
@@ -33359,7 +33359,7 @@ List<List<String>> _stations = [
     '38.58N',
     '121.32E',
     '97',
-    'CN'
+    'CN',
   ],
   ['SHENYANG/TAOKIAN', 'ZYTX', 'null', 'null', '41.38N', '123.29E', '35', 'CN'],
   ['YANJI', 'ZYYJ', 'null', 'null', '42.53N', '129.27E', '190', 'CN'],
@@ -33389,7 +33389,7 @@ List<List<String>> _stations = [
     '24.10N',
     '120.39E',
     '112',
-    'TW'
+    'TW',
   ],
   ['HENGCHUN', 'RCKW', 'null', '46752', '21.55N', '120.49E', '13', 'TW'],
   ['HSINCHU TW-AFB', 'RCPO', 'null', '46756', '24.49N', '120.55E', '8', 'TW'],
@@ -33412,7 +33412,7 @@ List<List<String>> _stations = [
     '35.46N',
     '140.22E',
     '44',
-    'JP'
+    'JP',
   ],
   [
     'MATSUMOTO AIRPOR',
@@ -33422,7 +33422,7 @@ List<List<String>> _stations = [
     '36.10N',
     '137.55E',
     '660',
-    'JP'
+    'JP',
   ],
   ['HYAKURI (JASDF)', 'RJAH', 'null', '47715', '36.10N', '140.25E', '35', 'JP'],
   ['ICHIKAWA', 'RJAI', 'null', 'null', '35.43N', '139.55E', '31', 'JP'],
@@ -33434,7 +33434,7 @@ List<List<String>> _stations = [
     '36.01N',
     '140.11E',
     '29',
-    'JP'
+    'JP',
   ],
   ['MINAMITORISHIMA', 'RJAM', 'null', '47991', '24.18N', '153.58E', '9', 'JP'],
   ['CHICHIJIMA ISLAN', 'RJAO', 'null', '47971', '27.04N', '142.10E', '8', 'JP'],
@@ -33447,7 +33447,7 @@ List<List<String>> _stations = [
     '24.46N',
     '141.19E',
     '116',
-    'JP'
+    'JP',
   ],
   ['KANSAI INTL', 'RJBB', 'null', '47774', '34.25N', '135.15E', '8', 'JP'],
   [
@@ -33458,7 +33458,7 @@ List<List<String>> _stations = [
     '33.40N',
     '135.22E',
     '108',
-    'JP'
+    'JP',
   ],
   ['KOBE', 'RJBE', 'UKB', 'null', '34.38N', '135.14E', '5', 'JP'],
   ['HIROSHIMANISHI', 'RJBH', 'null', 'null', '34.22N', '132.25E', '5', 'JP'],
@@ -33471,7 +33471,7 @@ List<List<String>> _stations = [
     '43.47N',
     '142.22E',
     '118',
-    'JP'
+    'JP',
   ],
   [
     'OBIHIRO AIRPORT',
@@ -33481,7 +33481,7 @@ List<List<String>> _stations = [
     '42.43N',
     '143.13E',
     '152',
-    'JP'
+    'JP',
   ],
   [
     'CHITOSE (JASDF/C',
@@ -33491,7 +33491,7 @@ List<List<String>> _stations = [
     '42.46N',
     '141.40E',
     '30',
-    'JP'
+    'JP',
   ],
   [
     'HAKODATE AIRPORT',
@@ -33501,7 +33501,7 @@ List<List<String>> _stations = [
     '41.46N',
     '140.49E',
     '36',
-    'JP'
+    'JP',
   ],
   ['CHITOSE (JASDF)', 'RJCJ', 'null', '47434', '42.48N', '141.40E', '27', 'JP'],
   ['KUSHIRO AIRPORT', 'RJCK', 'null', '47489', '43.01N', '144.11E', '98', 'JP'],
@@ -33513,7 +33513,7 @@ List<List<String>> _stations = [
     '43.53N',
     '144.10E',
     '36',
-    'JP'
+    'JP',
   ],
   [
     'NAKASHIBETSU ARP',
@@ -33523,7 +33523,7 @@ List<List<String>> _stations = [
     '43.34N',
     '144.58E',
     '70',
-    'JP'
+    'JP',
   ],
   [
     'SAPPORO (JGSDF/C',
@@ -33533,7 +33533,7 @@ List<List<String>> _stations = [
     '43.07N',
     '141.22E',
     '11',
-    'JP'
+    'JP',
   ],
   ['REBUN ISLAND', 'RJCR', 'null', 'null', '45.27N', '141.01E', '27', 'JP'],
   [
@@ -33544,7 +33544,7 @@ List<List<String>> _stations = [
     '42.58N',
     '144.24E',
     '37',
-    'JP'
+    'JP',
   ],
   ['TOKACHI (JGSDF)', 'RJCT', 'null', 'null', '42.53N', '143.10E', '84', 'JP'],
   [
@@ -33555,7 +33555,7 @@ List<List<String>> _stations = [
     '45.23N',
     '141.48E',
     '11',
-    'JP'
+    'JP',
   ],
   ['MURORAN/YAKUMO', 'RJCY', 'null', '47423', '42.19N', '140.58E', '49', 'JP'],
   [
@@ -33566,7 +33566,7 @@ List<List<String>> _stations = [
     '33.45N',
     '129.46E',
     '16',
-    'JP'
+    'JP',
   ],
   ['YAMAGUCHI/UBE AR', 'RJDC', 'null', '47786', '33.55N', '131.16E', '8', 'JP'],
   ['KAMIGOTO', 'RJDK', 'null', 'null', '33.01N', '129.10E', '20', 'JP'],
@@ -33578,7 +33578,7 @@ List<List<String>> _stations = [
     '33.19N',
     '130.25E',
     '19',
-    'JP'
+    'JP',
   ],
   ['OJIKA ISLAND', 'RJDO', 'null', 'null', '33.13N', '129.03E', '20', 'JP'],
   [
@@ -33589,7 +33589,7 @@ List<List<String>> _stations = [
     '34.16N',
     '129.19E',
     '66',
-    'JP'
+    'JP',
   ],
   [
     'MONBETSU AIRPORT',
@@ -33599,7 +33599,7 @@ List<List<String>> _stations = [
     '44.18N',
     '143.24E',
     '25',
-    'JP'
+    'JP',
   ],
   [
     'ASAHIKAWA AIRPOR',
@@ -33609,7 +33609,7 @@ List<List<String>> _stations = [
     '43.40N',
     '142.26E',
     '211',
-    'JP'
+    'JP',
   ],
   ['OKUSHIRI ISLAND', 'RJEO', 'null', 'null', '42.04N', '139.26E', '36', 'JP'],
   ['RISHIRI ISLAND', 'RJER', 'null', 'null', '45.15N', '141.10E', '30', 'JP'],
@@ -33622,7 +33622,7 @@ List<List<String>> _stations = [
     '30.22N',
     '130.40E',
     '38',
-    'JP'
+    'JP',
   ],
   ['FUKUE AIRPORT', 'RJFE', 'null', '47844', '32.40N', '128.49E', '80', 'JP'],
   ['FUKUOKA/ITAZUKE', 'RJFF', 'null', '47808', '33.34N', '130.26E', '12', 'JP'],
@@ -33634,7 +33634,7 @@ List<List<String>> _stations = [
     '30.37N',
     '130.59E',
     '95',
-    'JP'
+    'JP',
   ],
   [
     'KAGOSHIMA AIRPOR',
@@ -33644,7 +33644,7 @@ List<List<String>> _stations = [
     '31.48N',
     '130.43E',
     '275',
-    'JP'
+    'JP',
   ],
   ['MIYAZAKI AIRPORT', 'RJFM', 'null', '47857', '31.52N', '131.26E', '9', 'JP'],
   [
@@ -33655,7 +33655,7 @@ List<List<String>> _stations = [
     '32.04N',
     '131.26E',
     '82',
-    'JP'
+    'JP',
   ],
   ['OITA AIRPORT', 'RJFO', 'null', '47852', '33.28N', '131.43E', '8', 'JP'],
   ['KITAKYUSHU/KOKUR', 'RJFR', 'null', '47853', '33.49N', '131.02E', '6', 'JP'],
@@ -33668,7 +33668,7 @@ List<List<String>> _stations = [
     '32.49N',
     '130.50E',
     '196',
-    'JP'
+    'JP',
   ],
   ['NAGASAKI(CIV/JMS', 'RJFU', 'null', '47855', '32.55N', '129.55E', '5', 'JP'],
   ['SASABO NAS', 'RJFW', 'null', 'null', '33.10N', '129.43E', '3', 'JP'],
@@ -33684,7 +33684,7 @@ List<List<String>> _stations = [
     '27.25N',
     '128.41E',
     '29',
-    'JP'
+    'JP',
   ],
   ['KIKAI ISLAND', 'RJKI', 'null', 'null', '28.19N', '129.55E', '6', 'JP'],
   ['TOKUNOSHIMA ISLA', 'RJKN', 'null', '47910', '27.49N', '128.52E', '5', 'JP'],
@@ -33698,7 +33698,7 @@ List<List<String>> _stations = [
     '34.45N',
     '137.41E',
     '48',
-    'JP'
+    'JP',
   ],
   ['KOMATSU (CIV/JAS', 'RJNK', 'null', '47704', '36.22N', '136.25E', '9', 'JP'],
   [
@@ -33709,7 +33709,7 @@ List<List<String>> _stations = [
     '35.15N',
     '136.55E',
     '17',
-    'JP'
+    'JP',
   ],
   ['NAGOYA (CIV/JASD', 'RJNA', 'NKM', 'null', '35.15N', '136.55E', '17', 'JP'],
   ['OKI AIRPORT', 'RJNO', 'null', '47739', '36.10N', '133.19E', '95', 'JP'],
@@ -33724,7 +33724,7 @@ List<List<String>> _stations = [
     '34.49N',
     '138.18E',
     '10',
-    'JP'
+    'JP',
   ],
   ['NEW HIROSHIMA', 'RJOA', 'null', '47789', '34.25N', '132.55E', '6', 'JP'],
   [
@@ -33735,7 +33735,7 @@ List<List<String>> _stations = [
     '34.45N',
     '133.50E',
     '242',
-    'JP'
+    'JP',
   ],
   ['IZUMO AIRPORT', 'RJOC', 'null', '47790', '35.25N', '132.52E', '5', 'JP'],
   ['AKENO (JASDF)', 'RJOE', 'null', '47730', '34.31N', '136.40E', '9', 'JP'],
@@ -33752,7 +33752,7 @@ List<List<String>> _stations = [
     '34.46N',
     '135.26E',
     '15',
-    'JP'
+    'JP',
   ],
   ['KOMATSUJIMA (JAS', 'RJOP', 'null', '47884', '34.00N', '134.37E', '6', 'JP'],
   ['TOTTORI AIRPORT', 'RJOR', 'null', '47794', '35.31N', '134.10E', '18', 'JP'],
@@ -33764,7 +33764,7 @@ List<List<String>> _stations = [
     '34.07N',
     '134.37E',
     '11',
-    'JP'
+    'JP',
   ],
   [
     'TAKAMATSU AIRPOR',
@@ -33774,7 +33774,7 @@ List<List<String>> _stations = [
     '34.13N',
     '134.01E',
     '188',
-    'JP'
+    'JP',
   ],
   ['IWAMI', 'RJOW', 'null', '47783', '34.40N', '131.48E', '54', 'JP'],
   ['YAO (CIV/JGSDF)', 'RJOY', 'null', '47779', '34.36N', '135.35E', '13', 'JP'],
@@ -33788,7 +33788,7 @@ List<List<String>> _stations = [
     '38.25N',
     '140.22E',
     '108',
-    'JP'
+    'JP',
   ],
   ['SADO AIRPORT', 'RJSD', 'null', '47700', '38.02N', '138.25E', '26', 'JP'],
   ['FUKUSHIMA ARPT', 'RJSF', 'null', '47557', '37.13N', '140.25E', '375', 'JP'],
@@ -33800,7 +33800,7 @@ List<List<String>> _stations = [
     '40.32N',
     '141.28E',
     '49',
-    'JP'
+    'JP',
   ],
   [
     'HANAMAKI AIRPORT',
@@ -33810,7 +33810,7 @@ List<List<String>> _stations = [
     '39.25N',
     '141.07E',
     '93',
-    'JP'
+    'JP',
   ],
   ['AKITA AIRPORT', 'RJSK', 'null', '47545', '39.37N', '140.13E', '96', 'JP'],
   [
@@ -33821,7 +33821,7 @@ List<List<String>> _stations = [
     '40.42N',
     '141.22E',
     '36',
-    'JP'
+    'JP',
   ],
   ['NIIGATA (CIV/JAS', 'RJSN', 'null', '47573', '37.57N', '139.07E', '4', 'JP'],
   ['OMINATO (JASDF)', 'RJSO', 'null', '47516', '41.13N', '141.07E', '10', 'JP'],
@@ -33836,7 +33836,7 @@ List<List<String>> _stations = [
     '38.13N',
     '140.55E',
     '10',
-    'JP'
+    'JP',
   ],
   ['SHONAI', 'RJSY', 'null', 'null', '38.49N', '139.46E', '22', 'JP'],
   [
@@ -33847,7 +33847,7 @@ List<List<String>> _stations = [
     '35.27N',
     '139.26E',
     '65',
-    'JP'
+    'JP',
   ],
   [
     'TACHIKAWA (JASDF',
@@ -33857,7 +33857,7 @@ List<List<String>> _stations = [
     '35.42N',
     '139.24E',
     '98',
-    'JP'
+    'JP',
   ],
   ['TOKYO JMA', 'RJTD', 'null', '47662', '35.41N', '139.46E', '36', 'JP'],
   ['TATEYAMA (JMSDF)', 'RJTE', 'null', '47688', '34.58N', '139.49E', '6', 'JP'],
@@ -33870,7 +33870,7 @@ List<List<String>> _stations = [
     '33.07N',
     '139.46E',
     '95',
-    'JP'
+    'JP',
   ],
   ['TOKYO HELIPORT', 'RJTI', 'null', '47687', '35.38N', '139.50E', '8', 'JP'],
   ['IRUMA (JASDF)', 'RJTJ', 'null', '47643', '35.49N', '139.25E', '93', 'JP'],
@@ -33883,7 +33883,7 @@ List<List<String>> _stations = [
     '35.47N',
     '140.01E',
     '33',
-    'JP'
+    'JP',
   ],
   ['OSHIMA AIRPORT', 'RJTO', 'null', '47735', '34.46N', '139.22E', '41', 'JP'],
   [
@@ -33894,7 +33894,7 @@ List<List<String>> _stations = [
     '34.04N',
     '139.34E',
     '23',
-    'JP'
+    'JP',
   ],
   [
     'KASTNER AAF/ZAMA',
@@ -33904,7 +33904,7 @@ List<List<String>> _stations = [
     '35.31N',
     '139.24E',
     '109',
-    'JP'
+    'JP',
   ],
   ['TOKYO INTL AIRPO', 'RJTT', 'null', '47671', '35.32N', '139.46E', '8', 'JP'],
   [
@@ -33915,7 +33915,7 @@ List<List<String>> _stations = [
     '36.31N',
     '139.52E',
     '105',
-    'JP'
+    'JP',
   ],
   ['YOKOSUKA FWF', 'RJTX', 'null', '47696', '35.18N', '139.41E', '5', 'JP'],
   [
@@ -33926,7 +33926,7 @@ List<List<String>> _stations = [
     '35.45N',
     '139.20E',
     '139',
-    'JP'
+    'JP',
   ],
   ['NAHA (CIV/JASDF)', 'ROAH', 'null', '47930', '26.10N', '127.39E', '8', 'JP'],
   [
@@ -33937,7 +33937,7 @@ List<List<String>> _stations = [
     '26.43N',
     '127.46E',
     '73',
-    'JP'
+    'JP',
   ],
   [
     'KADENA (USAFB-NA',
@@ -33947,7 +33947,7 @@ List<List<String>> _stations = [
     '26.21N',
     '127.46E',
     '45',
-    'JP'
+    'JP',
   ],
   ['HAMBY AAF/BUCKNE', 'ROHF', 'null', '47935', '26.18N', '127.46E', '6', 'JP'],
   ['ISHIGAKIJIMA ISL', 'ROIG', 'null', '47918', '24.19N', '124.10E', '7', 'JP'],
@@ -33961,7 +33961,7 @@ List<List<String>> _stations = [
     '24.46N',
     '125.16E',
     '41',
-    'JP'
+    'JP',
   ],
   ['AGUNI ISLAND', 'RORA', 'null', 'null', '26.36N', '127.13E', '29', 'JP'],
   ['HATERUMA', 'RORH', 'null', 'null', '24.04N', '123.47E', '13', 'JP'],
@@ -33977,7 +33977,7 @@ List<List<String>> _stations = [
     '26.16N',
     '127.45E',
     '75',
-    'JP'
+    'JP',
   ],
   [
     'YONAGUNI AIRPORT',
@@ -33987,7 +33987,7 @@ List<List<String>> _stations = [
     '24.28N',
     '122.58E',
     '17',
-    'JP'
+    'JP',
   ],
   ['TAKAO RADAR', 'TAKA', 'null', 'null', '35.34N', '133.13E', '15', 'JP'],
   ['MUAN INTL', 'RKJB', 'null', 'null', '34.59N', '126.23E', '2', 'KR'],
@@ -33999,7 +33999,7 @@ List<List<String>> _stations = [
     '35.07N',
     '126.49E',
     '13',
-    'KR'
+    'KR',
   ],
   ['KUNSAN (US/KOR-A', 'RKJK', 'null', '47141', '35.54N', '126.37E', '9', 'KR'],
   ['MOKPO (KOR-NAVY)', 'RKJM', 'null', 'null', '34.46N', '126.22E', '3', 'KR'],
@@ -34013,7 +34013,7 @@ List<List<String>> _stations = [
     '37.52N',
     '127.43E',
     '75',
-    'KR'
+    'KR',
   ],
   ['SOKCHO AIRPORT', 'RKND', 'null', '47091', '38.07N', '128.35E', '14', 'KR'],
   ['WHANG RYEONG', 'RKNF', 'null', 'null', '37.45N', '128.40E', '1407', 'KR'],
@@ -34025,7 +34025,7 @@ List<List<String>> _stations = [
     '37.25N',
     '127.57E',
     '101',
-    'KR'
+    'KR',
   ],
   [
     'KANGNUNG (KOR-AF',
@@ -34035,7 +34035,7 @@ List<List<String>> _stations = [
     '37.45N',
     '128.56E',
     '11',
-    'KR'
+    'KR',
   ],
   ['KEO JIN', 'RKNO', 'null', 'null', '38.28N', '128.28E', '107', 'KR'],
   ['KOTAR RANGE', 'RKNR', 'null', 'null', '37.06N', '128.54E', '792', 'KR'],
@@ -34051,7 +34051,7 @@ List<List<String>> _stations = [
     '35.10N',
     '128.55E',
     '15',
-    'KR'
+    'KR',
   ],
   [
     'MOSULPO (KOR-AFB',
@@ -34061,7 +34061,7 @@ List<List<String>> _stations = [
     '33.12N',
     '126.16E',
     '27',
-    'KR'
+    'KR',
   ],
   ['SACHON (KOR-AFB)', 'RKPS', 'null', '47161', '35.04N', '128.04E', '8', 'KR'],
   ['ULSAN', 'RKPU', 'null', '47152', '35.32N', '129.19E', '33', 'KR'],
@@ -34077,7 +34077,7 @@ List<List<String>> _stations = [
     '37.30N',
     '126.55E',
     '49',
-    'KR'
+    'KR',
   ],
   [
     'PYONGTAEK (A-511',
@@ -34087,7 +34087,7 @@ List<List<String>> _stations = [
     '36.58N',
     '127.01E',
     '16',
-    'KR'
+    'KR',
   ],
   ['COMMAND POST TAN', 'RKSH', 'null', 'null', '37.31N', '126.58E', '73', 'KR'],
   ['CHAJANG NI', 'RKSI', 'null', 'null', '37.28N', '126.27E', '7', 'KR'],
@@ -34101,7 +34101,7 @@ List<List<String>> _stations = [
     '37.25N',
     '127.07E',
     '20',
-    'KR'
+    'KR',
   ],
   ['KOON-NI RANGE', 'RKSN', 'null', '69010', '37.01N', '126.45E', '15', 'KR'],
   [
@@ -34112,7 +34112,7 @@ List<List<String>> _stations = [
     '37.04N',
     '127.01E',
     '12',
-    'KR'
+    'KR',
   ],
   [
     'PAENGNYONGDO (KA',
@@ -34122,7 +34122,7 @@ List<List<String>> _stations = [
     '37.58N',
     '124.40E',
     '171',
-    'KR'
+    'KR',
   ],
   ['YEONPYEUNGDO', 'RKSQ', 'null', 'null', '37.42N', '125.42E', '91', 'KR'],
   [
@@ -34133,7 +34133,7 @@ List<List<String>> _stations = [
     '37.32N',
     '126.47E',
     '19',
-    'KR'
+    'KR',
   ],
   ['CAMP CASEY/TONGD', 'RKST', 'null', 'null', '37.55N', '127.03E', '60', 'KR'],
   ['YEOJU RANGE', 'RKSU', 'null', 'null', '37.25N', '127.37E', '43', 'KR'],
@@ -34146,7 +34146,7 @@ List<List<String>> _stations = [
     '37.15N',
     '127.00E',
     '24',
-    'KR'
+    'KR',
   ],
   ['CAMP STANLEY/H-2', 'RKSX', 'null', 'null', '37.43N', '127.05E', '71', 'KR'],
   ['YONGSAN/H-208 HP', 'RKSY', 'null', 'null', '37.31N', '126.58E', '12', 'KR'],
@@ -34160,7 +34160,7 @@ List<List<String>> _stations = [
     '36.32N',
     '126.20E',
     '63',
-    'KR'
+    'KR',
   ],
   [
     'SONGMU (KOR-AFB)',
@@ -34170,7 +34170,7 @@ List<List<String>> _stations = [
     '36.23N',
     '127.30E',
     '79',
-    'KR'
+    'KR',
   ],
   ['TAEJON', 'RKTF', 'null', '47133', '36.17N', '127.24E', '78', 'KR'],
   ['CAMP WALKER (H-8', 'RKTG', 'null', 'null', '35.51N', '128.36E', '75', 'KR'],
@@ -34182,7 +34182,7 @@ List<List<String>> _stations = [
     '35.58N',
     '129.25E',
     '20',
-    'KR'
+    'KR',
   ],
   [
     'JUNG WON (ROK-AB',
@@ -34192,7 +34192,7 @@ List<List<String>> _stations = [
     '37.01N',
     '127.52E',
     '91',
-    'KR'
+    'KR',
   ],
   ['ULJIN', 'RKTL', 'null', 'null', '36.59N', '129.24E', '49', 'KR'],
   [
@@ -34203,7 +34203,7 @@ List<List<String>> _stations = [
     '36.56N',
     '126.27E',
     '302',
-    'KR'
+    'KR',
   ],
   [
     'TAEGU (US/KOR-AF',
@@ -34213,7 +34213,7 @@ List<List<String>> _stations = [
     '35.53N',
     '128.39E',
     '35',
-    'KR'
+    'KR',
   ],
   ['SANGJU', 'RKTS', 'null', 'null', '36.25N', '128.10E', '150', 'KR'],
   [
@@ -34224,7 +34224,7 @@ List<List<String>> _stations = [
     '35.52N',
     '128.37E',
     '61',
-    'KR'
+    'KR',
   ],
   ['JONGJU (KAFB-AR', 'RKTU', 'null', '47128', '36.42N', '127.30E', '66', 'KR'],
   ['JUNGJU', 'RKTV', 'null', 'null', '37.04N', '127.52E', '59', 'KR'],
@@ -34237,7 +34237,7 @@ List<List<String>> _stations = [
     '36.37N',
     '128.20E',
     '108',
-    'KR'
+    'KR',
   ],
   ['HAEMI', 'RKTZ', 'null', 'null', '36.23N', '126.20E', '31', 'KR'],
   ['NIGHTMARE RANGE', 'RKXX', 'null', 'null', '38.04N', '127.20E', '0', 'KR'],
@@ -34251,7 +34251,7 @@ List<List<String>> _stations = [
     '15.10N',
     '120.35E',
     '196',
-    'PH'
+    'PH',
   ],
   ['LAOAG INTL(PH-AR', 'RPLI', 'null', '98223', '18.10N', '120.31E', '5', 'PH'],
   [
@@ -34262,7 +34262,7 @@ List<List<String>> _stations = [
     '14.31N',
     '121.00E',
     '21',
-    'PH'
+    'PH',
   ],
   ['DAVAO/FRANCISCO', 'RPMD', 'null', '98753', '07.07N', '125.39E', '18', 'PH'],
   ['CLARK AFB/LUZON', 'RPMK', 'null', 'null', '15.10N', '120.32E', '196', 'PH'],
@@ -34275,7 +34275,7 @@ List<List<String>> _stations = [
     '13.09N',
     '123.44E',
     '17',
-    'PH'
+    'PH',
   ],
   [
     'ROMBLON/TABLAS I',
@@ -34285,7 +34285,7 @@ List<List<String>> _stations = [
     '12.34N',
     '122.16E',
     '47',
-    'PH'
+    'PH',
   ],
   ['SANGLEY POINT AB', 'RPMS', 'null', '98428', '14.30N', '120.55E', '4', 'PH'],
   ['ZAMBOANGA (CIV/A', 'RPMZ', 'null', '98836', '06.55N', '122.04E', '6', 'PH'],
@@ -34298,7 +34298,7 @@ List<List<String>> _stations = [
     '16.23N',
     '120.37E',
     '1296',
-    'PH'
+    'PH',
   ],
   ['DAET/LUZON ISLAN', 'RPUD', 'null', '98440', '14.07N', '122.58E', '4', 'PH'],
   ['SAN JOSE/MINDORO', 'RPUH', 'null', '98531', '12.20N', '121.01E', '3', 'PH'],
@@ -34314,7 +34314,7 @@ List<List<String>> _stations = [
     '20.26N',
     '121.58E',
     '11',
-    'PH'
+    'PH',
   ],
   [
     'VIGAN/LUZON ISLA',
@@ -34324,7 +34324,7 @@ List<List<String>> _stations = [
     '17.54N',
     '120.28E',
     '33',
-    'PH'
+    'PH',
   ],
   ['BALER/LUZON ISLA', 'RPUR', 'null', '98333', '15.46N', '121.34E', '6', 'PH'],
   [
@@ -34335,7 +34335,7 @@ List<List<String>> _stations = [
     '17.37N',
     '121.43E',
     '62',
-    'PH'
+    'PH',
   ],
   [
     'VIRAC/CATANDUANE',
@@ -34345,7 +34345,7 @@ List<List<String>> _stations = [
     '13.34N',
     '124.13E',
     '40',
-    'PH'
+    'PH',
   ],
   ['MARINDUQUE ISLAN', 'RPUW', 'null', 'null', '13.22N', '121.49E', '5', 'PH'],
   ['TACLOBAN/LEYTE I', 'RPVA', 'null', '98550', '11.15N', '125.00E', '3', 'PH'],
@@ -34361,7 +34361,7 @@ List<List<String>> _stations = [
     '11.01N',
     '125.43E',
     '60',
-    'PH'
+    'PH',
   ],
   ['ILOILO/PANAY ISL', 'RPVI', 'null', '98637', '10.41N', '122.34E', '8', 'PH'],
   ['MASBATE', 'RPVJ', 'null', '98543', '12.22N', '123.38E', '6', 'PH'],
@@ -34379,7 +34379,7 @@ List<List<String>> _stations = [
     '07.10N',
     '124.13E',
     '58',
-    'PH'
+    'PH',
   ],
   ['BUTUAN/MINDANAO', 'RPWE', 'null', '98752', '08.57N', '125.29E', '46', 'PH'],
   ['DIPOLOG/MINDANAO', 'RPWG', 'null', '98741', '08.35N', '123.20E', '5', 'PH'],
@@ -34396,7 +34396,7 @@ List<List<String>> _stations = [
     '09.48N',
     '125.30E',
     '55',
-    'PH'
+    'PH',
   ],
   ['TANDAG/MINDANAO', 'RPWW', 'null', 'null', '09.04N', '126.10E', '5', 'PH'],
   ['ILIGAN/MINDANAO', 'RPWX', 'null', 'null', '08.09N', '124.13E', '396', 'PH'],
@@ -34408,7 +34408,7 @@ List<List<String>> _stations = [
     '08.09N',
     '125.04E',
     '627',
-    'PH'
+    'PH',
   ],
   ['BISLIG/MINDANAO', 'RPWZ', 'null', 'null', '08.13N', '126.19E', '3', 'PH'],
   [
@@ -34419,7 +34419,7 @@ List<List<String>> _stations = [
     '15.19N',
     '120.22E',
     '161',
-    'PH'
+    'PH',
   ],
   ['ALABAT ISLAND', 'RPXT', 'null', '98435', '14.14N', '121.56E', '5', 'PH'],
   ['MACTAN INTL(CIV/', 'RPMT', 'null', 'null', '10.19N', '123.59E', '24', 'PH'],
@@ -34433,7 +34433,7 @@ List<List<String>> _stations = [
     '19.51N',
     '075.24E',
     '579',
-    'IN'
+    'IN',
   ],
   ['BOMBAY/SANTACRUZ', 'VABB', 'null', '43003', '19.06N', '072.52E', '8', 'IN'],
   ['BILASPUR', 'VABI', 'null', '42080', '31.15N', '076.40E', '587', 'IN'],
@@ -34445,7 +34445,7 @@ List<List<String>> _stations = [
     '23.17N',
     '069.40E',
     '80',
-    'IN'
+    'IN',
   ],
   ['BELGAUM/SAMBRA', 'VABM', 'null', '43198', '15.50N', '074.37E', '747', 'IN'],
   ['VADODARA', 'VABO', 'null', 'null', '22.20N', '073.14E', '39', 'IN'],
@@ -34457,7 +34457,7 @@ List<List<String>> _stations = [
     '23.16N',
     '077.20E',
     '523',
-    'IN'
+    'IN',
   ],
   ['BHAUNAGAR', 'VABV', 'null', '42838', '21.45N', '072.12E', '11', 'IN'],
   ['GOA/DABOLIM (NAV', 'VAGO', 'null', 'null', '15.22N', '073.49E', '52', 'IN'],
@@ -34469,7 +34469,7 @@ List<List<String>> _stations = [
     '15.22N',
     '073.49E',
     '52',
-    'IN'
+    'IN',
   ],
   ['INDORE', 'VAID', 'null', '42754', '22.43N', '075.47E', '567', 'IN'],
   ['JABALPUR', 'VAJB', 'null', '42675', '23.11N', '079.57E', '393', 'IN'],
@@ -34482,7 +34482,7 @@ List<List<String>> _stations = [
     '22.26N',
     '070.04E',
     '20',
-    'IN'
+    'IN',
   ],
   ['KHAJURAHO', 'VAKJ', 'null', 'null', '24.49N', '079.55E', '222', 'IN'],
   ['KHANDWA', 'VAKD', 'null', '42855', '21.49N', '076.22E', '318', 'IN'],
@@ -34494,7 +34494,7 @@ List<List<String>> _stations = [
     '23.08N',
     '070.07E',
     '35',
-    'IN'
+    'IN',
   ],
   ['KOLHAPUR', 'VAKP', 'null', '43157', '16.41N', '074.13E', '570', 'IN'],
   [
@@ -34505,7 +34505,7 @@ List<List<String>> _stations = [
     '21.05N',
     '079.03E',
     '310',
-    'IN'
+    'IN',
   ],
   [
     'PUNE/POONA (IN-A',
@@ -34515,7 +34515,7 @@ List<List<String>> _stations = [
     '18.34N',
     '073.55E',
     '593',
-    'IN'
+    'IN',
   ],
   ['PORBANDAR', 'VAPR', 'null', '42830', '21.38N', '069.40E', '7', 'IN'],
   ['RAJKOT', 'VARK', 'null', '42737', '22.18N', '070.46E', '138', 'IN'],
@@ -34531,7 +34531,7 @@ List<List<String>> _stations = [
     '26.41N',
     '088.20E',
     '126',
-    'IN'
+    'IN',
   ],
   ['BHUBANESWAR', 'VEBS', 'null', '42971', '20.15N', '085.49E', '46', 'IN'],
   ['VARANASI', 'VEBN', 'null', 'null', '25.27N', '082.51E', '83', 'IN'],
@@ -34544,7 +34544,7 @@ List<List<String>> _stations = [
     '09.09N',
     '092.49E',
     '14',
-    'IN'
+    'IN',
   ],
   [
     'GORAKHPUR (IN-AF',
@@ -34554,7 +34554,7 @@ List<List<String>> _stations = [
     '26.45N',
     '083.22E',
     '77',
-    'IN'
+    'IN',
   ],
   [
     'GAUHATI (IN-AFB)',
@@ -34564,7 +34564,7 @@ List<List<String>> _stations = [
     '26.06N',
     '091.35E',
     '54',
-    'IN'
+    'IN',
   ],
   ['GAYA', 'VEGY', 'null', '42591', '24.45N', '084.57E', '116', 'IN'],
   ['IMPHAL/TULIHAL', 'VEIM', 'null', '42623', '24.46N', '093.54E', '781', 'IN'],
@@ -34577,7 +34577,7 @@ List<List<String>> _stations = [
     '22.49N',
     '086.10E',
     '142',
-    'IN'
+    'IN',
   ],
   [
     'NORTH LAKHIMPUR/',
@@ -34587,7 +34587,7 @@ List<List<String>> _stations = [
     '27.18N',
     '094.06E',
     '101',
-    'IN'
+    'IN',
   ],
   ['MALDA', 'VEMH', 'null', '42503', '25.01N', '088.07E', '31', 'IN'],
   [
@@ -34598,7 +34598,7 @@ List<List<String>> _stations = [
     '27.28N',
     '095.01E',
     '111',
-    'IN'
+    'IN',
   ],
   ['PORT BLAIR', 'VEPB', 'null', '43333', '11.40N', '092.43E', '79', 'IN'],
   ['PATNA', 'VEPT', 'null', '42492', '25.36N', '085.05E', '60', 'IN'],
@@ -34611,7 +34611,7 @@ List<List<String>> _stations = [
     '22.13N',
     '084.52E',
     '196',
-    'IN'
+    'IN',
   ],
   ['RAXAUL', 'VERL', 'null', '42382', '26.58N', '084.50E', '79', 'IN'],
   ['AGRA (IN-AFB)', 'VIAG', 'null', '42260', '27.08N', '077.58E', '169', 'IN'],
@@ -34624,7 +34624,7 @@ List<List<String>> _stations = [
     '25.26N',
     '081.43E',
     '98',
-    'IN'
+    'IN',
   ],
   ['AMRITSAR', 'VIAR', 'null', '42071', '31.42N', '074.48E', '234', 'IN'],
   [
@@ -34635,7 +34635,7 @@ List<List<String>> _stations = [
     '25.26N',
     '082.52E',
     '85',
-    'IN'
+    'IN',
   ],
   ['BHATINDA', 'VIBT', 'null', '42097', '30.10N', '074.34E', '211', 'IN'],
   [
@@ -34646,7 +34646,7 @@ List<List<String>> _stations = [
     '28.22N',
     '079.24E',
     '173',
-    'IN'
+    'IN',
   ],
   [
     'KANPUR/CHAKERI(A',
@@ -34656,7 +34656,7 @@ List<List<String>> _stations = [
     '26.23N',
     '080.24E',
     '126',
-    'IN'
+    'IN',
   ],
   [
     'DELHI/SAFDARJUNG',
@@ -34666,7 +34666,7 @@ List<List<String>> _stations = [
     '28.35N',
     '077.13E',
     '216',
-    'IN'
+    'IN',
   ],
   [
     'INDIRA GANDHI/DE',
@@ -34676,7 +34676,7 @@ List<List<String>> _stations = [
     '28.34N',
     '077.07E',
     '233',
-    'IN'
+    'IN',
   ],
   [
     'GWALIOR (IN-AFB)',
@@ -34686,7 +34686,7 @@ List<List<String>> _stations = [
     '26.13N',
     '078.15E',
     '207',
-    'IN'
+    'IN',
   ],
   ['HISSAR', 'VIHR', 'null', '42131', '29.10N', '075.43E', '221', 'IN'],
   ['JHANSI', 'VIJN', 'null', '42463', '25.26N', '078.34E', '251', 'IN'],
@@ -34698,7 +34698,7 @@ List<List<String>> _stations = [
     '26.18N',
     '073.01E',
     '224',
-    'IN'
+    'IN',
   ],
   [
     'JAIPUR/SANGANER',
@@ -34708,7 +34708,7 @@ List<List<String>> _stations = [
     '26.49N',
     '075.47E',
     '390',
-    'IN'
+    'IN',
   ],
   ['KANPUR', 'VIKA', 'null', '42366', '26.25N', '080.22E', '126', 'IN'],
   ['KOTA AERODROME', 'VIKO', 'null', '42452', '25.08N', '075.50E', '274', 'IN'],
@@ -34721,7 +34721,7 @@ List<List<String>> _stations = [
     '33.58N',
     '074.46E',
     '1666',
-    'IN'
+    'IN',
   ],
   ['SATNA', 'VIST', 'null', '42571', '24.34N', '080.49E', '317', 'IN'],
   ['UDAIPUR/DABOK', 'VIUD', 'null', '42542', '24.37N', '073.52E', '514', 'IN'],
@@ -34737,7 +34737,7 @@ List<List<String>> _stations = [
     '16.31N',
     '080.47E',
     '24',
-    'IN'
+    'IN',
   ],
   [
     'COIMBATORE/PEELA',
@@ -34747,7 +34747,7 @@ List<List<String>> _stations = [
     '11.01N',
     '077.02E',
     '399',
-    'IN'
+    'IN',
   ],
   ['COCHIN (IN-NAVY)', 'VOCC', 'null', '43353', '09.56N', '076.16E', '3', 'IN'],
   ['COCHIN INTL', 'VOCI', 'null', 'null', '10.09N', '076.24E', '8', 'IN'],
@@ -34762,7 +34762,7 @@ List<List<String>> _stations = [
     '17.27N',
     '078.27E',
     '545',
-    'IN'
+    'IN',
   ],
   ['MADURAI', 'VOMD', 'null', '43360', '09.49N', '078.04E', '131', 'IN'],
   [
@@ -34773,7 +34773,7 @@ List<List<String>> _stations = [
     '12.58N',
     '074.53E',
     '103',
-    'IN'
+    'IN',
   ],
   ['MADRAS/CHENNAI', 'VOMM', 'null', '43279', '13.00N', '080.10E', '16', 'IN'],
   ['MYSORE', 'VOMY', 'null', '43291', '12.18N', '076.42E', '767', 'IN'],
@@ -34786,7 +34786,7 @@ List<List<String>> _stations = [
     '10.46N',
     '078.43E',
     '88',
-    'IN'
+    'IN',
   ],
   ['THIRUVANANTHAPUR', 'VOTV', 'null', '43372', '08.28N', '076.57E', '8', 'IN'],
   ['VELLORE', 'VOVR', 'null', '43303', '12.55N', '079.09E', '214', 'IN'],
@@ -34819,7 +34819,7 @@ List<List<String>> _stations = [
     '16.53N',
     '096.10E',
     '29',
-    'MM'
+    'MM',
   ],
   ['SANDOWAY/MAZIN', 'VBSY', 'null', '48080', '18.28N', '094.20E', '11', 'MM'],
   ['DAWEI', 'VBTV', 'null', '48108', '14.05N', '098.13E', '17', 'MM'],
@@ -34834,7 +34834,7 @@ List<List<String>> _stations = [
     '08.19N',
     '080.25E',
     '89',
-    'LK'
+    'LK',
   ],
   [
     'BATTICALOA (AFB)',
@@ -34844,7 +34844,7 @@ List<List<String>> _stations = [
     '07.43N',
     '081.42E',
     '12',
-    'LK'
+    'LK',
   ],
   ['COLOMBO/RATMALAN', 'VCCC', 'null', '43467', '06.49N', '079.52E', '5', 'LK'],
   ['TRINCOMALEE (AFB', 'VCCT', 'null', '43418', '08.34N', '081.15E', '7', 'LK'],
@@ -34860,7 +34860,7 @@ List<List<String>> _stations = [
     '11.33N',
     '104.50E',
     '10',
-    'KH'
+    'KH',
   ],
   ['SIEMREAP', 'VDSR', 'null', '48966', '13.25N', '103.50E', '15', 'KH'],
   ['STUNG TRENG', 'VDST', 'null', '48972', '13.31N', '105.58E', '56', 'KH'],
@@ -34889,7 +34889,7 @@ List<List<String>> _stations = [
     '20.15N',
     '100.25E',
     '421',
-    'LA'
+    'LA',
   ],
   [
     'PAKSE (CIV/MIL)',
@@ -34899,7 +34899,7 @@ List<List<String>> _stations = [
     '15.07N',
     '105.10E',
     '102',
-    'LA'
+    'LA',
   ],
   ['MUANG KHONG', 'VLKG', 'null', 'null', '14.07N', '105.50E', '76', 'LA'],
   ['LUANG-PRABANG', 'VLLB', 'null', '48930', '19.54N', '102.10E', '291', 'LA'],
@@ -34914,7 +34914,7 @@ List<List<String>> _stations = [
     '16.33N',
     '104.45E',
     '155',
-    'LA'
+    'LA',
   ],
   ['SAM-NEUA', 'VLSN', 'null', '48928', '20.25N', '104.04E', '1000', 'LA'],
   ['SARAVANE', 'VLSV', 'null', '48952', '15.40N', '106.25E', '168', 'LA'],
@@ -34927,7 +34927,7 @@ List<List<String>> _stations = [
     '17.59N',
     '102.34E',
     '171',
-    'LA'
+    'LA',
   ],
   [
     'VANG VIENG(CIV/M',
@@ -34937,7 +34937,7 @@ List<List<String>> _stations = [
     '18.55N',
     '102.27E',
     '296',
-    'LA'
+    'LA',
   ],
   ['MACAO/MACAU', 'VMMC', 'null', '45011', '22.09N', '113.35E', '6', 'MO'],
   [
@@ -34948,7 +34948,7 @@ List<List<String>> _stations = [
     '27.31N',
     '083.27E',
     '109',
-    'NP'
+    'NP',
   ],
   ['JUMLA', 'VNJL', 'null', '44424', '29.16N', '082.10E', '2300', 'NP'],
   [
@@ -34959,7 +34959,7 @@ List<List<String>> _stations = [
     '27.41N',
     '085.22E',
     '1337',
-    'NP'
+    'NP',
   ],
   [
     'POKHARA AIRPORT',
@@ -34969,7 +34969,7 @@ List<List<String>> _stations = [
     '28.13N',
     '084.00E',
     '827',
-    'NP'
+    'NP',
   ],
   ['SIMRA AIRPORT', 'VNSI', 'null', '44449', '27.10N', '084.58E', '137', 'NP'],
   ['SURKHET', 'VNSK', 'null', '44416', '28.36N', '081.37E', '720', 'NP'],
@@ -34982,7 +34982,7 @@ List<List<String>> _stations = [
     '26.28N',
     '087.16E',
     '72',
-    'NP'
+    'NP',
   ],
   ['PARO', 'VQPR', 'null', 'null', '27.24N', '089.26E', '2235', 'BT'],
   ['GAN ISLAND', 'VRGN', 'null', '43599', '00.40S', '073.09E', '2', 'MV'],
@@ -35007,7 +35007,7 @@ List<List<String>> _stations = [
     '19.30N',
     '100.16E',
     '389',
-    'TH'
+    'TH',
   ],
   [
     'CHIANG MAI(CIV/A',
@@ -35017,7 +35017,7 @@ List<List<String>> _stations = [
     '18.46N',
     '098.58E',
     '314',
-    'TH'
+    'TH',
   ],
   [
     'MAE HONG SON/MUA',
@@ -35027,7 +35027,7 @@ List<List<String>> _stations = [
     '19.18N',
     '097.59E',
     '269',
-    'TH'
+    'TH',
   ],
   ['LAMPANG', 'VTCL', 'null', '48328', '18.16N', '099.31E', '242', 'TH'],
   ['NAN/MUANG NAN', 'VTCN', 'null', '48331', '18.49N', '100.46E', '201', 'TH'],
@@ -35045,7 +35045,7 @@ List<List<String>> _stations = [
     '16.49N',
     '101.15E',
     '152',
-    'TH'
+    'TH',
   ],
   ['SUKHOTHAI', 'VTPO', 'null', 'null', '17.14N', '099.49E', '54', 'TH'],
   ['MAE SOT/TAK', 'VTPM', 'null', '48375', '16.40N', '098.32E', '197', 'TH'],
@@ -35057,7 +35057,7 @@ List<List<String>> _stations = [
     '15.48N',
     '100.10E',
     '35',
-    'TH'
+    'TH',
   ],
   ['PHITSANULOK', 'VTPP', 'PHS', 'null', '16.47N', '100.17E', '44', 'TH'],
   [
@@ -35068,7 +35068,7 @@ List<List<String>> _stations = [
     '16.46N',
     '100.16E',
     '45',
-    'TH'
+    'TH',
   ],
   ['TAK', 'VTPT', 'null', '48376', '16.52N', '099.09E', '124', 'TH'],
   ['UTTARADIT EAST', 'VTPU', 'null', '48351', '17.37N', '100.05E', '64', 'TH'],
@@ -35091,7 +35091,7 @@ List<List<String>> _stations = [
     '08.07N',
     '098.19E',
     '10',
-    'TH'
+    'TH',
   ],
   ['RANONG', 'VTSR', 'null', '48532', '09.58N', '098.37E', '8', 'TH'],
   ['HAT YAI', 'VTSS', 'null', '48569', '06.55N', '100.23E', '35', 'TH'],
@@ -35104,7 +35104,7 @@ List<List<String>> _stations = [
     '16.31N',
     '104.43E',
     '139',
-    'TH'
+    'TH',
   ],
   ['CHAIYAPHUM', 'VTUC', 'null', '48403', '15.48N', '102.01E', '183', 'TH'],
   [
@@ -35115,7 +35115,7 @@ List<List<String>> _stations = [
     '17.22N',
     '102.47E',
     '182',
-    'TH'
+    'TH',
   ],
   ['SAKON NAKHON', 'VTUI', 'null', 'null', '17.12N', '104.07E', '172', 'TH'],
   ['SURIN', 'VTUJ', 'null', 'null', '14.52N', '103.30E', '146', 'TH'],
@@ -35130,7 +35130,7 @@ List<List<String>> _stations = [
     '14.58N',
     '102.04E',
     '188',
-    'TH'
+    'TH',
   ],
   ['BURIRUM', 'VTUO', 'null', 'null', '15.14N', '103.15E', '183', 'TH'],
   ['NAKHON PHANOM', 'VTUP', 'null', '48357', '17.25N', '104.46E', '148', 'TH'],
@@ -35144,7 +35144,7 @@ List<List<String>> _stations = [
     '17.08N',
     '104.07E',
     '172',
-    'TH'
+    'TH',
   ],
   [
     'UBON/RATCHATHANI',
@@ -35154,7 +35154,7 @@ List<List<String>> _stations = [
     '15.15N',
     '104.52E',
     '127',
-    'TH'
+    'TH',
   ],
   ['ROIET', 'VTUV', 'null', 'null', '16.07N', '103.47E', '138', 'TH'],
   ['NAKHON PHANOM', 'VTUW', 'null', 'null', '17.23N', '104.38E', '184', 'TH'],
@@ -35177,7 +35177,7 @@ List<List<String>> _stations = [
     '10.49N',
     '106.40E',
     '19',
-    'VN'
+    'VN',
   ],
   ['VINH', 'VVVH', 'null', '48845', '18.41N', '105.40E', '6', 'VN'],
   ['VUNG TAU', 'VVVT', 'null', 'null', '10.22N', '107.04E', '4', 'VN'],
@@ -35189,7 +35189,7 @@ List<List<String>> _stations = [
     '16.54N',
     '096.08E',
     '33',
-    'VN'
+    'VN',
   ],
   [
     'HASANUDDIN/UJUNG',
@@ -35199,7 +35199,7 @@ List<List<String>> _stations = [
     '05.04S',
     '119.32E',
     '14',
-    'ID'
+    'ID',
   ],
   ['BAU-BAU/BETO AMB', 'WAAB', 'null', '97192', '05.28S', '122.37E', '2', 'ID'],
   ['KOLAKA/POMALAA', 'WAAP', 'null', '97142', '04.11S', '121.37E', '3', 'ID'],
@@ -35212,7 +35212,7 @@ List<List<String>> _stations = [
     '04.05S',
     '122.25E',
     '50',
-    'ID'
+    'ID',
   ],
   [
     'BIAK/FRANS KAISI',
@@ -35222,7 +35222,7 @@ List<List<String>> _stations = [
     '01.10S',
     '136.07E',
     '11',
-    'ID'
+    'ID',
   ],
   ['NABIRE/IRIAN JAY', 'WABI', 'null', '97682', '03.19S', '135.30E', '3', 'ID'],
   ['KOKONAO/TIMUKA', 'WABN', 'null', '97796', '04.43S', '136.25E', '3', 'ID'],
@@ -35241,7 +35241,7 @@ List<List<String>> _stations = [
     '02.35S',
     '140.31E',
     '88',
-    'ID'
+    'ID',
   ],
   [
     'WAMENA/IRIAN JAY',
@@ -35251,7 +35251,7 @@ List<List<String>> _stations = [
     '04.04S',
     '138.56E',
     '1660',
-    'ID'
+    'ID',
   ],
   ['MERAUKE/MOPAH', 'WAKK', 'null', '97980', '08.28S', '140.22E', '3', 'ID'],
   ['TANAH MERAH', 'WAKT', 'null', '97876', '06.05S', '140.18E', '16', 'ID'],
@@ -35268,7 +35268,7 @@ List<List<String>> _stations = [
     '01.33N',
     '124.55E',
     '80',
-    'ID'
+    'ID',
   ],
   ['MALANGUANE/TALAU', 'WAMN', 'null', '97004', '04.13N', '126.42E', '9', 'ID'],
   ['POSO/KASIGUNCU', 'WAMP', 'null', '97096', '01.22S', '120.43E', '2', 'ID'],
@@ -35281,7 +35281,7 @@ List<List<String>> _stations = [
     '00.50N',
     '127.23E',
     '15',
-    'ID'
+    'ID',
   ],
   ['LUWUK/BUBUNG', 'WAMW', 'null', '97086', '00.54S', '122.46E', '2', 'ID'],
   ['AMAHAI', 'WAPA', 'null', '97722', '03.21S', '128.52E', '10', 'ID'],
@@ -35297,7 +35297,7 @@ List<List<String>> _stations = [
     '03.15S',
     '127.04E',
     '20',
-    'ID'
+    'ID',
   ],
   ['JUWATA', 'WAQQ', 'null', 'null', '03.20N', '117.34E', '0', 'ID'],
   ['JUANDA', 'WARR', 'null', 'null', '07.22S', '112.47E', '2', 'ID'],
@@ -35310,7 +35310,7 @@ List<List<String>> _stations = [
     '07.31S',
     '110.45E',
     '128',
-    'ID'
+    'ID',
   ],
   ['FAK-FAK/TOREA', 'WASF', 'null', '97630', '02.52S', '132.15E', '130', 'ID'],
   ['KAIMANA/UTAROM', 'WASK', 'null', '97760', '03.40S', '133.45E', '3', 'ID'],
@@ -35325,7 +35325,7 @@ List<List<String>> _stations = [
     '04.27S',
     '105.10E',
     '19',
-    'ID'
+    'ID',
   ],
   [
     'CIBEUREM/TASIK(A',
@@ -35335,7 +35335,7 @@ List<List<String>> _stations = [
     '07.19S',
     '108.15E',
     '335',
-    'ID'
+    'ID',
   ],
   [
     'MADIUN/ISWAHYUD',
@@ -35345,7 +35345,7 @@ List<List<String>> _stations = [
     '07.37S',
     '111.31E',
     '110',
-    'ID'
+    'ID',
   ],
   [
     'MALANG/ABDUL (AF',
@@ -35355,7 +35355,7 @@ List<List<String>> _stations = [
     '07.58S',
     '112.42E',
     '526',
-    'ID'
+    'ID',
   ],
   [
     'PAKANBARU/SIMPAN',
@@ -35365,7 +35365,7 @@ List<List<String>> _stations = [
     '00.28N',
     '101.27E',
     '31',
-    'ID'
+    'ID',
   ],
   ['HANG NADIM', 'WIDD', 'null', 'null', '01.07N', '104.07E', '38', 'ID'],
   ['MINANGKABAU', 'WIEE', 'null', 'null', '00.47S', '100.17E', '5', 'ID'],
@@ -35379,7 +35379,7 @@ List<List<String>> _stations = [
     '06.54S',
     '107.34E',
     '740',
-    'ID'
+    'ID',
   ],
   ['JAKARTA/KEMAYOR', 'WIID', 'null', '96743', '06.09S', '106.50E', '5', 'ID'],
   [
@@ -35390,7 +35390,7 @@ List<List<String>> _stations = [
     '06.15S',
     '106.54E',
     '30',
-    'ID'
+    'ID',
   ],
   ['SOEKARNO-HATTA I', 'WIII', 'null', '96749', '06.08S', '106.40E', '8', 'ID'],
   [
@@ -35401,7 +35401,7 @@ List<List<String>> _stations = [
     '07.46S',
     '110.25E',
     '107',
-    'ID'
+    'ID',
   ],
   ['ADI SUTJIPTO', 'WARJ', 'null', '96853', '07.47S', '110.26E', '107', 'ID'],
   ['KALIJATI', 'WIIK', 'null', '96773', '06.32S', '107.40E', '110', 'ID'],
@@ -35415,7 +35415,7 @@ List<List<String>> _stations = [
     '05.16S',
     '105.10E',
     '96',
-    'ID'
+    'ID',
   ],
   ['HANG NADIM', 'WIKB', 'null', 'null', '01.07N', '104.07E', '40', 'ID'],
   [
@@ -35426,7 +35426,7 @@ List<List<String>> _stations = [
     '02.45S',
     '107.45E',
     '44',
-    'ID'
+    'ID',
   ],
   ['PANGKALPINANG', 'WIKK', 'null', '96237', '02.10S', '106.08E', '33', 'ID'],
   [
@@ -35437,7 +35437,7 @@ List<List<String>> _stations = [
     '00.55N',
     '104.31E',
     '18',
-    'ID'
+    'ID',
   ],
   ['TANJUNGPINANG/KI', 'WIKN', 'null', 'null', '00.55N', '104.31E', '18', 'ID'],
   ['SINGKEP/DABO', 'WIKS', 'null', '96179', '00.28S', '104.34E', '31', 'ID'],
@@ -35451,7 +35451,7 @@ List<List<String>> _stations = [
     '03.34N',
     '098.40E',
     '25',
-    'ID'
+    'ID',
   ],
   ['SIBOLGA/PINANGSO', 'WIMS', 'null', '96073', '01.33N', '098.52E', '3', 'ID'],
   [
@@ -35462,7 +35462,7 @@ List<List<String>> _stations = [
     '03.22N',
     '099.07E',
     '23',
-    'ID'
+    'ID',
   ],
   ['SINGKAWANG II', 'WIOI', 'null', '96533', '01.04N', '109.40E', '38', 'ID'],
   ['KETAPANG/RAHADI', 'WIOK', 'null', '96615', '01.51S', '109.58E', '9', 'ID'],
@@ -35476,7 +35476,7 @@ List<List<String>> _stations = [
     '00.07N',
     '111.31E',
     '30',
-    'ID'
+    'ID',
   ],
   [
     'JAMBI/SULTAN TAH',
@@ -35486,7 +35486,7 @@ List<List<String>> _stations = [
     '01.37S',
     '103.39E',
     '25',
-    'ID'
+    'ID',
   ],
   [
     'KERINCI/DEPATI P',
@@ -35496,7 +35496,7 @@ List<List<String>> _stations = [
     '02.46S',
     '101.22E',
     '782',
-    'ID'
+    'ID',
   ],
   ['DEPATI AMIR', 'WIPK', 'null', 'null', '02.10S', '106.08E', '33', 'ID'],
   [
@@ -35507,7 +35507,7 @@ List<List<String>> _stations = [
     '03.52S',
     '102.19E',
     '16',
-    'ID'
+    'ID',
   ],
   [
     'PALEMBANG/SULTAN',
@@ -35517,7 +35517,7 @@ List<List<String>> _stations = [
     '02.53S',
     '104.42E',
     '10',
-    'ID'
+    'ID',
   ],
   ['RENGAT/JAPURA', 'WIPR', 'null', '96171', '00.21S', '102.20E', '19', 'ID'],
   ['MINANGKABAU INTL', 'WIPT', 'PDG', 'null', '00.47S', '100.17E', '5', 'ID'],
@@ -35529,7 +35529,7 @@ List<List<String>> _stations = [
     '03.28N',
     '097.17E',
     '75',
-    'ID'
+    'ID',
   ],
   [
     'MEULABOH/CUT NYA',
@@ -35539,7 +35539,7 @@ List<List<String>> _stations = [
     '04.15N',
     '096.07E',
     '90',
-    'ID'
+    'ID',
   ],
   [
     'LHOKSEUMAWE/MALI',
@@ -35549,7 +35549,7 @@ List<List<String>> _stations = [
     '05.14N',
     '096.57E',
     '28',
-    'ID'
+    'ID',
   ],
   [
     'BANDA ACEH/BLANG',
@@ -35559,7 +35559,7 @@ List<List<String>> _stations = [
     '05.31N',
     '095.25E',
     '21',
-    'ID'
+    'ID',
   ],
   ['BANJARMASIN/SYAM', 'WRBB', 'null', 'null', '03.25S', '114.45E', '20', 'ID'],
   ['SYAMSUDIN NOOR', 'WAOO', 'null', '96685', '03.27S', '114.46E', '20', 'ID'],
@@ -35571,7 +35571,7 @@ List<List<String>> _stations = [
     '02.42S',
     '111.42E',
     '25',
-    'ID'
+    'ID',
   ],
   [
     'KOTABARU/SETAGEN',
@@ -35581,7 +35581,7 @@ List<List<String>> _stations = [
     '03.23S',
     '116.13E',
     '18',
-    'ID'
+    'ID',
   ],
   [
     'MUARATEWE/BERING',
@@ -35591,7 +35591,7 @@ List<List<String>> _stations = [
     '00.57S',
     '114.54E',
     '60',
-    'ID'
+    'ID',
   ],
   [
     'PANARUNG/PALANGK',
@@ -35601,7 +35601,7 @@ List<List<String>> _stations = [
     '01.00S',
     '114.00E',
     '27',
-    'ID'
+    'ID',
   ],
   [
     'ATAMBUA/HALIWEN',
@@ -35611,7 +35611,7 @@ List<List<String>> _stations = [
     '09.19S',
     '124.54E',
     '125',
-    'ID'
+    'ID',
   ],
   ['MAUMERE/WAI OTI', 'WRKC', 'null', '97300', '08.37S', '122.15E', '3', 'ID'],
   ['ENDEH/IPI', 'WRKE', 'null', '97290', '08.48S', '121.35E', '3', 'ID'],
@@ -35626,7 +35626,7 @@ List<List<String>> _stations = [
     '08.13S',
     '124.34E',
     '12',
-    'ID'
+    'ID',
   ],
   ['ROTE/BAA/LEKUNIK', 'WRKR', 'null', '97378', '10.43S', '123.04E', '1', 'ID'],
   ['SABU/TARDAMU', 'WRKS', 'null', '97380', '10.30S', '121.49E', '26', 'ID'],
@@ -35638,7 +35638,7 @@ List<List<String>> _stations = [
     '03.43N',
     '115.40E',
     '550',
-    'ID'
+    'ID',
   ],
   ['TANJUNG SELOR', 'WRLG', 'null', '96525', '02.51N', '117.19E', '50', 'ID'],
   ['TANAHGROGOT', 'WRLH', 'null', '96639', '02.12S', '116.19E', '10', 'ID'],
@@ -35650,7 +35650,7 @@ List<List<String>> _stations = [
     '02.07N',
     '117.27E',
     '26',
-    'ID'
+    'ID',
   ],
   ['BALIKPAPAN/SEPIN', 'WRLL', 'null', 'null', '01.16S', '116.54E', '3', 'ID'],
   ['SEPINGGAN', 'WALL', 'null', '96633', '01.16S', '116.54E', '3', 'ID'],
@@ -35664,7 +35664,7 @@ List<List<String>> _stations = [
     '00.37S',
     '117.09E',
     '230',
-    'ID'
+    'ID',
   ],
   ['SANGKULIRANG', 'WRLU', 'null', '96577', '01.00N', '118.00E', '210', 'ID'],
   ['AMPENAN/SELAPARA', 'WRRA', 'null', '97240', '08.31S', '116.04E', '3', 'ID'],
@@ -35679,7 +35679,7 @@ List<List<String>> _stations = [
     '09.40S',
     '120.19E',
     '12',
-    'ID'
+    'ID',
   ],
   ['SURABAYA/JUANDA', 'WRSJ', 'null', '96935', '07.22S', '112.46E', '3', 'ID'],
   ['SURABAYA/PERAK', 'WRSP', 'null', '96933', '07.13S', '112.43E', '3', 'ID'],
@@ -35691,7 +35691,7 @@ List<List<String>> _stations = [
     '07.52S',
     '110.55E',
     '104',
-    'ID'
+    'ID',
   ],
   ['SURABAYA/GEDANGA', 'WRSS', 'null', '96937', '07.13S', '112.43E', '3', 'ID'],
   ['BINTULU/KALIMANT', 'WBGB', 'null', '96441', '03.07N', '113.01E', '5', 'MY'],
@@ -35703,7 +35703,7 @@ List<List<String>> _stations = [
     '01.28N',
     '110.21E',
     '27',
-    'MY'
+    'MY',
   ],
   ['MIRI/KALIMANTAN', 'WBGR', 'null', '96449', '04.19N', '113.58E', '18', 'MY'],
   ['SIBU', 'WBGS', 'null', '96421', '02.16N', '111.59E', '8', 'MY'],
@@ -35718,7 +35718,7 @@ List<List<String>> _stations = [
     '05.54N',
     '118.04E',
     '13',
-    'MY'
+    'MY',
   ],
   ['KUDAT', 'WBKT', 'null', '96477', '06.55N', '116.49E', '5', 'MY'],
   [
@@ -35729,7 +35729,7 @@ List<List<String>> _stations = [
     '04.19N',
     '118.07E',
     '20',
-    'MY'
+    'MY',
   ],
   [
     'BRUNEI INTL AIRP',
@@ -35739,7 +35739,7 @@ List<List<String>> _stations = [
     '04.55N',
     '114.55E',
     '15',
-    'MY'
+    'MY',
   ],
   ['KLUANG', 'WMAP', 'null', '48672', '02.01N', '103.19E', '88', 'MY'],
   ['MERSING', 'WMAU', 'null', '48674', '02.23N', '103.53E', '45', 'MY'],
@@ -35760,7 +35760,7 @@ List<List<String>> _stations = [
     '01.37N',
     '103.40E',
     '40',
-    'MY'
+    'MY',
   ],
   ['KUALA LUMPUR/SUB', 'WMKK', 'KUL', '48647', '02.45N', '101.43E', '22', 'MY'],
   ['LANGKAWI INTL AR', 'WMKL', 'null', '48600', '06.19N', '099.43E', '7', 'MY'],
@@ -35778,7 +35778,7 @@ List<List<String>> _stations = [
     '08.30S',
     '126.24E',
     '522',
-    'TP'
+    'TP',
   ],
   ['OE-CUSSE/TIMOR I', 'WPOC', 'null', '97385', '09.11S', '124.22E', '5', 'TP'],
   [
@@ -35789,7 +35789,7 @@ List<List<String>> _stations = [
     '08.52S',
     '126.22E',
     '47',
-    'TP'
+    'TP',
   ],
   ['PAYA LEBAR', 'WSAP', 'null', '48694', '01.22N', '103.55E', '32', 'SG'],
   [
@@ -35800,7 +35800,7 @@ List<List<String>> _stations = [
     '01.22N',
     '103.43E',
     '12',
-    'SG'
+    'SG',
   ],
   [
     'SINGAPORE/SELETA',
@@ -35810,7 +35810,7 @@ List<List<String>> _stations = [
     '01.25N',
     '103.52E',
     '14',
-    'SG'
+    'SG',
   ],
   ['SINGAPORE/CHANGI', 'WSSS', 'SIN', '48698', '01.22N', '103.58E', '16', 'SG'],
   ['HONIARA/HENDERSO', 'AGGH', 'null', '91520', '09.25S', '160.03E', '9', 'SB'],
@@ -35822,7 +35822,7 @@ List<List<String>> _stations = [
     '10.41S',
     '165.48E',
     '24',
-    'SB'
+    'SB',
   ],
   ['MUNDA/NEW GEORGI', 'AGGM', 'null', '91503', '08.19S', '157.16E', '6', 'SB'],
   ['MADANG AIRPORT', 'AYMD', 'null', '94014', '05.13S', '145.48E', '12', 'PG'],
@@ -35834,7 +35834,7 @@ List<List<String>> _stations = [
     '09.25S',
     '147.13E',
     '47',
-    'PG'
+    'PG',
   ],
   ['RABAUL/NEW BRITA', 'AYRB', 'null', '94085', '04.13S', '152.10E', '9', 'PG'],
   ['WEWAK INTL AIRPO', 'AYWK', 'null', '94004', '03.35S', '143.40E', '6', 'PG'],
@@ -35856,7 +35856,7 @@ List<List<String>> _stations = [
     '27.34S',
     '153.00E',
     '18',
-    'AU'
+    'AU',
   ],
   [
     'AMBERLEY (AUS-AF',
@@ -35866,7 +35866,7 @@ List<List<String>> _stations = [
     '27.37S',
     '152.43E',
     '31',
-    'AU'
+    'AU',
   ],
   [
     'ALICE SPRINGS AR',
@@ -35876,7 +35876,7 @@ List<List<String>> _stations = [
     '23.48S',
     '133.54E',
     '541',
-    'AU'
+    'AU',
   ],
   ['BRISBANE INTL AR', 'YBBN', 'null', '94578', '27.23S', '153.08E', '5', 'AU'],
   ['COOLANGATTA AWS', 'YBCG', 'null', '94592', '28.10S', '153.30E', '6', 'AU'],
@@ -35889,7 +35889,7 @@ List<List<String>> _stations = [
     '26.23S',
     '146.16E',
     '304',
-    'AU'
+    'AU',
   ],
   ['BIRDSVILLE', 'YBDV', 'null', '95482', '25.54S', '139.21E', '47', 'AU'],
   ['GLADSTONE', 'YBGL', 'null', '94380', '23.51S', '151.15E', '76', 'AU'],
@@ -35903,7 +35903,7 @@ List<List<String>> _stations = [
     '23.25S',
     '144.16E',
     '193',
-    'AU'
+    'AU',
   ],
   [
     'MOUNT ISA AIRPOR',
@@ -35913,7 +35913,7 @@ List<List<String>> _stations = [
     '20.40S',
     '139.28E',
     '344',
-    'AU'
+    'AU',
   ],
   ['MACKAY', 'YBMK', 'null', '94367', '21.07S', '149.13E', '31', 'AU'],
   ['BALLINA BYRON G.', 'YBNA', 'null', '94596', '28.50S', '153.34E', '2', 'AU'],
@@ -35925,7 +35925,7 @@ List<List<String>> _stations = [
     '27.25S',
     '151.43E',
     '407',
-    'AU'
+    'AU',
   ],
   [
     'PROSPERINE AIRPO',
@@ -35935,7 +35935,7 @@ List<List<String>> _stations = [
     '20.30S',
     '148.33E',
     '25',
-    'AU'
+    'AU',
   ],
   [
     'ROCKHAMPTON AIRP',
@@ -35945,7 +35945,7 @@ List<List<String>> _stations = [
     '23.22S',
     '150.28E',
     '14',
-    'AU'
+    'AU',
   ],
   ['BROOME AIRPORT', 'YBRM', 'null', '94203', '17.56S', '122.13E', '9', 'AU'],
   ['TOWNSVILLE(CIV/M', 'YBTL', 'null', '94294', '19.15S', '146.45E', '6', 'AU'],
@@ -35971,7 +35971,7 @@ List<List<String>> _stations = [
     '36.18S',
     '148.58E',
     '941',
-    'AU'
+    'AU',
   ],
   ['DERBY', 'YDBY', 'null', '94205', '17.22S', '123.40E', '7', 'AU'],
   ['GOVE AIRPORT', 'YDGV', 'null', '94150', '12.16S', '136.49E', '54', 'AU'],
@@ -35983,7 +35983,7 @@ List<List<String>> _stations = [
     '19.37S',
     '134.10E',
     '376',
-    'AU'
+    'AU',
   ],
   ['YULARA AWS', 'YDYL', 'null', '94462', '25.10S', '130.58E', '493', 'AU'],
   ['EMERALD ARPT', 'YEML', 'null', '94363', '24.34S', '148.11E', '190', 'AU'],
@@ -36010,7 +36010,7 @@ List<List<String>> _stations = [
     '26.37S',
     '118.33E',
     '522',
-    'AU'
+    'AU',
   ],
   ['MERIMBULA ARPT', 'YMER', 'null', '95929', '36.55S', '149.54E', '2', 'AU'],
   ['MILDURA ARPT', 'YMIA', 'null', 'null', '34.14S', '142.05E', '51', 'AU'],
@@ -36028,7 +36028,7 @@ List<List<String>> _stations = [
     '30.29S',
     '136.53E',
     '105',
-    'AU'
+    'AU',
   ],
   ['GOVE AIRPORT', 'YPGV', 'null', 'null', '12.16S', '136.49E', '55', 'AU'],
   ['JANDAKOT', 'YPJT', 'null', 'null', '32.06S', '115.53E', '30', 'AU'],
@@ -36044,7 +36044,7 @@ List<List<String>> _stations = [
     '37.43S',
     '144.54E',
     '86',
-    'AU'
+    'AU',
   ],
   ['EAST SALE (AUS-A', 'YMES', 'null', '94907', '38.06S', '147.07E', '8', 'AU'],
   ['HOBART/TASMANIA', 'YMHB', 'null', '94975', '42.49S', '147.31E', '27', 'AU'],
@@ -36056,7 +36056,7 @@ List<List<String>> _stations = [
     '41.31S',
     '147.11E',
     '178',
-    'AU'
+    'AU',
   ],
   ['LAVERTON AERO', 'YMLV', 'null', '94865', '37.51S', '144.43E', '21', 'AU'],
   [
@@ -36067,7 +36067,7 @@ List<List<String>> _stations = [
     '37.58S',
     '145.05E',
     '16',
-    'AU'
+    'AU',
   ],
   [
     'MOUNT GAMBIER AR',
@@ -36077,7 +36077,7 @@ List<List<String>> _stations = [
     '37.43S',
     '140.46E',
     '69',
-    'AU'
+    'AU',
   ],
   ['MILDURA AIRPORT', 'YMMI', 'null', '94693', '34.13S', '142.04E', '52', 'AU'],
   [
@@ -36088,7 +36088,7 @@ List<List<String>> _stations = [
     '37.40S',
     '144.49E',
     '141',
-    'AU'
+    'AU',
   ],
   ['MACQUARIE ISLAND', 'YMMQ', 'null', '94998', '54.28S', '158.55E', '6', 'AU'],
   ['WYNYARD WEST', 'YMWY', 'null', '94957', '40.58S', '145.43E', '11', 'AU'],
@@ -36106,7 +36106,7 @@ List<List<String>> _stations = [
     '12.25S',
     '130.54E',
     '30',
-    'AU'
+    'AU',
   ],
   [
     'PEARCE (AUS-AFB)',
@@ -36116,7 +36116,7 @@ List<List<String>> _stations = [
     '31.40S',
     '116.01E',
     '49',
-    'AU'
+    'AU',
   ],
   [
     'EDINBURGH (AUS-A',
@@ -36126,7 +36126,7 @@ List<List<String>> _stations = [
     '34.42S',
     '138.37E',
     '20',
-    'AU'
+    'AU',
   ],
   [
     'FORREST AIRPORT',
@@ -36136,7 +36136,7 @@ List<List<String>> _stations = [
     '30.49S',
     '128.05E',
     '160',
-    'AU'
+    'AU',
   ],
   [
     'GERALDTON AIRPOR',
@@ -36146,7 +36146,7 @@ List<List<String>> _stations = [
     '28.46S',
     '114.42E',
     '34',
-    'AU'
+    'AU',
   ],
   [
     'KALGOORLIE/BOULD',
@@ -36156,7 +36156,7 @@ List<List<String>> _stations = [
     '30.46S',
     '121.27E',
     '360',
-    'AU'
+    'AU',
   ],
   [
     'KUNUNURRA AIRPOR',
@@ -36166,7 +36166,7 @@ List<List<String>> _stations = [
     '15.46S',
     '128.41E',
     '45',
-    'AU'
+    'AU',
   ],
   [
     'LEIGH CREEK S. A',
@@ -36176,7 +36176,7 @@ List<List<String>> _stations = [
     '30.36S',
     '138.25E',
     '262',
-    'AU'
+    'AU',
   ],
   ['LEARMOUTH', 'YPLM', 'null', '94302', '22.13S', '114.04E', '6', 'AU'],
   [
@@ -36187,7 +36187,7 @@ List<List<String>> _stations = [
     '26.36S',
     '118.31E',
     '518',
-    'AU'
+    'AU',
   ],
   ['PORT HEDLAND ARR', 'YPPD', 'null', '94312', '20.22S', '118.37E', '6', 'AU'],
   [
@@ -36198,7 +36198,7 @@ List<List<String>> _stations = [
     '34.46S',
     '138.37E',
     '16',
-    'AU'
+    'AU',
   ],
   [
     'PERTH INTL/BELMO',
@@ -36208,7 +36208,7 @@ List<List<String>> _stations = [
     '31.56S',
     '115.59E',
     '13',
-    'AU'
+    'AU',
   ],
   [
     'KATHERINE/TINDAL',
@@ -36218,7 +36218,7 @@ List<List<String>> _stations = [
     '14.31S',
     '132.23E',
     '109',
-    'AU'
+    'AU',
   ],
   [
     'WOOMERA (AUS-AFB',
@@ -36228,7 +36228,7 @@ List<List<String>> _stations = [
     '31.07S',
     '136.49E',
     '167',
-    'AU'
+    'AU',
   ],
   [
     'CHRISTMAS ISL (P',
@@ -36238,7 +36238,7 @@ List<List<String>> _stations = [
     '10.27S',
     '105.40E',
     '259',
-    'AU'
+    'AU',
   ],
   ['RICHMOND', 'YRMD', 'null', 'null', '20.42S', '143.07E', '207', 'AU'],
   [
@@ -36249,7 +36249,7 @@ List<List<String>> _stations = [
     '33.56S',
     '150.59E',
     '14',
-    'AU'
+    'AU',
   ],
   [
     'CANBERRA (CIV/MI',
@@ -36259,7 +36259,7 @@ List<List<String>> _stations = [
     '35.17S',
     '149.10E',
     '577',
-    'AU'
+    'AU',
   ],
   ['COOMA', 'YSCM', 'null', '94923', '36.13S', '149.04E', '778', 'AU'],
   ['CAMDEN AIRPORT', 'YSCN', 'null', '94755', '34.01S', '150.40E', '70', 'AU'],
@@ -36272,7 +36272,7 @@ List<List<String>> _stations = [
     '29.01S',
     '167.55E',
     '109',
-    'AU'
+    'AU',
   ],
   [
     'NOWRA (AUS-NAVY)',
@@ -36282,7 +36282,7 @@ List<List<String>> _stations = [
     '34.57S',
     '150.31E',
     '110',
-    'AU'
+    'AU',
   ],
   [
     'RICHMOND (AUS-AF',
@@ -36292,7 +36292,7 @@ List<List<String>> _stations = [
     '33.36S',
     '150.46E',
     '21',
-    'AU'
+    'AU',
   ],
   ['SYDNEY INTL AIRP', 'YSSY', 'SYD', '94767', '33.57S', '151.10E', '3', 'AU'],
   [
@@ -36303,7 +36303,7 @@ List<List<String>> _stations = [
     '31.04S',
     '150.51E',
     '410',
-    'AU'
+    'AU',
   ],
   [
     'WAGGA WAGGA(CV/M',
@@ -36313,7 +36313,7 @@ List<List<String>> _stations = [
     '35.08S',
     '147.28E',
     '213',
-    'AU'
+    'AU',
   ],
   ['WILLIAMTOWN(AUS-', 'YSWM', 'null', '94776', '32.46S', '151.49E', '8', 'AU'],
   ['TELFER AIRPORT', 'YTEF', 'null', 'null', '21.43S', '122.14E', '296', 'AU'],
@@ -36366,7 +36366,7 @@ List<List<String>> _stations = [
     '43.57S',
     '176.34E',
     '48',
-    'NZ'
+    'NZ',
   ],
   ['DUNEDIN AIRPORT', 'NZDN', 'null', '93890', '45.55S', '170.11E', '2', 'NZ'],
   ['GISBORNE AERODRO', 'NZGS', 'null', '93291', '38.40S', '177.58E', '8', 'NZ'],
@@ -36378,7 +36378,7 @@ List<List<String>> _stations = [
     '42.43S',
     '170.58E',
     '40',
-    'NZ'
+    'NZ',
   ],
   ['KAIKOURA', 'NZKI', 'null', '93677', '42.25S', '173.41E', '101', 'NZ'],
   ['KAITAIA', 'NZKT', 'null', '93012', '35.07S', '173.16E', '87', 'NZ'],
@@ -36391,7 +36391,7 @@ List<List<String>> _stations = [
     '39.01S',
     '174.10E',
     '36',
-    'NZ'
+    'NZ',
   ],
   ['INVERCARGILL AER', 'NZNV', 'null', '93844', '46.25S', '168.19E', '1', 'NZ'],
   ['OHAKEA (NZ-AFB)', 'NZOH', 'null', '93401', '40.12S', '175.23E', '52', 'NZ'],
@@ -36403,7 +36403,7 @@ List<List<String>> _stations = [
     '44.58S',
     '171.04E',
     '30',
-    'NZ'
+    'NZ',
   ],
   [
     'PARAPARAUMU AERO',
@@ -36413,7 +36413,7 @@ List<List<String>> _stations = [
     '40.53S',
     '174.58E',
     '12',
-    'NZ'
+    'NZ',
   ],
   [
     'RAOUL ISL/KERMAD',
@@ -36423,7 +36423,7 @@ List<List<String>> _stations = [
     '29.15S',
     '177.55E',
     '49',
-    'NZ'
+    'NZ',
   ],
   [
     'ROTORUA AERODROM',
@@ -36433,7 +36433,7 @@ List<List<String>> _stations = [
     '38.07S',
     '176.19E',
     '294',
-    'NZ'
+    'NZ',
   ],
   ['TAURANGA AERO AW', 'NZTG', 'null', '93186', '37.40S', '176.11E', '5', 'NZ'],
   [
@@ -36444,7 +36444,7 @@ List<List<String>> _stations = [
     '41.31S',
     '173.52E',
     '32',
-    'NZ'
+    'NZ',
   ],
   ['WELLINGTON INTL', 'NZWN', 'null', '93436', '41.19S', '174.48E', '7', 'NZ'],
   [
@@ -36455,7 +36455,7 @@ List<List<String>> _stations = [
     '36.46S',
     '174.37E',
     '27',
-    'NZ'
+    'NZ',
   ],
   ['WESTPORT HARBOUR', 'NZWS', 'null', '93516', '41.45S', '171.35E', '4', 'NZ'],
   ['WILLIAMS FIELD', 'NZCM', 'null', '89674', '77.52S', '166.58E', '8', 'AQ'],
@@ -36467,7 +36467,7 @@ List<List<String>> _stations = [
     '89.59S',
     '179.59E',
     '2830',
-    'AQ'
+    'AQ',
   ],
   ['PEGASUS FIELD', 'NZPG', 'null', 'null', '77.57S', '166.31E', '5', 'AQ'],
   ['MCMURDO WILLIAMS', 'NZWD', 'null', 'null', '77.52S', '167.04E', '22', 'AQ'],
@@ -36483,7 +36483,7 @@ List<List<String>> _stations = [
     '15.31S',
     '167.13E',
     '44',
-    'VU'
+    'VU',
   ],
   ['ANELGHOWHAT ARPT', 'NVVA', 'null', 'null', '20.15S', '169.46E', '3', 'VU'],
   [
@@ -36494,7 +36494,7 @@ List<List<String>> _stations = [
     '17.41S',
     '168.18E',
     '21',
-    'VU'
+    'VU',
   ],
   ['TANNA', 'NVVW', 'null', 'null', '19.27S', '169.13E', '6', 'VU'],
   ['KONE AIRPORT', 'NWWD', 'null', 'null', '21.03S', '164.50E', '7', 'NC'],
@@ -36506,7 +36506,7 @@ List<List<String>> _stations = [
     '22.36S',
     '167.26E',
     '97',
-    'NC'
+    'NC',
   ],
   ['KOUMAC', 'NWWK', 'null', '91577', '20.34S', '164.16E', '18', 'NC'],
   [
@@ -36517,7 +36517,7 @@ List<List<String>> _stations = [
     '20.46S',
     '167.13E',
     '29',
-    'NC'
+    'NC',
   ],
   ['MAGENTA', 'NWWM', 'null', 'null', '22.16S', '166.28E', '3', 'NC'],
   ['NOUMEA/CALEDONI', 'NWWN', 'null', '91592', '22.16S', '166.26E', '72', 'NC'],
@@ -36529,7 +36529,7 @@ List<List<String>> _stations = [
     '21.28S',
     '168.01E',
     '42',
-    'NC'
+    'NC',
   ],
   ['TOUHO', 'NWWU', 'null', 'null', '20.47S', '165.16E', '3', 'NC'],
   ['OUVEA OULOUP/FAY', 'NWWV', 'null', '91579', '20.38S', '166.34E', '7', 'NC'],
@@ -36550,7 +36550,7 @@ List<List<String>> _stations = [
     '16.40S',
     '179.52E',
     '21',
-    'FJ'
+    'FJ',
   ],
   ['ROTUMA ISLAND', 'NFNR', 'null', '91650', '12.30S', '177.03E', '26', 'FJ'],
   [
@@ -36561,7 +36561,7 @@ List<List<String>> _stations = [
     '16.49S',
     '179.20E',
     '13',
-    'FJ'
+    'FJ',
   ],
   [
     'HA\'APAI/LIFUKA I',
@@ -36571,7 +36571,7 @@ List<List<String>> _stations = [
     '19.47S',
     '174.20W',
     '3',
-    'FJ'
+    'FJ',
   ],
   ['VAVA\'U ISLAND', 'NFTV', 'null', '91780', '18.35S', '173.58W', '71', 'FJ'],
   ['BERU ISLAND', 'NGBR', 'null', '91623', '01.21S', '176.00E', '3', 'FJ'],
@@ -36586,7 +36586,7 @@ List<List<String>> _stations = [
     '14.19S',
     '178.07W',
     '36',
-    'FJ'
+    'FJ',
   ],
   ['PAGO PAGO', 'NSTU', 'null', '91765', '14.20S', '170.43W', '3', 'WS'],
   ['FALEOLO INT/APIA', 'NSFA', 'null', '91759', '13.50S', '172.00W', '5', 'WS'],
@@ -36600,7 +36600,7 @@ List<List<String>> _stations = [
     '13.14S',
     '176.10W',
     '23',
-    'WS'
+    'WS',
   ],
   ['TAHITI-FAAA POLY', 'NTAA', 'null', '91938', '17.33S', '149.37W', '2', 'WS'],
   [
@@ -36611,7 +36611,7 @@ List<List<String>> _stations = [
     '22.01S',
     '166.13E',
     '16',
-    'WS'
+    'WS',
   ],
   ['APIA/UPOLU ISLAN', 'NSAP', 'null', '91762', '13.49S', '171.47W', '2', 'WS'],
   [
@@ -36622,7 +36622,7 @@ List<List<String>> _stations = [
     '13.30S',
     '172.37W',
     '4',
-    'WS'
+    'WS',
   ],
   ['RURUTU ISLAND', 'NTAR', 'null', '91950', '22.25S', '151.22W', '3', 'WS'],
   ['TUBUAI ISLAND', 'NTAT', 'null', '91954', '23.21S', '149.28W', '3', 'WS'],

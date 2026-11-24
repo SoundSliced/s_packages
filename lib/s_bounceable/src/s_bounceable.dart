@@ -110,7 +110,7 @@ class _SBounceableState extends State<SBounceable> {
     final maxDistanceSquared = kTouchSlop * kTouchSlop;
     final movedTooFar =
         (event.position - _pointerDownPosition!).distanceSquared >
-            maxDistanceSquared;
+        maxDistanceSquared;
     if (!movedTooFar) return;
 
     _tapCanceledByMove = true;
@@ -159,7 +159,8 @@ class _SBounceableState extends State<SBounceable> {
     if (_hasDoubleTap) {
       final now = DateTime.now();
       final maxDistanceSquared = kDoubleTapSlop * kDoubleTapSlop;
-      final isDoubleTap = _lastTapAt != null &&
+      final isDoubleTap =
+          _lastTapAt != null &&
           _lastTapPosition != null &&
           now.difference(_lastTapAt!) <= kDoubleTapTimeout &&
           (position - _lastTapPosition!).distanceSquared <= maxDistanceSquared;

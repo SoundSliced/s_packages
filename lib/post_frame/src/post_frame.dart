@@ -180,16 +180,18 @@ class PostFrame {
       timeoutTimer = Timer(timeout, () {
         if (!completer.isCompleted) {
           task.cancel();
-          completer.complete(PostFrameResult<T>(
-            canceled: true,
-            error: TimeoutException('PostFrame.run timeout after $timeout'),
-            stackTrace: StackTrace.current,
-            value: null,
-            endOfFramePassesWaited: endOfFramePassesWaited,
-            scrollMetricWaitFrames: scrollMetricWaitFrames,
-            totalFramesWaited: totalFramesWaited,
-            controllers: controllers,
-          ));
+          completer.complete(
+            PostFrameResult<T>(
+              canceled: true,
+              error: TimeoutException('PostFrame.run timeout after $timeout'),
+              stackTrace: StackTrace.current,
+              value: null,
+              endOfFramePassesWaited: endOfFramePassesWaited,
+              scrollMetricWaitFrames: scrollMetricWaitFrames,
+              totalFramesWaited: totalFramesWaited,
+              controllers: controllers,
+            ),
+          );
         }
       });
     }
@@ -198,34 +200,39 @@ class PostFrame {
       try {
         if (task.isCanceled) {
           if (!completer.isCompleted) {
-            completer.complete(PostFrameResult<T>(
-              canceled: true,
-              value: null,
-              endOfFramePassesWaited: endOfFramePassesWaited,
-              scrollMetricWaitFrames: scrollMetricWaitFrames,
-              totalFramesWaited: totalFramesWaited,
-              controllers: controllers,
-            ));
-          }
-          return;
-        }
-
-        if (waitForEndOfFrame) {
-          final passes =
-              maxWaitFrames <= 0 ? 0 : endOfFramePasses.clamp(1, maxWaitFrames);
-          for (var i = 0; i < passes; i++) {
-            await binding.endOfFrame;
-            endOfFramePassesWaited++;
-            totalFramesWaited++;
-            if (task.isCanceled) {
-              completer.complete(PostFrameResult<T>(
+            completer.complete(
+              PostFrameResult<T>(
                 canceled: true,
                 value: null,
                 endOfFramePassesWaited: endOfFramePassesWaited,
                 scrollMetricWaitFrames: scrollMetricWaitFrames,
                 totalFramesWaited: totalFramesWaited,
                 controllers: controllers,
-              ));
+              ),
+            );
+          }
+          return;
+        }
+
+        if (waitForEndOfFrame) {
+          final passes = maxWaitFrames <= 0
+              ? 0
+              : endOfFramePasses.clamp(1, maxWaitFrames);
+          for (var i = 0; i < passes; i++) {
+            await binding.endOfFrame;
+            endOfFramePassesWaited++;
+            totalFramesWaited++;
+            if (task.isCanceled) {
+              completer.complete(
+                PostFrameResult<T>(
+                  canceled: true,
+                  value: null,
+                  endOfFramePassesWaited: endOfFramePassesWaited,
+                  scrollMetricWaitFrames: scrollMetricWaitFrames,
+                  totalFramesWaited: totalFramesWaited,
+                  controllers: controllers,
+                ),
+              );
               return;
             }
           }
@@ -239,14 +246,16 @@ class PostFrame {
               scrollMetricWaitFrames++;
               totalFramesWaited++;
               if (task.isCanceled) {
-                completer.complete(PostFrameResult<T>(
-                  canceled: true,
-                  value: null,
-                  endOfFramePassesWaited: endOfFramePassesWaited,
-                  scrollMetricWaitFrames: scrollMetricWaitFrames,
-                  totalFramesWaited: totalFramesWaited,
-                  controllers: controllers,
-                ));
+                completer.complete(
+                  PostFrameResult<T>(
+                    canceled: true,
+                    value: null,
+                    endOfFramePassesWaited: endOfFramePassesWaited,
+                    scrollMetricWaitFrames: scrollMetricWaitFrames,
+                    totalFramesWaited: totalFramesWaited,
+                    controllers: controllers,
+                  ),
+                );
                 return;
               }
             }
@@ -260,14 +269,16 @@ class PostFrame {
               scrollMetricWaitFrames++;
               totalFramesWaited++;
               if (task.isCanceled) {
-                completer.complete(PostFrameResult<T>(
-                  canceled: true,
-                  value: null,
-                  endOfFramePassesWaited: endOfFramePassesWaited,
-                  scrollMetricWaitFrames: scrollMetricWaitFrames,
-                  totalFramesWaited: totalFramesWaited,
-                  controllers: controllers,
-                ));
+                completer.complete(
+                  PostFrameResult<T>(
+                    canceled: true,
+                    value: null,
+                    endOfFramePassesWaited: endOfFramePassesWaited,
+                    scrollMetricWaitFrames: scrollMetricWaitFrames,
+                    totalFramesWaited: totalFramesWaited,
+                    controllers: controllers,
+                  ),
+                );
                 return;
               }
               if (!controller.hasClients) break;
@@ -281,14 +292,16 @@ class PostFrame {
 
         if (task.isCanceled) {
           if (!completer.isCompleted) {
-            completer.complete(PostFrameResult<T>(
-              canceled: true,
-              value: null,
-              endOfFramePassesWaited: endOfFramePassesWaited,
-              scrollMetricWaitFrames: scrollMetricWaitFrames,
-              totalFramesWaited: totalFramesWaited,
-              controllers: controllers,
-            ));
+            completer.complete(
+              PostFrameResult<T>(
+                canceled: true,
+                value: null,
+                endOfFramePassesWaited: endOfFramePassesWaited,
+                scrollMetricWaitFrames: scrollMetricWaitFrames,
+                totalFramesWaited: totalFramesWaited,
+                controllers: controllers,
+              ),
+            );
           }
           return;
         }
@@ -296,28 +309,32 @@ class PostFrame {
         // Check predicate before execution.
         if (predicate != null && !predicate()) {
           if (!completer.isCompleted) {
-            completer.complete(PostFrameResult<T>(
-              canceled: true,
-              value: null,
-              endOfFramePassesWaited: endOfFramePassesWaited,
-              scrollMetricWaitFrames: scrollMetricWaitFrames,
-              totalFramesWaited: totalFramesWaited,
-              controllers: controllers,
-            ));
+            completer.complete(
+              PostFrameResult<T>(
+                canceled: true,
+                value: null,
+                endOfFramePassesWaited: endOfFramePassesWaited,
+                scrollMetricWaitFrames: scrollMetricWaitFrames,
+                totalFramesWaited: totalFramesWaited,
+                controllers: controllers,
+              ),
+            );
           }
           return;
         }
 
         final value = await Future.sync(action);
         if (!completer.isCompleted) {
-          completer.complete(PostFrameResult<T>(
-            value: value,
-            canceled: false,
-            endOfFramePassesWaited: endOfFramePassesWaited,
-            scrollMetricWaitFrames: scrollMetricWaitFrames,
-            totalFramesWaited: totalFramesWaited,
-            controllers: controllers,
-          ));
+          completer.complete(
+            PostFrameResult<T>(
+              value: value,
+              canceled: false,
+              endOfFramePassesWaited: endOfFramePassesWaited,
+              scrollMetricWaitFrames: scrollMetricWaitFrames,
+              totalFramesWaited: totalFramesWaited,
+              controllers: controllers,
+            ),
+          );
         }
       } catch (error, stackTrace) {
         // Invoke error handlers.
@@ -325,16 +342,18 @@ class PostFrame {
         errorHandler?.call(error, stackTrace, 'PostFrame.run');
 
         if (!completer.isCompleted) {
-          completer.complete(PostFrameResult<T>(
-            canceled: task.isCanceled,
-            error: error,
-            stackTrace: stackTrace,
-            value: null,
-            endOfFramePassesWaited: endOfFramePassesWaited,
-            scrollMetricWaitFrames: scrollMetricWaitFrames,
-            totalFramesWaited: totalFramesWaited,
-            controllers: controllers,
-          ));
+          completer.complete(
+            PostFrameResult<T>(
+              canceled: task.isCanceled,
+              error: error,
+              stackTrace: stackTrace,
+              value: null,
+              endOfFramePassesWaited: endOfFramePassesWaited,
+              scrollMetricWaitFrames: scrollMetricWaitFrames,
+              totalFramesWaited: totalFramesWaited,
+              controllers: controllers,
+            ),
+          );
         }
       } finally {
         timeoutTimer?.cancel();
@@ -349,7 +368,7 @@ class PostFrame {
   static Widget builder<T>({
     required FutureOr<T> Function() action,
     required Widget Function(BuildContext, AsyncSnapshot<PostFrameResult<T>>)
-        builder,
+    builder,
     List<ScrollController> scrollControllers = const [],
     int maxWaitFrames = 5,
     bool waitForEndOfFrame = true,
@@ -721,48 +740,57 @@ class _QueuedPostFrameAction<T> {
 
   void cancelWithResult() {
     if (!completer.isCompleted) {
-      completer.complete(PostFrameResult<T>(
-        canceled: true,
-        value: null,
-        endOfFramePassesWaited: 0,
-        scrollMetricWaitFrames: 0,
-        totalFramesWaited: 0,
-        controllers: const [],
-      ));
+      completer.complete(
+        PostFrameResult<T>(
+          canceled: true,
+          value: null,
+          endOfFramePassesWaited: 0,
+          scrollMetricWaitFrames: 0,
+          totalFramesWaited: 0,
+          controllers: const [],
+        ),
+      );
     }
   }
 
   void start(VoidCallback onComplete) {
     started = true;
     if (task.isCanceled) {
-      completer.complete(PostFrameResult<T>(
-        canceled: true,
-        value: null,
-        endOfFramePassesWaited: 0,
-        scrollMetricWaitFrames: 0,
-        totalFramesWaited: 0,
-        controllers: const [],
-      ));
+      completer.complete(
+        PostFrameResult<T>(
+          canceled: true,
+          value: null,
+          endOfFramePassesWaited: 0,
+          scrollMetricWaitFrames: 0,
+          totalFramesWaited: 0,
+          controllers: const [],
+        ),
+      );
       onComplete();
       return;
     }
-    final runTask = PostFrame.run<T>(action,
-        scrollControllers: scrollControllers,
-        maxWaitFrames: maxWaitFrames,
-        waitForEndOfFrame: waitForEndOfFrame,
-        endOfFramePasses: endOfFramePasses,
-        timeout: timeout,
-        predicate: predicate,
-        onError: onError);
+    final runTask = PostFrame.run<T>(
+      action,
+      scrollControllers: scrollControllers,
+      maxWaitFrames: maxWaitFrames,
+      waitForEndOfFrame: waitForEndOfFrame,
+      endOfFramePasses: endOfFramePasses,
+      timeout: timeout,
+      predicate: predicate,
+      onError: onError,
+    );
     // Ensure next frame processing for queued sequence.
     WidgetsBinding.instance.scheduleFrame();
-    runTask.future.then((result) {
-      completer.complete(result);
-      onComplete();
-    }, onError: (error, stack) {
-      completer.completeError(error, stack);
-      onComplete();
-    });
+    runTask.future.then(
+      (result) {
+        completer.complete(result);
+        onComplete();
+      },
+      onError: (error, stack) {
+        completer.completeError(error, stack);
+        onComplete();
+      },
+    );
   }
 }
 
@@ -770,7 +798,7 @@ class _QueuedPostFrameAction<T> {
 class _PostFrameBuilder<T> extends StatefulWidget {
   final FutureOr<T> Function() action;
   final Widget Function(BuildContext, AsyncSnapshot<PostFrameResult<T>>)
-      builder;
+  builder;
   final List<ScrollController> scrollControllers;
   final int maxWaitFrames;
   final bool waitForEndOfFrame;
@@ -813,25 +841,32 @@ class _PostFrameBuilderState<T> extends State<_PostFrameBuilder<T>> {
       endOfFramePasses: widget.endOfFramePasses,
       timeout: widget.timeout,
     );
-    _task!.future.then((result) {
-      if (!mounted) return;
-      setState(() =>
-          _snapshot = AsyncSnapshot.withData(ConnectionState.done, result));
-    }, onError: (error, stack) {
-      if (!mounted) return;
-      final result = PostFrameResult<T>(
-        canceled: _task?.isCanceled ?? false,
-        error: error,
-        stackTrace: stack,
-        value: null,
-        endOfFramePassesWaited: 0,
-        scrollMetricWaitFrames: 0,
-        totalFramesWaited: 0,
-        controllers: widget.scrollControllers,
-      );
-      setState(() =>
-          _snapshot = AsyncSnapshot.withData(ConnectionState.done, result));
-    });
+    _task!.future.then(
+      (result) {
+        if (!mounted) return;
+        setState(
+          () =>
+              _snapshot = AsyncSnapshot.withData(ConnectionState.done, result),
+        );
+      },
+      onError: (error, stack) {
+        if (!mounted) return;
+        final result = PostFrameResult<T>(
+          canceled: _task?.isCanceled ?? false,
+          error: error,
+          stackTrace: stack,
+          value: null,
+          endOfFramePassesWaited: 0,
+          scrollMetricWaitFrames: 0,
+          totalFramesWaited: 0,
+          controllers: widget.scrollControllers,
+        );
+        setState(
+          () =>
+              _snapshot = AsyncSnapshot.withData(ConnectionState.done, result),
+        );
+      },
+    );
   }
 
   @override

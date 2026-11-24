@@ -113,28 +113,27 @@ class SContextMenuTheme {
     Color? destructiveColor,
     Color? hoverColor,
     Color? arrowColor,
-  }) =>
-      SContextMenuTheme(
-        showArrow: showArrow ?? this.showArrow,
-        panelBorderRadius: panelBorderRadius ?? this.panelBorderRadius,
-        panelBlurSigma: panelBlurSigma ?? this.panelBlurSigma,
-        panelPadding: panelPadding ?? this.panelPadding,
-        panelBackgroundColor: panelBackgroundColor ?? this.panelBackgroundColor,
-        panelBorderColor: panelBorderColor ?? this.panelBorderColor,
-        panelShadows: panelShadows ?? this.panelShadows,
-        arrowShape: arrowShape ?? this.arrowShape,
-        arrowBaseWidth: arrowBaseWidth ?? this.arrowBaseWidth,
-        arrowCornerRadius: arrowCornerRadius ?? this.arrowCornerRadius,
-        arrowTipGap: arrowTipGap ?? this.arrowTipGap,
-        arrowMaxLength: arrowMaxLength ?? this.arrowMaxLength,
-        arrowTipRoundness: arrowTipRoundness ?? this.arrowTipRoundness,
-        showDuration: showDuration ?? this.showDuration,
-        hideDuration: hideDuration ?? this.hideDuration,
-        iconColor: iconColor ?? this.iconColor,
-        destructiveColor: destructiveColor ?? this.destructiveColor,
-        hoverColor: hoverColor ?? this.hoverColor,
-        arrowColor: arrowColor ?? this.arrowColor,
-      );
+  }) => SContextMenuTheme(
+    showArrow: showArrow ?? this.showArrow,
+    panelBorderRadius: panelBorderRadius ?? this.panelBorderRadius,
+    panelBlurSigma: panelBlurSigma ?? this.panelBlurSigma,
+    panelPadding: panelPadding ?? this.panelPadding,
+    panelBackgroundColor: panelBackgroundColor ?? this.panelBackgroundColor,
+    panelBorderColor: panelBorderColor ?? this.panelBorderColor,
+    panelShadows: panelShadows ?? this.panelShadows,
+    arrowShape: arrowShape ?? this.arrowShape,
+    arrowBaseWidth: arrowBaseWidth ?? this.arrowBaseWidth,
+    arrowCornerRadius: arrowCornerRadius ?? this.arrowCornerRadius,
+    arrowTipGap: arrowTipGap ?? this.arrowTipGap,
+    arrowMaxLength: arrowMaxLength ?? this.arrowMaxLength,
+    arrowTipRoundness: arrowTipRoundness ?? this.arrowTipRoundness,
+    showDuration: showDuration ?? this.showDuration,
+    hideDuration: hideDuration ?? this.hideDuration,
+    iconColor: iconColor ?? this.iconColor,
+    destructiveColor: destructiveColor ?? this.destructiveColor,
+    hoverColor: hoverColor ?? this.hoverColor,
+    arrowColor: arrowColor ?? this.arrowColor,
+  );
 
   /// Resolve a background color if none provided based on brightness.
   Color resolveBackground(Brightness brightness) =>
@@ -153,16 +152,20 @@ class SContextMenuTheme {
       panelShadows ??
       [
         BoxShadow(
-          color: Colors.black
-              .withValues(alpha: brightness == Brightness.dark ? 0.34 : 0.16),
+          color: Colors.black.withValues(
+            alpha: brightness == Brightness.dark ? 0.34 : 0.16,
+          ),
           blurRadius: 22,
           offset: const Offset(0, 10),
         ),
         BoxShadow(
-          color: (brightness == Brightness.dark
-                  ? const Color(0xFF0F172A)
-                  : const Color(0xFF1D4ED8))
-              .withValues(alpha: brightness == Brightness.dark ? 0.16 : 0.08),
+          color:
+              (brightness == Brightness.dark
+                      ? const Color(0xFF0F172A)
+                      : const Color(0xFF1D4ED8))
+                  .withValues(
+                    alpha: brightness == Brightness.dark ? 0.16 : 0.08,
+                  ),
           blurRadius: 8,
           offset: const Offset(0, 2),
         ),

@@ -16,8 +16,10 @@ abstract class Numeric {
     return _value!.toStringAsFixed(1);
   }
 
-  double? converted(
-      {double? conversionDouble, double Function(double)? conversionFunction}) {
+  double? converted({
+    double? conversionDouble,
+    double Function(double)? conversionFunction,
+  }) {
     if (conversionDouble != null && _value != null) {
       return conversionDouble * _value!;
     }

@@ -94,9 +94,11 @@ class SAnimatedTabs extends StatefulWidget {
     this.colorScheme,
     this.enableEnhancedAnimations = true,
     this.animationStyle = TabAnimationStyle.smooth,
-  })  : assert(tabTitles.length > 0, 'Tab titles cannot be empty'),
-        assert(initialIndex >= 0 && initialIndex < tabTitles.length,
-            'Initial index out of range');
+  }) : assert(tabTitles.length > 0, 'Tab titles cannot be empty'),
+       assert(
+         initialIndex >= 0 && initialIndex < tabTitles.length,
+         'Initial index out of range',
+       );
 
   @override
   State<SAnimatedTabs> createState() => _SAnimatedTabsState();
@@ -114,13 +116,7 @@ enum TabTextSize {
 }
 
 /// Professional color scheme presets
-enum TabColorScheme {
-  primary,
-  secondary,
-  surface,
-  outline,
-  tertiary,
-}
+enum TabColorScheme { primary, secondary, surface, outline, tertiary }
 
 /// Animation style presets for different feels
 enum TabAnimationStyle {
@@ -157,10 +153,7 @@ class _AnimationCurves {
   final Curve scaleCurve;
   final Curve textCurve;
 
-  const _AnimationCurves({
-    required this.scaleCurve,
-    required this.textCurve,
-  });
+  const _AnimationCurves({required this.scaleCurve, required this.textCurve});
 }
 
 class _SAnimatedTabsState extends State<SAnimatedTabs> {
@@ -280,7 +273,8 @@ class _SAnimatedTabsState extends State<SAnimatedTabs> {
     const defaultHeight = 48.0; // Increased for better proportions
 
     // Clean, corporate text styles with better typography
-    final activeTextStyle = widget.activeTextStyle ??
+    final activeTextStyle =
+        widget.activeTextStyle ??
         TextStyle(
           color: tabColors.activeText,
           fontSize: widget.textSize.fontSize,
@@ -290,7 +284,8 @@ class _SAnimatedTabsState extends State<SAnimatedTabs> {
           fontFeatures: const [FontFeature.tabularFigures()],
         );
 
-    final inactiveTextStyle = widget.inactiveTextStyle ??
+    final inactiveTextStyle =
+        widget.inactiveTextStyle ??
         TextStyle(
           color: tabColors.inactiveText,
           fontSize: widget.textSize.fontSize,
@@ -362,8 +357,9 @@ class _SAnimatedTabsState extends State<SAnimatedTabs> {
                         margin: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
                           color: tabColors.activeIndicator,
-                          borderRadius:
-                              BorderRadius.circular(widget.borderRadius - 2),
+                          borderRadius: BorderRadius.circular(
+                            widget.borderRadius - 2,
+                          ),
                           boxShadow: [
                             // Primary shadow for depth
                             BoxShadow(
@@ -394,11 +390,13 @@ class _SAnimatedTabsState extends State<SAnimatedTabs> {
                     child: Row(
                       children: List.generate(tabCount, (index) {
                         final isSelected = index == _selectedIndex;
-                        final icon = widget.tabIcons != null &&
+                        final icon =
+                            widget.tabIcons != null &&
                                 index < widget.tabIcons!.length
                             ? widget.tabIcons![index]
                             : null;
-                        final badge = widget.tabBadges != null &&
+                        final badge =
+                            widget.tabBadges != null &&
                                 index < widget.tabBadges!.length
                             ? widget.tabBadges![index]
                             : null;
@@ -491,15 +489,11 @@ class _EnhancedTabButtonState extends State<_EnhancedTabButton> {
             alignment: Alignment.center,
             decoration: _isHovered && !widget.isSelected
                 ? BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .surfaceContainerHighest
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest
                         .withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .outline
+                      color: Theme.of(context).colorScheme.outline
                           .withValues(alpha: 0.06),
                       width: 0.5,
                     ),
@@ -547,7 +541,9 @@ class _EnhancedTabButtonState extends State<_EnhancedTabButton> {
                       const SizedBox(width: 4),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 1),
+                          horizontal: 5,
+                          vertical: 1,
+                        ),
                         decoration: BoxDecoration(
                           color: widget.isSelected
                               ? Colors.white.withValues(alpha: 0.3)

@@ -29,7 +29,7 @@ Map<String, String> cloudTypeMap = {
   'SC': 'stratocumulus',
   'ST': 'stratus',
   'SCSL': 'standing lenticular stratocumulus',
-  'TCU': 'towering cumulus'
+  'TCU': 'towering cumulus',
 };
 
 class Cloud extends Group {
@@ -99,8 +99,11 @@ class Cloud extends Group {
       return '$_cover at ${heightInFeet!.toStringAsFixed(1)} feet';
     }
 
-    final undefinedCovers =
-        <String>['NSC', 'NCD', '///'].map((el) => skyCover[el]).toList();
+    final undefinedCovers = <String>[
+      'NSC',
+      'NCD',
+      '///',
+    ].map((el) => skyCover[el]).toList();
     if (undefinedCovers.contains(_cover)) {
       return '$_cover';
     }

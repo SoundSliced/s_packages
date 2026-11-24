@@ -3,11 +3,11 @@ description: A unified Flutter package which gathers multiple widgets and tools.
 issue_tracker: https://github.com/SoundSliced/s_packages/issues
 repository: https://github.com/SoundSliced/s_packages
 homepage: https://github.com/SoundSliced/s_packages
-version: 5.6.3
+version: 6.0.0
 
 environment:
-  sdk: ">=3.4.0 <4.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=3.13.5 <4.0.0"
+  flutter: ">=3.47.7"
 
 dependencies:
   flutter:
@@ -25,7 +25,7 @@ dependencies:
   http: ^1.6.0
   internet_connection_checker_plus: ^3.1.2
   rxdart: ^0.28.0
-  dart_helper_utils: ^6.1.0
+  dart_helper_utils: ^7.0.0
   path_provider: ^2.1.6
   shared_preferences: ^2.5.5
   pointer_interceptor: ^0.10.1+2
@@ -40,7 +40,7 @@ dependencies:
   fpdart: ^1.2.0
   webview_flutter: ^4.14.1
   webview_flutter_web: ^0.2.3+4
-  desktop_webview_window: ^0.3.0
+  desktop_webview_window: ^0.4.3
   typed_data: ^1.4.0
   source_span: ^1.10.2
   html: ^0.15.7

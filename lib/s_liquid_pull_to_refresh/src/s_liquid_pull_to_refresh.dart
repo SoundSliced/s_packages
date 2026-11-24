@@ -299,8 +299,10 @@ class SLiquidPullToRefreshState extends State<SLiquidPullToRefresh> {
     // This can only be called from _show() when refreshing and
     // _handleScrollNotification in response to a ScrollEndNotification or
     // direction change.
-    assert(newMode == _SLiquidPullToRefreshMode.canceled ||
-        newMode == _SLiquidPullToRefreshMode.done);
+    assert(
+      newMode == _SLiquidPullToRefreshMode.canceled ||
+          newMode == _SLiquidPullToRefreshMode.done,
+    );
     setState(() {
       _mode = newMode;
     });
@@ -319,13 +321,17 @@ class SLiquidPullToRefreshState extends State<SLiquidPullToRefresh> {
         }
 
         final animDuration = Duration(
-            milliseconds: (widget.springAnimationDurationInMilliseconds /
-                    widget.animSpeedFactor)
-                .round());
+          milliseconds:
+              (widget.springAnimationDurationInMilliseconds /
+                      widget.animSpeedFactor)
+                  .round(),
+        );
         final shortDuration = Duration(
-            milliseconds: (widget.springAnimationDurationInMilliseconds /
-                    (widget.animSpeedFactor * 5))
-                .round());
+          milliseconds:
+              (widget.springAnimationDurationInMilliseconds /
+                      (widget.animSpeedFactor * 5))
+                  .round(),
+        );
 
         // Start parallel animations
         final futures = <Future>[
@@ -442,8 +448,10 @@ class SLiquidPullToRefreshState extends State<SLiquidPullToRefresh> {
   }
 
   void _checkDragOffset(double containerExtent) {
-    assert(_mode == _SLiquidPullToRefreshMode.drag ||
-        _mode == _SLiquidPullToRefreshMode.armed);
+    assert(
+      _mode == _SLiquidPullToRefreshMode.drag ||
+          _mode == _SLiquidPullToRefreshMode.armed,
+    );
     final triggerFraction =
         widget.triggerDistance ?? _kDragContainerExtentPercentage;
     double newValue = _dragOffset! / (containerExtent * triggerFraction);
@@ -469,8 +477,9 @@ class SLiquidPullToRefreshState extends State<SLiquidPullToRefresh> {
     _pendingRefreshFuture = completer.future;
     _mode = _SLiquidPullToRefreshMode.snap;
 
-    final animDuration =
-        Duration(milliseconds: widget.springAnimationDurationInMilliseconds);
+    final animDuration = Duration(
+      milliseconds: widget.springAnimationDurationInMilliseconds,
+    );
 
     // Cancel any existing timer before starting a new one
     _progressingTimer?.cancel();
@@ -518,8 +527,9 @@ class SLiquidPullToRefreshState extends State<SLiquidPullToRefresh> {
       });
 
       // Start progress ring timer
-      _progressingTimer =
-          Timer.periodic(const Duration(milliseconds: 16), (timer) {
+      _progressingTimer = Timer.periodic(const Duration(milliseconds: 16), (
+        timer,
+      ) {
         if (_disposed ||
             !mounted ||
             _mode != _SLiquidPullToRefreshMode.refresh) {
@@ -612,7 +622,9 @@ class SLiquidPullToRefreshState extends State<SLiquidPullToRefresh> {
       key: _key,
       onNotification: _handleScrollNotification,
       child: NotificationListener<OverscrollIndicatorNotification>(
-          onNotification: _handleGlowNotification, child: widget.child),
+        onNotification: _handleGlowNotification,
+        child: widget.child,
+      ),
     );
 
     if (_mode == null) {
@@ -683,10 +695,7 @@ class SLiquidPullToRefreshState extends State<SLiquidPullToRefresh> {
         SizedBox(
           height: height,
           child: Align(
-            alignment: Alignment(
-              0.0,
-              -0.2 + (_indicatorTranslateValue * 0.4),
-            ),
+            alignment: Alignment(0.0, -0.2 + (_indicatorTranslateValue * 0.4)),
             child: Opacity(
               opacity: _ringOpacityValue,
               child: Transform.scale(
@@ -864,10 +873,10 @@ class SRingPainter extends CustomPainter {
     required this.progressPercent,
     required this.trackColor,
   }) : trackPaint = Paint()
-          ..color = trackColor
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = paintWidth
-          ..strokeCap = StrokeCap.round;
+         ..color = trackColor
+         ..style = PaintingStyle.stroke
+         ..strokeWidth = paintWidth
+         ..strokeCap = StrokeCap.round;
 
   @override
   void paint(Canvas canvas, Size size) {

@@ -14,8 +14,10 @@ class Metar extends Report
 
   // Body groups
   MetarWindVariation _windVariation = MetarWindVariation(null, null);
-  MetarMinimumVisibility _minimumVisibility =
-      MetarMinimumVisibility(null, null);
+  MetarMinimumVisibility _minimumVisibility = MetarMinimumVisibility(
+    null,
+    null,
+  );
   final _runwayRanges = GroupList<MetarRunwayRange>(3);
   MetarTemperatures _temperatures = MetarTemperatures(null, null);
   MetarPressure _pressure = MetarPressure(null, null);
@@ -27,12 +29,8 @@ class Metar extends Report
   // Trend groups
   final MetarWeatherTrends _weatherTrends = MetarWeatherTrends();
 
-  Metar(
-    String code, {
-    int? year,
-    int? month,
-    bool truncate = false,
-  }) : super(code, truncate) {
+  Metar(String code, {int? year, int? month, bool truncate = false})
+    : super(code, truncate) {
     _handleSections();
 
     _year = year;
@@ -60,8 +58,12 @@ class Metar extends Report
   @override
   void _handleTime(String group) {
     final match = MetarRegExp.time.firstMatch(group)!;
-    _time =
-        Time.fromMetar(code: group, match: match, year: _year, month: _month);
+    _time = Time.fromMetar(
+      code: group,
+      match: match,
+      year: _year,
+      month: _month,
+    );
 
     _concatenateString(_time);
   }
@@ -234,16 +236,12 @@ class Metar extends Report
 
   @override
   void _handleSections() {
-    final sections = splitSentence(
-      _rawCode,
-      <String>[
-        'NOSIG',
-        'TEMPO',
-        'BECMG',
-        'RMK',
-      ],
-      space: 'left',
-    );
+    final sections = splitSentence(_rawCode, <String>[
+      'NOSIG',
+      'TEMPO',
+      'BECMG',
+      'RMK',
+    ], space: 'left');
 
     var trend = '';
     var remark = '';

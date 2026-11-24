@@ -44,7 +44,8 @@ void createSmoothAnimation({
   if (_showDebugPrints) {
     // Optional trace to help tune animation timings.
     debugPrint(
-        '[🎬 ANIM START] start=$startValue | end=$endValue | duration=${duration.inMilliseconds}ms | curve=$curve');
+      '[🎬 ANIM START] start=$startValue | end=$endValue | duration=${duration.inMilliseconds}ms | curve=$curve',
+    );
   }
 
   // Target ~60fps with 16ms intervals for smooth animation
@@ -54,10 +55,11 @@ void createSmoothAnimation({
   Timer.periodic(frameInterval, (timer) {
     // Compute normalized progress for this frame.
     // Calculate progress based on elapsed time (0.0 to 1.0)
-    final elapsedMilliseconds =
-        DateTime.now().difference(startTime).inMilliseconds;
-    final normalizedProgress =
-        (elapsedMilliseconds / duration.inMilliseconds).clamp(0.0, 1.0);
+    final elapsedMilliseconds = DateTime.now()
+        .difference(startTime)
+        .inMilliseconds;
+    final normalizedProgress = (elapsedMilliseconds / duration.inMilliseconds)
+        .clamp(0.0, 1.0);
 
     // Apply easing curve for natural motion feeling
     final easedProgress = curve.transform(normalizedProgress);
@@ -69,9 +71,10 @@ void createSmoothAnimation({
     if (elapsedMilliseconds % 80 < 20 && _showDebugPrints) {
       // Throttle debug logs to avoid spam.
       debugPrint(
-          '[🎬 ANIM] progress=${(normalizedProgress * 100).toStringAsFixed(0)}% | '
-          'value=${currentValue.toStringAsFixed(1)} | '
-          'elapsed=${elapsedMilliseconds}ms');
+        '[🎬 ANIM] progress=${(normalizedProgress * 100).toStringAsFixed(0)}% | '
+        'value=${currentValue.toStringAsFixed(1)} | '
+        'elapsed=${elapsedMilliseconds}ms',
+      );
     }
 
     // Call the update function with current value

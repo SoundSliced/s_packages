@@ -106,7 +106,8 @@ abstract class EventSourceOutsideBrowser implements EventSource {
   FutureOr<void> Function(
     EventSourceOutsideBrowser eventSource,
     io.HttpClientRequest request,
-  )? onHttpClientRequest;
+  )?
+  onHttpClientRequest;
 
   /// A callback called when a [HttpClientResponse] arrives (only outside
   /// browsers).
@@ -116,7 +117,8 @@ abstract class EventSourceOutsideBrowser implements EventSource {
     EventSourceOutsideBrowser eventSource,
     io.HttpClientRequest request,
     io.HttpClientResponse response,
-  )? onHttpClientResponse;
+  )?
+  onHttpClientResponse;
 
   Duration retryDuration = Duration(seconds: 3);
 }
@@ -128,14 +130,16 @@ class _EventSource extends EventSource implements EventSourceOutsideBrowser {
   FutureOr<void> Function(
     EventSourceOutsideBrowser eventSource,
     io.HttpClientRequest request,
-  )? onHttpClientRequest;
+  )?
+  onHttpClientRequest;
 
   @override
   FutureOr<void> Function(
     EventSourceOutsideBrowser eventSource,
     io.HttpClientRequest request,
     io.HttpClientResponse response,
-  )? onHttpClientResponse;
+  )?
+  onHttpClientResponse;
 
   /// URL of this event source.
   @override
@@ -329,8 +333,10 @@ class _EventSource extends EventSource implements EventSourceOutsideBrowser {
       httpResponse.listen((_) {}).cancel();
       rethrow;
     }
-    yield* (httpResponse.map((data) {
-      return data;
-    }).transform(transformer));
+    yield* (httpResponse
+        .map((data) {
+          return data;
+        })
+        .transform(transformer));
   }
 }

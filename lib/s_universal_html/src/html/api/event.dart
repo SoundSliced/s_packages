@@ -148,13 +148,12 @@ class Event {
   @visibleForTesting
   Event.internal(
     this.type, {
-    EventTarget? target,
+    this._target,
     this.composed = false,
     bool canBubble = true,
     this.cancelable = true,
-  })  : bubbles = canBubble,
-        _target = target,
-        timeStamp = DateTime.now().microsecondsSinceEpoch;
+  }) : bubbles = canBubble,
+       timeStamp = DateTime.now().microsecondsSinceEpoch;
 
   EventTarget? get currentTarget => _currentTarget;
 

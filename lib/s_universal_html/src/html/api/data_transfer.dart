@@ -120,8 +120,10 @@ abstract class DataTransferItemList {
   }
 
   DataTransferItem addData(String data, String type) {
-    final item =
-        _FallbackDataTransferItem(kindValue: 'string', typeValue: type);
+    final item = _FallbackDataTransferItem(
+      kindValue: 'string',
+      typeValue: type,
+    );
     _items.add(item);
     return item;
   }
@@ -155,7 +157,7 @@ class _FallbackDataTransferItem extends DataTransferItem {
   final File? fileValue;
 
   _FallbackDataTransferItem({this.kindValue, this.typeValue, this.fileValue})
-      : super._();
+    : super._();
 
   @override
   String? get kind => kindValue;
@@ -166,7 +168,8 @@ class _FallbackDataTransferItem extends DataTransferItem {
   @override
   Entry getAsEntry() {
     throw UnsupportedError(
-        'DataTransfer entry is not supported in this runtime.');
+      'DataTransfer entry is not supported in this runtime.',
+    );
   }
 
   @override

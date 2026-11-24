@@ -27,11 +27,13 @@ s.Signal<T?> _signalFromFuture<T>(
     debugTrace: debugTrace,
     metadata: metadata,
   );
-  future.then((value) {
-    sig.value = value;
-  }).catchError((Object error, StackTrace stack) {
-    onError?.call(error, stack);
-  });
+  future
+      .then((value) {
+        sig.value = value;
+      })
+      .catchError((Object error, StackTrace stack) {
+        onError?.call(error, stack);
+      });
   return sig;
 }
 

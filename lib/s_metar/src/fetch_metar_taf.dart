@@ -148,7 +148,8 @@ class MetarTafFetcher {
 
     if (!isValidIcao(normalizedIcao)) {
       return MetarTafResult(
-        error: 'Invalid ICAO code: "$icao". '
+        error:
+            'Invalid ICAO code: "$icao". '
             'Must be 4 characters (e.g. EGLL, KJFK).',
       );
     }
@@ -157,7 +158,8 @@ class MetarTafFetcher {
     final now = DateTime.now().toUtc();
     if (dateTime.isAfter(now)) {
       return MetarTafResult(
-        error: 'Cannot fetch weather data for future time. '
+        error:
+            'Cannot fetch weather data for future time. '
             'Requested: ${dateTime.toUtc()}, Current: $now',
       );
     }
@@ -169,10 +171,8 @@ class MetarTafFetcher {
 
     // Build the complete target URL with query parameters unless a custom
     // request URI builder is provided.
-    final targetUri = fetchOptions.requestUriBuilder?.call(
-          normalizedIcao,
-          dateTime,
-        ) ??
+    final targetUri =
+        fetchOptions.requestUriBuilder?.call(normalizedIcao, dateTime) ??
         Uri.parse(fetchOptions.baseUrl ?? _aviationBaseUrl).replace(
           queryParameters: {
             'ids': normalizedIcao,
@@ -200,9 +200,7 @@ class MetarTafFetcher {
       final (response, error) = await (client ?? SClient.instance).get(
         url: url,
         clientType: ClientType.dio,
-        headers: {
-          'accept': '*/*',
-        },
+        headers: {'accept': '*/*'},
       );
 
       // Check for rate limit or service unavailable
@@ -236,8 +234,9 @@ class MetarTafFetcher {
 
       // Check for bad response
       if (response == null || !response.isSuccess) {
-        errors
-            .add('URL $i HTTP error: ${response?.statusCode ?? "no response"}');
+        errors.add(
+          'URL $i HTTP error: ${response?.statusCode ?? "no response"}',
+        );
         if (!isLastAttempt) continue; // Try next proxy
         return MetarTafResult(
           error: 'All attempts failed:\n${errors.join('\n')}',
@@ -248,9 +247,7 @@ class MetarTafFetcher {
       return _parseResponse(response, fetchOptions: fetchOptions);
     }
 
-    return MetarTafResult(
-      error: 'All attempts failed:\n${errors.join('\n')}',
-    );
+    return MetarTafResult(error: 'All attempts failed:\n${errors.join('\n')}');
   }
 
   /// Formats a [DateTime] to the API-expected format: `yyyyMMdd_HHmm`.
@@ -326,10 +323,7 @@ class MetarTafFetcher {
     ClientResponse response, {
     required MetarTafFetchOptions fetchOptions,
   }) {
-    return parseResponseBody(
-      response.body,
-      fetchOptions: fetchOptions,
-    );
+    return parseResponseBody(response.body, fetchOptions: fetchOptions);
   }
 
   static Iterable<dynamic> _extractItems(

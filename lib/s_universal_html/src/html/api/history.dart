@@ -57,7 +57,7 @@ class History extends HistoryBase {
   static bool get supportsState => true;
 
   final List<_HistoryState> _stack = [
-    _HistoryState(null, '', window.location.href)
+    _HistoryState(null, '', window.location.href),
   ];
 
   int _index = 0;
@@ -157,7 +157,7 @@ class Location extends LocationBase with _UrlBase {
 
   String _href;
 
-  Location.internal({required String href}) : _href = href {
+  Location.internal({required this._href}) {
     final browserHref = _browserCurrentHref?.call();
     if (browserHref != null && browserHref.isNotEmpty) {
       _href = browserHref;
@@ -249,8 +249,11 @@ mixin _UrlBase {
   }
 
   set hash(String value) {
-    _updateUri(_uri?.replace(
-        fragment: value.startsWith('#') ? value.substring(1) : value));
+    _updateUri(
+      _uri?.replace(
+        fragment: value.startsWith('#') ? value.substring(1) : value,
+      ),
+    );
   }
 
   String get host {
@@ -291,10 +294,13 @@ mixin _UrlBase {
   String? get search => _uri?.query;
 
   set search(String? value) {
-    _updateUri(_uri?.replace(
+    _updateUri(
+      _uri?.replace(
         query: value == null
             ? null
-            : (value.startsWith('?') ? value.substring(1) : value)));
+            : (value.startsWith('?') ? value.substring(1) : value),
+      ),
+    );
   }
 
   Uri? get _uri;

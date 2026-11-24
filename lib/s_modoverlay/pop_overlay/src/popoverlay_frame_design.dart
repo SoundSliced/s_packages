@@ -243,9 +243,9 @@ class _PopOverlayFrameDesignWidgetState
     // Recalculate dimensions only if they changed
     final dimensionsChanged =
         oldWidget.frameDesign?.width != widget.frameDesign?.width ||
-            oldWidget.frameDesign?.height != widget.frameDesign?.height ||
-            oldWidget.frameDesign?.titleBarHeight !=
-                widget.frameDesign?.titleBarHeight;
+        oldWidget.frameDesign?.height != widget.frameDesign?.height ||
+        oldWidget.frameDesign?.titleBarHeight !=
+            widget.frameDesign?.titleBarHeight;
 
     if (dimensionsChanged) {
       // Recompute cached dimensions when template values change.
@@ -275,24 +275,30 @@ class _PopOverlayFrameDesignWidgetState
       builder: (context, constraints) {
         // Resolve viewport bounds for responsive sizing.
         final viewportSize = _popOverlayViewportSizeOf(context);
-        final availableWidth = constraints.hasBoundedWidth &&
+        final availableWidth =
+            constraints.hasBoundedWidth &&
                 constraints.maxWidth.isFinite &&
                 constraints.maxWidth > 0
             ? constraints.maxWidth
             : viewportSize.width;
-        final availableHeight = constraints.hasBoundedHeight &&
+        final availableHeight =
+            constraints.hasBoundedHeight &&
                 constraints.maxHeight.isFinite &&
                 constraints.maxHeight > 0
             ? constraints.maxHeight
             : viewportSize.height;
-        final maxPopupWidth =
-            (availableWidth * 0.96).clamp(0.0, availableWidth);
-        final maxPopupHeight =
-            (availableHeight * 0.96).clamp(0.0, availableHeight);
+        final maxPopupWidth = (availableWidth * 0.96).clamp(
+          0.0,
+          availableWidth,
+        );
+        final maxPopupHeight = (availableHeight * 0.96).clamp(
+          0.0,
+          availableHeight,
+        );
 
         final bool isDesignTemplateAutoSized =
             widget.frameDesign?.width == null &&
-                widget.frameDesign?.height == null;
+            widget.frameDesign?.height == null;
         final FocusTraversalPolicy traversalPolicy =
             widget.frameDesign?.traversalPolicy ?? OrderedTraversalPolicy();
 
@@ -308,13 +314,15 @@ class _PopOverlayFrameDesignWidgetState
                 //show loading indicator while measuring the child width
                 if (isOffstage == true)
                   Container(
-                    color: widget.popContent.dismissBarrierColor ??
+                    color:
+                        widget.popContent.dismissBarrierColor ??
                         Colors.black.withValues(alpha: 0.8),
                     child: Center(
                       child: TickerFreeCircularProgressIndicator(
                         color: Colors.blue[500],
                         backgroundColor: Colors.blue.shade100.withValues(
-                            alpha: 0.8), // Lighter, semi-transparent background
+                          alpha: 0.8,
+                        ), // Lighter, semi-transparent background
                       ),
                     ),
                   ).animate(
@@ -356,7 +364,8 @@ class _PopOverlayFrameDesignWidgetState
                 if (!isOffstage)
                   _FramedPopupEntryTransition(
                     key: ValueKey(
-                        'framed_popup_visible_${widget.popContent.id}'),
+                      'framed_popup_visible_${widget.popContent.id}',
+                    ),
                     enabled: widget.popContent.shouldAnimatePopup,
                     child: AnimatedSize(
                       duration: const Duration(milliseconds: 500),
@@ -411,7 +420,8 @@ class _PopOverlayFrameDesignWidgetState
                                         widget.frameDesign!.successButtonTitle,
                                     cancelButtonTitle:
                                         widget.frameDesign!.cancelButtonTitle,
-                                    isSuccessButtonDisabled: widget.frameDesign!
+                                    isSuccessButtonDisabled: widget
+                                        .frameDesign!
                                         .conditionToDisableSuccessButton,
                                     showBottomButtonBar:
                                         widget.frameDesign!.showBottomButtonBar,
@@ -419,14 +429,17 @@ class _PopOverlayFrameDesignWidgetState
                                     onFutureSuccess:
                                         widget.frameDesign!.onFutureSuccess,
                                     onFutureSuccessValidator: widget
-                                        .frameDesign!.onFutureSuccessValidator,
+                                        .frameDesign!
+                                        .onFutureSuccessValidator,
                                     onCancel: widget.frameDesign!.onCancel,
                                     popContent: widget.popContent,
                                     width: null,
                                     cycleFocusWithinGroup: widget
-                                        .frameDesign!.cycleFocusWithinGroup,
+                                        .frameDesign!
+                                        .cycleFocusWithinGroup,
                                     cancelButtonFocusNode: widget
-                                        .frameDesign!.cancelButtonFocusNode,
+                                        .frameDesign!
+                                        .cancelButtonFocusNode,
                                     saveButtonFocusNode:
                                         widget.frameDesign!.saveButtonFocusNode,
                                     wrapFocusTargetRoleBuilder: widget
@@ -539,7 +552,8 @@ class _PopOverlayFrameDesignWidgetState
       child: Container(
         padding: EdgeInsets.all(widget.popContent.frameWidth),
         decoration: BoxDecoration(
-          color: widget.popContent.frameColor ??
+          color:
+              widget.popContent.frameColor ??
               Colors.white.withValues(alpha: 0.85),
           borderRadius:
               widget.popContent.borderRadius ?? BorderRadius.circular(10),
@@ -701,7 +715,8 @@ class _PopOverlayContainerState extends State<_PopOverlayContainer> {
           color: const Color.fromARGB(255, 215, 220, 227),
           width: 0.4,
         ),
-        borderRadius: widget.borderRadius ??
+        borderRadius:
+            widget.borderRadius ??
             BorderRadius.circular(_PopOverlayContainer._borderRadius),
         boxShadow: const [
           BoxShadow(
@@ -712,7 +727,8 @@ class _PopOverlayContainerState extends State<_PopOverlayContainer> {
         ],
       ),
       child: ClipRRect(
-        borderRadius: widget.borderRadius ??
+        borderRadius:
+            widget.borderRadius ??
             BorderRadius.circular(_PopOverlayContainer._borderRadius),
         child: widget.child,
       ),
@@ -760,9 +776,14 @@ class _PopOverlayHeader extends StatelessWidget {
       height: titleBarHeight,
       width: width,
       decoration: BoxDecoration(
-        color: titleBarColor ??
-            const Color.fromARGB(255, 40, 45,
-                50), // Slightly lighter dark color for better visibility
+        color:
+            titleBarColor ??
+            const Color.fromARGB(
+              255,
+              40,
+              45,
+              50,
+            ), // Slightly lighter dark color for better visibility
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(_titleBarBorderRadius),
           topRight: Radius.circular(_titleBarBorderRadius),
@@ -785,7 +806,7 @@ class _PopOverlayHeader extends StatelessWidget {
             ),
             if (info != null)
               PopOverlay.infoButton(info: info!, popContentId: popContent.id),
-            if (headerTrailingWidgets != null) ...headerTrailingWidgets!,
+            ...?headerTrailingWidgets,
             if (showCloseButton) PopOverlay.closeButton(popContent.id),
           ],
         ),
@@ -906,11 +927,7 @@ class _TitleContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          titlePrefixIcon,
-          size: _iconSize,
-          color: Colors.grey[500],
-        ),
+        Icon(titlePrefixIcon, size: _iconSize, color: Colors.grey[500]),
         const SizedBox(width: _iconTextSpacing),
         Flexible(
           child: Column(
@@ -999,11 +1016,13 @@ class _PopOverlayBottomBar extends StatelessWidget {
       successButtonColor: successButtonColor,
       cancelButtonColor: cancelButtonColor,
       bottomBarColor: bottomBarColor,
-      cancelButtonFocusNode: cancelButtonFocusNode ??
+      cancelButtonFocusNode:
+          cancelButtonFocusNode ??
           popContent.frameDesign?.cancelButtonFocusNode,
       saveButtonFocusNode:
           saveButtonFocusNode ?? popContent.frameDesign?.saveButtonFocusNode,
-      cycleFocusWithinGroup: cycleFocusWithinGroup ??
+      cycleFocusWithinGroup:
+          cycleFocusWithinGroup ??
           popContent.frameDesign?.cycleFocusWithinGroup ??
           false,
       isSuccessButtonDisabled: isSuccessButtonDisabled,
@@ -1119,16 +1138,19 @@ class _BottomBarButtons extends StatelessWidget {
       height: height,
       padding: EdgeInsets.all(height == null ? _containerPadding : 8),
       decoration: BoxDecoration(
-        color: bottomBarColor ??
+        color:
+            bottomBarColor ??
             const Color.fromARGB(
-                198, 216, 222, 233), // More opaque for better visibility
+              198,
+              216,
+              222,
+              233,
+            ), // More opaque for better visibility
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(10),
           bottomRight: Radius.circular(10),
         ),
-        border: Border(
-          bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1219,8 +1241,11 @@ class _CancelButtonState extends State<_CancelButton> {
         borderRadius: BorderRadius.circular(widget.borderRadiusValue),
         focusNode: widget.focusNode,
         onTap: () => widget.onCancel?.call(),
-        onFocusChange: (value) => setState(() => onFocusColor =
-            value ? Colors.blue.shade800.withValues(alpha: 0.6) : null),
+        onFocusChange: (value) => setState(
+          () => onFocusColor = value
+              ? Colors.blue.shade800.withValues(alpha: 0.6)
+              : null,
+        ),
         child: Container(
           height: widget.buttonHeight,
           width: _CancelButton._buttonWidth,
@@ -1228,7 +1253,8 @@ class _CancelButtonState extends State<_CancelButton> {
             color: _CancelButton._backgroundColor,
             borderRadius: BorderRadius.circular(widget.borderRadiusValue),
             border: Border.all(
-              color: onFocusColor ??
+              color:
+                  onFocusColor ??
                   widget.cancelButtonColor ??
                   _CancelButton._borderColor,
               width: onFocusColor == null ? 1 : 2,
@@ -1383,8 +1409,9 @@ class _SuccessButtonState extends State<_SuccessButton> {
           onFocusChange: (value) {
             if (mounted) {
               setState(
-                () => onFocusColor =
-                    value ? Colors.blue.shade800.withValues(alpha: 0.6) : null,
+                () => onFocusColor = value
+                    ? Colors.blue.shade800.withValues(alpha: 0.6)
+                    : null,
               );
             }
           },
@@ -1395,7 +1422,8 @@ class _SuccessButtonState extends State<_SuccessButton> {
               color: _SuccessButton._backgroundColor,
               borderRadius: BorderRadius.circular(widget.borderRadiusValue),
               border: Border.all(
-                color: onFocusColor ??
+                color:
+                    onFocusColor ??
                     widget.successButtonColor ??
                     _SuccessButton._backgroundColor,
                 width: onFocusColor != null ? 2 : 0.2,
@@ -1443,7 +1471,10 @@ class _SuccessButtonState extends State<_SuccessButton> {
   }
 
   FocusNode? _findNodeByRole(
-      FocusNode node, String role, Set<String> skipRoles) {
+    FocusNode node,
+    String role,
+    Set<String> skipRoles,
+  ) {
     // Depth-first search for a focus node with a given role.
     if (node is RoleFocusNode &&
         node.role == role &&

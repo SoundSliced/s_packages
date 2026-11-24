@@ -30,10 +30,10 @@ class SkyTranslations {
     'SC': 'stratocumulus',
     'ST': 'stratus',
     'SCSL': 'standing lenticular stratocumulus',
-    'TCU': 'towering cumulus'
+    'TCU': 'towering cumulus',
   };
 
-// Translation of the present-weather codes into english
+  // Translation of the present-weather codes into english
 
   Map<String, String> weatherInt = {
     '-': 'light',
@@ -86,15 +86,9 @@ class SkyTranslations {
     'DS': 'dust storm',
   };
 
-  Map<String, String> weatherSpecial = {
-    '+FC': 'tornado',
-  };
+  Map<String, String> weatherSpecial = {'+FC': 'tornado'};
 
-  Map<String, String> color = {
-    'BLU': 'blue',
-    'GRN': 'green',
-    'WHT': 'white',
-  };
+  Map<String, String> color = {'BLU': 'blue', 'GRN': 'green', 'WHT': 'white'};
 
   // 3700
   Map<String, String> seaState = {
@@ -122,8 +116,7 @@ class SkyTranslations {
     '7': 'ice',
     '8': 'compacted or rolled snow',
     '9': 'frozen ruts or ridges',
-    '/':
-        'type of deposit not reported (e.g. due to runway clearance in progress),'
+    '/': 'type of deposit not reported (e.g. due to runway clearance in progress),',
   };
 
   // 0519
@@ -151,8 +144,7 @@ class SkyTranslations {
     '96': '30 cm',
     '97': '35 cm',
     '98': '40 cm or more',
-    '99':
-        'runway(s) non-operational due to snow, slush, ice, large drifts or runway clearance, but depth not reported',
+    '99': 'runway(s) non-operational due to snow, slush, ice, large drifts or runway clearance, but depth not reported',
     '//': 'depth of deposit operationally not significant or not measurable',
   };
 
@@ -170,7 +162,7 @@ class SkyTranslations {
     '//': 'breaking conditions not reported and/or runway not operational',
   };
 
-// Translation of various remark codes into english
+  // Translation of various remark codes into english
 
   Map<String, String> pressureTendency = {
     '0': 'increasing, then decreasing',

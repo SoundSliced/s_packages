@@ -24,18 +24,25 @@ void main() {
 
       width.value = 500;
       await tester.pumpAndSettle();
-      expect(controller.value.maxScrollExtent, closeTo(100, 0.01),
-          reason: 'shrinking the viewport must republish the new extent');
+      expect(
+        controller.value.maxScrollExtent,
+        closeTo(100, 0.01),
+        reason: 'shrinking the viewport must republish the new extent',
+      );
 
       width.value = 700;
       await tester.pumpAndSettle();
-      expect(controller.value.maxScrollExtent, 0,
-          reason: 'growing it back must republish again');
+      expect(
+        controller.value.maxScrollExtent,
+        0,
+        reason: 'growing it back must republish again',
+      );
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('overflow of 1, 50, 99, 100 and 101 pixels is exact',
-        (tester) async {
+    testWidgets('overflow of 1, 50, 99, 100 and 101 pixels is exact', (
+      tester,
+    ) async {
       final controller = SSpreadsheetHorizontalSyncController();
       final width = ValueNotifier<double>(700);
       addTearDown(width.dispose);
@@ -49,21 +56,30 @@ void main() {
         width.value = 600 - overflow.toDouble();
         await tester.pumpAndSettle();
 
-        expect(controller.value.maxScrollExtent,
-            closeTo(overflow.toDouble(), 0.01),
-            reason: 'extent for $overflow px of hidden content');
+        expect(
+          controller.value.maxScrollExtent,
+          closeTo(overflow.toDouble(), 0.01),
+          reason: 'extent for $overflow px of hidden content',
+        );
         // The package default of 100 is deliberately coarse; a host that wants
         // every hidden pixel to count passes its own threshold.
-        expect(controller.value.canScrollRight(threshold: 1), isTrue,
-            reason: '$overflow px is scrollable at a 1px tolerance');
-        expect(controller.value.controller, same(owner),
-            reason: 'the header keeps ownership across resizes');
+        expect(
+          controller.value.canScrollRight(threshold: 1),
+          isTrue,
+          reason: '$overflow px is scrollable at a 1px tolerance',
+        );
+        expect(
+          controller.value.controller,
+          same(owner),
+          reason: 'the header keeps ownership across resizes',
+        );
 
         // The right arrow must land on the *current* end after a resize.
         // Start the animation first: awaiting it before pumping would hang
         // the test because the ticker never receives frames.
-        final toEnd =
-            controller.animateToEnd(duration: const Duration(milliseconds: 20));
+        final toEnd = controller.animateToEnd(
+          duration: const Duration(milliseconds: 20),
+        );
         await tester.pumpAndSettle();
         await toEnd;
         expect(controller.value.offset, closeTo(overflow.toDouble(), 0.01));
@@ -77,8 +93,9 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('resizing at start, middle and end keeps the offset valid',
-        (tester) async {
+    testWidgets('resizing at start, middle and end keeps the offset valid', (
+      tester,
+    ) async {
       final controller = SSpreadsheetHorizontalSyncController();
       final width = ValueNotifier<double>(400); // 200px of overflow
       addTearDown(width.dispose);
@@ -96,9 +113,11 @@ void main() {
         width.value = 450; // 150px of overflow
         await tester.pumpAndSettle();
         expect(controller.value.maxScrollExtent, closeTo(150, 0.01));
-        expect(controller.value.offset,
-            lessThanOrEqualTo(controller.value.maxScrollExtent + 0.01),
-            reason: 'offset must never outrun the republished extent');
+        expect(
+          controller.value.offset,
+          lessThanOrEqualTo(controller.value.maxScrollExtent + 0.01),
+          reason: 'offset must never outrun the republished extent',
+        );
 
         width.value = 400;
         await tester.pumpAndSettle();
@@ -106,8 +125,9 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('changing column widths republishes without a resize',
-        (tester) async {
+    testWidgets('changing column widths republishes without a resize', (
+      tester,
+    ) async {
       final controller = SSpreadsheetHorizontalSyncController();
       final width = ValueNotifier<double>(700);
       final columnWidth = ValueNotifier<double>(100);
@@ -115,8 +135,9 @@ void main() {
       addTearDown(columnWidth.dispose);
       addTearDown(controller.dispose);
 
-      await tester
-          .pumpWidget(_fixture(width, controller, columnWidth: columnWidth));
+      await tester.pumpWidget(
+        _fixture(width, controller, columnWidth: columnWidth),
+      );
       await tester.pumpAndSettle();
       expect(controller.value.maxScrollExtent, 0);
 
@@ -126,8 +147,9 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('empty content publishes a zero extent, not an exception',
-        (tester) async {
+    testWidgets('empty content publishes a zero extent, not an exception', (
+      tester,
+    ) async {
       final controller = SSpreadsheetHorizontalSyncController();
       final width = ValueNotifier<double>(700);
       addTearDown(width.dispose);
@@ -167,8 +189,11 @@ void main() {
 
       final settled = notifications;
       await tester.pump(const Duration(seconds: 2));
-      expect(notifications, settled,
-          reason: 'no continuous notification loop once layout has settled');
+      expect(
+        notifications,
+        settled,
+        reason: 'no continuous notification loop once layout has settled',
+      );
     });
 
     testWidgets('an unchanged report does not notify', (tester) async {
@@ -186,12 +211,16 @@ void main() {
       controller.refresh();
       controller.refresh();
       await tester.pump();
-      expect(notifications, 0,
-          reason: 'republishing an identical tuple must be a no-op');
+      expect(
+        notifications,
+        0,
+        reason: 'republishing an identical tuple must be a no-op',
+      );
     });
 
-    testWidgets('vertical scrolling does not overwrite horizontal metrics',
-        (tester) async {
+    testWidgets('vertical scrolling does not overwrite horizontal metrics', (
+      tester,
+    ) async {
       final controller = SSpreadsheetHorizontalSyncController();
       final width = ValueNotifier<double>(500); // 100px of horizontal overflow
       addTearDown(width.dispose);
@@ -205,8 +234,11 @@ void main() {
       await tester.drag(find.text('0:0'), const Offset(0, -200));
       await tester.pumpAndSettle();
 
-      expect(controller.value.maxScrollExtent, closeTo(100, 0.01),
-          reason: 'a vertical drag must not clobber the horizontal extent');
+      expect(
+        controller.value.maxScrollExtent,
+        closeTo(100, 0.01),
+        reason: 'a vertical drag must not clobber the horizontal extent',
+      );
       expect(controller.value.controller, same(before.controller));
       expect(tester.takeException(), isNull);
     });
@@ -232,25 +264,31 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('a header-less spreadsheet falls back to a live body strip',
-        (tester) async {
+    testWidgets('a header-less spreadsheet falls back to a live body strip', (
+      tester,
+    ) async {
       final controller = SSpreadsheetHorizontalSyncController();
       final width = ValueNotifier<double>(400);
       addTearDown(width.dispose);
       addTearDown(controller.dispose);
 
-      await tester
-          .pumpWidget(_fixture(width, controller, showColumnHeader: false));
+      await tester.pumpWidget(
+        _fixture(width, controller, showColumnHeader: false),
+      );
       await tester.pumpAndSettle();
 
-      expect(controller.value.controller, isNotNull,
-          reason: 'a body strip must take ownership when there is no header');
+      expect(
+        controller.value.controller,
+        isNotNull,
+        reason: 'a body strip must take ownership when there is no header',
+      );
       expect(controller.value.maxScrollExtent, closeTo(200, 0.01));
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('unmounting leaves no dangling controller and scrolls safely',
-        (tester) async {
+    testWidgets('unmounting leaves no dangling controller and scrolls safely', (
+      tester,
+    ) async {
       final controller = SSpreadsheetHorizontalSyncController();
       final width = ValueNotifier<double>(400);
       addTearDown(width.dispose);
@@ -263,8 +301,11 @@ void main() {
       await tester.pumpWidget(const SizedBox());
       await tester.pumpAndSettle();
 
-      expect(controller.value.controller, isNull,
-          reason: 'the disposed strip must not stay published');
+      expect(
+        controller.value.controller,
+        isNull,
+        reason: 'the disposed strip must not stay published',
+      );
       await controller.animateToEnd(duration: const Duration(milliseconds: 1));
       expect(tester.takeException(), isNull);
     });
@@ -305,9 +346,9 @@ Widget _fixture(
     home: Scaffold(
       body: ValueListenableBuilder<double>(
         valueListenable: width,
-        builder: (_, currentWidth, __) => ValueListenableBuilder<double>(
+        builder: (_, currentWidth, _) => ValueListenableBuilder<double>(
           valueListenable: widths,
-          builder: (_, currentColumnWidth, __) => SizedBox(
+          builder: (_, currentColumnWidth, _) => SizedBox(
             width: currentWidth,
             height: 300,
             child: SSpreadsheet(

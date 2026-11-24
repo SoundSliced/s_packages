@@ -114,9 +114,6 @@ class _IndexedScrollTagState extends State<IndexedScrollTag> {
   Widget build(BuildContext context) {
     // Wrap the child in a KeyedSubtree to associate the GlobalKey
     // This allows Scrollable.ensureVisible to locate this widget
-    return KeyedSubtree(
-      key: _key,
-      child: widget.child,
-    );
+    return KeyedSubtree(key: _key, child: widget.child);
   }
 }

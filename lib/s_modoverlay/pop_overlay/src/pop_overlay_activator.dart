@@ -63,10 +63,7 @@ Size _popOverlayViewportSizeOf(BuildContext context) {
   if (views.isNotEmpty) {
     final view = views.first;
     final dpr = view.devicePixelRatio == 0 ? 1.0 : view.devicePixelRatio;
-    return Size(
-      view.physicalSize.width / dpr,
-      view.physicalSize.height / dpr,
-    );
+    return Size(view.physicalSize.width / dpr, view.physicalSize.height / dpr);
   }
 
   // Fallback minimal size to avoid zero-division issues.
@@ -77,9 +74,7 @@ Size _popOverlayViewportSizeOf(BuildContext context) {
 class _AppContentWithOverlays extends StatelessWidget {
   final Widget child;
 
-  const _AppContentWithOverlays({
-    required this.child,
-  });
+  const _AppContentWithOverlays({required this.child});
 
   @override
   // Build base content with optional overlay stack.
@@ -101,10 +96,7 @@ class _AppContentWithOverlays extends StatelessWidget {
 
             return RepaintBoundary(
               key: ValueKey("PopOverlay-${popContent.id}-$index"),
-              child: _OverlayStack(
-                popContent: popContent,
-                index: index,
-              ),
+              child: _OverlayStack(popContent: popContent, index: index),
             );
           }),
       ],
@@ -117,10 +109,7 @@ class _OverlayStack extends StatelessWidget {
   final PopOverlayContent popContent;
   final int index;
 
-  const _OverlayStack({
-    required this.popContent,
-    required this.index,
-  });
+  const _OverlayStack({required this.popContent, required this.index});
 
   @override
   // Listen for invisibility toggles and wrap with animation logic.
@@ -129,7 +118,8 @@ class _OverlayStack extends StatelessWidget {
       listenTo: PopOverlay.invisibleController,
       builder: () {
         // Check if this overlay should be invisible
-        final isInvisible = popContent.shouldMakeInvisibleOnDismiss &&
+        final isInvisible =
+            popContent.shouldMakeInvisibleOnDismiss &&
             PopOverlay.invisibleController.state.contains(popContent.id);
 
         return _AnimatedVisibilityWrapper(
@@ -151,17 +141,15 @@ class _InterleavedPopLayer extends StatelessWidget {
   // Build only if the target pop is still active.
   Widget build(BuildContext context) {
     return OnBuilder(
-      listenToMany: [
-        PopOverlay.controller,
-        PopOverlay.invisibleController,
-      ],
+      listenToMany: [PopOverlay.controller, PopOverlay.invisibleController],
       builder: () {
         final popContent = PopOverlay.getActiveById(popId);
         if (popContent == null) {
           return const SizedBox.shrink();
         }
 
-        final isInvisible = popContent.shouldMakeInvisibleOnDismiss &&
+        final isInvisible =
+            popContent.shouldMakeInvisibleOnDismiss &&
             PopOverlay.invisibleController.state.contains(popContent.id);
 
         return RepaintBoundary(
@@ -214,7 +202,8 @@ class _AnimatedVisibilityWrapperState
   void _buildCachedContent() {
     _cachedContent = _TransformWrapper(
       key: ValueKey(
-          '${widget.popContent.id}-${DateTime.now().millisecondsSinceEpoch}'),
+        '${widget.popContent.id}-${DateTime.now().millisecondsSinceEpoch}',
+      ),
       popContent: widget.popContent,
     );
   }
@@ -310,9 +299,7 @@ class _AnimatedVisibilityWrapperState
             ),
 
           // Actual popup content - use cached version
-          Positioned.fill(
-            child: _cachedContent!,
-          ),
+          Positioned.fill(child: _cachedContent!),
         ],
       ),
     );
@@ -324,10 +311,7 @@ class _BlurBackground extends StatelessWidget {
   final PopOverlayContent popContent;
   final bool isExiting;
 
-  const _BlurBackground({
-    required this.popContent,
-    required this.isExiting,
-  });
+  const _BlurBackground({required this.popContent, required this.isExiting});
 
   @override
   // Animate blur intensity during entry/exit.
@@ -349,9 +333,7 @@ class _BlurBackground extends StatelessWidget {
                 sigmaX: blurRadius,
                 sigmaY: blurRadius,
               ),
-              child: Container(
-                color: Colors.black.withValues(alpha: 0.1),
-              ),
+              child: Container(color: Colors.black.withValues(alpha: 0.1)),
             ),
           );
         },
@@ -380,9 +362,9 @@ class _DismissBarrier extends StatelessWidget {
     return SInkButton(
       color: renderVisualBarrier
           ? (popContent.dismissBarrierColor
-                  ?.withValues(alpha: 0.8)
-                  .darken(0.2) ??
-              Colors.lightBlueAccent)
+                    ?.withValues(alpha: 0.8)
+                    .darken(0.2) ??
+                Colors.lightBlueAccent)
           : Colors.transparent,
       scaleFactor: 1,
       onTap: PopOverlay.isActive && isTapOwner
@@ -400,24 +382,25 @@ class _DismissBarrier extends StatelessWidget {
               }
             }
           : null,
-      child: SizedBox.expand(
-        child: ColoredBox(
-          color: renderVisualBarrier
-              ? (popContent.dismissBarrierColor ??
-                  Colors.black.withValues(alpha: 0.4))
-              : Colors.transparent,
-        ),
-      ).animate(
-        // key: ValueKey("Barrier-${popContent.id}-$isExiting"),
-        effects: [
-          FadeEffect(
-            duration: isExiting ? 0.8.sec : 1.0.sec,
-            begin: isExiting ? 1 : 0,
-            end: isExiting ? 0 : 1,
-            curve: Curves.fastEaseInToSlowEaseOut,
+      child:
+          SizedBox.expand(
+            child: ColoredBox(
+              color: renderVisualBarrier
+                  ? (popContent.dismissBarrierColor ??
+                        Colors.black.withValues(alpha: 0.4))
+                  : Colors.transparent,
+            ),
+          ).animate(
+            // key: ValueKey("Barrier-${popContent.id}-$isExiting"),
+            effects: [
+              FadeEffect(
+                duration: isExiting ? 0.8.sec : 1.0.sec,
+                begin: isExiting ? 1 : 0,
+                end: isExiting ? 0 : 1,
+                curve: Curves.fastEaseInToSlowEaseOut,
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 }
@@ -426,10 +409,7 @@ class _DismissBarrier extends StatelessWidget {
 class _TransformWrapper extends StatelessWidget {
   final PopOverlayContent popContent;
 
-  const _TransformWrapper({
-    super.key,
-    required this.popContent,
-  });
+  const _TransformWrapper({super.key, required this.popContent});
 
   @override
   // Translate popup based on current drag offset and target alignment.
@@ -451,8 +431,9 @@ class _TransformWrapper extends StatelessWidget {
         // (e.g. ForcePhoneSizeOnWeb) are accounted for.
         if (popContent.useGlobalPosition) {
           // Convert global coordinates into overlay-local space.
-          final overlayBox = PopOverlay._overlayAreaKey.currentContext
-              ?.findRenderObject() as RenderBox?;
+          final overlayBox =
+              PopOverlay._overlayAreaKey.currentContext?.findRenderObject()
+                  as RenderBox?;
           if (overlayBox != null && overlayBox.hasSize) {
             final localPos = overlayBox.globalToLocal(finalPosition);
             final screenPoint = alignment
@@ -563,8 +544,9 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
         if (!mounted) return;
 
         final alignment = widget.popContent.alignment ?? Alignment.center;
-        final overlayBox = PopOverlay._overlayAreaKey.currentContext
-            ?.findRenderObject() as RenderBox?;
+        final overlayBox =
+            PopOverlay._overlayAreaKey.currentContext?.findRenderObject()
+                as RenderBox?;
         final Size overlaySize = (overlayBox != null && overlayBox.hasSize)
             ? overlayBox.size
             : _popOverlayViewportSizeOf(context);
@@ -587,8 +569,9 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
         Offset localOrigin;
         if (overlayBox != null && overlayBox.hasSize) {
           // Translate global origin to overlay-local.
-          localOrigin =
-              overlayBox.globalToLocal(widget.popContent.offsetToPopFrom!);
+          localOrigin = overlayBox.globalToLocal(
+            widget.popContent.offsetToPopFrom!,
+          );
         } else {
           localOrigin = widget.popContent.offsetToPopFrom!;
         }
@@ -633,9 +616,11 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
               begin: _animationStartOffset!,
               end: Offset.zero,
             ),
-            duration: widget.popContent.popPositionAnimationDuration ??
+            duration:
+                widget.popContent.popPositionAnimationDuration ??
                 const Duration(milliseconds: 250),
-            curve: widget.popContent.popPositionAnimationCurve ??
+            curve:
+                widget.popContent.popPositionAnimationCurve ??
                 Curves.fastEaseInToSlowEaseOut,
             builder: (context, offset, child) {
               // Update positionController with animated value
@@ -653,10 +638,7 @@ class _PopupContentIsolatedState extends State<_PopupContentIsolated> {
           );
         }
 
-        return Opacity(
-          opacity: _isReadyToShow ? 1.0 : 0.0,
-          child: content,
-        );
+        return Opacity(opacity: _isReadyToShow ? 1.0 : 0.0, child: content);
       },
     );
   }
@@ -667,18 +649,13 @@ class _PopupContent extends StatelessWidget {
   final PopOverlayContent popContent;
   final bool isExiting;
 
-  const _PopupContent({
-    required this.popContent,
-    required this.isExiting,
-  });
+  const _PopupContent({required this.popContent, required this.isExiting});
 
   @override
   // Apply frame design, pointer handling, and exit animations.
   Widget build(BuildContext context) {
     // UNIFIED APPROACH: All popups use _PopOverlayFrameDesignWidget
-    Widget content = _PopupContentWrapper(
-      popContent: popContent,
-    );
+    Widget content = _PopupContentWrapper(popContent: popContent);
 
     // Apply IgnorePointer logic without causing rebuilds
     if (PopOverlay.isActive &&
@@ -712,9 +689,7 @@ class _PopupContent extends StatelessWidget {
 class _PopupContentWrapper extends StatelessWidget {
   final PopOverlayContent popContent;
 
-  const _PopupContentWrapper({
-    required this.popContent,
-  });
+  const _PopupContentWrapper({required this.popContent});
 
   @override
   // Wrap with frame design and optional TapRegion.

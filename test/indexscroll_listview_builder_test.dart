@@ -6,7 +6,8 @@ import 'package:s_packages/s_packages.dart';
 void _webFrame(WidgetTester tester) {
   final binding = tester.binding;
   binding.handleBeginFrame(
-      Duration(microseconds: binding.clock.now().microsecondsSinceEpoch));
+    Duration(microseconds: binding.clock.now().microsecondsSinceEpoch),
+  );
   binding.handleDrawFrame();
 }
 
@@ -40,62 +41,66 @@ class _HostState extends State<_Host> {
 
 void main() {
   testWidgets(
-      'a structural reset in the frame row insertions complete does not '
-      'dispose an AnimationController twice (Flutter web frame ordering)',
-      (tester) async {
-    final host = GlobalKey<_HostState>();
-    await tester
-        .pumpWidget(_Host(key: host, labels: const ['a', 'b', 'c', 'd']));
+    'a structural reset in the frame row insertions complete does not '
+    'dispose an AnimationController twice (Flutter web frame ordering)',
+    (tester) async {
+      final host = GlobalKey<_HostState>();
+      await tester.pumpWidget(
+        _Host(key: host, labels: const ['a', 'b', 'c', 'd']),
+      );
 
-    // Small change (< 30% new keys): an animated insertion (default 400ms).
-    host.currentState!.setLabels(const ['a', 'b', 'c', 'd', 'e']);
-    await tester.pump();
+      // Small change (< 30% new keys): an animated insertion (default 400ms).
+      host.currentState!.setLabels(const ['a', 'b', 'c', 'd', 'e']);
+      await tester.pump();
 
-    // Let the insertion's time run out without a frame, so the next frame's
-    // tick completes it.
-    await tester.binding.delayed(const Duration(seconds: 1));
+      // Let the insertion's time run out without a frame, so the next frame's
+      // tick completes it.
+      await tester.binding.delayed(const Duration(seconds: 1));
 
-    // Mostly-new key set (> 30% changed) => structural reset, applied in the
-    // very frame whose tick completes the insertion above.
-    host.currentState!.setLabels(const ['x', 'y', 'z']);
-    _webFrame(tester);
-    await tester.pumpAndSettle();
+      // Mostly-new key set (> 30% changed) => structural reset, applied in the
+      // very frame whose tick completes the insertion above.
+      host.currentState!.setLabels(const ['x', 'y', 'z']);
+      _webFrame(tester);
+      await tester.pumpAndSettle();
 
-    expect(tester.takeException(), isNull);
-    expect(find.text('x'), findsOneWidget);
-    expect(find.text('y'), findsOneWidget);
-    expect(find.text('z'), findsOneWidget);
-    for (final gone in ['a', 'b', 'c', 'd', 'e']) {
-      expect(find.text(gone), findsNothing);
-    }
-  });
+      expect(tester.takeException(), isNull);
+      expect(find.text('x'), findsOneWidget);
+      expect(find.text('y'), findsOneWidget);
+      expect(find.text('z'), findsOneWidget);
+      for (final gone in ['a', 'b', 'c', 'd', 'e']) {
+        expect(find.text(gone), findsNothing);
+      }
+    },
+  );
 
   testWidgets(
-      'shrinking the row count mid-animation never asks the row builders for '
-      'a stale index', (tester) async {
-    final host = GlobalKey<_HostState>();
-    // 20 → 18 rows keeps the key-based diff (removals staggered over several
-    // frames) rather than a structural reset, so the AnimatedList still holds
-    // the removed rows' slots while the callers data has already shrunk.
-    final labels = List.generate(20, (i) => 'row$i');
-    await tester.pumpWidget(_Host(key: host, labels: labels));
+    'shrinking the row count mid-animation never asks the row builders for '
+    'a stale index',
+    (tester) async {
+      final host = GlobalKey<_HostState>();
+      // 20 → 18 rows keeps the key-based diff (removals staggered over several
+      // frames) rather than a structural reset, so the AnimatedList still holds
+      // the removed rows' slots while the callers data has already shrunk.
+      final labels = List.generate(20, (i) => 'row$i');
+      await tester.pumpWidget(_Host(key: host, labels: labels));
 
-    host.currentState!.setLabels(labels.sublist(0, 18));
-    await tester.pump();
+      host.currentState!.setLabels(labels.sublist(0, 18));
+      await tester.pump();
 
-    // The exiting rows keep rendering what they last showed...
-    expect(tester.takeException(), isNull);
-    expect(find.text('row18'), findsOneWidget);
-    expect(find.text('row19'), findsOneWidget);
+      // The exiting rows keep rendering what they last showed...
+      expect(tester.takeException(), isNull);
+      expect(find.text('row18'), findsOneWidget);
+      expect(find.text('row19'), findsOneWidget);
 
-    // ...and are gone once their removals have played out.
-    await tester.pumpAndSettle();
-    expect(tester.takeException(), isNull);
-    expect(find.byType(Text), findsNWidgets(18));
-    expect(find.text('row17'), findsOneWidget);
-    expect(find.text('row18'), findsNothing);
-    expect(find.text('row19'), findsNothing);
-  });
+      // ...and are gone once their removals have played out.
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      expect(find.byType(Text), findsNWidgets(18));
+      expect(find.text('row17'), findsOneWidget);
+      expect(find.text('row18'), findsNothing);
+      expect(find.text('row19'), findsNothing);
+    },
+  );
 
   testWidgets('a structural reset shows exactly the new rows', (tester) async {
     final host = GlobalKey<_HostState>();

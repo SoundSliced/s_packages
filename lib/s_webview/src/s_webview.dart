@@ -76,9 +76,9 @@ class _RestrictionCacheEntry {
   });
 
   Map<String, dynamic> toJson() => {
-        'needsProxy': needsProxy,
-        'updatedAtMillis': updatedAtMillis,
-      };
+    'needsProxy': needsProxy,
+    'updatedAtMillis': updatedAtMillis,
+  };
 
   factory _RestrictionCacheEntry.fromJson(Map<String, dynamic> json) {
     return _RestrictionCacheEntry(
@@ -92,10 +92,7 @@ class _ProxyFetchResult {
   final String html;
   final String proxyBase;
 
-  const _ProxyFetchResult({
-    required this.html,
-    required this.proxyBase,
-  });
+  const _ProxyFetchResult({required this.html, required this.proxyBase});
 }
 
 class _ProxyHealthSnapshot {
@@ -231,7 +228,8 @@ class SWebView extends StatefulWidget {
     BuildContext context,
     VoidCallback onRetryWithProxy,
     VoidCallback onOpenInNewTab,
-  )? fallbackBuilder;
+  )?
+  fallbackBuilder;
 
   /// Callback with page loading progress (0..100).
   final ValueChanged<int>? onProgress;
@@ -302,15 +300,9 @@ class SWebView extends StatefulWidget {
   ///   ],
   /// )
   /// ```
-  static Widget tapTarget({
-    required Widget child,
-    Key? key,
-  }) {
+  static Widget tapTarget({required Widget child, Key? key}) {
     if (kIsWeb) {
-      return PointerInterceptor(
-        key: key,
-        child: child,
-      );
+      return PointerInterceptor(key: key, child: child);
     }
     return child;
   }
@@ -530,9 +522,7 @@ class _SWebViewState extends State<SWebView> {
   }
 
   /// Load restriction cache from persistent storage
-  static Future<void> _loadCache({
-    bool showDebugLogs = false,
-  }) async {
+  static Future<void> _loadCache({bool showDebugLogs = false}) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final cacheJson = prefs.getString(_cacheKey);
@@ -561,9 +551,7 @@ class _SWebViewState extends State<SWebView> {
   }
 
   /// Save restriction cache to persistent storage
-  static Future<void> _saveCache({
-    bool showDebugLogs = false,
-  }) async {
+  static Future<void> _saveCache({bool showDebugLogs = false}) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final cacheJson = json.encode(
@@ -589,8 +577,9 @@ class _SWebViewState extends State<SWebView> {
 
     // Check configured known restricted domains first.
     final host = Uri.tryParse(url)?.host.toLowerCase() ?? '';
-    final isKnownRestricted =
-        _knownRestrictedDomains.any((domain) => host.endsWith(domain));
+    final isKnownRestricted = _knownRestrictedDomains.any(
+      (domain) => host.endsWith(domain),
+    );
     if (isKnownRestricted) {
       _log('  → Known restricted domain: $host  [needs proxy=true]');
       await _cacheRestriction(cacheKey, true);
@@ -601,7 +590,8 @@ class _SWebViewState extends State<SWebView> {
     final cachedEntry = _restrictionCache[cacheKey];
     if (cachedEntry != null && _isEntryFresh(cachedEntry)) {
       _log(
-          '  → Cache hit: needsProxy=${cachedEntry.needsProxy}  (age ${DateTime.now().millisecondsSinceEpoch - cachedEntry.updatedAtMillis}ms)');
+        '  → Cache hit: needsProxy=${cachedEntry.needsProxy}  (age ${DateTime.now().millisecondsSinceEpoch - cachedEntry.updatedAtMillis}ms)',
+      );
       return cachedEntry.needsProxy;
     }
     if (cachedEntry != null && !_isEntryFresh(cachedEntry)) {
@@ -611,7 +601,8 @@ class _SWebViewState extends State<SWebView> {
 
     try {
       _log(
-          '  → No cache hit – probing via proxy (${_corsProxyUrls.isNotEmpty ? _corsProxyUrls[0] : 'none'})');
+        '  → No cache hit – probing via proxy (${_corsProxyUrls.isNotEmpty ? _corsProxyUrls[0] : 'none'})',
+      );
 
       // Test via proxy and inspect headers for frame restrictions.
       if (_corsProxyUrls.isNotEmpty) {
@@ -624,41 +615,44 @@ class _SWebViewState extends State<SWebView> {
           _log('  → Probe request: $proxyUrl');
           final sw = Stopwatch()..start();
           final response = await http
-              .get(
-                Uri.parse(proxyUrl),
-                headers: widget.config.proxyHeaders,
-              )
+              .get(Uri.parse(proxyUrl), headers: widget.config.proxyHeaders)
               .timeout(const Duration(seconds: 3));
           sw.stop();
           _log(
-              '  → Probe response: HTTP ${response.statusCode}  (${sw.elapsedMilliseconds}ms, ${response.bodyBytes.length} bytes)');
+            '  → Probe response: HTTP ${response.statusCode}  (${sw.elapsedMilliseconds}ms, ${response.bodyBytes.length} bytes)',
+          );
 
           if (response.statusCode == 200) {
             final xFrameOptions =
                 response.headers['x-frame-options']?.toLowerCase() ?? '';
             final csp =
                 response.headers['content-security-policy']?.toLowerCase() ??
-                    '';
+                '';
             final body = response.body.toLowerCase();
 
-            final hasRestrictedXFrame = xFrameOptions.contains('deny') ||
+            final hasRestrictedXFrame =
+                xFrameOptions.contains('deny') ||
                 xFrameOptions.contains('sameorigin');
-            final hasRestrictedCsp = csp.contains('frame-ancestors') &&
+            final hasRestrictedCsp =
+                csp.contains('frame-ancestors') &&
                 (csp.contains("'none'") ||
                     csp.contains("'self'") ||
                     csp.contains('none'));
             final bodySignalsFrameRestriction =
                 body.contains('x-frame-options') ||
-                    body.contains('refused to connect') ||
-                    body.contains('frame-ancestors');
+                body.contains('refused to connect') ||
+                body.contains('frame-ancestors');
 
             _log(
-                '  → X-Frame-Options : "$xFrameOptions"  restricted=$hasRestrictedXFrame');
+              '  → X-Frame-Options : "$xFrameOptions"  restricted=$hasRestrictedXFrame',
+            );
             _log(
-                '  → CSP             : "${csp.length > 120 ? '${csp.substring(0, 120)}…' : csp}"  restricted=$hasRestrictedCsp');
+              '  → CSP             : "${csp.length > 120 ? '${csp.substring(0, 120)}…' : csp}"  restricted=$hasRestrictedCsp',
+            );
             _log('  → Body signals    : $bodySignalsFrameRestriction');
 
-            final shouldUseProxy = hasRestrictedXFrame ||
+            final shouldUseProxy =
+                hasRestrictedXFrame ||
                 hasRestrictedCsp ||
                 bodySignalsFrameRestriction;
 
@@ -700,23 +694,23 @@ class _SWebViewState extends State<SWebView> {
     for (int i = 0; i < _corsProxyUrls.length; i++) {
       try {
         final proxyBase = _corsProxyUrls[i];
-        final proxiedUrl =
-            SWebViewProxyHtmlUtils.buildProxiedUrl(proxyBase, url);
+        final proxiedUrl = SWebViewProxyHtmlUtils.buildProxiedUrl(
+          proxyBase,
+          url,
+        );
 
         _log('  ─── Attempt proxy[$i]: $proxyBase');
         _log('    fetch URL : $proxiedUrl');
 
         final sw = Stopwatch()..start();
         final response = await http
-            .get(
-              Uri.parse(proxiedUrl),
-              headers: widget.config.proxyHeaders,
-            )
+            .get(Uri.parse(proxiedUrl), headers: widget.config.proxyHeaders)
             .timeout(const Duration(seconds: 15));
         sw.stop();
 
         _log(
-            '    HTTP ${response.statusCode}  (${sw.elapsedMilliseconds}ms, ${response.bodyBytes.length} bytes)');
+          '    HTTP ${response.statusCode}  (${sw.elapsedMilliseconds}ms, ${response.bodyBytes.length} bytes)',
+        );
         _log('    content-type : ${response.headers['content-type'] ?? '–'}');
 
         if (response.statusCode == 200) {
@@ -737,7 +731,8 @@ class _SWebViewState extends State<SWebView> {
           _log('    normalized length       : ${normalized.length} chars');
           if (normalized.length > 200) {
             _log(
-                '    normalized preview      : ${normalized.substring(0, 200).replaceAll('\n', ' ')}…');
+              '    normalized preview      : ${normalized.substring(0, 200).replaceAll('\n', ' ')}…',
+            );
           }
 
           if (needsPathFriendlyProxy && isQueryStyleProxy) {
@@ -760,10 +755,7 @@ class _SWebViewState extends State<SWebView> {
           }
 
           _log('    → Selected proxy[$i] for final load');
-          return _ProxyFetchResult(
-            html: normalized,
-            proxyBase: proxyBase,
-          );
+          return _ProxyFetchResult(html: normalized, proxyBase: proxyBase);
         } else {
           throw Exception('Proxy returned status ${response.statusCode}');
         }
@@ -772,7 +764,8 @@ class _SWebViewState extends State<SWebView> {
 
         if (i == _corsProxyUrls.length - 1) {
           _log(
-              '  → All ${_corsProxyUrls.length} proxies exhausted – returning null');
+            '  → All ${_corsProxyUrls.length} proxies exhausted – returning null',
+          );
           return null;
         }
         continue;
@@ -800,8 +793,9 @@ class _SWebViewState extends State<SWebView> {
     _log('  after injectBase len   : ${html.length} chars');
 
     final isModulePage = SWebViewProxyHtmlUtils.requiresPathFriendlyProxy(html);
-    final isQueryProxy =
-        SWebViewProxyHtmlUtils.isQueryStyleProxyBase(proxyBase);
+    final isQueryProxy = SWebViewProxyHtmlUtils.isQueryStyleProxyBase(
+      proxyBase,
+    );
     _log('  isModulePage           : $isModulePage');
     _log('  isQueryProxy           : $isQueryProxy');
 
@@ -813,11 +807,13 @@ class _SWebViewState extends State<SWebView> {
       // above lets the browser resolve all relative URLs directly against the
       // original origin – which typically serves static assets with CORS headers.
       _log(
-          '  → Skipping resource rewrite: relying on <base> for module resolution');
+        '  → Skipping resource rewrite: relying on <base> for module resolution',
+      );
     } else {
       if (forceRewriteResources && isModulePage && isQueryProxy) {
         _log(
-            '  → Adaptive mode: forcing resource rewrite even on module/query proxy');
+          '  → Adaptive mode: forcing resource rewrite even on module/query proxy',
+        );
       }
       html = SWebViewProxyHtmlUtils.rewriteHtmlResourceUrlsForProxy(
         html,
@@ -835,8 +831,9 @@ class _SWebViewState extends State<SWebView> {
       _log('  after dark mode style inject : ${html.length} chars');
     }
 
-    final isIncompat =
-        SWebViewProxyHtmlUtils.isLikelyProxyIncompatibleDocument(html);
+    final isIncompat = SWebViewProxyHtmlUtils.isLikelyProxyIncompatibleDocument(
+      html,
+    );
     _log('  isProxyIncompatible    : $isIncompat');
 
     if (isIncompat) {
@@ -849,7 +846,8 @@ class _SWebViewState extends State<SWebView> {
     final encoded = base64.encode(utf8.encode(html));
     _log('  data URI base64 len    : ${encoded.length} chars');
     _log(
-        '  data URI preview       : data:text/html;base64,${encoded.substring(0, encoded.length.clamp(0, 80))}…');
+      '  data URI preview       : data:text/html;base64,${encoded.substring(0, encoded.length.clamp(0, 80))}…',
+    );
     return Uri.parse('data:text/html;base64,$encoded');
   }
 
@@ -883,12 +881,14 @@ class _SWebViewState extends State<SWebView> {
 
     if (kIsWeb && enableAdaptiveMonitoring) {
       final generation = ++_proxyHealthProbeGeneration;
-      unawaited(_monitorProxyRuntimeAndAdapt(
-        url: url,
-        generation: generation,
-        forceRewriteResources: forceRewriteResources,
-        useInitController: useInitController,
-      ));
+      unawaited(
+        _monitorProxyRuntimeAndAdapt(
+          url: url,
+          generation: generation,
+          forceRewriteResources: forceRewriteResources,
+          useInitController: useInitController,
+        ),
+      );
     }
   }
 
@@ -991,12 +991,14 @@ class _SWebViewState extends State<SWebView> {
       }
       if (decoded is Map) {
         return _ProxyHealthSnapshot.fromJson(
-            Map<String, dynamic>.from(decoded));
+          Map<String, dynamic>.from(decoded),
+        );
       }
     } on UnimplementedError {
       _proxyHealthTelemetryUnsupported = true;
       _log(
-          '  → proxy health probe disabled: JS result API not implemented on this platform');
+        '  → proxy health probe disabled: JS result API not implemented on this platform',
+      );
       return null;
     } catch (e) {
       final message = e.toString().toLowerCase();
@@ -1004,7 +1006,8 @@ class _SWebViewState extends State<SWebView> {
           message.contains('not implemented')) {
         _proxyHealthTelemetryUnsupported = true;
         _log(
-            '  → proxy health probe disabled: JS result API not implemented on this platform');
+          '  → proxy health probe disabled: JS result API not implemented on this platform',
+        );
         return null;
       }
       _log('  → failed to read proxy health snapshot: $e');
@@ -1055,10 +1058,7 @@ class _SWebViewState extends State<SWebView> {
     }
 
     void onOpenInNewTab() {
-      SWebView.openInNewTab(
-        widget.url,
-        showDebugLogs: widget.showDebugLogs,
-      );
+      SWebView.openInNewTab(widget.url, showDebugLogs: widget.showDebugLogs);
     }
 
     if (widget.fallbackBuilder != null) {
@@ -1270,7 +1270,8 @@ class _SWebViewState extends State<SWebView> {
 
       if (e is _ProxyIncompatibleDocumentException) {
         _log(
-            '  → proxy-incompatible document – firing onProxyIncompatibleDocument');
+          '  → proxy-incompatible document – firing onProxyIncompatibleDocument',
+        );
         if (mounted) {
           setState(() {
             isLoaded = false;
@@ -1378,7 +1379,8 @@ class _SWebViewState extends State<SWebView> {
 
       if (e is _ProxyIncompatibleDocumentException) {
         _log(
-            '  → proxy-incompatible document – firing onProxyIncompatibleDocument');
+          '  → proxy-incompatible document – firing onProxyIncompatibleDocument',
+        );
         if (mounted) {
           setState(() {
             isLoaded = false;
@@ -1448,11 +1450,11 @@ class _SWebViewState extends State<SWebView> {
     // Build the webview widget only if controller is initialized
     Widget webviewWidget =
         webViewController != null && webViewController!.is_init
-            ? WebView(
-                controller: webViewController!,
-                ignorePointerEvents: widget.ignorePointerEvents,
-              )
-            : const SizedBox.shrink();
+        ? WebView(
+            controller: webViewController!,
+            ignorePointerEvents: widget.ignorePointerEvents,
+          )
+        : const SizedBox.shrink();
 
     // Apply animations only when not in test mode
     if (!WebViewController.isTestMode) {
@@ -1462,7 +1464,7 @@ class _SWebViewState extends State<SWebView> {
           FadeEffect(
             duration: Duration(seconds: 0, milliseconds: 500),
             curve: Curves.easeInOut,
-          )
+          ),
         ],
       );
       webviewWidget = webviewWidget.animate(
@@ -1471,7 +1473,7 @@ class _SWebViewState extends State<SWebView> {
           FadeEffect(
             duration: Duration(seconds: 2, milliseconds: 500),
             curve: Curves.fastEaseInToSlowEaseOut,
-          )
+          ),
         ],
       );
     }
@@ -1486,8 +1488,8 @@ class _SWebViewState extends State<SWebView> {
           child: isLoaded == null
               ? loadingWidget
               : !isLoaded!
-                  ? _buildFallbackUI()
-                  : webviewWidget,
+              ? _buildFallbackUI()
+              : webviewWidget,
         ),
       ],
     );
@@ -1530,12 +1532,16 @@ class _SWebViewState extends State<SWebView> {
                   icon: const Icon(Icons.delete_outline, size: 18),
                   label: const Text('Clear URL from Proxy'),
                   style: FilledButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.errorContainer,
-                    foregroundColor:
-                        Theme.of(context).colorScheme.onErrorContainer,
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .errorContainer,
+                    foregroundColor: Theme.of(context)
+                        .colorScheme
+                        .onErrorContainer,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 10),
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -1566,7 +1572,9 @@ class _SWebViewState extends State<SWebView> {
                   label: const Text('Retry with Proxy'),
                   style: FilledButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 10),
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -1584,8 +1592,10 @@ class _SWebViewState extends State<SWebView> {
                 icon: const Icon(Icons.open_in_new, size: 18),
                 label: const Text('Open in New Tab'),
                 style: OutlinedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),

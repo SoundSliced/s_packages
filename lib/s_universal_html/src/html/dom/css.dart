@@ -243,7 +243,7 @@ class StylePropertyMap extends StylePropertyMapReadonly {
 
   void set(String property, Object value) {
     _stylePropertyMapFor(this)[property] = <CssStyleValue>[
-      _toCssStyleValue(value)
+      _toCssStyleValue(value),
     ];
   }
 }

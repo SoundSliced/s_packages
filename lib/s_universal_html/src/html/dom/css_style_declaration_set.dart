@@ -50,9 +50,8 @@ class _CssStyleDeclarationSet extends CssStyleDeclarationBase {
   late Iterable<CssStyleDeclaration> _elementCssStyleDeclarationSetIterable;
 
   _CssStyleDeclarationSet(this._elementIterable) : super._() {
-    _elementCssStyleDeclarationSetIterable = List.from(
-      _elementIterable,
-    ).map((e) => e.style);
+    _elementCssStyleDeclarationSetIterable = List.from(_elementIterable)
+        .map((e) => e.style);
   }
 
   /// Sets the value of "background"
@@ -618,9 +617,9 @@ class _CssStyleDeclarationSet extends CssStyleDeclarationBase {
     }
   }
 
-// Important note: CssStyleDeclarationSet does NOT implement every method
-// available in CssStyleDeclaration. Some of the methods don't make so much
-// sense in terms of having a resonable value to return when you're
-// considering a list of Elements. You will need to manually add any of the
-// items in the MEMBERS set if you want that functionality.
+  // Important note: CssStyleDeclarationSet does NOT implement every method
+  // available in CssStyleDeclaration. Some of the methods don't make so much
+  // sense in terms of having a resonable value to return when you're
+  // considering a list of Elements. You will need to manually add any of the
+  // items in the MEMBERS set if you want that functionality.
 }

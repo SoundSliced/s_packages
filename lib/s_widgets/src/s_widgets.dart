@@ -20,8 +20,10 @@ class _StaticBuilderWidgets {
 
   static final defaultPadding = EdgeInsets.all(8);
 
-  static final smallIconConstraints =
-      BoxConstraints(minWidth: 10, minHeight: 10);
+  static final smallIconConstraints = BoxConstraints(
+    minWidth: 10,
+    minHeight: 10,
+  );
 
   // Cached error widget factory
   static final Map<String, Widget> _errorWidgetCache = <String, Widget>{};
@@ -52,10 +54,7 @@ class DismissKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(context),
-      child: child,
-    );
+    return GestureDetector(onTap: () => onTap(context), child: child);
   }
 }
 
@@ -82,26 +81,34 @@ class InputDoneView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
-        color: Colors.transparent,
-        child: Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 4.0),
-              child: CupertinoButton(
-                // color: Colors.yellow.shade100.withValues(alpha: 0.95),
-                padding: const EdgeInsets.only(
-                    top: 4.0, bottom: 4.0, right: 5, left: 5),
-                onPressed: () => onPressed(context),
-                child: Text("Done",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                      color: Colors.blue.shade900,
-                    )),
+      width: double.infinity,
+      color: Colors.transparent,
+      child: Align(
+        alignment: Alignment.topRight,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 4.0),
+          child: CupertinoButton(
+            // color: Colors.yellow.shade100.withValues(alpha: 0.95),
+            padding: const EdgeInsets.only(
+              top: 4.0,
+              bottom: 4.0,
+              right: 5,
+              left: 5,
+            ),
+            onPressed: () => onPressed(context),
+            child: Text(
+              "Done",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: Colors.blue.shade900,
               ),
-            )));
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -112,8 +119,10 @@ class KeyboardOverlay {
   static OverlayEntry? _overlayEntry;
   static void Function()? onTapProvided;
 
-  static void showDoneButtonOverlay(
-      {required BuildContext context, final void Function()? onTap}) {
+  static void showDoneButtonOverlay({
+    required BuildContext context,
+    void Function()? onTap,
+  }) {
     if (_overlayEntry != null) {
       return;
     }
@@ -122,15 +131,16 @@ class KeyboardOverlay {
     onTapProvided = onTap;
 
     OverlayState? overlayState = Overlay.of(context);
-    _overlayEntry = OverlayEntry(builder: (context) {
-      return Positioned(
+    _overlayEntry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
           bottom: MediaQuery.of(context).viewInsets.bottom,
           right: 0.0,
           left: 0.0,
-          child: InputDoneView(
-            onTap: onTapProvided,
-          ));
-    });
+          child: InputDoneView(onTap: onTapProvided),
+        );
+      },
+    );
 
     overlayState.insert(_overlayEntry!);
   }
@@ -164,21 +174,22 @@ class SLoadingIndicator extends StatelessWidget {
   final bool transformHitTests;
   final FilterQuality? filterQuality;
 
-  const SLoadingIndicator(
-      {this.indicatorType = Indicator.circleStrokeSpin,
-      this.colors,
-      this.backgroundColor,
-      this.strokeWidth,
-      this.pathBackgroundColor,
-      this.pause = false,
-      this.scale,
-      this.scaleX,
-      this.scaleY,
-      this.origin,
-      this.alignment = AlignmentDirectional.center,
-      this.transformHitTests = true,
-      this.filterQuality,
-      super.key});
+  const SLoadingIndicator({
+    this.indicatorType = Indicator.circleStrokeSpin,
+    this.colors,
+    this.backgroundColor,
+    this.strokeWidth,
+    this.pathBackgroundColor,
+    this.pause = false,
+    this.scale,
+    this.scaleX,
+    this.scaleY,
+    this.origin,
+    this.alignment = AlignmentDirectional.center,
+    this.transformHitTests = true,
+    this.filterQuality,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -223,13 +234,11 @@ class MountedState<T extends StatefulWidget> extends State<T> {
       // Future.delayed(
       //   Duration.zero,
       // () {
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) {
-          if (mounted) {
-            super.setState(fn);
-          }
-        },
-      );
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          super.setState(fn);
+        }
+      });
     }
   }
 }
@@ -239,7 +248,7 @@ class MountedState<T extends StatefulWidget> extends State<T> {
 //Extension to add Material Widget when needed
 /// Generic widget extension utilities (material wrapper, tooltip, styling).
 extension GenericExtensions<dynamics extends Widget> on Widget {
-//extension to add Material to any widget
+  //extension to add Material to any widget
   Material addMaterialWidget() {
     return Material(
       type: MaterialType.transparency,
@@ -250,13 +259,10 @@ extension GenericExtensions<dynamics extends Widget> on Widget {
     );
   }
 
-//extension to add Tooltip to any widget
+  //extension to add Tooltip to any widget
   Tooltip addTooltipWidget(String toolTip) {
     Widget widget = this;
-    return Tooltip(
-      message: toolTip,
-      child: widget,
-    );
+    return Tooltip(message: toolTip, child: widget);
   }
 
   /// set parent widget in center
@@ -265,11 +271,9 @@ extension GenericExtensions<dynamics extends Widget> on Widget {
   //https://www.kindacode.com/article/flutter-colorfiltered/
   Widget colorFilter([ColorFilter? colorFilter]) {
     return ColorFiltered(
-      colorFilter: colorFilter ??
-          const ColorFilter.mode(
-            Colors.transparent,
-            BlendMode.color,
-          ),
+      colorFilter:
+          colorFilter ??
+          const ColorFilter.mode(Colors.transparent, BlendMode.color),
       child: this,
     );
   }
@@ -285,10 +289,7 @@ extension GenericExtensions<dynamics extends Widget> on Widget {
   }
 
   Widget boxDecoration([BoxDecoration? boxDecoration]) {
-    return Container(
-      decoration: boxDecoration,
-      child: this,
-    );
+    return Container(decoration: boxDecoration, child: this);
   }
 }
 
@@ -307,10 +308,9 @@ extension ShowSnackBar on BuildContext {
       if (!mounted) return;
 
       try {
-        ScaffoldMessenger.of(this).showSnackBar(SnackBar(
-          content: Text(message),
-          backgroundColor: backgroundColor,
-        ));
+        ScaffoldMessenger.of(this).showSnackBar(
+          SnackBar(content: Text(message), backgroundColor: backgroundColor),
+        );
       } catch (e) {
         // If ScaffoldMessenger is not available, silently fail
         debugPrint('Warning: Could not show snackbar - $e');
@@ -346,9 +346,11 @@ class SDivider extends StatelessWidget {
     return Padding(
       padding: widthPadding,
       child: Container(
-        height: (isVertical ? lineLength : lineThickness) ??
+        height:
+            (isVertical ? lineLength : lineThickness) ??
             (isVertical ? 100.h : 5),
-        width: (isVertical ? lineThickness : lineLength) ??
+        width:
+            (isVertical ? lineThickness : lineLength) ??
             (isVertical ? 5 : 100.w),
         color: lineColor ?? Colors.black.withValues(alpha: lineOpacity ?? 0.5),
       ),
@@ -412,15 +414,16 @@ class STextButton extends StatelessWidget {
             shape: buttonShape ?? BoxShape.rectangle,
             border: border,
             color: backgroundColor != null
-                ? backgroundColor!
-                    .withValues(alpha: backgroundColorOpacity ?? 0.8)
+                ? backgroundColor!.withValues(
+                    alpha: backgroundColorOpacity ?? 0.8,
+                  )
                 : Colors.green.withValues(alpha: backgroundColorOpacity ?? 0.8),
             // borderRadius is only valid for BoxShape.rectangle
             borderRadius:
                 (buttonShape ?? BoxShape.rectangle) == BoxShape.rectangle
-                    ? (buttonBorderRadius ??
-                        _StaticBuilderWidgets.smallBorderRadius)
-                    : null,
+                ? (buttonBorderRadius ??
+                      _StaticBuilderWidgets.smallBorderRadius)
+                : null,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -436,7 +439,8 @@ class STextButton extends StatelessWidget {
                   child: Text(
                     buttonTitle ?? "Button",
                     textAlign: TextAlign.center,
-                    style: textStyle ??
+                    style:
+                        textStyle ??
                         TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -508,9 +512,13 @@ class SIconButton extends StatelessWidget {
             isActive: isActive,
             borderRadius: splashBorderRadius ?? BorderRadius.circular(12),
             splashColor: splashColor,
-            child: customIcon ??
-                Icon(iconData ?? Icons.square_rounded,
-                    size: size, color: color),
+            child:
+                customIcon ??
+                Icon(
+                  iconData ?? Icons.square_rounded,
+                  size: size,
+                  color: color,
+                ),
           ),
           if (label != null && label!.isNotEmpty)
             Text(
@@ -521,7 +529,7 @@ class SIconButton extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
-            )
+            ),
         ],
       ),
     );
@@ -586,20 +594,22 @@ class MeasureChildSizeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      // Use addPostFrameCallback to get the size after layout
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final renderBox = context.findRenderObject() as RenderBox?;
-        if (renderBox != null) {
-          final newSize = renderBox.size;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Use addPostFrameCallback to get the size after layout
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final renderBox = context.findRenderObject() as RenderBox?;
+          if (renderBox != null) {
+            final newSize = renderBox.size;
 
-          onChange(newSize);
-        }
-      });
+            onChange(newSize);
+          }
+        });
 
-      // Return the child directly; size measurement is handled in the callback
-      return child;
-    });
+        // Return the child directly; size measurement is handled in the callback
+        return child;
+      },
+    );
   }
 }
 
@@ -636,40 +646,49 @@ class _ForcePhoneSizeOnWebState extends State<ForcePhoneSizeOnWeb> {
 
   @override
   Widget build(BuildContext context) {
-    return Sizer(builder: (context, orientation, deviceType) {
-      return FlutterWebFrame(
-        maximumSize: widget.size ?? const Size(420.0, 812.0),
-        enabled: kIsWeb, // default is enable, when disable content is full size
-        backgroundColor:
-            const Color.fromARGB(255, 13, 36, 55).withValues(alpha: 1),
-        builder: (context) => LayoutBuilder(
-          builder: (context, constraints) {
-            final frameSize = Size(
-              constraints.maxWidth,
-              constraints.maxHeight,
-            );
-            _notifySizeChangeIfNeeded(frameSize);
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return FlutterWebFrame(
+          maximumSize: widget.size ?? const Size(420.0, 812.0),
+          enabled:
+              kIsWeb, // default is enable, when disable content is full size
+          backgroundColor: const Color.fromARGB(
+            255,
+            13,
+            36,
+            55,
+          ).withValues(alpha: 1),
+          builder: (context) => LayoutBuilder(
+            builder: (context, constraints) {
+              final frameSize = Size(
+                constraints.maxWidth,
+                constraints.maxHeight,
+              );
+              _notifySizeChangeIfNeeded(frameSize);
 
-            return Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                border: kIsWeb ? Border.all(width: 8) : null,
-                borderRadius:
-                    kIsWeb ? BorderRadius.circular(35) : BorderRadius.zero,
-              ),
-              child: Container(
+              return Container(
                 clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
-                  borderRadius:
-                      kIsWeb ? BorderRadius.circular(30) : BorderRadius.zero,
+                  border: kIsWeb ? Border.all(width: 8) : null,
+                  borderRadius: kIsWeb
+                      ? BorderRadius.circular(35)
+                      : BorderRadius.zero,
                 ),
-                child: widget.child,
-              ),
-            );
-          },
-        ),
-      );
-    });
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: kIsWeb
+                        ? BorderRadius.circular(30)
+                        : BorderRadius.zero,
+                  ),
+                  child: widget.child,
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -723,7 +742,9 @@ class _SAnimatedBlurState extends State<SAnimatedBlur> {
     return STweenAnimationBuilder<double>(
       key: ValueKey(_isBlurred),
       tween: Tween<double>(
-          begin: _isBlurred ? 0.0 : 1.0, end: _isBlurred ? 1.0 : 0.0),
+        begin: _isBlurred ? 0.0 : 1.0,
+        end: _isBlurred ? 1.0 : 0.0,
+      ),
       duration: widget.duration ?? 0.3.sec,
       curve: Curves.easeOut,
       builder: (context, value, child) => ImageFiltered(
@@ -749,8 +770,10 @@ class _SAnimatedBlurState extends State<SAnimatedBlur> {
 /// Scroll helper that ensures focused fields remain visible above the keyboard.
 class ScrollTextFormFieldWhenKeyboardIsShown extends StatefulWidget {
   final Widget child;
-  const ScrollTextFormFieldWhenKeyboardIsShown(
-      {super.key, required this.child});
+  const ScrollTextFormFieldWhenKeyboardIsShown({
+    super.key,
+    required this.child,
+  });
 
   @override
   State<ScrollTextFormFieldWhenKeyboardIsShown> createState() =>
@@ -798,10 +821,7 @@ class _ScrollTextFormFieldWhenKeyboardIsShownState
       controller: _scrollController,
       physics: const BouncingScrollPhysics(),
       reverse: true,
-      child: Focus(
-        focusNode: _focusNode,
-        child: widget.child,
-      ),
+      child: Focus(focusNode: _focusNode, child: widget.child),
     );
   }
 }
@@ -860,11 +880,7 @@ class TextFormFieldClearButton extends StatelessWidget {
         child: SizedBox(
           width: 10,
           height: 10,
-          child: const Icon(
-            Icons.clear,
-            color: Colors.redAccent,
-            size: 11,
-          ),
+          child: const Icon(Icons.clear, color: Colors.redAccent, size: 11),
         ),
       ),
     );

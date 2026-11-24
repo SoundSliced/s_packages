@@ -346,8 +346,9 @@ class _SOffstageState extends State<SOffstage>
       widget.onChanged?.call(newShouldBeOffstage);
 
       // Handle delays
-      final delay =
-          newShouldBeOffstage ? widget.delayBeforeHide : widget.delayBeforeShow;
+      final delay = newShouldBeOffstage
+          ? widget.delayBeforeHide
+          : widget.delayBeforeShow;
 
       void updateState() {
         if (mounted) {
@@ -552,11 +553,7 @@ class _SOffstageState extends State<SOffstage>
 
     // If visible, we position the hide button in the top-right corner
     // to avoid obstructing the content.
-    return Positioned(
-      top: 4,
-      right: 4,
-      child: button,
-    );
+    return Positioned(top: 4, right: 4, child: button);
   }
 }
 
@@ -591,13 +588,11 @@ class _TransitionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget childToRender =
-        (offstage && !maintainState) ? const SizedBox.shrink() : child;
+    final Widget childToRender = (offstage && !maintainState)
+        ? const SizedBox.shrink()
+        : child;
 
-    Widget content = Offstage(
-      offstage: offstage,
-      child: childToRender,
-    );
+    Widget content = Offstage(offstage: offstage, child: childToRender);
 
     final double targetOpacity = isVisible ? 1.0 : 0.0;
     final Curve opacityCurve = isVisible ? fadeInCurve : fadeOutCurve;
@@ -696,10 +691,7 @@ class _DefaultHiddenContent extends StatelessWidget {
   final bool showRevealButton;
   final VoidCallback? onTap;
 
-  const _DefaultHiddenContent({
-    required this.showRevealButton,
-    this.onTap,
-  });
+  const _DefaultHiddenContent({required this.showRevealButton, this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -277,10 +277,12 @@ class SDropdownDecorations {
     closedFillColor: Colors.transparent,
     expandedFillColor: Colors.white,
     headerExpandedColor: Colors.grey.shade200,
-    closedBorder:
-        Border.fromBorderSide(BorderSide(color: Colors.grey, width: 1.5)),
-    expandedBorder:
-        Border.fromBorderSide(BorderSide(color: Colors.blue, width: 1.5)),
+    closedBorder: Border.fromBorderSide(
+      BorderSide(color: Colors.grey, width: 1.5),
+    ),
+    expandedBorder: Border.fromBorderSide(
+      BorderSide(color: Colors.blue, width: 1.5),
+    ),
     closedBorderRadius: BorderRadius.all(Radius.circular(8)),
     expandedBorderRadius: BorderRadius.all(Radius.circular(8)),
     closedSuffixIcon: Icon(Icons.expand_more, size: 20),

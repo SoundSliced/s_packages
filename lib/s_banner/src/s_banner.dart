@@ -128,9 +128,10 @@ class _SBannerState extends State<SBanner> {
           children: [
             measuredChild,
             AnimatedOpacity(
-                opacity: 0,
-                duration: widget.animationDuration,
-                child: const SizedBox.shrink()),
+              opacity: 0,
+              duration: widget.animationDuration,
+              child: const SizedBox.shrink(),
+            ),
           ],
         );
       }
@@ -155,9 +156,10 @@ class _SBannerState extends State<SBanner> {
 
     if (widget.animateVisibility) {
       bannerWidget = AnimatedOpacity(
-          opacity: 1.0,
-          duration: widget.animationDuration,
-          child: bannerWidget);
+        opacity: 1.0,
+        duration: widget.animationDuration,
+        child: bannerWidget,
+      );
     }
 
     Widget stack = Stack(
@@ -167,8 +169,9 @@ class _SBannerState extends State<SBanner> {
         measuredChild,
         Positioned.fill(
           child: Align(
-              alignment: _alignmentFor(widget.bannerPosition),
-              child: bannerWidget),
+            alignment: _alignmentFor(widget.bannerPosition),
+            child: bannerWidget,
+          ),
         ),
       ],
     );
@@ -198,7 +201,8 @@ class _SBannerState extends State<SBanner> {
     }
 
     final Size childSize = _childSize!;
-    final double radius = widget.childBorderRadius ??
+    final double radius =
+        widget.childBorderRadius ??
         (childSize.shortestSide.isFinite ? childSize.shortestSide / 2 : 0);
 
     final double thickness = min(childSize.shortestSide * 0.15, radius * 0.3);
@@ -290,18 +294,13 @@ class _BannerBox extends SingleChildRenderObjectWidget {
 
 class _RenderBanner extends RenderBox with RenderObjectWithChildMixin {
   _RenderBanner({
-    required SBannerPosition bannerPosition,
-    required Color bannerColor,
-    required double elevation,
-    required Color shadowColor,
-    required bool paintBannerShape,
-    Gradient? gradient,
-  })  : _bannerPosition = bannerPosition,
-        _bannerColor = bannerColor,
-        _elevation = elevation,
-        _shadowColor = shadowColor,
-        _paintBannerShape = paintBannerShape,
-        _gradient = gradient;
+    required this._bannerPosition,
+    required this._bannerColor,
+    required this._elevation,
+    required this._shadowColor,
+    required this._paintBannerShape,
+    this._gradient,
+  });
 
   SBannerPosition _bannerPosition;
   set bannerPosition(SBannerPosition newPosition) {
@@ -361,8 +360,9 @@ class _RenderBanner extends RenderBox with RenderObjectWithChildMixin {
     child!.layout(constraints, parentUsesSize: true);
 
     final childSize = (child as RenderBox).size;
-    final dimension =
-        _bannerPosition.calculateDistanceToFarBannerEdge(childSize);
+    final dimension = _bannerPosition.calculateDistanceToFarBannerEdge(
+      childSize,
+    );
     // Respect incoming constraints from parent (e.g., when overlaid on a child)
     // by clamping the banner's square size to the available space.
     size = constraints.constrain(Size.square(dimension));
@@ -378,7 +378,9 @@ class _RenderBanner extends RenderBox with RenderObjectWithChildMixin {
 
     if (_paintBannerShape) {
       final bannerPath = _bannerPosition.createBannerPath(
-          bannerBoundingBoxTopLeft: offset, contentSize: childSize);
+        bannerBoundingBoxTopLeft: offset,
+        contentSize: childSize,
+      );
 
       paintingContext.canvas
         ..drawShadow(bannerPath, _shadowColor, _elevation, false)
@@ -394,7 +396,10 @@ class _RenderBanner extends RenderBox with RenderObjectWithChildMixin {
     // Orient the canvas to paint the child.
     paintingContext.canvas.save();
     _bannerPosition.positionCanvasToDrawContent(
-        paintingContext.canvas, offset, childSize);
+      paintingContext.canvas,
+      offset,
+      childSize,
+    );
 
     // Paint the child.
     child!.paint(paintingContext, Offset.zero);
@@ -410,12 +415,14 @@ class SBannerPosition {
   static const SBannerPosition topRight = SBannerPosition._(_Corner.topRight);
 
   /// Places the banner in the bottom-left corner.
-  static const SBannerPosition bottomLeft =
-      SBannerPosition._(_Corner.bottomLeft);
+  static const SBannerPosition bottomLeft = SBannerPosition._(
+    _Corner.bottomLeft,
+  );
 
   /// Places the banner in the bottom-right corner.
-  static const SBannerPosition bottomRight =
-      SBannerPosition._(_Corner.bottomRight);
+  static const SBannerPosition bottomRight = SBannerPosition._(
+    _Corner.bottomRight,
+  );
 
   const SBannerPosition._(_Corner corner) : _corner = corner;
 
@@ -426,8 +433,10 @@ class SBannerPosition {
   ///
   /// [bannerBoundingBoxTopLeft] is the global screen-space offset for the top
   /// left corner of the banner's bounding box.
-  Path createBannerPath(
-      {required Offset bannerBoundingBoxTopLeft, required Size contentSize}) {
+  Path createBannerPath({
+    required Offset bannerBoundingBoxTopLeft,
+    required Size contentSize,
+  }) {
     final distanceToNearEdge = calculateDistanceToNearBannerEdge(contentSize);
     final distanceToFarEdge = calculateDistanceToFarBannerEdge(contentSize);
 
@@ -476,7 +485,10 @@ class SBannerPosition {
   /// that content is angled 45 degrees in the appropriate direction
   /// for this banner position.
   void positionCanvasToDrawContent(
-      Canvas canvas, Offset paintingOffset, Size contentSize) {
+    Canvas canvas,
+    Offset paintingOffset,
+    Size contentSize,
+  ) {
     final contentOrigin = _calculateContentOrigin(paintingOffset, contentSize);
     switch (_corner) {
       case _Corner.topLeft:
@@ -509,8 +521,10 @@ class SBannerPosition {
     late Offset relativeOrigin;
     switch (_corner) {
       case _Corner.topLeft:
-        relativeOrigin =
-            Offset(0, calculateDistanceToNearBannerEdge(contentSize));
+        relativeOrigin = Offset(
+          0,
+          calculateDistanceToNearBannerEdge(contentSize),
+        );
         break;
       case _Corner.topRight:
         relativeOrigin = Offset(
@@ -525,19 +539,28 @@ class SBannerPosition {
           calculateDistanceToFarBannerEdge(contentSize) -
               calculateDistanceToNearBannerEdge(contentSize),
         );
-        relativeOrigin = leftBottomBannerCorner +
-            Offset(contentSize.height * sin(pi / 4),
-                -contentSize.height * sin(pi / 4));
+        relativeOrigin =
+            leftBottomBannerCorner +
+            Offset(
+              contentSize.height * sin(pi / 4),
+              -contentSize.height * sin(pi / 4),
+            );
         break;
       case _Corner.bottomRight:
-        final distanceToNearEdge =
-            calculateDistanceToNearBannerEdge(contentSize);
+        final distanceToNearEdge = calculateDistanceToNearBannerEdge(
+          contentSize,
+        );
         final distanceToFarEdge = calculateDistanceToFarBannerEdge(contentSize);
-        final bottomRightBannerCorner =
-            Offset(distanceToFarEdge - distanceToNearEdge, distanceToFarEdge);
-        relativeOrigin = bottomRightBannerCorner +
-            Offset(-contentSize.height * sin(pi / 4),
-                -contentSize.height * sin(pi / 4));
+        final bottomRightBannerCorner = Offset(
+          distanceToFarEdge - distanceToNearEdge,
+          distanceToFarEdge,
+        );
+        relativeOrigin =
+            bottomRightBannerCorner +
+            Offset(
+              -contentSize.height * sin(pi / 4),
+              -contentSize.height * sin(pi / 4),
+            );
         break;
     }
 
@@ -561,9 +584,10 @@ class SBannerPosition {
 }
 
 class _SizeReportingWidget extends SingleChildRenderObjectWidget {
-  const _SizeReportingWidget(
-      {required this.onSizeChanged, required Widget child})
-      : super(child: child);
+  const _SizeReportingWidget({
+    required this.onSizeChanged,
+    required Widget child,
+  }) : super(child: child);
 
   final ValueChanged<Size> onSizeChanged;
 
@@ -574,7 +598,9 @@ class _SizeReportingWidget extends SingleChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, covariant _RenderSizeReporter renderObject) {
+    BuildContext context,
+    covariant _RenderSizeReporter renderObject,
+  ) {
     renderObject.onSizeChanged = onSizeChanged;
   }
 }
@@ -637,7 +663,9 @@ class _CircularBannerContent extends SingleChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, _RenderCircularBannerContent renderObject) {
+    BuildContext context,
+    _RenderCircularBannerContent renderObject,
+  ) {
     renderObject
       ..bannerPosition = bannerPosition
       ..radius = radius
@@ -649,14 +677,11 @@ class _CircularBannerContent extends SingleChildRenderObjectWidget {
 class _RenderCircularBannerContent extends RenderBox
     with RenderObjectWithChildMixin {
   _RenderCircularBannerContent({
-    required SBannerPosition bannerPosition,
-    required double radius,
-    required double thickness,
-    required Size childSize,
-  })  : _bannerPosition = bannerPosition,
-        _radius = radius,
-        _thickness = thickness,
-        _childSize = childSize;
+    required this._bannerPosition,
+    required this._radius,
+    required this._thickness,
+    required this._childSize,
+  });
 
   SBannerPosition _bannerPosition;
   set bannerPosition(SBannerPosition value) {
@@ -717,10 +742,7 @@ class _RenderCircularBannerContent extends RenderBox
     final double contentRadius = (clampedRadius + innerRadius) / 2;
 
     final (Offset center, double arcStartAngle, bool isBottomPosition) =
-        _calculateCenterAndAngle(
-      offset,
-      clampedRadius,
-    );
+        _calculateCenterAndAngle(offset, clampedRadius);
 
     // Paint child along the arc
     _paintChildAlongArc(
@@ -734,7 +756,9 @@ class _RenderCircularBannerContent extends RenderBox
   }
 
   (Offset, double, bool) _calculateCenterAndAngle(
-      Offset offset, double clampedRadius) {
+    Offset offset,
+    double clampedRadius,
+  ) {
     switch (_bannerPosition._corner) {
       case _Corner.topLeft:
         return (
@@ -757,8 +781,10 @@ class _RenderCircularBannerContent extends RenderBox
       case _Corner.bottomRight:
         return (
           offset +
-              Offset(_childSize.width - clampedRadius,
-                  _childSize.height - clampedRadius),
+              Offset(
+                _childSize.width - clampedRadius,
+                _childSize.height - clampedRadius,
+              ),
           0, // Start from right edge (0 degrees)
           true,
         );
@@ -781,8 +807,9 @@ class _RenderCircularBannerContent extends RenderBox
 
     // Calculate the arc length available and scale
     final double arcLength = radius * sweepAngle;
-    final double scale =
-        contentWidth > arcLength ? arcLength / contentWidth : 1.0;
+    final double scale = contentWidth > arcLength
+        ? arcLength / contentWidth
+        : 1.0;
 
     // Save canvas state and translate to center
     context.canvas.save();
@@ -829,12 +856,15 @@ class _RenderCircularBannerContent extends RenderBox
       context.canvas.scale(scale, 1.0);
 
       // Translate to paint the specific slice
-      context.canvas
-          .translate(-sliceWidth * i - halfSliceWidth, -halfChildHeight);
+      context.canvas.translate(
+        -sliceWidth * i - halfSliceWidth,
+        -halfChildHeight,
+      );
 
       // Clip to only show this slice
       context.canvas.clipRect(
-          Rect.fromLTWH(sliceWidth * i, 0, sliceWidth, childSize.height));
+        Rect.fromLTWH(sliceWidth * i, 0, sliceWidth, childSize.height),
+      );
 
       // Paint the child
       renderBox.paint(context, Offset.zero);
@@ -873,7 +903,7 @@ class _CircularBannerPainter extends CustomPainter {
 
     final bool isBottomPosition =
         bannerPosition._corner == _Corner.bottomLeft ||
-            bannerPosition._corner == _Corner.bottomRight;
+        bannerPosition._corner == _Corner.bottomRight;
 
     // For bottom positions, shift the path up to cast shadow upward
     if (isBottomPosition) {
@@ -921,8 +951,10 @@ class _CircularBannerPainter extends CustomPainter {
 
     // Draw line to inner arc
     final double endAngle = startAngle + sweepAngle;
-    final Offset innerEnd = Offset(center.dx + innerRadius * cos(endAngle),
-        center.dy + innerRadius * sin(endAngle));
+    final Offset innerEnd = Offset(
+      center.dx + innerRadius * cos(endAngle),
+      center.dy + innerRadius * sin(endAngle),
+    );
     bannerPath.lineTo(innerEnd.dx, innerEnd.dy);
 
     // Draw inner arc backwards

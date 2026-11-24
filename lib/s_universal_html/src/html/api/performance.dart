@@ -227,8 +227,13 @@ class _PerformanceImpl extends Performance {
   void mark(String markName) {
     final current = now();
     _marks[markName] = current;
-    _entries.add(_PerformanceEntryImpl(
-        name: markName, entryType: 'mark', startTime: current));
+    _entries.add(
+      _PerformanceEntryImpl(
+        name: markName,
+        entryType: 'mark',
+        startTime: current,
+      ),
+    );
   }
 
   @override

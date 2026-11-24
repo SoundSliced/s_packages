@@ -7,7 +7,9 @@ library;
 // dart and flutter and other foundational packages
 export 'package:xid/xid.dart';
 export 'package:flutter/services.dart';
+
 export 'dart:async';
+
 export 'package:flutter_animate/flutter_animate.dart' hide Animate;
 export 'package:flutter/foundation.dart';
 export 'package:flutter/material.dart';
@@ -23,8 +25,11 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'package:pointer_interceptor/pointer_interceptor.dart';
 export 'package:new_loading_indicator/new_loading_indicator.dart';
 export 'package:flutter_web_frame/flutter_web_frame.dart';
-export 'package:desktop_webview_window/desktop_webview_window.dart';
-export 'package:universal_io/io.dart';
+
+// Desktop-only (imports dart:isolate): not re-exported to web builds.
+export 'src/desktop_webview_window_web_stub.dart'
+    if (dart.library.io) 'package:desktop_webview_window/desktop_webview_window.dart';
+
 @Deprecated(
   'Use package:s_packages/s_packages.dart. This legacy convenience barrel is intentionally slimmed to avoid dependency bloat.',
 )

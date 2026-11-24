@@ -154,8 +154,9 @@ class _AnimationImpl extends EventTarget implements Animation {
   final String _id = '';
 
   _AnimationImpl(
-      AnimationEffectTimingReadOnly? effect, AnimationTimeline? timeline)
-      : super.internal();
+    AnimationEffectTimingReadOnly? effect,
+    AnimationTimeline? timeline,
+  ) : super.internal();
 
   @override
   Future<Animation> get finished => Future<Animation>.value(this);

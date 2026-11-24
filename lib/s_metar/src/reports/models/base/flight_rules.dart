@@ -18,8 +18,11 @@ mixin FlightRulesMixin on MetarPrevailingMixin, MetarCloudMixin {
     double? ceiling;
     if (_clouds.length > 0) {
       for (final cloud in _clouds.items) {
-        if (<String>['broken', 'overcast', 'indefinite ceiling']
-            .contains(cloud.cover)) {
+        if (<String>[
+          'broken',
+          'overcast',
+          'indefinite ceiling',
+        ].contains(cloud.cover)) {
           ceiling = cloud.heightInMeters;
           break;
         }

@@ -56,10 +56,7 @@ class MetarWindVariation extends Group {
   @override
   Map<String, Object?> asMap() {
     final map = super.asMap();
-    map.addAll({
-      'from_': _from.asMap(),
-      'to': _to.asMap(),
-    });
+    map.addAll({'from_': _from.asMap(), 'to': _to.asMap()});
     return map;
   }
 }

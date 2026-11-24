@@ -12,8 +12,7 @@ final runwayDepositsMap = <String, String>{
   '7': 'ice',
   '8': 'compacted or rolled snow',
   '9': 'frozen ruts or ridges',
-  '/':
-      'type of deposit not reported (e.g. due to runway clearance in progress),'
+  '/': 'type of deposit not reported (e.g. due to runway clearance in progress),',
 };
 
 /// Table 0519
@@ -41,8 +40,7 @@ final depositDepthMap = <String, String>{
   '96': '30 cm',
   '97': '35 cm',
   '98': '40 cm or more',
-  '99':
-      'runway(s) non-operational due to snow, slush, ice, large drifts or runway clearance, but depth not reported',
+  '99': 'runway(s) non-operational due to snow, slush, ice, large drifts or runway clearance, but depth not reported',
   '//': 'depth of deposit operationally not significant or not measurable',
 };
 

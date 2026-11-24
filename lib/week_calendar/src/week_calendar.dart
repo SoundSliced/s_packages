@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'dart:developer';
+
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:dart_helper_utils/dart_helper_utils.dart';
@@ -97,8 +98,10 @@ class WeekCalendarStyle {
 
   /// Creates a style configuration for the calendar
   const WeekCalendarStyle({
-    this.monthHeaderStyle =
-        const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    this.monthHeaderStyle = const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+    ),
     this.dayNameStyle = const TextStyle(fontSize: 12),
     this.dayNumberStyle = const TextStyle(fontSize: 16),
     this.activeDayColor = Colors.blueAccent,
@@ -106,8 +109,10 @@ class WeekCalendarStyle {
     this.dayIndicatorSize = 28,
     this.dayIndicatorBorder,
     this.dayIndicatorShadow,
-    this.selectedDayTextStyle =
-        const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    this.selectedDayTextStyle = const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    ),
     this.inactiveDayTextStyle = const TextStyle(fontSize: 16),
     this.showParticles = false,
     this.selectionAnimationDuration = const Duration(milliseconds: 300),
@@ -304,8 +309,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
       : DateTime(year, month, day);
 
   DateTime _today() {
-    final now =
-        widget.isUtc ? widget.currentDateTime.toUtc() : widget.currentDateTime;
+    final now = widget.isUtc
+        ? widget.currentDateTime.toUtc()
+        : widget.currentDateTime;
     return _calendarDate(now.year, now.month, now.day);
   }
 
@@ -318,8 +324,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
       // Custom week start logic
       int daysToSubtract =
           (firstDayOfMonth.weekday - widget.startingDay!.value) % 7;
-      DateTime weekStart =
-          firstDayOfMonth.subtract(Duration(days: daysToSubtract));
+      DateTime weekStart = firstDayOfMonth.subtract(
+        Duration(days: daysToSubtract),
+      );
 
       int daysToAdd =
           (widget.startingDay!.value + 6 - lastDayOfMonth.weekday) % 7;
@@ -381,8 +388,10 @@ class _WeekCalendarState extends State<WeekCalendar> {
     if (oldWidget.startingDay != widget.startingDay ||
         oldWidget.selectedDate != widget.selectedDate) {
       // Check if selectedDate is in a different month/year than current headerDate
-      final selectedMonth =
-          DateTime(widget.selectedDate.year, widget.selectedDate.month);
+      final selectedMonth = DateTime(
+        widget.selectedDate.year,
+        widget.selectedDate.month,
+      );
       final currentMonth = DateTime(_headerDate.year, _headerDate.month);
 
       if (selectedMonth != currentMonth) {
@@ -390,7 +399,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
         setState(() {
           _headerDate = widget.isUtc
               ? DateTime.utc(
-                  widget.selectedDate.year, widget.selectedDate.month)
+                  widget.selectedDate.year,
+                  widget.selectedDate.month,
+                )
               : DateTime(widget.selectedDate.year, widget.selectedDate.month);
           _weeks = _generateWeeks(_headerDate);
         });
@@ -476,8 +487,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
                 ? widget.calendarStyle.activeDayColor
                 : Colors.transparent,
             shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(widget.calendarStyle.dayIndicatorSize),
+              borderRadius: BorderRadius.circular(
+                widget.calendarStyle.dayIndicatorSize,
+              ),
               side: BorderSide(
                 color: isSelected
                     ? widget.calendarStyle.activeDayColor
@@ -495,8 +507,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
       case WeekCalendarType.elevated:
         return Material(
           elevation: isSelected ? 8 : 1,
-          borderRadius:
-              BorderRadius.circular(widget.calendarStyle.dayIndicatorSize),
+          borderRadius: BorderRadius.circular(
+            widget.calendarStyle.dayIndicatorSize,
+          ),
           child: AnimatedContainer(
             duration: widget.calendarStyle.selectionAnimationDuration,
             curve: widget.calendarStyle.selectionAnimationCurve,
@@ -506,8 +519,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
               color: isSelected
                   ? widget.calendarStyle.activeDayColor
                   : Colors.white,
-              borderRadius:
-                  BorderRadius.circular(widget.calendarStyle.dayIndicatorSize),
+              borderRadius: BorderRadius.circular(
+                widget.calendarStyle.dayIndicatorSize,
+              ),
             ),
             child: Center(child: content),
           ),
@@ -534,12 +548,18 @@ class _WeekCalendarState extends State<WeekCalendar> {
   bool _isDayDisabled(DateTime day) {
     if (widget.minDate != null) {
       final min = _calendarDate(
-          widget.minDate!.year, widget.minDate!.month, widget.minDate!.day);
+        widget.minDate!.year,
+        widget.minDate!.month,
+        widget.minDate!.day,
+      );
       if (day.isBefore(min)) return true;
     }
     if (widget.maxDate != null) {
       final max = _calendarDate(
-          widget.maxDate!.year, widget.maxDate!.month, widget.maxDate!.day);
+        widget.maxDate!.year,
+        widget.maxDate!.month,
+        widget.maxDate!.day,
+      );
       if (day.isAfter(max)) return true;
     }
     return false;
@@ -619,14 +639,17 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       ),
                       onTap: (pos) {
                         setState(() {
-                          _headerDate =
-                              DateTime(_headerDate.year, _headerDate.month - 1);
+                          _headerDate = DateTime(
+                            _headerDate.year,
+                            _headerDate.month - 1,
+                          );
                           _weeks = _generateWeeks(_headerDate);
                           final newPage = _findWeekIndex(_weeks, _headerDate);
                           if (widget.enableAnimations) {
                             _pageController.animateToPage(
                               newPage,
-                              duration: widget.animationDuration ??
+                              duration:
+                                  widget.animationDuration ??
                                   const Duration(milliseconds: 300),
                               curve: widget.animationCurve ?? Curves.easeInOut,
                             );
@@ -653,23 +676,24 @@ class _WeekCalendarState extends State<WeekCalendar> {
                               if (widget.showCalendarPopupOnHeaderTap) {
                                 final selectedDates =
                                     await showCalendarDatePicker2Dialog(
-                                  context: context,
-                                  config:
-                                      CalendarDatePicker2WithActionButtonsConfig(
-                                    calendarType:
-                                        CalendarDatePicker2Type.single,
-                                    selectedDayHighlightColor:
-                                        widget.calendarStyle.activeDayColor,
-                                    firstDate: DateTime(2000),
-                                    lastDate: widget.isUtc
-                                        ? _today()
-                                        : DateTime.now(),
-                                    currentDate: widget.selectedDate,
-                                  ),
-                                  dialogSize: const Size(325, 400),
-                                  value: [widget.selectedDate],
-                                  borderRadius: BorderRadius.circular(15),
-                                );
+                                      context: context,
+                                      config:
+                                          CalendarDatePicker2WithActionButtonsConfig(
+                                            calendarType:
+                                                CalendarDatePicker2Type.single,
+                                            selectedDayHighlightColor: widget
+                                                .calendarStyle
+                                                .activeDayColor,
+                                            firstDate: DateTime(2000),
+                                            lastDate: widget.isUtc
+                                                ? _today()
+                                                : DateTime.now(),
+                                            currentDate: widget.selectedDate,
+                                          ),
+                                      dialogSize: const Size(325, 400),
+                                      value: [widget.selectedDate],
+                                      borderRadius: BorderRadius.circular(15),
+                                    );
 
                                 if (selectedDates != null &&
                                     selectedDates.isNotEmpty) {
@@ -688,27 +712,36 @@ class _WeekCalendarState extends State<WeekCalendar> {
                                     if (!isMinimal)
                                       TextSpan(
                                         text: DateFormat('E  ').format(
-                                            _headerDate.copyWith(
-                                                day: widget.selectedDate.day)),
-                                        style: widget
-                                            .calendarStyle.monthHeaderStyle
-                                            .copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal,
+                                          _headerDate.copyWith(
+                                            day: widget.selectedDate.day,
+                                          ),
                                         ),
+                                        style: widget
+                                            .calendarStyle
+                                            .monthHeaderStyle
+                                            .copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                       ),
                                     TextSpan(
-                                      text: DateFormat(isMinimal
-                                              ? '${_headerDate.month == widget.selectedDate.month && _headerDate.year == widget.selectedDate.year ? 'd' : ''} MMM y'
-                                              : '${_headerDate.month == widget.selectedDate.month && _headerDate.year == widget.selectedDate.year ? 'dd' : ''} MMMM y')
-                                          .format(_headerDate.copyWith(
-                                              day: widget.selectedDate.day)),
+                                      text:
+                                          DateFormat(
+                                            isMinimal
+                                                ? '${_headerDate.month == widget.selectedDate.month && _headerDate.year == widget.selectedDate.year ? 'd' : ''} MMM y'
+                                                : '${_headerDate.month == widget.selectedDate.month && _headerDate.year == widget.selectedDate.year ? 'dd' : ''} MMMM y',
+                                          ).format(
+                                            _headerDate.copyWith(
+                                              day: widget.selectedDate.day,
+                                            ),
+                                          ),
                                       style: widget
-                                          .calendarStyle.monthHeaderStyle
+                                          .calendarStyle
+                                          .monthHeaderStyle
                                           .copyWith(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -741,14 +774,18 @@ class _WeekCalendarState extends State<WeekCalendar> {
                                   setState(() {
                                     _headerDate = todayMonth;
                                     _weeks = _generateWeeks(_headerDate);
-                                    final newPage =
-                                        _findWeekIndex(_weeks, today);
+                                    final newPage = _findWeekIndex(
+                                      _weeks,
+                                      today,
+                                    );
                                     if (widget.enableAnimations) {
                                       _pageController.animateToPage(
                                         newPage,
-                                        duration: widget.animationDuration ??
+                                        duration:
+                                            widget.animationDuration ??
                                             const Duration(milliseconds: 300),
-                                        curve: widget.animationCurve ??
+                                        curve:
+                                            widget.animationCurve ??
                                             Curves.easeInOut,
                                       );
                                     } else {
@@ -761,9 +798,11 @@ class _WeekCalendarState extends State<WeekCalendar> {
                                   if (widget.enableAnimations) {
                                     _pageController.animateToPage(
                                       newPage,
-                                      duration: widget.animationDuration ??
+                                      duration:
+                                          widget.animationDuration ??
                                           const Duration(milliseconds: 300),
-                                      curve: widget.animationCurve ??
+                                      curve:
+                                          widget.animationCurve ??
                                           Curves.easeInOut,
                                     );
                                   } else {
@@ -793,8 +832,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
                                       style: TextStyle(
                                         fontSize: 8,
                                         fontWeight: FontWeight.w600,
-                                        color:
-                                            Colors.black.withValues(alpha: 0.8),
+                                        color: Colors.black.withValues(
+                                          alpha: 0.8,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -823,15 +863,20 @@ class _WeekCalendarState extends State<WeekCalendar> {
                         setState(() {
                           _headerDate = widget.isUtc
                               ? DateTime.utc(
-                                  _headerDate.year, _headerDate.month + 1)
+                                  _headerDate.year,
+                                  _headerDate.month + 1,
+                                )
                               : DateTime(
-                                  _headerDate.year, _headerDate.month + 1);
+                                  _headerDate.year,
+                                  _headerDate.month + 1,
+                                );
                           _weeks = _generateWeeks(_headerDate);
                           final newPage = _findWeekIndex(_weeks, _headerDate);
                           if (widget.enableAnimations) {
                             _pageController.animateToPage(
                               newPage,
-                              duration: widget.animationDuration ??
+                              duration:
+                                  widget.animationDuration ??
                                   const Duration(milliseconds: 300),
                               curve: widget.animationCurve ?? Curves.easeInOut,
                             );
@@ -870,7 +915,7 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       fontWeight: FontWeight.w600,
                       color: Colors.black45,
                     ),
-                  )
+                  ),
                 ],
               ),
           ],
@@ -919,7 +964,9 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       // At start of month, jump to previous month
                       _headerDate = widget.isUtc
                           ? DateTime.utc(
-                              _headerDate.year, _headerDate.month - 1)
+                              _headerDate.year,
+                              _headerDate.month - 1,
+                            )
                           : DateTime(_headerDate.year, _headerDate.month - 1);
                       _weeks = _generateWeeks(_headerDate);
                       final newPage =
@@ -927,7 +974,8 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       if (widget.enableAnimations) {
                         _pageController.animateToPage(
                           newPage,
-                          duration: widget.animationDuration ??
+                          duration:
+                              widget.animationDuration ??
                               const Duration(milliseconds: 300),
                           curve: widget.animationCurve ?? Curves.easeInOut,
                         );
@@ -936,12 +984,15 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       }
                       widget.onPreviousMonth?.call();
                     } else {
-                      final previousPage =
-                          (currentPage - 1).clamp(0, _weeks.length - 1);
+                      final previousPage = (currentPage - 1).clamp(
+                        0,
+                        _weeks.length - 1,
+                      );
                       if (widget.enableAnimations) {
                         _pageController.animateToPage(
                           previousPage,
-                          duration: widget.animationDuration ??
+                          duration:
+                              widget.animationDuration ??
                               const Duration(milliseconds: 300),
                           curve: widget.animationCurve ?? Curves.easeInOut,
                         );
@@ -964,7 +1015,8 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       builder: (context, constraints) {
                         final dayWidth = constraints.maxWidth / 7;
                         return AnimatedSwitcher(
-                          duration: widget.animationDuration ??
+                          duration:
+                              widget.animationDuration ??
                               const Duration(milliseconds: 300),
                           switchInCurve:
                               widget.animationCurve ?? Curves.easeInOut,
@@ -974,69 +1026,80 @@ class _WeekCalendarState extends State<WeekCalendar> {
                             children:
                                 // Day Indicators
                                 _weeks[index].map((day) {
-                              final isSelected =
-                                  _isSameDay(day, widget.selectedDate);
+                                  final isSelected = _isSameDay(
+                                    day,
+                                    widget.selectedDate,
+                                  );
 
-                              return Flexible(
-                                child: SizedBox(
-                                  width: dayWidth,
-                                  child: SDisabled(
-                                    isDisabled: day.isAfter(today) ||
-                                        _isDayDisabled(day),
-                                    child: SInkButton(
-                                      color: Colors.blueAccent,
-                                      onTap: (pos) {
-                                        _handleDaySelection(day);
-                                      },
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        spacing: 0,
-                                        children: [
-                                          if (widget.calendarType !=
-                                              WeekCalendarType.minimal)
-                                            Text(
-                                              DateFormat('E')
-                                                  .format(day)
-                                                  .substring(0, 2),
-                                              style: widget
-                                                  .calendarStyle.dayNameStyle
-                                                  .copyWith(
-                                                fontWeight: isSelected
-                                                    ? FontWeight.bold
-                                                    : null,
-                                                color: isSelected
-                                                    ? widget.calendarStyle
-                                                        .activeDayColor
-                                                        .darken(0.2)
-                                                    : null,
+                                  return Flexible(
+                                    child: SizedBox(
+                                      width: dayWidth,
+                                      child: SDisabled(
+                                        isDisabled:
+                                            day.isAfter(today) ||
+                                            _isDayDisabled(day),
+                                        child: SInkButton(
+                                          color: Colors.blueAccent,
+                                          onTap: (pos) {
+                                            _handleDaySelection(day);
+                                          },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            spacing: 0,
+                                            children: [
+                                              if (widget.calendarType !=
+                                                  WeekCalendarType.minimal)
+                                                Text(
+                                                  DateFormat('E')
+                                                      .format(day)
+                                                      .substring(0, 2),
+                                                  style: widget
+                                                      .calendarStyle
+                                                      .dayNameStyle
+                                                      .copyWith(
+                                                        fontWeight: isSelected
+                                                            ? FontWeight.bold
+                                                            : null,
+                                                        color: isSelected
+                                                            ? widget
+                                                                  .calendarStyle
+                                                                  .activeDayColor
+                                                                  .darken(0.2)
+                                                            : null,
+                                                      ),
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              Flexible(
+                                                child: _buildDayIndicator(
+                                                  day,
+                                                  isSelected,
+                                                ),
                                               ),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          Flexible(
-                                              child: _buildDayIndicator(
-                                                  day, isSelected)),
-                                          if (_hasEvent(day))
-                                            Container(
-                                              width: 5,
-                                              height: 5,
-                                              margin:
-                                                  const EdgeInsets.only(top: 2),
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: widget
-                                                        .eventIndicatorColor ??
-                                                    Theme.of(context)
-                                                        .primaryColor,
-                                              ),
-                                            ),
-                                        ],
+                                              if (_hasEvent(day))
+                                                Container(
+                                                  width: 5,
+                                                  height: 5,
+                                                  margin: const EdgeInsets.only(
+                                                    top: 2,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color:
+                                                        widget
+                                                            .eventIndicatorColor ??
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            }).toList(),
+                                  );
+                                }).toList(),
                           ),
                         );
                       },
@@ -1067,14 +1130,17 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       // At end of month, jump to next month
                       _headerDate = widget.isUtc
                           ? DateTime.utc(
-                              _headerDate.year, _headerDate.month + 1)
+                              _headerDate.year,
+                              _headerDate.month + 1,
+                            )
                           : DateTime(_headerDate.year, _headerDate.month + 1);
                       _weeks = _generateWeeks(_headerDate);
                       final newPage = 0; // First week of next month
                       if (widget.enableAnimations) {
                         _pageController.animateToPage(
                           newPage,
-                          duration: widget.animationDuration ??
+                          duration:
+                              widget.animationDuration ??
                               const Duration(milliseconds: 300),
                           curve: widget.animationCurve ?? Curves.easeInOut,
                         );
@@ -1083,12 +1149,15 @@ class _WeekCalendarState extends State<WeekCalendar> {
                       }
                       widget.onNextMonth?.call();
                     } else {
-                      final nextPage =
-                          (currentPage + 1).clamp(0, _weeks.length - 1);
+                      final nextPage = (currentPage + 1).clamp(
+                        0,
+                        _weeks.length - 1,
+                      );
                       if (widget.enableAnimations) {
                         _pageController.animateToPage(
                           nextPage,
-                          duration: widget.animationDuration ??
+                          duration:
+                              widget.animationDuration ??
                               const Duration(milliseconds: 300),
                           curve: widget.animationCurve ?? Curves.easeInOut,
                         );

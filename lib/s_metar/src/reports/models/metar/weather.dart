@@ -77,8 +77,9 @@ class MetarWeather extends Group {
             .map((m) => m.group(0)!)
             .toList();
         _precipitationCodes.addAll(codes);
-        _precipitation =
-            codes.map((c) => weatherPrecipitationMap[c] ?? c).join(' and ');
+        _precipitation = codes
+            .map((c) => weatherPrecipitationMap[c] ?? c)
+            .join(' and ');
       }
     }
   }

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io' if (dart.library.html) 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
+
+import 'io/write_bytes_stub.dart' if (dart.library.io) 'io/write_bytes_io.dart';
 
 import 'enums/client_type.dart';
 import 'client_config.dart';
@@ -192,8 +192,8 @@ class SClient {
     final body = response.data is String
         ? response.data as String
         : response.data != null
-            ? jsonEncode(response.data)
-            : '';
+        ? jsonEncode(response.data)
+        : '';
 
     return ClientResponse(
       statusCode: response.statusCode ?? 0,
@@ -619,8 +619,9 @@ class SClient {
             );
             return;
           }
-          final items =
-              list.map((e) => fromJson(e as Map<String, dynamic>)).toList();
+          final items = list
+              .map((e) => fromJson(e as Map<String, dynamic>))
+              .toList();
           onSuccess(items, response);
         } catch (e) {
           onError(
@@ -925,9 +926,8 @@ class SClient {
             autoRedirectStatusCodes.contains(response.statusCode ?? -1)) {
           final redirectUrl = response.headers.value('location');
           if (redirectUrl != null && redirectUrl.isNotEmpty) {
-            final resolvedRedirectUri = Uri.parse(
-              request.url,
-            ).resolve(redirectUrl);
+            final resolvedRedirectUri = Uri.parse(request.url)
+                .resolve(redirectUrl);
             final redirectResponse = await _dio.getUri(
               resolvedRedirectUri,
               options: dio.Options(
@@ -936,8 +936,9 @@ class SClient {
                 receiveTimeout: timeout ?? config.receiveTimeout,
                 sendTimeout: config.sendTimeout,
                 followRedirects: config.followRedirects,
-                maxRedirects:
-                    config.followRedirects ? config.maxRedirects : null,
+                maxRedirects: config.followRedirects
+                    ? config.maxRedirects
+                    : null,
                 validateStatus: validateStatus ?? (status) => true,
               ),
               cancelToken: cancelToken,
@@ -974,9 +975,8 @@ class SClient {
             autoRedirectStatusCodes.contains(response.statusCode)) {
           final redirectUrl = response.headers['location'];
           if (redirectUrl != null && redirectUrl.isNotEmpty) {
-            final resolvedRedirectUri = Uri.parse(
-              request.url,
-            ).resolve(redirectUrl);
+            final resolvedRedirectUri = Uri.parse(request.url)
+                .resolve(redirectUrl);
             final redirectResponse = await _withTimeout(
               _http.get(resolvedRedirectUri, headers: request.headers),
               timeout ?? config.receiveTimeout,
@@ -1130,9 +1130,8 @@ class SClient {
             autoRedirectStatusCodes.contains(response.statusCode ?? -1)) {
           final redirectUrl = response.headers.value('location');
           if (redirectUrl != null && redirectUrl.isNotEmpty) {
-            final resolvedRedirectUri = Uri.parse(
-              request.url,
-            ).resolve(redirectUrl);
+            final resolvedRedirectUri = Uri.parse(request.url)
+                .resolve(redirectUrl);
             final redirectResponse = await _dio.getUri(
               resolvedRedirectUri,
               options: dio.Options(
@@ -1141,8 +1140,9 @@ class SClient {
                 receiveTimeout: timeout ?? config.receiveTimeout,
                 sendTimeout: config.sendTimeout,
                 followRedirects: config.followRedirects,
-                maxRedirects:
-                    config.followRedirects ? config.maxRedirects : null,
+                maxRedirects: config.followRedirects
+                    ? config.maxRedirects
+                    : null,
                 validateStatus: validateStatus ?? (status) => true,
               ),
               cancelToken: cancelToken,
@@ -1179,9 +1179,8 @@ class SClient {
             autoRedirectStatusCodes.contains(response.statusCode)) {
           final redirectUrl = response.headers['location'];
           if (redirectUrl != null && redirectUrl.isNotEmpty) {
-            final resolvedRedirectUri = Uri.parse(
-              request.url,
-            ).resolve(redirectUrl);
+            final resolvedRedirectUri = Uri.parse(request.url)
+                .resolve(redirectUrl);
             final redirectResponse = await _withTimeout(
               _http.get(resolvedRedirectUri, headers: request.headers),
               timeout ?? config.receiveTimeout,
@@ -1528,8 +1527,9 @@ class SClient {
     final request = ClientRequest(
       url: fullUrl,
       method: 'DELETE',
-      headers:
-          body == null ? _withoutContentType(mergedHeaders) : mergedHeaders,
+      headers: body == null
+          ? _withoutContentType(mergedHeaders)
+          : mergedHeaders,
       body: body,
     );
 
@@ -2046,9 +2046,9 @@ class SClient {
 
         if (response.statusCode >= 200 && response.statusCode < 300) {
           // Write to file (note: fileAccessMode not supported with http package)
-          final file = await _writeToFile(savePath, response.bodyBytes);
-          final result = (file.path, null);
-          onSuccess?.call(file.path);
+          final path = await writeBytesToFile(savePath, response.bodyBytes);
+          final result = (path, null);
+          onSuccess?.call(path);
           return result;
         } else {
           final result = (
@@ -2070,19 +2070,6 @@ class SClient {
       onError?.call(result.$2);
       return result;
     }
-  }
-
-  /// Helper method to write bytes to a file.
-  Future<File> _writeToFile(String path, List<int> bytes) async {
-    // Using dart:io File - only available on non-web platforms
-    if (kIsWeb) {
-      throw UnsupportedError(
-        'downloadToFile with http backend is not supported on web. Use ClientType.dio instead.',
-      );
-    }
-    final file = File(path);
-    await file.writeAsBytes(bytes);
-    return file;
   }
 
   /// Uploads a file using multipart/form-data.

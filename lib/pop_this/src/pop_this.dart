@@ -35,33 +35,33 @@ class PopThis {
   /// [popUpAnimationDuration] : the duration (in double type) for the animation popup to last --> default value is 0.5 sec
 
   static Future<void> pop({
-    required final Widget child,
-    final Duration duration = Duration.zero,
-    final double popUpAnimationDuration = 0.4,
-    final BuildContext? context,
-    final Color? popBackgroundColor,
-    final Color? dismissBarrierColor,
-    final Color? backButtonBackgroundColor,
-    final Color? backButtonIconColor,
-    final Color? backgroundOverlaySplashColor,
-    final Color? shadowColor,
-    final bool showTimer = false,
-    final bool hasShadow = true,
-    final bool shouldBackgroundOverlayHaveBorderRadius = true,
-    final bool shouldDismissWhenTappingBackgroundOverlay = true,
-    final bool shouldBeMarginned = true,
-    final bool shouldAnimatePopup = true,
-    final bool shouldSaveThisPop = true,
-    final bool shouldBlurBackgroundOverlayLayer = true,
-    final bool isSecondaryTemporarySinglePop = false,
-    final Gradient? backgroundOverlayGradient,
-    final Offset? popPositionOffset,
-    final Offset? overlayBackgroundLayerOffset,
-    final BoxShadow? popShadow,
-    final VoidCallback? onDismiss,
-    final EdgeInsetsGeometry? popupBorderPadding,
-    final BorderRadiusGeometry? overlayBackgroundBorderRadius,
-    final Curve newWidgetResizeAnimationCurve = Curves.easeInOutBack,
+    required Widget child,
+    Duration duration = Duration.zero,
+    double popUpAnimationDuration = 0.4,
+    BuildContext? context,
+    Color? popBackgroundColor,
+    Color? dismissBarrierColor,
+    Color? backButtonBackgroundColor,
+    Color? backButtonIconColor,
+    Color? backgroundOverlaySplashColor,
+    Color? shadowColor,
+    bool showTimer = false,
+    bool hasShadow = true,
+    bool shouldBackgroundOverlayHaveBorderRadius = true,
+    bool shouldDismissWhenTappingBackgroundOverlay = true,
+    bool shouldBeMarginned = true,
+    bool shouldAnimatePopup = true,
+    bool shouldSaveThisPop = true,
+    bool shouldBlurBackgroundOverlayLayer = true,
+    bool isSecondaryTemporarySinglePop = false,
+    Gradient? backgroundOverlayGradient,
+    Offset? popPositionOffset,
+    Offset? overlayBackgroundLayerOffset,
+    BoxShadow? popShadow,
+    VoidCallback? onDismiss,
+    EdgeInsetsGeometry? popupBorderPadding,
+    BorderRadiusGeometry? overlayBackgroundBorderRadius,
+    Curve newWidgetResizeAnimationCurve = Curves.easeInOutBack,
   }) async {
     // Ensure the overlay system is installed before showing the popup
     _PopThisBootstrapper.ensureInstalled(context: context);
@@ -158,19 +158,14 @@ class PopThis {
             _onDismissTimerController.state = _OnDismissController()
               ..onDismissCallbacks.add(onDismiss)
               ..onDismissTimer = duration != Duration.zero
-                  ? PausableTimer(
-                      duration,
-                      () {
-                        duration == Duration.zero
-                            ? null
-                            : PopThis.animatedDismissPopThis(
-                                shouldPopBackToPreviousWidget: false);
-                      },
-                    )
-                  : PausableTimer(
-                      Duration.zero,
-                      () {},
-                    );
+                  ? PausableTimer(duration, () {
+                      duration == Duration.zero
+                          ? null
+                          : PopThis.animatedDismissPopThis(
+                              shouldPopBackToPreviousWidget: false,
+                            );
+                    })
+                  : PausableTimer(Duration.zero, () {});
 
             //start the TimerController
             _onDismissTimerController.state!.onDismissTimer.start();
@@ -212,215 +207,218 @@ class PopThis {
 
             _popThisController.state = _showCustomOverlay(
               (context, opacity) => OnBuilder(
-                  listenTo: _poppedWidgets,
-                  builder: () {
-                    // Get all parameters from current pop widget's state or fallback to original ones
-                    var lastWidget = _poppedWidgets.state.isNotEmpty
-                        ? _poppedWidgets.state.last
-                        : null;
+                listenTo: _poppedWidgets,
+                builder: () {
+                  // Get all parameters from current pop widget's state or fallback to original ones
+                  var lastWidget = _poppedWidgets.state.isNotEmpty
+                      ? _poppedWidgets.state.last
+                      : null;
 
-                    // Colors
-                    Color? currentBackgroundOverlayColor =
-                        lastWidget?.backgroundOverlayColor ??
-                            dismissBarrierColor;
-                    Color? currentBackgroundOverlaySplashColor =
-                        lastWidget?.backgroundOverlaySplashColor ??
-                            backgroundOverlaySplashColor;
-                    Color? currentPopBackgroundColor =
-                        lastWidget?.popBackgroundColor ?? popBackgroundColor;
-                    Color? currentBackButtonBackgroundColor =
-                        lastWidget?.backButtonBackgroundColor ??
-                            backButtonBackgroundColor;
-                    Color? currentBackButtonIconColor =
-                        lastWidget?.backButtonIconColor ?? backButtonIconColor;
-                    Color? currentShadowColor =
-                        lastWidget?.shadowColor ?? shadowColor;
+                  // Colors
+                  Color? currentBackgroundOverlayColor =
+                      lastWidget?.backgroundOverlayColor ?? dismissBarrierColor;
+                  Color? currentBackgroundOverlaySplashColor =
+                      lastWidget?.backgroundOverlaySplashColor ??
+                      backgroundOverlaySplashColor;
+                  Color? currentPopBackgroundColor =
+                      lastWidget?.popBackgroundColor ?? popBackgroundColor;
+                  Color? currentBackButtonBackgroundColor =
+                      lastWidget?.backButtonBackgroundColor ??
+                      backButtonBackgroundColor;
+                  Color? currentBackButtonIconColor =
+                      lastWidget?.backButtonIconColor ?? backButtonIconColor;
+                  Color? currentShadowColor =
+                      lastWidget?.shadowColor ?? shadowColor;
 
-                    // Boolean flags
-                    bool currentShowTimer = lastWidget?.showTimer ?? showTimer;
-                    bool currentHasShadow = lastWidget?.hasShadow ?? hasShadow;
-                    bool currentShouldBackgroundOverlayHaveBorderRadius =
-                        lastWidget?.shouldBackgroundOverlayHaveBorderRadius ??
-                            shouldBackgroundOverlayHaveBorderRadius;
-                    bool currentShouldDismissWhenTappingBackgroundOverlay =
-                        lastWidget?.shouldDismissWhenTappingBackgroundOverlay ??
-                            shouldDismissWhenTappingBackgroundOverlay;
-                    bool currentShouldBeMarginned =
-                        lastWidget?.shouldBeMarginned ?? shouldBeMarginned;
-                    bool currentShouldAnimatePopup =
-                        lastWidget?.shouldAnimatePopup ?? shouldAnimatePopup;
+                  // Boolean flags
+                  bool currentShowTimer = lastWidget?.showTimer ?? showTimer;
+                  bool currentHasShadow = lastWidget?.hasShadow ?? hasShadow;
+                  bool currentShouldBackgroundOverlayHaveBorderRadius =
+                      lastWidget?.shouldBackgroundOverlayHaveBorderRadius ??
+                      shouldBackgroundOverlayHaveBorderRadius;
+                  bool currentShouldDismissWhenTappingBackgroundOverlay =
+                      lastWidget?.shouldDismissWhenTappingBackgroundOverlay ??
+                      shouldDismissWhenTappingBackgroundOverlay;
+                  bool currentShouldBeMarginned =
+                      lastWidget?.shouldBeMarginned ?? shouldBeMarginned;
+                  bool currentShouldAnimatePopup =
+                      lastWidget?.shouldAnimatePopup ?? shouldAnimatePopup;
 
-                    // Numeric values
-                    double currentPopUpAnimationDuration =
-                        lastWidget?.popUpAnimationDuration ??
-                            popUpAnimationDuration;
+                  // Numeric values
+                  double currentPopUpAnimationDuration =
+                      lastWidget?.popUpAnimationDuration ??
+                      popUpAnimationDuration;
 
-                    // Complex objects
+                  // Complex objects
 
-                    BoxShadow? currentPopShadow =
-                        lastWidget?.popShadow ?? popShadow;
-                    EdgeInsetsGeometry? currentPopupBorderPadding =
-                        lastWidget?.popupBorderPadding ?? popupBorderPadding;
-                    BorderRadiusGeometry? currentOverlayBackgroundBorderRadius =
-                        lastWidget?.overlayBackgroundBorderRadius ??
-                            overlayBackgroundBorderRadius;
-                    Curve currentAnimationCurve = lastWidget?.animationCurve ??
-                        newWidgetResizeAnimationCurve;
+                  BoxShadow? currentPopShadow =
+                      lastWidget?.popShadow ?? popShadow;
+                  EdgeInsetsGeometry? currentPopupBorderPadding =
+                      lastWidget?.popupBorderPadding ?? popupBorderPadding;
+                  BorderRadiusGeometry? currentOverlayBackgroundBorderRadius =
+                      lastWidget?.overlayBackgroundBorderRadius ??
+                      overlayBackgroundBorderRadius;
+                  Curve currentAnimationCurve =
+                      lastWidget?.animationCurve ??
+                      newWidgetResizeAnimationCurve;
 
-                    return ClipRRect(
-                      borderRadius:
-                          currentShouldBackgroundOverlayHaveBorderRadius
-                              ? currentOverlayBackgroundBorderRadius ??
-                                  BorderRadius.circular(0)
-                              : BorderRadius.zero,
-                      child: Scaffold(
-                        resizeToAvoidBottomInset: false,
-                        backgroundColor: Colors.transparent,
-                        body: SizedBox(
-                          height: 100.h,
-                          width: 100.w,
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                //Background Empty space widget
-                                Positioned(
-                                  left: overlayBackgroundLayerOffset?.dx,
-                                  top: overlayBackgroundLayerOffset?.dy,
-                                  child: //creates a underneath overlay layer
-
-                                      //this animatedSwitcher controls
-                                      //the background overlay fade animation at the end of the pop
-                                      AnimatedSwitcher(
-                                    //  key: const ValueKey('main_switcher'),
-                                    duration: 0.3.sec,
-                                    switchInCurve: Curves.easeIn,
-                                    switchOutCurve: Curves.easeInOut,
-                                    child: PopThis.isPopThisActive() == false
-                                        ? const SizedBox(
-                                            //   key: ValueKey('empty_box_main'),
+                  return ClipRRect(
+                    borderRadius: currentShouldBackgroundOverlayHaveBorderRadius
+                        ? currentOverlayBackgroundBorderRadius ??
+                              BorderRadius.circular(0)
+                        : BorderRadius.zero,
+                    child: Scaffold(
+                      resizeToAvoidBottomInset: false,
+                      backgroundColor: Colors.transparent,
+                      body: SizedBox(
+                        height: 100.h,
+                        width: 100.w,
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              //Background Empty space widget
+                              Positioned(
+                                left: overlayBackgroundLayerOffset?.dx,
+                                top: overlayBackgroundLayerOffset?.dy,
+                                child: //creates a underneath overlay layer
+                                    //this animatedSwitcher controls
+                                    //the background overlay fade animation at the end of the pop
+                                    AnimatedSwitcher(
+                                      //  key: const ValueKey('main_switcher'),
+                                      duration: 0.3.sec,
+                                      switchInCurve: Curves.easeIn,
+                                      switchOutCurve: Curves.easeInOut,
+                                      child: PopThis.isPopThisActive() == false
+                                          ? const SizedBox(
+                                              //   key: ValueKey('empty_box_main'),
                                             )
-                                        : STweenAnimationBuilder<double>(
-                                            tween: Tween<double>(
-                                              begin: (lastWidget
-                                                          ?.shouldBlurBackgroundOverlayLayer ??
-                                                      shouldBlurBackgroundOverlayLayer)
-                                                  ? 0.0
-                                                  : 10.0,
-                                              end: (lastWidget
-                                                          ?.shouldBlurBackgroundOverlayLayer ??
-                                                      shouldBlurBackgroundOverlayLayer)
-                                                  ? 10.0
-                                                  : 0.0,
-                                            ),
-                                            duration: 0.3.sec,
-                                            curve: Curves.easeOut,
-                                            builder:
-                                                (context, blurValue, child) =>
-                                                    ClipRect(
-                                              child: BackdropFilter(
-                                                filter: ImageFilter.blur(
-                                                  sigmaX: blurValue,
-                                                  sigmaY: blurValue,
+                                          : STweenAnimationBuilder<double>(
+                                              tween: Tween<double>(
+                                                begin:
+                                                    (lastWidget
+                                                            ?.shouldBlurBackgroundOverlayLayer ??
+                                                        shouldBlurBackgroundOverlayLayer)
+                                                    ? 0.0
+                                                    : 10.0,
+                                                end:
+                                                    (lastWidget
+                                                            ?.shouldBlurBackgroundOverlayLayer ??
+                                                        shouldBlurBackgroundOverlayLayer)
+                                                    ? 10.0
+                                                    : 0.0,
+                                              ),
+                                              duration: 0.3.sec,
+                                              curve: Curves.easeOut,
+                                              builder:
+                                                  (
+                                                    context,
+                                                    blurValue,
+                                                    child,
+                                                  ) => ClipRect(
+                                                    child: BackdropFilter(
+                                                      filter: ImageFilter.blur(
+                                                        sigmaX: blurValue,
+                                                        sigmaY: blurValue,
+                                                      ),
+                                                      child: child,
+                                                    ),
+                                                  ),
+                                              child: SButton(
+                                                //  key: const ValueKey('button_main'),
+                                                onTap: (position) {
+                                                  // Use the temporary variable we created
+                                                  bool shouldDismiss =
+                                                      currentShouldDismissWhenTappingBackgroundOverlay;
+
+                                                  shouldDismiss == false
+                                                      ? null
+                                                      : PopThis.animatedDismissPopThis(
+                                                          shouldPopBackToPreviousWidget:
+                                                              false,
+                                                        );
+                                                },
+                                                splashColor:
+                                                    currentBackgroundOverlaySplashColor ??
+                                                    Colors.transparent,
+                                                shouldBounce: false,
+                                                child: Box(
+                                                  height: 100.h,
+                                                  width: 100.w,
+                                                  color:
+                                                      currentBackgroundOverlayColor ??
+                                                      Colors.black.withValues(
+                                                        alpha: 0.3,
+                                                      ),
                                                 ),
-                                                child: child,
                                               ),
                                             ),
-                                            child: SButton(
-                                              //  key: const ValueKey('button_main'),
-                                              onTap: (position) {
-                                                // Use the temporary variable we created
-                                                bool shouldDismiss =
-                                                    currentShouldDismissWhenTappingBackgroundOverlay;
+                                    ),
+                              ),
 
-                                                shouldDismiss == false
-                                                    ? null
-                                                    : PopThis
-                                                        .animatedDismissPopThis(
-                                                        shouldPopBackToPreviousWidget:
-                                                            false,
-                                                      );
-                                              },
-                                              splashColor:
-                                                  currentBackgroundOverlaySplashColor ??
-                                                      Colors.transparent,
-                                              shouldBounce: false,
-                                              child: Box(
-                                                height: 100.h,
-                                                width: 100.w,
-                                                color:
-                                                    currentBackgroundOverlayColor ??
-                                                        Colors.black.withValues(
-                                                            alpha: 0.3),
-                                              ),
-                                            ),
-                                          ),
-                                  ),
-                                ),
-
-                                // the toast content widget
-                                _popThisController.state == null
-                                    ? const SizedBox().animate(
-                                        effects: [
-                                          FadeEffect(
-                                            duration:
-                                                currentPopUpAnimationDuration
-                                                    .sec,
-                                            curve: currentAnimationCurve,
-                                          ),
-                                        ],
-                                      )
-                                    : Positioned(
-                                        left: _popPositionOffset.state?.dx,
-                                        top: _popPositionOffset.state?.dy,
-                                        child: _AnimatedPopContent(
-                                          animationDuration:
-                                              currentPopUpAnimationDuration,
-                                          animationCurve: currentAnimationCurve,
-                                          shouldAnimatePopup:
-                                              currentShouldAnimatePopup,
-                                          child: _PopThisUp(
-                                            isSecondaryPop: false,
-                                            backgroundColor:
-                                                currentPopBackgroundColor,
-                                            duration: duration,
-                                            showTimer: currentShowTimer,
-                                            // if an offset position is not given, then remove the margin,
-                                            // so the popup can be in the center
-                                            shouldBeMarginned:
-                                                popPositionOffset == null
-                                                    ? false
-                                                    : currentShouldBeMarginned,
-                                            isCentered:
-                                                popPositionOffset == null
-                                                    ? true
-                                                    : false,
-                                            hasShadow: currentHasShadow,
-                                            boxShadow: currentPopShadow,
-                                            shadowColor: currentShadowColor,
-                                            backButtonBackgroundColor:
-                                                currentBackButtonBackgroundColor,
-                                            backButtonIconColor:
-                                                currentBackButtonIconColor,
-                                            popupBorderPadding:
-                                                currentPopupBorderPadding,
-                                            child:
-                                                _poppedWidgets.state.isNotEmpty
-                                                    ? _poppedWidgets.state.last
-                                                            ?.savedPop ??
-                                                        child
-                                                    : child,
-                                          ),
+                              // the toast content widget
+                              _popThisController.state == null
+                                  ? const SizedBox().animate(
+                                      effects: [
+                                        FadeEffect(
+                                          duration:
+                                              currentPopUpAnimationDuration.sec,
+                                          curve: currentAnimationCurve,
+                                        ),
+                                      ],
+                                    )
+                                  : Positioned(
+                                      left: _popPositionOffset.state?.dx,
+                                      top: _popPositionOffset.state?.dy,
+                                      child: _AnimatedPopContent(
+                                        animationDuration:
+                                            currentPopUpAnimationDuration,
+                                        animationCurve: currentAnimationCurve,
+                                        shouldAnimatePopup:
+                                            currentShouldAnimatePopup,
+                                        child: _PopThisUp(
+                                          isSecondaryPop: false,
+                                          backgroundColor:
+                                              currentPopBackgroundColor,
+                                          duration: duration,
+                                          showTimer: currentShowTimer,
+                                          // if an offset position is not given, then remove the margin,
+                                          // so the popup can be in the center
+                                          shouldBeMarginned:
+                                              popPositionOffset == null
+                                              ? false
+                                              : currentShouldBeMarginned,
+                                          isCentered: popPositionOffset == null
+                                              ? true
+                                              : false,
+                                          hasShadow: currentHasShadow,
+                                          boxShadow: currentPopShadow,
+                                          shadowColor: currentShadowColor,
+                                          backButtonBackgroundColor:
+                                              currentBackButtonBackgroundColor,
+                                          backButtonIconColor:
+                                              currentBackButtonIconColor,
+                                          popupBorderPadding:
+                                              currentPopupBorderPadding,
+                                          child: _poppedWidgets.state.isNotEmpty
+                                              ? _poppedWidgets
+                                                        .state
+                                                        .last
+                                                        ?.savedPop ??
+                                                    child
+                                              : child,
                                         ),
                                       ),
-                              ],
-                            ),
+                                    ),
+                            ],
                           ),
                         ),
                       ),
-                    );
-                  }),
+                    ),
+                  );
+                },
+              ),
               duration: duration,
               context: context,
             );
@@ -453,54 +451,57 @@ class PopThis {
                         left: overlayBackgroundLayerOffset?.dx,
                         top: overlayBackgroundLayerOffset?.dy,
                         child: //creates a underneath overlay layer
-
                             //this animatedSwitcher controls
                             //the background overlay fade animation at the end of the pop
                             AnimatedSwitcher(
-                          // key: const ValueKey('secondary_switcher'),
-                          duration: 0.3.sec,
-                          switchInCurve: Curves.easeIn,
-                          switchOutCurve: Curves.easeInOut,
-                          child: STweenAnimationBuilder<double>(
-                            tween: Tween<double>(
-                              begin:
-                                  shouldBlurBackgroundOverlayLayer ? 0.0 : 10.0,
-                              end:
-                                  shouldBlurBackgroundOverlayLayer ? 10.0 : 0.0,
-                            ),
-                            duration: 0.3.sec,
-                            curve: Curves.easeOut,
-                            builder: (context, blurValue, child) => ClipRect(
-                              child: BackdropFilter(
-                                filter: ImageFilter.blur(
-                                  sigmaX: blurValue,
-                                  sigmaY: blurValue,
+                              // key: const ValueKey('secondary_switcher'),
+                              duration: 0.3.sec,
+                              switchInCurve: Curves.easeIn,
+                              switchOutCurve: Curves.easeInOut,
+                              child: STweenAnimationBuilder<double>(
+                                tween: Tween<double>(
+                                  begin: shouldBlurBackgroundOverlayLayer
+                                      ? 0.0
+                                      : 10.0,
+                                  end: shouldBlurBackgroundOverlayLayer
+                                      ? 10.0
+                                      : 0.0,
                                 ),
-                                child: child,
-                              ),
-                            ),
-                            child: SButton(
-                              // key: const ValueKey('button_secondary'),
-                              onTap: (position) =>
-                                  shouldDismissWhenTappingBackgroundOverlay ==
+                                duration: 0.3.sec,
+                                curve: Curves.easeOut,
+                                builder: (context, blurValue, child) =>
+                                    ClipRect(
+                                      child: BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                          sigmaX: blurValue,
+                                          sigmaY: blurValue,
+                                        ),
+                                        child: child,
+                                      ),
+                                    ),
+                                child: SButton(
+                                  // key: const ValueKey('button_secondary'),
+                                  onTap: (position) =>
+                                      shouldDismissWhenTappingBackgroundOverlay ==
                                           false
                                       ? null
-                                      : PopThis
-                                          .animatedDismissSecondaryTempPopThis(
-                                              onDismissExtraCallback:
-                                                  onDismiss),
-                              splashColor: backgroundOverlaySplashColor ??
-                                  Colors.transparent,
-                              shouldBounce: false,
-                              child: Box(
-                                height: 100.h,
-                                width: 100.w,
-                                color: dismissBarrierColor ??
-                                    Colors.black.withValues(alpha: 0.3),
+                                      : PopThis.animatedDismissSecondaryTempPopThis(
+                                          onDismissExtraCallback: onDismiss,
+                                        ),
+                                  splashColor:
+                                      backgroundOverlaySplashColor ??
+                                      Colors.transparent,
+                                  shouldBounce: false,
+                                  child: Box(
+                                    height: 100.h,
+                                    width: 100.w,
+                                    color:
+                                        dismissBarrierColor ??
+                                        Colors.black.withValues(alpha: 0.3),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
                       ),
 
                       // the toast content widget
@@ -521,8 +522,9 @@ class PopThis {
                             shouldBeMarginned: popPositionOffset == null
                                 ? false
                                 : shouldBeMarginned,
-                            isCentered:
-                                popPositionOffset == null ? true : false,
+                            isCentered: popPositionOffset == null
+                                ? true
+                                : false,
                             hasShadow: hasShadow,
                             boxShadow: popShadow,
                             shadowColor: shadowColor,
@@ -635,8 +637,9 @@ class PopThis {
     if (!isPopThisActive()) return;
 
     // Get the current pop widget
-    var lastWidget =
-        _poppedWidgets.state.isNotEmpty ? _poppedWidgets.state.last : null;
+    var lastWidget = _poppedWidgets.state.isNotEmpty
+        ? _poppedWidgets.state.last
+        : null;
     double dismissAnimationDuration = lastWidget?.popUpAnimationDuration ?? 0.4;
 
     // Dismiss is 60% of the original duration for a snappier feel
@@ -647,7 +650,8 @@ class PopThis {
 
     // Wait for animation to complete
     await Future.delayed(
-        Duration(milliseconds: (actualDismissDuration * 1000).toInt()));
+      Duration(milliseconds: (actualDismissDuration * 1000).toInt()),
+    );
 
     // Then dismiss
     dismissPopThis(
@@ -673,8 +677,9 @@ class PopThis {
     if (!isSecondaryPopThisActive()) return;
 
     // Get the current pop widget
-    var lastWidget =
-        _poppedWidgets.state.isNotEmpty ? _poppedWidgets.state.last : null;
+    var lastWidget = _poppedWidgets.state.isNotEmpty
+        ? _poppedWidgets.state.last
+        : null;
     double dismissAnimationDuration = lastWidget?.popUpAnimationDuration ?? 0.4;
 
     // Dismiss is 60% of the original duration for a snappier feel
@@ -685,12 +690,11 @@ class PopThis {
 
     // Wait for animation to complete
     await Future.delayed(
-        Duration(milliseconds: (actualDismissDuration * 1000).toInt()));
+      Duration(milliseconds: (actualDismissDuration * 1000).toInt()),
+    );
 
     // Then dismiss
-    dismissSecondaryTempPopThis(
-      onDismissExtraCallback: onDismissExtraCallback,
-    );
+    dismissSecondaryTempPopThis(onDismissExtraCallback: onDismissExtraCallback);
   }
 
   //----------------------------------------------//
@@ -720,8 +724,8 @@ class PopThis {
   }
   //----------------------------------------------//
 
-//function to display a faint red overlay for less a 5th of a second,
-//to show a wrong action by the user
+  //function to display a faint red overlay for less a 5th of a second,
+  //to show a wrong action by the user
   static void showErrorOverlay({
     Duration? duration,
     String? errorMessage,
@@ -732,29 +736,25 @@ class PopThis {
     if (WidgetsBinding.instance.isRootWidgetAttached) {
       if (errorMessage == null) {
         _errorOverlayController.refresh();
-        _errorOverlayController.state = _showCustomOverlay(
-          (context, opacity) {
-            return SButton(
-              borderRadius: BorderRadius.circular(30),
-              shouldBounce: false,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.red.shade900
-                      .withValues(alpha: overlayOpacity ?? 0.3),
-                  borderRadius: BorderRadius.circular(30),
+        _errorOverlayController.state = _showCustomOverlay((context, opacity) {
+          return SButton(
+            borderRadius: BorderRadius.circular(30),
+            shouldBounce: false,
+            child:
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade900.withValues(
+                      alpha: overlayOpacity ?? 0.3,
+                    ),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ).animate(
+                  effects: [
+                    FadeEffect(duration: 0.12.sec, curve: Curves.easeInOut),
+                  ],
                 ),
-              ).animate(
-                effects: [
-                  FadeEffect(
-                    duration: 0.12.sec,
-                    curve: Curves.easeInOut,
-                  )
-                ],
-              ),
-            );
-          },
-          duration: duration,
-        );
+          );
+        }, duration: duration);
 
         //execute onDismiss call
         Future.delayed(duration ?? 0.20.sec, () => dismissErrorOverlay());
@@ -772,8 +772,9 @@ class PopThis {
           onDismiss: onDismiss,
           duration: duration ?? 4.sec,
           popBackgroundColor: Colors.white.withValues(alpha: 0.9),
-          dismissBarrierColor:
-              Colors.red.shade900.withValues(alpha: overlayOpacity ?? 0.7),
+          dismissBarrierColor: Colors.red.shade900.withValues(
+            alpha: overlayOpacity ?? 0.7,
+          ),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -787,9 +788,7 @@ class PopThis {
                   child: Text(
                     errorMessage,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
@@ -816,8 +815,8 @@ class PopThis {
 
   //---------------------------------------------//
 
-//function to display a faint green overlay for less a 5th of a second,
-//to show a right action by the user
+  //function to display a faint green overlay for less a 5th of a second,
+  //to show a right action by the user
   static void showSuccessOverlay({
     Duration? duration,
     String? successMessage,
@@ -830,27 +829,25 @@ class PopThis {
     if (WidgetsBinding.instance.isRootWidgetAttached) {
       if (successMessage == null && successMessageWidget == null) {
         _successOverlayController.refresh();
-        _successOverlayController.state = _showCustomOverlay(
-          (context, opacity) {
-            return SButton(
-              borderRadius: BorderRadius.circular(30),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.green.shade900.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(30),
+        _successOverlayController.state = _showCustomOverlay((
+          context,
+          opacity,
+        ) {
+          return SButton(
+            borderRadius: BorderRadius.circular(30),
+            child:
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade900.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ).animate(
+                  effects: [
+                    FadeEffect(duration: 0.12.sec, curve: Curves.easeInOut),
+                  ],
                 ),
-              ).animate(
-                effects: [
-                  FadeEffect(
-                    duration: 0.12.sec,
-                    curve: Curves.easeInOut,
-                  )
-                ],
-              ),
-            );
-          },
-          duration: duration,
-        );
+          );
+        }, duration: duration);
 
         //execute onDismiss call
         Future.delayed(duration ?? 0.20.sec, () => dismissErrorOverlay());
@@ -873,8 +870,9 @@ class PopThis {
             spreadRadius: -10,
           ),
           popBackgroundColor: Colors.white.withValues(alpha: 0.9),
-          dismissBarrierColor:
-              Colors.green.shade900.darken(0.1).withValues(alpha: 0.8),
+          dismissBarrierColor: Colors.green.shade900
+              .darken(0.1)
+              .withValues(alpha: 0.8),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -885,13 +883,12 @@ class PopThis {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
-                  child: successMessageWidget ??
+                  child:
+                      successMessageWidget ??
                       Text(
                         successMessage ?? '',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                        ),
+                        style: const TextStyle(fontWeight: FontWeight.w400),
                       ),
                 ),
               ],
@@ -1097,19 +1094,14 @@ void _rePop(
   _onDismissTimerController.state ??= _OnDismissController()
     ..onDismissCallbacks.add(onDismiss)
     ..onDismissTimer = duration != Duration.zero
-        ? PausableTimer(
-            duration ?? Duration.zero,
-            () {
-              duration == Duration.zero
-                  ? null
-                  : PopThis.animatedDismissPopThis(
-                      shouldPopBackToPreviousWidget: false);
-            },
-          )
-        : PausableTimer(
-            Duration.zero,
-            () {},
-          );
+        ? PausableTimer(duration ?? Duration.zero, () {
+            duration == Duration.zero
+                ? null
+                : PopThis.animatedDismissPopThis(
+                    shouldPopBackToPreviousWidget: false,
+                  );
+          })
+        : PausableTimer(Duration.zero, () {});
 
   //start the TimerController
   _onDismissTimerController.state!.onDismissTimer.start();
@@ -1317,13 +1309,14 @@ class _AnimatedPopContentState extends State<_AnimatedPopContent>
     super.initState();
 
     _controller = AnimationController(
-      duration:
-          Duration(milliseconds: (widget.animationDuration * 1000).toInt()),
+      duration: Duration(
+        milliseconds: (widget.animationDuration * 1000).toInt(),
+      ),
       // Faster reverse animation for snappy dismiss
       reverseDuration: Duration(
-          milliseconds:
-              (widget.animationDuration * 1000 * _dismissSpeedMultiplier)
-                  .toInt()),
+        milliseconds:
+            (widget.animationDuration * 1000 * _dismissSpeedMultiplier).toInt(),
+      ),
       vsync: this,
     );
 
@@ -1336,8 +1329,8 @@ class _AnimatedPopContentState extends State<_AnimatedPopContent>
 
     final scaleDuration = widget.shouldAnimatePopup
         ? (widget.animationDuration - 0.2 < 0
-            ? 0.0
-            : widget.animationDuration - 0.2)
+              ? 0.0
+              : widget.animationDuration - 0.2)
         : 0.0;
 
     // Scale IN animation: 0 -> 1 with bounce
@@ -1353,13 +1346,10 @@ class _AnimatedPopContentState extends State<_AnimatedPopContent>
     );
 
     // Scale OUT animation: 1 -> 0.85 (subtle shrink)
-    _scaleOutAnimation =
-        Tween<double>(begin: _dismissMinScale, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOut,
-      ),
-    );
+    _scaleOutAnimation = Tween<double>(
+      begin: _dismissMinScale,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     // Listen to the dismiss animation notifier
     _shouldAnimateOutNotifier.addListener(_onShouldAnimateOutChanged);
@@ -1411,10 +1401,7 @@ class _AnimatedPopContentState extends State<_AnimatedPopContent>
 
         return Opacity(
           opacity: _fadeAnimation.value.clamp(0.0, 1.0),
-          child: Transform.scale(
-            scale: scale,
-            child: child,
-          ),
+          child: Transform.scale(scale: scale, child: child),
         );
       },
       child: widget.child,
@@ -1482,7 +1469,8 @@ class _PopThisUpState extends State<_PopThisUp> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) {
             FocusScope.of(context).requestFocus(
-                widget.isSecondaryPop == false ? escapeFN : escapeFN2);
+              widget.isSecondaryPop == false ? escapeFN : escapeFN2,
+            );
           }
         });
       }
@@ -1514,8 +1502,8 @@ class _PopThisUpState extends State<_PopThisUp> {
   @override
   Widget build(BuildContext context) {
     return
-        //SafeArea allows for the popIt to NOT take up the whole screen if a Widget with no height or width constraints has been given to it to be displayed
-        Focus(
+    //SafeArea allows for the popIt to NOT take up the whole screen if a Widget with no height or width constraints has been given to it to be displayed
+    Focus(
       focusNode: widget.isSecondaryPop == false ? escapeFN : escapeFN2,
       autofocus: true,
       onKeyEvent: (FocusNode node, KeyEvent event) {
@@ -1577,7 +1565,8 @@ class _PopThisUpState extends State<_PopThisUp> {
               //the Toast Content
               Flexible(
                 child: Container(
-                  padding: widget.popupBorderPadding ??
+                  padding:
+                      widget.popupBorderPadding ??
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   decoration: BoxDecoration(
                     color: widget.backgroundColor ?? Colors.white,
@@ -1586,7 +1575,8 @@ class _PopThisUpState extends State<_PopThisUp> {
                         ? [
                             widget.boxShadow ??
                                 BoxShadow(
-                                  color: widget.shadowColor ??
+                                  color:
+                                      widget.shadowColor ??
                                       Colors.black.withValues(alpha: 0.4),
                                   blurRadius: 8.0,
                                   spreadRadius: 2.0,

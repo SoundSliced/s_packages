@@ -138,7 +138,8 @@ class _SExpandableHandlesState extends State<SExpandableHandles> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
         _triggerAnimation(
-            reverse: widget.shoulAutodReverseHamburgerAnimationWhenComplete!);
+          reverse: widget.shoulAutodReverseHamburgerAnimationWhenComplete!,
+        );
       });
     }
 
@@ -185,8 +186,9 @@ class _SExpandableHandlesState extends State<SExpandableHandles> {
 
   IconData _getIconData() {
     // Use internal state if in standalone mode, otherwise use widget state
-    final isExpanded =
-        _isStandaloneMode ? _internalExpandedState : widget.isExpanded;
+    final isExpanded = _isStandaloneMode
+        ? _internalExpandedState
+        : widget.isExpanded;
 
     // Determine if horizontal or vertical
     if (widget.expandsRight != null) {
@@ -229,8 +231,9 @@ class _SExpandableHandlesState extends State<SExpandableHandles> {
       child: SInkButton(
         isCircleButton: true,
         color: Colors.amber.withValues(alpha: .2),
-        hoverAndSplashBorderRadius:
-            BorderRadius.all(Radius.circular(widget.width)),
+        hoverAndSplashBorderRadius: BorderRadius.all(
+          Radius.circular(widget.width),
+        ),
         onTap: (pos) => _handleTap(),
         tapRegionObjectId: widget.tapRegionObjectId,
         tapRegionEnabled: widget.tapRegionEnabled,

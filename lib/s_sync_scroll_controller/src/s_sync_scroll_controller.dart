@@ -111,11 +111,7 @@ class SyncScrollControllerGroup {
     for (final controller in attached) {
       if (controller.hasClients) {
         animations.add(
-          controller.animateTo(
-            targetOffset,
-            duration: duration,
-            curve: curve,
-          ),
+          controller.animateTo(targetOffset, duration: duration, curve: curve),
         );
       }
     }
@@ -169,12 +165,8 @@ class _SyncScrollControllerGroupOffsetNotifier extends ChangeNotifier {
 }
 
 class _SyncScrollController extends ScrollController {
-  _SyncScrollController(
-    this._controllers, {
-    required super.initialScrollOffset,
-  }) : super(
-          keepScrollOffset: false,
-        );
+  _SyncScrollController(this._controllers, {required super.initialScrollOffset})
+    : super(keepScrollOffset: false);
 
   final SyncScrollControllerGroup _controllers;
   bool _isDisposed = false;

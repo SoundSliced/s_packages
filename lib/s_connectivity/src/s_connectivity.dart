@@ -207,9 +207,7 @@ class SConnectivity {
   }
 
   //
-  static void _toggleConnectivitySnackbar(
-    bool status,
-  ) {
+  static void _toggleConnectivitySnackbar(bool status) {
     if (status == false) {
       Modal.showSnackbar(
         id: "_NoInternetConnectionSnack_",
@@ -314,8 +312,10 @@ class SConnectivityOverlay extends StatelessWidget {
   /// )
   /// ```
   static Widget appBuilder(BuildContext context, Widget? child) {
-    assert(child != null,
-        'SConnectivityOverlay.appBuilder requires a non-null child.');
+    assert(
+      child != null,
+      'SConnectivityOverlay.appBuilder requires a non-null child.',
+    );
     return Modal.appBuilder(context, child);
   }
 
@@ -435,7 +435,8 @@ class _NoInternetWidgetState extends State<NoInternetWidget> {
       height: widget.size,
       width: widget.size,
       decoration: BoxDecoration(
-        color: widget.backgroundColor ??
+        color:
+            widget.backgroundColor ??
             Colors.deepPurpleAccent.withValues(alpha: 0.7),
         shape: BoxShape.circle,
       ),

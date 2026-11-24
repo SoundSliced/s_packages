@@ -12,7 +12,7 @@ _LifecycleInvoker<T>? _toLifecycleInvoker<T>(Function? callback) {
     return (value, _) => callback(value);
   }
   if (callback is void Function()) {
-    return (_, __) => callback();
+    return (_, _) => callback();
   }
 
   if (callback is void Function(dynamic, dynamic)) {
@@ -87,32 +87,28 @@ void _storeSignalMetadata<T>(
   if (metadata.onValueUpdated != null) {
     metadata._previousValue = signal.peek();
 
-    final cleanup = s.effect(
-      () {
-        final currentValue = signal.value;
-        final previousValue = metadata._previousValue;
+    final cleanup = s.effect(() {
+      final currentValue = signal.value;
+      final previousValue = metadata._previousValue;
 
-        // Only fire callback if:
-        // 1. Value actually changed
-        // 2. No widgets are overriding this callback
-        if (currentValue != previousValue && metadata._overrideCount == 0) {
-          metadata.onValueUpdatedInvoker?.call(currentValue, previousValue);
-        }
+      // Only fire callback if:
+      // 1. Value actually changed
+      // 2. No widgets are overriding this callback
+      if (currentValue != previousValue && metadata._overrideCount == 0) {
+        metadata.onValueUpdatedInvoker?.call(currentValue, previousValue);
+      }
 
-        metadata._previousValue = currentValue;
-      },
-    );
+      metadata._previousValue = currentValue;
+    });
 
     metadata._effectCleanup = cleanup;
   }
 
   // Clean up metadata when signal is disposed
-  signal.onDispose(
-    () {
-      metadata._effectCleanup?.call();
-      _signalMetadata.remove(signal);
-    },
-  );
+  signal.onDispose(() {
+    metadata._effectCleanup?.call();
+    _signalMetadata.remove(signal);
+  });
 }
 
 /// Retrieve metadata for a signal (if any)

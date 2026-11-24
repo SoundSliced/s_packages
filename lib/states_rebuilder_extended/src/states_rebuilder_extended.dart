@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../states_rebuilder_extended.dart';
@@ -58,8 +59,10 @@ extension StateRebuilderExtension<T extends Object> on Injected<T?> {
     String? tag,
   }) {
     final bool rIsNullable = null is R;
-    assert(rIsNullable == true,
-        'Type mismatch: update<$R> called on Injected<$T?>. The type parameter must be nullable (T?).');
+    assert(
+      rIsNullable == true,
+      'Type mismatch: update<$R> called on Injected<$T?>. The type parameter must be nullable (T?).',
+    );
 
     final R stateAsR = state as R; // cast current state for mutator
     final result = mutator(stateAsR);
@@ -73,8 +76,9 @@ extension StateRebuilderExtension<T extends Object> on Injected<T?> {
       if (shouldNotify && WidgetsBinding.instance.isRootWidgetAttached) {
         _TagRegistry.set(this, tag);
         notify();
-        WidgetsBinding.instance
-            .addPostFrameCallback((_) => _TagRegistry.clear(this));
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _TagRegistry.clear(this),
+        );
       }
     }
   }
@@ -236,8 +240,10 @@ extension NonNullableStateRebuilderExtension<T extends Object> on Injected<T> {
     bool shouldNotify = true,
     String? tag,
   }) {
-    assert(R == T,
-        'Type mismatch: update<$R> called on Injected<$T>. The type parameter must match exactly (no subtype).');
+    assert(
+      R == T,
+      'Type mismatch: update<$R> called on Injected<$T>. The type parameter must match exactly (no subtype).',
+    );
     final R stateAsR = state as R;
     final result = mutator(stateAsR);
     if (result is T) {
@@ -248,8 +254,9 @@ extension NonNullableStateRebuilderExtension<T extends Object> on Injected<T> {
     if (shouldNotify && WidgetsBinding.instance.isRootWidgetAttached) {
       _TagRegistry.set(this, tag);
       notify();
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => _TagRegistry.clear(this));
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _TagRegistry.clear(this),
+      );
     }
   }
 }
@@ -262,8 +269,9 @@ extension BooleanStateRebuilderExtension on Injected<bool?> {
     if (shouldNotify && WidgetsBinding.instance.isRootWidgetAttached) {
       _TagRegistry.set(this, tag);
       notify();
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => _TagRegistry.clear(this));
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _TagRegistry.clear(this),
+      );
     }
   }
 }
@@ -275,8 +283,9 @@ extension NonNullableBooleanStateRebuilderExtension on Injected<bool> {
     if (shouldNotify && WidgetsBinding.instance.isRootWidgetAttached) {
       _TagRegistry.set(this, tag);
       notify();
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => _TagRegistry.clear(this));
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _TagRegistry.clear(this),
+      );
     }
   }
 }
@@ -293,10 +302,7 @@ extension SideEffectListenerExtension on Injected<dynamic> {
   /// triggering any `OnBuilder` / widget rebuilds (e.g. high-frequency
   /// updates like edge-triggered auto-scroll or data subscriptions).
   VoidCallback addSideEffectListener(VoidCallback listener) {
-    return addObserver(
-      listener: (_) => listener(),
-      isSideEffects: true,
-    );
+    return addObserver(listener: (_) => listener(), isSideEffects: true);
   }
 }
 
@@ -403,15 +409,20 @@ extension MultipleStateRebuilderExtension on List<Injected<dynamic>> {
     String? tag,
   }) {
     assert(
-        isNotEmpty, 'Cannot updateAll on an empty list of injected instances');
+      isNotEmpty,
+      'Cannot updateAll on an empty list of injected instances',
+    );
     if (isEmpty) {
       throw StateError(
-          'Cannot updateAll on an empty list of injected instances');
+        'Cannot updateAll on an empty list of injected instances',
+      );
     }
     for (int i = 0; i < length; i++) {
       final injected = this[i];
-      assert(injected.state is R,
-          'All injected instances must be of type $R. Instance at index $i has type ${injected.state.runtimeType}');
+      assert(
+        injected.state is R,
+        'All injected instances must be of type $R. Instance at index $i has type ${injected.state.runtimeType}',
+      );
     }
     for (final injected in this) {
       final R currentState = injected.state as R;
@@ -704,12 +715,11 @@ class MyNull {
     void Function(SnapState<T?> state)? onSetState,
     void Function()? onAfterBuild,
     void Function()? onDispose,
-  }) =>
-      inject<T>(
-        autoDispose: true,
-        initState: initState,
-        onSetState: onSetState,
-        onAfterBuild: onAfterBuild,
-        onDispose: onDispose,
-      );
+  }) => inject<T>(
+    autoDispose: true,
+    initState: initState,
+    onSetState: onSetState,
+    onAfterBuild: onAfterBuild,
+    onDispose: onDispose,
+  );
 }

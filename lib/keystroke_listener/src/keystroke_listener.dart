@@ -148,7 +148,7 @@ class KeystrokeListener extends StatefulWidget {
   final Widget child;
   final bool enableVisualDebug;
   final void Function(KeyDownEvent keyDownEvent)?
-      onKeyEvent; // Optional callback for key events
+  onKeyEvent; // Optional callback for key events
   final FocusNode? focusNode;
   final bool requestFocusOnInit;
   final bool autoFocus;
@@ -271,7 +271,8 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
         ScaffoldMessenger.of(context)
           ..clearSnackBars()
           ..showSnackBar(
-              SnackBar(content: Text('Pressed: ${event.logicalKey.keyLabel}')));
+            SnackBar(content: Text('Pressed: ${event.logicalKey.keyLabel}')),
+          );
       } catch (_) {
         // No Scaffold available — visual debug is best-effort only.
       }
@@ -408,7 +409,8 @@ class _KeystrokeListenerState extends State<KeystrokeListener> {
                   showLoadingIndicator: false,
                   child: Container(
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.red, width: 2)),
+                      border: Border.all(color: Colors.red, width: 2),
+                    ),
                     padding: const EdgeInsets.all(4),
                     child: TextField(
                       autofocus: widget.requestFocusOnInit,

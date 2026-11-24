@@ -1,3 +1,33 @@
+## 6.0.0
+
+**Wasm-compatible.** The package now builds with `flutter build web --wasm` (dart2wasm + skwasm) and passes pub.dev's Wasm check: no web build reaches `dart:io`, `dart:isolate` or `s_universal_html`'s simulated DOM any more.
+
+### Breaking changes
+
+- `s_packages_extra1.dart` no longer re-exports `package:universal_io/io.dart`. Import it directly if you used `File`, `Platform`, `HttpClient` etc. through `s_packages`.
+- `s_packages_extra1.dart` re-exports `package:desktop_webview_window` only where `dart:io` exists (it is desktop-only and imports `dart:isolate`). On the web the export is empty.
+- `s_webview`: `createWindowsController`, `createMacOSController` and `createLinuxController` are no longer exported to web builds; `initializeWindowsWebView`, `initializeMacOSWebView` and `initializeLinuxWebView` are no-ops there.
+- `s_screenshot`: the exported `File` is `dart:io`'s `File` on native platforms and a small placeholder type on the web (it was `universal_io`'s).
+- Minimum SDKs: Dart 3.13.5 and Flutter 3.47.7, required by `dart_helper_utils` 7.
+- `dart_helper_utils` (re-exported by `s_packages_extra2.dart`) moves from 6.x to 7.x. It renames many helpers (old names stay as deprecated aliases until 8.0) and changes some calendar and number semantics: for example `startOfDay`, `dateOnly` and `addMonths` now return UTC for a UTC receiver, and day arithmetic follows calendar days across daylight-saving changes. See its [changelog](https://pub.dev/packages/dart_helper_utils/changelog).
+
+### Fixes
+
+- `SContextMenu.preventBrowserContextMenu` (used when `shouldPreventWebBrowserContextMenu` is true, the default on web) now really suppresses the browser's context menu, through Flutter's `BrowserContextMenu.disableContextMenu()`. It used to listen on `s_universal_html`'s simulated document, which is not the browser page.
+- `s_screenshot` on the web now downloads the file through the real page (`package:web`); it used to write into the simulated DOM.
+- `s_webview` on the web: `openInNewTab` and `applyIframeFilter` now act on the real page (`package:web`) instead of the simulated DOM.
+- `s_client`: `downloadToFile` with the http backend keeps `dart:io` behind a conditional import; behaviour is unchanged.
+- `EscapeKeyHandler`: removed a web fallback that was never attached.
+
+### Dependencies
+
+- Upgraded: `dart_helper_utils` ^7.0.0, `desktop_webview_window` ^0.4.3, and every other dependency to its latest compatible release.
+- Deliberately held: `calendar_date_picker2` stays on ^3.0.0 and `new_loading_indicator` on ^2.0.0. Their latest majors are built on `package:material_ui`, so in an app whose `MaterialApp` comes from `package:flutter/material.dart` they cannot find its theme or localizations (`calendar_date_picker2` 4 asserts `No MaterialLocalizations found`; `new_loading_indicator` 4 falls back to default colours).
+
+### Known issue
+
+- `WeekCalendar` in local mode (`isUtc: false`) with Monday-start weeks: the test `local today and callback stay local (Monday weeks)` fails on a machine whose time zone changed clocks on 25 October 2026 (e.g. Europe/London). It fails on 5.6.3 too; UTC mode is unaffected.
+
 ## 5.6.3
 
 - **Fix: `WeekCalendar` now allows selecting the current UTC day in UTC mode when the local date is still yesterday.**

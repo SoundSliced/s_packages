@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
 import '../../../_debug_log.dart';
 
 import 'message_channel.dart';
@@ -31,12 +32,14 @@ bool runWebViewTitleBarWidget(
   final titleBarTopPadding = int.tryParse(args.length > 2 ? args[2] : '0') ?? 0;
   runZonedGuarded(
     () {
-      runApp(_TitleBarApp(
-        webViewId: webViewId,
-        titleBarTopPadding: titleBarTopPadding,
-        backgroundColor: backgroundColor,
-        builder: builder ?? _defaultTitleBar,
-      ));
+      runApp(
+        _TitleBarApp(
+          webViewId: webViewId,
+          titleBarTopPadding: titleBarTopPadding,
+          backgroundColor: backgroundColor,
+          builder: builder ?? _defaultTitleBar,
+        ),
+      );
     },
     onError ??
         (e, s) {
@@ -50,8 +53,10 @@ bool runWebViewTitleBarWidget(
 mixin TitleBarWebViewController {
   static TitleBarWebViewController of(BuildContext context) {
     final state = context.findAncestorStateOfType<_TitleBarAppState>();
-    assert(state != null,
-        'only can find TitleBarWebViewController in widget which run from runWebViewTitleBarWidget');
+    assert(
+      state != null,
+      'only can find TitleBarWebViewController in widget which run from runWebViewTitleBarWidget',
+    );
     return state!;
   }
 
@@ -59,37 +64,27 @@ mixin TitleBarWebViewController {
 
   /// navigate back
   void back() {
-    _channel.invokeMethod('onBackPressed', {
-      'webViewId': _webViewId,
-    });
+    _channel.invokeMethod('onBackPressed', {'webViewId': _webViewId});
   }
 
   /// navigate forward
   void forward() {
-    _channel.invokeMethod('onForwardPressed', {
-      'webViewId': _webViewId,
-    });
+    _channel.invokeMethod('onForwardPressed', {'webViewId': _webViewId});
   }
 
   /// reload the webview
   void reload() {
-    _channel.invokeMethod('onRefreshPressed', {
-      'webViewId': _webViewId,
-    });
+    _channel.invokeMethod('onRefreshPressed', {'webViewId': _webViewId});
   }
 
   /// stop loading the webview
   void stop() {
-    _channel.invokeMethod('onStopPressed', {
-      'webViewId': _webViewId,
-    });
+    _channel.invokeMethod('onStopPressed', {'webViewId': _webViewId});
   }
 
   /// close the webview
   void close() {
-    _channel.invokeMethod('onClosePressed', {
-      'webViewId': _webViewId,
-    });
+    _channel.invokeMethod('onClosePressed', {'webViewId': _webViewId});
   }
 }
 
@@ -109,8 +104,8 @@ class TitleBarWebViewState extends InheritedWidget {
   final String? url;
 
   static TitleBarWebViewState of(BuildContext context) {
-    final TitleBarWebViewState? result =
-        context.dependOnInheritedWidgetOfExactType<TitleBarWebViewState>();
+    final TitleBarWebViewState? result = context
+        .dependOnInheritedWidgetOfExactType<TitleBarWebViewState>();
     assert(result != null, 'No WebViewState found in context');
     return result!;
   }
@@ -248,7 +243,7 @@ Widget _defaultTitleBar(BuildContext context) {
           onPressed: controller.reload,
           icon: const Icon(Icons.refresh),
         ),
-      const Spacer()
+      const Spacer(),
     ],
   );
 }

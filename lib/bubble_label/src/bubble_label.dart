@@ -116,8 +116,9 @@ class _BubbleBuildWidgetState extends State<_BubbleBuildWidget>
       // Method: Get anchor's global (screen) position, then convert to
       // overlay's local coordinates. This properly handles all transforms.
       final globalPosition = anchorRenderBox.localToGlobal(Offset.zero);
-      final overlayLocalPosition =
-          widget.overlayRenderBox!.globalToLocal(globalPosition);
+      final overlayLocalPosition = widget.overlayRenderBox!.globalToLocal(
+        globalPosition,
+      );
 
       // Debug: uncomment to verify positions
       // debugPrint('Anchor global: $globalPosition, Overlay local: $overlayLocalPosition');
@@ -167,13 +168,16 @@ class _BubbleBuildWidgetState extends State<_BubbleBuildWidget>
     if (widget.overlayRenderBox != null && widget.overlayRenderBox!.attached) {
       // Get the positions of two corners in overlay coordinates
       final topLeftGlobal = anchorRenderBox.localToGlobal(Offset.zero);
-      final bottomRightGlobal = anchorRenderBox
-          .localToGlobal(Offset(localSize.width, localSize.height));
+      final bottomRightGlobal = anchorRenderBox.localToGlobal(
+        Offset(localSize.width, localSize.height),
+      );
 
-      final topLeftLocal =
-          widget.overlayRenderBox!.globalToLocal(topLeftGlobal);
-      final bottomRightLocal =
-          widget.overlayRenderBox!.globalToLocal(bottomRightGlobal);
+      final topLeftLocal = widget.overlayRenderBox!.globalToLocal(
+        topLeftGlobal,
+      );
+      final bottomRightLocal = widget.overlayRenderBox!.globalToLocal(
+        bottomRightGlobal,
+      );
 
       // The visual size is the difference between the transformed corners
       final visualWidth = (bottomRightLocal.dx - topLeftLocal.dx).abs();
@@ -207,7 +211,8 @@ class _BubbleBuildWidgetState extends State<_BubbleBuildWidget>
 
       // Calculate initial left position
       // to center the bubble on the child widget, with optional horizontal offset
-      left: _currentPosition.dx +
+      left:
+          _currentPosition.dx +
           _currentSize.width / 2 +
           widget.content.horizontalOffset,
       child: FractionalTranslation(
@@ -278,11 +283,9 @@ class _BubbleBuildWidgetState extends State<_BubbleBuildWidget>
                     return bubbleWidget;
                   }
                 },
-              )
+              ),
             ],
-          ).animate(
-            effects: widget.effects,
-          ),
+          ).animate(effects: widget.effects),
         ),
       ),
     );
@@ -293,10 +296,7 @@ class _BubbleWidget extends StatelessWidget {
   final Color? bubbleColor;
   final Widget content;
 
-  const _BubbleWidget({
-    this.bubbleColor,
-    required this.content,
-  });
+  const _BubbleWidget({this.bubbleColor, required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -308,9 +308,7 @@ class _BubbleWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: bubbleColor ?? Colors.blue.shade300,
         ),
-        child: Center(
-          child: content,
-        ),
+        child: Center(child: content),
       ),
     );
   }
@@ -336,14 +334,15 @@ class _BackgroundOverlayWidgetState extends State<_BackgroundOverlayWidget> {
   Widget build(BuildContext context) {
     return IgnorePointer(
       key: const Key('bubble_label_background_ignore'),
-      child: Container(
-        color: Colors.black.withValues(
-          alpha: widget.content?.backgroundOverlayLayerOpacity ?? 0,
-        ),
-      ).animate(
-        effects: widget.isActive == null
-            ? []
-            : widget.isActive == true
+      child:
+          Container(
+            color: Colors.black.withValues(
+              alpha: widget.content?.backgroundOverlayLayerOpacity ?? 0,
+            ),
+          ).animate(
+            effects: widget.isActive == null
+                ? []
+                : widget.isActive == true
                 ? [
                     FadeEffect(
                       duration: 0.3.sec,
@@ -360,7 +359,7 @@ class _BackgroundOverlayWidgetState extends State<_BackgroundOverlayWidget> {
                       end: 0,
                     ),
                   ],
-      ),
+          ),
     );
   }
 }
@@ -500,7 +499,7 @@ class BubbleLabelContent {
     // label size is derived from child
     double? verticalPadding,
     this.shouldActivateOnLongPressOnAllPlatforms = false,
-    RenderBox? childWidgetRenderBox,
+    this._childWidgetRenderBox,
     this.positionOverride,
     this.dismissOnBackgroundTap = false,
     this.shouldIgnorePointer = true,
@@ -511,10 +510,9 @@ class BubbleLabelContent {
     this.dismissCurve = Curves.easeOutBack,
     this.horizontalOffset = 0.0,
     this.showOnHover = false,
-  })  : id = id ?? Xid().toString(),
-        // Default: slightly above anchor (5 px)
-        floatingVerticalPadding = verticalPadding ?? 5.0,
-        _childWidgetRenderBox = childWidgetRenderBox;
+  }) : id = id ?? Xid().toString(),
+       // Default: slightly above anchor (5 px)
+       floatingVerticalPadding = verticalPadding ?? 5.0;
 
   /// Creates a `BubbleLabelContent`.
   BubbleLabelContent({
@@ -535,9 +533,9 @@ class BubbleLabelContent {
     this.dismissCurve = Curves.easeOutBack,
     this.horizontalOffset = 0.0,
     this.showOnHover = false,
-  })  : id = id ?? Xid().toString(),
-        floatingVerticalPadding = verticalPadding ?? 5.0,
-        _childWidgetRenderBox = null;
+  }) : id = id ?? Xid().toString(),
+       floatingVerticalPadding = verticalPadding ?? 5.0,
+       _childWidgetRenderBox = null;
 
   // Computed anchor position based on override or render box
   RenderBox? get _renderBox => _childWidgetRenderBox;
@@ -583,7 +581,7 @@ class BubbleLabelContent {
           backgroundOverlayLayerOpacity ?? this.backgroundOverlayLayerOpacity,
       shouldActivateOnLongPressOnAllPlatforms:
           shouldActiveOnLongPressOnAllPlatforms ??
-              shouldActivateOnLongPressOnAllPlatforms,
+          shouldActivateOnLongPressOnAllPlatforms,
       childWidgetRenderBox: _childWidgetRenderBox,
       positionOverride: positionOverride ?? this.positionOverride,
       dismissOnBackgroundTap: dismissOnBackgroundTap,
@@ -689,18 +687,13 @@ class BubbleLabel {
     if (_bubbleLabelIsActiveAnimationController.state != null) {
       if (_bubbleLabelIsActiveAnimationController.state!) {
         effects = [
-          FadeEffect(
-            begin: 0,
-            end: 1,
-            duration: duration,
-            curve: showCurve,
-          ),
+          FadeEffect(begin: 0, end: 1, duration: duration, curve: showCurve),
           MoveEffect(
             begin: Offset(0, 5),
             end: Offset(0, -1),
             duration: duration,
             curve: showCurve,
-          )
+          ),
         ];
       } else {
         effects = [
@@ -713,8 +706,9 @@ class BubbleLabel {
           FadeEffect(
             begin: 1,
             end: 0,
-            delay:
-                Duration(milliseconds: (duration.inMilliseconds * 0.5).round()),
+            delay: Duration(
+              milliseconds: (duration.inMilliseconds * 0.5).round(),
+            ),
             duration: duration,
             curve: dismissCurve,
           ),
@@ -839,8 +833,8 @@ class BubbleLabel {
       // Use the content's animation duration + buffer for dismiss timer
       final content = controller.state;
       final dismissDelay = Duration(
-        milliseconds:
-            ((content?.animationDuration.inMilliseconds ?? 200) * 1.5).round(),
+        milliseconds: ((content?.animationDuration.inMilliseconds ?? 200) * 1.5)
+            .round(),
       );
 
       _dismissAnimationTimer = Timer(dismissDelay, () {
@@ -954,7 +948,7 @@ class BubbleLabel {
           OnBuilder(
             listenToMany: [
               BubbleLabel.controller,
-              BubbleLabel._animationController
+              BubbleLabel._animationController,
             ],
             builder: () {
               //if there is no bubble content, return an empty widget

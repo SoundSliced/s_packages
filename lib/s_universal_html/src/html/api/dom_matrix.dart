@@ -94,7 +94,8 @@ abstract class DomMatrix extends DomMatrixReadOnly {
 
   static DomMatrix fromFloat32Array(Float32List list) {
     return _DomMatrixImpl.fromList(
-        list.map((value) => value.toDouble()).toList());
+      list.map((value) => value.toDouble()).toList(),
+    );
   }
 
   static DomMatrix fromFloat64Array(Float64List list) {
@@ -229,23 +230,23 @@ class _DomMatrixImpl extends DomMatrix {
   }
 
   _DomMatrixImpl _copy() => _DomMatrixImpl.fromList(<double>[
-        m11.toDouble(),
-        m12.toDouble(),
-        m13.toDouble(),
-        m14.toDouble(),
-        m21.toDouble(),
-        m22.toDouble(),
-        m23.toDouble(),
-        m24.toDouble(),
-        m31.toDouble(),
-        m32.toDouble(),
-        m33.toDouble(),
-        m34.toDouble(),
-        m41.toDouble(),
-        m42.toDouble(),
-        m43.toDouble(),
-        m44.toDouble(),
-      ]);
+    m11.toDouble(),
+    m12.toDouble(),
+    m13.toDouble(),
+    m14.toDouble(),
+    m21.toDouble(),
+    m22.toDouble(),
+    m23.toDouble(),
+    m24.toDouble(),
+    m31.toDouble(),
+    m32.toDouble(),
+    m33.toDouble(),
+    m34.toDouble(),
+    m41.toDouble(),
+    m42.toDouble(),
+    m43.toDouble(),
+    m44.toDouble(),
+  ]);
 
   @override
   DomMatrix flipX() {
@@ -313,8 +314,7 @@ class _DomMatrixImpl extends DomMatrix {
     num originX = 0,
     num originY = 0,
     num originZ = 0,
-  ]) =>
-      scale(scaleX, scaleY, scaleZ, originX, originY, originZ);
+  ]) => scale(scaleX, scaleY, scaleZ, originX, originY, originZ);
 
   @override
   DomMatrix skewX(num angle) => _copy();

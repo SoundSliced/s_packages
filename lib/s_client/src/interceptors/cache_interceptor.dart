@@ -45,7 +45,8 @@ class CacheInterceptor extends ClientInterceptor {
   });
 
   String _getCacheKey(ClientRequest request) {
-    final queryString = request.queryParameters?.entries
+    final queryString =
+        request.queryParameters?.entries
             .map((e) => '${e.key}=${e.value}')
             .join('&') ??
         '';

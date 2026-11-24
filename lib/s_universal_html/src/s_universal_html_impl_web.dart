@@ -172,14 +172,14 @@ void enableTextSelection() {
 // ─── CSS Custom Properties ────────────────────────────────────────────────
 
 void setCssVariable(String name, String value) {
-  (web.document.documentElement as web.HTMLElement?)
-      ?.style
-      .setProperty(name, value);
+  (web.document.documentElement as web.HTMLElement?)?.style.setProperty(
+    name,
+    value,
+  );
 }
 
 String? getCssVariable(String name) {
-  final v = (web.document.documentElement as web.HTMLElement?)
-      ?.style
+  final v = (web.document.documentElement as web.HTMLElement?)?.style
       .getPropertyValue(name);
   return (v == null || v.isEmpty) ? null : v;
 }
@@ -204,10 +204,7 @@ void scrollBy(int x, int y) {
 
 void downloadBytesFile(String filename, List<int> bytes, String mimeType) {
   final uint8 = Uint8List.fromList(bytes);
-  final blob = web.Blob(
-    [uint8.toJS].toJS,
-    web.BlobPropertyBag(type: mimeType),
-  );
+  final blob = web.Blob([uint8.toJS].toJS, web.BlobPropertyBag(type: mimeType));
   final url = web.URL.createObjectURL(blob);
   final anchor = web.HTMLAnchorElement()
     ..href = url

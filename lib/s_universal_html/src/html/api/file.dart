@@ -440,10 +440,11 @@ class _FileImpl implements File {
   final String relativePath;
 
   _FileImpl(List<Object> fileBits, this.name, [Map? options])
-      : _blob = Blob(fileBits, options?['type'] as String? ?? ''),
-        lastModified = options?['lastModified'] as int? ??
-            DateTime.now().millisecondsSinceEpoch,
-        relativePath = options?['relativePath'] as String? ?? name;
+    : _blob = Blob(fileBits, options?['type'] as String? ?? ''),
+      lastModified =
+          options?['lastModified'] as int? ??
+          DateTime.now().millisecondsSinceEpoch,
+      relativePath = options?['relativePath'] as String? ?? name;
 
   @override
   DateTime get lastModifiedDate =>
@@ -473,12 +474,10 @@ class _DirectoryEntryImpl extends DirectoryEntry {
   final String? fullPath;
 
   _DirectoryEntryImpl._(this._filesystem, this._parent, this.name)
-      : fullPath = _parent == null
-            ? '/'
-            : (_parent.fullPath == '/'
-                ? '/$name'
-                : '${_parent.fullPath}/$name'),
-        super.internal();
+    : fullPath = _parent == null
+          ? '/'
+          : (_parent.fullPath == '/' ? '/$name' : '${_parent.fullPath}/$name'),
+      super.internal();
 
   factory _DirectoryEntryImpl.root() {
     final fs = _FileSystemImpl._private();
@@ -496,7 +495,9 @@ class _DirectoryEntryImpl extends DirectoryEntry {
       throw StateError('Directory already exists: $path');
     }
     return _children.putIfAbsent(
-        path, () => _DirectoryEntryImpl._(_filesystem, this, path));
+      path,
+      () => _DirectoryEntryImpl._(_filesystem, this, path),
+    );
   }
 
   @override
@@ -505,7 +506,9 @@ class _DirectoryEntryImpl extends DirectoryEntry {
       throw StateError('File already exists: $path');
     }
     return _children.putIfAbsent(
-        path, () => _FileEntryImpl(File(const <Object>[], path), parent: this));
+      path,
+      () => _FileEntryImpl(File(const <Object>[], path), parent: this),
+    );
   }
 
   @override
@@ -620,13 +623,14 @@ class _MemoryFileWriter extends FileWriter {
   @override
   void truncate(int size) {
     _entry._file = File(
-        <Object>[_entry._file.slice(0, size)],
-        _entry._file.name,
-        {
-          'type': _entry._file.type,
-          'lastModified': DateTime.now().millisecondsSinceEpoch,
-          'relativePath': _entry._file.relativePath,
-        });
+      <Object>[_entry._file.slice(0, size)],
+      _entry._file.name,
+      {
+        'type': _entry._file.type,
+        'lastModified': DateTime.now().millisecondsSinceEpoch,
+        'relativePath': _entry._file.relativePath,
+      },
+    );
     _position = _position.clamp(0, size);
   }
 
@@ -635,13 +639,14 @@ class _MemoryFileWriter extends FileWriter {
     _readyState = FileWriter.WRITING;
     data.internalBytes().then((bytes) {
       _entry._file = File(
-          <Object>[bytes],
-          _entry._file.name,
-          {
-            'type': data.type,
-            'lastModified': DateTime.now().millisecondsSinceEpoch,
-            'relativePath': _entry._file.relativePath,
-          });
+        <Object>[bytes],
+        _entry._file.name,
+        {
+          'type': data.type,
+          'lastModified': DateTime.now().millisecondsSinceEpoch,
+          'relativePath': _entry._file.relativePath,
+        },
+      );
       _position = _entry._file.size;
       _readyState = FileWriter.DONE;
     });

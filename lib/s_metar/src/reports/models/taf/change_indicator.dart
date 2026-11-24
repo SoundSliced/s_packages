@@ -5,7 +5,7 @@ class TafChangeIndicator extends ChangeIndicator {
   late Valid _valid;
 
   TafChangeIndicator(String? code, RegExpMatch? match, Valid tafValid)
-      : super(code, match) {
+    : super(code, match) {
     _valid = tafValid;
 
     if (match != null) {

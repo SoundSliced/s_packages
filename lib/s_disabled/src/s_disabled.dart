@@ -54,16 +54,17 @@ class SDisabled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activeChild =
-        (isDisabled && disabledChild != null) ? disabledChild! : child;
+    final activeChild = (isDisabled && disabledChild != null)
+        ? disabledChild!
+        : child;
 
     Widget result = AnimatedOpacity(
       duration: 0.3.sec,
       opacity: disableOpacityChange == true
           ? 1
           : isDisabled == true
-              ? opacityWhenDisabled ?? 0.3
-              : 1,
+          ? opacityWhenDisabled ?? 0.3
+          : 1,
       child: isDisabled == true
           ? GestureDetector(
               excludeFromSemantics: true,
@@ -78,17 +79,11 @@ class SDisabled extends StatelessWidget {
     );
 
     if (isDisabled && applyGrayscale) {
-      result = ColorFiltered(
-        colorFilter: _grayscaleFilter,
-        child: result,
-      );
+      result = ColorFiltered(colorFilter: _grayscaleFilter, child: result);
     }
 
     if (isDisabled && disabledSemanticLabel != null) {
-      result = Semantics(
-        label: disabledSemanticLabel,
-        child: result,
-      );
+      result = Semantics(label: disabledSemanticLabel, child: result);
     }
 
     return result;

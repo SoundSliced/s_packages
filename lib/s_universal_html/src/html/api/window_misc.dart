@@ -62,16 +62,14 @@ class CacheStorage {
 
   final Map<String, Object?> _caches = <String, Object?>{};
 
-  Future<bool> delete(String cacheName) => Future<bool>.value(
-        _caches.remove(cacheName) != null,
-      );
+  Future<bool> delete(String cacheName) =>
+      Future<bool>.value(_caches.remove(cacheName) != null);
 
   Future<bool> has(String cacheName) =>
       Future<bool>.value(_caches.containsKey(cacheName));
 
-  Future<List<String>> keys() => Future<List<String>>.value(
-        _caches.keys.toList(growable: false),
-      );
+  Future<List<String>> keys() =>
+      Future<List<String>>.value(_caches.keys.toList(growable: false));
 
   Future<Object?> match(dynamic request, [Map? options]) =>
       Future<Object?>.value(null);
@@ -92,10 +90,12 @@ class CookieStore {
   Future<List<Map<String, String>>> getAll([Map? options]) =>
       Future<List<Map<String, String>>>.value(
         _values.entries
-            .map((entry) => <String, String>{
-                  'name': entry.key,
-                  'value': entry.value,
-                })
+            .map(
+              (entry) => <String, String>{
+                'name': entry.key,
+                'value': entry.value,
+              },
+            )
             .toList(growable: false),
       );
 
@@ -214,7 +214,7 @@ class ScreenOrientation extends EventTarget {
   final String type;
 
   ScreenOrientation.constructor({this.angle = 1, this.type = 'vertical'})
-      : super.internal();
+    : super.internal();
 
   Stream<Event> get onChange => changeEvent.forTarget(this);
 

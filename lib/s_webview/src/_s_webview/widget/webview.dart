@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 // ignore: depend_on_referenced_packages
 import 'package:webview_flutter/webview_flutter.dart' as webview_flutter;
+
 import '../webview_controller/webview_controller.dart' as webview_controller;
 
 /// A widget that displays a WebView.
@@ -60,9 +61,7 @@ class WebView extends StatelessWidget {
               controller: controller.webview_mobile_controller,
             ),
             if (ignorePointerEvents)
-              const Positioned.fill(
-                child: _PointerBlockerOverlay(),
-              ),
+              const Positioned.fill(child: _PointerBlockerOverlay()),
           ],
         ),
       );
@@ -87,9 +86,7 @@ class WebView extends StatelessWidget {
               child: const SizedBox.expand(),
             ),
             if (ignorePointerEvents)
-              const Positioned.fill(
-                child: _PointerBlockerOverlay(),
-              ),
+              const Positioned.fill(child: _PointerBlockerOverlay()),
           ],
         ),
       );
@@ -112,9 +109,7 @@ class _PointerBlockerOverlay extends StatelessWidget {
     // On web, PointerInterceptor inserts a DOM layer that reliably blocks
     // pointer events from reaching underlying HtmlElementView/iframe content.
     if (kIsWeb) {
-      return PointerInterceptor(
-        child: blocker,
-      );
+      return PointerInterceptor(child: blocker);
     }
 
     return blocker;

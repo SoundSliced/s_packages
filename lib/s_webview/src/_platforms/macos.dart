@@ -6,6 +6,7 @@ library;
 
 import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/foundation.dart';
+
 import '../_debug_log.dart';
 
 /// Initializes WebView for macOS platform

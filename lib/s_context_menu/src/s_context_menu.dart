@@ -73,6 +73,7 @@
 /// - Keyboard events are only captured while the menu is visible and focused.
 /// - Press ESC to close the menu via keyboard interaction.
 library;
+
 // Advanced context menu implementation with animated overlay, arrow,
 // accessibility announcements, throttling, callbacks, theming, overflow scrolling,
 // and keyboard event listening.
@@ -86,8 +87,6 @@ import 'package:flutter/rendering.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 
 import 'package:s_packages/s_packages.dart';
-
-import '../../s_universal_html/html.dart' as html;
 
 export 's_context_menu_types.dart';
 export 's_context_menu_controllers.dart';
@@ -107,7 +106,7 @@ class SContextMenu extends StatefulWidget {
   final VoidCallback? onDismissed; // only for escape key or outside tap
   final void Function(Object? tapRegionGroupId)? onTapOutsideMenu;
   final void Function(String label)?
-      onButtonPressed; // any menu item activated (label provided)
+  onButtonPressed; // any menu item activated (label provided)
   final SContextMenuTheme? theme;
 
   /// Optional override for arrow visibility.
@@ -154,8 +153,14 @@ class SContextMenu extends StatefulWidget {
   //disable right click context menu on web for the whole app
   //https://stackoverflow.com/questions/62209594/how-to-disable-right-click-context-menu-in-flutter-web
 
-  static void preventBrowserContextMenu() =>
-      html.document.onContextMenu.listen((event) => event.preventDefault());
+  //
+  // Flutter's own switch: the previous `document.onContextMenu` listener went
+  // through s_universal_html's simulated DOM, which is not the browser page,
+  // so it never suppressed anything. This works with dart2js and dart2wasm.
+  static void preventBrowserContextMenu() {
+    if (!kIsWeb) return;
+    BrowserContextMenu.disableContextMenu();
+  }
 
   static _SContextMenuState? _activeMenuState;
 
@@ -231,9 +236,10 @@ class _SContextMenuState extends State<SContextMenu>
   }
 
   static SContextMenuItem get _defaultButton => SContextMenuItem(
-      label: SContextMenu.defaultButtonLabel,
-      icon: SContextMenu.defaultButtonIcon,
-      onPressed: () {});
+    label: SContextMenu.defaultButtonLabel,
+    icon: SContextMenu.defaultButtonIcon,
+    onPressed: () {},
+  );
 
   void _startHoldTimer(int pointerId) {
     _cancelHoldTimer();
@@ -247,8 +253,7 @@ class _SContextMenuState extends State<SContextMenu>
         _gestureState.longTapFired = true;
         _show(_gestureState.downPosition!);
       }
-    })
-      ..start();
+    })..start();
   }
 
   void _cancelHoldTimer() {
@@ -264,7 +269,11 @@ class _SContextMenuState extends State<SContextMenu>
 
     final childPosition = box.localToGlobal(Offset.zero);
     final childBounds = Rect.fromLTWH(
-        childPosition.dx, childPosition.dy, box.size.width, box.size.height);
+      childPosition.dx,
+      childPosition.dy,
+      box.size.width,
+      box.size.height,
+    );
     return childBounds.contains(globalPosition);
   }
 
@@ -287,8 +296,12 @@ class _SContextMenuState extends State<SContextMenu>
             instance._childKey.currentContext?.findRenderObject() as RenderBox?;
         if (box != null) {
           final childPosition = box.localToGlobal(Offset.zero);
-          final childBounds = Rect.fromLTWH(childPosition.dx, childPosition.dy,
-              box.size.width, box.size.height);
+          final childBounds = Rect.fromLTWH(
+            childPosition.dx,
+            childPosition.dy,
+            box.size.width,
+            box.size.height,
+          );
           final area = childBounds.width * childBounds.height;
 
           if (instance._isPositionInChildBounds(globalPosition)) {
@@ -356,16 +369,22 @@ class _SContextMenuState extends State<SContextMenu>
       maintainState: true,
       builder: (ctx) {
         // Build buttons inside the builder so they update on markNeedsBuild()
-        final rawButtons =
-            widget.buttons.isEmpty ? [_defaultButton] : widget.buttons;
+        final rawButtons = widget.buttons.isEmpty
+            ? [_defaultButton]
+            : widget.buttons;
         final theme = widget.theme ?? const SContextMenuTheme();
         final showArrow = widget.showArrow ?? theme.showArrow;
         final baseStyle =
             Theme.of(context).textTheme.labelLarge ?? const TextStyle();
-        final textStyle =
-            baseStyle.copyWith(fontSize: 13, fontWeight: FontWeight.w500);
+        final textStyle = baseStyle.copyWith(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        );
         final targetWidth = SContextMenuControllers.computeTargetWidth(
-            rawButtons, textStyle, overlaySize.width);
+          rawButtons,
+          textStyle,
+          overlaySize.width,
+        );
         final int buttonLen = rawButtons.length;
 
         // Build activator list so keyboard navigation can trigger them by index.
@@ -409,8 +428,9 @@ class _SContextMenuState extends State<SContextMenu>
         final arrowConfig = layout.arrowConfig;
         final pointerOffset = layout.pointerOffset;
         final followerOffset = layout.followerOffset;
-        final contentHeight =
-            SContextMenuControllers.computeContentHeight(buttonWidgets.length);
+        final contentHeight = SContextMenuControllers.computeContentHeight(
+          buttonWidgets.length,
+        );
         final constrainedHeight = panelRect.height;
 
         final panel = _ContextMenuPanel(
@@ -464,8 +484,9 @@ class _SContextMenuState extends State<SContextMenu>
                     onPointerDown: (event) {
                       if (event.buttons == kSecondaryMouseButton) {
                         _handleOverlayRightClick(event.position);
-                      } else if (!overlayPanelRect
-                          .contains(event.localPosition)) {
+                      } else if (!overlayPanelRect.contains(
+                        event.localPosition,
+                      )) {
                         _hide(reason: _DismissReason.outsideTap);
                       }
                     },
@@ -499,8 +520,9 @@ class _SContextMenuState extends State<SContextMenu>
 
       if (widget.announceAccessibility) {
         try {
-          final rawButtons =
-              widget.buttons.isEmpty ? [_defaultButton] : widget.buttons;
+          final rawButtons = widget.buttons.isEmpty
+              ? [_defaultButton]
+              : widget.buttons;
           SemanticsService.sendAnnouncement(
             WidgetsBinding.instance.platformDispatcher.views.first,
             '${widget.semanticsMenuLabel}, ${rawButtons.length} options',
@@ -515,9 +537,10 @@ class _SContextMenuState extends State<SContextMenu>
     });
   }
 
-  void _hide(
-      {bool animate = true,
-      _DismissReason reason = _DismissReason.programmatic}) {
+  void _hide({
+    bool animate = true,
+    _DismissReason reason = _DismissReason.programmatic,
+  }) {
     if (_menuOverlayEntry == null) return;
 
     if (reason == _DismissReason.outsideTap && !_outsideTapCallbackFired) {
@@ -668,8 +691,9 @@ class _SContextMenuState extends State<SContextMenu>
         _cancelHoldTimer();
         _gestureState.isPointerDown = false;
         _gestureState.dragExceededSlop = false;
-        final duration =
-            DateTime.now().difference(_gestureState.pointerDownTime!);
+        final duration = DateTime.now().difference(
+          _gestureState.pointerDownTime!,
+        );
         if (!_gestureState.longTapFired && duration < holdDuration) {
           // Only dismiss if menu is open and tap was a quick tap on the child
           if (_menuOverlayEntry != null) {
@@ -714,11 +738,12 @@ class _ToolbarIconTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final baseTextStyle = theme.textTheme.labelLarge
-            ?.copyWith(fontSize: 13, fontWeight: FontWeight.w500) ??
-        CupertinoTheme.of(context)
-            .textTheme
-            .textStyle
+    final baseTextStyle =
+        theme.textTheme.labelLarge?.copyWith(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ) ??
+        CupertinoTheme.of(context).textTheme.textStyle
             .copyWith(fontSize: 13, fontWeight: FontWeight.w500);
     final Color fallbackPrimary = CupertinoTheme.of(context).primaryColor;
     final bool isDark = theme.brightness == Brightness.dark;
@@ -801,15 +826,17 @@ class _MenuButtonVisualState extends State<_MenuButtonVisual> {
     final Color textColor = widget.disabled
         ? (widget.destructive ? widget.danger : accent).withValues(alpha: 0.38)
         : widget.destructive
-            ? widget.danger
-            : accent.withValues(alpha: 0.92);
+        ? widget.danger
+        : accent.withValues(alpha: 0.92);
     final Color defaultHover = widget.isDark
         ? Colors.white.withValues(alpha: 0.07)
         : Colors.black.withValues(alpha: 0.05);
-    final Color bg =
-        interactive ? (widget.hoverColor ?? defaultHover) : Colors.transparent;
-    final double barOpacity =
-        !widget.disabled && (_hovered || keyboardHover) ? 0.55 : 0.0;
+    final Color bg = interactive
+        ? (widget.hoverColor ?? defaultHover)
+        : Colors.transparent;
+    final double barOpacity = !widget.disabled && (_hovered || keyboardHover)
+        ? 0.55
+        : 0.0;
     final double scale = _pressed && !widget.disabled ? 0.97 : 1.0;
     final row = Row(
       mainAxisSize: widget.expand ? MainAxisSize.max : MainAxisSize.min,
@@ -830,8 +857,9 @@ class _MenuButtonVisualState extends State<_MenuButtonVisual> {
           Text(
             widget.shortcutHint!,
             style: widget.baseTextStyle.copyWith(
-                color: textColor.withValues(alpha: disabledAlpha * 0.5),
-                fontSize: 11),
+              color: textColor.withValues(alpha: disabledAlpha * 0.5),
+              fontSize: 11,
+            ),
           ),
         ],
       ],
@@ -854,7 +882,9 @@ class _MenuButtonVisualState extends State<_MenuButtonVisual> {
               opacity: barOpacity,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                    color: accent, borderRadius: BorderRadius.circular(2)),
+                  color: accent,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
             ),
           ),
@@ -923,7 +953,8 @@ class _ContextMenuPanelState extends State<_ContextMenuPanel> {
     final brightness = Theme.of(context).brightness;
     final bgColor = widget.theme.resolveBackground(brightness);
     final border = widget.theme.resolveBorder(brightness);
-    final bool needsScroll = widget.maxHeight != null &&
+    final bool needsScroll =
+        widget.maxHeight != null &&
         widget.contentHeight != null &&
         widget.contentHeight! > widget.maxHeight!;
     final inheritedIndex = _InheritedHoveredIndex.maybeOf(context);
@@ -934,9 +965,10 @@ class _ContextMenuPanelState extends State<_ContextMenuPanel> {
         for (int i = 0; i < widget.children.length; i++) ...[
           if (i > 0)
             Divider(
-                height: 1,
-                thickness: 0.6,
-                color: border.withValues(alpha: border.a * 0.55)),
+              height: 1,
+              thickness: 0.6,
+              color: border.withValues(alpha: border.a * 0.55),
+            ),
           _KeyboardHoverWrapper(
             index: i,
             hovered: inheritedIndex == i,
@@ -949,16 +981,21 @@ class _ContextMenuPanelState extends State<_ContextMenuPanel> {
     final maybeScrollable = needsScroll
         ? ConstrainedBox(
             constraints: BoxConstraints(
-                maxHeight: widget.maxHeight!,
-                minWidth: widget.width,
-                maxWidth: widget.width),
+              maxHeight: widget.maxHeight!,
+              minWidth: widget.width,
+              maxWidth: widget.width,
+            ),
             child: ScrollConfiguration(
-              behavior: const ScrollBehavior()
-                  .copyWith(overscroll: false, scrollbars: false),
+              behavior: const ScrollBehavior().copyWith(
+                overscroll: false,
+                scrollbars: false,
+              ),
               child: PrimaryScrollController(
                 controller: ScrollController(),
                 child: SingleChildScrollView(
-                    padding: EdgeInsets.zero, child: listContent),
+                  padding: EdgeInsets.zero,
+                  child: listContent,
+                ),
               ),
             ),
           )
@@ -978,14 +1015,16 @@ class _ContextMenuPanelState extends State<_ContextMenuPanel> {
             borderRadius: BorderRadius.circular(widget.theme.panelBorderRadius),
             child: BackdropFilter(
               filter: ImageFilter.blur(
-                  sigmaX: widget.theme.panelBlurSigma,
-                  sigmaY: widget.theme.panelBlurSigma),
+                sigmaX: widget.theme.panelBlurSigma,
+                sigmaY: widget.theme.panelBlurSigma,
+              ),
               child: Container(
                 decoration: BoxDecoration(
                   color: bgColor,
                   border: Border.all(color: border, width: 0.8),
-                  borderRadius:
-                      BorderRadius.circular(widget.theme.panelBorderRadius),
+                  borderRadius: BorderRadius.circular(
+                    widget.theme.panelBorderRadius,
+                  ),
                 ),
                 child: Padding(
                   padding: widget.theme.panelPadding,
@@ -1006,19 +1045,20 @@ class _KeyboardHoverWrapper extends StatelessWidget {
   final bool hovered;
   final int index;
   final Color? tint;
-  const _KeyboardHoverWrapper(
-      {required this.child,
-      required this.hovered,
-      required this.index,
-      this.tint});
+  const _KeyboardHoverWrapper({
+    required this.child,
+    required this.hovered,
+    required this.index,
+    this.tint,
+  });
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final bool isDark = theme.brightness == Brightness.dark;
     final tempTint = hovered
         ? (isDark
-            ? Colors.white.withValues(alpha: 0.08)
-            : tint ?? const Color(0x142563EB))
+              ? Colors.white.withValues(alpha: 0.08)
+              : tint ?? const Color(0x142563EB))
         : null;
     final decorated = tempTint == null
         ? child
@@ -1028,8 +1068,9 @@ class _KeyboardHoverWrapper extends StatelessWidget {
             child: child,
           );
     return MouseRegion(
-        onEnter: (_) => _HoveredIndexController.of(context)?.setIndex(index),
-        child: decorated);
+      onEnter: (_) => _HoveredIndexController.of(context)?.setIndex(index),
+      child: decorated,
+    );
   }
 }
 
@@ -1100,8 +1141,10 @@ class _AnimatedMenuShellState extends State<_AnimatedMenuShell> {
     if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
       setState(() => _hovered = (_hovered + 1) % widget.buttonCount);
     } else if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
-      setState(() =>
-          _hovered = (_hovered - 1 + widget.buttonCount) % widget.buttonCount);
+      setState(
+        () =>
+            _hovered = (_hovered - 1 + widget.buttonCount) % widget.buttonCount,
+      );
     } else if (event.logicalKey == LogicalKeyboardKey.enter ||
         event.logicalKey == LogicalKeyboardKey.space) {
       widget.requestActivate(_hovered);
@@ -1114,8 +1157,9 @@ class _AnimatedMenuShellState extends State<_AnimatedMenuShell> {
     final brightness = Theme.of(context).brightness;
     final Color fillColor = widget.theme.resolveArrowColor(brightness);
     final Color borderColor = widget.theme.resolveBorder(brightness);
-    final Color shadowColor =
-        Colors.black.withValues(alpha: isDark ? 0.35 : 0.25);
+    final Color shadowColor = Colors.black.withValues(
+      alpha: isDark ? 0.35 : 0.25,
+    );
     final arrow = _MenuArrow(
       pointer: widget.pointer,
       fillColor: fillColor,
@@ -1143,7 +1187,9 @@ class _AnimatedMenuShellState extends State<_AnimatedMenuShell> {
         child: STweenAnimationBuilder<double>(
           key: ValueKey(widget.animationForward),
           tween: Tween<double>(
-              begin: 0.0, end: widget.animationForward ? 1.0 : 0.0),
+            begin: 0.0,
+            end: widget.animationForward ? 1.0 : 0.0,
+          ),
           duration: widget.animationForward
               ? widget.showDuration
               : widget.hideDuration,
@@ -1189,7 +1235,9 @@ class _AnimatedMenuShellState extends State<_AnimatedMenuShell> {
                 child: TapRegion(
                   groupId: widget.tapRegionGroupId,
                   child: _InheritedHoveredIndex(
-                      hoveredIndex: _hovered, child: widget.child),
+                    hoveredIndex: _hovered,
+                    child: widget.child,
+                  ),
                 ),
               ),
               if (widget.showArrow) arrow,
@@ -1204,8 +1252,10 @@ class _AnimatedMenuShellState extends State<_AnimatedMenuShell> {
 // Inherited widget so nested buttons can know the keyboard hovered index if they want to adapt visuals.
 class _InheritedHoveredIndex extends InheritedWidget {
   final int hoveredIndex;
-  const _InheritedHoveredIndex(
-      {required this.hoveredIndex, required super.child});
+  const _InheritedHoveredIndex({
+    required this.hoveredIndex,
+    required super.child,
+  });
   static int? maybeOf(BuildContext context) => context
       .dependOnInheritedWidgetOfExactType<_InheritedHoveredIndex>()
       ?.hoveredIndex;
@@ -1217,8 +1267,11 @@ class _InheritedHoveredIndex extends InheritedWidget {
 class _HoveredIndexController extends InheritedWidget {
   final int Function() getIndex;
   final void Function(int) setIndex;
-  const _HoveredIndexController(
-      {required this.getIndex, required this.setIndex, required super.child});
+  const _HoveredIndexController({
+    required this.getIndex,
+    required this.setIndex,
+    required super.child,
+  });
   static _HoveredIndexController? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<_HoveredIndexController>();
   @override
@@ -1245,7 +1298,11 @@ class _MenuArrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final g = SContextMenuControllers.computeGeometry(
-        pointer, panelRect, overlaySize, config);
+      pointer,
+      panelRect,
+      overlaySize,
+      config,
+    );
     final path = SContextMenuControllers.createArrowPath(g, config);
     final bounds = path.getBounds();
     final localPath = path.shift(-bounds.topLeft);

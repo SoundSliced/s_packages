@@ -33,7 +33,9 @@ class Direction extends Numeric {
     }
 
     assert(
-        code.length == 3, 'wind direction code must have 3 or 2 digits length');
+      code.length == 3,
+      'wind direction code must have 3 or 2 digits length',
+    );
 
     double? direction;
     _variable = false;
@@ -70,7 +72,8 @@ class Direction extends Numeric {
     }
 
     throw AssertionError(
-        'invalid cardinal direction code, use one of the following: ${compassDirs.keys}');
+      'invalid cardinal direction code, use one of the following: ${compassDirs.keys}',
+    );
   }
 
   @override
@@ -216,11 +219,7 @@ class Speed extends Numeric {
 
   @override
   Map<String, Object?> asMap() {
-    return {
-      'units': 'knot',
-      'speed': inKnot,
-      'beaufort': beaufort,
-    };
+    return {'units': 'knot', 'speed': inKnot, 'beaufort': beaufort};
   }
 }
 
@@ -295,10 +294,7 @@ class Wind {
   double? get speedInMiph => _speed.inMiph;
 
   Map<String, Object?> asMap() {
-    return {
-      'direction': _direction.asMap(),
-      'speed': _speed.asMap(),
-    };
+    return {'direction': _direction.asMap(), 'speed': _speed.asMap()};
   }
 
   String toJSON() {

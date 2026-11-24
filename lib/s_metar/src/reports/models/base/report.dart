@@ -13,7 +13,7 @@ abstract class Report with StringAttributeMixin, TimeMixin {
   Station _station = Station(null, null);
 
   Report(String code, this._truncate, {String type = 'METAR'})
-      : assert(code != '', 'code must be a non-empty string') {
+    : assert(code != '', 'code must be a non-empty string') {
     code = code.trim();
 
     _type = ReportType(type);

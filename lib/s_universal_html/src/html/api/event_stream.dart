@@ -161,9 +161,9 @@ class _ElementEventStreamImpl<T extends Event> extends _EventStream<T>
 
   @override
   Stream<T> matches(String selector) => where((event) {
-        final target = event.target;
-        return target is Element && target.matches(selector);
-      });
+    final target = event.target;
+    return target is Element && target.matches(selector);
+  });
 }
 
 class _ElementListEventStreamImpl<T extends Event> extends Stream<T>
@@ -180,9 +180,9 @@ class _ElementListEventStreamImpl<T extends Event> extends Stream<T>
 
   @override
   Stream<T> matches(String selector) => _buildStream().where((event) {
-        final target = event.target;
-        return target is Element && target.matches(selector);
-      });
+    final target = event.target;
+    return target is Element && target.matches(selector);
+  });
 
   Stream<T> _buildStream({bool useCapture = false}) {
     final controller = StreamController<T>.broadcast();

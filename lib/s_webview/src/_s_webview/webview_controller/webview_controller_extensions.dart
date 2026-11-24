@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import '../../_debug_log.dart';
 import 'webview_controller_web.dart';
 
@@ -26,7 +27,8 @@ extension WebViewCookieManagement on WebViewController {
         if (cookie.httpOnly == true) cookieStr += '; HttpOnly';
 
         await webview_mobile_controller.runJavaScript(
-            'document.cookie = "${cookieStr.replaceAll('"', '\\"')}"');
+          'document.cookie = "${cookieStr.replaceAll('"', '\\"')}"',
+        );
         setMemoryCookie(cookie.name, cookie.value, domain: cookie.domain);
         return true;
       }
@@ -60,8 +62,7 @@ extension WebViewCookieManagement on WebViewController {
             .where((entry) => entry.isNotEmpty)
             .toList(growable: false);
       }
-      return getMemoryCookies()
-          .entries
+      return getMemoryCookies().entries
           .map((entry) => '${entry.key}=${entry.value}')
           .toList(growable: false);
     } catch (e) {
@@ -224,7 +225,8 @@ extension WebViewPageSearch on WebViewController {
     try {
       if (is_mobile) {
         final escapedText = text.replaceAll('"', '\\"');
-        final script = '''
+        final script =
+            '''
           (function() {
             const searchText = "$escapedText";
             const regex = new RegExp(searchText, "gi");
@@ -255,7 +257,8 @@ extension WebViewPageSearch on WebViewController {
       if (is_mobile) {
         final escapedText = text.replaceAll('"', '\\"');
         // Use raw string to avoid Dart string interpolation with $
-        final script = r'''
+        final script =
+            r'''
           (function() {
             const regex = new RegExp('(SEARCH_TEXT)', 'gi');
             document.body.innerHTML = document.body.innerHTML.replace(
@@ -264,7 +267,7 @@ extension WebViewPageSearch on WebViewController {
             );
           })()
         '''
-            .replaceFirst('SEARCH_TEXT', escapedText);
+                .replaceFirst('SEARCH_TEXT', escapedText);
 
         await webview_mobile_controller.runJavaScript(script);
         return true;

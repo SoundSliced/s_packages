@@ -13,7 +13,8 @@
 // limitations under the License.
 
 @Deprecated(
-    'Internal library. Import package:s_packages/s_universal_html/html.dart instead.')
+  'Internal library. Import package:s_packages/s_universal_html/html.dart instead.',
+)
 // ignore: invalid_internal_annotation
 @internal
 library;

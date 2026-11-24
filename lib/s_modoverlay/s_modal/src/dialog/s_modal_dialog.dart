@@ -78,7 +78,8 @@ class _DialogModalState extends State<DialogModal> {
 
     // Reset drag offset only once per widget update when needed.
     // This avoids multiple setState calls in a single lifecycle pass.
-    final shouldResetOffset = (!widget.isDraggable && oldWidget.isDraggable) ||
+    final shouldResetOffset =
+        (!widget.isDraggable && oldWidget.isDraggable) ||
         (widget.position != oldWidget.position);
 
     if (shouldResetOffset && _dragOffset != Offset.zero) {
@@ -187,8 +188,9 @@ class _DialogModalState extends State<DialogModal> {
       // Constrain width in offset mode to keep dialog visible.
       // Wrap in ConstrainedBox to limit width if needed
       final double availableWidth = screenSize.width - widget.offset!.dx - 48.0;
-      final double maxWidth =
-          availableWidth > 0 ? availableWidth : (screenSize.width - 48.0);
+      final double maxWidth = availableWidth > 0
+          ? availableWidth
+          : (screenSize.width - 48.0);
 
       positionedChild = ConstrainedBox(
         constraints: BoxConstraints(maxWidth: maxWidth),

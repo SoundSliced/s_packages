@@ -138,8 +138,10 @@ class _STweenAnimationBuilderState<T> extends State<STweenAnimationBuilder<T>> {
 
       final elapsed = DateTime.now().difference(_startTime!);
       final totalMicros = widget.duration.inMicroseconds;
-      final nextProgress =
-          (elapsed.inMicroseconds / totalMicros).clamp(0.0, 1.0);
+      final nextProgress = (elapsed.inMicroseconds / totalMicros).clamp(
+        0.0,
+        1.0,
+      );
 
       if (!mounted) {
         timer.cancel();
