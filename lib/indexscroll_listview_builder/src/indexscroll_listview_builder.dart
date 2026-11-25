@@ -1,3 +1,7 @@
+// Needed on Flutter 3.47.x, where widgets.dart does not export
+// ScrollCacheExtent; 3.50 does, hence the lint.
+// ignore: unnecessary_import
+import 'package:flutter/rendering.dart' show ScrollCacheExtent;
 import 'package:s_packages/s_packages.dart';
 
 /// A highly customizable ListView.builder with built-in index-based scrolling capabilities.

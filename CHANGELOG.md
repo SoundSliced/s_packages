@@ -1,3 +1,7 @@
+## 6.0.1
+
+- **Fix: compiles on Flutter 3.47.x again.** 6.0.0 dropped `import 'package:flutter/rendering.dart' show ScrollCacheExtent;` from `IndexScrollListViewBuilder` as unnecessary, which is only true on Flutter 3.50+; on 3.47.x the build failed with `Couldn't find constructor 'ScrollCacheExtent.pixels'`. The import is back. Verified with Flutter 3.47.9 (analyze, tests, a dependent app's web build) and 3.50.
+
 ## 6.0.0
 
 **Wasm-compatible.** The package now builds with `flutter build web --wasm` (dart2wasm + skwasm) and passes pub.dev's Wasm check: no web build reaches `dart:io`, `dart:isolate` or `s_universal_html`'s simulated DOM any more.
