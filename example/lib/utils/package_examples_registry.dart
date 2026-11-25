@@ -1,6 +1,6 @@
 // This file provides a registry for package examples
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages_example/screens/examples/bubble_label_example_screen.dart';
 import 'package:s_packages_example/screens/examples/indexscroll_listview_builder_example_screen.dart';
 import 'package:s_packages_example/screens/examples/keystroke_listener_example_screen.dart';

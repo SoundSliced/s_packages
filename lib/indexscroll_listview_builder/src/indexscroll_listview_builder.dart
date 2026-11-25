@@ -2,6 +2,7 @@
 // ScrollCacheExtent; 3.50 does, hence the lint.
 // ignore: unnecessary_import
 import 'package:flutter/rendering.dart' show ScrollCacheExtent;
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
 
 /// A highly customizable ListView.builder with built-in index-based scrolling capabilities.

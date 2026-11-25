@@ -22,6 +22,7 @@
 /// activator and requires no manual setup for basic usage.
 library;
 
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
 
 /// Simple, reliable escape key handler that works globally without focus dependencies

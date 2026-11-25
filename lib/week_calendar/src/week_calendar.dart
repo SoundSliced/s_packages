@@ -5,6 +5,7 @@ import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:dart_helper_utils/dart_helper_utils.dart';
 
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
 
 /// Defines visual variations of the horizontal calendar
@@ -321,23 +322,26 @@ class _WeekCalendarState extends State<WeekCalendar> {
     final lastDayOfMonth = _calendarDate(date.year, date.month + 1, 0);
 
     if (widget.startingDay != null) {
-      // Custom week start logic
+      // Custom week start logic. Days are built by calendar date, not by
+      // adding Durations: in local mode a 24-hour step across a daylight
+      // saving change lands an hour off midnight (e.g. 25 Oct 23:00 instead
+      // of 26 Oct 00:00), which shifts the cell's date.
       int daysToSubtract =
           (firstDayOfMonth.weekday - widget.startingDay!.value) % 7;
-      DateTime weekStart = firstDayOfMonth.subtract(
-        Duration(days: daysToSubtract),
-      );
 
       int daysToAdd =
           (widget.startingDay!.value + 6 - lastDayOfMonth.weekday) % 7;
-      DateTime weekEnd = lastDayOfMonth.add(Duration(days: daysToAdd));
 
-      final totalDays = weekEnd.difference(weekStart).inDays + 1;
+      final totalDays = daysToSubtract + lastDayOfMonth.day + daysToAdd;
       final numberOfWeeks = (totalDays / 7).ceil();
 
       return List.generate(numberOfWeeks, (weekIndex) {
         return List.generate(7, (dayIndex) {
-          return weekStart.add(Duration(days: (weekIndex * 7) + dayIndex));
+          return _calendarDate(
+            date.year,
+            date.month,
+            1 - daysToSubtract + (weekIndex * 7) + dayIndex,
+          );
         });
       });
     } else {

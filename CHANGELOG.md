@@ -1,3 +1,22 @@
+## 7.0.0
+
+**Built on `package:material_ui`.** Flutter 3.47 deprecates `package:flutter/material.dart` in favour of `package:material_ui`; every `s_packages` library now uses `material_ui` (and `cupertino_ui`), so the package passes static analysis with no deprecation and takes the latest `calendar_date_picker2` and `new_loading_indicator`.
+
+### Breaking changes
+
+- `s_packages.dart` and `s_packages_extra1.dart` no longer re-export `package:flutter/material.dart`. Import `package:material_ui/material_ui.dart` (or, while migrating, `package:flutter/material.dart`) yourself.
+- `s_packages` widgets read the `material_ui` theme, localizations and `ScaffoldMessenger`. An app whose `MaterialApp` comes from `package:flutter/material.dart` must wrap it with the new `SMaterialUiBridge` (see below), or the widgets use default colours, `calendar_date_picker2` asserts `No MaterialLocalizations found` and snack bars do not show.
+- Types in `s_packages` APIs are the `material_ui` ones: `TimeOfDay` (`TimeSpinner`, `TimeInput`, the `TimeOfDay` extensions), `InputDecoration` (`TimeInput.inputDecoration`) and so on. A `package:flutter/material.dart` value is a different type: convert it (`SMaterialUiBridge.mapInputDecoration`), or take `TimeOfDay` from `material_ui` app-wide.
+- `calendar_date_picker2` 3 → 4 and `new_loading_indicator` 2 → 4 (re-exported by `s_packages_extra2.dart`). `LoadingIndicator.pause` is gone upstream in favour of `LoadingIndicatorController`; `SLoadingIndicator.pause` still works and now drives a controller.
+
+### New
+
+- `SMaterialUiBridge`: wrap a `package:flutter/material.dart` app once, in `MaterialApp.builder`, so `s_packages` widgets get a `material_ui` theme mapped from the app's (colours, text, density and the common component themes: buttons, input decoration, tooltip, dialog, card, chip, divider, scrollbar, text selection), `material_ui` and `cupertino_ui` localizations for the current locale, and a `ScaffoldMessenger` with a transparent `Scaffold`, which is also the `Material` that ink and text fields need. `SMaterialUiBridge.mapLegacyTheme` and `SMaterialUiBridge.mapInputDecoration` are public for one-off conversions. Theme extensions are not carried over.
+
+### Fixes
+
+- `WeekCalendar` with a custom `startingDay` (for example Monday-start weeks) in local mode (`isUtc: false`): days are now built from calendar dates instead of 24-hour steps, so a daylight-saving change no longer shifts a cell to 23:00 of the previous day (it made 26 October 2026 unselectable in Europe/London). This resolves the known issue listed in 6.0.0. Tested in Europe/London, America/New_York, Australia/Sydney and UTC.
+
 ## 6.0.1
 
 - **Fix: compiles on Flutter 3.47.x again.** 6.0.0 dropped `import 'package:flutter/rendering.dart' show ScrollCacheExtent;` from `IndexScrollListViewBuilder` as unnecessary, which is only true on Flutter 3.50+; on 3.47.x the build failed with `Couldn't find constructor 'ScrollCacheExtent.pixels'`. The import is back. Verified with Flutter 3.47.9 (analyze, tests, a dependent app's web build) and 3.50.

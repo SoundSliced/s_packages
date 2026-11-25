@@ -92,7 +92,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  s_packages: ^6.0.1
+  s_packages: ^7.0.0
 ```
 
 Then run:
@@ -110,12 +110,29 @@ flutter pub get
 
 This keeps dependency graphs smaller and improves `flutter pub get`, hot reload, hot restart, and IDE analysis performance.
 
+### Material UI (v7+)
+
+`s_packages` is built on [`package:material_ui`](https://pub.dev/packages/material_ui), which replaces the deprecated `package:flutter/material.dart`, and no longer re-exports Material. Import it yourself.
+
+- **App on `package:material_ui`:** nothing else to do.
+- **App still on `package:flutter/material.dart`:** the two libraries are separate class sets, so `s_packages` widgets cannot see your app's theme, `MaterialLocalizations` or `ScaffoldMessenger`. Wrap the app once with `SMaterialUiBridge` in `MaterialApp.builder`:
+
+```dart
+MaterialApp(
+  theme: myTheme,
+  builder: (context, child) => SMaterialUiBridge(child: child!),
+  home: const HomePage(),
+);
+```
+
+It maps your theme (colours, text, density and the common component themes) and provides `material_ui` localizations and a messenger for snack bars. Values that `s_packages` APIs take, such as `TimeOfDay` and `InputDecoration`, are `material_ui` types: `SMaterialUiBridge.mapInputDecoration` converts a decoration, and an app can take `TimeOfDay` from `material_ui` (`export 'package:flutter/material.dart' hide TimeOfDay;` plus `export 'package:material_ui/material_ui.dart' show TimeOfDay;`).
+
 ## 💡 Basic Usage
 
 ### Example 1: Using S Modal
 
 ```dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_modal/s_modal.dart';
 
 void main() {
@@ -164,7 +181,7 @@ class HomeScreen extends StatelessWidget {
 ### Example 2: Using S Button
 
 ```dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_button/s_button.dart';
 
 class ButtonExample extends StatelessWidget {
@@ -190,7 +207,7 @@ class ButtonExample extends StatelessWidget {
 ### Example 3: Using Keystroke Listener
 
 ```dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:keystroke_listener/keystroke_listener.dart';
 
@@ -219,7 +236,7 @@ class KeyboardExample extends StatelessWidget {
 ### Example 4: Combining Multiple Packages
 
 ```dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_modal/s_modal.dart';
 import 'package:s_connectivity/s_connectivity.dart';
 import 'package:s_future_button/s_future_button.dart';
@@ -273,7 +290,7 @@ class AdvancedExample extends StatelessWidget {
 ### Example 5: Creating Animated UI
 
 ```dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_bounceable/s_bounceable.dart';
 import 'package:s_glow/s_glow.dart';
 import 'package:shaker/shaker.dart';

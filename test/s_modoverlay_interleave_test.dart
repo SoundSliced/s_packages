@@ -11,7 +11,7 @@
 // Two layer changes in a single frame is the normal case in a real app - a
 // snackbar landing while a pop/modal layer is added or removed - so the crash
 // was reachable from ordinary flows, not just from misuse.
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:s_packages/s_modoverlay/interleaving_manager/interleave_manager.dart';
 

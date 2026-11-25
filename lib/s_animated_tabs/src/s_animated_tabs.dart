@@ -1,3 +1,4 @@
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
 
 /// A professional, highly customizable animated tab switcher widget

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/indexscroll_listview_builder/src/indexed_scroll_controller.dart';
 
 /// A widget that tags a child with an index for use with [IndexedScrollController].

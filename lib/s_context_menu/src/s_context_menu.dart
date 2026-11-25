@@ -81,11 +81,12 @@ library;
 import 'dart:math' as math;
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
 
 export 's_context_menu_types.dart';

@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 // ignore: depend_on_referenced_packages
 import 'package:webview_flutter/webview_flutter.dart' as webview_flutter;
 

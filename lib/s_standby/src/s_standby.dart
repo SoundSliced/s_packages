@@ -1,5 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'package:async/async.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
 
 /// Overlay utility to show a progress indicator while a Future is running.

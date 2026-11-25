@@ -2,7 +2,7 @@ import 'dart:async';
 // ignore: unused_import
 import 'dart:developer'; // Kept for potential future diagnostic logging.
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Optional global error handler for all PostFrame operations.
 /// If set, this will be invoked whenever a PostFrame action throws an error.

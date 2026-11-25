@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A custom circular progress indicator that doesn't use any TickerProviderStateMixin.
 /// This widget is hot-restart safe and uses manual frame callbacks for animations.

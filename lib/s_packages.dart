@@ -46,8 +46,8 @@ export 's_modoverlay/interleaving_manager/interleave_manager.dart';
 export 'states_rebuilder_extended/states_rebuilder_extended.dart';
 export 'ticker_free_circular_progress_indicator/ticker_free_circular_progress_indicator.dart';
 export 'week_calendar/week_calendar.dart';
+export 's_material_ui_bridge/s_material_ui_bridge.dart';
 
-export 'package:flutter/material.dart';
 export 'package:flutter/services.dart';
 
 export 'dart:async';

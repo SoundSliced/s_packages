@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_metar/metar_dart.dart';
 
 class SMetarExampleScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A drop-in replacement for [TweenAnimationBuilder] that avoids relying on
 /// ticker providers so it survives hot restarts without engine assertions.

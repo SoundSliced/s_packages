@@ -12,7 +12,6 @@ export 'dart:async';
 
 export 'package:flutter_animate/flutter_animate.dart' hide Animate;
 export 'package:flutter/foundation.dart';
-export 'package:flutter/material.dart';
 export 'package:sizer/sizer.dart';
 export 'package:assorted_layout_widgets/assorted_layout_widgets.dart'
     hide Delayed;

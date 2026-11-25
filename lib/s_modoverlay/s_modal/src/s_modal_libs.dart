@@ -7,6 +7,7 @@ import 'dart:ui' as ui;
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
 
 part 's_modal.dart';

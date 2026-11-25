@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, TargetPlatform;
 import 'package:flutter/gestures.dart'
     show PointerScrollEvent, PointerSignalEvent;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:s_packages/indexscroll_listview_builder/indexscroll_listview_builder.dart';
 import 'package:s_packages/keystroke_listener/keystroke_listener.dart';

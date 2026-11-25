@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Immutable model representing one action row in [SContextMenu].
 class SContextMenuItem {

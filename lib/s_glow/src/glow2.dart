@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
 
 /// A widget that adds a glowing effect around its child.

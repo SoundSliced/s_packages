@@ -2,10 +2,11 @@
 
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
 import 'package:new_loading_indicator/new_loading_indicator.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
 import 'package:sizer/sizer.dart' show SizerExt, Sizer;
 
@@ -159,7 +160,7 @@ class KeyboardOverlay {
 ///
 
 /// Thin wrapper around `LoadingIndicator` with common transform options.
-class SLoadingIndicator extends StatelessWidget {
+class SLoadingIndicator extends StatefulWidget {
   final Indicator indicatorType;
   final List<Color>? colors;
   final Color? backgroundColor;
@@ -192,24 +193,53 @@ class SLoadingIndicator extends StatelessWidget {
   });
 
   @override
+  State<SLoadingIndicator> createState() => _SLoadingIndicatorState();
+}
+
+class _SLoadingIndicatorState extends State<SLoadingIndicator> {
+  // new_loading_indicator 4 pauses through a controller instead of a flag.
+  final _controller = LoadingIndicatorController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.pause) _controller.pause();
+  }
+
+  @override
+  void didUpdateWidget(SLoadingIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.pause != oldWidget.pause) {
+      widget.pause ? _controller.pause() : _controller.resume();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final widget = this.widget;
     return Align(
-      alignment: alignment,
+      alignment: widget.alignment,
       child: Transform.scale(
-        scale: scale ?? 1.0,
-        scaleX: scaleX,
-        scaleY: scaleY,
-        origin: origin,
-        alignment: alignment,
-        transformHitTests: transformHitTests,
-        filterQuality: filterQuality,
+        scale: widget.scale ?? 1.0,
+        scaleX: widget.scaleX,
+        scaleY: widget.scaleY,
+        origin: widget.origin,
+        alignment: widget.alignment,
+        transformHitTests: widget.transformHitTests,
+        filterQuality: widget.filterQuality,
         child: LoadingIndicator(
-          indicatorType: indicatorType,
-          colors: colors,
-          backgroundColor: backgroundColor,
-          strokeWidth: strokeWidth,
-          pathBackgroundColor: pathBackgroundColor,
-          pause: pause,
+          indicatorType: widget.indicatorType,
+          colors: widget.colors,
+          backgroundColor: widget.backgroundColor,
+          strokeWidth: widget.strokeWidth,
+          pathBackgroundColor: widget.pathBackgroundColor,
+          controller: _controller,
         ),
       ),
     );
