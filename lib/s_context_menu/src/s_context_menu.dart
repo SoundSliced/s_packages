@@ -154,13 +154,14 @@ class SContextMenu extends StatefulWidget {
   //https://stackoverflow.com/questions/62209594/how-to-disable-right-click-context-menu-in-flutter-web
 
   //
-  // Flutter's own switch: the previous `document.onContextMenu` listener went
-  // through s_universal_html's simulated DOM, which is not the browser page,
-  // so it never suppressed anything. This works with dart2js and dart2wasm.
-  static void preventBrowserContextMenu() {
-    if (!kIsWeb) return;
-    BrowserContextMenu.disableContextMenu();
-  }
+  // Flutter's web engine already cancels the browser's context menu over the
+  // app canvas, which is what this was for. It used to listen on
+  // s_universal_html's simulated document (not the real page), so it never did
+  // anything itself; it now does nothing explicitly, which keeps that
+  // behaviour and keeps the package free of DOM access (dart2wasm). To also
+  // suppress the browser menu over text fields, call
+  // `BrowserContextMenu.disableContextMenu()` yourself.
+  static void preventBrowserContextMenu() {}
 
   static _SContextMenuState? _activeMenuState;
 

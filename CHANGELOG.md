@@ -13,7 +13,7 @@
 
 ### Fixes
 
-- `SContextMenu.preventBrowserContextMenu` (used when `shouldPreventWebBrowserContextMenu` is true, the default on web) now really suppresses the browser's context menu, through Flutter's `BrowserContextMenu.disableContextMenu()`. It used to listen on `s_universal_html`'s simulated document, which is not the browser page.
+- `SContextMenu.preventBrowserContextMenu` no longer touches a DOM. It used to listen on `s_universal_html`'s simulated document, which is not the browser page, so it never had an effect; Flutter's web engine already cancels the browser menu over the app canvas. It is now an explicit no-op (same behaviour). Call `BrowserContextMenu.disableContextMenu()` yourself to also suppress the browser menu over text fields.
 - `s_screenshot` on the web now downloads the file through the real page (`package:web`); it used to write into the simulated DOM.
 - `s_webview` on the web: `openInNewTab` and `applyIframeFilter` now act on the real page (`package:web`) instead of the simulated DOM.
 - `s_client`: `downloadToFile` with the http backend keeps `dart:io` behind a conditional import; behaviour is unchanged.

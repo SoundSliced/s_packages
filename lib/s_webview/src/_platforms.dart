@@ -14,8 +14,8 @@ export '_platforms/web_stub.dart'
     if (dart.library.html) '_platforms/web.dart';
 // Desktop implementations only where dart:io exists: desktop_webview_window
 // imports dart:isolate, which web builds (dart2js, dart2wasm) cannot include.
-export '_platforms/desktop_stub.dart'
-    if (dart.library.io) '_platforms/desktop.dart';
+export '_platforms/desktop.dart'
+    if (dart.library.js_interop) '_platforms/desktop_stub.dart';
 
 /// This module declares explicit platform support for:
 /// - iOS (via webview_flutter and WKWebView)

@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart' as dio;
 import 'package:http/http.dart' as http;
 
-import 'io/write_bytes_stub.dart' if (dart.library.io) 'io/write_bytes_io.dart';
+import 'io/write_bytes_io.dart'
+    if (dart.library.js_interop) 'io/write_bytes_stub.dart';
 
 import 'enums/client_type.dart';
 import 'client_config.dart';

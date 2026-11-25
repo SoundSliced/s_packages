@@ -5,4 +5,5 @@ library;
 
 export 'src/save_screenshot.dart';
 export 'src/s_screenshot.dart';
-export 'src/file_stub.dart' if (dart.library.io) 'dart:io' show File;
+
+export 'dart:io' if (dart.library.js_interop) 'src/file_stub.dart' show File;

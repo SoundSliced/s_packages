@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math' as math;
 
-import 'file_stub.dart' if (dart.library.io) 'dart:io' show File;
+import 'dart:io' if (dart.library.js_interop) 'file_stub.dart' show File;
 
 import 'dart:ui' as ui;
 

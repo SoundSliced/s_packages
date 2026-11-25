@@ -27,8 +27,8 @@ export 'package:new_loading_indicator/new_loading_indicator.dart';
 export 'package:flutter_web_frame/flutter_web_frame.dart';
 
 // Desktop-only (imports dart:isolate): not re-exported to web builds.
-export 'src/desktop_webview_window_web_stub.dart'
-    if (dart.library.io) 'package:desktop_webview_window/desktop_webview_window.dart';
+export 'package:desktop_webview_window/desktop_webview_window.dart'
+    if (dart.library.js_interop) 'src/desktop_webview_window_web_stub.dart';
 
 @Deprecated(
   'Use package:s_packages/s_packages.dart. This legacy convenience barrel is intentionally slimmed to avoid dependency bloat.',
