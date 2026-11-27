@@ -1,3 +1,15 @@
+## 8.0.0
+
+### Breaking changes
+
+- `BubbleLabelContent.showOnHover` (`bool`) is replaced by `showOnHoverAfter` (`Duration?`, default `Duration(seconds: 1)`). The old flag was never read, so it had no effect. `showOnHover: true` no longer compiles; remove it or use `showOnHoverAfter`.
+- `copyWith` cannot set `showOnHoverAfter` to `null` (a `null` argument keeps the current value). Pass `null` to the constructor instead.
+
+### New
+
+- Bubble labels show on mouse hover on every platform with a mouse (web, macOS, Windows, Linux), not only on web. The bubble appears once the mouse has hovered over the widget for `showOnHoverAfter`, and leaves with the usual dismiss animation when the mouse exits. Pass `null` to turn hover off. On web without the long-press flag, a `null` delay falls back to long press.
+- Touch input does not trigger hover. Long press keeps working alongside hover.
+
 ## 7.0.0
 
 **Built on `package:material_ui`.** Flutter 3.47 deprecates `package:flutter/material.dart` in favour of `package:material_ui`; every `s_packages` library now uses `material_ui` (and `cupertino_ui`), so the package passes static analysis with no deprecation and takes the latest `calendar_date_picker2` and `new_loading_indicator`.

@@ -92,7 +92,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  s_packages: ^7.0.0
+  s_packages: ^8.0.0
 ```
 
 Then run:
@@ -203,6 +203,8 @@ class ButtonExample extends StatelessWidget {
   }
 }
 ```
+
+**Bubble labels on hover:** a `BubbleLabelContent` passed to `SButton.bubbleLabelContent` also appears when the mouse hovers over the button for `showOnHoverAfter` (1 second by default). Pass `null` to turn hover off. The bubble leaves with the usual dismiss animation when the mouse exits. Hover works on web and desktop; long press still works everywhere.
 
 ### Example 3: Using Keystroke Listener
 

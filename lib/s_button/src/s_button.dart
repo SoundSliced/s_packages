@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:s_packages/s_packages.dart';
@@ -178,10 +179,13 @@ class _SButtonState extends State<SButton> with BubbleLabelMixin {
   bool _isMounted = false;
 
   bool get _hasLabel => widget.bubbleLabelContent != null;
+  // On web without the long-press flag, the bubble is shown by hover only.
+  // If hover is disabled (null delay), fall back to long press.
   bool get _isWebWithoutLongPress =>
       kIsWeb &&
       _hasLabel &&
-      !widget.bubbleLabelContent!.shouldActivateOnLongPressOnAllPlatforms;
+      !widget.bubbleLabelContent!.shouldActivateOnLongPressOnAllPlatforms &&
+      widget.bubbleLabelContent!.showOnHoverAfter != null;
 
   bool ignoreChildWidgetOnTap = false;
 

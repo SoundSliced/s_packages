@@ -484,9 +484,11 @@ class BubbleLabelContent {
   /// Positive values shift right, negative values shift left.
   final double horizontalOffset;
 
-  /// When true, the bubble will automatically show on mouse hover and
-  /// dismiss on mouse exit (all platforms, not just web).
-  final bool showOnHover;
+  /// How long the mouse must hover over the anchor before the bubble
+  /// appears, on every platform with a mouse. The bubble is dismissed
+  /// with the dismiss animation when the mouse leaves. `null` disables
+  /// hover.
+  final Duration? showOnHoverAfter;
 
   /// Creates a `BubbleLabelContent`.
   ///
@@ -510,7 +512,7 @@ class BubbleLabelContent {
     this.showCurve = Curves.easeIn,
     this.dismissCurve = Curves.easeOutBack,
     this.horizontalOffset = 0.0,
-    this.showOnHover = false,
+    this.showOnHoverAfter = const Duration(seconds: 1),
   }) : id = id ?? Xid().toString(),
        // Default: slightly above anchor (5 px)
        floatingVerticalPadding = verticalPadding ?? 5.0;
@@ -533,7 +535,7 @@ class BubbleLabelContent {
     this.showCurve = Curves.easeIn,
     this.dismissCurve = Curves.easeOutBack,
     this.horizontalOffset = 0.0,
-    this.showOnHover = false,
+    this.showOnHoverAfter = const Duration(seconds: 1),
   }) : id = id ?? Xid().toString(),
        floatingVerticalPadding = verticalPadding ?? 5.0,
        _childWidgetRenderBox = null;
@@ -571,7 +573,7 @@ class BubbleLabelContent {
     Curve? showCurve,
     Curve? dismissCurve,
     double? horizontalOffset,
-    bool? showOnHover,
+    Duration? showOnHoverAfter,
   }) {
     return BubbleLabelContent._internal(
       id: id ?? this.id,
@@ -593,7 +595,7 @@ class BubbleLabelContent {
       showCurve: showCurve ?? this.showCurve,
       dismissCurve: dismissCurve ?? this.dismissCurve,
       horizontalOffset: horizontalOffset ?? this.horizontalOffset,
-      showOnHover: showOnHover ?? this.showOnHover,
+      showOnHoverAfter: showOnHoverAfter ?? this.showOnHoverAfter,
     );
   }
 
@@ -616,7 +618,7 @@ class BubbleLabelContent {
       showCurve: showCurve,
       dismissCurve: dismissCurve,
       horizontalOffset: horizontalOffset,
-      showOnHover: showOnHover,
+      showOnHoverAfter: showOnHoverAfter,
     );
   }
 }

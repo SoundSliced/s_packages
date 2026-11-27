@@ -179,9 +179,7 @@ class BubbleLabelExampleScreen extends StatelessWidget {
                             ),
                           ),
                           bubbleColor: Colors.teal,
-                          backgroundOverlayLayerOpacity: 0.0,
-                          showOnHover: true,
-                        ),
+                          backgroundOverlayLayerOpacity: 0.0,                        ),
                         animate: true,
                       );
                     },
